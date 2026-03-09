@@ -1,0 +1,82 @@
+COUNTY INFO DOCUMENT
+    Notes on each COUNTY
+    Do I need to set rules for each county?
+
+
+
+NAME
+    Where is Subdivision?
+    Does LEGAL need to be cleaned?
+    Is a SWAP function needed?
+
+BAY
+    Standard file
+        .xlsx
+        no swap functioned needed
+    clean the LEGAL? NO
+
+
+CITRUS
+    Subdivision found in LEGAL. 
+        after 'Sub: '; before ' U:'
+        some lines do not have a 'U:'
+    clean the LEGAL? NO
+
+
+ESCAMBIA
+    clean the LEGAL? NO
+    Subdivision found in LEGAL. 
+        'LOT:00 BLK:X SUB:'
+    
+
+HERNANDO
+    pull Subdivision from the Subdivision column
+    clean the LEGAL? YES
+        remove 'L Blk Un Sub S T R'
+    
+
+
+MARION
+    SWAP function? YES
+        STAR 
+    need after_newline function? NO
+    clean the LEGAL? NO
+    very messy LEGALS for subdivision extraction
+        usually 'LOT 00 BK 0000 Subdivision X-00'
+        only a few instances of Phases
+    NO newlines in source data
+    PT could be cleaned from subdivions
+    U-10 tails could be cleaned from subdivions
+    LS could be cleaned from subdivions
+        highest value
+    REPLAT could be cleaned from subdivions
+
+
+
+OKALOOSA
+    CSV file type
+    need after_newline function? NO
+        uses before_first_delimiter 
+    has one row above the header (skiprows=1)
+    
+
+
+OKEECHOBEE
+    needs BEFORE_FIRST_NEWLINE function
+    clea the LEGAL? YES
+        MOST start with a string (0-00-00-00-0000-00000-0000) for Parcel ID
+    
+
+SANTA ROSA
+    needs TO/FROM SWAP function
+    LEGAL is clean
+    simple subdivision clean up (example: EMMALINE GARDENS 83/C)
+    source data did not have newlines in grantor/grantee
+    
+
+
+WALTON
+
+    LEGAL needs CLEAN function
+        remove 'Legal ' from the front of each record
+

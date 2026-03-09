@@ -1,0 +1,124 @@
+FILE FOR KEEPING TRACK OF WHAT HAPPENS AFTER I RUN THE PROGRAM
+
+2/3/26
+    code ran but i have so many records that the terminal didnt save them all. 
+    code saved formatted files the following counties: BAY, ESCAMBIA, MARION, OKALOOSA, OKEECHOBEE,SANTAROSA
+    missing: WALTON, HERNANDO, CITRUS
+
+2/6/26
+    i think the formatting is ready
+
+2/9/26
+overwrote the master file like a dipshit.
+i have county transactions through 11.30.2025
+reconstituting the transactions then adding in purchase data
+corrective deeds
+    zero out the lots and price?
+    or
+    delete?
+
+Finished with HERNANDO NVR files. 
+
+2/10/26
+
+continuing to work on compiling all the data. at MARION HORTON. LINE 35.
+
+2/12/26
+
+overwrote more files. have to check the counties again. finished through BAY FISCHER
+
+2/13/26
+
+continuing to compile data. finished HERNANDO LGI
+
+2/14/26
+
+continuing to compile data. 
+
+
+
+GENERAL
+    grantor = grantee then remove?
+    when to remove zeros?
+    what counties identify corrective deeds?
+        remove from the record?
+        set lot count and price to 0?
+    how to deal with legacy lots?
+        Change to SPOT LOTS?
+        does capturing their name add value?
+            they are distinct areas but are fairly close
+    create list to normalize builder names
+    add B2B (Builder to Builder) to transaction type
+        create list of builders
+        if grantor = builder and grantee = builder then type = B2B
+
+BAY
+
+
+CITRUS
+    has 'U: #' in the SUBDIVISION
+
+ESCAMBIA
+    YES before first newline YES
+    YES TYPE of sale function YES
+    YES legal description captured YES
+    YES SUBDIVISION captured YES
+    YES PHASE captured YES
+
+HERNANDO
+    YES before first newline YES
+    YES TYPE of sale function didnt work properly YES
+    YES LEGAL captured YES
+    YES LEGAL cleaned YES
+    YES SUBDIVISION captured YES
+    YES SUBDIVISION cleaned YES
+    YES PHASE captured YES
+    YES county specific functions YES
+
+MARION
+    YES TYPE of sale function didnt work properly YES
+    YES legal description captured YES 
+    YES subdivion cleaned YES
+    YES phase captured YES
+    YES price captured YES
+    YES to/from swap YES
+
+OKEECHOBEE
+    YES before first newline YES
+    NO TYPE of sale function didnt work properly NO
+    YES legal description captured YES
+    YES SUBDIVISION captured YES
+    NO SUBDIVISION cleaned NO
+        add cleaning function to remove parcel id?
+    YES PHASE captured YES
+        captured 'unit' data
+
+OKALOOSA
+    YES before_first_delimiter on grantee YES
+    YES TYPE of sale function didnt work properly YES
+    YES legal description captured YES 
+    YES legal description cleaned YES
+    YES SUBDIVISION captured YES
+    YES PHASE captured YES
+    
+
+
+SANTAROSA
+    YES to/from swap YES
+    YES TYPE of sale function didnt work properly YES
+    YES legal description captured YES
+    YES SUBDIVISION captured YES
+    YES PHASE captured YES
+    YES price captured YES
+
+
+WALTON
+    YES before first newline YES
+    YES TYPE of sale function didnt work properly YES
+    YES legal description captured YES 
+    YES legal description cleaned YES
+    YES SUBDIVISION captured YES
+    YES SUBDIVISION cleaned YES
+    YES PHASE captured YES
+
+

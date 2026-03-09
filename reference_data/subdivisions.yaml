@@ -1,0 +1,41 @@
+# Subdivision reference data — organized by county.
+# Each entry has a canonical_name, list of aliases (strings to match in legal text),
+# and known phases.
+#
+# To add a new subdivision:
+#   1. Add an entry under the correct county
+#   2. Include the canonical name and at least one alias
+#   3. List known phases (use digits, e.g. "1", "2", "3A")
+#   4. Run: python seed_reference_data.py
+
+Bay:
+  # - canonical_name: "EXAMPLE SUBDIVISION"
+  #   aliases:
+  #     - "EXAMPLE SUBDIVISION"
+  #     - "EXAMPLE SUB"
+  #   phases: ["1", "2", "3"]
+  []
+
+Citrus:
+  []
+
+Escambia:
+  []
+
+Hernando:
+  []
+
+Marion:
+  []
+
+Okaloosa:
+  []
+
+Okeechobee:
+  []
+
+SantaRosa:
+  []
+
+Walton:
+  []

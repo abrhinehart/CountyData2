@@ -1,0 +1,255 @@
+# counties.yaml
+# SPLIT IF FILE EXCEEDS 1500 LINES
+
+
+company_indicators:
+- INC
+- LLC
+- HOMES
+- COMPANY
+- INVESTMENTS
+- LTD
+
+counties:
+  Bay:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Bay"
+    column_mapping:
+      grantor: Grantor
+      grantee: Grantee
+      date: Record Date Search
+      legal: Legal
+      instrument: Doc Type
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code. DO I NEED ALL THESE ITEMS IN THE LIST?
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+    cleanup_patterns:
+      - '^L\s*\d+(?:-\d+)?\s*'
+      - '^LOTS?\s*\d+(?:-\d+)?\s*'
+
+  Citrus:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Citrus"
+    column_mapping:
+      grantor: Grantor
+      grantee: Grantee
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+      
+  Escambia:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Escambia"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+
+  Hernando:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Hernando"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+      sub: Subdivision
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+
+  Marion:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Marion"
+    column_mapping:
+      grantor: Name
+      grantee: Cross Party
+      date: Date
+      instrument: Type
+      legal: Legal
+      price: Consideration
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+      
+  Okaloosa:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Okaloosa"
+    column_mapping:
+      grantor: "Grantor/Party 1"
+      grantee: "Grantee/Party 2"
+      instrument: "Description"
+      date: "Recording Date"
+      legal: "Legal"
+      # ARE THERE MULTIPLE DELIMITERS?
+    delimiters:
+      - ","
+      - Parcel
+      - Section
+    phase_keywords: #rename for tighter code
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 1
+
+  Okeechobee:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Okeechobee"
+    column_mapping:
+      grantor: "Grantor(s)"
+      grantee: "Grantee(s)"
+      date: "Record Date"
+      instrument: "Doc Type"
+      legal: "Legal"
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+
+  SantaRosa:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/SantaRosa"
+    column_mapping:
+      grantor: Name
+      grantee: First Crossparty Name
+      date: Record Date
+      instrument: Doc Type
+      price: Consideration
+      legal: Legal
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs: #rename for tighter code
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+
+  Walton:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Walton"
+    column_mapping:
+      grantor: Grantor
+      grantee: Grantee
+      instrument: Doc Type
+      date: Record Date
+      legal: Legal
+    delimiters:
+      - ","
+      - Parcel
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    
