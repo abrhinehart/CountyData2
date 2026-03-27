@@ -1,15 +1,88 @@
-# Builder reference data — canonical names and aliases.
+# Builder reference data - canonical names and aliases.
 # During ETL, grantor names are matched against aliases.
 # If matched, the canonical name replaces the raw input.
+#
+# Imported from Builders.xlsx on 2026-03-27.
 #
 # To add a new builder:
 #   1. Add an entry with canonical_name and all known aliases
 #   2. Run: python seed_reference_data.py
 
-# - canonical_name: "D.R. HORTON INC"
-#   aliases:
-#     - "D.R. HORTON INC"
-#     - "DR HORTON"
-#     - "D R HORTON INC"
-#     - "D.R. HORTON"
-[]
+- canonical_name: "DR Horton"
+  aliases:
+    - "DR Horton"
+    - "DR Horton Inc"
+    - "D R Horton"
+    - "D R Horton Inc"
+    - "D.R. Horton"
+    - "D.R. Horton Inc"
+    - "DR Horton Pensacola LLC"
+    - "D R Horton Pensacola LLC"
+    - "DR Horton Inc Pensacola LLC"
+    - "D R Horton Inc Pensacola LLC"
+- canonical_name: "Adams Homes"
+  aliases:
+    - "Adams Homes"
+    - "Adams Homes of Northwest Florida Inc"
+- canonical_name: "Lennar"
+  aliases:
+    - "Lennar"
+    - "Lennar Homes"
+    - "Lennar Homes LLC"
+- canonical_name: "Fischer Homes Gulf Coast"
+  aliases:
+    - "Fischer Homes Gulf Coast"
+    - "Fischer Homes Gulf Coast LLC"
+- canonical_name: "Holiday Builders"
+  aliases:
+    - "Holiday Builders"
+    - "Holiday Builders Inc"
+- canonical_name: "Century (W J H)"
+  aliases:
+    - "Century (W J H)"
+    - "WJHFL LLC"
+- canonical_name: "Focus Homes"
+  aliases:
+    - "Focus Homes"
+- canonical_name: "Maronda"
+  aliases:
+    - "Maronda"
+- canonical_name: "DSLD"
+  aliases:
+    - "DSLD"
+- canonical_name: "LGI"
+  aliases:
+    - "LGI"
+- canonical_name: "Meritage"
+  aliases:
+    - "Meritage"
+- canonical_name: "Pulte"
+  aliases:
+    - "Pulte"
+- canonical_name: "Starlight"
+  aliases:
+    - "Starlight"
+- canonical_name: "West Bay"
+  aliases:
+    - "West Bay"
+- canonical_name: "NVR"
+  aliases:
+    - "NVR"
+- canonical_name: "Hovnanian"
+  aliases:
+    - "Hovnanian"
+- canonical_name: "Colen"
+  aliases:
+    - "Colen"
+- canonical_name: "On Top of The World"
+  aliases:
+    - "On Top of The World"
+- canonical_name: "CLJ Construction"
+  aliases:
+    - "CLJ Construction"
+- canonical_name: "Huff Homes"
+  aliases:
+    - "Huff Homes"
+- canonical_name: "Watersound"
+  aliases:
+    - "Watersound"

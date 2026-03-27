@@ -1,6 +1,8 @@
-# Subdivision reference data — organized by county.
+# Subdivision reference data - organized by county.
 # Each entry has a canonical_name, list of aliases (strings to match in legal text),
 # and known phases.
+#
+# Imported from Subdivision Names.xlsx on 2026-03-27.
 #
 # To add a new subdivision:
 #   1. Add an entry under the correct county
@@ -9,33 +11,966 @@
 #   4. Run: python seed_reference_data.py
 
 Bay:
-  # - canonical_name: "EXAMPLE SUBDIVISION"
-  #   aliases:
-  #     - "EXAMPLE SUBDIVISION"
-  #     - "EXAMPLE SUB"
-  #   phases: ["1", "2", "3"]
-  []
+  - canonical_name: "Andrews Plantation"
+    aliases:
+      - "Andrews Plantation"
+    phases: []
+  - canonical_name: "Breakfast Point East"
+    aliases:
+      - "Breakfast Point East"
+      - "Breakfast Point E"
+      - "Breakfast Pt E"
+    phases: []
+  - canonical_name: "Caballeros Estates at Hombre"
+    aliases:
+      - "Caballeros Estates at Hombre"
+      - "Caballeros Est at Hombre"
+      - "Cabelleros Estates at Hombre"
+      - "Caballeros Estaes at Hombre"
+    phases: []
+  - canonical_name: "Cedar Creek at Deerpoint Lake"
+    aliases:
+      - "Cedar Creek at Deerpoint Lake"
+    phases: []
+  - canonical_name: "Clear Lake Estates"
+    aliases:
+      - "Clear Lake Estates"
+      - "Clear Lake Est"
+    phases: []
+  - canonical_name: "College Station"
+    aliases:
+      - "College Station"
+    phases: []
+  - canonical_name: "Colonial Landing East"
+    aliases:
+      - "Colonial Landing East"
+    phases: []
+  - canonical_name: "East Bay"
+    aliases:
+      - "East Bay"
+      - "Eastbay"
+    phases: []
+  - canonical_name: "Harvey Heights"
+    aliases:
+      - "Harvey Heights"
+    phases: []
+  - canonical_name: "Hodges Bayou Plantation"
+    aliases:
+      - "Hodges Bayou Plantation"
+    phases: []
+  - canonical_name: "Jakes Landing"
+    aliases:
+      - "Jakes Landing"
+    phases: []
+  - canonical_name: "Kelly Street Pines"
+    aliases:
+      - "Kelly Street Pines"
+    phases: []
+  - canonical_name: "Latitude at Watersound"
+    aliases:
+      - "Latitude at Watersound"
+    phases: []
+  - canonical_name: "Liberty"
+    aliases:
+      - "Liberty"
+      - "Libery"
+    phases: []
+  - canonical_name: "Magnolia Ridge"
+    aliases:
+      - "Magnolia Ridge"
+    phases: []
+  - canonical_name: "Morningside"
+    aliases:
+      - "Morningside"
+    phases: []
+  - canonical_name: "Park Place"
+    aliases:
+      - "Park Place"
+      - "Park Pl"
+    phases: []
+  - canonical_name: "Salt Creek at Mexico Beach"
+    aliases:
+      - "Salt Creek at Mexico Beach"
+    phases: []
+  - canonical_name: "Sanctuary Beach"
+    aliases:
+      - "Sanctuary Beach"
+    phases: []
+  - canonical_name: "Sweet Bay"
+    aliases:
+      - "Sweet Bay"
+      - "Sweetbay"
+    phases: []
+  - canonical_name: "Titus Park"
+    aliases:
+      - "Titus Park"
+      - "Titus Pk"
+    phases: []
+  - canonical_name: "Ward Creek"
+    aliases:
+      - "Ward Creek"
+    phases: []
 
 Citrus:
-  []
+  - canonical_name: "Citrus Springs"
+    aliases:
+      - "Citrus Springs"
+    phases: []
+  - canonical_name: "Cypress Village"
+    aliases:
+      - "Cypress Village"
+    phases: []
+  - canonical_name: "Fairways at Twisted Oaks"
+    aliases:
+      - "Fairways at Twisted Oaks"
+    phases: []
+  - canonical_name: "Inverness Acres"
+    aliases:
+      - "Inverness Acres"
+    phases: []
+  - canonical_name: "Inverness Highlands"
+    aliases:
+      - "Inverness Highlands"
+    phases: []
+  - canonical_name: "Inverness Highlands South"
+    aliases:
+      - "Inverness Highlands South"
+    phases: []
+  - canonical_name: "Inverness Highlands West"
+    aliases:
+      - "Inverness Highlands West"
+    phases: []
+  - canonical_name: "Oak Village"
+    aliases:
+      - "Oak Village"
+    phases: []
+  - canonical_name: "Pine Ridge"
+    aliases:
+      - "Pine Ridge"
+    phases: []
+  - canonical_name: "Sportsmens Park"
+    aliases:
+      - "Sportsmens Park"
+    phases: []
+  - canonical_name: "Withlopopka Islands"
+    aliases:
+      - "Withlopopka Islands"
+    phases: []
+  - canonical_name: "Wyld Palms"
+    aliases:
+      - "Wyld Palms"
+    phases: []
 
 Escambia:
-  []
+  - canonical_name: "Allison Acres"
+    aliases:
+      - "Allison Acres"
+    phases: []
+  - canonical_name: "Beach Haven"
+    aliases:
+      - "Beach Haven"
+    phases: []
+  - canonical_name: "Brindlewood"
+    aliases:
+      - "Brindlewood"
+    phases: []
+  - canonical_name: "Brookhaven"
+    aliases:
+      - "Brookhaven"
+    phases: []
+  - canonical_name: "Cedar Village"
+    aliases:
+      - "Cedar Village"
+    phases: []
+  - canonical_name: "Commanders Cove"
+    aliases:
+      - "Commanders Cove"
+    phases: []
+  - canonical_name: "Eagle Pointe"
+    aliases:
+      - "Eagle Pointe"
+    phases: []
+  - canonical_name: "Ellies Cove"
+    aliases:
+      - "Ellies Cove"
+    phases: []
+  - canonical_name: "Emerald Heights"
+    aliases:
+      - "Emerald Heights"
+    phases: []
+  - canonical_name: "Fairchild Village"
+    aliases:
+      - "Fairchild Village"
+    phases: []
+  - canonical_name: "Fallschase at Pathstone"
+    aliases:
+      - "Fallschase at Pathstone"
+    phases: []
+  - canonical_name: "Figland Park"
+    aliases:
+      - "Figland Park"
+    phases: []
+  - canonical_name: "Gavins Landing"
+    aliases:
+      - "Gavins Landing"
+    phases: []
+  - canonical_name: "Graystone Estates"
+    aliases:
+      - "Graystone Estates"
+    phases: []
+  - canonical_name: "Grove at Bella Terra"
+    aliases:
+      - "Grove at Bella Terra"
+    phases: []
+  - canonical_name: "Highland Ridge"
+    aliases:
+      - "Highland Ridge"
+    phases: []
+  - canonical_name: "Iron Rock"
+    aliases:
+      - "Iron Rock"
+    phases: []
+  - canonical_name: "Kaheeley Ridge"
+    aliases:
+      - "Kaheeley Ridge"
+    phases: []
+  - canonical_name: "Ledgestone"
+    aliases:
+      - "Ledgestone"
+    phases: []
+  - canonical_name: "Lexlee Estates"
+    aliases:
+      - "Lexlee Estates"
+    phases: []
+  - canonical_name: "Mallard Landing"
+    aliases:
+      - "Mallard Landing"
+    phases: []
+  - canonical_name: "Martin Preserve"
+    aliases:
+      - "Martin Preserve"
+    phases: []
+  - canonical_name: "Mary Annetta Estates"
+    aliases:
+      - "Mary Annetta Estates"
+    phases: []
+  - canonical_name: "McKenzie Ridge"
+    aliases:
+      - "McKenzie Ridge"
+    phases: []
+  - canonical_name: "McKinnon Townhomes"
+    aliases:
+      - "McKinnon Townhomes"
+    phases: []
+  - canonical_name: "MEADOW BROOK VILLAGE"
+    aliases:
+      - "MEADOW BROOK VILLAGE"
+    phases: []
+  - canonical_name: "MIDTOWN OAKS"
+    aliases:
+      - "MIDTOWN OAKS"
+    phases: []
+  - canonical_name: "MULDOON POINTE"
+    aliases:
+      - "MULDOON POINTE"
+    phases: []
+  - canonical_name: "PAISLEIGH PLACE"
+    aliases:
+      - "PAISLEIGH PLACE"
+    phases: []
+  - canonical_name: "PECAN VALLEY"
+    aliases:
+      - "PECAN VALLEY"
+    phases: []
+  - canonical_name: "PINE TOP"
+    aliases:
+      - "PINE TOP"
+    phases: []
+  - canonical_name: "PRESERVE AT RUSSELL CROSSING"
+    aliases:
+      - "PRESERVE AT RUSSELL CROSSING"
+    phases: []
+  - canonical_name: "RESERVE AT BROOKHAVEN"
+    aliases:
+      - "RESERVE AT BROOKHAVEN"
+    phases: []
+  - canonical_name: "RESIDENCES AT NATURE CREEK"
+    aliases:
+      - "RESIDENCES AT NATURE CREEK"
+    phases: []
+  - canonical_name: "SABAL PLACE"
+    aliases:
+      - "SABAL PLACE"
+    phases: []
+  - canonical_name: "SADDLE RIDGE"
+    aliases:
+      - "SADDLE RIDGE"
+    phases: []
+  - canonical_name: "Sagewood"
+    aliases:
+      - "Sagewood"
+    phases: []
+  - canonical_name: "SANCTUARY"
+    aliases:
+      - "SANCTUARY"
+    phases: []
+  - canonical_name: "STILLBRIDGE"
+    aliases:
+      - "STILLBRIDGE"
+    phases: []
+  - canonical_name: "TURTLE CREEK"
+    aliases:
+      - "TURTLE CREEK"
+    phases: []
+  - canonical_name: "WESTPOINTE PLACE"
+    aliases:
+      - "WESTPOINTE PLACE"
+    phases: []
+  - canonical_name: "WINDY HILL NORTHWEST"
+    aliases:
+      - "WINDY HILL NORTHWEST"
+    phases: []
+  - canonical_name: "WINDY HILL SOUTHWEST"
+    aliases:
+      - "WINDY HILL SOUTHWEST"
+    phases: []
 
 Hernando:
-  []
+  - canonical_name: "AVALON EAST"
+    aliases:
+      - "AVALON EAST"
+    phases: []
+  - canonical_name: "BENTON HILLS"
+    aliases:
+      - "BENTON HILLS"
+    phases: []
+  - canonical_name: "CALDERA"
+    aliases:
+      - "CALDERA"
+    phases: []
+  - canonical_name: "HIGHLAND LAKES"
+    aliases:
+      - "HIGHLAND LAKES"
+    phases: []
+  - canonical_name: "KENSINGTON PLACE"
+    aliases:
+      - "KENSINGTON PLACE"
+    phases: []
+  - canonical_name: "KENSINGTON WOODS"
+    aliases:
+      - "KENSINGTON WOODS"
+    phases: []
+  - canonical_name: "LAKE HIDEAWAY"
+    aliases:
+      - "LAKE HIDEAWAY"
+    phases: []
+  - canonical_name: "LEYLAND PRESERVE"
+    aliases:
+      - "LEYLAND PRESERVE"
+    phases: []
+  - canonical_name: "PARK RIDGE VILLAS"
+    aliases:
+      - "PARK RIDGE VILLAS"
+    phases: []
+  - canonical_name: "PINE BLUFF"
+    aliases:
+      - "PINE BLUFF"
+    phases: []
+  - canonical_name: "PINE CONE"
+    aliases:
+      - "PINE CONE"
+    phases: []
+  - canonical_name: "ROYAL HIGHLANDS"
+    aliases:
+      - "ROYAL HIGHLANDS"
+    phases: []
+  - canonical_name: "SHERMAN OAKS"
+    aliases:
+      - "SHERMAN OAKS"
+    phases: []
+  - canonical_name: "SOUTHERN HILLS PLANTATION"
+    aliases:
+      - "SOUTHERN HILLS PLANTATION"
+    phases: []
+  - canonical_name: "Spring Hill"
+    aliases:
+      - "Spring Hill"
+    phases: []
+  - canonical_name: "SUNCOAST LANDING"
+    aliases:
+      - "SUNCOAST LANDING"
+    phases: []
+  - canonical_name: "SUNSET LANDING"
+    aliases:
+      - "SUNSET LANDING"
+    phases: []
+  - canonical_name: "TRILBY CROSSING"
+    aliases:
+      - "TRILBY CROSSING"
+    phases: []
+  - canonical_name: "VALLEYBROOK"
+    aliases:
+      - "VALLEYBROOK"
+    phases: []
+  - canonical_name: "VERANO"
+    aliases:
+      - "VERANO"
+    phases: []
+  - canonical_name: "WATERFORD"
+    aliases:
+      - "WATERFORD"
+    phases: []
+  - canonical_name: "WEEKI WACHEE WOODLANDS"
+    aliases:
+      - "WEEKI WACHEE WOODLANDS"
+    phases: []
 
 Marion:
-  []
+  - canonical_name: "ASHFORD & BALFOUR"
+    aliases:
+      - "ASHFORD & BALFOUR"
+    phases: []
+  - canonical_name: "AUTUMN GLEN"
+    aliases:
+      - "AUTUMN GLEN"
+    phases: []
+  - canonical_name: "BALFOUR"
+    aliases:
+      - "BALFOUR"
+    phases: []
+  - canonical_name: "BENNAH OAKS"
+    aliases:
+      - "BENNAH OAKS"
+    phases: []
+  - canonical_name: "Brindlewood"
+    aliases:
+      - "Brindlewood"
+    phases: []
+  - canonical_name: "BROOKHAVEN"
+    aliases:
+      - "BROOKHAVEN"
+    phases: []
+  - canonical_name: "CALESA TOWNSHIP PERLINO GROVE"
+    aliases:
+      - "CALESA TOWNSHIP PERLINO GROVE"
+    phases: []
+  - canonical_name: "CALESA TOWNSHIP ROAN HILLS"
+    aliases:
+      - "CALESA TOWNSHIP ROAN HILLS"
+    phases: []
+  - canonical_name: "CALESA TOWNSHIP SORREL GLEN"
+    aliases:
+      - "CALESA TOWNSHIP SORREL GLEN"
+    phases: []
+  - canonical_name: "COPPERLEAF"
+    aliases:
+      - "COPPERLEAF"
+    phases: []
+  - canonical_name: "DORCHESTER ESTATES"
+    aliases:
+      - "DORCHESTER ESTATES"
+    phases: []
+  - canonical_name: "EMERSON POINTE"
+    aliases:
+      - "EMERSON POINTE"
+    phases: []
+  - canonical_name: "FALLS OF OCALA"
+    aliases:
+      - "FALLS OF OCALA"
+    phases: []
+  - canonical_name: "FREEDOM CROSSINGS PRESERVE"
+    aliases:
+      - "FREEDOM CROSSINGS PRESERVE"
+    phases: []
+  - canonical_name: "GRAND Park"
+    aliases:
+      - "GRAND Park"
+    phases: []
+  - canonical_name: "GREYSTONE HILLS"
+    aliases:
+      - "GREYSTONE HILLS"
+    phases: []
+  - canonical_name: "HEATH PRESERVE"
+    aliases:
+      - "HEATH PRESERVE"
+    phases: []
+  - canonical_name: "HIDDEN LAKE"
+    aliases:
+      - "HIDDEN LAKE"
+    phases: []
+  - canonical_name: "HOWARD HEIGHTS"
+    aliases:
+      - "HOWARD HEIGHTS"
+    phases: []
+  - canonical_name: "JULLIETTE FALLS"
+    aliases:
+      - "JULLIETTE FALLS"
+    phases: []
+  - canonical_name: "LAKE DIAMOND"
+    aliases:
+      - "LAKE DIAMOND"
+    phases: []
+  - canonical_name: "LAUREL COMMONS"
+    aliases:
+      - "LAUREL COMMONS"
+    phases: []
+  - canonical_name: "LEXINGTON"
+    aliases:
+      - "LEXINGTON"
+    phases: []
+  - canonical_name: "LONGLEAF RIDGE"
+    aliases:
+      - "LONGLEAF RIDGE"
+    phases: []
+  - canonical_name: "MAGNOLIA VILLAS WEST"
+    aliases:
+      - "MAGNOLIA VILLAS WEST"
+    phases: []
+  - canonical_name: "MARION OAKS"
+    aliases:
+      - "MARION OAKS"
+    phases: []
+  - canonical_name: "MARION RANCH"
+    aliases:
+      - "MARION RANCH"
+    phases: []
+  - canonical_name: "MCGINLEY LANDING"
+    aliases:
+      - "MCGINLEY LANDING"
+    phases: []
+  - canonical_name: "MILLWOOD ESTATES"
+    aliases:
+      - "MILLWOOD ESTATES"
+    phases: []
+  - canonical_name: "OAK HAMMOCK PRESERVE"
+    aliases:
+      - "OAK HAMMOCK PRESERVE"
+    phases: []
+  - canonical_name: "OAK HILL PLANTATION"
+    aliases:
+      - "OAK HILL PLANTATION"
+    phases: []
+  - canonical_name: "OAKS AT OCALA CROSSINGS"
+    aliases:
+      - "OAKS AT OCALA CROSSINGS"
+    phases: []
+  - canonical_name: "OCALA CROSSINGS"
+    aliases:
+      - "OCALA CROSSINGS"
+    phases: []
+  - canonical_name: "PIONEER RANCH"
+    aliases:
+      - "PIONEER RANCH"
+    phases: []
+  - canonical_name: "SARATOGA"
+    aliases:
+      - "SARATOGA"
+    phases: []
+  - canonical_name: "SILVER RUN FOREST"
+    aliases:
+      - "SILVER RUN FOREST"
+    phases: []
+  - canonical_name: "SILVER SPRINGS SHORES"
+    aliases:
+      - "SILVER SPRINGS SHORES"
+    phases: []
+  - canonical_name: "SOLAIRE"
+    aliases:
+      - "SOLAIRE"
+    phases: []
+  - canonical_name: "SUMMERCREST"
+    aliases:
+      - "SUMMERCREST"
+    phases: []
+  - canonical_name: "SUNDANCE"
+    aliases:
+      - "SUNDANCE"
+    phases: []
+  - canonical_name: "SUNSET HILLS"
+    aliases:
+      - "SUNSET HILLS"
+    phases: []
+  - canonical_name: "WEYBOURNE LANDING"
+    aliases:
+      - "WEYBOURNE LANDING"
+    phases: []
+  - canonical_name: "WINDING OAKS RESIDENTIAL"
+    aliases:
+      - "WINDING OAKS RESIDENTIAL"
+    phases: []
 
 Okaloosa:
-  []
+  - canonical_name: "ASHTON VIEW"
+    aliases:
+      - "ASHTON VIEW"
+    phases: []
+  - canonical_name: "BLOSSOM GROVE"
+    aliases:
+      - "BLOSSOM GROVE"
+    phases: []
+  - canonical_name: "BRIDLE WOOD ESTATES"
+    aliases:
+      - "BRIDLE WOOD ESTATES"
+    phases: []
+  - canonical_name: "CHARLIE DAY ESTATES"
+    aliases:
+      - "CHARLIE DAY ESTATES"
+    phases: []
+  - canonical_name: "DAYS LANDING"
+    aliases:
+      - "DAYS LANDING"
+    phases: []
+  - canonical_name: "FOREST SHORE VILLAS TOWNHOMES"
+    aliases:
+      - "FOREST SHORE VILLAS TOWNHOMES"
+    phases: []
+  - canonical_name: "GARDEN CITY"
+    aliases:
+      - "GARDEN CITY"
+    phases: []
+  - canonical_name: "HARRISBURG ESTATES"
+    aliases:
+      - "HARRISBURG ESTATES"
+    phases: []
+  - canonical_name: "HERITAGE PLANTATION"
+    aliases:
+      - "HERITAGE PLANTATION"
+    phases: []
+  - canonical_name: "HIDDEN LAKE"
+    aliases:
+      - "HIDDEN LAKE"
+    phases: []
+  - canonical_name: "HIGHLANDS"
+    aliases:
+      - "HIGHLANDS"
+    phases: []
+  - canonical_name: "HOMEWOOD ESTATES"
+    aliases:
+      - "HOMEWOOD ESTATES"
+    phases: []
+  - canonical_name: "INDIAN TRAILS"
+    aliases:
+      - "INDIAN TRAILS"
+    phases: []
+  - canonical_name: "LAKE ARTHUR ESTATES"
+    aliases:
+      - "LAKE ARTHUR ESTATES"
+    phases: []
+  - canonical_name: "OAK HOLLOW"
+    aliases:
+      - "OAK HOLLOW"
+    phases: []
+  - canonical_name: "PATRIOT RIDGE"
+    aliases:
+      - "PATRIOT RIDGE"
+    phases: []
+  - canonical_name: "RIDGEWAY LANDING"
+    aliases:
+      - "RIDGEWAY LANDING"
+    phases: []
+  - canonical_name: "ROYAL ESTATES"
+    aliases:
+      - "ROYAL ESTATES"
+    phases: []
+  - canonical_name: "SHOAL RIVER LANDING"
+    aliases:
+      - "SHOAL RIVER LANDING"
+    phases: []
+  - canonical_name: "SILVER LAKE VILLAGE"
+    aliases:
+      - "SILVER LAKE VILLAGE"
+    phases: []
+  - canonical_name: "SILVERCREST"
+    aliases:
+      - "SILVERCREST"
+    phases: []
+  - canonical_name: "SOUTHERN CHARM"
+    aliases:
+      - "SOUTHERN CHARM"
+    phases: []
+  - canonical_name: "SOUTHERN DAY CHATEAU"
+    aliases:
+      - "SOUTHERN DAY CHATEAU"
+    phases: []
+  - canonical_name: "WILLOW CREEK PLANTATION"
+    aliases:
+      - "WILLOW CREEK PLANTATION"
+    phases: []
+  - canonical_name: "YELLOW RIVER PLANTATION"
+    aliases:
+      - "YELLOW RIVER PLANTATION"
+    phases: []
+  - canonical_name: "YOUNG OAKS"
+    aliases:
+      - "YOUNG OAKS"
+    phases: []
 
 Okeechobee:
-  []
+  - canonical_name: "BASSWOOD"
+    aliases:
+      - "BASSWOOD"
+    phases: []
+  - canonical_name: "MALLARD LANDING"
+    aliases:
+      - "MALLARD LANDING"
+    phases: []
+  - canonical_name: "PALMCREEK ESTATES"
+    aliases:
+      - "PALMCREEK ESTATES"
+    phases: []
 
-SantaRosa:
-  []
+"Santa Rosa":
+  - canonical_name: "AIRWAYS OAKS"
+    aliases:
+      - "AIRWAYS OAKS"
+    phases: []
+  - canonical_name: "BLACKWATER RESERVE"
+    aliases:
+      - "BLACKWATER RESERVE"
+    phases: []
+  - canonical_name: "BRITTANY OAKS VILLAS"
+    aliases:
+      - "BRITTANY OAKS VILLAS"
+    phases: []
+  - canonical_name: "CADENCE PLACE"
+    aliases:
+      - "CADENCE PLACE"
+    phases: []
+  - canonical_name: "CHASE FARMS"
+    aliases:
+      - "CHASE FARMS"
+    phases: []
+  - canonical_name: "COSTAS RIDGE"
+    aliases:
+      - "COSTAS RIDGE"
+    phases: []
+  - canonical_name: "DEER RIDGE CROSSING"
+    aliases:
+      - "DEER RIDGE CROSSING"
+    phases: []
+  - canonical_name: "EAGLES RIDGE"
+    aliases:
+      - "EAGLES RIDGE"
+    phases: []
+  - canonical_name: "EMMALINE GARDENS"
+    aliases:
+      - "EMMALINE GARDENS"
+    phases: []
+  - canonical_name: "GROVE AT BERRYHILL"
+    aliases:
+      - "GROVE AT BERRYHILL"
+    phases: []
+  - canonical_name: "HAMPTON CHASE"
+    aliases:
+      - "HAMPTON CHASE"
+    phases: []
+  - canonical_name: "HIDDEN PINES ESTATES"
+    aliases:
+      - "HIDDEN PINES ESTATES"
+    phases: []
+  - canonical_name: "HOLLEY BY THE SEA"
+    aliases:
+      - "HOLLEY BY THE SEA"
+    phases: []
+  - canonical_name: "HORIZONS EDGE"
+    aliases:
+      - "HORIZONS EDGE"
+    phases: []
+  - canonical_name: "LAKES OF WOODBINE"
+    aliases:
+      - "LAKES OF WOODBINE"
+    phases: []
+  - canonical_name: "LANCELOT TOWNHOMES"
+    aliases:
+      - "LANCELOT TOWNHOMES"
+    phases: []
+  - canonical_name: "MAGNOLIA GLEN"
+    aliases:
+      - "MAGNOLIA GLEN"
+    phases: []
+  - canonical_name: "MARLIN PLACE AT AVALON"
+    aliases:
+      - "MARLIN PLACE AT AVALON"
+    phases: []
+  - canonical_name: "PANDION PLACE"
+    aliases:
+      - "PANDION PLACE"
+    phases: []
+  - canonical_name: "PARKER GROVE"
+    aliases:
+      - "PARKER GROVE"
+    phases: []
+  - canonical_name: "PLANTATION WOODS"
+    aliases:
+      - "PLANTATION WOODS"
+    phases: []
+  - canonical_name: "RHETTS RUN"
+    aliases:
+      - "RHETTS RUN"
+    phases: []
+  - canonical_name: "RIVERS COVE"
+    aliases:
+      - "RIVERS COVE"
+    phases: []
+  - canonical_name: "ROMAN OAKS"
+    aliases:
+      - "ROMAN OAKS"
+    phases: []
+  - canonical_name: "SCARLETTS WAY"
+    aliases:
+      - "SCARLETTS WAY"
+    phases: []
+  - canonical_name: "SENTINEL RIDGE"
+    aliases:
+      - "SENTINEL RIDGE"
+    phases: []
+  - canonical_name: "SOUNDVIEW POINT VILLAS"
+    aliases:
+      - "SOUNDVIEW POINT VILLAS"
+    phases: []
+  - canonical_name: "SOUTHERN PALMS"
+    aliases:
+      - "SOUTHERN PALMS"
+    phases: []
+  - canonical_name: "STONECHASE"
+    aliases:
+      - "STONECHASE"
+    phases: []
+  - canonical_name: "THREE HOLLOW"
+    aliases:
+      - "THREE HOLLOW"
+    phases: []
+  - canonical_name: "THREE HOLLOW EAST"
+    aliases:
+      - "THREE HOLLOW EAST"
+    phases: []
+  - canonical_name: "VENTURA MANOR"
+    aliases:
+      - "VENTURA MANOR"
+    phases: []
+  - canonical_name: "WHITLEY ESTATES"
+    aliases:
+      - "WHITLEY ESTATES"
+    phases: []
+  - canonical_name: "WINDSOR RIDGE"
+    aliases:
+      - "WINDSOR RIDGE"
+    phases: []
+  - canonical_name: "WOODLANDS"
+    aliases:
+      - "WOODLANDS"
+    phases: []
+  - canonical_name: "YELLOW RIVER RANCH"
+    aliases:
+      - "YELLOW RIVER RANCH"
+    phases: []
 
 Walton:
-  []
+  - canonical_name: "ASHTON PARK"
+    aliases:
+      - "ASHTON PARK"
+    phases: []
+  - canonical_name: "AURORA AT HAMMOCK BAY"
+    aliases:
+      - "AURORA AT HAMMOCK BAY"
+    phases: []
+  - canonical_name: "BIRD SONG AT HAMMOCK BAY"
+    aliases:
+      - "BIRD SONG AT HAMMOCK BAY"
+    phases: []
+  - canonical_name: "BLUEWATER LANDING"
+    aliases:
+      - "BLUEWATER LANDING"
+    phases: []
+  - canonical_name: "CAT ISLAND ESTATES"
+    aliases:
+      - "CAT ISLAND ESTATES"
+    phases: []
+  - canonical_name: "GENOA LANDING"
+    aliases:
+      - "GENOA LANDING"
+    phases: []
+  - canonical_name: "HAWKS LANDING"
+    aliases:
+      - "HAWKS LANDING"
+    phases: []
+  - canonical_name: "Holley Grove"
+    aliases:
+      - "Holley Grove"
+    phases: []
+  - canonical_name: "Lanterns at Hammock Bay"
+    aliases:
+      - "Lanterns at Hammock Bay"
+    phases: []
+  - canonical_name: "Magnolia at the bluffs"
+    aliases:
+      - "Magnolia at the bluffs"
+    phases: []
+  - canonical_name: "Moonswept at Hammock bay"
+    aliases:
+      - "Moonswept at Hammock bay"
+    phases: []
+  - canonical_name: "NatureView"
+    aliases:
+      - "NatureView"
+    phases: []
+  - canonical_name: "Nellie Preserve"
+    aliases:
+      - "Nellie Preserve"
+    phases: []
+  - canonical_name: "OAKWOOD HILLS"
+    aliases:
+      - "OAKWOOD HILLS"
+    phases: []
+  - canonical_name: "OWLS HEAD FARMS"
+    aliases:
+      - "OWLS HEAD FARMS"
+    phases: []
+  - canonical_name: "Pines at watersound origins"
+    aliases:
+      - "Pines at watersound origins"
+    phases: []
+  - canonical_name: "POWELL LANDING AT WATERSOUND ORIGINS"
+    aliases:
+      - "POWELL LANDING AT WATERSOUND ORIGINS"
+    phases: []
+  - canonical_name: "RIVERWALK"
+    aliases:
+      - "RIVERWALK"
+    phases: []
+  - canonical_name: "SAW MILL COURT"
+    aliases:
+      - "SAW MILL COURT"
+    phases: []
+  - canonical_name: "SPLENDOR AT HAMMOCK BAY"
+    aliases:
+      - "SPLENDOR AT HAMMOCK BAY"
+    phases: []
+  - canonical_name: "STARBURST AT HAMMOCK BAY"
+    aliases:
+      - "STARBURST AT HAMMOCK BAY"
+    phases: []
+  - canonical_name: "WALTONS LANDING"
+    aliases:
+      - "WALTONS LANDING"
+    phases: []
+  - canonical_name: "WATERSOUND CAMP CREEK"
+    aliases:
+      - "WATERSOUND CAMP CREEK"
+    phases: []
+  - canonical_name: "WATERSOUND ORIGINS LONGLEAF PARK"
+    aliases:
+      - "WATERSOUND ORIGINS LONGLEAF PARK"
+    phases: []
+  - canonical_name: "WATERSOUND ORIGINS NATUREWALK"
+    aliases:
+      - "WATERSOUND ORIGINS NATUREWALK"
+    phases: []
+  - canonical_name: "WILDFLOWER AT HAMMOCK BAY"
+    aliases:
+      - "WILDFLOWER AT HAMMOCK BAY"
+    phases: []
+  - canonical_name: "WINDSWEPT ESTATES"
+    aliases:
+      - "WINDSWEPT ESTATES"
+    phases: []
