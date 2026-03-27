@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     price_per_lot           NUMERIC(15, 2),
     acres                   NUMERIC(10, 4),
     price_per_acre          NUMERIC(15, 2),
+    parsed_data             JSONB DEFAULT '{}'::jsonb,
     county                  TEXT NOT NULL,
     notes                   TEXT,
 

@@ -14,7 +14,12 @@ def read_county_files(county: str, config: dict) -> list[tuple[Path, pd.DataFram
     input_folder = Path(config['input_folder'])
     skiprows = config.get('skiprows', 0)
 
-    files = [f for ext in SUPPORTED_EXTENSIONS for f in input_folder.glob(f"*{ext}")]
+    files = [
+        f
+        for ext in SUPPORTED_EXTENSIONS
+        for f in input_folder.glob(f"*{ext}")
+        if not f.name.startswith('~$')
+    ]
     results = []
 
     for file_path in files:

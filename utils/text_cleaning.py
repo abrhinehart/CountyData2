@@ -2,6 +2,47 @@ import re
 import pandas as pd
 
 
+def _phase_keyword_patterns(phase_keywords: list[str]) -> list[str]:
+    patterns = []
+    seen = set()
+    for keyword in sorted({kw.strip() for kw in phase_keywords if kw and kw.strip()}, key=len, reverse=True):
+        upper = keyword.upper()
+        letters_only = re.sub(r'[^A-Z]', '', upper)
+        if upper == 'PHASE' or letters_only == 'PHASE':
+            pattern = r'PHASES?'
+        elif upper == 'PHS' or letters_only == 'PHS':
+            pattern = r'PHS?'
+        elif upper == 'PH' or letters_only == 'PH':
+            pattern = r'PH(?:ASES?|S?)?\.?'
+        else:
+            pattern = re.escape(keyword)
+        if pattern not in seen:
+            seen.add(pattern)
+            patterns.append(pattern)
+    return patterns
+
+
+def _build_phase_regex(phase_keywords: list[str]) -> re.Pattern | None:
+    patterns = _phase_keyword_patterns(phase_keywords)
+    if not patterns:
+        return None
+
+    keyword_pattern = '|'.join(patterns)
+    phase_token = r'[A-Za-z0-9]+(?:-[A-Za-z0-9]+)?'
+    phase_value = rf'{phase_token}(?:\s*(?:&|AND|/)\s*{phase_token})*'
+    return re.compile(
+        rf'(?:{keyword_pattern})\b\s*[:#-]?\s*(?P<phase>{phase_value})',
+        re.IGNORECASE,
+    )
+
+
+def _normalize_phase_value(phase: str) -> str:
+    cleaned = re.sub(r'\bAND\b', '&', phase, flags=re.IGNORECASE)
+    cleaned = re.sub(r'\s*&\s*', ' & ', cleaned)
+    cleaned = re.sub(r'\s+', ' ', cleaned)
+    return cleaned.strip()
+
+
 def split_parties(text: str | float | None, delimiters: list[str] | None = None) -> list[str]:
     """
     Split a multi-party name field into a list of individual party names.
@@ -108,26 +149,24 @@ def remove_sub_references(text: str) -> str:
 
 
 def extract_phase(text: str, phase_keywords: list[str]) -> str:
-    if not text:
+    if not text or not phase_keywords:
         return ""
-    
-    phase_keywords_str = '|'.join(phase_keywords)
-    pattern = rf'(?:{phase_keywords_str})\s*([A-Za-z0-9]+(?:[-]?[A-Za-z])?)'
-    
-    matches = re.findall(pattern, text, re.IGNORECASE)
-    
+
+    phase_regex = _build_phase_regex(phase_keywords)
+    if not phase_regex:
+        return ""
+
+    matches = [match.group('phase') for match in phase_regex.finditer(text)]
     if matches:
-        return matches[-1].strip()
-    
+        return _normalize_phase_value(matches[-1])
+
     return ""
 
 
 def fix_phase_typos(phase: str) -> str:
     if not phase:
         return phase
-    
-    upper = phase.upper()
-    
+
     roman_map = {
         'I': '1', 'IA': '1A', 'IB': '1B', 'IC': '1C',
         'II': '2', 'III': '3', 'IV': '4', 'V': '5',
@@ -135,15 +174,32 @@ def fix_phase_typos(phase: str) -> str:
         'X': '10', 'XI': '11', 'XII': '12',
         'TWO': '2',
     }
-    return roman_map.get(upper, phase)
+
+    parts = re.split(r'(\s*(?:&|/)\s*)', phase.strip())
+    normalized_parts = []
+    for part in parts:
+        token = part.strip()
+        if not token:
+            continue
+        if re.fullmatch(r'(?:&|/)', token):
+            normalized_parts.append(f' {token} ')
+            continue
+
+        upper = token.upper()
+        normalized_parts.append(roman_map.get(upper, token))
+
+    cleaned = ''.join(normalized_parts)
+    cleaned = re.sub(r'\s+', ' ', cleaned)
+    return cleaned.strip()
 
 
 def remove_phase_from_text(text: str, phase_keywords: list[str]) -> str:
-    if not text:
+    if not text or not phase_keywords:
         return text
-    phase_keywords_str = '|'.join(phase_keywords)
-    pattern = rf'(?:{phase_keywords_str})\s*[A-Za-z0-9]+(?:[-]?[A-Za-z])?\b\s*[,;.]?\s*'
-    text = re.sub(pattern, '', text, flags=re.IGNORECASE)
+    phase_regex = _build_phase_regex(phase_keywords)
+    if not phase_regex:
+        return text
+    text = phase_regex.sub('', text)
     return text.strip()
 
 
@@ -161,6 +217,19 @@ def remove_after_section(text: str) -> str:
     # Split on 'Section' (case-insensitive) and keep only before it
     parts = re.split(r'\bsection\b', text, flags=re.IGNORECASE)
     return parts[0].strip()
+
+
+def remove_leading_parcel_id(text: str) -> str:
+    if not text:
+        return text
+
+    cleaned = re.sub(
+        r'^\s*(?:PARCEL\s*(?:ID)?\s*[:#-]?\s*)?\(?\d+(?:-\d+){5,}\)?(?:\s*[,;:.-]\s*|\s+)',
+        '',
+        text,
+        flags=re.IGNORECASE,
+    )
+    return cleaned.strip()
 
 # this functions isnt very productive. cut it if the program gets too slow.
 def remove_unrec(text: str) -> str:

@@ -8,7 +8,7 @@ _UPSERT_SQL = """
 INSERT INTO transactions (
     grantor, grantee, type, instrument, date,
     legal_desc, legal_raw, subdivision, subdivision_id, phase,
-    lots, price, county, builder_id,
+    lots, price, parsed_data, county, builder_id,
     grantor_builder_id, grantee_builder_id,
     grantor_land_banker_id, grantee_land_banker_id,
     review_flag, source_file
@@ -16,7 +16,7 @@ INSERT INTO transactions (
 VALUES (
     %(grantor)s, %(grantee)s, %(type)s, %(instrument)s, %(date)s,
     %(legal_desc)s, %(legal_raw)s, %(subdivision)s, %(subdivision_id)s, %(phase)s,
-    %(lots)s, %(price)s, %(county)s, %(builder_id)s,
+    %(lots)s, %(price)s, %(parsed_data)s, %(county)s, %(builder_id)s,
     %(grantor_builder_id)s, %(grantee_builder_id)s,
     %(grantor_land_banker_id)s, %(grantee_land_banker_id)s,
     %(review_flag)s, %(source_file)s
@@ -31,6 +31,7 @@ DO UPDATE SET
     phase                   = EXCLUDED.phase,
     lots                    = EXCLUDED.lots,
     price                   = EXCLUDED.price,
+    parsed_data             = EXCLUDED.parsed_data,
     builder_id              = EXCLUDED.builder_id,
     grantor_builder_id      = EXCLUDED.grantor_builder_id,
     grantee_builder_id      = EXCLUDED.grantee_builder_id,
@@ -41,6 +42,12 @@ DO UPDATE SET
     updated_at              = NOW()
 RETURNING (xmax = 0) AS inserted
 """
+
+
+def _prepare_db_row(row: dict) -> dict:
+    prepared = dict(row)
+    prepared['parsed_data'] = psycopg2.extras.Json(prepared.get('parsed_data') or {})
+    return prepared
 
 
 def upsert_rows(rows: list[dict], source_file: Path, conn) -> tuple[int, int, int]:
@@ -54,7 +61,7 @@ def upsert_rows(rows: list[dict], source_file: Path, conn) -> tuple[int, int, in
         for row in rows:
             row['source_file'] = str(source_file)
             try:
-                cur.execute(_UPSERT_SQL, row)
+                cur.execute(_UPSERT_SQL, _prepare_db_row(row))
                 result = cur.fetchone()
                 if result and result[0]:
                     inserted += 1
