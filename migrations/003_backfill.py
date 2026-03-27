@@ -1,11 +1,11 @@
 """
-003_backfill.py — One-time migration to populate new lookup columns on existing data.
+003_backfill.py - One-time migration to populate lookup columns on existing data.
 
 Steps:
   1. Populate legal_raw from existing legal_desc (imperfect but non-null)
-  2. Match existing legal_desc against SubdivisionMatcher → fill subdivision_id
-  3. Match existing grantor against BuilderMatcher → fill builder_id, update grantor
-  4. Set review_flag = TRUE on all backfilled rows
+  2. Match existing legal_desc against SubdivisionMatcher -> fill subdivision_id
+  3. Match existing grantor/grantee against builder and land banker aliases
+  4. Populate side-specific party IDs and compatibility builder_id
 
 Usage:
     python -m migrations.003_backfill
@@ -15,16 +15,16 @@ Usage:
 import sys
 from pathlib import Path
 
-# Allow running as script or module
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 import psycopg2
+
 from config import DATABASE_URL
-from utils.lookup import SubdivisionMatcher, BuilderMatcher
+from utils.lookup import BuilderMatcher, LandBankerMatcher, SubdivisionMatcher
+from utils.transaction_utils import classify_transaction_type
 
 
 def backfill_legal_raw(conn):
-    """Populate legal_raw from legal_desc for rows where legal_raw is NULL."""
     with conn.cursor() as cur:
         cur.execute("""
             UPDATE transactions
@@ -38,7 +38,6 @@ def backfill_legal_raw(conn):
 
 
 def backfill_subdivisions(conn, matcher):
-    """Match existing legal_desc against subdivision aliases."""
     with conn.cursor() as cur:
         cur.execute("""
             SELECT id, legal_desc, county
@@ -67,46 +66,73 @@ def backfill_subdivisions(conn, matcher):
     return matched
 
 
-def backfill_builders(conn, matcher):
-    """Match existing grantor against builder aliases."""
+def backfill_party_entities(conn, builder_matcher, land_banker_matcher):
     with conn.cursor() as cur:
         cur.execute("""
-            SELECT id, grantor
+            SELECT id, grantor, grantee
             FROM transactions
-            WHERE builder_id IS NULL AND grantor IS NOT NULL
+            WHERE
+                grantor_builder_id IS NULL
+                OR grantee_builder_id IS NULL
+                OR grantor_land_banker_id IS NULL
+                OR grantee_land_banker_id IS NULL
         """)
         rows = cur.fetchall()
 
     matched = 0
     with conn.cursor() as cur:
-        for txn_id, grantor in rows:
-            builder_id, canonical = matcher.match(grantor)
-            if builder_id is not None:
+        for txn_id, grantor, grantee in rows:
+            grantor_builder_id, _ = builder_matcher.match(grantor)
+            grantee_builder_id, _ = builder_matcher.match(grantee)
+            grantor_land_banker_id, _ = land_banker_matcher.match(grantor)
+            grantee_land_banker_id, _ = land_banker_matcher.match(grantee)
+            builder_id = grantee_builder_id or grantor_builder_id
+
+            if any((grantor_builder_id, grantee_builder_id, grantor_land_banker_id, grantee_land_banker_id)):
+                tx_type = classify_transaction_type(
+                    grantor_builder_id,
+                    grantee_builder_id,
+                    grantor_land_banker_id,
+                    grantee_land_banker_id,
+                )
                 cur.execute("""
                     UPDATE transactions
-                    SET builder_id = %s,
-                        grantor = %s,
+                    SET grantor_builder_id = %s,
+                        grantee_builder_id = %s,
+                        grantor_land_banker_id = %s,
+                        grantee_land_banker_id = %s,
+                        builder_id = %s,
+                        type = %s,
                         review_flag = TRUE
                     WHERE id = %s
-                """, (builder_id, canonical, txn_id))
+                """, (
+                    grantor_builder_id,
+                    grantee_builder_id,
+                    grantor_land_banker_id,
+                    grantee_land_banker_id,
+                    builder_id,
+                    tx_type,
+                    txn_id,
+                ))
                 matched += 1
 
     conn.commit()
-    print(f"  builder_id backfilled: {matched} / {len(rows)} rows matched")
+    print(f"  party entities backfilled: {matched} / {len(rows)} rows matched")
     return matched
 
 
 def main():
-    print("Backfill migration: populating new lookup columns...")
+    print("Backfill migration: populating lookup columns...")
     conn = psycopg2.connect(DATABASE_URL)
     try:
         backfill_legal_raw(conn)
 
         sub_matcher = SubdivisionMatcher(conn)
         builder_matcher = BuilderMatcher(conn)
+        land_banker_matcher = LandBankerMatcher(conn)
 
         backfill_subdivisions(conn, sub_matcher)
-        backfill_builders(conn, builder_matcher)
+        backfill_party_entities(conn, builder_matcher, land_banker_matcher)
     finally:
         conn.close()
     print("Done.")

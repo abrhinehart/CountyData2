@@ -1,5 +1,5 @@
 """
-etl.py — Real estate transaction ETL pipeline.
+etl.py - Real estate transaction ETL pipeline.
 
 Reads county source files (Excel/CSV), transforms each row, and upserts
 into the PostgreSQL transactions table.
@@ -17,10 +17,11 @@ import psycopg2
 import yaml
 
 from config import DATABASE_URL
+from processors.loader import upsert_rows
 from processors.reader import read_county_files
 from processors.transformer import transform_row
-from processors.loader import upsert_rows
-from utils.lookup import SubdivisionMatcher, BuilderMatcher
+from utils.county_utils import normalize_county_key
+from utils.lookup import BuilderMatcher, LandBankerMatcher, SubdivisionMatcher
 
 
 CONFIG_DIR = Path(__file__).parent
@@ -36,9 +37,25 @@ def load_config() -> dict:
     return counties
 
 
+def resolve_county_names(requested: list[str], counties_config: dict) -> tuple[dict, list[str]]:
+    by_key = {normalize_county_key(name): name for name in counties_config}
+    resolved = {}
+    unknown = []
+
+    for requested_name in requested:
+        match = by_key.get(normalize_county_key(requested_name))
+        if match is None:
+            unknown.append(requested_name)
+            continue
+        resolved[match] = counties_config[match]
+
+    return resolved, unknown
+
+
 def process_county(county: str, config: dict, conn,
                    sub_matcher: SubdivisionMatcher,
-                   builder_matcher: BuilderMatcher) -> dict:
+                   builder_matcher: BuilderMatcher,
+                   land_banker_matcher: LandBankerMatcher) -> dict:
     summary = {'files': 0, 'inserted': 0, 'updated': 0, 'errors': 0}
 
     file_frames = read_county_files(county, config)
@@ -49,7 +66,14 @@ def process_county(county: str, config: dict, conn,
         rows = []
         for _, row in df.iterrows():
             try:
-                result = transform_row(row, county, config, sub_matcher, builder_matcher)
+                result = transform_row(
+                    row,
+                    county,
+                    config,
+                    sub_matcher,
+                    builder_matcher,
+                    land_banker_matcher,
+                )
                 if result:
                     rows.append(result)
             except Exception as e:
@@ -71,36 +95,41 @@ def process_county(county: str, config: dict, conn,
 def main():
     counties_config = load_config()
 
-    parser = argparse.ArgumentParser(description='ETL: county files → PostgreSQL')
+    parser = argparse.ArgumentParser(description='ETL: county files -> PostgreSQL')
     parser.add_argument(
         '--county', nargs='+', metavar='COUNTY',
-        help=f'County/counties to process (default: all). Available: {", ".join(counties_config)}'
+        help=f'County/counties to process (default: all; quote names with spaces). Available: {", ".join(counties_config)}'
     )
     args = parser.parse_args()
 
     if args.county:
-        unknown = [c for c in args.county if c not in counties_config]
+        to_run, unknown = resolve_county_names(args.county, counties_config)
         if unknown:
             print(f"Unknown: {', '.join(unknown)}")
             print(f"Available: {', '.join(counties_config)}")
             return
-        to_run = {c: counties_config[c] for c in args.county}
     else:
         to_run = counties_config
 
     conn = psycopg2.connect(DATABASE_URL)
     try:
-        # Load reference data once for the entire ETL run
         sub_matcher = SubdivisionMatcher(conn)
         builder_matcher = BuilderMatcher(conn)
+        land_banker_matcher = LandBankerMatcher(conn)
 
         results = {}
         for county, cfg in to_run.items():
-            results[county] = process_county(county, cfg, conn, sub_matcher, builder_matcher)
+            results[county] = process_county(
+                county,
+                cfg,
+                conn,
+                sub_matcher,
+                builder_matcher,
+                land_banker_matcher,
+            )
     finally:
         conn.close()
 
-    # Summary table
     print()
     print(f"{'County':<15} {'Files':>6} {'Inserted':>9} {'Updated':>8} {'Errors':>7}")
     print('-' * 50)

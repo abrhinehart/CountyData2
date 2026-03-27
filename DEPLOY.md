@@ -11,13 +11,15 @@
 ```bash
 psql "$DATABASE_URL" -f migrations/001_reference_tables.sql
 psql "$DATABASE_URL" -f migrations/002_alter_transactions.sql
+psql "$DATABASE_URL" -f migrations/004_party_entities.sql
 ```
 These are additive — safe to run on an existing database with data.
 
 ### 2. Curate reference data
-Edit the YAML files with your known subdivisions and builders:
+Edit the YAML files with your known subdivisions, builders, and land bankers:
 - `reference_data/subdivisions.yaml` — add entries per county
 - `reference_data/builders.yaml` — add builder canonical names + aliases
+- `reference_data/land_bankers.yaml` — add land banker canonical names + aliases
 
 ### 3. Seed reference tables
 ```bash
@@ -36,7 +38,7 @@ Pipeline now uses lookup matching first, falls back to regex for unmatched rows.
 ```bash
 python migrations/003_backfill.py
 ```
-Populates `legal_raw`, `subdivision_id`, and `builder_id` on rows already in the database.
+Populates `legal_raw`, `subdivision_id`, and side-specific builder/land banker IDs on rows already in the database.
 
 ### 6. Review unmatched rows
 ```bash
@@ -49,7 +51,7 @@ Use this to find missing subdivisions/builders, add them to the YAML files, re-s
 - `--unmatched-only` — filters to only rows where lookup matching failed
 
 ## What changed
-- **transformer.py** — multi-party splitting, builder promotion, `legal_raw` (no truncation), lookup-first subdivision/phase matching
-- **loader.py** — upserts 4 new columns (legal_raw, subdivision_id, builder_id, review_flag)
+- **transformer.py** — multi-party splitting, side-specific builder/land banker matching, `legal_raw` (no truncation), lookup-first subdivision/phase matching
+- **loader.py** — upserts side-specific builder/land banker IDs alongside lookup columns
 - **etl.py** — loads matchers once at startup, passes them through the pipeline
-- **New: utils/lookup.py** — SubdivisionMatcher (longest-match substring) + BuilderMatcher (normalized exact match)
+- **New: utils/lookup.py** — SubdivisionMatcher plus normalized exact matchers for builders and land bankers

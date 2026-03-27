@@ -1,0 +1,11 @@
+# Land banker reference data - canonical names and aliases.
+# These entities buy or hold land before it is sold to builders.
+#
+# To add a new land banker:
+#   1. Add an entry with canonical_name and all known aliases
+#   2. Run: python seed_reference_data.py
+
+# - canonical_name: "EXAMPLE LAND BANKER LLC"
+#   aliases:
+#     - "EXAMPLE LAND BANKER LLC"
+[]

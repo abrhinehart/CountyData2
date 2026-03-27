@@ -1,5 +1,5 @@
 """
-export.py — Export transactions from PostgreSQL to a styled Excel file.
+export.py - Export transactions from PostgreSQL to a styled Excel file.
 
 Usage:
     python export.py                                      # All records
@@ -85,7 +85,7 @@ def build_query(county: str | None, subdivision: str | None,
     params = []
 
     if county:
-        where.append('UPPER(county) = UPPER(%s)')
+        where.append("REPLACE(UPPER(county), ' ', '') = REPLACE(UPPER(%s), ' ', '')")
         params.append(county)
     if subdivision:
         where.append('UPPER(subdivision) = UPPER(%s)')
@@ -162,7 +162,7 @@ def apply_styling(path: Path):
 
 def main():
     parser = argparse.ArgumentParser(description='Export transactions to Excel')
-    parser.add_argument('--county',       help='Filter by county name')
+    parser.add_argument('--county',       help='Filter by county name (spacing-insensitive)')
     parser.add_argument('--subdivision',  help='Filter by subdivision name')
     parser.add_argument('--from',         dest='date_from', help='Start date (YYYY-MM-DD)')
     parser.add_argument('--to',           dest='date_to',   help='End date (YYYY-MM-DD)')
@@ -194,7 +194,7 @@ def main():
         df.to_excel(writer, index=False)
 
     apply_styling(out_path)
-    print(f"Exported {len(df):,} records → {out_path}")
+    print(f"Exported {len(df):,} records -> {out_path}")
 
 
 if __name__ == '__main__':

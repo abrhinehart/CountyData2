@@ -153,7 +153,7 @@ transactions (
     id              SERIAL PRIMARY KEY,
     grantor         TEXT NOT NULL,
     grantee         TEXT,
-    type            TEXT,           -- 'Lot Purchase' or 'House Sale'
+    type            TEXT,           -- 'Builder Purchase', 'Land Banker Purchase', 'Builder to Builder', or 'House Sale'
     instrument      TEXT,
     date            DATE,
     legal_desc      TEXT,
@@ -217,10 +217,12 @@ All county-specific rules live in `counties.yaml`. Structure is unchanged from t
 
 ## Transaction Type Classification
 
-- **Lot Purchase** — Grantee contains a company keyword: INC, LLC, HOMES, COMPANY, INVESTMENTS, LTD
-- **House Sale** — All other transactions
+- **Builder to Builder** — both grantor and grantee match known builders
+- **Builder Purchase** — grantee matches a known builder
+- **Land Banker Purchase** — grantee matches a known land banker
+- **House Sale** — all other transactions
 
-Configured in `counties.yaml` under `company_indicators`.
+Builders and land bankers are tracked through reference-data alias lists.
 
 ---
 

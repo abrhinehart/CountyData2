@@ -200,7 +200,7 @@ counties:
       - ","
       - Parcel
 
-  SantaRosa:
+  "Santa Rosa":
     input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/SantaRosa"
     column_mapping:
       grantor: Name

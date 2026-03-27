@@ -1,10 +1,29 @@
 import os
 from pathlib import Path
+from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 load_dotenv()
 
-DATABASE_URL = os.getenv('DATABASE_URL', 'postgresql://etl_user:changeme@localhost:5432/County-Data')
+
+def _build_database_url() -> str:
+    raw_url = os.getenv('DATABASE_URL', '').strip()
+    parsed = urlparse(raw_url)
+
+    if parsed.scheme in {'postgres', 'postgresql'} and parsed.hostname and parsed.path not in {'', '/'}:
+        if parsed.scheme == 'postgres':
+            return raw_url.replace('postgres://', 'postgresql://', 1)
+        return raw_url
+
+    user = os.getenv('POSTGRES_USER', 'etl_user')
+    password = os.getenv('POSTGRES_PASSWORD', 'changeme')
+    host = os.getenv('POSTGRES_HOST', 'localhost')
+    port = os.getenv('POSTGRES_PORT', '5432')
+    database = os.getenv('POSTGRES_DB', 'County-Data')
+    return f'postgresql://{user}:{password}@{host}:{port}/{database}'
+
+
+DATABASE_URL = _build_database_url()
 
 OUTPUT_DIR = Path(os.getenv('OUTPUT_DIR', 'Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Output'))
 

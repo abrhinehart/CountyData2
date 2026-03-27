@@ -1,12 +1,19 @@
 # utils/transaction_utils.py
 
-def guess_transaction_type(grantee: str | None, company_indicators: list | set) -> str:
-    if grantee is None or not str(grantee).strip():
-        return "House Sale"
 
-    upper = str(grantee).upper().strip()
+def classify_transaction_type(
+    grantor_builder_id: int | None,
+    grantee_builder_id: int | None,
+    grantor_land_banker_id: int | None,
+    grantee_land_banker_id: int | None,
+) -> str:
+    if grantor_builder_id is not None and grantee_builder_id is not None:
+        return 'Builder to Builder'
 
-    if any(kw.upper() in upper for kw in company_indicators):
-        return "Lot Purchase"
+    if grantee_builder_id is not None:
+        return 'Builder Purchase'
 
-    return "House Sale"
+    if grantee_land_banker_id is not None:
+        return 'Land Banker Purchase'
+
+    return 'House Sale'
