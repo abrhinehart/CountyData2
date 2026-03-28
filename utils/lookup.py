@@ -42,11 +42,12 @@ class SubdivisionMatcher:
         """
         Match legal text against known subdivisions for a county.
 
-        Returns (subdivision_id, canonical_name, phase) or (None, None, None).
+        Returns (subdivision_id, canonical_name, phase, known_phases)
+        or (None, None, None, []).
         Phase is extracted from legal_text and validated against known phases.
         """
         if not legal_text:
-            return None, None, None
+            return None, None, None, []
 
         text_upper = legal_text.upper()
         county_key = normalize_county_key(county)
@@ -55,9 +56,9 @@ class SubdivisionMatcher:
         for alias_upper, sub_id, canonical, known_phases in aliases:
             if alias_upper in text_upper:
                 phase = self._extract_phase(legal_text, phase_keywords, known_phases)
-                return sub_id, canonical, phase
+                return sub_id, canonical, phase, known_phases
 
-        return None, None, None
+        return None, None, None, []
 
     def _extract_phase(self, text: str, phase_keywords: list[str] | None,
                        known_phases: list[str]) -> str | None:

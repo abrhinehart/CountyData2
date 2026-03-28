@@ -204,6 +204,7 @@ def fix_phase_typos(phase: str) -> str:
         'ONE': '1',
         'I': '1', 'IA': '1A', 'IB': '1B', 'IC': '1C',
         'II': '2', 'III': '3', 'IV': '4', 'V': '5',
+        'ILI': '3',
         'VI': '6', 'VII': '7', 'VIII': '8', 'IX': '9',
         'X': '10', 'XI': '11', 'XII': '12',
         'TWO': '2',

@@ -2,13 +2,18 @@ import unittest
 
 import psycopg2.extras
 
-from processors.loader import _prepare_db_row
+from processors.loader import _prepare_db_row, _prepare_segment_rows
 
 
 class LoaderTests(unittest.TestCase):
     def test_prepare_db_row_wraps_parsed_data_for_json_storage(self):
         row = {
             'grantor': 'Seller Name',
+            'deed_locator': {
+                'book_type': 'OR',
+                'book': '4643',
+                'page': '317',
+            },
             'parsed_data': {
                 'grantor_parties': ['Seller Name'],
                 'county_parse': {'lot_values': ['11,12']},
@@ -18,8 +23,43 @@ class LoaderTests(unittest.TestCase):
         prepared = _prepare_db_row(row)
 
         self.assertIsInstance(prepared['parsed_data'], psycopg2.extras.Json)
+        self.assertIsInstance(prepared['deed_locator'], psycopg2.extras.Json)
         self.assertEqual(prepared['parsed_data'].adapted, row['parsed_data'])
+        self.assertEqual(prepared['deed_locator'].adapted, row['deed_locator'])
         self.assertEqual(row['parsed_data']['county_parse']['lot_values'], ['11,12'])
+
+    def test_prepare_segment_rows_wraps_segment_data_for_json_storage(self):
+        row = {
+            'county': 'Hernando',
+            'transaction_segments': [
+                {
+                    'segment_index': 0,
+                    'county': 'Hernando',
+                    'subdivision_lookup_text': 'ROYAL HIGHLANDS',
+                    'raw_subdivision': 'ROYAL HIGHLANDS',
+                    'subdivision': 'ROYAL HIGHLANDS',
+                    'subdivision_id': 89,
+                    'phase_raw': '2A',
+                    'phase': '2A',
+                    'phase_confirmed': True,
+                    'review_reasons': [],
+                    'segment_data': {'details': {'line_index': 1}},
+                },
+            ],
+        }
+
+        segment_rows = _prepare_segment_rows(55, row)
+
+        self.assertEqual(len(segment_rows), 1)
+        segment_row = segment_rows[0]
+        self.assertEqual(segment_row[0], 55)
+        self.assertEqual(segment_row[1], 0)
+        self.assertEqual(segment_row[2], 'Hernando')
+        self.assertEqual(segment_row[6], 89)
+        self.assertEqual(segment_row[9], True)
+        self.assertEqual(segment_row[10], [])
+        self.assertIsInstance(segment_row[11], psycopg2.extras.Json)
+        self.assertEqual(segment_row[11].adapted, {'details': {'line_index': 1}})
 
 
 if __name__ == '__main__':

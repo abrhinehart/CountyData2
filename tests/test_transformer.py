@@ -93,6 +93,73 @@ class TransformerTypeTests(unittest.TestCase):
         self.assertIsNone(result['grantee'])
         self.assertEqual(result['parsed_data']['grantee_parties'], [])
 
+    def test_transformer_captures_deed_locator_fields(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'Lot 1 Example Subdivision',
+            'Book Type': 'OR',
+            'Book': '4643',
+            'Page': '317',
+            'Clerk File #': '2025083923',
+            'DocLinks': 'https://county.example/doc/123',
+            'DocLinks.1': 'https://county.example/doc/456',
+        })
+
+        result = transform_row(
+            row,
+            'Bay',
+            self.config,
+            sub_matcher=None,
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        locator = result['deed_locator']
+        self.assertEqual(locator['book_type'], 'OR')
+        self.assertEqual(locator['book'], '4643')
+        self.assertEqual(locator['page'], '317')
+        self.assertEqual(locator['clerk_file_number'], '2025083923')
+        self.assertEqual(locator['doc_link'], 'https://county.example/doc/123')
+        self.assertEqual(
+            locator['doc_links'],
+            ['https://county.example/doc/123', 'https://county.example/doc/456'],
+        )
+        self.assertIn('Book Type', locator['raw_fields'])
+
+    def test_transformer_splits_santarosa_book_page_in_deed_locator(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'Lot 1 Example Subdivision',
+            'Instrument #': '2025012345',
+            'Book Type': 'OR',
+            'Book/Page': '7175/2080',
+            'Doc Link': 'https://county.example/doc/789',
+            'Case #': '2024-CA-55',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            self.config,
+            sub_matcher=None,
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        locator = result['deed_locator']
+        self.assertEqual(locator['instrument_number'], '2025012345')
+        self.assertEqual(locator['book_page'], '7175/2080')
+        self.assertEqual(locator['book'], '7175')
+        self.assertEqual(locator['page'], '2080')
+        self.assertEqual(locator['case_number'], '2024-CA-55')
+        self.assertEqual(locator['doc_link'], 'https://county.example/doc/789')
+
     def test_transformer_preserves_full_party_text_when_builder_found_later(self):
         row = pd.Series({
             'Grantor': 'Seller Name',
@@ -138,6 +205,288 @@ class TransformerTypeTests(unittest.TestCase):
 
         self.assertEqual(result['type'], 'Land Banker Purchase')
         self.assertEqual(result['grantee_land_banker_id'], 7)
+
+    def test_lookup_known_phase_does_not_force_review(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LOT 55 LIBERTY PH 3',
+        })
+
+        result = transform_row(
+            row,
+            'Bay',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({
+                ('LIBERTY', 'Bay'): (7, 'Liberty', None, ['1', '2', '3']),
+            }),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision_id'], 7)
+        self.assertEqual(result['subdivision'], 'Liberty')
+        self.assertEqual(result['phase'], '3')
+        self.assertFalse(result['review_flag'])
+        self.assertNotIn('phase_not_confirmed_by_lookup', result['parsed_data']['review_reasons'])
+
+    def test_lookup_unknown_phase_still_flags_review(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LOT 55 LIBERTY PH 3',
+        })
+
+        result = transform_row(
+            row,
+            'Bay',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({
+                ('LIBERTY', 'Bay'): (7, 'Liberty', None, ['1', '2']),
+            }),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision_id'], 7)
+        self.assertEqual(result['phase'], '3')
+        self.assertTrue(result['review_flag'])
+        self.assertIn('phase_not_confirmed_by_lookup', result['parsed_data']['review_reasons'])
+
+    def test_lookup_known_compound_phase_does_not_force_review(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LOT 55 SUNDANCE PH 1-2',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({
+                ('SUNDANCE', 'Marion'): (7, 'SUNDANCE', None, ['1', '2', '1-2']),
+            }),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision_id'], 7)
+        self.assertEqual(result['phase'], '1-2')
+        self.assertFalse(result['review_flag'])
+        self.assertNotIn('phase_not_confirmed_by_lookup', result['parsed_data']['review_reasons'])
+
+    def test_lookup_known_letter_suffix_phase_does_not_force_review(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LOT 55 OWLS HEAD FARMS PH 1-C',
+        })
+
+        result = transform_row(
+            row,
+            'Walton',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({
+                ('OWLS HEAD FARMS', 'Walton'): (8, 'OWLS HEAD FARMS', None, ['1', '1A', '1B', '1-C']),
+            }),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision_id'], 8)
+        self.assertEqual(result['phase'], '1-C')
+        self.assertFalse(result['review_flag'])
+        self.assertNotIn('phase_not_confirmed_by_lookup', result['parsed_data']['review_reasons'])
+
+    def test_lookup_normalizes_marion_slash_o_phase_when_known(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 1 AUTUMN GLEN PH 1/O',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({
+                ('AUTUMN GLEN', 'Marion'): (11, 'AUTUMN GLEN', None, ['1', '2']),
+            }),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision_id'], 11)
+        self.assertEqual(result['phase'], '1')
+        self.assertFalse(result['review_flag'])
+        self.assertNotIn('phase_not_confirmed_by_lookup', result['parsed_data']['review_reasons'])
+        self.assertEqual(result['parsed_data']['phase_candidate_values'], ['1 / O'])
+
+    def test_bay_confidential_text_does_not_become_subdivision(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'CONFIDENTIAL',
+        })
+
+        result = transform_row(
+            row,
+            'Bay',
+            self.config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertFalse(result['review_flag'])
+        self.assertEqual(result['parsed_data']['county_parse']['normalized_subdivision_candidates'], [])
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
+
+    def test_citrus_redaction_text_does_not_become_subdivision(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'REDACTION APPLIED PURSUANT TO FLORIDA PUBLIC RECORDS LAWS',
+        })
+
+        result = transform_row(
+            row,
+            'Citrus',
+            self.config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertFalse(result['review_flag'])
+        self.assertEqual(result['parsed_data']['county_parse']['normalized_subdivision_candidates'], [])
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
+
+    def test_escambia_section_only_text_does_not_become_subdivision(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'SEC:01 TWP:1S RGE:32W',
+        })
+
+        result = transform_row(
+            row,
+            'Escambia',
+            self.config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertFalse(result['review_flag'])
+        self.assertEqual(result['parsed_data']['ignored_subdivision_reason'], 'section_reference')
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
+
+    def test_citrus_str_only_text_does_not_become_subdivision(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'S: 16 T: 19S R: 21E',
+        })
+
+        result = transform_row(
+            row,
+            'Citrus',
+            self.config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertFalse(result['review_flag'])
+        self.assertEqual(result['parsed_data']['ignored_subdivision_reason'], 'section_reference')
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
+
+    def test_okaloosa_city_name_does_not_become_subdivision(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'CRESTVIEW',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertFalse(result['review_flag'])
+        self.assertEqual(result['parsed_data']['county_parse']['normalized_subdivision_candidates'], [])
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
+
+    def test_walton_placeholder_text_does_not_become_subdivision(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'TO CORRECT',
+        })
+
+        result = transform_row(
+            row,
+            'Walton',
+            self.config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertFalse(result['review_flag'])
+        self.assertEqual(result['parsed_data']['ignored_subdivision_reason'], 'exact_ignore')
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
 
     def test_okeechobee_preserves_multiline_party_text_and_matches_later_names(self):
         row = pd.Series({
@@ -1174,15 +1523,77 @@ class TransformerTypeTests(unittest.TestCase):
         )
 
         self.assertEqual(result['legal_desc'], 'L20 Blk640 Un8 SubROYAL HIGHLANDS; L3 Blk532 Un7 SubSPRING HILL')
-        self.assertEqual(result['subdivision'], 'ROYAL HIGHLANDS / SPRING HILL')
+        self.assertIsNone(result['subdivision'])
         self.assertTrue(result['review_flag'])
         self.assertEqual(result['lots'], 2)
-        self.assertEqual(matcher.calls, [])
+        self.assertEqual(
+            matcher.calls,
+            [
+                ('ROYAL HIGHLANDS', 'Hernando', ['Phase', 'PH']),
+                ('SPRING HILL', 'Hernando', ['Phase', 'PH']),
+            ],
+        )
         self.assertIn('multiple_subdivision_candidates', result['parsed_data']['review_reasons'])
+        self.assertNotIn('subdivision_unmatched', result['parsed_data']['review_reasons'])
+        self.assertEqual(result['parsed_data']['preparsed_subdivision'], 'ROYAL HIGHLANDS / SPRING HILL')
+        self.assertEqual(len(result['transaction_segments']), 2)
+        self.assertEqual(
+            [segment['subdivision'] for segment in result['transaction_segments']],
+            ['ROYAL HIGHLANDS', 'SPRING HILL'],
+        )
+        self.assertEqual(
+            [segment['review_reasons'] for segment in result['transaction_segments']],
+            [['subdivision_unmatched'], ['subdivision_unmatched']],
+        )
         self.assertEqual(
             result['parsed_data']['county_parse']['subdivision_values'],
             ['ROYAL HIGHLANDS', 'SPRING HILL'],
         )
+
+    def test_hernando_alias_normalization_uses_canonical_lookup_text(self):
+        config = {
+            'column_mapping': {
+                'grantor': 'Direct Name',
+                'grantee': 'Reverse Name',
+                'date': 'Record Date',
+                'instrument': 'Doc Type',
+                'legal': 'Legal',
+                'sub': 'Subdivision',
+            },
+            'phase_keywords': ['Phase', 'PH'],
+            'delimiters': [','],
+        }
+        row = pd.Series({
+            'Direct Name': 'Seller Name',
+            'Reverse Name': 'Buyer Name',
+            'Record Date': '01/11/2024',
+            'Doc Type': 'DEED',
+            'Legal': 'L Blk Un Sub S T R\nL8 Blk410 Un6 SubROYAI HIGHLANDS S T R\n',
+            'Lot': 'legalfield_8',
+            'Block': 'legalfield_410',
+            'Unit': 'legalfield_6',
+            'Subdivision': 'legalfield_ROYAI HIGHLANDS',
+        })
+        matcher = ConfiguredSubdivisionMatcher({
+            ('ROYAL HIGHLANDS', 'Hernando'): (89, 'ROYAL HIGHLANDS', None, []),
+        })
+
+        result = transform_row(
+            row,
+            'Hernando',
+            config,
+            sub_matcher=matcher,
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision_id'], 89)
+        self.assertEqual(result['subdivision'], 'ROYAL HIGHLANDS')
+        self.assertEqual(matcher.calls, [('ROYAL HIGHLANDS', 'Hernando', ['Phase', 'PH'])])
+        self.assertEqual(result['parsed_data']['review_reasons'], [])
+        self.assertEqual(len(result['transaction_segments']), 1)
+        self.assertEqual(result['transaction_segments'][0]['subdivision_id'], 89)
+        self.assertEqual(result['transaction_segments'][0]['review_reasons'], [])
 
     def test_hernando_same_subdivision_multiple_phases_collapses_base_name(self):
         config = {
@@ -1213,11 +1624,14 @@ class TransformerTypeTests(unittest.TestCase):
             row,
             'Hernando',
             config,
-            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            sub_matcher=ConfiguredSubdivisionMatcher({
+                ('SUNCOAST LANDING', 'Hernando'): (7, 'SUNCOAST LANDING', None, ['1', '2']),
+            }),
             builder_matcher=FakeMatcher({}),
             land_banker_matcher=FakeMatcher({}),
         )
 
+        self.assertEqual(result['subdivision_id'], 7)
         self.assertEqual(result['subdivision'], 'SUNCOAST LANDING')
         self.assertIsNone(result['phase'])
         self.assertEqual(result['lots'], 2)
@@ -1231,6 +1645,19 @@ class TransformerTypeTests(unittest.TestCase):
         self.assertEqual(
             result['parsed_data']['county_parse']['normalized_subdivision_values'],
             ['SUNCOAST LANDING'],
+        )
+        self.assertEqual(len(result['transaction_segments']), 2)
+        self.assertEqual(
+            [segment['phase'] for segment in result['transaction_segments']],
+            ['1', '2'],
+        )
+        self.assertEqual(
+            [segment['phase_confirmed'] for segment in result['transaction_segments']],
+            [True, True],
+        )
+        self.assertEqual(
+            [segment['review_reasons'] for segment in result['transaction_segments']],
+            [[], []],
         )
 
     def test_hernando_reconciles_same_row_subdivision_typos(self):

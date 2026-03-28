@@ -1,6 +1,6 @@
 import unittest
 
-from utils.text_cleaning import clean_subdivision, extract_phase, remove_phase_from_text
+from utils.text_cleaning import clean_subdivision, extract_phase, remove_phase_from_text, fix_phase_typos
 
 
 class TextCleaningTests(unittest.TestCase):
@@ -58,6 +58,9 @@ class TextCleaningTests(unittest.TestCase):
         cleaned = clean_subdivision('PLANTATION WOODS SUBD PH VIII', ['Phase', 'Ph.?', 'PH'])
 
         self.assertEqual(cleaned, 'PLANTATION WOODS')
+
+    def test_fix_phase_typos_normalizes_ili_to_three(self):
+        self.assertEqual(fix_phase_typos('ILI'), '3')
 
 
 if __name__ == '__main__':

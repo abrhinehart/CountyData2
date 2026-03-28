@@ -37,6 +37,19 @@ def load_config() -> dict:
     return counties
 
 
+def apply_input_root(counties_config: dict, input_root: str | None) -> dict:
+    if not input_root:
+        return counties_config
+
+    root = Path(input_root)
+    updated = {}
+    for county, cfg in counties_config.items():
+        county_cfg = dict(cfg)
+        county_cfg['input_folder'] = str(root / county)
+        updated[county] = county_cfg
+    return updated
+
+
 def resolve_county_names(requested: list[str], counties_config: dict) -> tuple[dict, list[str]]:
     by_key = {normalize_county_key(name): name for name in counties_config}
     resolved = {}
@@ -100,7 +113,13 @@ def main():
         '--county', nargs='+', metavar='COUNTY',
         help=f'County/counties to process (default: all; quote names with spaces). Available: {", ".join(counties_config)}'
     )
+    parser.add_argument(
+        '--input-root',
+        help='Optional root folder containing one subfolder per county; overrides input_folder in counties.yaml',
+    )
     args = parser.parse_args()
+
+    counties_config = apply_input_root(counties_config, args.input_root)
 
     if args.county:
         to_run, unknown = resolve_county_names(args.county, counties_config)

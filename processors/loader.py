@@ -7,7 +7,7 @@ import psycopg2.extras
 _UPSERT_SQL = """
 INSERT INTO transactions (
     grantor, grantee, type, instrument, date,
-    legal_desc, legal_raw, subdivision, subdivision_id, phase,
+    legal_desc, legal_raw, deed_locator, subdivision, subdivision_id, phase,
     lots, price, parsed_data, county, builder_id,
     grantor_builder_id, grantee_builder_id,
     grantor_land_banker_id, grantee_land_banker_id,
@@ -15,7 +15,7 @@ INSERT INTO transactions (
 )
 VALUES (
     %(grantor)s, %(grantee)s, %(type)s, %(instrument)s, %(date)s,
-    %(legal_desc)s, %(legal_raw)s, %(subdivision)s, %(subdivision_id)s, %(phase)s,
+    %(legal_desc)s, %(legal_raw)s, %(deed_locator)s, %(subdivision)s, %(subdivision_id)s, %(phase)s,
     %(lots)s, %(price)s, %(parsed_data)s, %(county)s, %(builder_id)s,
     %(grantor_builder_id)s, %(grantee_builder_id)s,
     %(grantor_land_banker_id)s, %(grantee_land_banker_id)s,
@@ -26,6 +26,7 @@ DO UPDATE SET
     type                    = EXCLUDED.type,
     legal_desc              = EXCLUDED.legal_desc,
     legal_raw               = EXCLUDED.legal_raw,
+    deed_locator            = EXCLUDED.deed_locator,
     subdivision             = EXCLUDED.subdivision,
     subdivision_id          = EXCLUDED.subdivision_id,
     phase                   = EXCLUDED.phase,
@@ -40,14 +41,63 @@ DO UPDATE SET
     review_flag             = EXCLUDED.review_flag,
     source_file             = EXCLUDED.source_file,
     updated_at              = NOW()
-RETURNING (xmax = 0) AS inserted
+RETURNING id, (xmax = 0) AS inserted
+"""
+
+_DELETE_SEGMENTS_SQL = """
+DELETE FROM transaction_segments
+WHERE transaction_id = %s
+"""
+
+_INSERT_SEGMENTS_SQL = """
+INSERT INTO transaction_segments (
+    transaction_id, segment_index, county, subdivision_lookup_text,
+    raw_subdivision, subdivision, subdivision_id, phase_raw, phase,
+    phase_confirmed, segment_review_reasons, segment_data
+)
+VALUES %s
 """
 
 
 def _prepare_db_row(row: dict) -> dict:
     prepared = dict(row)
     prepared['parsed_data'] = psycopg2.extras.Json(prepared.get('parsed_data') or {})
+    prepared['deed_locator'] = psycopg2.extras.Json(prepared.get('deed_locator') or {})
     return prepared
+
+
+def _prepare_segment_rows(transaction_id: int, row: dict) -> list[tuple]:
+    segment_rows = []
+    for segment in row.get('transaction_segments') or []:
+        segment_rows.append((
+            transaction_id,
+            segment.get('segment_index'),
+            segment.get('county') or row.get('county'),
+            segment.get('subdivision_lookup_text'),
+            segment.get('raw_subdivision'),
+            segment.get('subdivision'),
+            segment.get('subdivision_id'),
+            segment.get('phase_raw'),
+            segment.get('phase'),
+            segment.get('phase_confirmed'),
+            list(segment.get('review_reasons') or []),
+            psycopg2.extras.Json(segment.get('segment_data') or {}),
+        ))
+    return segment_rows
+
+
+def _replace_transaction_segments(cur, transaction_id: int, row: dict) -> None:
+    cur.execute(_DELETE_SEGMENTS_SQL, (transaction_id,))
+    segment_rows = _prepare_segment_rows(transaction_id, row)
+    if not segment_rows:
+        return
+
+    psycopg2.extras.execute_values(
+        cur,
+        _INSERT_SEGMENTS_SQL,
+        segment_rows,
+        template="(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+    )
 
 
 def upsert_rows(rows: list[dict], source_file: Path, conn) -> tuple[int, int, int]:
@@ -63,7 +113,16 @@ def upsert_rows(rows: list[dict], source_file: Path, conn) -> tuple[int, int, in
             try:
                 cur.execute(_UPSERT_SQL, _prepare_db_row(row))
                 result = cur.fetchone()
-                if result and result[0]:
+                transaction_id = None
+                inserted_row = False
+                if result:
+                    transaction_id = result[0]
+                    inserted_row = bool(result[1])
+
+                if transaction_id is not None:
+                    _replace_transaction_segments(cur, transaction_id, row)
+
+                if inserted_row:
                     inserted += 1
                 else:
                     updated += 1

@@ -87,11 +87,71 @@ _SUBDIVISION_ALIASES = {
         'HIDDEN LAKE SUBDIVISION': 'HIDDEN LAKE',
     },
 }
+_IGNORED_SUBDIVISION_EXACT = {
+    'BAY': {
+        'CONFIDENTIAL',
+    },
+    'CITRUS': {
+        'REDACTION APPLIED PURSUANT TO FLORIDA PUBLIC RECORDS LAWS',
+    },
+    'OKALOOSA': {
+        'COUNTRY CLUB (CONDO)',
+        'CRESTVIEW',
+    },
+    'WALTON': {
+        'TO CORRECT',
+    },
+}
+_IGNORED_SUBDIVISION_PATTERNS = [
+    ('document_redaction', re.compile(r'^DOCUMENT HAS BEEN MODIFIED PER F\.S\.', re.IGNORECASE)),
+    ('redaction', re.compile(r'^REDACTION APPLIED\b', re.IGNORECASE)),
+    ('confidential', re.compile(r'^CONFIDENTIAL\b', re.IGNORECASE)),
+    ('parcel_reference', re.compile(r'^(?:MISC\s+)?PCLS?\b', re.IGNORECASE)),
+    ('parcel_reference', re.compile(r'^PCL\b', re.IGNORECASE)),
+    ('section_reference', re.compile(r'^SEC[:\s]', re.IGNORECASE)),
+    ('section_reference', re.compile(r'^S:\s*\d+\s+T:\s*\d+[NS]\s+R:\s*\d+[EW]$', re.IGNORECASE)),
+    ('section_reference', re.compile(r'^S\d+\s+T\d+[NS]\s+R\d+[EW]$', re.IGNORECASE)),
+    ('section_reference', re.compile(r'^[A-Z0-9/.-]+\s+SEC\s+\d{1,2}-\d[NS]-\d{1,2}[EW]$', re.IGNORECASE)),
+    ('section_reference', re.compile(r'^(?:NE|NW|SE|SW)/C\b', re.IGNORECASE)),
+    ('section_reference', re.compile(r'^[NSEW]1/4\b', re.IGNORECASE)),
+    ('easement', re.compile(r'^CONSERVATION EASEMENT\b', re.IGNORECASE)),
+    ('common_area', re.compile(r'^ALL ROADS\b', re.IGNORECASE)),
+    ('tract_reference', re.compile(r'^TRACT\s+[A-Z0-9-]+\b.*\bPLAT\b', re.IGNORECASE)),
+    ('tract_reference', re.compile(r'^IN\s+\d+-\d+-\d+(?:/O)?$', re.IGNORECASE)),
+    ('range_only', re.compile(r'^\d+[EW]$', re.IGNORECASE)),
+    ('range_only', re.compile(r'^\d+\s+\d+[EW]$', re.IGNORECASE)),
+    ('parcel_reference', re.compile(r'^R\d{10,}', re.IGNORECASE)),
+]
+
+_DEED_LOCATOR_COLUMN_MAP = {
+    'book_type': ['Book Type'],
+    'book': ['Book'],
+    'page': ['Page'],
+    'book_page': ['Book/Page'],
+    'instrument_number': ['Instrument #', 'Doc #'],
+    'clerk_file_number': ['Clerk File #'],
+    'cfn': ['CFN'],
+    'file_number': ['File No.'],
+    'reference': ['Reference'],
+    'case_number': ['Case #'],
+}
+_DEED_LINK_COLUMNS = ['DocLinks', 'DocLinks.1', 'Doc Link']
+_DEED_IMAGE_COLUMNS = ['Images']
 
 
 def _append_unique(items: list[str], value: str | None) -> None:
     if value and value not in items:
         items.append(value)
+
+
+def _clean_locator_value(value) -> str | None:
+    if value is None or pd.isna(value):
+        return None
+
+    text = str(value).strip()
+    if not text or text.lower() == 'nan':
+        return None
+    return text
 
 
 def _is_descriptor_connector(token: str) -> bool:
@@ -127,6 +187,25 @@ def _phase_keywords_without_unit(phase_keywords: list[str]) -> list[str]:
             continue
         filtered.append(keyword)
     return filtered
+
+
+def _ignored_subdivision_reason(county_key: str, subdivision: str | None) -> str | None:
+    if not subdivision:
+        return None
+
+    normalized = re.sub(r'\s+', ' ', str(subdivision)).strip(' ,;:.')
+    if not normalized:
+        return None
+
+    upper = normalized.upper()
+    if upper in _IGNORED_SUBDIVISION_EXACT.get(county_key, set()):
+        return 'exact_ignore'
+
+    for reason, pattern in _IGNORED_SUBDIVISION_PATTERNS:
+        if pattern.match(normalized):
+            return reason
+
+    return None
 
 
 def _derive_subdivision_from_legal_remarks(legal_remarks: str | None, phase_keywords: list[str]) -> tuple[str | None, bool]:
@@ -318,6 +397,8 @@ def _normalize_labeled_subdivision_candidates(
         normalized_raw = ' '.join(str(raw_subdivision).split())
         subdivision_clean = clean_subdivision(normalized_raw, phase_keywords) or normalized_raw
         subdivision_clean, alias_source, alias_details = _apply_subdivision_alias(county_key, subdivision_clean)
+        if _ignored_subdivision_reason(county_key, subdivision_clean):
+            continue
         phase = fix_phase_typos(extract_phase(normalized_raw, phase_keywords)) or None
         unit_value = line.get('unit')
         condo_value = line.get('condo')
@@ -400,6 +481,111 @@ def _apply_subdivision_alias(county_key: str, subdivision: str) -> tuple[str, st
     )
 
 
+def _normalize_phase_for_comparison(phase: str | None) -> str | None:
+    if not phase:
+        return None
+
+    normalized = fix_phase_typos(str(phase).strip()).upper()
+    word_number_map = {
+        'ONE': '1',
+        'TWO': '2',
+        'THREE': '3',
+        'FOUR': '4',
+        'FIVE': '5',
+        'SIX': '6',
+        'SEVEN': '7',
+        'EIGHT': '8',
+        'NINE': '9',
+        'TEN': '10',
+        'ELEVEN': '11',
+        'TWELVE': '12',
+    }
+    for word, number in word_number_map.items():
+        normalized = re.sub(rf'^{word}(?=-[A-Z]$)', number, normalized)
+    normalized = re.sub(r'\s*([/&-])\s*', r'\1', normalized)
+    normalized = re.sub(r'^([0-9]+[A-Z]?)/[O0]$', r'\1', normalized)
+    normalized = re.sub(r'^([0-9]+)-([A-Z])$', r'\1\2', normalized)
+    normalized = re.sub(r'\s+', ' ', normalized).strip()
+    return normalized or None
+
+
+def _coerce_phase_to_known(phase: str | None, known_phases: list[str] | None) -> tuple[str | None, bool]:
+    normalized_phase = _normalize_phase_for_comparison(phase)
+    if not normalized_phase or not known_phases:
+        return phase, False
+
+    for candidate in known_phases:
+        normalized_candidate = _normalize_phase_for_comparison(candidate)
+        if normalized_candidate == normalized_phase:
+            return candidate, True
+
+    return phase, False
+
+
+def _build_transaction_segments(normalized_candidates: list[dict], county: str,
+                                phase_keywords: list[str], sub_matcher,
+                                parent_match: dict | None = None) -> list[dict]:
+    segments = []
+
+    for segment_index, candidate in enumerate(normalized_candidates):
+        lookup_text = candidate.get('subdivision') or candidate.get('raw')
+        raw_subdivision = candidate.get('raw')
+        normalized_subdivision = candidate.get('subdivision')
+        phase_raw = candidate.get('phase')
+
+        subdivision_id = None
+        canonical_subdivision = normalized_subdivision
+        known_phases = []
+
+        if (
+            parent_match
+            and len(normalized_candidates) == 1
+            and parent_match.get('subdivision_id') is not None
+        ):
+            subdivision_id = parent_match.get('subdivision_id')
+            canonical_subdivision = parent_match.get('subdivision') or normalized_subdivision
+            known_phases = list(parent_match.get('known_phases') or [])
+        elif sub_matcher and lookup_text:
+            match_result = sub_matcher.match(lookup_text, county, phase_keywords)
+            if isinstance(match_result, tuple) and len(match_result) == 4:
+                subdivision_id, canonical_subdivision, _matched_phase, known_phases = match_result
+            else:
+                subdivision_id, canonical_subdivision, _matched_phase = match_result
+                known_phases = []
+
+        phase = phase_raw
+        phase_confirmed = None
+        review_reasons = []
+
+        if subdivision_id is None:
+            review_reasons.append('subdivision_unmatched')
+        elif phase_raw:
+            phase, phase_confirmed = _coerce_phase_to_known(phase_raw, known_phases)
+            if not phase_confirmed:
+                review_reasons.append('phase_not_confirmed_by_lookup')
+
+        segments.append({
+            'segment_index': segment_index,
+            'county': county,
+            'subdivision_lookup_text': lookup_text,
+            'raw_subdivision': raw_subdivision,
+            'subdivision': canonical_subdivision or normalized_subdivision,
+            'subdivision_id': subdivision_id,
+            'phase_raw': phase_raw,
+            'phase': phase,
+            'phase_confirmed': phase_confirmed,
+            'review_reasons': review_reasons,
+            'segment_data': {
+                'raw': raw_subdivision,
+                'subdivision_clean': candidate.get('subdivision_clean'),
+                'details': dict(candidate.get('details') or {}),
+                'known_phases': list(known_phases or []),
+            },
+        })
+
+    return segments
+
+
 def _normalize_freeform_subdivision_candidates(
     county_key: str,
     freeform_segments: list[dict],
@@ -418,6 +604,8 @@ def _normalize_freeform_subdivision_candidates(
         normalized_subdivision = segment.get('subdivision') or normalized_raw
         subdivision_clean = clean_subdivision(normalized_subdivision, subdivision_phase_keywords) or normalized_subdivision
         subdivision_clean, alias_source, alias_details = _apply_subdivision_alias(county_key, subdivision_clean)
+        if _ignored_subdivision_reason(county_key, subdivision_clean):
+            continue
         phase = fix_phase_typos(extract_phase(normalized_raw, subdivision_phase_keywords)) or None
 
         key = (
@@ -495,6 +683,60 @@ def _resolve_party(raw, delimiters, builder_matcher, land_banker_matcher):
     return display_name, builder_id, land_banker_id, parties
 
 
+def _build_deed_locator(row: pd.Series) -> dict:
+    locator = {}
+    raw_fields = {}
+
+    for target_key, column_names in _DEED_LOCATOR_COLUMN_MAP.items():
+        for column_name in column_names:
+            if column_name not in row:
+                continue
+
+            value = _clean_locator_value(row.get(column_name))
+            if not value:
+                continue
+
+            raw_fields[column_name] = value
+            locator.setdefault(target_key, value)
+
+    doc_links = []
+    for column_name in _DEED_LINK_COLUMNS:
+        if column_name not in row:
+            continue
+        value = _clean_locator_value(row.get(column_name))
+        if value:
+            raw_fields[column_name] = value
+            _append_unique(doc_links, value)
+    if doc_links:
+        locator['doc_links'] = doc_links
+        locator['doc_link'] = doc_links[0]
+
+    image_links = []
+    for column_name in _DEED_IMAGE_COLUMNS:
+        if column_name not in row:
+            continue
+        value = _clean_locator_value(row.get(column_name))
+        if value:
+            raw_fields[column_name] = value
+            _append_unique(image_links, value)
+    if image_links:
+        locator['image_links'] = image_links
+        locator['image_link'] = image_links[0]
+
+    book_page = locator.get('book_page')
+    if book_page and (not locator.get('book') or not locator.get('page')):
+        parts = re.split(r'\s*/\s*', book_page, maxsplit=1)
+        if len(parts) == 2:
+            locator.setdefault('book', parts[0].strip() or None)
+            locator.setdefault('page', parts[1].strip() or None)
+
+    if raw_fields:
+        locator['raw_fields'] = raw_fields
+
+    locator = {key: value for key, value in locator.items() if value not in (None, '', [], {})}
+    return locator
+
+
 def _prepare_party_text(raw, county_key: str, role: str, delimiters: list[str]) -> str:
     if pd.isna(raw) or raw is None:
         return ''
@@ -527,6 +769,9 @@ def transform_row(row: pd.Series, county: str, config: dict,
     county_parse = {}
     preparsed_subdivision = None
     subdivision_lookup_text = None
+    normalized_candidates = []
+    transaction_segments = []
+    deed_locator = _build_deed_locator(row)
     force_review_flag = False
     review_reasons = []
     swap_reason = None
@@ -658,7 +903,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
 
         if len(normalized_candidates) == 1:
             preparsed_subdivision = normalized_candidates[0]['subdivision']
-            subdivision_lookup_text = normalized_candidates[0]['raw']
+            subdivision_lookup_text = normalized_candidates[0]['subdivision']
         elif len(normalized_subdivision_values) == 1:
             preparsed_subdivision = normalized_subdivision_values[0]
             subdivision_lookup_text = normalized_subdivision_values[0]
@@ -889,39 +1134,57 @@ def transform_row(row: pd.Series, county: str, config: dict,
     subdivision_id = None
     subdivision = None
     phase = None
+    known_phases = []
+    ignored_subdivision_reason = None
 
     if sub_matcher and subdivision_lookup_text:
-        subdivision_id, subdivision, phase = sub_matcher.match(
+        match_result = sub_matcher.match(
             subdivision_lookup_text, county, phase_keywords
         )
+        if isinstance(match_result, tuple) and len(match_result) == 4:
+            subdivision_id, subdivision, phase, known_phases = match_result
+        else:
+            subdivision_id, subdivision, phase = match_result
 
     if subdivision_id is not None:
+        phase, phase_is_known = _coerce_phase_to_known(phase, known_phases)
         if phase is None and len(phase_candidate_values) == 1:
             phase = phase_candidate_values[0]
-            if phase:
+            phase, phase_is_known = _coerce_phase_to_known(phase, known_phases)
+            if phase and not phase_is_known:
                 review_flag = True
                 review_reasons.append('phase_not_confirmed_by_lookup')
         elif phase is None:
             phase = fix_phase_typos(extract_phase(subdivision_lookup_text, subdivision_phase_keywords))
-            if phase:
+            phase, phase_is_known = _coerce_phase_to_known(phase, known_phases)
+            if phase and not phase_is_known:
                 review_flag = True
                 review_reasons.append('phase_not_confirmed_by_lookup')
     else:
-        review_flag = True
-        review_reasons.append('subdivision_unmatched')
         fallback_text = preparsed_subdivision or subdivision_lookup_text
-        if len(phase_candidate_values) == 1:
-            phase = phase_candidate_values[0]
-        elif len(phase_candidate_values) > 1:
+        if 'multiple_subdivision_candidates' in review_reasons:
+            subdivision = None
+            phase = None
+        elif not fallback_text:
+            subdivision = None
             phase = None
         else:
-            phase = fix_phase_typos(extract_phase(fallback_text, subdivision_phase_keywords))
-        subdivision = clean_subdivision(fallback_text, subdivision_phase_keywords)
+            ignored_subdivision_reason = _ignored_subdivision_reason(county_key, fallback_text)
+        if fallback_text and not ignored_subdivision_reason and 'multiple_subdivision_candidates' not in review_reasons:
+            review_flag = True
+            review_reasons.append('subdivision_unmatched')
+            if len(phase_candidate_values) == 1:
+                phase = phase_candidate_values[0]
+            elif len(phase_candidate_values) > 1:
+                phase = None
+            else:
+                phase = fix_phase_typos(extract_phase(fallback_text, subdivision_phase_keywords))
+            subdivision = clean_subdivision(fallback_text, subdivision_phase_keywords)
 
-        if county_key in {'SANTAROSA', 'CITRUS'}:
-            subdivision = remove_santarosa_unit(subdivision)
+            if county_key in {'SANTAROSA', 'CITRUS'}:
+                subdivision = remove_santarosa_unit(subdivision)
 
-        subdivision = subdivision.strip() if subdivision else None
+            subdivision = subdivision.strip() if subdivision else None
 
     if force_review_flag:
         review_flag = True
@@ -929,6 +1192,21 @@ def transform_row(row: pd.Series, county: str, config: dict,
     if len(phase_candidate_values) > 1 and 'multiple_phase_candidates' not in review_reasons:
         review_flag = True
         review_reasons.append('multiple_phase_candidates')
+
+    parent_match = {
+        'subdivision_id': subdivision_id,
+        'subdivision': subdivision,
+        'phase': phase,
+        'known_phases': known_phases,
+    }
+    if normalized_candidates:
+        transaction_segments = _build_transaction_segments(
+            normalized_candidates,
+            county,
+            phase_keywords,
+            sub_matcher,
+            parent_match=parent_match,
+        )
 
     instrument = str(row.get(cols.get('instrument', ''), '')).strip()
     date = parse_date(row.get(cols.get('date', ''), pd.NA))
@@ -959,8 +1237,10 @@ def transform_row(row: pd.Series, county: str, config: dict,
         },
         'subdivision_lookup_text': subdivision_lookup_text or None,
         'preparsed_subdivision': preparsed_subdivision,
+        'ignored_subdivision_reason': ignored_subdivision_reason,
         'phase_candidate_values': phase_candidate_values,
         'review_reasons': review_reasons,
+        'transaction_segments': transaction_segments,
         'county_parse': county_parse,
     }
 
@@ -979,12 +1259,14 @@ def transform_row(row: pd.Series, county: str, config: dict,
         'date':                    date,
         'legal_desc':              legal_desc,
         'legal_raw':               legal_raw,
+        'deed_locator':            deed_locator,
         'subdivision':             subdivision or None,
         'subdivision_id':          subdivision_id,
         'phase':                   phase or None,
         'lots':                    lots,
         'price':                   price,
         'parsed_data':             parsed_data,
+        'transaction_segments':    transaction_segments,
         'county':                  county,
         'builder_id':              builder_id,
         'grantor_builder_id':      grantor_builder_id,
