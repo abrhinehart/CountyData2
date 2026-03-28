@@ -75,7 +75,7 @@ The `schema.sql` file is automatically applied on first start. PostGIS is enable
 ### 4. Install Python dependencies
 
 ```bash
-pip install pandas openpyxl pyyaml xlrd psycopg2-binary python-dotenv
+pip install pandas openpyxl pyyaml xlrd psycopg2-binary python-dotenv selenium webdriver-manager
 ```
 
 ---
@@ -131,6 +131,49 @@ python export.py --county Bay --out "Z:/Reports/bay_export.xlsx"
 ```
 
 Output is a styled Excel file (frozen header, bold headers, column widths, date/number formats).
+
+### Export the review queue
+
+```bash
+# All flagged rows
+python review_export.py
+
+# Only Marion review rows
+python review_export.py --county Marion
+
+# Only specific review reasons
+python review_export.py --reason subdivision_unmatched
+python review_export.py --reason subdivision_unmatched --reason phase_not_confirmed_by_lookup
+```
+
+`review_export.py` writes a workbook with a summary sheet and a detailed review sheet, including review reasons, lookup text, normalized subdivision candidates, and structured parsed-data context for triage.
+
+### Export the deed / price queue
+
+```bash
+# Missing-price builder purchases
+python deed_queue_export.py
+
+# Single county
+python deed_queue_export.py --county Hernando
+
+# Different transaction type
+python deed_queue_export.py --type "House Sale"
+```
+
+`deed_queue_export.py` writes a workbook of missing-price transactions with deed locator fields, a recommended search key, and county portal URLs where configured. This is meant to support manual deed review now and later automation of price extraction.
+
+### Extract Bay prices
+
+```bash
+# Dry run Bay builder-purchase price extraction
+python bay_price_extract.py --limit 5
+
+# Apply matched Bay prices back to the DB
+python bay_price_extract.py --apply
+```
+
+`bay_price_extract.py` uses a visible Chrome session to search Bay County Official Records by clerk file number, open the matched document detail view, extract `Consideration`, and optionally write the price back to the database. Bay currently requires a real browser session; headless mode is not reliable against the county site's captcha flow.
 
 ### Query directly with SQL
 
