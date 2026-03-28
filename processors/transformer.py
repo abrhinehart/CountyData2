@@ -7,10 +7,15 @@ from processors.county_parsers import (
     parse_citrus_row,
     parse_escambia_row,
     parse_hernando_row,
+    parse_marion_row,
+    parse_okaloosa_row,
+    parse_okeechobee_row,
+    parse_santarosa_row,
     parse_walton_row,
 )
 from utils.county_utils import normalize_county_key
 from utils.date_utils import parse_date
+from utils.subdivision_reference import resolve_county_subdivision_reference
 from utils.text_cleaning import (
     split_parties,
     before_first_delimiter,
@@ -21,8 +26,6 @@ from utils.text_cleaning import (
     fix_phase_typos,
     remove_after_parcel,
     remove_after_section,
-    remove_leading_parcel_id,
-    remove_unrec,
 )
 from utils.transaction_utils import classify_transaction_type
 
@@ -71,6 +74,18 @@ _SUBDIVISION_ALIASES = {
         'SANTUARY': 'SANCTUARY',
         'RESIDENCE AT NATURE CREEK': 'RESIDENCES AT NATURE CREEK',
     },
+    'OKEECHOBEE': {
+        'BASSWOOD INC': 'BASSWOOD',
+        'PALM CREEK ESTATES': 'PALMCREEK ESTATES',
+        'PALMCREEEK ESTATES': 'PALMCREEK ESTATES',
+        'PALMCREEK ESATES': 'PALMCREEK ESTATES',
+    },
+    'OKALOOSA': {
+        'ASHTON VIEW SUBDIVISION': 'ASHTON VIEW',
+        'YOUNG OAKS SUBDIVISION': 'YOUNG OAKS',
+        'DAYS LANDING SUBDIVISION': 'DAYS LANDING',
+        'HIDDEN LAKE SUBDIVISION': 'HIDDEN LAKE',
+    },
 }
 
 
@@ -112,6 +127,32 @@ def _phase_keywords_without_unit(phase_keywords: list[str]) -> list[str]:
             continue
         filtered.append(keyword)
     return filtered
+
+
+def _derive_subdivision_from_legal_remarks(legal_remarks: str | None, phase_keywords: list[str]) -> tuple[str | None, bool]:
+    if not legal_remarks:
+        return (None, False)
+
+    stripped = re.sub(r'(?i)^UNREC(?:ORDED)?\.?\s*', '', str(legal_remarks)).strip(' ,;:')
+    if not stripped:
+        return (None, False)
+
+    cleaned = clean_subdivision(stripped, phase_keywords).strip(' ,;:') if stripped else ''
+    candidate = cleaned or stripped
+    upper = candidate.upper()
+    if (
+        len(candidate.split()) < 2
+        or upper.startswith(('COMM ', 'COM ', 'BEG ', 'BEGIN ', 'NORTH ', 'SOUTH ', 'EAST ', 'WEST ', 'PARCEL '))
+        or ('COUNTY PROPERTY' in upper)
+    ):
+        return (None, False)
+
+    has_plat_detail = bool(re.search(r'(?i)\b(?:LOTS?|BLK|BLOCK|UNIT)\b', stripped))
+    has_named_place = bool(re.search(r'(?i)\b(?:ADDITION|SUBDIVISION)\b', candidate))
+    if not has_plat_detail and not has_named_place:
+        return (None, False)
+
+    return (candidate, bool(re.match(r'(?i)^UNREC(?:ORDED)?\.?', str(legal_remarks).strip())))
 
 
 def _extract_hernando_subdivision_unit(text: str) -> tuple[str | None, str | None]:
@@ -265,12 +306,18 @@ def _normalize_labeled_subdivision_candidates(
 
     for line in legal_lines:
         raw_subdivision = line.get('subdivision')
+        remarks_unrecorded = False
+        if not raw_subdivision:
+            raw_subdivision, remarks_unrecorded = _derive_subdivision_from_legal_remarks(
+                line.get('legal_remarks'),
+                phase_keywords,
+            )
         if not raw_subdivision:
             continue
 
         normalized_raw = ' '.join(str(raw_subdivision).split())
         subdivision_clean = clean_subdivision(normalized_raw, phase_keywords) or normalized_raw
-        subdivision_clean, alias_source = _apply_subdivision_alias(county_key, subdivision_clean)
+        subdivision_clean, alias_source, alias_details = _apply_subdivision_alias(county_key, subdivision_clean)
         phase = fix_phase_typos(extract_phase(normalized_raw, phase_keywords)) or None
         unit_value = line.get('unit')
         condo_value = line.get('condo')
@@ -280,6 +327,8 @@ def _normalize_labeled_subdivision_candidates(
             phase or '',
             unit_value or '',
             condo_value or '',
+            tuple(alias_details.get('prefix_tokens', [])),
+            tuple(alias_details.get('suffix_tokens', [])),
         )
         if key in seen:
             continue
@@ -289,9 +338,22 @@ def _normalize_labeled_subdivision_candidates(
             'subdivision': subdivision_clean,
             'phase': phase,
             'details': {
+                'lot': line.get('lot'),
+                'block': line.get('block'),
                 'unit': unit_value,
                 'condo': condo_value,
+                'section': line.get('section'),
+                'township': line.get('township'),
+                'range': line.get('range'),
+                'parcel_reference': line.get('parcel'),
+                'legal_remarks': line.get('legal_remarks'),
+                'quarter_section': line.get('quarter_section'),
+                'location_prefix': line.get('location_prefix'),
+                'remarks_unrecorded': remarks_unrecorded,
                 'alias_source': alias_source,
+                'reference_match_type': alias_details.get('match_type'),
+                'subdivision_prefix_tokens': list(alias_details.get('prefix_tokens', [])),
+                'subdivision_suffix_tokens': list(alias_details.get('suffix_tokens', [])),
                 'line_index': line.get('line_index'),
             },
         })
@@ -299,12 +361,43 @@ def _normalize_labeled_subdivision_candidates(
     return candidates
 
 
-def _apply_subdivision_alias(county_key: str, subdivision: str) -> tuple[str, str | None]:
+def _apply_subdivision_alias(county_key: str, subdivision: str) -> tuple[str, str | None, dict]:
+    reference_match = resolve_county_subdivision_reference(county_key, subdivision)
+    if reference_match:
+        alias_source = None
+        if reference_match['canonical_name'].upper() != subdivision.upper():
+            alias_source = subdivision
+        return (
+            reference_match['canonical_name'],
+            alias_source,
+            {
+                'match_type': reference_match['match_type'],
+                'prefix_tokens': list(reference_match.get('prefix_tokens', [])),
+                'suffix_tokens': list(reference_match.get('suffix_tokens', [])),
+            },
+        )
+
     alias_map = _SUBDIVISION_ALIASES.get(county_key, {})
     alias = alias_map.get(subdivision.upper())
     if alias:
-        return (alias, subdivision)
-    return (subdivision, None)
+        return (
+            alias,
+            subdivision,
+            {
+                'match_type': 'hardcoded_alias',
+                'prefix_tokens': [],
+                'suffix_tokens': [],
+            },
+        )
+    return (
+        subdivision,
+        None,
+        {
+            'match_type': None,
+            'prefix_tokens': [],
+            'suffix_tokens': [],
+        },
+    )
 
 
 def _normalize_freeform_subdivision_candidates(
@@ -324,7 +417,7 @@ def _normalize_freeform_subdivision_candidates(
         normalized_raw = ' '.join(str(raw_subdivision).split())
         normalized_subdivision = segment.get('subdivision') or normalized_raw
         subdivision_clean = clean_subdivision(normalized_subdivision, subdivision_phase_keywords) or normalized_subdivision
-        subdivision_clean, alias_source = _apply_subdivision_alias(county_key, subdivision_clean)
+        subdivision_clean, alias_source, alias_details = _apply_subdivision_alias(county_key, subdivision_clean)
         phase = fix_phase_typos(extract_phase(normalized_raw, subdivision_phase_keywords)) or None
 
         key = (
@@ -335,6 +428,8 @@ def _normalize_freeform_subdivision_candidates(
             segment.get('unit') or '',
             segment.get('building') or '',
             segment.get('storage_locker') or '',
+            tuple(alias_details.get('prefix_tokens', [])),
+            tuple(alias_details.get('suffix_tokens', [])),
         )
         if key in seen:
             continue
@@ -345,6 +440,7 @@ def _normalize_freeform_subdivision_candidates(
             'phase': phase,
             'details': {
                 'lot': segment.get('lot'),
+                'partial_lot_values': segment.get('partial_lot_values', []),
                 'block': segment.get('block'),
                 'unit': segment.get('unit'),
                 'building': segment.get('building'),
@@ -352,7 +448,19 @@ def _normalize_freeform_subdivision_candidates(
                 'condo': segment.get('condo'),
                 'misc_lots': segment.get('misc_lots'),
                 'parcel_references': segment.get('parcel_references', []),
+                'parcel_designators': segment.get('parcel_designators', []),
+                'section': segment.get('section'),
+                'township': segment.get('township'),
+                'range': segment.get('range'),
+                'tract': segment.get('tract'),
+                'common_area_code': segment.get('common_area_code'),
+                'subdivision_partial': segment.get('subdivision_partial', False),
+                'subdivision_flags': segment.get('subdivision_flags', []),
+                'no_phase_value': segment.get('no_phase_value'),
                 'alias_source': alias_source,
+                'reference_match_type': alias_details.get('match_type'),
+                'subdivision_prefix_tokens': list(alias_details.get('prefix_tokens', [])),
+                'subdivision_suffix_tokens': list(alias_details.get('suffix_tokens', [])),
                 'line_index': segment.get('line_index'),
             },
         })
@@ -426,7 +534,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
     phase_keywords = config.get('phase_keywords', [])
     subdivision_phase_keywords = (
         _phase_keywords_without_unit(phase_keywords)
-        if county_key in {'BAY', 'WALTON'}
+        if county_key in {'BAY', 'WALTON', 'OKEECHOBEE', 'MARION', 'SANTAROSA'}
         else phase_keywords
     )
 
@@ -487,6 +595,9 @@ def transform_row(row: pd.Series, county: str, config: dict,
     elif county_key == 'BAY':
         county_parse = parse_bay_row(row, cols)
         legal = county_parse['legal']
+    elif county_key == 'MARION':
+        county_parse = parse_marion_row(row, cols)
+        legal = county_parse['legal']
     elif county_key == 'HERNANDO':
         county_parse = parse_hernando_row(row, cols)
         legal = county_parse['legal']
@@ -496,13 +607,15 @@ def transform_row(row: pd.Series, county: str, config: dict,
     elif county_key == 'ESCAMBIA':
         county_parse = parse_escambia_row(row, cols)
         legal = county_parse['legal']
-    elif county_key == 'OKEECHOBEE':
-        legal = remove_leading_parcel_id(legal)
-    elif county_key == 'SANTAROSA':
-        legal = remove_unrec(legal)
     elif county_key == 'OKALOOSA':
-        legal = remove_after_parcel(legal)
-        legal = remove_after_section(legal)
+        county_parse = parse_okaloosa_row(row, cols)
+        legal = county_parse['legal']
+    elif county_key == 'OKEECHOBEE':
+        county_parse = parse_okeechobee_row(row, cols)
+        legal = county_parse['legal']
+    elif county_key == 'SANTAROSA':
+        county_parse = parse_santarosa_row(row, cols)
+        legal = county_parse['legal']
 
     legal_raw = legal or None
     legal_desc = legal or None
@@ -559,26 +672,74 @@ def transform_row(row: pd.Series, county: str, config: dict,
             review_reasons.append('multiple_subdivision_candidates')
         else:
             subdivision_lookup_text = legal
-    elif county_key in {'CITRUS', 'ESCAMBIA'}:
+    elif county_key in {'CITRUS', 'ESCAMBIA', 'OKALOOSA'}:
         normalized_candidates = _normalize_labeled_subdivision_candidates(
             county_key,
             county_parse.get('labeled_lines', []),
             phase_keywords,
         )
         normalized_subdivision_values = []
+        structured_lot_values = []
+        structured_block_values = []
         structured_unit_values = []
         structured_condo_values = []
+        structured_section_values = []
+        structured_township_values = []
+        structured_range_values = []
+        structured_parcel_references = []
+        legal_remarks_values = []
+        quarter_section_values = []
+        location_prefix_values = []
         for candidate in normalized_candidates:
             _append_unique(normalized_subdivision_values, candidate['subdivision'])
             _append_unique(phase_candidate_values, candidate['phase'])
+            _append_unique(structured_lot_values, candidate['details'].get('lot'))
+            _append_unique(structured_block_values, candidate['details'].get('block'))
             _append_unique(structured_unit_values, candidate['details'].get('unit'))
             _append_unique(structured_condo_values, candidate['details'].get('condo'))
+            _append_unique(structured_section_values, candidate['details'].get('section'))
+            _append_unique(structured_township_values, candidate['details'].get('township'))
+            _append_unique(structured_range_values, candidate['details'].get('range'))
+            _append_unique(structured_parcel_references, candidate['details'].get('parcel_reference'))
+            _append_unique(legal_remarks_values, candidate['details'].get('legal_remarks'))
+            _append_unique(quarter_section_values, candidate['details'].get('quarter_section'))
+            _append_unique(location_prefix_values, candidate['details'].get('location_prefix'))
+
+        for structured_parcel_reference in county_parse.get('parcel_references', []):
+            _append_unique(structured_parcel_references, structured_parcel_reference)
+        for legal_remarks_value in county_parse.get('legal_remarks_values', []):
+            _append_unique(legal_remarks_values, legal_remarks_value)
+        for quarter_section_value in county_parse.get('quarter_section_values', []):
+            _append_unique(quarter_section_values, quarter_section_value)
+        for location_prefix_value in county_parse.get('location_prefix_values', []):
+            _append_unique(location_prefix_values, location_prefix_value)
+        for structured_section_value in county_parse.get('section_values', []):
+            _append_unique(structured_section_values, structured_section_value)
+        for structured_township_value in county_parse.get('township_values', []):
+            _append_unique(structured_township_values, structured_township_value)
+        for structured_range_value in county_parse.get('range_values', []):
+            _append_unique(structured_range_values, structured_range_value)
+        for structured_lot_value in county_parse.get('lot_values', []):
+            _append_unique(structured_lot_values, structured_lot_value)
+        for structured_block_value in county_parse.get('block_values', []):
+            _append_unique(structured_block_values, structured_block_value)
+        for structured_unit_value in county_parse.get('unit_values', []):
+            _append_unique(structured_unit_values, structured_unit_value)
 
         county_parse['normalized_subdivision_candidates'] = normalized_candidates
         county_parse['normalized_subdivision_values'] = normalized_subdivision_values
         county_parse['phase_values'] = phase_candidate_values
+        county_parse['structured_lot_values'] = structured_lot_values
+        county_parse['structured_block_values'] = structured_block_values
         county_parse['structured_unit_values'] = structured_unit_values
         county_parse['structured_condo_values'] = structured_condo_values
+        county_parse['structured_section_values'] = structured_section_values
+        county_parse['structured_township_values'] = structured_township_values
+        county_parse['structured_range_values'] = structured_range_values
+        county_parse['structured_parcel_references'] = structured_parcel_references
+        county_parse['legal_remarks_values'] = legal_remarks_values
+        county_parse['quarter_section_values'] = quarter_section_values
+        county_parse['location_prefix_values'] = location_prefix_values
 
         if len(normalized_candidates) == 1:
             preparsed_subdivision = normalized_candidates[0]['subdivision']
@@ -595,8 +756,8 @@ def transform_row(row: pd.Series, county: str, config: dict,
             force_review_flag = True
             review_reasons.append('multiple_subdivision_candidates')
         else:
-            subdivision_lookup_text = legal
-    elif county_key in {'BAY', 'WALTON'}:
+            subdivision_lookup_text = '' if county_key == 'OKALOOSA' else legal
+    elif county_key in {'BAY', 'WALTON', 'OKEECHOBEE', 'MARION', 'SANTAROSA'}:
         normalized_candidates = _normalize_freeform_subdivision_candidates(
             county_key,
             county_parse.get('freeform_segments', []),
@@ -609,6 +770,18 @@ def transform_row(row: pd.Series, county: str, config: dict,
         structured_storage_locker_values = []
         condo_flags = []
         parcel_references = []
+        partial_lot_values = []
+        partial_lot_identifiers = []
+        section_values = []
+        township_values = []
+        range_values = []
+        tract_values = []
+        common_area_codes = []
+        parcel_designators = []
+        subdivision_prefix_values = []
+        subdivision_suffix_values = []
+        subdivision_flags = []
+        no_phase_values = []
         for candidate in normalized_candidates:
             _append_unique(normalized_subdivision_values, candidate['subdivision'])
             _append_unique(phase_candidate_values, candidate['phase'])
@@ -616,10 +789,55 @@ def transform_row(row: pd.Series, county: str, config: dict,
             _append_unique(structured_unit_values, candidate['details'].get('unit'))
             _append_unique(structured_building_values, candidate['details'].get('building'))
             _append_unique(structured_storage_locker_values, candidate['details'].get('storage_locker'))
+            _append_unique(tract_values, candidate['details'].get('tract'))
+            _append_unique(common_area_codes, candidate['details'].get('common_area_code'))
             if candidate['details'].get('condo'):
                 _append_unique(condo_flags, 'condo')
             for parcel_reference in candidate['details'].get('parcel_references', []):
                 _append_unique(parcel_references, parcel_reference)
+            for parcel_designator in candidate['details'].get('parcel_designators', []):
+                _append_unique(parcel_designators, parcel_designator)
+            for partial_lot_value in candidate['details'].get('partial_lot_values', []):
+                _append_unique(partial_lot_values, partial_lot_value)
+            _append_unique(section_values, candidate['details'].get('section'))
+            _append_unique(township_values, candidate['details'].get('township'))
+            _append_unique(range_values, candidate['details'].get('range'))
+            if candidate['details'].get('subdivision_partial'):
+                _append_unique(subdivision_flags, 'partial_subdivision')
+            for prefix_token in candidate['details'].get('subdivision_prefix_tokens', []):
+                _append_unique(subdivision_prefix_values, prefix_token)
+            for suffix_token in candidate['details'].get('subdivision_suffix_tokens', []):
+                _append_unique(subdivision_suffix_values, suffix_token)
+            for subdivision_flag in candidate['details'].get('subdivision_flags', []):
+                _append_unique(subdivision_flags, subdivision_flag)
+            _append_unique(no_phase_values, candidate['details'].get('no_phase_value'))
+
+        for parcel_reference in county_parse.get('parcel_references', []):
+            _append_unique(parcel_references, parcel_reference)
+        for block_value in county_parse.get('block_values', []):
+            _append_unique(structured_block_values, block_value)
+        for unit_value in county_parse.get('unit_values', []):
+            _append_unique(structured_unit_values, unit_value)
+        for section_value in county_parse.get('section_values', []):
+            _append_unique(section_values, section_value)
+        for township_value in county_parse.get('township_values', []):
+            _append_unique(township_values, township_value)
+        for range_value in county_parse.get('range_values', []):
+            _append_unique(range_values, range_value)
+        for tract_value in county_parse.get('tract_values', []):
+            _append_unique(tract_values, tract_value)
+        for common_area_code in county_parse.get('common_area_codes', []):
+            _append_unique(common_area_codes, common_area_code)
+        for parcel_designator in county_parse.get('parcel_designators', []):
+            _append_unique(parcel_designators, parcel_designator)
+        for partial_lot_value in county_parse.get('partial_lot_values', []):
+            _append_unique(partial_lot_values, partial_lot_value)
+        for partial_lot_identifier in county_parse.get('partial_lot_identifiers', []):
+            _append_unique(partial_lot_identifiers, partial_lot_identifier)
+        for subdivision_flag in county_parse.get('subdivision_flags', []):
+            _append_unique(subdivision_flags, subdivision_flag)
+        for no_phase_value in county_parse.get('no_phase_values', []):
+            _append_unique(no_phase_values, no_phase_value)
 
         county_parse['normalized_subdivision_candidates'] = normalized_candidates
         county_parse['normalized_subdivision_values'] = normalized_subdivision_values
@@ -630,6 +848,22 @@ def transform_row(row: pd.Series, county: str, config: dict,
         county_parse['structured_storage_locker_values'] = structured_storage_locker_values
         county_parse['condo_flags'] = condo_flags
         county_parse['structured_parcel_references'] = parcel_references
+        county_parse['structured_partial_lot_values'] = partial_lot_values
+        county_parse['structured_partial_lot_identifiers'] = partial_lot_identifiers
+        county_parse['structured_section_values'] = section_values
+        county_parse['structured_township_values'] = township_values
+        county_parse['structured_range_values'] = range_values
+        county_parse['tract_values'] = tract_values
+        county_parse['common_area_codes'] = common_area_codes
+        county_parse['parcel_designators'] = parcel_designators
+        county_parse['subdivision_prefix_values'] = subdivision_prefix_values
+        county_parse['subdivision_suffix_values'] = subdivision_suffix_values
+        county_parse['subdivision_flags'] = subdivision_flags
+        county_parse['no_phase_values'] = no_phase_values
+
+        if county_key == 'SANTAROSA' and county_parse.get('unparsed_lines'):
+            force_review_flag = True
+            review_reasons.append('santarosa_unparsed_lines')
 
         if len(normalized_candidates) == 1:
             preparsed_subdivision = normalized_candidates[0]['subdivision']
@@ -646,7 +880,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             force_review_flag = True
             review_reasons.append('multiple_subdivision_candidates')
         else:
-            subdivision_lookup_text = legal
+            subdivision_lookup_text = '' if county_key in {'OKEECHOBEE', 'SANTAROSA'} else legal
     else:
         subdivision_lookup_text = legal
 

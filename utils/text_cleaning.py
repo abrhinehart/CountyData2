@@ -36,6 +36,36 @@ def _build_phase_regex(phase_keywords: list[str]) -> re.Pattern | None:
     )
 
 
+def _collapse_repeated_phase_keywords(text: str, phase_keywords: list[str]) -> str:
+    patterns = _phase_keyword_patterns(phase_keywords)
+    if not patterns:
+        return text
+
+    keyword_pattern = '|'.join(patterns)
+    return re.sub(
+        rf'(?:(?:{keyword_pattern})\b\s*){{2,}}',
+        'PHASE ',
+        text,
+        flags=re.IGNORECASE,
+    )
+
+
+def _normalize_compact_phase_keywords(text: str, phase_keywords: list[str]) -> str:
+    letters_only = {
+        re.sub(r'[^A-Z]', '', str(keyword).upper())
+        for keyword in phase_keywords
+        if keyword and str(keyword).strip()
+    }
+    if not letters_only.intersection({'PHASE', 'PHS', 'PH'}):
+        return text
+
+    return re.sub(
+        r'(?i)\b(?P<keyword>PHASES?|PHS?|PH)(?P<phase>[0-9IVX])',
+        r'\g<keyword> \g<phase>',
+        text,
+    )
+
+
 def _normalize_phase_value(phase: str) -> str:
     cleaned = re.sub(r'\bAND\b', '&', phase, flags=re.IGNORECASE)
     cleaned = re.sub(r'\s*&\s*', ' & ', cleaned)
@@ -99,6 +129,7 @@ def remove_lot_references(text: str) -> str:
     if not text:
         return text
     patterns = [
+        r'\bLOTS?\s+\d+[A-Za-z]?(?:-\d+[A-Za-z]?)?(?:\s*(?:,|&|AND)\s*\d+[A-Za-z]?(?:-\d+[A-Za-z]?)?)*\b',
         r'\bLOT\s*:\s*\d+(?:-\d+)?\b',
         r'\bL\s*:\s*\d+(?:-\d+)?\b',
         r'\bLOT\s*\d+(?:-\d+)?\b',
@@ -152,6 +183,8 @@ def extract_phase(text: str, phase_keywords: list[str]) -> str:
     if not text or not phase_keywords:
         return ""
 
+    text = _collapse_repeated_phase_keywords(text, phase_keywords)
+    text = _normalize_compact_phase_keywords(text, phase_keywords)
     phase_regex = _build_phase_regex(phase_keywords)
     if not phase_regex:
         return ""
@@ -168,11 +201,22 @@ def fix_phase_typos(phase: str) -> str:
         return phase
 
     roman_map = {
+        'ONE': '1',
         'I': '1', 'IA': '1A', 'IB': '1B', 'IC': '1C',
         'II': '2', 'III': '3', 'IV': '4', 'V': '5',
         'VI': '6', 'VII': '7', 'VIII': '8', 'IX': '9',
         'X': '10', 'XI': '11', 'XII': '12',
         'TWO': '2',
+        'THREE': '3',
+        'FOUR': '4',
+        'FIVE': '5',
+        'SIX': '6',
+        'SEVEN': '7',
+        'EIGHT': '8',
+        'NINE': '9',
+        'TEN': '10',
+        'ELEVEN': '11',
+        'TWELVE': '12',
     }
 
     parts = re.split(r'(\s*(?:&|/)\s*)', phase.strip())
@@ -196,6 +240,8 @@ def fix_phase_typos(phase: str) -> str:
 def remove_phase_from_text(text: str, phase_keywords: list[str]) -> str:
     if not text or not phase_keywords:
         return text
+    text = _collapse_repeated_phase_keywords(text, phase_keywords)
+    text = _normalize_compact_phase_keywords(text, phase_keywords)
     phase_regex = _build_phase_regex(phase_keywords)
     if not phase_regex:
         return text
@@ -246,6 +292,9 @@ def clean_subdivision(subdivision: str, phase_keywords: list[str]) -> str:
     cleaned = remove_block_references(cleaned)
     cleaned = remove_sub_references(cleaned)          # added here for global use
     cleaned = remove_phase_from_text(cleaned, phase_keywords)
+    cleaned = re.sub(r'(?i)\bSUBDIVISION\b$', '', cleaned)
+    cleaned = re.sub(r'(?i)\bSUBD\b$', '', cleaned)
+    cleaned = re.sub(r'\(\s*\)', '', cleaned)
     
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
     cleaned = re.sub(r'^[,;.]+\s*', '', cleaned).strip()

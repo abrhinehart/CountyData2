@@ -189,6 +189,493 @@ class TransformerTypeTests(unittest.TestCase):
         self.assertIsNone(result['grantee_land_banker_id'])
         self.assertEqual(result['type'], 'Builder Purchase')
 
+    def test_marion_aliases_known_subdivision_abbreviations_and_captures_unit(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 1 BK 288 SSS U-17',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'SILVER SPRINGS SHORES')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_block_values'], ['288'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['17'])
+        self.assertEqual(result['parsed_data']['county_parse']['lot_values'], ['1'])
+
+    def test_marion_tracks_tract_and_common_area_details(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'TRACTS A-F SCBDW SUNDANCE PH 3/O',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'SUNDANCE')
+        self.assertEqual(result['phase'], '3 / O')
+        self.assertEqual(result['parsed_data']['county_parse']['tract_values'], ['A-F'])
+        self.assertEqual(result['parsed_data']['county_parse']['common_area_codes'], ['SCBDW'])
+
+    def test_marion_marks_replat_subdivision_flag(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 243 JULIETTE FALLS 2ND REPLAT',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'JULLIETTE FALLS')
+        self.assertEqual(result['parsed_data']['county_parse']['subdivision_flags'], ['replat'])
+
+    def test_marion_aliases_marion_rch_and_preserves_lot_series_count(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LS 13-16 MARION RCH PH 2/O',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'MARION RANCH')
+        self.assertEqual(result['phase'], '2 / O')
+        self.assertEqual(result['lots'], 4)
+
+    def test_marion_aliases_oaks_at_oc_s_variant(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 20 BK D OAKS AT OC S PH 2',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'OAKS AT OCALA CROSSINGS SOUTH')
+        self.assertEqual(result['phase'], '2')
+        self.assertEqual(result['parsed_data']['county_parse']['structured_block_values'], ['D'])
+        self.assertEqual(result['parsed_data']['county_parse']['subdivision_suffix_values'], [])
+
+    def test_marion_uses_reference_list_for_calesa_abbreviation(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 162 CTPG',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'CALESA TOWNSHIP PERLINO GROVE')
+        self.assertEqual(result['parsed_data']['county_parse']['subdivision_suffix_values'], [])
+
+    def test_marion_reference_list_maps_grand_park_north(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 88 GRAND PK N',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'GRAND PARK NORTH')
+        self.assertEqual(result['parsed_data']['county_parse']['subdivision_suffix_values'], [])
+
+    def test_marion_reference_match_captures_prefix_tokens_for_common_area_variant(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 333 CH W ASHFORD & BALFOUR',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'ASHFORD & BALFOUR')
+        self.assertEqual(result['parsed_data']['county_parse']['subdivision_prefix_values'], ['CH', 'W'])
+
+    def test_marion_reference_list_maps_jb_ranch(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 91 JB RCH SUB PH 2A',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'JB RANCH')
+        self.assertEqual(result['phase'], '2A')
+
+    def test_marion_partial_subdivision_rows_preserve_flag_while_normalizing_name(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'PT W OAK PH 1',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'WEST OAK')
+        self.assertEqual(result['phase'], '1')
+        self.assertIn('partial_subdivision', result['parsed_data']['county_parse']['subdivision_flags'])
+
+    def test_marion_maps_rh_to_rolling_hills_and_preserves_partial_lot(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'PT LT 12 BK 4 RH U-1',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'ROLLING HILLS')
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['1'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_partial_lot_values'], ['12'])
+        self.assertNotIn('partial_subdivision', result['parsed_data']['county_parse']['subdivision_flags'])
+
+    def test_marion_replat_typo_still_captures_unit_and_canonical_subdivision(self):
+        config = dict(self.config)
+        config['column_mapping'] = dict(self.config['column_mapping'])
+        config['column_mapping']['star'] = 'Star'
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH']
+
+        row = pd.Series({
+            'Star': '*',
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LT 1 BK 1293 MO U-8 1SR REPLAT',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'MARION OAKS')
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['8'])
+        self.assertIn('replat', result['parsed_data']['county_parse']['subdivision_flags'])
+
+    def test_okaloosa_normalizes_subdivision_suffix_and_parcel_capture(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'ASHTON VIEW SUBDIVISION Lot: 26 , Parcel: 25-4N-23-1050-0000-0260',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'ASHTON VIEW')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['lots'], 1)
+        self.assertEqual(result['parsed_data']['county_parse']['structured_lot_values'], ['26'])
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['25-4N-23-1050-0000-0260'],
+        )
+
+    def test_okaloosa_keeps_unit_separate_from_phase(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'RIDGEWAY LANDING PHASE 2 Unit: 101 , Parcel: 05-3N-23-1500-0000-1010',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'RIDGEWAY LANDING')
+        self.assertEqual(result['phase'], '2')
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['101'])
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['05-3N-23-1500-0000-1010'],
+        )
+
+    def test_okaloosa_keeps_subdivision_only_clause_with_duplicate_phase_keyword(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'PATRIOT RIDGE PHASE PHASE 6 , Parcel: 33-3N-23-2810-0000-2440',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'PATRIOT RIDGE')
+        self.assertEqual(result['phase'], '6')
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['33-3N-23-2810-0000-2440'],
+        )
+
+    def test_okaloosa_metes_bounds_rows_store_geo_without_fake_subdivision(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'Section: 29 Township: 4NRange: 22Legal Remarks: COMM AT SWC OF , Parcel: 29-4N-22-0000-0001-031A',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_section_values'], ['29'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_township_values'], ['4N'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_range_values'], ['22'])
+        self.assertEqual(result['parsed_data']['county_parse']['legal_remarks_values'], ['COMM AT SWC OF'])
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['29-4N-22-0000-0001-031A'],
+        )
+
+    def test_okaloosa_can_derive_subdivision_from_plat_style_legal_remarks(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'Parcel: 15-3N-23-0000-0012-0010 Legal Remarks: UNREC. OPPORTUNITY ADDITION TO SHOFFNER CITY LOTS 26-29 BLK 13',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'OPPORTUNITY ADDITION TO SHOFFNER CITY')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(
+            result['parsed_data']['county_parse']['legal_remarks_values'],
+            ['UNREC. OPPORTUNITY ADDITION TO SHOFFNER CITY LOTS 26-29 BLK 13'],
+        )
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['15-3N-23-0000-0012-0010'],
+        )
+
     def test_okeechobee_legal_strips_leading_parcel_id(self):
         config = dict(self.config)
         config['phase_keywords'] = ['Phase', 'PH']
@@ -215,7 +702,337 @@ class TransformerTypeTests(unittest.TestCase):
         self.assertEqual(result['legal_desc'], 'BASSWOOD PHASE 2')
         self.assertEqual(result['subdivision'], 'BASSWOOD')
         self.assertEqual(result['phase'], '2')
-        self.assertEqual(matcher.calls[0][0], 'BASSWOOD PHASE 2')
+        self.assertEqual(matcher.calls[0][0], 'BASSWOOD')
+
+    def test_okeechobee_keeps_unit_as_structured_field_not_phase(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': '1-05-37-35-0020-00310-0130\nLOT 13 BLK 31 BASSWOOD INC UNIT 2',
+        })
+
+        result = transform_row(
+            row,
+            'Okeechobee',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['legal_raw'], 'LOT 13 BLK 31 BASSWOOD INC UNIT 2')
+        self.assertEqual(result['subdivision'], 'BASSWOOD')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['lots'], 1)
+        self.assertEqual(result['parsed_data']['county_parse']['structured_block_values'], ['31'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['2'])
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['1-05-37-35-0020-00310-0130'],
+        )
+        self.assertEqual(
+            result['parsed_data']['county_parse']['normalized_subdivision_candidates'][0]['details']['alias_source'],
+            'BASSWOOD INC',
+        )
+
+    def test_okeechobee_str_tail_does_not_become_fake_subdivision(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': '1-06-37-35-0A00-00000-0090\nLOT 9 UNIT 7 6/37/35',
+        })
+
+        result = transform_row(
+            row,
+            'Okeechobee',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertIsNone(result['subdivision'])
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['lots'], 1)
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['7'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_section_values'], ['6'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_township_values'], ['37'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_range_values'], ['35'])
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['1-06-37-35-0A00-00000-0090'],
+        )
+
+    def test_santarosa_slash_shorthand_captures_phase_and_lot_count(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'PARKLAND PLACE PH 1A 1-27/A, 1-21/B, 1-10/C',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'PARKLAND PLACE')
+        self.assertEqual(result['phase'], '1A')
+        self.assertEqual(result['lots'], 58)
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_block_values'],
+            ['A', 'B', 'C'],
+        )
+
+    def test_santarosa_unit_stays_structured_data_not_phase(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'TIGER POINT VILLAGE UNIT 7 4/C',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'TIGER POINT VILLAGE')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['lots'], 1)
+        self.assertEqual(result['parsed_data']['county_parse']['structured_unit_values'], ['7'])
+        self.assertEqual(result['parsed_data']['county_parse']['structured_block_values'], ['C'])
+
+    def test_santarosa_unrecorded_str_prefix_row_is_structured(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': '14-3N-29W; 15-3N-29W THREE HOLLOW EAST LOT 33 UNREC',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'THREE HOLLOW EAST')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['lots'], 1)
+        self.assertEqual(
+            result['parsed_data']['county_parse']['structured_parcel_references'],
+            ['14-3N-29W', '15-3N-29W'],
+        )
+        self.assertEqual(result['parsed_data']['county_parse']['structured_section_values'], ['14', '15'])
+        self.assertIn('unrecorded', result['parsed_data']['county_parse']['subdivision_flags'])
+
+    def test_santarosa_no_phase_rows_preserve_flag_without_fake_phase(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'CHASE FARMS NO PHASE 2 15/A',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'CHASE FARMS')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['parsed_data']['county_parse']['no_phase_values'], ['2'])
+        self.assertIn('no_phase', result['parsed_data']['county_parse']['subdivision_flags'])
+
+    def test_santarosa_bare_subdivision_phase_line_is_not_left_unparsed(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'LAKES OF WOODBINE PH II',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'LAKES OF WOODBINE')
+        self.assertEqual(result['phase'], '2')
+        self.assertEqual(result['parsed_data']['county_parse']['unparsed_lines'], [])
+
+    def test_santarosa_reference_aliases_hidden_pines_addition_variant(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'HIDDEN PINES ESTATES 1ST ADDITION 6/A',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'HIDDEN PINES ESTATES')
+        self.assertEqual(
+            result['parsed_data']['county_parse']['normalized_subdivision_candidates'][0]['details']['alias_source'],
+            'HIDDEN PINES ESTATES 1ST ADDITION',
+        )
+
+    def test_santarosa_no_ph_abbreviation_does_not_leave_fake_suffix(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'CHASE FARMS NO PH 2 1/B',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'CHASE FARMS')
+        self.assertIsNone(result['phase'])
+        self.assertEqual(result['parsed_data']['county_parse']['no_phase_values'], ['2'])
+
+    def test_santarosa_phase_suffix_letter_stays_with_phase_not_subdivision(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'BLACKWATER RESERVE PH I A 30/L',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'BLACKWATER RESERVE')
+        self.assertEqual(result['phase'], '1A')
+
+    def test_santarosa_spelled_out_phase_suffix_letter_stays_with_phase(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'BLACKWATER RESERVE PHASE ONE A 32/M',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'BLACKWATER RESERVE')
+        self.assertEqual(result['phase'], '1A')
+
+    def test_santarosa_reference_aliases_winsor_ridge(self):
+        config = dict(self.config)
+        config['phase_keywords'] = ['Phase', 'Ph.?', 'PH', 'Unit']
+
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'WINSOR RIDGE LOT 41',
+        })
+
+        result = transform_row(
+            row,
+            'Santa Rosa',
+            config,
+            sub_matcher=ConfiguredSubdivisionMatcher({}),
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['subdivision'], 'WINDSOR RIDGE')
 
     def test_legal_description_keeps_full_cleaned_text(self):
         legal = (
