@@ -3,6 +3,7 @@
 # If matched, the canonical name replaces the raw input.
 #
 # Imported from Builders.xlsx on 2026-03-27.
+# Alias expansion from transaction data on 2026-03-29.
 #
 # To add a new builder:
 #   1. Add an entry with canonical_name and all known aliases
@@ -20,10 +21,22 @@
     - "D R Horton Pensacola LLC"
     - "DR Horton Inc Pensacola LLC"
     - "D R Horton Inc Pensacola LLC"
+    - "D R HORTON INC, DR HORTON INC"
+    - "R HORTON HOMES & ASSOCIATES LLC"
+    - "DR HORTON LLC"
+    - "D R HORTON PENSACOLA"
+    - "D R HORTON INC PENSACOLA LAND"
 - canonical_name: "Adams Homes"
   aliases:
     - "Adams Homes"
     - "Adams Homes of Northwest Florida Inc"
+    - "ADAMS HOMES OF NW FLORIDA INC"
+    - "ADAMS HOMES OF NORTHWEST FLORIDA MC"
+    - "ADAMS HOMES OF NORTHWEST FLORIDA LNC"
+    - "ADAMS HOMES NORTHWEST FLORIDA INC"
+    - "ADAMS HOMES OF NORTHWEST FLOIRDA INC"
+    - "ADAMS HOME OF NORTHWEST FLORIDA INC"
+    - "ADAMS HOMES OF NORTHWEST FLORIDA INC."
 - canonical_name: "Lennar"
   aliases:
     - "Lennar"
@@ -37,52 +50,105 @@
   aliases:
     - "Holiday Builders"
     - "Holiday Builders Inc"
+    - "HOLIDAY BUILDERS LNC"
+    - "HOLIDAY BUILDERS ING"
 - canonical_name: "Century (W J H)"
   aliases:
     - "Century (W J H)"
     - "WJHFL LLC"
+    - "WJH LLC"
+    - "WJHFL LLC DBA"
+    - "WJH LLC DBA"
 - canonical_name: "Focus Homes"
   aliases:
     - "Focus Homes"
+    - "FOCUS HOMES LLC"
+    - "FOCUS HOMES LLC OF FLORIDA"
 - canonical_name: "Maronda"
   aliases:
     - "Maronda"
+    - "MARONDA HOMES LLC OF FLORIDA"
+    - "MARONDA HOMES LLC"
+    - "MARONDA HOMES INC OF FLORIDA"
+    - "MARONDA HOTNES LLC OF FLORIDA"
+    - "MARONDA HOINES LLC OF FLORIDA"
+    - "MARONDA HAINES LLC OF FLORIDA"
+    - "MARONDA HOMES LLC FLORIDA"
+    - "MARONDA HOMES LLC OF FLROIDA"
 - canonical_name: "DSLD"
   aliases:
     - "DSLD"
+    - "DSLD HOMES FLORIDA LLC"
+    - "DSLD HOMES LLC"
+    - "DSLD HOME FLORIDA LLC"
+    - "DSLD HOMES (FLORIDA) LLC"
+    - "DSLD HOLDING COMPANY LLC"
+    - "DSLD HOLDINGS COMPANY LLC"
 - canonical_name: "LGI"
   aliases:
     - "LGI"
+    - "LGI HOMES FLORIDA LLC"
+    - "LGI HOME DESIGN LLC"
 - canonical_name: "Meritage"
   aliases:
     - "Meritage"
+    - "MERITAGE HOMES OF FLORIDA INC"
 - canonical_name: "Pulte"
   aliases:
     - "Pulte"
+    - "PULTE HOME COMPANY LLC"
+    - "PULTE HOME CORPORATION"
 - canonical_name: "Starlight"
   aliases:
     - "Starlight"
+    - "STARLIGHT HOMES FLORIDA LLC"
+    - "STARLIGHT HOMES FLORIDA L L C"
 - canonical_name: "West Bay"
   aliases:
     - "West Bay"
+    - "HOMES BY WEST BAY LLC"
+    - "WEST BAY LLC"
 - canonical_name: "NVR"
   aliases:
     - "NVR"
+    - "NVR INC"
 - canonical_name: "Hovnanian"
   aliases:
     - "Hovnanian"
+    - "K HOVNANIAN ASPIRE AT MARION OAKS LLC"
+    - "K HOVNANIAN ASPIRE AT MARIN OAKS LLC"
 - canonical_name: "Colen"
   aliases:
     - "Colen"
+    - "COLEN BUILT DEVELOPMENT LLC"
 - canonical_name: "On Top of The World"
   aliases:
     - "On Top of The World"
-- canonical_name: "CLJ Construction"
+    - "ON TOP OF THE WORLD COMMUNITIES L L C"
+    - "ON TOP OF THE WORLD COMMUNITIES LLC"
+    - "ON TOP OF THE WORLD COMMINITIES LLC"
+    - "ON TOP OF THE WORLD COMMMUNITIES L L C"
+    - "ON TOP OF THE WORLD COMMUNITIES INC"
+- canonical_name: "CJL Construction"
   aliases:
-    - "CLJ Construction"
+    - "CJL CONSTRUCTION LLC"
+    - "CJL CONSTRUCTION"
+    - "CJL CONSTRUCTIONLLC"
 - canonical_name: "Huff Homes"
   aliases:
     - "Huff Homes"
+    - "HUFF HOMES OF FLORIDA LLC"
+    - "HUFF HOMES OF FLORIDA"
 - canonical_name: "Watersound"
   aliases:
     - "Watersound"
+    - "KH WATERSOUND LLC"
+    - "KH WATERSOUND"
+    - "WATERSOUND COMPANY LLC"
+    - "WATERSOUND COMPANY LLC THE"
+- canonical_name: "Clayton Properties Group"
+  aliases:
+    - "CLAYTON PROPERTIES GROUP INC"
+- canonical_name: "Randy Wise Homes"
+  aliases:
+    - "RANDY WISE HOMES INC"

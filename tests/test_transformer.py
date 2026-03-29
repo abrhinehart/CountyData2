@@ -16,6 +16,17 @@ class FakeMatcher:
         return self.matches.get(name, (None, None))
 
 
+class FakeLandBankerMatcher:
+    """Land banker matcher that returns 3-tuples: (id, canonical, category)."""
+    def __init__(self, matches=None):
+        self.matches = matches or {}
+
+    def match(self, name):
+        if name is None:
+            return (None, None, None)
+        return self.matches.get(name, (None, None, None))
+
+
 class FakeSubdivisionMatcher:
     def __init__(self):
         self.calls = []
@@ -65,7 +76,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['type'], 'House Sale')
@@ -87,7 +98,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['grantor'], 'Seller Name')
@@ -115,7 +126,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         locator = result['deed_locator']
@@ -150,7 +161,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         locator = result['deed_locator']
@@ -176,7 +187,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({'D R Horton Inc': (1, 'DR Horton')}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['grantee'], 'Some Trustee, D R Horton Inc')
@@ -201,7 +212,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({'Land Bank LLC': (7, 'Land Bank LLC')}),
+            land_banker_matcher=FakeLandBankerMatcher({'Land Bank LLC': (7, 'Land Bank LLC', None)}),
         )
 
         self.assertEqual(result['type'], 'Land Banker Purchase')
@@ -222,7 +233,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['type'], 'Association Transfer')
@@ -242,7 +253,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({'Buyer Name': (5, 'Buyer Name')}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['type'], 'Correction / Quit Claim')
@@ -262,7 +273,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({'D R Horton Inc': (1, 'D R Horton Inc')}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['type'], 'Raw Land Purchase')
@@ -289,7 +300,7 @@ class TransformerTypeTests(unittest.TestCase):
                 ('LIBERTY', 'Bay'): (7, 'Liberty', None, ['1', '2', '3']),
             }),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 7)
@@ -318,7 +329,7 @@ class TransformerTypeTests(unittest.TestCase):
                 ('LIBERTY', 'Bay'): (7, 'Liberty', None, ['1', '2']),
             }),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 7)
@@ -346,7 +357,7 @@ class TransformerTypeTests(unittest.TestCase):
                 ('SUNDANCE', 'Marion'): (7, 'SUNDANCE', None, ['1', '2', '1-2']),
             }),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 7)
@@ -374,7 +385,7 @@ class TransformerTypeTests(unittest.TestCase):
                 ('OWLS HEAD FARMS', 'Walton'): (8, 'OWLS HEAD FARMS', None, ['1', '1A', '1B', '1-C']),
             }),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 8)
@@ -402,7 +413,7 @@ class TransformerTypeTests(unittest.TestCase):
                 ('AUTUMN GLEN', 'Marion'): (11, 'AUTUMN GLEN', None, ['1', '2']),
             }),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 11)
@@ -426,7 +437,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -449,7 +460,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -472,7 +483,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -495,7 +506,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -520,7 +531,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -543,7 +554,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -566,7 +577,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({'D R Horton Inc': (1, 'DR Horton')}),
-            land_banker_matcher=FakeMatcher({'Land Bank LLC': (7, 'Land Bank LLC')}),
+            land_banker_matcher=FakeLandBankerMatcher({'Land Bank LLC': (7, 'Land Bank LLC', None)}),
         )
 
         self.assertEqual(result['grantor'], 'Seller Name\nD R Horton Inc')
@@ -593,7 +604,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({'D R Horton Inc': (1, 'DR Horton')}),
-            land_banker_matcher=FakeMatcher({'12345': (7, 'Fake Land Banker')}),
+            land_banker_matcher=FakeLandBankerMatcher({'12345': (7, 'Fake Land Banker', None)}),
         )
 
         self.assertEqual(result['grantee'], 'Some Trustee, D R Horton Inc')
@@ -622,7 +633,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'SILVER SPRINGS SHORES')
@@ -652,7 +663,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'SUNDANCE')
@@ -681,7 +692,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'JULLIETTE FALLS')
@@ -708,7 +719,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'MARION RANCH')
@@ -736,7 +747,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'OAKS AT OCALA CROSSINGS SOUTH')
@@ -765,7 +776,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'CALESA TOWNSHIP PERLINO GROVE')
@@ -792,7 +803,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'GRAND PARK NORTH')
@@ -819,7 +830,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'ASHFORD & BALFOUR')
@@ -846,7 +857,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'JB RANCH')
@@ -873,7 +884,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'WEST OAK')
@@ -901,7 +912,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'ROLLING HILLS')
@@ -930,7 +941,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'MARION OAKS')
@@ -955,7 +966,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'ASHTON VIEW')
@@ -985,7 +996,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'RIDGEWAY LANDING')
@@ -1014,7 +1025,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'PATRIOT RIDGE')
@@ -1042,7 +1053,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -1074,7 +1085,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'OPPORTUNITY ADDITION TO SHOFFNER CITY')
@@ -1107,7 +1118,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_raw'], '0-00-00-00-0000-00000-0000 BASSWOOD PHASE 2')
@@ -1135,7 +1146,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(
@@ -1175,7 +1186,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertIsNone(result['subdivision'])
@@ -1208,7 +1219,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'PARKLAND PLACE')
@@ -1237,7 +1248,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'TIGER POINT VILLAGE')
@@ -1264,7 +1275,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'THREE HOLLOW EAST')
@@ -1295,7 +1306,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'CHASE FARMS')
@@ -1321,7 +1332,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'LAKES OF WOODBINE')
@@ -1346,7 +1357,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'HIDDEN PINES ESTATES')
@@ -1373,7 +1384,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'CHASE FARMS')
@@ -1398,7 +1409,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'BLACKWATER RESERVE')
@@ -1422,7 +1433,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'BLACKWATER RESERVE')
@@ -1446,7 +1457,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'WINDSOR RIDGE')
@@ -1470,7 +1481,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_desc'], legal)
@@ -1496,7 +1507,7 @@ class TransformerTypeTests(unittest.TestCase):
             self.config,
             sub_matcher=None,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], legal)
@@ -1535,7 +1546,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_desc'], 'L11,12 Blk389 Un6 SubROYAL HIGHLANDS')
@@ -1588,7 +1599,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_desc'], 'L20 Blk640 Un8 SubROYAL HIGHLANDS; L3 Blk532 Un7 SubSPRING HILL')
@@ -1653,7 +1664,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 89)
@@ -1697,7 +1708,7 @@ class TransformerTypeTests(unittest.TestCase):
                 ('SUNCOAST LANDING', 'Hernando'): (7, 'SUNCOAST LANDING', None, ['1', '2']),
             }),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision_id'], 7)
@@ -1760,7 +1771,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'SPRING HILL')
@@ -1806,7 +1817,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'HIGHLAND LAKES')
@@ -1846,7 +1857,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'WOODLAND RETREATS')
@@ -1888,7 +1899,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'ROYAL HIGHLANDS')
@@ -1926,7 +1937,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'POD A LAKE HIDEAWAY PODS A&B')
@@ -1962,7 +1973,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_desc'], 'L: 10 Blk: 315 Sub: PINE RIDGE U: 3; L: 7 Blk: 319 Sub: PINE RIDGE U: 3')
@@ -2004,7 +2015,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'TURTLE CREEK')
@@ -2044,7 +2055,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=matcher,
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_desc'], 'LOT 4 BLK 13 EASTBAY PH IA')
@@ -2084,7 +2095,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['export_legal_desc'], 'LOTS 80-82 MAGNOLIA AT THE BLUFFS PH 1')
@@ -2120,7 +2131,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'TIDEWATER BEACH II')
@@ -2155,7 +2166,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'OAKWOOD HILLS')
@@ -2190,7 +2201,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'BREAKFAST POINT EAST')
@@ -2226,7 +2237,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'CABALLEROS ESTATES AT HOMBRE')
@@ -2262,7 +2273,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'WATERSOUND ORIGINS NATUREWALK')
@@ -2298,7 +2309,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'SPORTSMENS PARK')
@@ -2334,7 +2345,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'PECAN VALLEY')
@@ -2370,7 +2381,7 @@ class TransformerTypeTests(unittest.TestCase):
             config,
             sub_matcher=ConfiguredSubdivisionMatcher({}),
             builder_matcher=FakeMatcher({}),
-            land_banker_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeLandBankerMatcher(),
         )
 
         self.assertEqual(result['subdivision'], 'SANCTUARY')
@@ -2410,7 +2421,7 @@ class TransformerTypeTests(unittest.TestCase):
                 config,
                 sub_matcher=ConfiguredSubdivisionMatcher({}),
                 builder_matcher=FakeMatcher({}),
-                land_banker_matcher=FakeMatcher({}),
+                land_banker_matcher=FakeLandBankerMatcher(),
             )
 
         self.assertEqual(result['subdivision'], 'INVERNESS HIGHLANDS')

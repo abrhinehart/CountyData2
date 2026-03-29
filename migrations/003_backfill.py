@@ -28,28 +28,28 @@ def backfill_legal_raw(conn):
     with conn.cursor() as cur:
         cur.execute("""
             UPDATE transactions
-            SET legal_raw = legal_desc
-            WHERE legal_raw IS NULL AND legal_desc IS NOT NULL
+            SET export_legal_raw = export_legal_desc
+            WHERE export_legal_raw IS NULL AND export_legal_desc IS NOT NULL
         """)
         count = cur.rowcount
     conn.commit()
-    print(f"  legal_raw backfilled: {count} rows")
+    print(f"  export_legal_raw backfilled: {count} rows")
     return count
 
 
 def backfill_subdivisions(conn, matcher):
     with conn.cursor() as cur:
         cur.execute("""
-            SELECT id, legal_desc, county
+            SELECT id, export_legal_desc, county
             FROM transactions
-            WHERE subdivision_id IS NULL AND legal_desc IS NOT NULL
+            WHERE subdivision_id IS NULL AND export_legal_desc IS NOT NULL
         """)
         rows = cur.fetchall()
 
     matched = 0
     with conn.cursor() as cur:
         for txn_id, legal_desc, county in rows:
-            sub_id, canonical, phase = matcher.match(legal_desc, county)
+            sub_id, canonical, phase, _known_phases = matcher.match(legal_desc, county)
             if sub_id is not None:
                 cur.execute("""
                     UPDATE transactions
@@ -64,6 +64,26 @@ def backfill_subdivisions(conn, matcher):
     conn.commit()
     print(f"  subdivision_id backfilled: {matched} / {len(rows)} rows matched")
     return matched
+
+
+def _split_and_match(name, matcher):
+    """Split a multi-line/multi-party name and match each part individually."""
+    if not name:
+        return matcher.match(name)
+    # Try the full name first (handles single-line cases)
+    result = matcher.match(name)
+    if result[0] is not None:
+        return result
+    # Split on newlines and commas, try each part
+    import re
+    parts = re.split(r'[\n,]+', name)
+    for part in parts:
+        part = part.strip()
+        if part:
+            result = matcher.match(part)
+            if result[0] is not None:
+                return result
+    return matcher.match(None)
 
 
 def backfill_party_entities(conn, builder_matcher, land_banker_matcher):
@@ -82,10 +102,10 @@ def backfill_party_entities(conn, builder_matcher, land_banker_matcher):
     matched = 0
     with conn.cursor() as cur:
         for txn_id, grantor, grantee in rows:
-            grantor_builder_id, _ = builder_matcher.match(grantor)
-            grantee_builder_id, _ = builder_matcher.match(grantee)
-            grantor_land_banker_id, _ = land_banker_matcher.match(grantor)
-            grantee_land_banker_id, _ = land_banker_matcher.match(grantee)
+            grantor_builder_id, _ = _split_and_match(grantor, builder_matcher)
+            grantee_builder_id, _ = _split_and_match(grantee, builder_matcher)
+            grantor_land_banker_id, _, _grantor_lb_cat = _split_and_match(grantor, land_banker_matcher)
+            grantee_land_banker_id, _, grantee_lb_cat = _split_and_match(grantee, land_banker_matcher)
             builder_id = grantee_builder_id or grantor_builder_id
 
             if any((grantor_builder_id, grantee_builder_id, grantor_land_banker_id, grantee_land_banker_id)):
@@ -94,6 +114,7 @@ def backfill_party_entities(conn, builder_matcher, land_banker_matcher):
                     grantee_builder_id,
                     grantor_land_banker_id,
                     grantee_land_banker_id,
+                    grantee_land_banker_category=grantee_lb_cat,
                 )
                 cur.execute("""
                     UPDATE transactions

@@ -37,6 +37,7 @@ CREATE INDEX IF NOT EXISTS idx_builder_aliases_alias
 CREATE TABLE IF NOT EXISTS land_bankers (
     id              SERIAL PRIMARY KEY,
     canonical_name  TEXT NOT NULL UNIQUE,
+    category        TEXT,           -- 'land_banker', 'developer', or 'btr'
     created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 

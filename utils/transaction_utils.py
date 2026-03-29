@@ -152,6 +152,8 @@ def _classify_base_transaction_type(
     grantee_builder_id: int | None,
     grantor_land_banker_id: int | None,
     grantee_land_banker_id: int | None,
+    *,
+    grantee_land_banker_category: str | None = None,
 ) -> str:
     if grantor_builder_id is not None and grantee_builder_id is not None:
         return 'Builder to Builder'
@@ -160,6 +162,8 @@ def _classify_base_transaction_type(
         return 'Builder Purchase'
 
     if grantee_land_banker_id is not None:
+        if grantee_land_banker_category == 'btr':
+            return 'Build-to-Rent Purchase'
         return 'Land Banker Purchase'
 
     return 'House Sale'
@@ -200,6 +204,7 @@ def classify_transaction_type(
     subdivision: str | None = None,
     county_parse: dict | None = None,
     acres: float | None = None,
+    grantee_land_banker_category: str | None = None,
 ) -> str:
     if _is_cdd_transfer(grantee):
         return 'CDD Transfer'
@@ -215,6 +220,7 @@ def classify_transaction_type(
         grantee_builder_id,
         grantor_land_banker_id,
         grantee_land_banker_id,
+        grantee_land_banker_category=grantee_land_banker_category,
     )
     if _is_raw_land_purchase(base_type, subdivision, export_legal_desc, county_parse, acres):
         return 'Raw Land Purchase'

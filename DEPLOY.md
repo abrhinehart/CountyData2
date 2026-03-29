@@ -28,6 +28,7 @@ This is safe to re-run and is the easiest way to keep older databases aligned wi
 - `007_deed_locator.sql`
 - `008_inventory_category.sql`
 - `009_canonical_transaction_shape.sql`
+- `010_land_banker_category.sql`
 
 ### 3. Seed reference data
 ```bash
@@ -63,5 +64,6 @@ python -m pytest -q
 ## Notes
 - Legacy workbook import is not part of the active workflow in this repo; there is no `etl_migrate.py`.
 - The current missing-price workflow is `deed_queue_export.py`, with Bay automation available in `bay_price_extract.py`.
-- Raw-land deed legal extraction is currently a manual benchmark workflow in `tools/raw_land_legal_benchmark.py`; it is not part of ETL or deployment.
+- Raw-land deed legal extraction is a manual benchmark workflow in `tools/raw_land_legal_benchmark.py`. After running a benchmark, use `python tools/apply_benchmark_results.py` to write results back to `deed_legal_desc` and `deed_legal_parsed`.
 - Model-backed raw-land benchmark runs cache prior results and only spend tokens again when explicitly re-run with `--force`.
+- The `land_bankers` table uses a `category` column to distinguish entity types: `land_banker` (circular lot pipeline), `developer` (one-way lot seller), and `btr` (build-to-rent institutional buyer). The `btr` category triggers the "Build-to-Rent Purchase" transaction type.

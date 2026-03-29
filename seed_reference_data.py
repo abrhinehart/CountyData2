@@ -116,14 +116,49 @@ def seed_builders(conn):
 
 
 def seed_land_bankers(conn):
-    seed_named_alias_entities(
-        conn,
-        path_name='land_bankers.yaml',
-        entity_table='land_bankers',
-        alias_table='land_banker_aliases',
-        alias_fk='land_banker_id',
-        label='Land bankers',
-    )
+    """Seed land bankers with category support (land_banker, developer, btr)."""
+    path = REF_DIR / 'land_bankers.yaml'
+    if not path.exists():
+        print('No land_bankers.yaml found - skipping.')
+        return
+
+    with open(path, encoding='utf-8') as f:
+        data = yaml.safe_load(f) or []
+
+    inserted_entities = 0
+    inserted_aliases = 0
+
+    with conn.cursor() as cur:
+        for entry in data:
+            name = entry['canonical_name']
+            category = entry.get('category')
+            aliases = entry.get('aliases', [name])
+
+            cur.execute("""
+                INSERT INTO land_bankers (canonical_name, category)
+                VALUES (%s, %s)
+                ON CONFLICT (canonical_name) DO UPDATE
+                    SET category = EXCLUDED.category
+                RETURNING id
+            """, (name, category))
+            row = cur.fetchone()
+            if row:
+                entity_id = row[0]
+                inserted_entities += 1
+            else:
+                cur.execute("SELECT id FROM land_bankers WHERE canonical_name = %s", (name,))
+                entity_id = cur.fetchone()[0]
+
+            for alias in aliases:
+                cur.execute("""
+                    INSERT INTO land_banker_aliases (land_banker_id, alias)
+                    VALUES (%s, %s)
+                    ON CONFLICT (alias) DO NOTHING
+                """, (entity_id, alias))
+                inserted_aliases += cur.rowcount
+
+    conn.commit()
+    print(f'Land bankers: {inserted_entities} upserted, {inserted_aliases} new aliases.')
 
 
 def main():

@@ -1,11 +1,189 @@
-# Land banker reference data - canonical names and aliases.
-# These entities buy or hold land before it is sold to builders.
+# Land banker, developer, and build-to-rent reference data.
+# Each entry includes a category to distinguish the entity's role:
+#   - land_banker:  Holds lots in a circular pipeline with a builder (buys from and sells to the same builder)
+#   - developer:    Develops or entitles land and sells finished lots to builders (one-way)
+#   - btr:          Build-to-rent fund that buys finished homes from builders in bulk
 #
-# To add a new land banker:
-#   1. Add an entry with canonical_name and all known aliases
+# To add a new entity:
+#   1. Add an entry with canonical_name, category, and all known aliases
 #   2. Run: python seed_reference_data.py
 
-# - canonical_name: "EXAMPLE LAND BANKER LLC"
-#   aliases:
-#     - "EXAMPLE LAND BANKER LLC"
-[]
+# ── Land Bankers ──────────────────────────────────────────────
+
+- canonical_name: "Millrose Properties Florida"
+  category: land_banker
+  aliases:
+    - "MILLROSE PROPERTIES FLORIDA LLC"
+    - "MILLROSE PROPERTIES FLORIDA II LLC"
+    - "MILLROSE PROPERTIES LLC"
+
+- canonical_name: "Forestar (DR Horton)"
+  category: land_banker
+  aliases:
+    - "FORESTAR USA REAL ESTATE GROUP INC"
+
+- canonical_name: "AG EHC II (Lennar)"
+  category: land_banker
+  aliases:
+    - "AG EHC II LEN MULTI STATE 1 LLC"
+    - "AG EHC III LEN MULTI STATE 1 LLC"
+
+- canonical_name: "TPG AG EHC III (Lennar)"
+  category: land_banker
+  aliases:
+    - "TPG AG EHC III LEN MULTI STATE 3 LLC"
+    - "TPG AG EHC III LEN MULTI STATE 6 LLC"
+    - "TPG AG EHC III LEN MULTI STATE J LLC"
+
+- canonical_name: "NW Florida LD (Lennar)"
+  category: land_banker
+  aliases:
+    - "NW FLORIDA LD LLC"
+
+- canonical_name: "95th Street Holdings (Lennar/Pulte)"
+  category: land_banker
+  aliases:
+    - "95TH STREET HOLDINGS LLC"
+
+# ── Developers ────────────────────────────────────────────────
+
+- canonical_name: "Coast2Coast Land"
+  category: developer
+  aliases:
+    - "COAST2COAST LAND INC"
+
+- canonical_name: "ROI Land Company"
+  category: developer
+  aliases:
+    - "ROI LAND COMPANY LLC"
+
+- canonical_name: "Unity Development Investments"
+  category: developer
+  aliases:
+    - "UNITY DEVELOPMENT INVESTMENTS LLC"
+
+- canonical_name: "Fowey Investments"
+  category: developer
+  aliases:
+    - "FOWEY INVESTMENTS LLC"
+
+- canonical_name: "Garden Street Communities Southeast"
+  category: developer
+  aliases:
+    - "GARDEN STREET COMMUNITIES SOUTHEAST LLC"
+
+- canonical_name: "NIROCO"
+  category: developer
+  aliases:
+    - "NIROCO LLC"
+
+- canonical_name: "B&G Landholdings"
+  category: developer
+  aliases:
+    - "B&G LANDHOLDINGS LLC"
+
+- canonical_name: "Ward Creek"
+  category: developer
+  aliases:
+    - "WARD CREEK LLC"
+
+- canonical_name: "G2G Development"
+  category: developer
+  aliases:
+    - "G2G DEVELOPMENT LLC"
+
+- canonical_name: "Ocala Crossings South"
+  category: developer
+  aliases:
+    - "OCALA CROSSINGS SOUTH LLC"
+
+- canonical_name: "Sunset Hills Development"
+  category: developer
+  aliases:
+    - "SUNSET HILLS DEVELOPMENT LLC"
+
+- canonical_name: "Emerson Pointe Development"
+  category: developer
+  aliases:
+    - "EMERSON POINTE DEVELOPMENT LLC"
+
+- canonical_name: "Rolling Hills Development"
+  category: developer
+  aliases:
+    - "ROLLING HILLS DEVELOPMENT INC"
+
+- canonical_name: "Freedom Commons Development"
+  category: developer
+  aliases:
+    - "FREEDOM COMMONS DEVELOPMENT LLC"
+
+- canonical_name: "MR4"
+  category: developer
+  aliases:
+    - "MR4 LLC"
+
+- canonical_name: "PHX Minerals"
+  category: developer
+  aliases:
+    - "PHX MINERALS INC"
+
+- canonical_name: "Titus Road Station"
+  category: developer
+  aliases:
+    - "TITUS ROAD STATION LLC"
+
+- canonical_name: "HTM Developers"
+  category: developer
+  aliases:
+    - "HTM DEVELOPERS LLC"
+
+- canonical_name: "Tri County Development"
+  category: developer
+  aliases:
+    - "TRI COUNTY DEVELOPMENT INC"
+
+# ── Build-to-Rent ─────────────────────────────────────────────
+
+- canonical_name: "SFR Fund VI"
+  category: btr
+  aliases:
+    - "SFR FUND VI BORROWER LLC"
+
+- canonical_name: "510 SFR FL Operations"
+  category: btr
+  aliases:
+    - "510 SFR FL OPERATIONS I LLC"
+
+- canonical_name: "660 SFR FL Operations"
+  category: btr
+  aliases:
+    - "660 SFR FL OPERATIONS II LLC"
+
+- canonical_name: "Slate Property Owner"
+  category: btr
+  aliases:
+    - "SLATE NON NC NON WA PROPERTY OWNER LLC"
+
+- canonical_name: "Nestwell Properties"
+  category: btr
+  aliases:
+    - "NESTWELL PROPERTIES LLC"
+
+- canonical_name: "Farani Investments"
+  category: btr
+  aliases:
+    - "FARANI INVESTMENTS LLC"
+
+- canonical_name: "Invitation Homes"
+  category: btr
+  aliases:
+    - "INVITATION HOMES 7 FLORIDA LP"
+    - "INVITATION HOMES 7 FLORIDA L P"
+
+- canonical_name: "DHIR (DR Horton Rental)"
+  category: btr
+  aliases:
+    - "DHIR WEST CENTRAL FLORIDA"
+    - "DHIR WEST CENTRAL FLORIDA I LLC"
+    - "DHIR PANAMA CITY I LLC"
+    - "DHIR PENSACOLA I LLC"

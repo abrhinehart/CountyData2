@@ -699,7 +699,7 @@ def _normalize_freeform_subdivision_candidates(
 def _resolve_party(raw, delimiters, builder_matcher, land_banker_matcher):
     """
     Split a multi-party field, check each name against builder and land banker
-    matchers, and return (display_name, builder_id, land_banker_id).
+    matchers, and return (display_name, builder_id, land_banker_id, land_banker_category, parties).
 
     Keep the original source text for storage, but allow IDs to match against
     any individual party within the field.
@@ -707,20 +707,21 @@ def _resolve_party(raw, delimiters, builder_matcher, land_banker_matcher):
     display_name = str(raw).strip()
     parties = split_parties(display_name, delimiters)
     if not parties:
-        return '', None, None, []
+        return '', None, None, None, []
 
     builder_id = None
     land_banker_id = None
+    land_banker_category = None
 
     for name in parties:
         if builder_matcher and builder_id is None:
             builder_id, _canonical = builder_matcher.match(name)
         if land_banker_matcher and land_banker_id is None:
-            land_banker_id, _canonical = land_banker_matcher.match(name)
+            land_banker_id, _canonical, land_banker_category = land_banker_matcher.match(name)
         if builder_id is not None and land_banker_id is not None:
             break
 
-    return display_name, builder_id, land_banker_id, parties
+    return display_name, builder_id, land_banker_id, land_banker_category, parties
 
 
 def _build_deed_locator(row: pd.Series) -> dict:
@@ -833,7 +834,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
     if not grantor_raw:
         return None
 
-    grantor, grantor_builder_id, grantor_land_banker_id, grantor_parties = _resolve_party(
+    grantor, grantor_builder_id, grantor_land_banker_id, _grantor_lb_cat, grantor_parties = _resolve_party(
         grantor_raw, delimiters, builder_matcher, land_banker_matcher
     )
 
@@ -843,7 +844,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
         'grantee',
         delimiters,
     )
-    grantee, grantee_builder_id, grantee_land_banker_id, grantee_parties = _resolve_party(
+    grantee, grantee_builder_id, grantee_land_banker_id, grantee_land_banker_category, grantee_parties = _resolve_party(
         grantee_raw, delimiters, builder_matcher, land_banker_matcher
     )
 
@@ -857,6 +858,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             grantor, grantee = grantee, grantor
             grantor_builder_id, grantee_builder_id = grantee_builder_id, grantor_builder_id
             grantor_land_banker_id, grantee_land_banker_id = grantee_land_banker_id, grantor_land_banker_id
+            _grantor_lb_cat, grantee_land_banker_category = grantee_land_banker_category, _grantor_lb_cat
             grantor_parties, grantee_parties = grantee_parties, grantor_parties
             swap_reason = 'marion_star_swap'
 
@@ -867,6 +869,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
                 grantor, grantee = grantee, grantor
                 grantor_builder_id, grantee_builder_id = grantee_builder_id, grantor_builder_id
                 grantor_land_banker_id, grantee_land_banker_id = grantee_land_banker_id, grantor_land_banker_id
+                _grantor_lb_cat, grantee_land_banker_category = grantee_land_banker_category, _grantor_lb_cat
                 grantor_parties, grantee_parties = grantee_parties, grantor_parties
                 swap_reason = 'santarosa_party_type_swap'
 
@@ -1312,6 +1315,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
         subdivision=subdivision,
         county_parse=county_parse_for_storage,
         acres=acres,
+        grantee_land_banker_category=grantee_land_banker_category,
     )
 
     return {

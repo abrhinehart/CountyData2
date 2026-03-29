@@ -97,6 +97,47 @@ class TransactionTypeTests(unittest.TestCase):
         )
         self.assertEqual(result, 'Raw Land Purchase')
 
+    def test_build_to_rent_purchase_when_grantee_land_banker_is_btr(self):
+        result = classify_transaction_type(
+            grantor_builder_id=None,
+            grantee_builder_id=None,
+            grantor_land_banker_id=None,
+            grantee_land_banker_id=9,
+            grantee_land_banker_category='btr',
+        )
+        self.assertEqual(result, 'Build-to-Rent Purchase')
+
+    def test_land_banker_purchase_when_category_is_land_banker(self):
+        result = classify_transaction_type(
+            grantor_builder_id=None,
+            grantee_builder_id=None,
+            grantor_land_banker_id=None,
+            grantee_land_banker_id=9,
+            grantee_land_banker_category='land_banker',
+        )
+        self.assertEqual(result, 'Land Banker Purchase')
+
+    def test_land_banker_purchase_when_category_is_developer(self):
+        result = classify_transaction_type(
+            grantor_builder_id=None,
+            grantee_builder_id=None,
+            grantor_land_banker_id=None,
+            grantee_land_banker_id=9,
+            grantee_land_banker_category='developer',
+        )
+        self.assertEqual(result, 'Land Banker Purchase')
+
+    def test_land_banker_purchase_when_category_is_none(self):
+        """Backwards compat: no category defaults to Land Banker Purchase."""
+        result = classify_transaction_type(
+            grantor_builder_id=None,
+            grantee_builder_id=None,
+            grantor_land_banker_id=None,
+            grantee_land_banker_id=9,
+            grantee_land_banker_category=None,
+        )
+        self.assertEqual(result, 'Land Banker Purchase')
+
     def test_extract_acres_handles_mixed_number(self):
         self.assertEqual(extract_acres('TRACT A CONTAINING 2 1/2 ACRES MOL'), 2.5)
 

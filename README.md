@@ -31,7 +31,7 @@ County Excel/CSV files
 ## Project Structure
 
 ```
-Format_All_App/
+CountyData2/
   apply_migrations.py          # Apply additive SQL migrations in order
   etl.py                       # Entry point — load county files into the database
   export.py                    # Export to styled Excel on demand
@@ -45,17 +45,19 @@ Format_All_App/
   docker-compose.yml           # Local Postgres + PostGIS setup
   .env.example                 # DB credentials template
   migrations/                  # Additive schema changes for existing databases
-  reference_data/              # Subdivision / builder / land banker aliases
+  reference_data/              # Subdivision / builder / land banker / developer / BTR aliases
   processors/
     reader.py                  # File reading (CSV/XLS/XLSX)
     transformer.py             # Row normalization
     loader.py                  # PostgreSQL upsert
   tools/
     raw_land_legal_benchmark.py  # Manual raw-land deed legal benchmark harness
+    apply_benchmark_results.py   # Write benchmark extraction results back to DB
   utils/
     text_cleaning.py           # Text extraction and cleaning
     date_utils.py              # Date parsing → Python date objects
-    transaction_utils.py       # Transaction type classification
+    transaction_utils.py       # Transaction type classification (9 types)
+    lookup.py                  # SubdivisionMatcher, BuilderMatcher, LandBankerMatcher
     raw_land_benchmark.py      # OCR cleanup, validation, and legal extraction helpers
 ```
 
@@ -241,6 +243,21 @@ Artifacts are written under `output/raw_land_legal_benchmark/`, including:
 - `comparison.csv` and `comparison_summary.json` — benchmark scoring output
 - `artifacts/<transaction_id>/source_document.pdf` and `ocr/page_*.txt` — fetched deed PDFs and per-page OCR text
 
+### Write benchmark results back to the database
+
+```bash
+# Preview what would be written
+python tools/apply_benchmark_results.py --dry-run
+
+# Write the best results (hybrid by default) into deed_legal_desc and deed_legal_parsed
+python tools/apply_benchmark_results.py
+
+# Write from a specific results file
+python tools/apply_benchmark_results.py --results output/raw_land_legal_benchmark/results_anthropic_vision.csv
+```
+
+`apply_benchmark_results.py` reads a benchmark CSV, filters for `status=ok` rows with non-empty extractions, and updates the matching transactions with the full deed legal description and extraction metadata (model, mode, similarity ratio, bearing/distance counts, validation status, cost).
+
 Important guardrails:
 - Nothing in this workflow runs automatically during ETL or export.
 - `run-anthropic` only spends tokens when you explicitly invoke it.
@@ -268,7 +285,7 @@ transactions (
     id              SERIAL PRIMARY KEY,
     grantor         TEXT NOT NULL,
     grantee         TEXT,
-    type            TEXT,           -- 'Builder Purchase', 'Land Banker Purchase', 'Builder to Builder', or 'House Sale'
+    type            TEXT,           -- 9 types: see Transaction Type Classification below
     instrument      TEXT,
     date            DATE,
     export_legal_desc TEXT,
@@ -339,14 +356,18 @@ All county-specific rules live in `counties.yaml`. Structure is unchanged from t
 
 - **Builder to Builder** — both grantor and grantee match known builders
 - **Builder Purchase** — grantee matches a known builder
-- **Land Banker Purchase** — grantee matches a known land banker
+- **Land Banker Purchase** — grantee matches a known land banker or developer
+- **Build-to-Rent Purchase** — grantee matches a known build-to-rent entity (institutional bulk buyer of finished homes)
 - **Association Transfer** — grantee is an HOA / POA / condominium / community association
 - **CDD Transfer** — grantee is a community development district
 - **Correction / Quit Claim** — corrective or quit-claim style deed used to fix title / record issues
 - **Raw Land Purchase** — builder / land-banker style acquisition with raw-land legal indicators instead of platted lot inventory
 - **House Sale** — all other transactions
 
-Builders and land bankers are tracked through reference-data alias lists.
+Builders and land bankers are tracked through reference-data alias lists. The `land_bankers` table includes a `category` column to distinguish entity roles:
+- **land_banker** — circular lot pipeline with a builder (buys from and sells to the same builder)
+- **developer** — develops or entitles land and sells finished lots to builders (one-way)
+- **btr** — build-to-rent fund that buys finished homes from builders in bulk
 
 ---
 

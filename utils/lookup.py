@@ -98,24 +98,28 @@ class _PartyAliasMatcher:
     Uses exact match after normalization (strip, collapse whitespace, uppercase).
     """
 
+    _extra_columns = ()  # Subclasses can override to load additional entity columns
+
     def __init__(self, conn, entity_table: str, alias_table: str, alias_fk: str):
-        self._aliases = {}  # { alias_upper: (entity_id, canonical_name) }
+        self._aliases = {}  # { alias_upper: (entity_id, canonical_name, ...) }
         self._entity_table = entity_table
         self._alias_table = alias_table
         self._alias_fk = alias_fk
         self._load(conn)
 
     def _load(self, conn):
+        extra_select = ''.join(f', e.{col}' for col in self._extra_columns)
         query = f"""
-            SELECT a.alias, e.id, e.canonical_name
+            SELECT a.alias, e.id, e.canonical_name{extra_select}
             FROM {self._alias_table} a
             JOIN {self._entity_table} e ON e.id = a.{self._alias_fk}
         """
         with conn.cursor() as cur:
             cur.execute(query)
-            for alias, entity_id, canonical in cur.fetchall():
+            for row in cur.fetchall():
+                alias = row[0]
                 normalized = self._normalize_name(alias)
-                self._aliases[normalized] = (entity_id, canonical)
+                self._aliases[normalized] = row[1:]  # (entity_id, canonical_name, ...)
 
     def match(self, name: str):
         """
@@ -127,7 +131,10 @@ class _PartyAliasMatcher:
             return None, None
 
         normalized = self._normalize_name(name)
-        return self._aliases.get(normalized, (None, None))
+        result = self._aliases.get(normalized)
+        if result is None:
+            return None, None
+        return result[0], result[1]
 
     @staticmethod
     def _normalize_name(name: str) -> str:
@@ -140,5 +147,23 @@ class BuilderMatcher(_PartyAliasMatcher):
 
 
 class LandBankerMatcher(_PartyAliasMatcher):
+    _extra_columns = ('category',)
+
     def __init__(self, conn):
         super().__init__(conn, 'land_bankers', 'land_banker_aliases', 'land_banker_id')
+
+    def match(self, name: str):
+        """
+        Match a party name against known land banker aliases.
+
+        Returns (entity_id, canonical_name, category) or (None, None, None).
+        """
+        if not name:
+            return None, None, None
+
+        normalized = self._normalize_name(name)
+        result = self._aliases.get(normalized)
+        if result is None:
+            return None, None, None
+        # result = (entity_id, canonical_name, category)
+        return result[0], result[1], result[2]
