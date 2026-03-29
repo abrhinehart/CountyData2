@@ -1,57 +1,67 @@
-# Deployment — Lookup-Based Matching Refactor
+# Deployment / Bootstrap
 
 ## Prerequisites
-- PostgreSQL running (Docker: `docker-compose up -d`)
-- `.env` configured with `DATABASE_URL`
-- Python deps installed (`psycopg2`, `pyyaml`, `pandas`, `openpyxl`)
+- Docker Desktop installed
+- `.env` created from `.env.example`
+- Python dependencies installed with `pip install -r requirements.txt`
 
-## Steps
+## Recommended workflow
 
-### 1. Run schema migrations
+### 1. Start PostgreSQL
 ```bash
-psql "$DATABASE_URL" -f migrations/001_reference_tables.sql
-psql "$DATABASE_URL" -f migrations/002_alter_transactions.sql
-psql "$DATABASE_URL" -f migrations/004_party_entities.sql
+docker compose up -d
 ```
-These are additive — safe to run on an existing database with data.
 
-### 2. Curate reference data
-Edit the YAML files with your known subdivisions, builders, and land bankers:
-- `reference_data/subdivisions.yaml` — add entries per county
-- `reference_data/builders.yaml` — add builder canonical names + aliases
-- `reference_data/land_bankers.yaml` — add land banker canonical names + aliases
+`schema.sql` is mounted into Docker's init directory, so it applies automatically only when the `pgdata` volume is created for the first time.
 
-### 3. Seed reference tables
+### 2. Apply all additive SQL migrations
+```bash
+python apply_migrations.py
+```
+
+This is safe to re-run and is the easiest way to keep older databases aligned with the current codebase. It currently applies:
+- `001_reference_tables.sql`
+- `002_alter_transactions.sql`
+- `004_party_entities.sql`
+- `005_parsed_data.sql`
+- `006_transaction_segments.sql`
+- `007_deed_locator.sql`
+- `008_inventory_category.sql`
+- `009_canonical_transaction_shape.sql`
+
+### 3. Seed reference data
 ```bash
 python seed_reference_data.py
 ```
-Idempotent — safe to re-run after adding new entries.
 
-### 4. Run ETL
-```bash
-python etl.py                    # all counties
-python etl.py --county Bay       # single county
-```
-Pipeline now uses lookup matching first, falls back to regex for unmatched rows. Unmatched rows get `review_flag=TRUE`.
+Edit these YAML files before or after seeding as needed:
+- `reference_data/subdivisions.yaml`
+- `reference_data/builders.yaml`
+- `reference_data/land_bankers.yaml`
 
-### 5. Backfill existing data (one-time)
+### 4. Optional: backfill existing transaction rows
 ```bash
 python migrations/003_backfill.py
 ```
-Populates `legal_raw`, `subdivision_id`, and side-specific builder/land banker IDs on rows already in the database.
 
-### 6. Review unmatched rows
+Use this only when you already have transaction rows in the database and want to enrich them with newer lookup-backed fields.
+
+### 5. Run ETL
 ```bash
-python export.py --unmatched-only --out unmatched_review.xlsx
+python etl.py
+python etl.py --county Bay
+python etl.py --input-root "raw data"
 ```
-Use this to find missing subdivisions/builders, add them to the YAML files, re-seed, and re-run ETL.
 
-## New CLI flags (export.py)
-- `--include-raw` — adds the full `legal_raw` column to the export
-- `--unmatched-only` — filters to only rows where lookup matching failed
+`counties.yaml` points to shared-drive source folders by default. Use `--input-root "raw data"` if you want to process the repo-local county folders in this workspace.
 
-## What changed
-- **transformer.py** — multi-party splitting, side-specific builder/land banker matching, `legal_raw` (no truncation), lookup-first subdivision/phase matching
-- **loader.py** — upserts side-specific builder/land banker IDs alongside lookup columns
-- **etl.py** — loads matchers once at startup, passes them through the pipeline
-- **New: utils/lookup.py** — SubdivisionMatcher plus normalized exact matchers for builders and land bankers
+### 6. Verify with tests
+```bash
+python -m pytest -q
+```
+
+## Notes
+- Legacy workbook import is not part of the active workflow in this repo; there is no `etl_migrate.py`.
+- The current missing-price workflow is `deed_queue_export.py`, with Bay automation available in `bay_price_extract.py`.
+- Raw-land deed legal extraction is currently a manual benchmark workflow in `tools/raw_land_legal_benchmark.py`; it is not part of ETL or deployment.
+- Model-backed raw-land benchmark runs cache prior results and only spend tokens again when explicitly re-run with `--force`.

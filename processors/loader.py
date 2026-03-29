@@ -7,16 +7,18 @@ import psycopg2.extras
 _UPSERT_SQL = """
 INSERT INTO transactions (
     grantor, grantee, type, instrument, date,
-    legal_desc, legal_raw, deed_locator, subdivision, subdivision_id, phase,
-    lots, price, parsed_data, county, builder_id,
+    export_legal_desc, export_legal_raw, deed_locator, deed_legal_desc, deed_legal_parsed,
+    subdivision, subdivision_id, phase, inventory_category,
+    lots, acres, acres_source, price, parsed_data, county, builder_id,
     grantor_builder_id, grantee_builder_id,
     grantor_land_banker_id, grantee_land_banker_id,
     review_flag, source_file
 )
 VALUES (
     %(grantor)s, %(grantee)s, %(type)s, %(instrument)s, %(date)s,
-    %(legal_desc)s, %(legal_raw)s, %(deed_locator)s, %(subdivision)s, %(subdivision_id)s, %(phase)s,
-    %(lots)s, %(price)s, %(parsed_data)s, %(county)s, %(builder_id)s,
+    %(export_legal_desc)s, %(export_legal_raw)s, %(deed_locator)s, %(deed_legal_desc)s, %(deed_legal_parsed)s,
+    %(subdivision)s, %(subdivision_id)s, %(phase)s, %(inventory_category)s,
+    %(lots)s, %(acres)s, %(acres_source)s, %(price)s, %(parsed_data)s, %(county)s, %(builder_id)s,
     %(grantor_builder_id)s, %(grantee_builder_id)s,
     %(grantor_land_banker_id)s, %(grantee_land_banker_id)s,
     %(review_flag)s, %(source_file)s
@@ -24,13 +26,18 @@ VALUES (
 ON CONFLICT (grantor_key, grantee_key, instrument_key, date, county_key)
 DO UPDATE SET
     type                    = EXCLUDED.type,
-    legal_desc              = EXCLUDED.legal_desc,
-    legal_raw               = EXCLUDED.legal_raw,
+    export_legal_desc       = EXCLUDED.export_legal_desc,
+    export_legal_raw        = EXCLUDED.export_legal_raw,
     deed_locator            = EXCLUDED.deed_locator,
+    deed_legal_desc         = EXCLUDED.deed_legal_desc,
+    deed_legal_parsed       = EXCLUDED.deed_legal_parsed,
     subdivision             = EXCLUDED.subdivision,
     subdivision_id          = EXCLUDED.subdivision_id,
     phase                   = EXCLUDED.phase,
+    inventory_category      = EXCLUDED.inventory_category,
     lots                    = EXCLUDED.lots,
+    acres                   = EXCLUDED.acres,
+    acres_source            = EXCLUDED.acres_source,
     price                   = EXCLUDED.price,
     parsed_data             = EXCLUDED.parsed_data,
     builder_id              = EXCLUDED.builder_id,
@@ -53,7 +60,7 @@ _INSERT_SEGMENTS_SQL = """
 INSERT INTO transaction_segments (
     transaction_id, segment_index, county, subdivision_lookup_text,
     raw_subdivision, subdivision, subdivision_id, phase_raw, phase,
-    phase_confirmed, segment_review_reasons, segment_data
+    inventory_category, phase_confirmed, segment_review_reasons, segment_data
 )
 VALUES %s
 """
@@ -63,6 +70,7 @@ def _prepare_db_row(row: dict) -> dict:
     prepared = dict(row)
     prepared['parsed_data'] = psycopg2.extras.Json(prepared.get('parsed_data') or {})
     prepared['deed_locator'] = psycopg2.extras.Json(prepared.get('deed_locator') or {})
+    prepared['deed_legal_parsed'] = psycopg2.extras.Json(prepared.get('deed_legal_parsed') or {})
     return prepared
 
 
@@ -79,6 +87,7 @@ def _prepare_segment_rows(transaction_id: int, row: dict) -> list[tuple]:
             segment.get('subdivision_id'),
             segment.get('phase_raw'),
             segment.get('phase'),
+            segment.get('inventory_category'),
             segment.get('phase_confirmed'),
             list(segment.get('review_reasons') or []),
             psycopg2.extras.Json(segment.get('segment_data') or {}),
@@ -96,7 +105,7 @@ def _replace_transaction_segments(cur, transaction_id: int, row: dict) -> None:
         cur,
         _INSERT_SEGMENTS_SQL,
         segment_rows,
-        template="(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        template="(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
     )
 
 

@@ -7,13 +7,24 @@ from review_export import build_query, build_summary_frames, flatten_review_row
 
 class ReviewExportTests(unittest.TestCase):
     def test_build_query_includes_reason_filters_and_limit(self):
-        sql, params = build_query('Marion', ['subdivision_unmatched', 'phase_not_confirmed_by_lookup'], 25)
+        sql, params = build_query(
+            'Marion',
+            ['subdivision_unmatched', 'phase_not_confirmed_by_lookup'],
+            25,
+            inventory_categories=['scattered_legacy_lots'],
+            exclude_inventory_categories=['finished_lot_inventory'],
+        )
 
         self.assertIn('review_flag = TRUE', sql)
         self.assertIn("REPLACE(UPPER(county), ' ', '') = REPLACE(UPPER(%s), ' ', '')", sql)
         self.assertEqual(sql.count("(parsed_data->'review_reasons') ? %s"), 2)
+        self.assertIn('inventory_category = %s', sql)
+        self.assertIn('inventory_category IS DISTINCT FROM %s', sql)
         self.assertTrue(sql.strip().endswith('LIMIT %s'))
-        self.assertEqual(params, ['Marion', 'subdivision_unmatched', 'phase_not_confirmed_by_lookup', 25])
+        self.assertEqual(
+            params,
+            ['Marion', 'subdivision_unmatched', 'phase_not_confirmed_by_lookup', 'scattered_legacy_lots', 'finished_lot_inventory', 25],
+        )
 
     def test_flatten_review_row_extracts_review_context(self):
         row = {
@@ -26,11 +37,12 @@ class ReviewExportTests(unittest.TestCase):
             'instrument': 'WD',
             'price': 450000,
             'lots': 2,
+            'inventory_category': 'scattered_legacy_lots',
             'subdivision': 'SPRING HILL',
             'subdivision_id': 620,
             'phase': '2',
-            'legal_desc': 'L13 Blk280 Un6 SubSPRING BILL',
-            'legal_raw': 'L13 Blk280 Un6 SubSPRING BILL',
+            'export_legal_desc': 'L13 Blk280 Un6 SubSPRING BILL',
+            'export_legal_raw': 'L13 Blk280 Un6 SubSPRING BILL',
             'source_file': 'raw data/Hernando/hernando_adams.xlsx',
             'parsed_data': {
                 'review_reasons': ['phase_not_confirmed_by_lookup', 'subdivision_unmatched'],
@@ -60,21 +72,24 @@ class ReviewExportTests(unittest.TestCase):
         self.assertEqual(flattened['ID'], 101)
         self.assertEqual(flattened['Review Reasons'], 'phase_not_confirmed_by_lookup | subdivision_unmatched')
         self.assertEqual(flattened['Phase Candidates'], '2')
+        self.assertEqual(flattened['Inventory Category'], 'scattered_legacy_lots')
         self.assertEqual(flattened['Normalized Candidates'], 'SPRING HILL (phase=2, alias=SPRING BILL)')
         self.assertEqual(flattened['Lot Values'], '13')
         self.assertEqual(flattened['Block Values'], '280')
         self.assertEqual(flattened['Unit Values'], '6')
         self.assertEqual(flattened['Parcel References'], 'R123')
         self.assertEqual(flattened['Subdivision Flags'], 'replat')
+        self.assertEqual(flattened['Export Legal Description'], 'L13 Blk280 Un6 SubSPRING BILL')
+        self.assertEqual(flattened['Export Legal Raw'], 'L13 Blk280 Un6 SubSPRING BILL')
 
     def test_build_summary_frames_counts_exploded_reasons(self):
         detail_df = pd.DataFrame([
-            {'ID': 1, 'County': 'Bay', 'Review Reasons': 'subdivision_unmatched | multiple_subdivision_candidates'},
-            {'ID': 2, 'County': 'Bay', 'Review Reasons': 'subdivision_unmatched'},
-            {'ID': 3, 'County': 'Walton', 'Review Reasons': 'phase_not_confirmed_by_lookup'},
+            {'ID': 1, 'County': 'Bay', 'Review Reasons': 'subdivision_unmatched | multiple_subdivision_candidates', 'Inventory Category': 'scattered_legacy_lots'},
+            {'ID': 2, 'County': 'Bay', 'Review Reasons': 'subdivision_unmatched', 'Inventory Category': ''},
+            {'ID': 3, 'County': 'Walton', 'Review Reasons': 'phase_not_confirmed_by_lookup', 'Inventory Category': None},
         ])
 
-        overview, reason_counts, county_counts = build_summary_frames(detail_df)
+        overview, reason_counts, county_counts, category_counts = build_summary_frames(detail_df)
 
         self.assertEqual(int(overview.loc[overview['Metric'] == 'Flagged Rows', 'Value'].iloc[0]), 3)
         self.assertEqual(
@@ -87,6 +102,10 @@ class ReviewExportTests(unittest.TestCase):
         )
         self.assertEqual(
             county_counts.set_index('County').loc['Bay', 'Rows'],
+            2,
+        )
+        self.assertEqual(
+            category_counts.set_index('Inventory Category').loc['Uncategorized', 'Rows'],
             2,
         )
 

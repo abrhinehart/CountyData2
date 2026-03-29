@@ -15,6 +15,7 @@ from processors.county_parsers import (
 )
 from utils.county_utils import normalize_county_key
 from utils.date_utils import parse_date
+from utils.inventory_categories import classify_inventory_category
 from utils.subdivision_reference import resolve_county_subdivision_reference
 from utils.text_cleaning import (
     split_parties,
@@ -27,7 +28,7 @@ from utils.text_cleaning import (
     remove_after_parcel,
     remove_after_section,
 )
-from utils.transaction_utils import classify_transaction_type
+from utils.transaction_utils import classify_transaction_type, extract_acres
 
 
 _HERNANDO_SUBDIVISION_ALIASES = {
@@ -232,6 +233,45 @@ def _derive_subdivision_from_legal_remarks(legal_remarks: str | None, phase_keyw
         return (None, False)
 
     return (candidate, bool(re.match(r'(?i)^UNREC(?:ORDED)?\.?', str(legal_remarks).strip())))
+
+
+def _extract_record_acres(row, cols: dict, export_legal_desc: str | None, county_parse: dict) -> tuple[float | None, str | None]:
+    explicit_columns = []
+    for key in ('acres', 'acreage'):
+        column_name = cols.get(key)
+        if column_name:
+            explicit_columns.append(column_name)
+
+    for column_name in row.index:
+        normalized = re.sub(r'\s+', '', str(column_name).strip().lower())
+        if normalized in {'acres', 'acreage'} and column_name not in explicit_columns:
+            explicit_columns.append(column_name)
+
+    for column_name in explicit_columns:
+        acres_value = extract_acres(row.get(column_name))
+        if acres_value is not None:
+            return acres_value, 'column'
+
+        raw_value = row.get(column_name)
+        if pd.notna(raw_value):
+            try:
+                return float(str(raw_value).strip()), 'column'
+            except (ValueError, TypeError):
+                pass
+
+    legal_candidates = []
+    if export_legal_desc:
+        legal_candidates.append(export_legal_desc)
+    for value in county_parse.get('legal_remarks_values') or []:
+        if value:
+            legal_candidates.append(value)
+
+    for candidate in legal_candidates:
+        acres_value = extract_acres(candidate)
+        if acres_value is not None:
+            return acres_value, 'legal'
+
+    return None, None
 
 
 def _extract_hernando_subdivision_unit(text: str) -> tuple[str | None, str | None]:
@@ -830,40 +870,48 @@ def transform_row(row: pd.Series, county: str, config: dict,
                 grantor_parties, grantee_parties = grantee_parties, grantor_parties
                 swap_reason = 'santarosa_party_type_swap'
 
-    # --- Legal description (dual output: legal_raw + legal_desc) ---
+    # --- Export legal text (dual output: raw + cleaned approximation) ---
     legal_src = row.get(cols.get('legal', ''), pd.NA)
-    legal = str(legal_src).replace('\n', ' ').strip() if pd.notna(legal_src) else ''
+    export_legal_raw = ''
+    if pd.notna(legal_src):
+        export_legal_raw = (
+            str(legal_src)
+            .replace('\r\n', '\n')
+            .replace('\r', '\n')
+            .strip()
+        )
+    export_legal_desc = re.sub(r'\s+', ' ', export_legal_raw).strip() if export_legal_raw else ''
 
     if county_key == 'WALTON':
         county_parse = parse_walton_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'BAY':
         county_parse = parse_bay_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'MARION':
         county_parse = parse_marion_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'HERNANDO':
         county_parse = parse_hernando_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'CITRUS':
         county_parse = parse_citrus_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'ESCAMBIA':
         county_parse = parse_escambia_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'OKALOOSA':
         county_parse = parse_okaloosa_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'OKEECHOBEE':
         county_parse = parse_okeechobee_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
     elif county_key == 'SANTAROSA':
         county_parse = parse_santarosa_row(row, cols)
-        legal = county_parse['legal']
+        export_legal_desc = county_parse['legal']
 
-    legal_raw = legal or None
-    legal_desc = legal or None
+    export_legal_raw = export_legal_raw or None
+    export_legal_desc = export_legal_desc or None
 
     if county_key == 'HERNANDO':
         subdivision_values = county_parse.get('subdivision_values', [])
@@ -916,7 +964,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             force_review_flag = True
             review_reasons.append('multiple_subdivision_candidates')
         else:
-            subdivision_lookup_text = legal
+            subdivision_lookup_text = export_legal_desc
     elif county_key in {'CITRUS', 'ESCAMBIA', 'OKALOOSA'}:
         normalized_candidates = _normalize_labeled_subdivision_candidates(
             county_key,
@@ -1001,7 +1049,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             force_review_flag = True
             review_reasons.append('multiple_subdivision_candidates')
         else:
-            subdivision_lookup_text = '' if county_key == 'OKALOOSA' else legal
+            subdivision_lookup_text = '' if county_key == 'OKALOOSA' else export_legal_desc
     elif county_key in {'BAY', 'WALTON', 'OKEECHOBEE', 'MARION', 'SANTAROSA'}:
         normalized_candidates = _normalize_freeform_subdivision_candidates(
             county_key,
@@ -1125,9 +1173,9 @@ def transform_row(row: pd.Series, county: str, config: dict,
             force_review_flag = True
             review_reasons.append('multiple_subdivision_candidates')
         else:
-            subdivision_lookup_text = '' if county_key in {'OKEECHOBEE', 'SANTAROSA'} else legal
+            subdivision_lookup_text = '' if county_key in {'OKEECHOBEE', 'SANTAROSA'} else export_legal_desc
     else:
-        subdivision_lookup_text = legal
+        subdivision_lookup_text = export_legal_desc
 
     # --- Subdivision and phase (lookup-first, regex fallback) ---
     review_flag = False
@@ -1208,6 +1256,12 @@ def transform_row(row: pd.Series, county: str, config: dict,
             parent_match=parent_match,
         )
 
+    inventory_category = classify_inventory_category(county, subdivision)
+    for segment in transaction_segments:
+        segment_inventory_category = classify_inventory_category(county, segment.get('subdivision'))
+        segment['inventory_category'] = segment_inventory_category
+        segment['segment_data'].pop('inventory_category', None)
+
     instrument = str(row.get(cols.get('instrument', ''), '')).strip()
     date = parse_date(row.get(cols.get('date', ''), pd.NA))
 
@@ -1228,6 +1282,10 @@ def transform_row(row: pd.Series, county: str, config: dict,
     if helper_lot_count is not None:
         lots = helper_lot_count
 
+    acres, acres_source = _extract_record_acres(row, cols, export_legal_desc, county_parse)
+    county_parse_for_storage = dict(county_parse)
+    county_parse_for_storage.pop('legal', None)
+
     parsed_data = {
         'grantor_parties': grantor_parties,
         'grantee_parties': grantee_parties,
@@ -1240,8 +1298,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
         'ignored_subdivision_reason': ignored_subdivision_reason,
         'phase_candidate_values': phase_candidate_values,
         'review_reasons': review_reasons,
-        'transaction_segments': transaction_segments,
-        'county_parse': county_parse,
+        'county_parse': county_parse_for_storage,
     }
 
     trans_type = classify_transaction_type(
@@ -1249,6 +1306,12 @@ def transform_row(row: pd.Series, county: str, config: dict,
         grantee_builder_id,
         grantor_land_banker_id,
         grantee_land_banker_id,
+        grantee=grantee,
+        instrument=instrument,
+        export_legal_desc=export_legal_desc,
+        subdivision=subdivision,
+        county_parse=county_parse_for_storage,
+        acres=acres,
     )
 
     return {
@@ -1257,13 +1320,18 @@ def transform_row(row: pd.Series, county: str, config: dict,
         'type':                    trans_type,
         'instrument':              instrument or None,
         'date':                    date,
-        'legal_desc':              legal_desc,
-        'legal_raw':               legal_raw,
+        'export_legal_desc':       export_legal_desc,
+        'export_legal_raw':        export_legal_raw,
         'deed_locator':            deed_locator,
+        'deed_legal_desc':         None,
+        'deed_legal_parsed':       {},
         'subdivision':             subdivision or None,
         'subdivision_id':          subdivision_id,
         'phase':                   phase or None,
+        'inventory_category':      inventory_category,
         'lots':                    lots,
+        'acres':                   acres,
+        'acres_source':            acres_source,
         'price':                   price,
         'parsed_data':             parsed_data,
         'transaction_segments':    transaction_segments,

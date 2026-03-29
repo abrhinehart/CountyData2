@@ -1,0 +1,26 @@
+# Curated subdivision categories used for analytics.
+#
+# These categories should not overwrite raw deed facts such as `lots`.
+# Instead, they provide an interpretation layer for reporting and filtering.
+#
+# Add canonical subdivision names under the appropriate county when ready.
+# Example:
+# scattered_legacy_lots:
+#   Citrus:
+#     - "INVERNESS HIGHLANDS"
+#   Hernando:
+#     - "SPRING HILL"
+
+scattered_legacy_lots:
+  Citrus:
+    - "CITRUS SPRINGS"
+    - "CYPRESS VILLAGE"
+    - "INVERNESS HIGHLANDS"
+    - "INVERNESS HIGHLANDS SOUTH"
+    - "INVERNESS HIGHLANDS WEST"
+    - "OAK VILLAGE"
+    - "PINE RIDGE"
+  Hernando:
+    - "ROYAL HIGHLANDS"
+    - "SPRING HILL"
+    - "WEEKI WACHEE WOODLANDS"

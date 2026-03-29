@@ -6,7 +6,8 @@ Usage:
     python export.py --county Bay                         # Filter by county
     python export.py --subdivision "PALMETTO COVE"        # Filter by subdivision
     python export.py --from 2023-01-01 --to 2024-01-01   # Date range
-    python export.py --include-raw                        # Include legal_raw column
+    python export.py --exclude-inventory-category scattered_legacy_lots
+    python export.py --include-raw                        # Include export_legal_raw column
     python export.py --unmatched-only                     # Only review_flag=TRUE rows
     python export.py --out my_report.xlsx                 # Custom output path
 """
@@ -32,9 +33,10 @@ _COLUMN_MAP = {
     'type':          'Type',
     'instrument':    'Instrument',
     'date':          'Date',
-    'legal_desc':    'Legal Description',
+    'export_legal_desc':    'Export Legal Description',
     'subdivision':   'Subdivision',
     'phase':         'Phase',
+    'inventory_category': 'Inventory Category',
     'lots':          'Lots',
     'price':         'Price',
     'price_per_lot': '$ / Lot',
@@ -46,7 +48,7 @@ _COLUMN_MAP = {
 
 # Extra columns available via flags (not in default export)
 _EXTRA_COLUMNS = {
-    'legal_raw': 'Legal Raw',
+    'export_legal_raw': 'Export Legal Raw',
 }
 
 _COLUMN_WIDTHS = {
@@ -55,9 +57,10 @@ _COLUMN_WIDTHS = {
     'Type':              13,
     'Instrument':        11,
     'Date':              11,
-    'Legal Description': 50,
+    'Export Legal Description': 50,
     'Subdivision':       30,
     'Phase':              9,
+    'Inventory Category': 22,
     'Lots':               5,
     'Price':             10,
     '$ / Lot':            9,
@@ -65,7 +68,7 @@ _COLUMN_WIDTHS = {
     '$ / Acre':           8,
     'County':            10,
     'Notes':             40,
-    'Legal Raw':         80,
+    'Export Legal Raw':  80,
 }
 
 _CENTER_COLS  = {'Phase', 'Lots', 'Price', '$ / Lot', 'Acres', '$ / Acre', 'County'}
@@ -75,7 +78,9 @@ _NUMBER_COLS  = {'Price', '$ / Lot', 'Acres', '$ / Acre'}
 def build_query(county: str | None, subdivision: str | None,
                 date_from: date | None, date_to: date | None,
                 include_raw: bool = False,
-                unmatched_only: bool = False) -> tuple[str, list]:
+                unmatched_only: bool = False,
+                inventory_categories: list[str] | None = None,
+                exclude_inventory_categories: list[str] | None = None) -> tuple[str, list, dict]:
     col_map = dict(_COLUMN_MAP)
     if include_raw:
         col_map.update(_EXTRA_COLUMNS)
@@ -98,6 +103,12 @@ def build_query(county: str | None, subdivision: str | None,
         params.append(date_to)
     if unmatched_only:
         where.append('review_flag = TRUE')
+    if inventory_categories:
+        where.append('(' + ' OR '.join(['inventory_category = %s'] * len(inventory_categories)) + ')')
+        params.extend(inventory_categories)
+    if exclude_inventory_categories:
+        where.extend(['inventory_category IS DISTINCT FROM %s'] * len(exclude_inventory_categories))
+        params.extend(exclude_inventory_categories)
 
     sql = f"SELECT {select_cols} FROM transactions"
     if where:
@@ -109,7 +120,10 @@ def build_query(county: str | None, subdivision: str | None,
 def fetch_data(sql: str, params: list, col_map: dict) -> pd.DataFrame:
     conn = psycopg2.connect(DATABASE_URL)
     try:
-        df = pd.read_sql_query(sql, conn, params=params)
+        with conn.cursor() as cur:
+            cur.execute(sql, params)
+            columns = [desc[0] for desc in cur.description]
+            df = pd.DataFrame(cur.fetchall(), columns=columns)
     finally:
         conn.close()
     df.rename(columns=col_map, inplace=True)
@@ -167,9 +181,13 @@ def main():
     parser.add_argument('--from',         dest='date_from', help='Start date (YYYY-MM-DD)')
     parser.add_argument('--to',           dest='date_to',   help='End date (YYYY-MM-DD)')
     parser.add_argument('--include-raw',  action='store_true',
-                        help='Include legal_raw column in export')
+                        help='Include export_legal_raw column in export')
     parser.add_argument('--unmatched-only', action='store_true',
                         help='Only export rows with review_flag=TRUE (unmatched)')
+    parser.add_argument('--inventory-category', action='append',
+                        help='Only export rows in the given inventory category (repeat for multiple)')
+    parser.add_argument('--exclude-inventory-category', action='append',
+                        help='Exclude rows in the given inventory category (repeat for multiple)')
     parser.add_argument('--out',          help='Output file path (default: OUTPUT_DIR/export.xlsx)')
     args = parser.parse_args()
 
@@ -180,6 +198,8 @@ def main():
         args.county, args.subdivision, date_from, date_to,
         include_raw=args.include_raw,
         unmatched_only=args.unmatched_only,
+        inventory_categories=args.inventory_category,
+        exclude_inventory_categories=args.exclude_inventory_category,
     )
     df = fetch_data(sql, params, col_map)
 

@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import patch
 
 import pandas as pd
 
@@ -205,6 +206,68 @@ class TransformerTypeTests(unittest.TestCase):
 
         self.assertEqual(result['type'], 'Land Banker Purchase')
         self.assertEqual(result['grantee_land_banker_id'], 7)
+
+    def test_transformer_classifies_association_transfer(self):
+        row = pd.Series({
+            'Grantor': 'Builder Seller LLC',
+            'Grantee': 'Freedom Crossings Preserve Property Owners Association Inc',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'Tract E Freedom Crossings Preserve',
+        })
+
+        result = transform_row(
+            row,
+            'Marion',
+            self.config,
+            sub_matcher=None,
+            builder_matcher=FakeMatcher({}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['type'], 'Association Transfer')
+
+    def test_transformer_classifies_correction_quit_claim(self):
+        row = pd.Series({
+            'Grantor': 'Builder Seller LLC',
+            'Grantee': 'Buyer Name',
+            'Date': '2024-01-01',
+            'Instrument': 'Quit Claim Deed',
+            'Legal': 'TO CORRECT',
+        })
+
+        result = transform_row(
+            row,
+            'Walton',
+            self.config,
+            sub_matcher=None,
+            builder_matcher=FakeMatcher({'Buyer Name': (5, 'Buyer Name')}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['type'], 'Correction / Quit Claim')
+
+    def test_transformer_classifies_raw_land_purchase_and_extracts_acres(self):
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'D R Horton Inc',
+            'Date': '2024-01-01',
+            'Instrument': 'WD',
+            'Legal': 'TRACT A 5.25 AC COMM AT SWC OF SECTION 19 TOWNSHIP 4N RANGE 23',
+        })
+
+        result = transform_row(
+            row,
+            'Okaloosa',
+            self.config,
+            sub_matcher=None,
+            builder_matcher=FakeMatcher({'D R Horton Inc': (1, 'D R Horton Inc')}),
+            land_banker_matcher=FakeMatcher({}),
+        )
+
+        self.assertEqual(result['type'], 'Raw Land Purchase')
+        self.assertEqual(result['acres'], 5.25)
+        self.assertEqual(result['acres_source'], 'legal')
 
     def test_lookup_known_phase_does_not_force_review(self):
         config = dict(self.config)
@@ -1025,7 +1088,7 @@ class TransformerTypeTests(unittest.TestCase):
             ['15-3N-23-0000-0012-0010'],
         )
 
-    def test_okeechobee_legal_strips_leading_parcel_id(self):
+    def test_okeechobee_legal_preserves_raw_export_text_and_strips_leading_parcel_id(self):
         config = dict(self.config)
         config['phase_keywords'] = ['Phase', 'PH']
         matcher = FakeSubdivisionMatcher()
@@ -1047,11 +1110,12 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_raw'], 'BASSWOOD PHASE 2')
-        self.assertEqual(result['legal_desc'], 'BASSWOOD PHASE 2')
+        self.assertEqual(result['export_legal_raw'], '0-00-00-00-0000-00000-0000 BASSWOOD PHASE 2')
+        self.assertEqual(result['export_legal_desc'], 'BASSWOOD PHASE 2')
         self.assertEqual(result['subdivision'], 'BASSWOOD')
         self.assertEqual(result['phase'], '2')
         self.assertEqual(matcher.calls[0][0], 'BASSWOOD')
+        self.assertNotIn('legal', result['parsed_data']['county_parse'])
 
     def test_okeechobee_keeps_unit_as_structured_field_not_phase(self):
         config = dict(self.config)
@@ -1074,7 +1138,11 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_raw'], 'LOT 13 BLK 31 BASSWOOD INC UNIT 2')
+        self.assertEqual(
+            result['export_legal_raw'],
+            '1-05-37-35-0020-00310-0130\nLOT 13 BLK 31 BASSWOOD INC UNIT 2',
+        )
+        self.assertEqual(result['export_legal_desc'], 'LOT 13 BLK 31 BASSWOOD INC UNIT 2')
         self.assertEqual(result['subdivision'], 'BASSWOOD')
         self.assertIsNone(result['phase'])
         self.assertEqual(result['lots'], 1)
@@ -1383,7 +1451,7 @@ class TransformerTypeTests(unittest.TestCase):
 
         self.assertEqual(result['subdivision'], 'WINDSOR RIDGE')
 
-    def test_legal_description_keeps_full_cleaned_text(self):
+    def test_export_legal_description_keeps_full_cleaned_text(self):
         legal = (
             'Lot 1 Example Subdivision with a much longer legal description that used to be cut off '
             'for spreadsheet viewing only'
@@ -1405,8 +1473,9 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_desc'], legal)
-        self.assertEqual(result['legal_raw'], legal)
+        self.assertEqual(result['export_legal_desc'], legal)
+        self.assertEqual(result['export_legal_raw'], legal)
+        self.assertNotIn('legal', result['parsed_data']['county_parse'])
 
     def test_subdivision_keeps_full_cleaned_text(self):
         legal = (
@@ -1469,7 +1538,7 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_desc'], 'L11,12 Blk389 Un6 SubROYAL HIGHLANDS')
+        self.assertEqual(result['export_legal_desc'], 'L11,12 Blk389 Un6 SubROYAL HIGHLANDS')
         self.assertEqual(result['subdivision_id'], 10)
         self.assertEqual(result['subdivision'], 'ROYAL HIGHLANDS')
         self.assertEqual(result['lots'], 2)
@@ -1522,7 +1591,7 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_desc'], 'L20 Blk640 Un8 SubROYAL HIGHLANDS; L3 Blk532 Un7 SubSPRING HILL')
+        self.assertEqual(result['export_legal_desc'], 'L20 Blk640 Un8 SubROYAL HIGHLANDS; L3 Blk532 Un7 SubSPRING HILL')
         self.assertIsNone(result['subdivision'])
         self.assertTrue(result['review_flag'])
         self.assertEqual(result['lots'], 2)
@@ -1896,7 +1965,7 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_desc'], 'L: 10 Blk: 315 Sub: PINE RIDGE U: 3; L: 7 Blk: 319 Sub: PINE RIDGE U: 3')
+        self.assertEqual(result['export_legal_desc'], 'L: 10 Blk: 315 Sub: PINE RIDGE U: 3; L: 7 Blk: 319 Sub: PINE RIDGE U: 3')
         self.assertEqual(result['subdivision_id'], 21)
         self.assertEqual(result['subdivision'], 'PINE RIDGE')
         self.assertIsNone(result['phase'])
@@ -1978,7 +2047,7 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_desc'], 'LOT 4 BLK 13 EASTBAY PH IA')
+        self.assertEqual(result['export_legal_desc'], 'LOT 4 BLK 13 EASTBAY PH IA')
         self.assertEqual(result['subdivision_id'], 31)
         self.assertEqual(result['subdivision'], 'EAST BAY')
         self.assertEqual(result['phase'], '1A')
@@ -2018,7 +2087,7 @@ class TransformerTypeTests(unittest.TestCase):
             land_banker_matcher=FakeMatcher({}),
         )
 
-        self.assertEqual(result['legal_desc'], 'LOTS 80-82 MAGNOLIA AT THE BLUFFS PH 1')
+        self.assertEqual(result['export_legal_desc'], 'LOTS 80-82 MAGNOLIA AT THE BLUFFS PH 1')
         self.assertEqual(result['subdivision'], 'MAGNOLIA AT THE BLUFFS')
         self.assertEqual(result['phase'], '1')
         self.assertEqual(result['lots'], 3)
@@ -2310,6 +2379,49 @@ class TransformerTypeTests(unittest.TestCase):
             result['parsed_data']['county_parse']['normalized_subdivision_candidates'][0]['details']['alias_source'],
             'SANTUARY',
         )
+
+    def test_transformer_assigns_inventory_category_without_changing_lots(self):
+        config = {
+            'column_mapping': {
+                'grantor': 'Grantor',
+                'grantee': 'Grantee',
+                'date': 'Record Date',
+                'instrument': 'Doc Type',
+                'legal': 'Legal',
+            },
+            'phase_keywords': ['Phase', 'Ph.?', 'PH', 'Unit'],
+            'delimiters': [','],
+        }
+        row = pd.Series({
+            'Grantor': 'Seller Name',
+            'Grantee': 'Buyer Name',
+            'Record Date': '06/25/2024',
+            'Doc Type': 'DEED',
+            'Legal': 'L: 40 Blk: 1 Sub: INVERNESS HIGHLANDS U: 3\nL: 41 Blk: 1 Sub: INVERNESS HIGHLANDS U: 3\n',
+        })
+
+        with patch(
+            'processors.transformer.classify_inventory_category',
+            side_effect=lambda county, subdivision: 'scattered_legacy_lots' if subdivision else None,
+        ):
+            result = transform_row(
+                row,
+                'Citrus',
+                config,
+                sub_matcher=ConfiguredSubdivisionMatcher({}),
+                builder_matcher=FakeMatcher({}),
+                land_banker_matcher=FakeMatcher({}),
+            )
+
+        self.assertEqual(result['subdivision'], 'INVERNESS HIGHLANDS')
+        self.assertEqual(result['lots'], 2)
+        self.assertEqual(result['inventory_category'], 'scattered_legacy_lots')
+        self.assertNotIn('inventory_category', result['parsed_data'])
+        self.assertNotIn('acres_source', result['parsed_data'])
+        self.assertNotIn('transaction_segments', result['parsed_data'])
+        self.assertNotIn('legal', result['parsed_data']['county_parse'])
+        self.assertEqual(result['transaction_segments'][0]['inventory_category'], 'scattered_legacy_lots')
+        self.assertNotIn('inventory_category', result['transaction_segments'][0]['segment_data'])
 
 
 if __name__ == '__main__':

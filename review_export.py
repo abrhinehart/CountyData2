@@ -6,6 +6,7 @@ Usage:
     python review_export.py --county Marion
     python review_export.py --reason subdivision_unmatched
     python review_export.py --reason multiple_subdivision_candidates --reason phase_not_confirmed_by_lookup
+    python review_export.py --exclude-inventory-category scattered_legacy_lots
     python review_export.py --limit 250 --out review_queue.xlsx
 """
 
@@ -33,6 +34,7 @@ _DETAIL_COLUMNS = [
     'Instrument',
     'Price',
     'Lots',
+    'Inventory Category',
     'Subdivision',
     'Subdivision ID',
     'Phase',
@@ -50,8 +52,8 @@ _DETAIL_COLUMNS = [
     'Range Values',
     'Tract Values',
     'Subdivision Flags',
-    'Legal Description',
-    'Legal Raw',
+    'Export Legal Description',
+    'Export Legal Raw',
     'Source File',
 ]
 
@@ -66,6 +68,7 @@ _DETAIL_WIDTHS = {
     'Instrument': 12,
     'Price': 12,
     'Lots': 8,
+    'Inventory Category': 24,
     'Subdivision': 34,
     'Subdivision ID': 14,
     'Phase': 12,
@@ -83,8 +86,8 @@ _DETAIL_WIDTHS = {
     'Range Values': 18,
     'Tract Values': 18,
     'Subdivision Flags': 24,
-    'Legal Description': 64,
-    'Legal Raw': 64,
+    'Export Legal Description': 64,
+    'Export Legal Raw': 64,
     'Source File': 34,
 }
 
@@ -94,6 +97,7 @@ _SUMMARY_WIDTHS = {
     'Reason': 36,
     'Rows': 12,
     'County': 16,
+    'Inventory Category': 24,
 }
 
 _CENTER_COLUMNS = {
@@ -112,14 +116,16 @@ _WRAP_COLUMNS = {
     'Lookup Text',
     'Preparsed Subdivision',
     'Normalized Candidates',
-    'Legal Description',
-    'Legal Raw',
+    'Export Legal Description',
+    'Export Legal Raw',
     'Source File',
 }
 
 
 def build_query(county: str | None = None, reasons: list[str] | None = None,
-                limit: int | None = None) -> tuple[str, list]:
+                limit: int | None = None,
+                inventory_categories: list[str] | None = None,
+                exclude_inventory_categories: list[str] | None = None) -> tuple[str, list]:
     where = ['review_flag = TRUE']
     params: list = []
 
@@ -131,6 +137,12 @@ def build_query(county: str | None = None, reasons: list[str] | None = None,
         clauses = ["(parsed_data->'review_reasons') ? %s" for _ in reasons]
         where.append('(' + ' OR '.join(clauses) + ')')
         params.extend(reasons)
+    if inventory_categories:
+        where.append('(' + ' OR '.join(['inventory_category = %s'] * len(inventory_categories)) + ')')
+        params.extend(inventory_categories)
+    if exclude_inventory_categories:
+        where.extend(['inventory_category IS DISTINCT FROM %s'] * len(exclude_inventory_categories))
+        params.extend(exclude_inventory_categories)
 
     sql = """
         SELECT
@@ -143,11 +155,12 @@ def build_query(county: str | None = None, reasons: list[str] | None = None,
             instrument,
             price,
             lots,
+            inventory_category,
             subdivision,
             subdivision_id,
             phase,
-            legal_desc,
-            legal_raw,
+            export_legal_desc,
+            export_legal_raw,
             source_file,
             parsed_data
         FROM transactions
@@ -240,6 +253,7 @@ def flatten_review_row(row: dict) -> dict:
         'Instrument': row.get('instrument'),
         'Price': row.get('price'),
         'Lots': row.get('lots'),
+        'Inventory Category': row.get('inventory_category'),
         'Subdivision': row.get('subdivision'),
         'Subdivision ID': row.get('subdivision_id'),
         'Phase': row.get('phase'),
@@ -257,8 +271,8 @@ def flatten_review_row(row: dict) -> dict:
         'Range Values': _county_parse_values(county_parse, 'structured_range_values', 'range_values'),
         'Tract Values': _county_parse_values(county_parse, 'tract_values'),
         'Subdivision Flags': _county_parse_values(county_parse, 'subdivision_flags'),
-        'Legal Description': row.get('legal_desc'),
-        'Legal Raw': row.get('legal_raw'),
+        'Export Legal Description': row.get('export_legal_desc'),
+        'Export Legal Raw': row.get('export_legal_raw'),
         'Source File': row.get('source_file'),
     }
 
@@ -278,7 +292,7 @@ def fetch_review_rows(sql: str, params: list) -> pd.DataFrame:
     return detail_df
 
 
-def build_summary_frames(detail_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def build_summary_frames(detail_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     reason_series = (
         detail_df['Review Reasons']
         .replace('', pd.NA)
@@ -307,8 +321,18 @@ def build_summary_frames(detail_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Data
         .rename(columns={'county': 'County'})
         .sort_values(['Rows', 'County'], ascending=[False, True], kind='stable')
     )
+    category_counts = (
+        detail_df.assign(
+            **{'Inventory Category': detail_df['Inventory Category'].replace('', pd.NA).fillna('Uncategorized')}
+        )
+        .groupby('Inventory Category', dropna=False)
+        .size()
+        .rename('Rows')
+        .reset_index()
+        .sort_values(['Rows', 'Inventory Category'], ascending=[False, True], kind='stable')
+    )
 
-    return overview, reason_counts, county_counts
+    return overview, reason_counts, county_counts, category_counts
 
 
 def _style_sheet(path: Path, sheet_name: str, widths: dict[str, int], *,
@@ -367,12 +391,13 @@ def _style_sheet(path: Path, sheet_name: str, widths: dict[str, int], *,
 
 
 def export_review_queue(detail_df: pd.DataFrame, out_path: Path) -> None:
-    overview_df, reason_counts_df, county_counts_df = build_summary_frames(detail_df)
+    overview_df, reason_counts_df, county_counts_df, category_counts_df = build_summary_frames(detail_df)
 
     with pd.ExcelWriter(out_path, engine='openpyxl', datetime_format='m/d/yyyy') as writer:
         overview_df.to_excel(writer, sheet_name='Summary', index=False, startrow=0, startcol=0)
         reason_counts_df.to_excel(writer, sheet_name='Summary', index=False, startrow=0, startcol=3)
         county_counts_df.to_excel(writer, sheet_name='Summary', index=False, startrow=0, startcol=6)
+        category_counts_df.to_excel(writer, sheet_name='Summary', index=False, startrow=0, startcol=9)
         detail_df.to_excel(writer, sheet_name='Review Queue', index=False)
 
     _style_sheet(out_path, 'Summary', _SUMMARY_WIDTHS, freeze_panes='A2')
@@ -384,11 +409,21 @@ def main():
     parser.add_argument('--county', help='Filter review rows by county name')
     parser.add_argument('--reason', action='append',
                         help='Filter by review reason (repeat for multiple reasons)')
+    parser.add_argument('--inventory-category', action='append',
+                        help='Only export review rows in the given inventory category (repeat for multiple)')
+    parser.add_argument('--exclude-inventory-category', action='append',
+                        help='Exclude review rows in the given inventory category (repeat for multiple)')
     parser.add_argument('--limit', type=int, help='Limit the number of exported review rows')
     parser.add_argument('--out', help='Output file path (default: OUTPUT_DIR/review_queue.xlsx)')
     args = parser.parse_args()
 
-    sql, params = build_query(args.county, args.reason, args.limit)
+    sql, params = build_query(
+        args.county,
+        args.reason,
+        args.limit,
+        inventory_categories=args.inventory_category,
+        exclude_inventory_categories=args.exclude_inventory_category,
+    )
     detail_df = fetch_review_rows(sql, params)
 
     if detail_df.empty:

@@ -59,16 +59,20 @@ CREATE TABLE IF NOT EXISTS transactions (
     type                    TEXT,
     instrument              TEXT,
     date                    DATE,
-    legal_desc              TEXT,
-    legal_raw               TEXT,
+    export_legal_desc       TEXT,
+    export_legal_raw        TEXT,
     deed_locator            JSONB DEFAULT '{}'::jsonb,
+    deed_legal_desc         TEXT,
+    deed_legal_parsed       JSONB DEFAULT '{}'::jsonb,
     subdivision             TEXT,
     subdivision_id          INTEGER REFERENCES subdivisions(id),
     phase                   TEXT,
+    inventory_category      TEXT,
     lots                    INTEGER DEFAULT 1,
     price                   NUMERIC(15, 2),
     price_per_lot           NUMERIC(15, 2),
     acres                   NUMERIC(10, 4),
+    acres_source            TEXT,
     price_per_acre          NUMERIC(15, 2),
     parsed_data             JSONB DEFAULT '{}'::jsonb,
     county                  TEXT NOT NULL,
@@ -105,6 +109,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE INDEX IF NOT EXISTS idx_transactions_county                  ON transactions (county);
 CREATE INDEX IF NOT EXISTS idx_transactions_subdivision             ON transactions (subdivision);
 CREATE INDEX IF NOT EXISTS idx_transactions_subdivision_id          ON transactions (subdivision_id);
+CREATE INDEX IF NOT EXISTS idx_transactions_inventory_category      ON transactions (inventory_category) WHERE inventory_category IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_transactions_builder_id              ON transactions (builder_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_grantor_builder_id      ON transactions (grantor_builder_id);
 CREATE INDEX IF NOT EXISTS idx_transactions_grantee_builder_id      ON transactions (grantee_builder_id);
@@ -125,6 +130,7 @@ CREATE TABLE IF NOT EXISTS transaction_segments (
     subdivision_id          INTEGER REFERENCES subdivisions(id),
     phase_raw               TEXT,
     phase                   TEXT,
+    inventory_category      TEXT,
     phase_confirmed         BOOLEAN,
     segment_review_reasons  TEXT[] DEFAULT '{}',
     segment_data            JSONB DEFAULT '{}'::jsonb,
@@ -137,3 +143,5 @@ CREATE TABLE IF NOT EXISTS transaction_segments (
 CREATE INDEX IF NOT EXISTS idx_transaction_segments_transaction_id ON transaction_segments (transaction_id);
 CREATE INDEX IF NOT EXISTS idx_transaction_segments_subdivision_id ON transaction_segments (subdivision_id);
 CREATE INDEX IF NOT EXISTS idx_transaction_segments_county         ON transaction_segments (county);
+CREATE INDEX IF NOT EXISTS idx_transaction_segments_inventory_category
+    ON transaction_segments (inventory_category) WHERE inventory_category IS NOT NULL;

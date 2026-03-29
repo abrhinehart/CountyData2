@@ -5,6 +5,7 @@ Usage:
     python deed_queue_export.py
     python deed_queue_export.py --county Hernando
     python deed_queue_export.py --type "Builder Purchase"
+    python deed_queue_export.py --exclude-inventory-category scattered_legacy_lots
     python deed_queue_export.py --limit 250 --out output/deed_queue.xlsx
 """
 
@@ -39,7 +40,10 @@ _DETAIL_COLUMNS = [
     'Instrument',
     'Subdivision',
     'Phase',
+    'Inventory Category',
     'Lots',
+    'Acres',
+    'Export Legal Description',
     'Recommended Search',
     'Search Query',
     'Search Portal',
@@ -70,7 +74,10 @@ _DETAIL_WIDTHS = {
     'Instrument': 12,
     'Subdivision': 34,
     'Phase': 12,
+    'Inventory Category': 24,
     'Lots': 8,
+    'Acres': 10,
+    'Export Legal Description': 52,
     'Recommended Search': 20,
     'Search Query': 28,
     'Search Portal': 42,
@@ -98,6 +105,7 @@ _SUMMARY_WIDTHS = {
     'Rows': 12,
     'Strategy': 24,
     'Portal': 42,
+    'Inventory Category': 24,
 }
 
 _CENTER_COLUMNS = {
@@ -115,6 +123,7 @@ _WRAP_COLUMNS = {
     'Grantor',
     'Grantee',
     'Subdivision',
+    'Export Legal Description',
     'Search Query',
     'Search Portal',
     'Doc Link Text',
@@ -124,7 +133,9 @@ _WRAP_COLUMNS = {
 
 
 def build_query(county: str | None = None, transaction_type: str = 'Builder Purchase',
-                limit: int | None = None) -> tuple[str, list]:
+                limit: int | None = None,
+                inventory_categories: list[str] | None = None,
+                exclude_inventory_categories: list[str] | None = None) -> tuple[str, list]:
     where = ['price IS NULL']
     params: list = []
 
@@ -135,6 +146,12 @@ def build_query(county: str | None = None, transaction_type: str = 'Builder Purc
     if county:
         where.append("REPLACE(UPPER(county), ' ', '') = REPLACE(UPPER(%s), ' ', '')")
         params.append(county)
+    if inventory_categories:
+        where.append('(' + ' OR '.join(['inventory_category = %s'] * len(inventory_categories)) + ')')
+        params.extend(inventory_categories)
+    if exclude_inventory_categories:
+        where.extend(['inventory_category IS DISTINCT FROM %s'] * len(exclude_inventory_categories))
+        params.extend(exclude_inventory_categories)
 
     sql = """
         SELECT
@@ -147,7 +164,10 @@ def build_query(county: str | None = None, transaction_type: str = 'Builder Purc
             instrument,
             subdivision,
             phase,
+            inventory_category,
             lots,
+            acres,
+            export_legal_desc,
             price,
             source_file,
             deed_locator
@@ -268,7 +288,10 @@ def flatten_deed_row(row: dict) -> dict:
         'Instrument': row.get('instrument'),
         'Subdivision': row.get('subdivision'),
         'Phase': row.get('phase'),
+        'Inventory Category': row.get('inventory_category'),
         'Lots': row.get('lots'),
+        'Acres': row.get('acres'),
+        'Export Legal Description': row.get('export_legal_desc'),
         'Recommended Search': search_strategy,
         'Search Query': build_search_query(locator),
         'Search Portal': _COUNTY_PORTAL_URLS.get(row.get('county') or '', ''),
@@ -304,7 +327,7 @@ def fetch_queue_rows(sql: str, params: list) -> pd.DataFrame:
     return pd.DataFrame(rows, columns=_DETAIL_COLUMNS)
 
 
-def build_summary_frames(detail_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+def build_summary_frames(detail_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     overview = pd.DataFrame([
         {'Metric': 'Queue Rows', 'Value': int(len(detail_df))},
         {'Metric': 'Counties Represented', 'Value': int(detail_df['County'].dropna().nunique())},
@@ -328,8 +351,18 @@ def build_summary_frames(detail_df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Data
         .rename(columns={'Recommended Search': 'Strategy'})
         .sort_values(['Rows', 'Strategy'], ascending=[False, True], kind='stable')
     )
+    category_counts = (
+        detail_df.assign(
+            **{'Inventory Category': detail_df['Inventory Category'].replace('', pd.NA).fillna('Uncategorized')}
+        )
+        .groupby('Inventory Category', dropna=False)
+        .size()
+        .rename('Rows')
+        .reset_index()
+        .sort_values(['Rows', 'Inventory Category'], ascending=[False, True], kind='stable')
+    )
 
-    return overview, county_counts, strategy_counts
+    return overview, county_counts, strategy_counts, category_counts
 
 
 def _style_sheet(path: Path, sheet_name: str, widths: dict[str, int], *,
@@ -372,18 +405,19 @@ def _style_sheet(path: Path, sheet_name: str, widths: dict[str, int], *,
 
 
 def export_queue(detail_df: pd.DataFrame, out_path: Path) -> None:
-    overview_df, county_counts_df, strategy_counts_df = build_summary_frames(detail_df)
+    overview_df, county_counts_df, strategy_counts_df, category_counts_df = build_summary_frames(detail_df)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with pd.ExcelWriter(out_path, engine='openpyxl', datetime_format='m/d/yyyy') as writer:
         detail_df.to_excel(writer, sheet_name='Deed Queue', index=False)
         overview_df.to_excel(writer, sheet_name='Summary', index=False, startrow=0)
         county_counts_df.to_excel(writer, sheet_name='Summary', index=False, startrow=len(overview_df) + 3)
+        category_counts_df.to_excel(writer, sheet_name='Summary', index=False, startrow=len(overview_df) + 3, startcol=3)
         strategy_counts_df.to_excel(
             writer,
             sheet_name='Summary',
             index=False,
-            startrow=len(overview_df) + len(county_counts_df) + 6,
+            startrow=len(overview_df) + max(len(county_counts_df), len(category_counts_df)) + 6,
         )
 
     _style_sheet(out_path, 'Deed Queue', _DETAIL_WIDTHS, freeze_panes='A2')
@@ -395,11 +429,21 @@ def main() -> None:
     parser.add_argument('--county', help='Filter by county name (spacing-insensitive)')
     parser.add_argument('--type', dest='transaction_type', default='Builder Purchase',
                         help='Transaction type filter (default: Builder Purchase)')
+    parser.add_argument('--inventory-category', action='append',
+                        help='Only export rows in the given inventory category (repeat for multiple)')
+    parser.add_argument('--exclude-inventory-category', action='append',
+                        help='Exclude rows in the given inventory category (repeat for multiple)')
     parser.add_argument('--limit', type=int, help='Optional max number of rows to export')
     parser.add_argument('--out', help='Output file path (default: OUTPUT_DIR/deed_queue.xlsx)')
     args = parser.parse_args()
 
-    sql, params = build_query(args.county, args.transaction_type, args.limit)
+    sql, params = build_query(
+        args.county,
+        args.transaction_type,
+        args.limit,
+        inventory_categories=args.inventory_category,
+        exclude_inventory_categories=args.exclude_inventory_category,
+    )
     detail_df = fetch_queue_rows(sql, params)
 
     if detail_df.empty:

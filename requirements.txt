@@ -1,0 +1,16 @@
+# Runtime dependencies
+pandas
+openpyxl
+PyYAML
+xlrd
+psycopg2-binary
+python-dotenv
+selenium
+webdriver-manager
+pdf2image
+pytesseract
+openai
+anthropic
+
+# Local verification
+pytest
