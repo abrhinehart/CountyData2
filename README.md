@@ -112,6 +112,16 @@ python -m pytest -q
 
 ---
 
+## Ports
+
+| Service    | Port  |
+|------------|-------|
+| PostgreSQL | 1100  |
+| API        | 1460  |
+| UI         | 1560  |
+
+---
+
 ## Usage
 
 ### Load county data
