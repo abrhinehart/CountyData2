@@ -224,8 +224,11 @@ def get_transactions(
     sort_by: str = "date",
     sort_dir: str = "desc",
 ):
-    d_from = date.fromisoformat(date_from) if date_from else None
-    d_to = date.fromisoformat(date_to) if date_to else None
+    try:
+        d_from = date.fromisoformat(date_from) if date_from else None
+        d_to = date.fromisoformat(date_to) if date_to else None
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid date format, expected YYYY-MM-DD")
 
     inv_cats = [inventory_category] if inventory_category else None
 
@@ -260,13 +263,16 @@ def get_transactions(
             cur.execute(count_sql, params)
             total = cur.fetchone()[0]
 
-            # Sort
-            allowed_sort = {
-                "date", "county", "grantor", "grantee", "subdivision",
-                "price", "lots", "type", "instrument", "price_per_lot",
-                "acres", "price_per_acre", "inventory_category",
+            # Sort — map user input to known-safe column names
+            _SORT_COLUMNS = {
+                "date": "date", "county": "county", "grantor": "grantor",
+                "grantee": "grantee", "subdivision": "subdivision",
+                "price": "price", "lots": "lots", "type": "type",
+                "instrument": "instrument", "price_per_lot": "price_per_lot",
+                "acres": "acres", "price_per_acre": "price_per_acre",
+                "inventory_category": "inventory_category",
             }
-            sb = sort_by if sort_by in allowed_sort else "date"
+            sb = _SORT_COLUMNS.get(sort_by, "date")
             sd = "ASC" if sort_dir.lower() == "asc" else "DESC"
             paginated_sql = f"{base_sql} ORDER BY {sb} {sd} NULLS LAST LIMIT %s OFFSET %s"
             params.extend([page_size, (page - 1) * page_size])
@@ -336,6 +342,9 @@ def get_review_queue(
 # Pipeline endpoints
 # ---------------------------------------------------------------------------
 
+_ETL_COOLDOWN_SECONDS = int(os.getenv("ETL_COOLDOWN_SECONDS", "60"))
+
+
 @app.post("/api/etl/run")
 async def run_etl(body: dict | None = None):
     global _etl_state
@@ -346,6 +355,14 @@ async def run_etl(body: dict | None = None):
                 status_code=409,
                 content={"error": "ETL is already running"},
             )
+
+        if _etl_state.completed_at and _ETL_COOLDOWN_SECONDS > 0:
+            elapsed = (datetime.now() - datetime.fromisoformat(_etl_state.completed_at)).total_seconds()
+            if elapsed < _ETL_COOLDOWN_SECONDS:
+                return JSONResponse(
+                    status_code=429,
+                    content={"error": f"ETL cooldown: wait {int(_ETL_COOLDOWN_SECONDS - elapsed)}s"},
+                )
 
         requested = (body or {}).get("counties", [])
 
