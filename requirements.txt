@@ -12,5 +12,9 @@ pytesseract
 openai
 anthropic
 
+# Web UI
+fastapi
+uvicorn[standard]
+
 # Local verification
 pytest

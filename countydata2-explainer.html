@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CountyData2 — Visual Architecture</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.08);
+    --text: #f5f5f7;
+    --muted: #86868b;
+    --accent: #DA7756;
+    --accent2: #5B8DEF;
+    --accent3: #4ECDC4;
+    --accent4: #C084FC;
+    --accent5: #F59E0B;
+    --green: #34D399;
+    --red: #F87171;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .hero .badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(218,119,86,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, var(--text) 60%, var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 20px;
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── Stats Strip ── */
+  .stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    padding: 48px 0;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .stat-card:hover { background: var(--surface-hover); }
+  .stat-card .number {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-card .label {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── Section ── */
+  .section {
+    padding: 56px 0;
+    position: relative;
+  }
+  .section + .section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+  .section-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+  }
+  .section-heading {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── Pipeline ── */
+  .pipeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+  .pipeline-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 24px;
+    align-items: start;
+    position: relative;
+    padding-bottom: 40px;
+  }
+  .pipeline-step:last-child { padding-bottom: 0; }
+  .pipeline-step:last-child .step-line { display: none; }
+
+  .step-icon-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+  }
+  .step-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+  }
+  .step-line {
+    width: 2px;
+    flex: 1;
+    min-height: 40px;
+    position: absolute;
+    top: 56px;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -4px;
+  }
+
+  .step-content {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: background 0.2s;
+  }
+  .step-content:hover { background: var(--surface-hover); }
+  .step-content h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .step-content .step-file {
+    font-size: 13px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+  .step-content p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  .step-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .step-tag {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.06);
+    color: var(--muted);
+  }
+
+  /* Color themes for steps */
+  .step-ingest .step-icon  { background: rgba(218,119,86,0.15); color: var(--accent); border: 1px solid rgba(218,119,86,0.25); }
+  .step-ingest .step-line  { background: linear-gradient(to bottom, rgba(218,119,86,0.4), rgba(91,141,239,0.4)); }
+  .step-transform .step-icon { background: rgba(91,141,239,0.15); color: var(--accent2); border: 1px solid rgba(91,141,239,0.25); }
+  .step-transform .step-line { background: linear-gradient(to bottom, rgba(91,141,239,0.4), rgba(78,205,196,0.4)); }
+  .step-classify .step-icon { background: rgba(78,205,196,0.15); color: var(--accent3); border: 1px solid rgba(78,205,196,0.25); }
+  .step-classify .step-line { background: linear-gradient(to bottom, rgba(78,205,196,0.4), rgba(192,132,252,0.4)); }
+  .step-load .step-icon { background: rgba(192,132,252,0.15); color: var(--accent4); border: 1px solid rgba(192,132,252,0.25); }
+  .step-load .step-line { background: linear-gradient(to bottom, rgba(192,132,252,0.4), rgba(245,158,11,0.4)); }
+  .step-export .step-icon { background: rgba(245,158,11,0.15); color: var(--accent5); border: 1px solid rgba(245,158,11,0.25); }
+
+  /* ── County Grid ── */
+  .county-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .county-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .county-card:hover {
+    background: var(--surface-hover);
+    border-color: rgba(255,255,255,0.14);
+    transform: translateY(-2px);
+  }
+  .county-card .county-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .county-card .county-detail {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .county-card .county-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(218,119,86,0.15);
+    color: var(--accent);
+  }
+  .county-card.expanded .county-extra { display: block; }
+  .county-extra {
+    display: none;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .county-extra code {
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  /* ── Transaction Types ── */
+  .tx-types {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .tx-type {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: background 0.2s;
+  }
+  .tx-type:hover { background: var(--surface-hover); }
+  .tx-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .tx-type .tx-label { font-size: 15px; font-weight: 500; }
+  .tx-type .tx-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+  /* ── Schema Viz ── */
+  .schema-viz {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .schema-table {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .schema-table-header {
+    padding: 16px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .schema-table-header .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .schema-fields {
+    padding: 12px 20px;
+  }
+  .schema-field {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .schema-field:last-child { border-bottom: none; }
+  .schema-field .fname {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--text);
+  }
+  .schema-field .ftype {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .schema-table.main { grid-column: 1 / -1; }
+
+  /* ── Tools Grid ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .tool-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.2s;
+  }
+  .tool-card:hover {
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+  }
+  .tool-card .tool-cmd {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--accent3);
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tool-card .tool-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ── Tech Stack ── */
+  .tech-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding: 24px 0;
+  }
+  .tech-pill {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .tech-pill:hover {
+    background: var(--surface-hover);
+    border-color: rgba(255,255,255,0.14);
+  }
+  .tech-pill .tech-icon { margin-right: 6px; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 48px 0;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* ── Deploy Timeline ── */
+  .deploy-steps {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    position: relative;
+  }
+  .deploy-steps::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 5%;
+    right: 5%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3), var(--accent4), var(--accent5), var(--green));
+    z-index: 0;
+  }
+  .deploy-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .deploy-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 auto 12px;
+    transition: all 0.2s;
+  }
+  .deploy-step:hover .deploy-num {
+    border-color: var(--accent);
+    background: rgba(218,119,86,0.08);
+  }
+  .deploy-step .ds-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .deploy-step .ds-cmd {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+    line-height: 1.4;
+  }
+
+  /* ── Reference Data ── */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .ref-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    transition: all 0.2s;
+  }
+  .ref-card:hover { background: var(--surface-hover); transform: translateY(-2px); }
+  .ref-card .ref-num {
+    font-size: 40px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .ref-card .ref-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .ref-card .ref-file {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+    margin-bottom: 10px;
+  }
+  .ref-card .ref-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .ref-examples {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+  .ref-ex {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+    color: var(--muted);
+  }
+
+  /* ── Migration Timeline ── */
+  .migration-timeline {
+    position: relative;
+    padding-left: 28px;
+  }
+  .migration-timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--accent4));
+    border-radius: 1px;
+  }
+  .mig-item {
+    position: relative;
+    padding: 12px 0 12px 20px;
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .mig-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 18px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .mig-num {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--accent5);
+    padding-top: 2px;
+  }
+  .mig-body h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .mig-body p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .mig-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+  .mig-badge.sql { background: rgba(192,132,252,0.15); color: var(--accent4); }
+  .mig-badge.py { background: rgba(78,205,196,0.15); color: var(--accent3); }
+
+  /* ── Usage Examples ── */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .usage-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .usage-card-header {
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .usage-card-header .usage-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+  .usage-card pre {
+    padding: 14px 18px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    overflow-x: auto;
+    margin: 0;
+  }
+  .usage-card pre .cmd { color: var(--accent3); }
+  .usage-card pre .flag { color: var(--accent5); }
+  .usage-card pre .val { color: var(--accent2); }
+  .usage-card pre .comment { color: rgba(134,134,139,0.5); }
+
+  /* ── Troubleshoot Accordion ── */
+  .trouble-list { display: flex; flex-direction: column; gap: 10px; }
+  .trouble-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.2s;
+  }
+  .trouble-item:hover { background: var(--surface-hover); }
+  .trouble-q {
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+  }
+  .trouble-q .arrow {
+    font-size: 18px;
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  .trouble-item.open .trouble-q .arrow { transform: rotate(180deg); }
+  .trouble-a {
+    display: none;
+    padding: 0 20px 16px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .trouble-item.open .trouble-a { display: block; }
+  .trouble-a code {
+    background: rgba(255,255,255,0.06);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--accent3);
+  }
+
+  /* ── Architecture Insights ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  .insight-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    border-left: 3px solid var(--accent);
+    transition: all 0.2s;
+  }
+  .insight-card:hover { background: var(--surface-hover); }
+  .insight-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .insight-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .insight-card:nth-child(2) { border-left-color: var(--accent2); }
+  .insight-card:nth-child(3) { border-left-color: var(--accent3); }
+  .insight-card:nth-child(4) { border-left-color: var(--accent4); }
+  .insight-card:nth-child(5) { border-left-color: var(--accent5); }
+  .insight-card:nth-child(6) { border-left-color: var(--green); }
+
+  /* ── Config Detail ── */
+  .config-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .config-table th {
+    text-align: left;
+    padding: 12px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    background: rgba(255,255,255,0.02);
+  }
+  .config-table td {
+    padding: 10px 16px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .config-table tr:last-child td { border-bottom: none; }
+  .config-table .env-key {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--accent3);
+  }
+  .config-table .env-val {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 36px; }
+    .stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .county-grid { grid-template-columns: 1fr; }
+    .tx-types { grid-template-columns: 1fr; }
+    .schema-viz { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr; }
+    .pipeline-step { grid-template-columns: 48px 1fr; gap: 16px; }
+    .deploy-steps { grid-template-columns: repeat(3, 1fr); }
+    .deploy-steps::before { display: none; }
+    .ref-grid { grid-template-columns: 1fr; }
+    .usage-grid { grid-template-columns: 1fr; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════ HERO ═══════ -->
+<div class="container">
+  <section class="hero">
+    <div class="badge">Florida Real Estate ETL</div>
+    <h1>CountyData2</h1>
+    <p class="subtitle">Ingest, classify, and analyze deed transaction data from Florida county public records into a structured PostGIS database.</p>
+  </section>
+
+  <!-- ═══════ STATS ═══════ -->
+  <section class="stats-strip">
+    <div class="stat-card">
+      <div class="number">9</div>
+      <div class="label">FL Counties</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">8</div>
+      <div class="label">Transaction Types</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">30+</div>
+      <div class="label">Data Fields</div>
+    </div>
+    <div class="stat-card">
+      <div class="number">3</div>
+      <div class="label">Matcher Engines</div>
+    </div>
+  </section>
+
+  <!-- ═══════ PIPELINE ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent);">Architecture</div>
+    <h2 class="section-heading">ETL Pipeline</h2>
+
+    <div class="pipeline">
+
+      <div class="pipeline-step step-ingest">
+        <div class="step-icon-wrap">
+          <div class="step-icon">1</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Ingest</h3>
+          <div class="step-file">processors/reader.py</div>
+          <p>Reads county Excel/CSV files with automatic format detection (XLS, XLSX, CSV) and encoding fallback across 6 encodings. Returns DataFrames paired with source file paths.</p>
+          <div class="step-tags">
+            <span class="step-tag">XLS</span>
+            <span class="step-tag">XLSX</span>
+            <span class="step-tag">CSV</span>
+            <span class="step-tag">Auto-encoding</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-step step-transform">
+        <div class="step-icon-wrap">
+          <div class="step-icon">2</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Transform</h3>
+          <div class="step-file">processors/transformer.py</div>
+          <p>County-specific row parsing — maps columns via <code style="color:var(--accent2);background:rgba(91,141,239,0.1);padding:2px 6px;border-radius:4px;font-size:13px;">counties.yaml</code>, normalizes party names, extracts deed locators, subdivisions (via alias matching), phases, lot/block numbers, and acreage from legal descriptions.</p>
+          <div class="step-tags">
+            <span class="step-tag">Column Mapping</span>
+            <span class="step-tag">Name Normalization</span>
+            <span class="step-tag">Legal Parsing</span>
+            <span class="step-tag">Phase Extraction</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-step step-classify">
+        <div class="step-icon-wrap">
+          <div class="step-icon">3</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Classify &amp; Match</h3>
+          <div class="step-file">utils/transaction_utils.py · utils/lookup.py</div>
+          <p>Three in-memory matchers (<strong>Subdivision</strong>, <strong>Builder</strong>, <strong>Land Banker</strong>) identify known entities. Transaction classifier determines type — from Builder Purchases to Raw Land sales — via regex on instruments and legal descriptions.</p>
+          <div class="step-tags">
+            <span class="step-tag">SubdivisionMatcher</span>
+            <span class="step-tag">BuilderMatcher</span>
+            <span class="step-tag">LandBankerMatcher</span>
+            <span class="step-tag">8 Tx Types</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-step step-load">
+        <div class="step-icon-wrap">
+          <div class="step-icon">4</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Load</h3>
+          <div class="step-file">processors/loader.py</div>
+          <p>Bulk upsert into PostgreSQL + PostGIS. Deduplication on a 5-column composite key (grantor, grantee, instrument, date, county). Multi-subdivision transactions split into <code style="color:var(--accent4);background:rgba(192,132,252,0.1);padding:2px 6px;border-radius:4px;font-size:13px;">transaction_segments</code>.</p>
+          <div class="step-tags">
+            <span class="step-tag">INSERT…ON CONFLICT</span>
+            <span class="step-tag">Dedup Key</span>
+            <span class="step-tag">Segments</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-step step-export">
+        <div class="step-icon-wrap">
+          <div class="step-icon">5</div>
+          <div class="step-line"></div>
+        </div>
+        <div class="step-content">
+          <h3>Export &amp; Extract</h3>
+          <div class="step-file">export.py · review_export.py · deed_queue_export.py · bay_price_extract.py</div>
+          <p>Styled Excel exports with date/county filters. Flagged-row review queue. Deed-queue export for missing-price transactions. Bay County price extraction via Selenium browser automation + Claude API for raw-land deed OCR.</p>
+          <div class="step-tags">
+            <span class="step-tag">Excel Export</span>
+            <span class="step-tag">Review Queue</span>
+            <span class="step-tag">Selenium</span>
+            <span class="step-tag">Claude API OCR</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════ COUNTIES ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent2);">Data Sources</div>
+    <h2 class="section-heading">9 Florida Counties</h2>
+
+    <div class="county-grid">
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Standard</span>
+        <div class="county-name">Bay</div>
+        <div class="county-detail">Standard processing. Has dedicated price extraction via Selenium browser automation.</div>
+        <div class="county-extra">Deed portal scraper in <code>bay_price_extract.py</code>. Click-through to county clerk site to match prices to transactions.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Custom</span>
+        <div class="county-name">Citrus</div>
+        <div class="county-detail">Unit references (e.g., 83/C) removed from subdivision names during cleanup.</div>
+        <div class="county-extra">Custom <code>parse_citrus_row</code> handler strips unit notation patterns from subdivision field.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Custom</span>
+        <div class="county-name">Escambia</div>
+        <div class="county-detail">LOT/BLK/SUB patterns removed from legal descriptions during normalization.</div>
+        <div class="county-extra">Regex strips <code>LOT \d+ BLK \d+ SUB</code> patterns from raw legal text.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Custom</span>
+        <div class="county-name">Hernando</div>
+        <div class="county-detail">Uses a separate subdivision column rather than extracting from legal description.</div>
+        <div class="county-extra">Direct column mapping for subdivision. Legal description still cleaned for other field extraction.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Swap</span>
+        <div class="county-name">Marion</div>
+        <div class="county-detail">Grantor/Grantee swapped when the Star field ≠ "*" — indicates reversed party order.</div>
+        <div class="county-extra">Star-field logic: when <code>Star != '*'</code>, buyer and seller columns are flipped before processing.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Skip</span>
+        <div class="county-name">Okaloosa</div>
+        <div class="county-detail">Skips first row. Text after "Parcel" and "Section" keywords stripped from legal.</div>
+        <div class="county-extra"><code>skiprows=1</code> in config. Post-keyword truncation to isolate subdivision and lot data.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Custom</span>
+        <div class="county-name">Okeechobee</div>
+        <div class="county-detail">Party names truncated to text before first newline character.</div>
+        <div class="county-extra">Uses <code>before_first_newline</code> helper to handle multi-line party name cells.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Swap</span>
+        <div class="county-name">Santa Rosa</div>
+        <div class="county-detail">Parties swapped when Party Type contains "to". "Unrec" text stripped.</div>
+        <div class="county-extra">Party Type field drives swap logic. <code>"unrec"</code> keyword removed from legal descriptions.</div>
+      </div>
+      <div class="county-card" onclick="this.classList.toggle('expanded')">
+        <span class="county-badge">Custom</span>
+        <div class="county-name">Walton</div>
+        <div class="county-detail">"Legal " prefix removed from legal description field.</div>
+        <div class="county-extra">Simple prefix strip: <code>legal.removeprefix("Legal ")</code> before further parsing.</div>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:13px;margin-top:14px;">Click any county to see implementation details</p>
+  </section>
+
+  <!-- ═══════ TRANSACTION TYPES ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent3);">Classification</div>
+    <h2 class="section-heading">Transaction Types</h2>
+
+    <div class="tx-types">
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--accent);"></div>
+        <div>
+          <div class="tx-label">Builder to Builder</div>
+          <div class="tx-desc">Transfer between two known builder entities</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--accent2);"></div>
+        <div>
+          <div class="tx-label">Builder Purchase</div>
+          <div class="tx-desc">Builder acquiring land from a non-builder seller</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--accent3);"></div>
+        <div>
+          <div class="tx-label">Land Banker Purchase</div>
+          <div class="tx-desc">Acquisition by a known land banking entity</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--accent4);"></div>
+        <div>
+          <div class="tx-label">House Sale</div>
+          <div class="tx-desc">Residential property sale to end buyer</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--accent5);"></div>
+        <div>
+          <div class="tx-label">Association Transfer</div>
+          <div class="tx-desc">HOA or community association conveyance</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--green);"></div>
+        <div>
+          <div class="tx-label">CDD Transfer</div>
+          <div class="tx-desc">Community Development District transfer</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: var(--red);"></div>
+        <div>
+          <div class="tx-label">Correction / Quit Claim</div>
+          <div class="tx-desc">Corrections, quit-claim deeds, re-recordings</div>
+        </div>
+      </div>
+      <div class="tx-type">
+        <div class="tx-dot" style="background: #86868b;"></div>
+        <div>
+          <div class="tx-label">Raw Land Purchase</div>
+          <div class="tx-desc">Unplatted land — detected via section/township/range indicators</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ SCHEMA ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent4);">Data Model</div>
+    <h2 class="section-heading">Canonical Transaction Shape</h2>
+
+    <div class="schema-viz">
+      <div class="schema-table main">
+        <div class="schema-table-header">
+          <div class="dot" style="background: var(--accent4);"></div>
+          transactions
+        </div>
+        <div class="schema-fields" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 24px;">
+          <div>
+            <div class="schema-field"><span class="fname">id</span><span class="ftype">SERIAL PK</span></div>
+            <div class="schema-field"><span class="fname">grantor</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">grantee</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">type</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">instrument</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">date</span><span class="ftype">DATE</span></div>
+            <div class="schema-field"><span class="fname">county</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">price</span><span class="ftype">NUMERIC</span></div>
+          </div>
+          <div>
+            <div class="schema-field"><span class="fname">export_legal_desc</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">export_legal_raw</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">deed_legal_desc</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">deed_legal_parsed</span><span class="ftype">JSONB</span></div>
+            <div class="schema-field"><span class="fname">deed_locator</span><span class="ftype">JSONB</span></div>
+            <div class="schema-field"><span class="fname">subdivision</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">subdivision_id</span><span class="ftype">FK</span></div>
+            <div class="schema-field"><span class="fname">phase</span><span class="ftype">TEXT</span></div>
+          </div>
+          <div>
+            <div class="schema-field"><span class="fname">lots</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">acres</span><span class="ftype">NUMERIC</span></div>
+            <div class="schema-field"><span class="fname">acres_source</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">inventory_category</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">parsed_data</span><span class="ftype">JSONB</span></div>
+            <div class="schema-field"><span class="fname">review_flag</span><span class="ftype">BOOL</span></div>
+            <div class="schema-field"><span class="fname">source_file</span><span class="ftype">TEXT</span></div>
+            <div class="schema-field"><span class="fname">builder_id</span><span class="ftype">FK</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="schema-table">
+        <div class="schema-table-header">
+          <div class="dot" style="background: var(--accent3);"></div>
+          transaction_segments
+        </div>
+        <div class="schema-fields">
+          <div class="schema-field"><span class="fname">transaction_id</span><span class="ftype">FK</span></div>
+          <div class="schema-field"><span class="fname">segment_index</span><span class="ftype">INT</span></div>
+          <div class="schema-field"><span class="fname">inventory_category</span><span class="ftype">TEXT</span></div>
+          <div class="schema-field"><span class="fname">phase_confirmed</span><span class="ftype">BOOL</span></div>
+          <div class="schema-field"><span class="fname">segment_data</span><span class="ftype">JSONB</span></div>
+          <div class="schema-field"><span class="fname">review_reasons</span><span class="ftype">TEXT[]</span></div>
+        </div>
+      </div>
+
+      <div class="schema-table">
+        <div class="schema-table-header">
+          <div class="dot" style="background: var(--accent2);"></div>
+          Reference Tables
+        </div>
+        <div class="schema-fields">
+          <div class="schema-field"><span class="fname">subdivisions</span><span class="ftype">+ aliases</span></div>
+          <div class="schema-field"><span class="fname">builders</span><span class="ftype">+ aliases</span></div>
+          <div class="schema-field"><span class="fname">land_bankers</span><span class="ftype">+ aliases</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; font-size: 14px; color: var(--muted);">
+      <strong style="color: var(--text);">Dedup Key:</strong>&nbsp; <code style="color:var(--accent);background:rgba(218,119,86,0.1);padding:2px 6px;border-radius:4px;font-size:13px;">(grantor_key, grantee_key, instrument_key, date, county_key)</code> — generated columns ensure consistent deduplication across source variations.
+    </div>
+  </section>
+
+  <!-- ═══════ TOOLS ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent5);">Tooling</div>
+    <h2 class="section-heading">CLI Commands</h2>
+
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-cmd">python etl.py</div>
+        <div class="tool-desc">Run full ETL across all counties. Supports <code style="font-size:12px;">--county</code> and <code style="font-size:12px;">--input-root</code> flags.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-cmd">python export.py</div>
+        <div class="tool-desc">Export to styled Excel with date range and county filters.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-cmd">python review_export.py</div>
+        <div class="tool-desc">Export flagged rows for manual review, filterable by reason.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-cmd">python deed_queue_export.py</div>
+        <div class="tool-desc">Queue missing-price transactions with deed locator info for lookup.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-cmd">python bay_price_extract.py</div>
+        <div class="tool-desc">Selenium-driven price extraction from Bay County clerk portal.</div>
+      </div>
+      <div class="tool-card">
+        <div class="tool-cmd">raw_land_legal_benchmark.py</div>
+        <div class="tool-desc">Benchmark harness — OCR + Claude API for raw-land deed extraction.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ DEPLOY WORKFLOW ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--green);">Getting Started</div>
+    <h2 class="section-heading">Deploy Workflow</h2>
+
+    <div class="deploy-steps">
+      <div class="deploy-step">
+        <div class="deploy-num" style="border-color: var(--accent);">1</div>
+        <div class="ds-title">Start Database</div>
+        <div class="ds-cmd">docker compose up -d</div>
+      </div>
+      <div class="deploy-step">
+        <div class="deploy-num" style="border-color: var(--accent2);">2</div>
+        <div class="ds-title">Apply Schema</div>
+        <div class="ds-cmd">psql -f schema.sql</div>
+      </div>
+      <div class="deploy-step">
+        <div class="deploy-num" style="border-color: var(--accent3);">3</div>
+        <div class="ds-title">Run Migrations</div>
+        <div class="ds-cmd">python apply_migrations.py</div>
+      </div>
+      <div class="deploy-step">
+        <div class="deploy-num" style="border-color: var(--accent4);">4</div>
+        <div class="ds-title">Seed Reference</div>
+        <div class="ds-cmd">python seed_reference_data.py</div>
+      </div>
+      <div class="deploy-step">
+        <div class="deploy-num" style="border-color: var(--accent5);">5</div>
+        <div class="ds-title">Run ETL</div>
+        <div class="ds-cmd">python etl.py</div>
+      </div>
+      <div class="deploy-step">
+        <div class="deploy-num" style="border-color: var(--green);">6</div>
+        <div class="ds-title">Verify</div>
+        <div class="ds-cmd">pytest</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+        <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent5); margin-bottom: 8px;">Prerequisites</div>
+        <div style="font-size: 14px; color: var(--muted); line-height: 1.6;">Docker &amp; Docker Compose, Python 3.x, a configured <code style="color:var(--accent3);background:rgba(78,205,196,0.1);padding:2px 6px;border-radius:4px;font-size:12px;">.env</code> file (copy from <code style="color:var(--accent3);background:rgba(78,205,196,0.1);padding:2px 6px;border-radius:4px;font-size:12px;">.env.example</code>), and <code style="color:var(--accent3);background:rgba(78,205,196,0.1);padding:2px 6px;border-radius:4px;font-size:12px;">pip install -r requirements.txt</code></div>
+      </div>
+      <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+        <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent5); margin-bottom: 8px;">Environment Variables</div>
+        <table class="config-table" style="background:transparent;border:none;">
+          <tr><td class="env-key">DATABASE_URL</td><td class="env-val">postgresql://etl_user:...@localhost:5432/County-Data</td></tr>
+          <tr><td class="env-key">OUTPUT_DIR</td><td class="env-val">Export output path (default: shared drive)</td></tr>
+          <tr><td class="env-key">ANTHROPIC_API_KEY</td><td class="env-val">Optional — for raw-land deed OCR benchmark</td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ REFERENCE DATA ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent2);">Lookup Engine</div>
+    <h2 class="section-heading">Reference Data</h2>
+
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="ref-num" style="color: var(--accent);">400+</div>
+        <div class="ref-title">Subdivisions</div>
+        <div class="ref-file">reference_data/subdivisions.yaml</div>
+        <div class="ref-desc">Canonical names with aliases and phase lists, organized by county. Matched via longest-match-first substring search against legal descriptions.</div>
+        <div class="ref-examples">
+          <span class="ref-ex">Breakfast Point East</span>
+          <span class="ref-ex">Watersound</span>
+          <span class="ref-ex">Ocala Crossings</span>
+          <span class="ref-ex">Alys Beach</span>
+          <span class="ref-ex">Avalon East</span>
+          <span class="ref-ex">Longleaf Ridge</span>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-num" style="color: var(--accent2);">20+</div>
+        <div class="ref-title">Builders</div>
+        <div class="ref-file">reference_data/builders.yaml</div>
+        <div class="ref-desc">Builder companies with canonical names and alias variants. Matched via exact-match lookup on normalized (uppercased, trimmed) party names.</div>
+        <div class="ref-examples">
+          <span class="ref-ex">DR Horton</span>
+          <span class="ref-ex">Lennar</span>
+          <span class="ref-ex">Adams Homes</span>
+          <span class="ref-ex">Pulte</span>
+          <span class="ref-ex">Meritage</span>
+          <span class="ref-ex">LGI</span>
+          <span class="ref-ex">DSLD</span>
+          <span class="ref-ex">Fischer Homes</span>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-num" style="color: var(--accent3);">TBD</div>
+        <div class="ref-title">Land Bankers</div>
+        <div class="ref-file">reference_data/land_bankers.yaml</div>
+        <div class="ref-desc">Land banking entities — currently scaffolded and empty, awaiting population. Same exact-match strategy as builders.</div>
+        <div style="margin-top: 12px; padding: 8px 12px; background: rgba(245,158,11,0.08); border-radius: 6px; font-size: 12px; color: var(--accent5);">Awaiting data — ready to populate</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px;">
+      <div style="font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent4); margin-bottom: 8px;">Inventory Categories</div>
+      <div style="font-size: 14px; color: var(--muted); line-height: 1.6;">
+        <code style="color:var(--accent3);background:rgba(78,205,196,0.1);padding:2px 6px;border-radius:4px;font-size:12px;">reference_data/inventory_categories.yaml</code> defines <strong style="color:var(--text);">scattered_legacy_lots</strong> — 8 Citrus and 3 Hernando subdivisions tagged for analytics segmentation without overwriting deed facts.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ USAGE EXAMPLES ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent3);">How To</div>
+    <h2 class="section-heading">Usage Examples</h2>
+
+    <div class="usage-grid">
+      <div class="usage-card">
+        <div class="usage-card-header">
+          <div class="usage-dot" style="background: var(--accent);"></div>
+          ETL — Process Counties
+        </div>
+        <pre><span class="comment"># All counties</span>
+<span class="cmd">python etl.py</span>
+
+<span class="comment"># Single county</span>
+<span class="cmd">python etl.py</span> <span class="flag">--county</span> <span class="val">Bay</span>
+
+<span class="comment"># Multiple counties, local data</span>
+<span class="cmd">python etl.py</span> <span class="flag">--county</span> <span class="val">Bay Citrus</span> \
+  <span class="flag">--input-root</span> <span class="val">"raw data"</span></pre>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-header">
+          <div class="usage-dot" style="background: var(--accent2);"></div>
+          Export — Styled Excel
+        </div>
+        <pre><span class="comment"># Export with date range</span>
+<span class="cmd">python export.py</span> <span class="flag">--county</span> <span class="val">Bay</span> \
+  <span class="flag">--from</span> <span class="val">2025-01-01</span> \
+  <span class="flag">--to</span> <span class="val">2025-12-31</span>
+
+<span class="comment"># Custom output path</span>
+<span class="cmd">python export.py</span> <span class="flag">--out</span> <span class="val">my_report.xlsx</span></pre>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-header">
+          <div class="usage-dot" style="background: var(--accent5);"></div>
+          Review — Flagged Rows
+        </div>
+        <pre><span class="comment"># All flagged rows</span>
+<span class="cmd">python review_export.py</span>
+
+<span class="comment"># Filter by county and reason</span>
+<span class="cmd">python review_export.py</span> \
+  <span class="flag">--county</span> <span class="val">Escambia</span> \
+  <span class="flag">--reason</span> <span class="val">missing_subdivision</span></pre>
+      </div>
+      <div class="usage-card">
+        <div class="usage-card-header">
+          <div class="usage-dot" style="background: var(--accent4);"></div>
+          Deed Extraction
+        </div>
+        <pre><span class="comment"># Bay price extract (dry run)</span>
+<span class="cmd">python bay_price_extract.py</span> <span class="flag">--limit</span> <span class="val">5</span>
+
+<span class="comment"># Raw-land benchmark with Claude</span>
+<span class="cmd">python tools/raw_land_legal_benchmark.py</span> \
+  <span class="val">run-anthropic</span> <span class="flag">--mode</span> <span class="val">hybrid</span> \
+  <span class="flag">--model</span> <span class="val">claude-opus-4-6</span></pre>
+      </div>
+      <div class="usage-card" style="grid-column: 1 / -1;">
+        <div class="usage-card-header">
+          <div class="usage-dot" style="background: var(--accent3);"></div>
+          SQL — Common Queries
+        </div>
+        <pre><span class="comment">-- Count transactions by county</span>
+<span class="cmd">SELECT</span> county, <span class="cmd">COUNT</span>(*) <span class="cmd">FROM</span> transactions <span class="cmd">GROUP BY</span> county <span class="cmd">ORDER BY</span> <span class="cmd">COUNT</span>(*) <span class="cmd">DESC</span>;
+
+<span class="comment">-- Recent builder purchases</span>
+<span class="cmd">SELECT</span> grantee, subdivision, date, price
+<span class="cmd">FROM</span> transactions
+<span class="cmd">WHERE</span> type = <span class="val">'Builder Purchase'</span> <span class="cmd">AND</span> date >= <span class="val">'2025-01-01'</span>
+<span class="cmd">ORDER BY</span> date <span class="cmd">DESC</span> <span class="cmd">LIMIT</span> <span class="val">20</span>;
+
+<span class="comment">-- Transactions missing price (deed queue candidates)</span>
+<span class="cmd">SELECT</span> county, <span class="cmd">COUNT</span>(*) <span class="cmd">FROM</span> transactions <span class="cmd">WHERE</span> price <span class="cmd">IS NULL</span> <span class="cmd">GROUP BY</span> county;</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ MIGRATION TIMELINE ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent4);">Schema Evolution</div>
+    <h2 class="section-heading">Migration History</h2>
+
+    <div class="migration-timeline">
+      <div class="mig-item">
+        <div class="mig-num">001</div>
+        <div class="mig-body">
+          <h4>Reference Tables <span class="mig-badge sql">SQL</span></h4>
+          <p>Creates subdivision_aliases and builder_aliases tables with uppercase indexes for lookup matching.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">002</div>
+        <div class="mig-body">
+          <h4>Alter Transactions <span class="mig-badge sql">SQL</span></h4>
+          <p>Adds legal_raw, subdivision_id, builder_id, and review_flag columns to transactions table.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">003</div>
+        <div class="mig-body">
+          <h4>Backfill Lookups <span class="mig-badge py">Python</span></h4>
+          <p>One-time migration: populates legal_raw from legal_desc, runs SubdivisionMatcher on existing rows, matches parties against builder/land banker aliases, classifies transaction types.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">004</div>
+        <div class="mig-body">
+          <h4>Party Entities <span class="mig-badge sql">SQL</span></h4>
+          <p>Creates land_bankers + land_banker_aliases tables. Adds side-specific builder/land banker FK columns (grantor_builder_id, grantee_builder_id, etc.).</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">005</div>
+        <div class="mig-body">
+          <h4>Parsed Data <span class="mig-badge sql">SQL</span></h4>
+          <p>Adds parsed_data JSONB column to transactions for storing OCR/extraction metadata.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">006</div>
+        <div class="mig-body">
+          <h4>Transaction Segments <span class="mig-badge sql">SQL</span></h4>
+          <p>Creates transaction_segments table — tracks multiple subdivision/phase segments within a single transaction with segment_data JSONB and review_reasons.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">007</div>
+        <div class="mig-body">
+          <h4>Deed Locator <span class="mig-badge sql">SQL</span></h4>
+          <p>Adds deed_locator JSONB column for storing clerk file numbers, volume, page references for portal lookups.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">008</div>
+        <div class="mig-body">
+          <h4>Inventory Category <span class="mig-badge sql">SQL</span></h4>
+          <p>Adds inventory_category column with index — classifies transactions for analytics segmentation.</p>
+        </div>
+      </div>
+      <div class="mig-item">
+        <div class="mig-num">009</div>
+        <div class="mig-body">
+          <h4>Canonical Transaction Shape <span class="mig-badge sql">SQL</span></h4>
+          <p>Renames legal_desc/legal_raw to export_* prefix. Adds deed_legal_desc, deed_legal_parsed, acres_source. Elevates inventory_category to transaction_segments. Migrates data from JSONB to dedicated columns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ ARCHITECTURE INSIGHTS ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--accent5);">Design Decisions</div>
+    <h2 class="section-heading">Architecture Insights</h2>
+
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>Deduplication via Generated Columns</h4>
+        <p>PostgreSQL generated columns create normalized keys (uppercased, trimmed) from grantor, grantee, instrument, date, and county. A UNIQUE constraint prevents duplicates regardless of whitespace or casing variations in source data.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Multi-Lot Segmentation</h4>
+        <p>A single deed can transfer lots across multiple subdivisions or phases. The transaction_segments table breaks these into individual rows with their own inventory_category and review_reasons, enabling per-segment analysis.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Lookup-Based Classification</h4>
+        <p>Reference data (YAML files) is loaded into in-memory matchers at ETL start. SubdivisionMatcher uses longest-match-first substring search. Builder and LandBanker matchers use exact-match on normalized names. This avoids expensive DB round-trips per row.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Dual Legal Description Sources</h4>
+        <p>The canonical shape separates export-sourced fields (export_legal_desc, export_legal_raw) from deed-sourced fields (deed_legal_desc, deed_legal_parsed). This preserves the original county export data while enriching with deed OCR extraction results.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Spatial-Ready (PostGIS)</h4>
+        <p>PostgreSQL runs with PostGIS extension enabled. A geometry column is reserved for future parcel shapefile integration, geocoding, and spatial queries — enabling map-based analysis without a database migration.</p>
+      </div>
+      <div class="insight-card">
+        <h4>Additive Migration Pattern</h4>
+        <p>All 9 migrations are safe to re-run. They use IF NOT EXISTS for tables, ADD COLUMN IF NOT EXISTS for fields, and INSERT...ON CONFLICT for data. No destructive DDL — the schema only grows.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TROUBLESHOOTING ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--red);">Help</div>
+    <h2 class="section-heading">Troubleshooting</h2>
+
+    <div class="trouble-list">
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Database connection refused <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">Make sure Docker is running and the container is up: <code>docker compose up -d</code>. Check that your <code>.env</code> DATABASE_URL matches the docker-compose credentials (default: <code>etl_user:changeme@localhost:5432/County-Data</code>).</div>
+      </div>
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Encoding errors reading county files <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">The reader tries 6 encodings automatically: utf-8, cp1252, latin1, iso-8859-1, utf-16, cp1250. If all fail, the file may be corrupted or use an unsupported encoding. Try opening in Excel and re-saving as UTF-8 CSV.</div>
+      </div>
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Subdivision not matching / showing as NULL <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">The SubdivisionMatcher uses longest-match-first substring search against <code>reference_data/subdivisions.yaml</code>. If a subdivision isn't matching, either: (1) it's not in the YAML — add an entry with aliases, or (2) the legal description text differs from all known aliases. Run <code>python seed_reference_data.py</code> after adding new entries.</div>
+      </div>
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Migration fails or schema is out of date <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">Run <code>python apply_migrations.py</code> — all migrations are idempotent and safe to re-run. If schema.sql was never applied, run <code>psql -f schema.sql</code> first against your database. Check migration 003 specifically — it's a Python backfill that requires the lookup matchers to be importable.</div>
+      </div>
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Bay price extraction not working <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">The Bay price extractor uses Selenium with Chrome. Ensure Chrome is installed and <code>webdriver-manager</code> can download the matching driver. Try a dry run first: <code>python bay_price_extract.py --limit 5</code> (without <code>--apply</code>) to test browser automation before writing to DB.</div>
+      </div>
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Raw-land benchmark OCR quality is poor <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">Requires Tesseract OCR and pdf2image. The benchmark tool supports a <code>--mode hybrid</code> flag that uses OCR first, then falls back to Claude vision API for difficult pages. Ensure <code>ANTHROPIC_API_KEY</code> is set in your <code>.env</code> for the Claude extraction path.</div>
+      </div>
+      <div class="trouble-item" onclick="this.classList.toggle('open')">
+        <div class="trouble-q">Duplicate rows appearing in exports <span class="arrow">&#9660;</span></div>
+        <div class="trouble-a">The dedup key is (grantor_key, grantee_key, instrument_key, date, county_key). If "duplicates" appear, the source rows likely differ on one of these fields — e.g., slightly different party names or instrument numbers. Check the source Excel file for subtle whitespace or casing differences.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ PROJECT STRUCTURE ═══════ -->
+  <section class="section">
+    <div class="section-title" style="color: var(--muted);">Codebase</div>
+    <h2 class="section-heading">Project Structure</h2>
+
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 24px; font-family: 'SF Mono', 'Fira Code', monospace; font-size: 13px; line-height: 1.8;">
+      <div style="color: var(--text); font-weight: 600;">CountyData2/</div>
+      <div style="padding-left: 20px;">
+        <div><span style="color: var(--accent);">etl.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Main entry point</span></div>
+        <div><span style="color: var(--accent);">export.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Styled Excel export</span></div>
+        <div><span style="color: var(--accent);">review_export.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Flagged row export</span></div>
+        <div><span style="color: var(--accent);">deed_queue_export.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Missing-price queue</span></div>
+        <div><span style="color: var(--accent);">bay_price_extract.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Selenium price scraper</span></div>
+        <div><span style="color: var(--accent);">config.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— DB connection &amp; constants</span></div>
+        <div><span style="color: var(--accent);">counties.yaml</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— 9 county configs (columns, phases, rules)</span></div>
+        <div><span style="color: var(--accent);">schema.sql</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Base PostgreSQL + PostGIS schema</span></div>
+        <div><span style="color: var(--accent);">docker-compose.yml</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Postgres + PostGIS container</span></div>
+        <div style="margin-top: 8px; color: var(--accent2); font-weight: 600;">processors/</div>
+        <div style="padding-left: 20px;">
+          <div><span style="color: var(--text);">reader.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— CSV/XLS/XLSX ingestion</span></div>
+          <div><span style="color: var(--text);">transformer.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Row normalization &amp; county parsing</span></div>
+          <div><span style="color: var(--text);">loader.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— PostgreSQL upsert</span></div>
+        </div>
+        <div style="margin-top: 8px; color: var(--accent3); font-weight: 600;">utils/</div>
+        <div style="padding-left: 20px;">
+          <div><span style="color: var(--text);">text_cleaning.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Text extraction helpers</span></div>
+          <div><span style="color: var(--text);">date_utils.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Date parsing</span></div>
+          <div><span style="color: var(--text);">transaction_utils.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Transaction type classification</span></div>
+          <div><span style="color: var(--text);">lookup.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— SubdivisionMatcher, BuilderMatcher, LandBankerMatcher</span></div>
+          <div><span style="color: var(--text);">raw_land_benchmark.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— OCR cleanup &amp; legal extraction</span></div>
+        </div>
+        <div style="margin-top: 8px; color: var(--accent4); font-weight: 600;">reference_data/</div>
+        <div style="padding-left: 20px;">
+          <div><span style="color: var(--text);">subdivisions.yaml</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— 400+ entries across 9 counties</span></div>
+          <div><span style="color: var(--text);">builders.yaml</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— 20+ builder companies</span></div>
+          <div><span style="color: var(--text);">land_bankers.yaml</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Land banking entities (TBD)</span></div>
+          <div><span style="color: var(--text);">inventory_categories.yaml</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Scattered legacy lot tags</span></div>
+        </div>
+        <div style="margin-top: 8px; color: var(--accent5); font-weight: 600;">migrations/</div>
+        <div style="padding-left: 20px;">
+          <div><span style="color: var(--text);">001</span>–<span style="color: var(--text);">009</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— 8 SQL + 1 Python migration (all idempotent)</span></div>
+        </div>
+        <div style="margin-top: 8px; color: #86868b; font-weight: 600;">tools/</div>
+        <div style="padding-left: 20px;">
+          <div><span style="color: var(--text);">raw_land_legal_benchmark.py</span> <span style="color: var(--muted); font-family: -apple-system, sans-serif; font-size: 12px;">— Manual benchmark harness</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ TECH STACK ═══════ -->
+  <section class="section" style="text-align:center;">
+    <div class="section-title" style="color: var(--muted);">Built With</div>
+    <h2 class="section-heading">Tech Stack</h2>
+    <div class="tech-strip">
+      <div class="tech-pill"><span class="tech-icon">🐍</span> Python</div>
+      <div class="tech-pill"><span class="tech-icon">🐘</span> PostgreSQL</div>
+      <div class="tech-pill"><span class="tech-icon">🌍</span> PostGIS</div>
+      <div class="tech-pill"><span class="tech-icon">🐼</span> pandas</div>
+      <div class="tech-pill"><span class="tech-icon">🐳</span> Docker</div>
+      <div class="tech-pill"><span class="tech-icon">🌐</span> Selenium</div>
+      <div class="tech-pill"><span class="tech-icon">📄</span> pdf2image</div>
+      <div class="tech-pill"><span class="tech-icon">🔍</span> Tesseract OCR</div>
+      <div class="tech-pill"><span class="tech-icon">🤖</span> Claude API</div>
+      <div class="tech-pill"><span class="tech-icon">📊</span> openpyxl</div>
+    </div>
+  </section>
+
+  <div class="footer">
+    CountyData2 — Florida County Real Estate Transaction Pipeline<br>
+    <span style="font-size:11px;opacity:0.5;">Generated 2026-03-28</span>
+  </div>
+</div>
+
+</body>
+</html>
