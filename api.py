@@ -9,6 +9,8 @@ Usage:
 
 import asyncio
 import json
+import os
+import re
 from dataclasses import dataclass, field
 from datetime import date, datetime
 from decimal import Decimal
@@ -18,7 +20,7 @@ from typing import Any
 
 import pandas as pd
 import psycopg2
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from psycopg2.pool import SimpleConnectionPool
@@ -35,14 +37,18 @@ from utils.lookup import BuilderMatcher, LandBankerMatcher, SubdivisionMatcher
 
 app = FastAPI(title="CountyData2 API")
 
+_allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:8000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[o.strip() for o in _allowed_origins],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 pool = SimpleConnectionPool(1, 5, DATABASE_URL)
+
+_etl_lock = asyncio.Lock()
+_SAFE_FILENAME = re.compile(r"^[a-zA-Z0-9_\-]+\.xlsx$")
 
 
 # ---------------------------------------------------------------------------
@@ -165,8 +171,8 @@ def get_stats():
         "total_transactions": total,
         "flagged_for_review": flagged,
         "date_range": {
-            "min": date_row[0].isoformat() if date_row[0] else None,
-            "max": date_row[1].isoformat() if date_row[1] else None,
+            "min": date_row[0].isoformat() if date_row and date_row[0] else None,
+            "max": date_row[1].isoformat() if date_row and date_row[1] else None,
         },
         "by_county": by_county,
         "by_type": by_type,
@@ -230,7 +236,8 @@ def get_transactions(
     )
 
     # Inject id column so the UI can link to detail view
-    sql = sql.replace("SELECT ", "SELECT id, ", 1)
+    if sql.upper().startswith("SELECT "):
+        sql = "SELECT id, " + sql[7:]
 
     # Strip the existing ORDER BY so we can replace it
     order_idx = sql.upper().rfind("ORDER BY")
@@ -333,31 +340,34 @@ def get_review_queue(
 async def run_etl(body: dict | None = None):
     global _etl_state
 
-    if _etl_state.status == ETLStatus.RUNNING:
-        return JSONResponse(
-            status_code=409,
-            content={"error": "ETL is already running"},
+    async with _etl_lock:
+        if _etl_state.status == ETLStatus.RUNNING:
+            return JSONResponse(
+                status_code=409,
+                content={"error": "ETL is already running"},
+            )
+
+        requested = (body or {}).get("counties", [])
+
+        _etl_state = ETLState(
+            status=ETLStatus.RUNNING,
+            started_at=datetime.now().isoformat(),
+            counties=requested or ["all"],
         )
-
-    requested = (body or {}).get("counties", [])
-
-    _etl_state = ETLState(
-        status=ETLStatus.RUNNING,
-        started_at=datetime.now().isoformat(),
-        counties=requested or ["all"],
-    )
 
     async def _run():
         global _etl_state
         try:
             results = await asyncio.to_thread(_run_etl_sync, requested)
-            _etl_state.status = ETLStatus.COMPLETED
-            _etl_state.completed_at = datetime.now().isoformat()
-            _etl_state.results = results
+            async with _etl_lock:
+                _etl_state.status = ETLStatus.COMPLETED
+                _etl_state.completed_at = datetime.now().isoformat()
+                _etl_state.results = results
         except Exception as e:
-            _etl_state.status = ETLStatus.FAILED
-            _etl_state.completed_at = datetime.now().isoformat()
-            _etl_state.error = str(e)
+            async with _etl_lock:
+                _etl_state.status = ETLStatus.FAILED
+                _etl_state.completed_at = datetime.now().isoformat()
+                _etl_state.error = str(e)
 
     asyncio.create_task(_run())
     return {"status": "started", "counties": _etl_state.counties}
@@ -374,12 +384,12 @@ def _run_etl_sync(requested_counties: list[str]) -> dict:
         to_run = counties_config
 
     conn = psycopg2.connect(DATABASE_URL)
+    results = {}
     try:
         sub_matcher = SubdivisionMatcher(conn)
         builder_matcher = BuilderMatcher(conn)
         land_banker_matcher = LandBankerMatcher(conn)
 
-        results = {}
         for county, cfg in to_run.items():
             results[county] = process_county(
                 county, cfg, conn,
@@ -480,7 +490,11 @@ def export_review_queue_endpoint(body: dict | None = None):
 
 @app.get("/api/export/download/{filename}")
 def download_export(filename: str):
-    path = OUTPUT_DIR / filename
+    if not _SAFE_FILENAME.match(filename):
+        raise HTTPException(status_code=400, detail="Invalid filename")
+    path = (OUTPUT_DIR / filename).resolve()
+    if not path.is_relative_to(OUTPUT_DIR.resolve()):
+        raise HTTPException(status_code=400, detail="Invalid filename")
     if not path.exists():
         return JSONResponse(status_code=404, content={"error": "File not found"})
     return FileResponse(

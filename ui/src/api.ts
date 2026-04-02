@@ -19,45 +19,50 @@ function qs(params: Record<string, string | number | boolean | undefined>): stri
   return "?" + new URLSearchParams(entries.map(([k, v]) => [k, String(v)])).toString();
 }
 
-export async function getCounties(): Promise<string[]> {
-  const res = await fetch(`${BASE}/counties`);
+async function checked<T>(res: Response): Promise<T> {
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(body || `HTTP ${res.status}`);
+  }
   return res.json();
+}
+
+export async function getCounties(): Promise<string[]> {
+  return checked(await fetch(`${BASE}/counties`));
 }
 
 export async function getSubdivisions(county?: string): Promise<Subdivision[]> {
-  const res = await fetch(`${BASE}/subdivisions${qs({ county })}`);
-  return res.json();
+  return checked(await fetch(`${BASE}/subdivisions${qs({ county })}`));
 }
 
 export async function getStats(): Promise<Stats> {
-  const res = await fetch(`${BASE}/stats`);
-  return res.json();
+  return checked(await fetch(`${BASE}/stats`));
 }
 
 export async function getTransaction(id: number): Promise<TransactionDetail> {
-  const res = await fetch(`${BASE}/transactions/${id}`);
-  return res.json();
+  return checked(await fetch(`${BASE}/transactions/${id}`));
 }
 
 export async function getTransactions(
   filters: TransactionFilters
 ): Promise<PaginatedResponse<Transaction>> {
-  const res = await fetch(
-    `${BASE}/transactions${qs({
-      county: filters.county,
-      subdivision: filters.subdivision,
-      date_from: filters.date_from,
-      date_to: filters.date_to,
-      inventory_category: filters.inventory_category,
-      unmatched_only: filters.unmatched_only,
-      search: filters.search,
-      page: filters.page,
-      page_size: filters.page_size,
-      sort_by: filters.sort_by,
-      sort_dir: filters.sort_dir,
-    })}`
+  return checked(
+    await fetch(
+      `${BASE}/transactions${qs({
+        county: filters.county,
+        subdivision: filters.subdivision,
+        date_from: filters.date_from,
+        date_to: filters.date_to,
+        inventory_category: filters.inventory_category,
+        unmatched_only: filters.unmatched_only,
+        search: filters.search,
+        page: filters.page,
+        page_size: filters.page_size,
+        sort_by: filters.sort_by,
+        sort_dir: filters.sort_dir,
+      })}`
+    )
   );
-  return res.json();
 }
 
 export async function getReviewQueue(params: {
@@ -66,39 +71,43 @@ export async function getReviewQueue(params: {
   page: number;
   page_size: number;
 }): Promise<PaginatedResponse<ReviewRow>> {
-  const res = await fetch(`${BASE}/review-queue${qs(params)}`);
-  return res.json();
+  return checked(await fetch(`${BASE}/review-queue${qs(params)}`));
 }
 
 export async function startETL(counties?: string[]): Promise<void> {
-  await fetch(`${BASE}/etl/run`, {
+  const res = await fetch(`${BASE}/etl/run`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(counties?.length ? { counties } : {}),
   });
+  if (!res.ok) {
+    const body = await res.text().catch(() => "");
+    throw new Error(body || `HTTP ${res.status}`);
+  }
 }
 
 export async function getETLStatus(): Promise<ETLState> {
-  const res = await fetch(`${BASE}/etl/status`);
-  return res.json();
+  return checked(await fetch(`${BASE}/etl/status`));
 }
 
 export async function exportTransactions(params: Record<string, unknown>): Promise<{ filename: string; records: number }> {
-  const res = await fetch(`${BASE}/export/transactions`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params),
-  });
-  return res.json();
+  return checked(
+    await fetch(`${BASE}/export/transactions`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    })
+  );
 }
 
 export async function exportReviewQueue(params: Record<string, unknown>): Promise<{ filename: string; records: number }> {
-  const res = await fetch(`${BASE}/export/review-queue`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(params),
-  });
-  return res.json();
+  return checked(
+    await fetch(`${BASE}/export/review-queue`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params),
+    })
+  );
 }
 
 export function downloadUrl(filename: string): string {

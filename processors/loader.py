@@ -96,17 +96,21 @@ def _prepare_segment_rows(transaction_id: int, row: dict) -> list[tuple]:
 
 
 def _replace_transaction_segments(cur, transaction_id: int, row: dict) -> None:
-    cur.execute(_DELETE_SEGMENTS_SQL, (transaction_id,))
-    segment_rows = _prepare_segment_rows(transaction_id, row)
-    if not segment_rows:
-        return
-
-    psycopg2.extras.execute_values(
-        cur,
-        _INSERT_SEGMENTS_SQL,
-        segment_rows,
-        template="(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-    )
+    cur.execute("SAVEPOINT seg_replace")
+    try:
+        cur.execute(_DELETE_SEGMENTS_SQL, (transaction_id,))
+        segment_rows = _prepare_segment_rows(transaction_id, row)
+        if segment_rows:
+            psycopg2.extras.execute_values(
+                cur,
+                _INSERT_SEGMENTS_SQL,
+                segment_rows,
+                template="(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            )
+        cur.execute("RELEASE SAVEPOINT seg_replace")
+    except Exception:
+        cur.execute("ROLLBACK TO SAVEPOINT seg_replace")
+        raise
 
 
 def upsert_rows(rows: list[dict], source_file: Path, conn) -> tuple[int, int, int]:

@@ -131,12 +131,12 @@ def main():
         to_run = counties_config
 
     conn = psycopg2.connect(DATABASE_URL)
+    results = {}
     try:
         sub_matcher = SubdivisionMatcher(conn)
         builder_matcher = BuilderMatcher(conn)
         land_banker_matcher = LandBankerMatcher(conn)
 
-        results = {}
         for county, cfg in to_run.items():
             results[county] = process_county(
                 county,
