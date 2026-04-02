@@ -352,11 +352,17 @@ def get_review_queue(
             cur.execute(paginated_sql, params + [page_size, (page - 1) * page_size])
             columns = [desc[0] for desc in cur.description]
             rows = cur.fetchall()
+    except Exception:
+        conn.rollback()
+        raise
     finally:
         pool.putconn(conn)
 
     raw_df = pd.DataFrame(rows, columns=columns)
-    flat_rows = [flatten_review_row(r) for r in raw_df.to_dict(orient="records")]
+    flat_rows = [
+        {k: _coerce(v) for k, v in flatten_review_row(r).items()}
+        for r in raw_df.to_dict(orient="records")
+    ]
 
     return JSONResponse(
         content=json.loads(json.dumps(
