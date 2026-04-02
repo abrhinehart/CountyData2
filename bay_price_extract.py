@@ -22,12 +22,6 @@ import psycopg2.extras
 from openpyxl import load_workbook
 from openpyxl.styles import Alignment, Font
 from openpyxl.utils import get_column_letter
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
 
 from config import DATABASE_URL, OUTPUT_DIR
 
@@ -156,6 +150,8 @@ def parse_currency(value: str | None) -> Decimal | None:
 
 
 def parse_result_row(row_element) -> dict:
+    from selenium.webdriver.common.by import By
+
     cells = row_element.find_elements(By.TAG_NAME, 'td')
     text = [cell.text.strip() for cell in cells]
     row_id = row_element.get_attribute('id') or ''
@@ -201,6 +197,10 @@ def _find_exact_result(rows: list[dict], locator: dict) -> dict | None:
 
 
 def _build_driver():
+    from selenium import webdriver
+    from selenium.webdriver.chrome.service import Service
+    from webdriver_manager.chrome import ChromeDriverManager
+
     options = webdriver.ChromeOptions()
     options.add_argument('--window-size=1600,1200')
     options.add_argument('--disable-blink-features=AutomationControlled')
@@ -216,7 +216,10 @@ def _build_driver():
     return driver
 
 
-def _open_bay_search(driver, wait: WebDriverWait) -> None:
+def _open_bay_search(driver, wait) -> None:
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+
     driver.get(_BAY_HOME_URL)
     time.sleep(2)
     driver.execute_script(
@@ -227,7 +230,10 @@ def _open_bay_search(driver, wait: WebDriverWait) -> None:
     time.sleep(6)
 
 
-def _search_bay(driver, wait: WebDriverWait, clerk_file_number: str) -> list[dict]:
+def _search_bay(driver, wait, clerk_file_number: str) -> list[dict]:
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+
     _open_bay_search(driver, wait)
     field = wait.until(EC.element_to_be_clickable((By.ID, 'instrumentNumber')))
     field.clear()
@@ -239,7 +245,10 @@ def _search_bay(driver, wait: WebDriverWait, clerk_file_number: str) -> list[dic
     return [parse_result_row(row) for row in row_elements]
 
 
-def _fetch_detail(driver, wait: WebDriverWait, row: dict) -> dict:
+def _fetch_detail(driver, wait, row: dict) -> dict:
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as EC
+
     row_element = wait.until(EC.presence_of_element_located((By.ID, row['row_id'])))
     driver.execute_script('arguments[0].scrollIntoView({block: "center"});', row_element)
     row_element.click()
@@ -295,6 +304,8 @@ def apply_result_to_db(transaction_id: int, price: Decimal, extraction_payload: 
 
 
 def process_bay_queue(rows: list[dict], *, apply_updates: bool = False) -> list[dict]:
+    from selenium.webdriver.support.ui import WebDriverWait
+
     driver = _build_driver()
     wait = WebDriverWait(driver, 45)
     results = []

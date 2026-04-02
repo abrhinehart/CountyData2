@@ -22,9 +22,6 @@ from pathlib import Path
 
 import psycopg2
 import psycopg2.extras
-import pytesseract
-from pdf2image import convert_from_bytes
-from selenium.webdriver.support.ui import WebDriverWait
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
@@ -204,6 +201,8 @@ def _mark_cache_hit(row: dict) -> dict:
 
 
 def _fetch_bay_pdf_artifacts(row: dict, artifacts_dir: Path) -> dict:
+    from selenium.webdriver.support.ui import WebDriverWait
+
     locator = {
         'book': row.get('book'),
         'page': row.get('page'),
@@ -255,6 +254,9 @@ def _fetch_bay_pdf_artifacts(row: dict, artifacts_dir: Path) -> dict:
 
 
 def _ocr_pdf_pages(pdf_bytes: bytes, artifacts_dir: Path) -> list[str]:
+    import pytesseract
+    from pdf2image import convert_from_bytes
+
     pages = convert_from_bytes(pdf_bytes, dpi=150)
     texts = []
 
@@ -337,6 +339,7 @@ def _run_anthropic_text_extraction(model: str, page_texts: list[str], target_hin
 
 def _run_anthropic_vision_extraction(model: str, pdf_bytes: bytes, target_hint: str | None) -> dict:
     import anthropic
+    from pdf2image import convert_from_bytes
 
     client = anthropic.Anthropic()
     page_images = convert_from_bytes(pdf_bytes, dpi=150)
