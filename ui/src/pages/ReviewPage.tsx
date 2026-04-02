@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getReviewQueue, getCounties, exportReviewQueue, downloadUrl } from "../api";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { getReviewQueue, getCounties, getTransaction, resolveTransaction, exportReviewQueue, downloadUrl } from "../api";
 import Pagination from "../components/Pagination";
+import type { TransactionDetail } from "../types";
 
 const COLUMNS = [
   { key: "ID", label: "ID", w: "w-16" },
@@ -24,11 +25,13 @@ function fmt(val: unknown, numeric?: boolean): string {
 }
 
 export default function ReviewPage() {
+  const queryClient = useQueryClient();
   const [county, setCounty] = useState<string>("");
   const [reason, setReason] = useState<string>("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
   const [exporting, setExporting] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const { data: counties } = useQuery({ queryKey: ["counties"], queryFn: getCounties });
 
@@ -56,6 +59,12 @@ export default function ReviewPage() {
     } finally {
       setExporting(false);
     }
+  };
+
+  const handleResolved = () => {
+    setSelectedId(null);
+    queryClient.invalidateQueries({ queryKey: ["review-queue"] });
+    queryClient.invalidateQueries({ queryKey: ["stats"] });
   };
 
   return (
@@ -131,7 +140,14 @@ export default function ReviewPage() {
               </tr>
             ) : (
               data?.items.map((row, i) => (
-                <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                <tr
+                  key={i}
+                  onClick={() => {
+                    const id = (row as Record<string, unknown>).ID;
+                    if (typeof id === "number") setSelectedId(id);
+                  }}
+                  className="border-b border-gray-100 hover:bg-blue-50 cursor-pointer"
+                >
                   {COLUMNS.map((col) => (
                     <td
                       key={col.key}
@@ -157,6 +173,175 @@ export default function ReviewPage() {
           onPageSizeChange={(s) => { setPageSize(s); setPage(1); }}
         />
       )}
+
+      {selectedId !== null && (
+        <ReviewDetailPanel
+          transactionId={selectedId}
+          onClose={() => setSelectedId(null)}
+          onResolved={handleResolved}
+        />
+      )}
     </div>
+  );
+}
+
+
+// --- Review Detail Panel ---
+
+const DETAIL_FIELDS: { label: string; key: keyof TransactionDetail }[] = [
+  { label: "County", key: "county" },
+  { label: "Date", key: "date" },
+  { label: "Type", key: "type" },
+  { label: "Instrument", key: "instrument" },
+  { label: "Grantor", key: "grantor" },
+  { label: "Grantee", key: "grantee" },
+  { label: "Subdivision", key: "subdivision" },
+  { label: "Phase", key: "phase" },
+  { label: "Inventory Category", key: "inventory_category" },
+  { label: "Lots", key: "lots" },
+  { label: "Price", key: "price" },
+  { label: "Acres", key: "acres" },
+  { label: "Notes", key: "notes" },
+  { label: "Source File", key: "source_file" },
+];
+
+function ReviewDetailPanel({
+  transactionId,
+  onClose,
+  onResolved,
+}: {
+  transactionId: number;
+  onClose: () => void;
+  onResolved: () => void;
+}) {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["transaction", transactionId],
+    queryFn: () => getTransaction(transactionId),
+  });
+
+  const [note, setNote] = useState("");
+  const [resolving, setResolving] = useState(false);
+
+  const reviewReasons: string[] =
+    (data?.parsed_data as Record<string, unknown> | null)?.review_reasons as string[] ?? [];
+
+  const handleResolve = async () => {
+    setResolving(true);
+    try {
+      await resolveTransaction(transactionId, note);
+      onResolved();
+    } catch (e) {
+      alert(e instanceof Error ? e.message : "Resolve failed");
+    } finally {
+      setResolving(false);
+    }
+  };
+
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
+      <div className="fixed inset-y-0 right-0 w-full max-w-lg bg-white shadow-xl z-50 flex flex-col border-l border-gray-200">
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200 bg-gray-50 shrink-0">
+          <h2 className="text-sm font-semibold text-gray-700">
+            Review #{transactionId}
+          </h2>
+          <button
+            onClick={onClose}
+            className="text-gray-400 hover:text-gray-600 text-lg leading-none px-1"
+          >
+            &times;
+          </button>
+        </div>
+
+        {/* Body */}
+        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
+          {isLoading && <p className="text-gray-400 text-sm">Loading...</p>}
+          {error && <p className="text-red-600 text-sm">Failed to load transaction.</p>}
+          {data && (
+            <>
+              {/* Review reasons */}
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                  Review Reasons
+                </h3>
+                {reviewReasons.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {reviewReasons.map((r) => (
+                      <span
+                        key={r}
+                        className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 rounded"
+                      >
+                        {r}
+                      </span>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-500">No specific reasons recorded</p>
+                )}
+              </div>
+
+              {/* Legal description */}
+              {data.export_legal_desc && (
+                <div>
+                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
+                    Legal Description
+                  </h3>
+                  <pre className="text-xs bg-gray-50 border border-gray-200 rounded p-2 whitespace-pre-wrap">
+                    {data.export_legal_desc}
+                  </pre>
+                </div>
+              )}
+
+              {/* Transaction details */}
+              <div>
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                  Transaction Details
+                </h3>
+                <dl className="space-y-2">
+                  {DETAIL_FIELDS.map((f) => {
+                    const val = data[f.key];
+                    if (val == null) return null;
+                    return (
+                      <div key={f.key} className="flex gap-2">
+                        <dt className="text-xs text-gray-400 w-28 shrink-0 text-right pt-0.5">
+                          {f.label}
+                        </dt>
+                        <dd className="text-sm text-gray-800">
+                          {typeof val === "number"
+                            ? val.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                            : String(val)}
+                        </dd>
+                      </div>
+                    );
+                  })}
+                </dl>
+              </div>
+
+              {/* Resolve action */}
+              <div className="border-t border-gray-200 pt-4">
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+                  Resolve
+                </h3>
+                <textarea
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  placeholder="Optional note (e.g. 'verified subdivision is correct')"
+                  rows={2}
+                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm resize-none mb-3"
+                />
+                <button
+                  onClick={handleResolve}
+                  disabled={resolving}
+                  className="w-full px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+                >
+                  {resolving ? "Resolving..." : "Clear review flag"}
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </>
   );
 }

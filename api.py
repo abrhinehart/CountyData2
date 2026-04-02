@@ -210,6 +210,37 @@ def get_transaction(transaction_id: int):
     return JSONResponse(content=record)
 
 
+@app.patch("/api/transactions/{transaction_id}/resolve")
+def resolve_transaction(transaction_id: int, body: dict | None = None):
+    note = (body or {}).get("note", "").strip()
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                UPDATE transactions
+                SET review_flag = FALSE,
+                    notes = CASE
+                        WHEN %s = '' THEN notes
+                        WHEN notes IS NULL OR notes = '' THEN %s
+                        ELSE notes || E'\\n' || %s
+                    END,
+                    updated_at = NOW()
+                WHERE id = %s AND review_flag = TRUE
+                RETURNING id
+                """,
+                [note, note, note, transaction_id],
+            )
+            result = cur.fetchone()
+            conn.commit()
+    finally:
+        pool.putconn(conn)
+
+    if not result:
+        return JSONResponse(status_code=404, content={"error": "Transaction not found or already resolved"})
+    return {"id": transaction_id, "resolved": True}
+
+
 @app.get("/api/transactions")
 def get_transactions(
     county: str | None = None,

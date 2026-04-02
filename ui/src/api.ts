@@ -43,6 +43,16 @@ export async function getTransaction(id: number): Promise<TransactionDetail> {
   return checked(await fetch(`${BASE}/transactions/${id}`));
 }
 
+export async function resolveTransaction(id: number, note?: string): Promise<{ id: number; resolved: boolean }> {
+  return checked(
+    await fetch(`${BASE}/transactions/${id}/resolve`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ note: note || "" }),
+    })
+  );
+}
+
 export async function getTransactions(
   filters: TransactionFilters
 ): Promise<PaginatedResponse<Transaction>> {
