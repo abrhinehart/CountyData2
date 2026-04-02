@@ -5,6 +5,8 @@ PyYAML
 xlrd
 psycopg2-binary
 python-dotenv
+requests
+shapely
 selenium
 webdriver-manager
 pdf2image
