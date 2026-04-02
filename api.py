@@ -359,13 +359,15 @@ def get_review_queue(
     flat_rows = [flatten_review_row(r) for r in raw_df.to_dict(orient="records")]
 
     return JSONResponse(
-        content={
-            "items": flat_rows,
-            "total": total,
-            "page": page,
-            "page_size": page_size,
-        },
-        media_type="application/json",
+        content=json.loads(json.dumps(
+            {
+                "items": flat_rows,
+                "total": total,
+                "page": page,
+                "page_size": page_size,
+            },
+            default=_serialize,
+        )),
     )
 
 
