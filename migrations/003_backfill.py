@@ -55,8 +55,7 @@ def backfill_subdivisions(conn, matcher):
                     UPDATE transactions
                     SET subdivision_id = %s,
                         subdivision = %s,
-                        phase = COALESCE(phase, %s),
-                        review_flag = TRUE
+                        phase = COALESCE(phase, %s)
                     WHERE id = %s
                 """, (sub_id, canonical, phase, txn_id))
                 matched += 1
@@ -123,8 +122,7 @@ def backfill_party_entities(conn, builder_matcher, land_banker_matcher):
                         grantor_land_banker_id = %s,
                         grantee_land_banker_id = %s,
                         builder_id = %s,
-                        type = %s,
-                        review_flag = TRUE
+                        type = %s
                     WHERE id = %s
                 """, (
                     grantor_builder_id,

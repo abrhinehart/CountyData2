@@ -959,6 +959,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             preparsed_subdivision = normalized_subdivision_values[0]
             subdivision_lookup_text = normalized_subdivision_values[0]
             force_review_flag = True
+            review_reasons.append('subdivision_ambiguous_candidates')
             if len(phase_candidate_values) > 1:
                 review_reasons.append('multiple_phase_candidates')
         elif len(normalized_subdivision_values) > 1:
@@ -1044,6 +1045,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             preparsed_subdivision = normalized_subdivision_values[0]
             subdivision_lookup_text = normalized_subdivision_values[0]
             force_review_flag = True
+            review_reasons.append('subdivision_ambiguous_candidates')
             if len(phase_candidate_values) > 1:
                 review_reasons.append('multiple_phase_candidates')
         elif len(normalized_subdivision_values) > 1:
@@ -1168,6 +1170,7 @@ def transform_row(row: pd.Series, county: str, config: dict,
             preparsed_subdivision = normalized_subdivision_values[0]
             subdivision_lookup_text = normalized_subdivision_values[0]
             force_review_flag = True
+            review_reasons.append('subdivision_ambiguous_candidates')
             if len(phase_candidate_values) > 1:
                 review_reasons.append('multiple_phase_candidates')
         elif len(normalized_subdivision_values) > 1:
