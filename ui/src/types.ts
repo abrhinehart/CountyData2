@@ -18,6 +18,37 @@ export interface Transaction {
   [key: string]: unknown;
 }
 
+export interface TransactionDetail {
+  id: number;
+  grantor: string;
+  grantee: string | null;
+  type: string | null;
+  instrument: string | null;
+  date: string | null;
+  export_legal_desc: string | null;
+  export_legal_raw: string | null;
+  deed_legal_desc: string | null;
+  deed_legal_parsed: Record<string, unknown> | null;
+  deed_locator: Record<string, unknown> | null;
+  subdivision: string | null;
+  subdivision_id: number | null;
+  phase: string | null;
+  inventory_category: string | null;
+  lots: number | null;
+  price: number | null;
+  price_per_lot: number | null;
+  acres: number | null;
+  acres_source: string | null;
+  price_per_acre: number | null;
+  parsed_data: Record<string, unknown> | null;
+  county: string;
+  notes: string | null;
+  review_flag: boolean;
+  source_file: string | null;
+  inserted_at: string | null;
+  updated_at: string | null;
+}
+
 export interface PaginatedResponse<T> {
   items: T[];
   total: number;

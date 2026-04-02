@@ -173,6 +173,37 @@ def get_stats():
     }
 
 
+@app.get("/api/transactions/{transaction_id}")
+def get_transaction(transaction_id: int):
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                """
+                SELECT
+                    id, grantor, grantee, type, instrument, date,
+                    export_legal_desc, export_legal_raw,
+                    deed_legal_desc, deed_legal_parsed, deed_locator,
+                    subdivision, subdivision_id, phase, inventory_category,
+                    lots, price, price_per_lot, acres, acres_source, price_per_acre,
+                    parsed_data, county, notes, review_flag,
+                    source_file, inserted_at, updated_at
+                FROM transactions
+                WHERE id = %s
+                """,
+                [transaction_id],
+            )
+            row = cur.fetchone()
+            if not row:
+                return JSONResponse(status_code=404, content={"error": "Transaction not found"})
+            columns = [desc[0] for desc in cur.description]
+    finally:
+        pool.putconn(conn)
+
+    record = {k: _coerce(v) for k, v in zip(columns, row)}
+    return JSONResponse(content=record)
+
+
 @app.get("/api/transactions")
 def get_transactions(
     county: str | None = None,
@@ -197,6 +228,9 @@ def get_transactions(
         unmatched_only=unmatched_only,
         inventory_categories=inv_cats,
     )
+
+    # Inject id column so the UI can link to detail view
+    sql = sql.replace("SELECT ", "SELECT id, ", 1)
 
     # Strip the existing ORDER BY so we can replace it
     order_idx = sql.upper().rfind("ORDER BY")

@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { getTransactions, getCounties, getSubdivisions, getStats, exportTransactions, downloadUrl } from "../api";
 import type { TransactionFilters } from "../types";
 import Pagination from "../components/Pagination";
+import TransactionDetailPanel from "../components/TransactionDetailPanel";
 
 const COLUMNS = [
   { key: "Date", label: "Date", w: "w-24" },
@@ -89,6 +90,7 @@ export default function TransactionsPage() {
   );
   const [search, setSearch] = useState(filters.search ?? "");
   const [exporting, setExporting] = useState(false);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const { data: counties } = useQuery({ queryKey: ["counties"], queryFn: getCounties });
   const { data: subdivisions } = useQuery({
@@ -282,7 +284,14 @@ export default function TransactionsPage() {
               </tr>
             ) : (
               data?.items.map((row, i) => (
-                <tr key={i} className="border-b border-gray-100 hover:bg-gray-50">
+                <tr
+                  key={i}
+                  onClick={() => {
+                    const id = (row as Record<string, unknown>).id;
+                    if (typeof id === "number") setSelectedId(id);
+                  }}
+                  className="border-b border-gray-100 hover:bg-blue-50 cursor-pointer"
+                >
                   {COLUMNS.map((col) => (
                     <td
                       key={col.key}
@@ -306,6 +315,13 @@ export default function TransactionsPage() {
           total={data.total}
           onPageChange={(p) => setFilters((f) => ({ ...f, page: p }))}
           onPageSizeChange={(s) => setFilters((f) => ({ ...f, page_size: s, page: 1 }))}
+        />
+      )}
+
+      {selectedId !== null && (
+        <TransactionDetailPanel
+          transactionId={selectedId}
+          onClose={() => setSelectedId(null)}
         />
       )}
     </div>

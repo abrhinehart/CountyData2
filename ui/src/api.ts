@@ -1,6 +1,7 @@
 import type {
   PaginatedResponse,
   Transaction,
+  TransactionDetail,
   ReviewRow,
   Subdivision,
   Stats,
@@ -30,6 +31,11 @@ export async function getSubdivisions(county?: string): Promise<Subdivision[]> {
 
 export async function getStats(): Promise<Stats> {
   const res = await fetch(`${BASE}/stats`);
+  return res.json();
+}
+
+export async function getTransaction(id: number): Promise<TransactionDetail> {
+  const res = await fetch(`${BASE}/transactions/${id}`);
   return res.json();
 }
 
