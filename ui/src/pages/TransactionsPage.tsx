@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
 import { getTransactions, getCounties, getSubdivisions, getStats, exportTransactions, downloadUrl } from "../api";
 import type { TransactionFilters } from "../types";
 import Pagination from "../components/Pagination";
@@ -41,14 +42,52 @@ function fmt(val: unknown, numeric?: boolean): string {
   return String(val);
 }
 
+function filtersFromParams(sp: URLSearchParams): TransactionFilters {
+  return {
+    county: sp.get("county") || undefined,
+    subdivision: sp.get("subdivision") || undefined,
+    date_from: sp.get("date_from") || undefined,
+    date_to: sp.get("date_to") || undefined,
+    inventory_category: sp.get("inventory_category") || undefined,
+    unmatched_only: sp.get("unmatched_only") === "true" || undefined,
+    search: sp.get("search") || undefined,
+    page: Number(sp.get("page")) || 1,
+    page_size: Number(sp.get("page_size")) || 50,
+    sort_by: sp.get("sort_by") || "date",
+    sort_dir: sp.get("sort_dir") || "desc",
+  };
+}
+
+function filtersToParams(f: TransactionFilters): Record<string, string> {
+  const out: Record<string, string> = {};
+  if (f.county) out.county = f.county;
+  if (f.subdivision) out.subdivision = f.subdivision;
+  if (f.date_from) out.date_from = f.date_from;
+  if (f.date_to) out.date_to = f.date_to;
+  if (f.inventory_category) out.inventory_category = f.inventory_category;
+  if (f.unmatched_only) out.unmatched_only = "true";
+  if (f.search) out.search = f.search;
+  if (f.page && f.page > 1) out.page = String(f.page);
+  if (f.page_size && f.page_size !== 50) out.page_size = String(f.page_size);
+  if (f.sort_by && f.sort_by !== "date") out.sort_by = f.sort_by;
+  if (f.sort_dir && f.sort_dir !== "desc") out.sort_dir = f.sort_dir;
+  return out;
+}
+
 export default function TransactionsPage() {
-  const [filters, setFilters] = useState<TransactionFilters>({
-    page: 1,
-    page_size: 50,
-    sort_by: "date",
-    sort_dir: "desc",
-  });
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const filters = useMemo(() => filtersFromParams(searchParams), [searchParams]);
+  const setFilters = useCallback(
+    (updater: (prev: TransactionFilters) => TransactionFilters) => {
+      setSearchParams((prev) => {
+        const current = filtersFromParams(prev);
+        const next = updater(current);
+        return filtersToParams(next);
+      });
+    },
+    [setSearchParams],
+  );
+  const [search, setSearch] = useState(filters.search ?? "");
   const [exporting, setExporting] = useState(false);
 
   const { data: counties } = useQuery({ queryKey: ["counties"], queryFn: getCounties });
