@@ -4,7 +4,7 @@ api.py - FastAPI backend for the CountyData2 web UI.
 Wraps existing ETL, export, and query functions with REST endpoints.
 
 Usage:
-    uvicorn api:app --reload --host 0.0.0.0 --port 8000
+    uvicorn api:app --reload --host 0.0.0.0 --port 1460
 """
 
 import asyncio
@@ -37,7 +37,7 @@ from utils.lookup import BuilderMatcher, LandBankerMatcher, SubdivisionMatcher
 
 app = FastAPI(title="CountyData2 API")
 
-_allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://localhost:8000").split(",")
+_allowed_origins = os.getenv("CORS_ORIGINS", "http://localhost:1560,http://localhost:1460").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[o.strip() for o in _allowed_origins],
