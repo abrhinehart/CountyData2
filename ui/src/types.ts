@@ -60,6 +60,14 @@ export interface Subdivision {
   id: number;
   canonical_name: string;
   county: string;
+  phases: string[];
+}
+
+export interface SubdivisionDetail {
+  id: number;
+  canonical_name: string;
+  county: string;
+  phases: string[];
 }
 
 export interface CountyStat {

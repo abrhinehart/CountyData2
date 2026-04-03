@@ -1,7 +1,14 @@
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getReviewQueue, getCounties, getTransaction, resolveTransaction, exportReviewQueue, downloadUrl } from "../api";
+import { getReviewQueue, getCounties, getTransaction, exportReviewQueue, downloadUrl } from "../api";
 import Pagination from "../components/Pagination";
+import {
+  SubdivisionAssigner,
+  PhaseResolver,
+  SubdivisionPicker,
+  PhasePicker,
+  DismissAction,
+} from "../components/ResolutionActions";
 import type { TransactionDetail } from "../types";
 
 const COLUMNS = [
@@ -205,6 +212,46 @@ const DETAIL_FIELDS: { label: string; key: keyof TransactionDetail }[] = [
   { label: "Source File", key: "source_file" },
 ];
 
+const SUBDIVISION_REASONS = [
+  "subdivision_unmatched",
+  "subdivision_unparsed_lines",
+  "legal_unparsed_lines",
+];
+
+const PHASE_UNCONFIRMED_REASONS = ["phase_not_confirmed_by_lookup"];
+
+const SUBDIVISION_PICK_REASONS = [
+  "subdivision_ambiguous_candidates",
+  "multiple_subdivision_candidates",
+];
+
+const PHASE_PICK_REASONS = ["multiple_phase_candidates"];
+
+
+function pickResolutionComponent(
+  reviewReasons: string[],
+  transaction: TransactionDetail,
+  onResolved: () => void,
+) {
+  const reasons = new Set(reviewReasons);
+
+  // Priority: subdivision issues > phase issues > fallback
+  if (SUBDIVISION_REASONS.some((r) => reasons.has(r))) {
+    return <SubdivisionAssigner transaction={transaction} onResolved={onResolved} />;
+  }
+  if (SUBDIVISION_PICK_REASONS.some((r) => reasons.has(r))) {
+    return <SubdivisionPicker transaction={transaction} onResolved={onResolved} />;
+  }
+  if (PHASE_UNCONFIRMED_REASONS.some((r) => reasons.has(r))) {
+    return <PhaseResolver transaction={transaction} onResolved={onResolved} />;
+  }
+  if (PHASE_PICK_REASONS.some((r) => reasons.has(r))) {
+    return <PhasePicker transaction={transaction} onResolved={onResolved} />;
+  }
+  return null;
+}
+
+
 function ReviewDetailPanel({
   transactionId,
   onClose,
@@ -219,23 +266,8 @@ function ReviewDetailPanel({
     queryFn: () => getTransaction(transactionId),
   });
 
-  const [note, setNote] = useState("");
-  const [resolving, setResolving] = useState(false);
-
   const reviewReasons: string[] =
     (data?.parsed_data as Record<string, unknown> | null)?.review_reasons as string[] ?? [];
-
-  const handleResolve = async () => {
-    setResolving(true);
-    try {
-      await resolveTransaction(transactionId, note);
-      onResolved();
-    } catch (e) {
-      alert(e instanceof Error ? e.message : "Resolve failed");
-    } finally {
-      setResolving(false);
-    }
-  };
 
   return (
     <>
@@ -318,25 +350,17 @@ function ReviewDetailPanel({
                 </dl>
               </div>
 
-              {/* Resolve action */}
-              <div className="border-t border-gray-200 pt-4">
-                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
+              {/* Resolution actions */}
+              <div className="border-t border-gray-200 pt-4 space-y-4">
+                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
                   Resolve
                 </h3>
-                <textarea
-                  value={note}
-                  onChange={(e) => setNote(e.target.value)}
-                  placeholder="Optional note (e.g. 'verified subdivision is correct')"
-                  rows={2}
-                  className="w-full border border-gray-300 rounded px-3 py-2 text-sm resize-none mb-3"
-                />
-                <button
-                  onClick={handleResolve}
-                  disabled={resolving}
-                  className="w-full px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-                >
-                  {resolving ? "Resolving..." : "Clear review flag"}
-                </button>
+                {pickResolutionComponent(reviewReasons, data, onResolved)}
+
+                {/* Dismiss is always available as fallback */}
+                <div className="border-t border-gray-100 pt-3">
+                  <DismissAction transaction={data} onResolved={onResolved} />
+                </div>
               </div>
             </>
           )}

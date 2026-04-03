@@ -4,6 +4,7 @@ import type {
   TransactionDetail,
   ReviewRow,
   Subdivision,
+  SubdivisionDetail,
   Stats,
   ETLState,
   TransactionFilters,
@@ -33,6 +34,23 @@ export async function getCounties(): Promise<string[]> {
 
 export async function getSubdivisions(county?: string): Promise<Subdivision[]> {
   return checked(await fetch(`${BASE}/subdivisions${qs({ county })}`));
+}
+
+export async function getSubdivision(id: number): Promise<SubdivisionDetail> {
+  return checked(await fetch(`${BASE}/subdivisions/${id}`));
+}
+
+export async function resolveAction(
+  transactionId: number,
+  body: Record<string, unknown>
+): Promise<{ id: number; resolved: boolean }> {
+  return checked(
+    await fetch(`${BASE}/transactions/${transactionId}/resolve-action`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+  );
 }
 
 export async function getStats(): Promise<Stats> {

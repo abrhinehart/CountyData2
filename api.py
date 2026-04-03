@@ -32,6 +32,7 @@ from review_export import (
     build_query as build_review_query,
     flatten_review_row,
 )
+from utils.inventory_categories import classify_inventory_category
 from utils.lookup import BuilderMatcher, LandBankerMatcher, SubdivisionMatcher
 
 
@@ -117,6 +118,24 @@ def get_counties():
     return list(config.keys())
 
 
+@app.get("/api/subdivisions/{subdivision_id}")
+def get_subdivision(subdivision_id: int):
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute(
+                "SELECT id, canonical_name, county, phases FROM subdivisions WHERE id = %s",
+                [subdivision_id],
+            )
+            row = cur.fetchone()
+    finally:
+        pool.putconn(conn)
+
+    if not row:
+        return JSONResponse(status_code=404, content={"error": "Subdivision not found"})
+    return {"id": row[0], "canonical_name": row[1], "county": row[2], "phases": row[3] or []}
+
+
 @app.get("/api/subdivisions")
 def get_subdivisions(county: str | None = None):
     conn = pool.getconn()
@@ -124,20 +143,20 @@ def get_subdivisions(county: str | None = None):
         with conn.cursor() as cur:
             if county:
                 cur.execute(
-                    "SELECT id, canonical_name, county FROM subdivisions "
+                    "SELECT id, canonical_name, county, phases FROM subdivisions "
                     "WHERE REPLACE(UPPER(county), ' ', '') = REPLACE(UPPER(%s), ' ', '') "
                     "ORDER BY canonical_name",
                     [county],
                 )
             else:
                 cur.execute(
-                    "SELECT id, canonical_name, county FROM subdivisions ORDER BY canonical_name"
+                    "SELECT id, canonical_name, county, phases FROM subdivisions ORDER BY canonical_name"
                 )
             rows = cur.fetchall()
     finally:
         pool.putconn(conn)
 
-    return [{"id": r[0], "canonical_name": r[1], "county": r[2]} for r in rows]
+    return [{"id": r[0], "canonical_name": r[1], "county": r[2], "phases": r[3] or []} for r in rows]
 
 
 @app.get("/api/stats")
@@ -233,6 +252,247 @@ def resolve_transaction(transaction_id: int, body: dict | None = None):
             )
             result = cur.fetchone()
             conn.commit()
+    finally:
+        pool.putconn(conn)
+
+    if not result:
+        return JSONResponse(status_code=404, content={"error": "Transaction not found or already resolved"})
+    return {"id": transaction_id, "resolved": True}
+
+
+def _append_note_sql():
+    """Return SQL fragment that appends a note to the notes column."""
+    return """
+        notes = CASE
+            WHEN %s = '' THEN notes
+            WHEN notes IS NULL OR notes = '' THEN %s
+            ELSE notes || E'\\n' || %s
+        END
+    """
+
+
+@app.post("/api/transactions/{transaction_id}/resolve-action")
+def resolve_action(transaction_id: int, body: dict):
+    action = (body or {}).get("action")
+    if not action:
+        raise HTTPException(status_code=400, detail="Missing 'action' field")
+
+    note = str(body.get("note") or "").strip()
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            if action == "dismiss":
+                cur.execute(
+                    f"""
+                    UPDATE transactions
+                    SET review_flag = FALSE,
+                        {_append_note_sql()},
+                        updated_at = NOW()
+                    WHERE id = %s AND review_flag = TRUE
+                    RETURNING id
+                    """,
+                    [note, note, note, transaction_id],
+                )
+                result = cur.fetchone()
+
+            elif action in ("assign_subdivision", "pick_subdivision"):
+                subdivision_id = body.get("subdivision_id")
+                phase = body.get("phase")
+                add_alias = body.get("add_alias") if action == "assign_subdivision" else None
+                lots = body.get("lots")
+                if not subdivision_id:
+                    raise HTTPException(status_code=400, detail="Missing 'subdivision_id'")
+
+                # Look up subdivision details
+                cur.execute(
+                    "SELECT id, canonical_name, county, phases FROM subdivisions WHERE id = %s",
+                    [subdivision_id],
+                )
+                sub = cur.fetchone()
+                if not sub:
+                    raise HTTPException(status_code=400, detail="Subdivision not found")
+                sub_name = sub[1]
+                sub_county = sub[2]
+
+                inventory_category = classify_inventory_category(sub_county, sub_name)
+
+                # Build dynamic SET clause for optional lots override
+                set_parts = [
+                    "subdivision = %s",
+                    "subdivision_id = %s",
+                    "phase = %s",
+                    "inventory_category = %s",
+                    "review_flag = FALSE",
+                    _append_note_sql(),
+                    "updated_at = NOW()",
+                ]
+                params = [sub_name, subdivision_id, phase, inventory_category,
+                          note, note, note]
+
+                if lots is not None:
+                    set_parts.append("lots = %s")
+                    set_parts.append(
+                        "price_per_lot = CASE WHEN price IS NOT NULL AND %s > 0 "
+                        "THEN ROUND(price / %s, 2) ELSE NULL END"
+                    )
+                    params.extend([int(lots), int(lots), int(lots)])
+
+                params.append(transaction_id)
+                cur.execute(
+                    f"UPDATE transactions SET {', '.join(set_parts)} "
+                    f"WHERE id = %s AND review_flag = TRUE RETURNING id",
+                    params,
+                )
+                result = cur.fetchone()
+
+                if result:
+                    cur.execute(
+                        """
+                        UPDATE transaction_segments
+                        SET subdivision = %s,
+                            subdivision_id = %s,
+                            phase = %s,
+                            inventory_category = %s,
+                            phase_confirmed = TRUE,
+                            segment_review_reasons = '{}',
+                            updated_at = NOW()
+                        WHERE transaction_id = %s
+                        """,
+                        [sub_name, subdivision_id, phase, inventory_category, transaction_id],
+                    )
+
+                    if add_alias and str(add_alias).strip():
+                        cur.execute(
+                            """
+                            INSERT INTO subdivision_aliases (subdivision_id, alias)
+                            VALUES (%s, %s)
+                            ON CONFLICT DO NOTHING
+                            """,
+                            [subdivision_id, str(add_alias).strip()],
+                        )
+
+            elif action == "confirm_phase":
+                # Get transaction's current subdivision_id and phase
+                cur.execute(
+                    "SELECT subdivision_id, phase FROM transactions WHERE id = %s AND review_flag = TRUE",
+                    [transaction_id],
+                )
+                txn = cur.fetchone()
+                if not txn:
+                    conn.rollback()
+                    raise HTTPException(status_code=404, detail="Transaction not found or already resolved")
+
+                sub_id = txn[0]
+                phase = txn[1]
+
+                # Add phase to subdivision's phases array if not already present
+                if sub_id and phase:
+                    cur.execute(
+                        """
+                        UPDATE subdivisions
+                        SET phases = array_append(phases, %s)
+                        WHERE id = %s AND NOT (%s = ANY(phases))
+                        """,
+                        [phase, sub_id, phase],
+                    )
+
+                cur.execute(
+                    f"""
+                    UPDATE transactions
+                    SET review_flag = FALSE,
+                        {_append_note_sql()},
+                        updated_at = NOW()
+                    WHERE id = %s AND review_flag = TRUE
+                    RETURNING id
+                    """,
+                    [note, note, note, transaction_id],
+                )
+                result = cur.fetchone()
+
+                if result:
+                    cur.execute(
+                        """
+                        UPDATE transaction_segments
+                        SET phase_confirmed = TRUE,
+                            segment_review_reasons = '{}',
+                            updated_at = NOW()
+                        WHERE transaction_id = %s
+                        """,
+                        [transaction_id],
+                    )
+
+            elif action == "override_phase":
+                new_phase = body.get("phase")
+                if not new_phase:
+                    raise HTTPException(status_code=400, detail="Missing 'phase'")
+
+                cur.execute(
+                    f"""
+                    UPDATE transactions
+                    SET phase = %s,
+                        review_flag = FALSE,
+                        {_append_note_sql()},
+                        updated_at = NOW()
+                    WHERE id = %s AND review_flag = TRUE
+                    RETURNING id
+                    """,
+                    [new_phase, note, note, note, transaction_id],
+                )
+                result = cur.fetchone()
+
+                if result:
+                    cur.execute(
+                        """
+                        UPDATE transaction_segments
+                        SET phase = %s,
+                            phase_confirmed = TRUE,
+                            segment_review_reasons = '{}',
+                            updated_at = NOW()
+                        WHERE transaction_id = %s AND segment_index = 0
+                        """,
+                        [new_phase, transaction_id],
+                    )
+
+            elif action == "pick_phase":
+                new_phase = body.get("phase")
+                if not new_phase:
+                    raise HTTPException(status_code=400, detail="Missing 'phase'")
+
+                cur.execute(
+                    f"""
+                    UPDATE transactions
+                    SET phase = %s,
+                        review_flag = FALSE,
+                        {_append_note_sql()},
+                        updated_at = NOW()
+                    WHERE id = %s AND review_flag = TRUE
+                    RETURNING id
+                    """,
+                    [new_phase, note, note, note, transaction_id],
+                )
+                result = cur.fetchone()
+
+                if result:
+                    cur.execute(
+                        """
+                        UPDATE transaction_segments
+                        SET phase = %s,
+                            updated_at = NOW()
+                        WHERE transaction_id = %s AND segment_index = 0
+                        """,
+                        [new_phase, transaction_id],
+                    )
+
+            else:
+                raise HTTPException(status_code=400, detail=f"Unknown action: {action}")
+
+            conn.commit()
+    except HTTPException:
+        conn.rollback()
+        raise
+    except Exception:
+        conn.rollback()
+        raise
     finally:
         pool.putconn(conn)
 
