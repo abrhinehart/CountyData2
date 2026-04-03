@@ -1,0 +1,211 @@
+"""
+pull_records.py - Pull county official records from LandmarkWeb portals.
+
+Searches by date range, filters for builder/land banker transactions,
+and writes CSV files compatible with the existing ETL pipeline.
+
+Usage:
+    python -m county_scrapers.pull_records --county Hernando
+    python -m county_scrapers.pull_records --county Hernando --begin 01/01/2025 --end 01/31/2025
+    python -m county_scrapers.pull_records --county Okeechobee --no-filter
+    python -m county_scrapers.pull_records --county Hernando --all-doc-types
+"""
+
+import argparse
+import csv
+import logging
+import sys
+from calendar import monthrange
+from datetime import date, timedelta
+from pathlib import Path
+
+import yaml
+
+from county_scrapers.configs import get_landmark_config
+from county_scrapers.entity_filter import build_entity_set, filter_rows
+from county_scrapers.landmark_client import LandmarkSession
+
+log = logging.getLogger(__name__)
+
+_CONFIG_PATH = Path(__file__).resolve().parent.parent / 'counties.yaml'
+
+# Map from parsed record fields to counties.yaml column_mapping keys.
+_FIELD_TO_MAPPING_KEY = {
+    'grantor': 'grantor',
+    'grantee': 'grantee',
+    'record_date': 'date',
+    'doc_type': 'instrument',
+    'legal': 'legal',
+}
+
+# Extra fields always included in output (not in column_mapping but useful).
+_EXTRA_COLUMNS = ['Book Type', 'Book', 'Page', 'Instrument Number']
+_EXTRA_FIELD_MAP = {
+    'Book Type': 'book_type',
+    'Book': 'book',
+    'Page': 'page',
+    'Instrument Number': 'instrument',
+}
+
+
+def _load_county_column_mapping(county: str) -> dict[str, str]:
+    """Load the column_mapping for a county from counties.yaml."""
+    with open(_CONFIG_PATH, encoding='utf-8') as f:
+        config = yaml.safe_load(f)
+    county_cfg = config.get('counties', {}).get(county, {})
+    return county_cfg.get('column_mapping', {})
+
+
+def _default_date_range() -> tuple[str, str]:
+    """Return the first and last day of the previous calendar month as MM/DD/YYYY."""
+    today = date.today()
+    first_of_this_month = today.replace(day=1)
+    last_of_prev = first_of_this_month - timedelta(days=1)
+    first_of_prev = last_of_prev.replace(day=1)
+    return first_of_prev.strftime('%m/%d/%Y'), last_of_prev.strftime('%m/%d/%Y')
+
+
+def _build_csv_header(column_mapping: dict[str, str]) -> list[str]:
+    """Build the CSV header row from the county's column_mapping + extras."""
+    headers = []
+    for field, mapping_key in _FIELD_TO_MAPPING_KEY.items():
+        col_name = column_mapping.get(mapping_key)
+        if col_name:
+            headers.append(col_name)
+    # Price column if county has it
+    if 'price' in column_mapping:
+        headers.append(column_mapping['price'])
+    # Subdivision column if county has it (e.g., Hernando)
+    if 'sub' in column_mapping:
+        headers.append(column_mapping['sub'])
+    headers.extend(_EXTRA_COLUMNS)
+    return headers
+
+
+def _row_to_csv(record: dict, column_mapping: dict[str, str],
+                header: list[str]) -> dict[str, str]:
+    """Map a parsed record dict to a CSV row dict matching the header."""
+    row = {}
+    for field, mapping_key in _FIELD_TO_MAPPING_KEY.items():
+        col_name = column_mapping.get(mapping_key)
+        if col_name:
+            row[col_name] = record.get(field, '')
+    if 'price' in column_mapping:
+        row[column_mapping['price']] = ''  # not available from search results
+    if 'sub' in column_mapping:
+        row[column_mapping['sub']] = record.get('subdivision', '')
+    for csv_col, field in _EXTRA_FIELD_MAP.items():
+        row[csv_col] = record.get(field, '')
+    return row
+
+
+def pull(county: str, begin_date: str, end_date: str, *,
+         no_filter: bool = False, all_doc_types: bool = False,
+         output_dir: Path | None = None) -> Path:
+    """
+    Pull records for a county and write a CSV.
+
+    Returns the path to the output CSV file.
+    """
+    landmark_cfg = get_landmark_config(county)
+    if landmark_cfg is None:
+        from county_scrapers.configs import LANDMARK_COUNTIES
+        available = ', '.join(LANDMARK_COUNTIES.keys())
+        raise ValueError(f'{county} is not a LandmarkWeb county. Available: {available}')
+
+    status = landmark_cfg.get('status', 'unknown')
+    if status != 'working':
+        log.warning('County %s has status "%s" — results may be empty or blocked',
+                     county, status)
+
+    column_mapping = _load_county_column_mapping(county)
+    if not column_mapping:
+        raise ValueError(f'No column_mapping found for {county} in counties.yaml')
+
+    doc_types = '' if all_doc_types else landmark_cfg['doc_types']
+    header = _build_csv_header(column_mapping)
+
+    # Determine output path
+    if output_dir is None:
+        output_dir = Path(__file__).resolve().parent.parent / 'output'
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Parse dates for filename
+    month_label = begin_date.split('/')[0] + '_' + begin_date.split('/')[2]
+    out_path = output_dir / f'{county}_{month_label}.csv'
+
+    log.info('County: %s | Date range: %s to %s | Doc types: %s',
+             county, begin_date, end_date, doc_types or 'ALL')
+
+    # Connect and search
+    with LandmarkSession(landmark_cfg['base_url'],
+                         column_map=landmark_cfg['column_map']) as session:
+        session.connect()
+        rows = session.search_by_date_range(begin_date, end_date, doc_types=doc_types)
+
+    log.info('Raw results: %d records', len(rows))
+
+    # Filter for builder/land banker entities
+    if not no_filter:
+        entity_set = build_entity_set()
+        filtered = filter_rows(rows, entity_set)
+        log.info('After entity filter: %d records (removed %d)',
+                 len(filtered), len(rows) - len(filtered))
+        rows = filtered
+
+    # Write CSV
+    with open(out_path, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=header, extrasaction='ignore')
+        writer.writeheader()
+        for record in rows:
+            csv_row = _row_to_csv(record, column_mapping, header)
+            writer.writerow(csv_row)
+
+    log.info('Wrote %d records to %s', len(rows), out_path)
+    return out_path
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description='Pull county official records from LandmarkWeb portals')
+    parser.add_argument('--county', required=True,
+                        help='County name (must match counties.yaml)')
+    parser.add_argument('--begin', dest='begin_date',
+                        help='Begin date MM/DD/YYYY (default: first of last month)')
+    parser.add_argument('--end', dest='end_date',
+                        help='End date MM/DD/YYYY (default: last of last month)')
+    parser.add_argument('--no-filter', action='store_true',
+                        help='Skip entity filtering, pull all records')
+    parser.add_argument('--all-doc-types', action='store_true',
+                        help='Pull all doc types, not just deeds')
+    parser.add_argument('--output-dir',
+                        help='Output directory (default: ./output)')
+    args = parser.parse_args()
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+        datefmt='%H:%M:%S',
+    )
+
+    begin, end = args.begin_date, args.end_date
+    if not begin or not end:
+        default_begin, default_end = _default_date_range()
+        begin = begin or default_begin
+        end = end or default_end
+
+    output_dir = Path(args.output_dir) if args.output_dir else None
+
+    try:
+        out_path = pull(args.county, begin, end,
+                        no_filter=args.no_filter,
+                        all_doc_types=args.all_doc_types,
+                        output_dir=output_dir)
+        print(f'Done. Output: {out_path}')
+    except Exception as exc:
+        log.error('Failed: %s', exc, exc_info=True)
+        sys.exit(1)
+
+
+if __name__ == '__main__':
+    main()
