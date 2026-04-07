@@ -26,6 +26,12 @@
     - "DR HORTON LLC"
     - "D R HORTON PENSACOLA"
     - "D R HORTON INC PENSACOLA LAND"
+    - "D R HORTON INC - BIRMINGHAM"
+    - "D R HORTON INC-BIRMINGHAM"
+    - "D R HORTON INC -BIRMINGHAM"
+    - "D R HORTON INC BIRMINGHAM"
+    - "D R HORTON INC - HUNTSVILLE"
+    - "D R HORTON INC-HUNTSVILLE"
 - canonical_name: "Adams Homes"
   aliases:
     - "Adams Homes"
@@ -37,11 +43,16 @@
     - "ADAMS HOMES OF NORTHWEST FLOIRDA INC"
     - "ADAMS HOME OF NORTHWEST FLORIDA INC"
     - "ADAMS HOMES OF NORTHWEST FLORIDA INC."
+    - "ADAMS HOMES LLC"
 - canonical_name: "Lennar"
   aliases:
     - "Lennar"
     - "Lennar Homes"
     - "Lennar Homes LLC"
+    - "LENNAR HOMES OF ALABAMA LLC"
+    - "LENNAR HOMES OF ALABAMA"
+    - "LENNAR HOMES IF ALABAMA LLC"
+    - "LENNAR HOMES OF ALBAMA LLC"
 - canonical_name: "Fischer Homes Gulf Coast"
   aliases:
     - "Fischer Homes Gulf Coast"
@@ -84,15 +95,18 @@
     - "DSLD HOMES (FLORIDA) LLC"
     - "DSLD HOLDING COMPANY LLC"
     - "DSLD HOLDINGS COMPANY LLC"
+    - "DSLD HOMES (GULF COAST) LLC"
 - canonical_name: "LGI"
   aliases:
     - "LGI"
     - "LGI HOMES FLORIDA LLC"
     - "LGI HOME DESIGN LLC"
+    - "LGI HOMES ALABAMA LLC"
 - canonical_name: "Meritage"
   aliases:
     - "Meritage"
     - "MERITAGE HOMES OF FLORIDA INC"
+    - "MERITAGE HOMES OF ALABAMA INC"
 - canonical_name: "Pulte"
   aliases:
     - "Pulte"
@@ -152,3 +166,14 @@
 - canonical_name: "Randy Wise Homes"
   aliases:
     - "RANDY WISE HOMES INC"
+- canonical_name: "Breland Homes"
+  aliases:
+    - "BRELAND HOMES INC"
+    - "BRELAND HOMES LLC"
+- canonical_name: "Woodland Homes"
+  aliases:
+    - "WOODLAND HOMES OF HUNTSVILLE INC"
+    - "WOODLAND HOMES OH HUNTSVILLE INC"
+- canonical_name: "Century Communities"
+  aliases:
+    - "CENTURY COMMUNITIES OF TENNESSEE LLC"

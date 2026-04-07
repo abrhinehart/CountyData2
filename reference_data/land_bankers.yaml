@@ -10,17 +10,20 @@
 
 # ── Land Bankers ──────────────────────────────────────────────
 
-- canonical_name: "Millrose Properties Florida"
+- canonical_name: "Millrose Properties"
   category: land_banker
   aliases:
     - "MILLROSE PROPERTIES FLORIDA LLC"
     - "MILLROSE PROPERTIES FLORIDA II LLC"
     - "MILLROSE PROPERTIES LLC"
+    - "MILLROSE PROPERTIES ALABAMA LLC"
 
 - canonical_name: "Forestar (DR Horton)"
   category: land_banker
   aliases:
     - "FORESTAR USA REAL ESTATE GROUP INC"
+    - "FORESTAR (USA) REAL ESTATE GROUP INC"
+    - "FORESTAR USA REAL ESTATE"
 
 - canonical_name: "AG EHC II (Lennar)"
   category: land_banker
