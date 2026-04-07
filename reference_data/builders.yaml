@@ -44,6 +44,7 @@
     - "ADAMS HOME OF NORTHWEST FLORIDA INC"
     - "ADAMS HOMES OF NORTHWEST FLORIDA INC."
     - "ADAMS HOMES LLC"
+    - "ADAMS HOMES L L C"
 - canonical_name: "Lennar"
   aliases:
     - "Lennar"
@@ -53,6 +54,7 @@
     - "LENNAR HOMES OF ALABAMA"
     - "LENNAR HOMES IF ALABAMA LLC"
     - "LENNAR HOMES OF ALBAMA LLC"
+    - "LENNAR HOMES OF ALABAMA L L C"
 - canonical_name: "Fischer Homes Gulf Coast"
   aliases:
     - "Fischer Homes Gulf Coast"
@@ -97,6 +99,10 @@
     - "DSLD HOLDING COMPANY LLC"
     - "DSLD HOLDINGS COMPANY LLC"
     - "DSLD HOMES (GULF COAST) LLC"
+    - "DSLD HOMES (GULF COAST) L L C"
+    - "DSLD HOMES GULF COAST L L C"
+    - "DSLD HOMESF GULF COAST L L C"
+    - "DSLD HOMES (GULF COST) L L C"
 - canonical_name: "LGI"
   aliases:
     - "LGI"
@@ -171,6 +177,8 @@
   aliases:
     - "BRELAND HOMES INC"
     - "BRELAND HOMES LLC"
+    - "BRELAND HOMES L L C"
+    - "BRELAND HOMES COASTAL L L C"
 - canonical_name: "Woodland Homes"
   aliases:
     - "WOODLAND HOMES OF HUNTSVILLE INC"
