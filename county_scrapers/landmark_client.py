@@ -252,6 +252,19 @@ class LandmarkSession:
         self._session.close()
         self._connected = False
 
+    @classmethod
+    def from_cookies(cls, base_url: str, cookies: dict[str, str],
+                     column_map: dict | None = None,
+                     page_size: int = 500,
+                     request_delay: float = 1.0) -> 'LandmarkSession':
+        """Create a LandmarkSession pre-loaded with cookies (captcha_hybrid flow)."""
+        from county_scrapers.cookie_session import apply_cookies_to_session
+        instance = cls(base_url, column_map=column_map,
+                       page_size=page_size, request_delay=request_delay)
+        apply_cookies_to_session(instance._session, cookies)
+        instance._connected = True
+        return instance
+
     def __enter__(self):
         return self
 

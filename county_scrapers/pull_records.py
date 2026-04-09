@@ -176,7 +176,7 @@ def pull(county: str, begin_date: str, end_date: str, *,
         status = landmark_cfg.get('status', 'unknown')
         portal_type = 'landmark'
 
-    if status != 'working':
+    if status not in ('working', 'captcha_hybrid'):
         log.warning('County %s has status "%s" — results may be empty or blocked',
                      county, status)
 
@@ -230,11 +230,32 @@ def pull(county: str, begin_date: str, end_date: str, *,
         log.info('Mortgage matches: %d',
                  sum(1 for r in rows if r.get('mortgage_amount')))
     else:
-        with LandmarkSession(landmark_cfg['base_url'],
-                             column_map=landmark_cfg['column_map']) as session:
-            session.connect()
-            rows = session.search_by_date_range(
-                begin_date, end_date, doc_types=doc_types)
+        if landmark_cfg.get('status') == 'captcha_hybrid':
+            from county_scrapers.cookie_session import capture_cookies
+            cookies = capture_cookies(
+                landmark_cfg['base_url'] + '/Home/Index',
+                prompt=(
+                    f'\n  {county} Official Records has opened in Chrome.\n'
+                    f'  Please:\n'
+                    f'    1. Accept the disclaimer\n'
+                    f'    2. Switch to "Record Date" search\n'
+                    f'    3. Do one search (any date range)\n'
+                    f'    4. Come back here and press Enter\n'
+                ),
+            )
+            with LandmarkSession.from_cookies(
+                landmark_cfg['base_url'],
+                cookies,
+                column_map=landmark_cfg['column_map'],
+            ) as session:
+                rows = session.search_by_date_range(
+                    begin_date, end_date, doc_types=doc_types)
+        else:
+            with LandmarkSession(landmark_cfg['base_url'],
+                                 column_map=landmark_cfg['column_map']) as session:
+                session.connect()
+                rows = session.search_by_date_range(
+                    begin_date, end_date, doc_types=doc_types)
 
     log.info('Raw results: %d records', len(rows))
 

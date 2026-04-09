@@ -92,6 +92,13 @@ LANDMARK_COUNTIES = {
         'status': 'untested',
         'portal': 'landmark',
     },
+    'Bay': {
+        'base_url': 'https://records2.baycoclerk.com/Recording',
+        'doc_types': '',
+        'column_map': None,  # uses DEFAULT_COLUMN_MAP — legal at column 13
+        'status': 'captcha_hybrid',
+        'portal': 'landmark',
+    },
 }
 
 
@@ -125,7 +132,7 @@ def get_countygov_config(county: str) -> dict | None:
 def list_working_counties() -> list[str]:
     """Return county names with 'working' status across all portals."""
     counties = [name for name, cfg in LANDMARK_COUNTIES.items()
-                if cfg.get('status') == 'working']
+                if cfg.get('status') in ('working', 'captcha_hybrid')]
     counties.extend(name for name, cfg in COUNTYGOV_COUNTIES.items()
-                    if cfg.get('status') == 'working')
+                    if cfg.get('status') in ('working', 'captcha_hybrid'))
     return counties
