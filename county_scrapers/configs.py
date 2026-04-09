@@ -67,8 +67,8 @@ LANDMARK_COUNTIES = {
     'Citrus': {
         'base_url': 'https://search.citrusclerk.org/LandmarkWeb',
         'doc_types': '17',
-        'column_map': None,  # default — untested since captcha blocks results
-        'status': 'captcha',
+        'column_map': None,  # default — works with curl_cffi TLS impersonation
+        'status': 'cloudflare',  # needs curl_cffi TLS impersonation
         'portal': 'landmark',
     },
     'Escambia': {
