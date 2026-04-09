@@ -12,7 +12,8 @@ INSERT INTO transactions (
     lots, acres, acres_source, price, parsed_data, county, builder_id,
     grantor_builder_id, grantee_builder_id,
     grantor_land_banker_id, grantee_land_banker_id,
-    review_flag, source_file
+    review_flag, source_file,
+    mortgage_amount, mortgage_originator
 )
 VALUES (
     %(grantor)s, %(grantee)s, %(type)s, %(instrument)s, %(date)s,
@@ -21,7 +22,8 @@ VALUES (
     %(lots)s, %(acres)s, %(acres_source)s, %(price)s, %(parsed_data)s, %(county)s, %(builder_id)s,
     %(grantor_builder_id)s, %(grantee_builder_id)s,
     %(grantor_land_banker_id)s, %(grantee_land_banker_id)s,
-    %(review_flag)s, %(source_file)s
+    %(review_flag)s, %(source_file)s,
+    %(mortgage_amount)s, %(mortgage_originator)s
 )
 ON CONFLICT (grantor_key, grantee_key, instrument_key, date, county_key)
 DO UPDATE SET
@@ -47,6 +49,8 @@ DO UPDATE SET
     grantee_land_banker_id  = EXCLUDED.grantee_land_banker_id,
     review_flag             = EXCLUDED.review_flag,
     source_file             = EXCLUDED.source_file,
+    mortgage_amount         = EXCLUDED.mortgage_amount,
+    mortgage_originator     = EXCLUDED.mortgage_originator,
     updated_at              = NOW()
 RETURNING id, (xmax = 0) AS inserted
 """

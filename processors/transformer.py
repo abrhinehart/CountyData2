@@ -1277,6 +1277,20 @@ def transform_row(row: pd.Series, county: str, config: dict,
     except (ValueError, TypeError):
         price = None
 
+    mortgage_amount_raw = row.get(cols.get('mortgage_amount', ''), '')
+    try:
+        val = str(mortgage_amount_raw).replace(',', '').strip()
+        if not val or val.lower() == 'nan':
+            mortgage_amount = None
+        else:
+            mortgage_amount = float(val)
+    except (ValueError, TypeError):
+        mortgage_amount = None
+
+    mortgage_originator_raw = row.get(cols.get('mortgage_originator', ''), '')
+    val = str(mortgage_originator_raw).strip()
+    mortgage_originator = val if val and val.lower() != 'nan' else None
+
     lots_col = cols.get('lots', '')
     lots_raw = row.get(lots_col, '') if lots_col else ''
     try:
@@ -1340,6 +1354,8 @@ def transform_row(row: pd.Series, county: str, config: dict,
         'acres':                   acres,
         'acres_source':            acres_source,
         'price':                   price,
+        'mortgage_amount':         mortgage_amount,
+        'mortgage_originator':     mortgage_originator,
         'parsed_data':             parsed_data,
         'transaction_segments':    transaction_segments,
         'county':                  county,
