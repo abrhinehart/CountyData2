@@ -75,7 +75,7 @@ LANDMARK_COUNTIES = {
         'base_url': 'https://dory.escambiaclerk.com/LandmarkWeb',
         'doc_types': '',
         'column_map': None,
-        'status': 'blocked',  # HTTP 403
+        'status': 'cloudflare',
         'portal': 'landmark',
     },
     'Walton': {
@@ -132,7 +132,7 @@ def get_countygov_config(county: str) -> dict | None:
 def list_working_counties() -> list[str]:
     """Return county names with 'working' status across all portals."""
     counties = [name for name, cfg in LANDMARK_COUNTIES.items()
-                if cfg.get('status') in ('working', 'captcha_hybrid')]
+                if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare')]
     counties.extend(name for name, cfg in COUNTYGOV_COUNTIES.items()
-                    if cfg.get('status') in ('working', 'captcha_hybrid'))
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     return counties

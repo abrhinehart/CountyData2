@@ -67,18 +67,23 @@ class LandmarkSession:
     """Stateful HTTP client for a single LandmarkWeb portal."""
 
     def __init__(self, base_url: str, column_map: dict | None = None,
-                 page_size: int = 500, request_delay: float = 1.0):
+                 page_size: int = 500, request_delay: float = 1.0,
+                 use_cffi: bool = False):
         self.base_url = base_url.rstrip('/')
         self.column_map = column_map or dict(DEFAULT_COLUMN_MAP)
         self.page_size = page_size
         self.request_delay = request_delay
 
-        self._session = requests.Session()
-        retry = Retry(total=3, backoff_factor=1.5,
-                      status_forcelist=[500, 502, 503, 504])
-        adapter = HTTPAdapter(max_retries=retry)
-        self._session.mount('https://', adapter)
-        self._session.mount('http://', adapter)
+        if use_cffi:
+            from curl_cffi import requests as cf_requests
+            self._session = cf_requests.Session(impersonate='chrome')
+        else:
+            self._session = requests.Session()
+            retry = Retry(total=3, backoff_factor=1.5,
+                          status_forcelist=[500, 502, 503, 504])
+            adapter = HTTPAdapter(max_retries=retry)
+            self._session.mount('https://', adapter)
+            self._session.mount('http://', adapter)
         self._session.headers.update({
             'User-Agent': (
                 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
@@ -135,7 +140,7 @@ class LandmarkSession:
             f'{self.base_url}/Search/RecordDateSearch',
             data=payload,
             headers=_AJAX_HEADERS,
-            timeout=30,
+            timeout=120,
         )
         resp.raise_for_status()
         log.debug('RecordDateSearch posted, status %s', resp.status_code)
@@ -256,11 +261,13 @@ class LandmarkSession:
     def from_cookies(cls, base_url: str, cookies: dict[str, str],
                      column_map: dict | None = None,
                      page_size: int = 500,
-                     request_delay: float = 1.0) -> 'LandmarkSession':
+                     request_delay: float = 1.0,
+                     use_cffi: bool = False) -> 'LandmarkSession':
         """Create a LandmarkSession pre-loaded with cookies (captcha_hybrid flow)."""
         from county_scrapers.cookie_session import apply_cookies_to_session
         instance = cls(base_url, column_map=column_map,
-                       page_size=page_size, request_delay=request_delay)
+                       page_size=page_size, request_delay=request_delay,
+                       use_cffi=use_cffi)
         apply_cookies_to_session(instance._session, cookies)
         instance._connected = True
         return instance

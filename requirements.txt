@@ -6,6 +6,7 @@ xlrd
 psycopg2-binary
 python-dotenv
 requests
+curl_cffi
 shapely
 selenium
 webdriver-manager

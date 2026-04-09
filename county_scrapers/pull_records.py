@@ -65,6 +65,19 @@ def _load_county_column_mapping(county: str) -> dict[str, str]:
     return county_cfg.get('column_mapping', {})
 
 
+def _weekly_chunks(begin_date: str, end_date: str) -> list[tuple[str, str]]:
+    """Split a MM/DD/YYYY date range into weekly chunks."""
+    from datetime import datetime
+    start = datetime.strptime(begin_date, '%m/%d/%Y').date()
+    end = datetime.strptime(end_date, '%m/%d/%Y').date()
+    chunks = []
+    while start <= end:
+        chunk_end = min(start + timedelta(days=6), end)
+        chunks.append((start.strftime('%m/%d/%Y'), chunk_end.strftime('%m/%d/%Y')))
+        start = chunk_end + timedelta(days=1)
+    return chunks
+
+
 def _default_date_range() -> tuple[str, str]:
     """Return the first and last day of the previous calendar month as MM/DD/YYYY."""
     today = date.today()
@@ -176,7 +189,7 @@ def pull(county: str, begin_date: str, end_date: str, *,
         status = landmark_cfg.get('status', 'unknown')
         portal_type = 'landmark'
 
-    if status not in ('working', 'captcha_hybrid'):
+    if status not in ('working', 'captcha_hybrid', 'cloudflare'):
         log.warning('County %s has status "%s" — results may be empty or blocked',
                      county, status)
 
@@ -250,6 +263,21 @@ def pull(county: str, begin_date: str, end_date: str, *,
             ) as session:
                 rows = session.search_by_date_range(
                     begin_date, end_date, doc_types=doc_types)
+        elif landmark_cfg.get('status') == 'cloudflare':
+            chunks = _weekly_chunks(begin_date, end_date)
+            rows = []
+            with LandmarkSession(
+                landmark_cfg['base_url'],
+                column_map=landmark_cfg['column_map'],
+                use_cffi=True,
+            ) as session:
+                session.connect()
+                for i, (chunk_begin, chunk_end) in enumerate(chunks, 1):
+                    log.info('  chunk %d/%d: %s to %s',
+                             i, len(chunks), chunk_begin, chunk_end)
+                    chunk_rows = session.search_by_date_range(
+                        chunk_begin, chunk_end, doc_types=doc_types)
+                    rows.extend(chunk_rows)
         else:
             with LandmarkSession(landmark_cfg['base_url'],
                                  column_map=landmark_cfg['column_map']) as session:
