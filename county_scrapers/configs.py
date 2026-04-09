@@ -55,36 +55,42 @@ LANDMARK_COUNTIES = {
         'doc_types': '',  # empty = all types; verify deed ID later
         'column_map': _HERNANDO_COLUMN_MAP,
         'status': 'working',
+        'portal': 'landmark',
     },
     'Okeechobee': {
         'base_url': 'https://pioneer.okeechobeelandmark.com/LandmarkWebLive',
         'doc_types': '',
         'column_map': _OKEECHOBEE_COLUMN_MAP,
         'status': 'working',
+        'portal': 'landmark',
     },
     'Citrus': {
         'base_url': 'https://search.citrusclerk.org/LandmarkWeb',
         'doc_types': '17',
         'column_map': None,  # default — untested since captcha blocks results
         'status': 'captcha',
+        'portal': 'landmark',
     },
     'Escambia': {
         'base_url': 'https://dory.escambiaclerk.com/LandmarkWeb',
         'doc_types': '',
         'column_map': None,
         'status': 'blocked',  # HTTP 403
+        'portal': 'landmark',
     },
     'Walton': {
         'base_url': 'https://orsearch.clerkofcourts.co.walton.fl.us/LandmarkWeb',
         'doc_types': '',
         'column_map': None,
         'status': 'blocked',  # connection reset
+        'portal': 'landmark',
     },
     'Okaloosa': {
         'base_url': 'https://clerkapps.okaloosaclerk.com/LandmarkWeb',
         'doc_types': '',
         'column_map': None,
         'status': 'untested',
+        'portal': 'landmark',
     },
 }
 
@@ -100,7 +106,26 @@ def get_landmark_config(county: str) -> dict | None:
     return result
 
 
+COUNTYGOV_COUNTIES = {
+    'Madison AL': {
+        'base_url': 'https://madisonprobate.countygovservices.com',
+        'search_type': 'deed',
+        'doc_types': '',
+        'status': 'working',
+        'portal': 'countygov',
+    },
+}
+
+
+def get_countygov_config(county: str) -> dict | None:
+    """Return the CountyGovServices config for a county, or None."""
+    return COUNTYGOV_COUNTIES.get(county)
+
+
 def list_working_counties() -> list[str]:
-    """Return county names with 'working' status."""
-    return [name for name, cfg in LANDMARK_COUNTIES.items()
-            if cfg.get('status') == 'working']
+    """Return county names with 'working' status across all portals."""
+    counties = [name for name, cfg in LANDMARK_COUNTIES.items()
+                if cfg.get('status') == 'working']
+    counties.extend(name for name, cfg in COUNTYGOV_COUNTIES.items()
+                    if cfg.get('status') == 'working')
+    return counties
