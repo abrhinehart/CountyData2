@@ -14,14 +14,21 @@ Usage:
 import argparse
 import csv
 import logging
+import os
 import sys
 from calendar import monthrange
 from datetime import date, timedelta
+
+from dotenv import load_dotenv
+
+load_dotenv()
 from pathlib import Path
 
 import yaml
 
-from county_scrapers.configs import get_landmark_config
+from county_scrapers.configs import get_countygov_config, get_landmark_config
+from county_scrapers.configs import COUNTYGOV_COUNTIES, LANDMARK_COUNTIES
+from county_scrapers.countygov_client import CountyGovSession
 from county_scrapers.entity_filter import build_entity_set, filter_rows
 from county_scrapers.landmark_client import LandmarkSession
 
@@ -39,12 +46,14 @@ _FIELD_TO_MAPPING_KEY = {
 }
 
 # Extra fields always included in output (not in column_mapping but useful).
-_EXTRA_COLUMNS = ['Book Type', 'Book', 'Page', 'Instrument Number']
+_EXTRA_COLUMNS = ['Book Type', 'Book', 'Page', 'Instrument Number', 'Mortgage Amount', 'Mortgage Originator']
 _EXTRA_FIELD_MAP = {
     'Book Type': 'book_type',
     'Book': 'book',
     'Page': 'page',
     'Instrument Number': 'instrument',
+    'Mortgage Amount': 'mortgage_amount',
+    'Mortgage Originator': 'mortgage_originator',
 }
 
 
@@ -99,6 +108,51 @@ def _row_to_csv(record: dict, column_mapping: dict[str, str],
     return row
 
 
+def _extract_last_names(name_str: str) -> set[str]:
+    """Extract last names from semicolon-separated party string."""
+    names = set()
+    for party in name_str.split(';'):
+        party = party.strip()
+        if not party:
+            continue
+        words = party.split()
+        for word in words:
+            candidate = word.upper()
+            if len(candidate) > 1:
+                names.add(candidate)
+                break
+    return names
+
+
+def _match_mortgages(deed_rows: list[dict], mortgage_rows: list[dict]) -> None:
+    """Match mortgage records to deed records and enrich deeds in-place."""
+    mort_by_date: dict[str, list[dict]] = {}
+    for m in mortgage_rows:
+        d = m.get('record_date', '')
+        mort_by_date.setdefault(d, []).append(m)
+
+    for deed in deed_rows:
+        date = deed.get('record_date', '')
+        candidates = mort_by_date.get(date, [])
+        if not candidates:
+            continue
+
+        buyer_names = _extract_last_names(deed.get('grantee', ''))
+        if not buyer_names:
+            continue
+
+        best = None
+        for mort in candidates:
+            mort_names = _extract_last_names(mort.get('grantor', ''))
+            if buyer_names & mort_names:
+                best = mort
+                break
+
+        if best:
+            deed['mortgage_amount'] = best.get('mortgage_value', '')
+            deed['mortgage_originator'] = best.get('grantee', '')
+
+
 def pull(county: str, begin_date: str, end_date: str, *,
          no_filter: bool = False, all_doc_types: bool = False,
          output_dir: Path | None = None) -> Path:
@@ -107,13 +161,21 @@ def pull(county: str, begin_date: str, end_date: str, *,
 
     Returns the path to the output CSV file.
     """
+    countygov_cfg = get_countygov_config(county)
     landmark_cfg = get_landmark_config(county)
-    if landmark_cfg is None:
-        from county_scrapers.configs import LANDMARK_COUNTIES
-        available = ', '.join(LANDMARK_COUNTIES.keys())
-        raise ValueError(f'{county} is not a LandmarkWeb county. Available: {available}')
 
-    status = landmark_cfg.get('status', 'unknown')
+    if countygov_cfg is None and landmark_cfg is None:
+        available = ', '.join(
+            list(LANDMARK_COUNTIES.keys()) + list(COUNTYGOV_COUNTIES.keys()))
+        raise ValueError(f'{county} is not a configured county. Available: {available}')
+
+    if countygov_cfg is not None:
+        status = countygov_cfg.get('status', 'unknown')
+        portal_type = 'countygov'
+    else:
+        status = landmark_cfg.get('status', 'unknown')
+        portal_type = 'landmark'
+
     if status != 'working':
         log.warning('County %s has status "%s" — results may be empty or blocked',
                      county, status)
@@ -122,7 +184,8 @@ def pull(county: str, begin_date: str, end_date: str, *,
     if not column_mapping:
         raise ValueError(f'No column_mapping found for {county} in counties.yaml')
 
-    doc_types = '' if all_doc_types else landmark_cfg['doc_types']
+    doc_types = '' if all_doc_types else (
+        countygov_cfg or landmark_cfg).get('doc_types', '')
     header = _build_csv_header(column_mapping)
 
     # Determine output path
@@ -138,10 +201,40 @@ def pull(county: str, begin_date: str, end_date: str, *,
              county, begin_date, end_date, doc_types or 'ALL')
 
     # Connect and search
-    with LandmarkSession(landmark_cfg['base_url'],
-                         column_map=landmark_cfg['column_map']) as session:
-        session.connect()
-        rows = session.search_by_date_range(begin_date, end_date, doc_types=doc_types)
+    if portal_type == 'countygov':
+        email = os.environ.get('MADISON_PORTAL_EMAIL', '')
+        password = os.environ.get('MADISON_PORTAL_PASSWORD', '')
+        if not email or not password:
+            raise ValueError(
+                f'Missing MADISON_PORTAL_EMAIL/PASSWORD env vars for {county}')
+        with CountyGovSession(
+            base_url=countygov_cfg['base_url'],
+            email=email,
+            password=password,
+            search_type=countygov_cfg.get('search_type', 'deed'),
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+        # Pull mortgages for cross-referencing
+        log.info('Pulling mortgage records for cross-reference...')
+        with CountyGovSession(
+            base_url=countygov_cfg['base_url'],
+            email=email,
+            password=password,
+            search_type='mortgage',
+        ) as mort_session:
+            mort_session.connect()
+            mort_rows = mort_session.search_by_date_range(begin_date, end_date)
+        log.info('Mortgage records: %d', len(mort_rows))
+        _match_mortgages(rows, mort_rows)
+        log.info('Mortgage matches: %d',
+                 sum(1 for r in rows if r.get('mortgage_amount')))
+    else:
+        with LandmarkSession(landmark_cfg['base_url'],
+                             column_map=landmark_cfg['column_map']) as session:
+            session.connect()
+            rows = session.search_by_date_range(
+                begin_date, end_date, doc_types=doc_types)
 
     log.info('Raw results: %d records', len(rows))
 

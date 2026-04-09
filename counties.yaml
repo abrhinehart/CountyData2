@@ -252,4 +252,29 @@ counties:
       - Block
       - BLK
     skiprows: 0
-    
+
+  "Madison AL":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+      mortgage_amount: Mortgage Amount
+      mortgage_originator: Mortgage Originator
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
