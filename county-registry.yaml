@@ -1,0 +1,540 @@
+# County Expansion Registry
+# Shared county metadata across the real estate data platform.
+# When adding a new county to ANY project, update this file first.
+# Other projects can read this to know what to expect before writing code.
+#
+# Projects:
+#   cd2  = CountyData2       (deed/transaction scraping)
+#   bi   = Builder Inventory (ArcGIS parcel tracking)
+#   pt   = Permit Tracker    (building permit scraping)
+#   cr   = Commission Radar  (agenda/meeting document scraping)
+
+# ─── STATE-LEVEL DEFAULTS ────────────────────────────────────────────────
+states:
+  FL:
+    disclosure: full          # sale prices on deeds
+    survey_system: plss       # Tallahassee Meridian
+    comp_plan: mandatory      # Ch. 163 F.S.
+    plat_approval: staff      # SB 784, eff. July 2025
+    alias_quirks: []
+    notes: "Primary state. 67 counties. Most use LandmarkWeb for deeds, ArcGIS for parcels."
+
+  AL:
+    disclosure: non-disclosure  # no sale prices on deeds; use mortgage cross-ref
+    survey_system: plss         # St. Stephens / Huntsville Meridians
+    comp_plan: optional         # enabling only, not mandated
+    plat_approval: varies
+    alias_quirks:
+      - "Assessor data uses 'L L C' (spaced) — include both 'LLC' and 'L L C' alias forms"
+    notes: "Non-disclosure state. Mortgage records can proxy sale price (40% attach rate). B2C auth portals."
+
+  GA:
+    disclosure: full
+    survey_system: metes-and-bounds  # no PLSS
+    comp_plan: mandatory             # Georgia Planning Act 1989
+    plat_approval: varies
+    alias_quirks: []
+    notes: "Not yet active in any project. Metes-and-bounds legal descriptions (no PLSS)."
+
+  SC:
+    disclosure: full
+    survey_system: metes-and-bounds
+    comp_plan: de-facto-mandatory  # all 46 counties have plans
+    plat_approval: varies
+    alias_quirks: []
+    notes: "Not yet active. 10-year plan update cycle."
+
+  NC:
+    disclosure: full
+    survey_system: metes-and-bounds
+    comp_plan: advisory  # Chapter 160D — plans don't legally bind zoning
+    plat_approval: varies
+    alias_quirks: []
+    notes: "Not yet active. Plans are advisory; consistency statement sufficient for rezoning."
+
+  TN:
+    disclosure: full
+    survey_system: metes-and-bounds
+    comp_plan: optional  # Growth Policy Act requires growth boundaries, not full plans
+    plat_approval: varies
+    alias_quirks: []
+    notes: "Not yet active. Growth Policy Act (1998) requires UGBs but not detailed comp plans."
+
+
+# ─── ACTIVE COUNTIES (present in at least one project) ───────────────────
+
+counties:
+
+  # ── FLORIDA ──────────────────────────────────────────────────────────
+
+  bay-fl:
+    name: Bay County
+    state: FL
+    fips: "12005"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://records2.baycoclerk.com/Recording
+        bypass: captcha_hybrid
+        status: live
+        notes: "Uses /Recording suffix (not /LandmarkWeb). Cookie handoff required each session."
+      bi:
+        portal: arcgis
+        endpoint: gis.baycountyfl.gov/BayView/MapServer/2
+        status: active
+        fields: { owner: A2OWNAME, parcel: A1RENUM, address: DSITEADDR, use: DORAPPDESC, acreage: DTAXACRES }
+      pt:
+        portal: cityview-pdf
+        url: https://www.baycountyfl.gov/155/Permits
+        status: live
+        notes: "Consumes monthly PDF permit reports (avoids CAPTCHA). Prefix filter: PRSF."
+      cr:
+        platform: novusagenda
+        status: bootstrap_unsupported
+        notes: "No NovusAgenda scraper built yet. base_url is null."
+    quirks:
+      - "CD2: cleanup_patterns strip leading L\\d+ and LOTS?\\d+ from legal descriptions"
+
+  citrus-fl:
+    name: Citrus County
+    state: FL
+    fips: "12017"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://search.citrusclerk.org/LandmarkWeb
+        bypass: cloudflare
+        status: live
+        notes: "curl_cffi TLS impersonation. doc_types: 17 (DEED only). Weekly chunking."
+      bi:
+        portal: arcgis
+        status: inactive
+        notes: "SWFWMD-hosted endpoint unreliable. 6AM-10PM only."
+      pt:
+        portal: jsf-primefaces
+        url: https://apps.citrusbocc.com/permitsearch/search.xhtml
+        status: research-only
+        notes: "List-state workflow unstable. Also moved new apps to Accela Sep 2025."
+      cr:
+        platform: civicclerk
+        status: zero_listing
+
+  escambia-fl:
+    name: Escambia County
+    state: FL
+    fips: "12033"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://dory.escambiaclerk.com/LandmarkWeb
+        bypass: cloudflare
+        status: live
+        notes: "curl_cffi. Grantor/grantee labeled 'Direct Name'/'Reverse Name'."
+      bi:
+        portal: arcgis
+        endpoint: gismaps.myescambia.com/parcels/MapServer/0
+        status: active
+        fields: { owner: OWNER, parcel: REFNUM, address: SITEADDR, use: LANDTYPE, acreage: LANDSIZE }
+      cr:
+        platform: legistar
+        slug: escambia-county-pz
+        status: usable_seed
+
+  hernando-fl:
+    name: Hernando County
+    state: FL
+    fips: "12053"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://or.hernandoclerk.com/LandmarkWeb
+        bypass: none
+        status: live
+        notes: "Fully automated. Portal v1.5.87 has extended legal fields. Dedicated Subdivision column (unique among FL)."
+      bi:
+        portal: arcgis
+        endpoint: services2.arcgis.com/Parcels/FeatureServer/0
+        status: active
+        fields: { owner: OWNER_NAME, parcel: PARCEL_NUMBER, address: SITUS_ADDRESS, use: CER_DOR_CODE, acreage: ACRES }
+      cr:
+        platform: civicclerk
+        slug: hernando-county-bcc
+        status: partial_or_outlier
+
+  marion-fl:
+    name: Marion County
+    state: FL
+    fips: "12083"
+    projects:
+      cd2:
+        portal: none
+        status: csv-only
+        notes: "No scraper. Manual CSV export. Has Consideration (price) column. Grantor/grantee sometimes swapped (STAR flag)."
+      bi:
+        portal: arcgis
+        endpoint: gis.marionfl.org/General/Parcels/MapServer/0
+        status: active
+        fields: { owner: NAME, parcel: PARCEL, address: SITUS_1, use: FIC, acreage: ACRES }
+      cd2_next:
+        portal: browserview
+        url: https://selfservice.marioncountyclerk.org/BrowserView/api/search
+        status: planned
+        notes: "ASP.NET + Angular portal. JSON API confirmed. considAmount field may have sale prices."
+
+  okaloosa-fl:
+    name: Okaloosa County
+    state: FL
+    fips: "12091"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://clerkapps.okaloosaclerk.com/LandmarkWeb
+        bypass: untested
+        status: untested
+        notes: "Extra header row (skiprows:1). Column names differ from standard. Unresolved multi-delimiter issue."
+      bi:
+        portal: arcgis
+        endpoint: gis.myokaloosa.com/BaseMap_Layers/MapServer/111
+        status: active
+        fields: { owner: PATPCL_OWNER, parcel: PATPCL_PIN, address: PATPCL_ADDR1, use: PATPCL_USEDESC, acreage: PATPCL_LGL_ACRE }
+
+  okeechobee-fl:
+    name: Okeechobee County
+    state: FL
+    fips: "12093"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://pioneer.okeechobeelandmark.com/LandmarkWebLive
+        bypass: none
+        status: live
+        notes: "Fully automated. Portal v1.5.93. Multi-line parcel IDs need BEFORE_FIRST_NEWLINE cleanup."
+      bi:
+        portal: arcgis
+        endpoint: services3.arcgis.com/Tyler_Technologies_Display_Map/FeatureServer/2
+        status: active
+        fields: { owner: Owner1, parcel: ParcelID, address: StreetName, acreage: Acerage }
+        notes: "Note: source data has typo 'Acerage' (not Acreage)."
+      pt:
+        portal: tyler-epl
+        url: https://www.okeechobeecountyfl.gov/
+        status: research-only
+        notes: "Tyler EPL replaced TRAKiT June 2025. Adapter stub only — public search not yet mapped."
+
+  polk-fl:
+    name: Polk County
+    state: FL
+    fips: "12105"
+    projects:
+      bi:
+        portal: arcgis
+        endpoint: gis.polk-county.net/Map_Property_Appraiser/FeatureServer/1
+        status: active
+        fields: { owner: NAME, parcel: PARCELID, address: PROP_ADRSTR, use: DOR_USE_CODE_DESC, acreage: TOT_ACREAGE }
+      pt:
+        portal: accela
+        url: https://aca-prod.accela.com/POLKCO/Default.aspx
+        status: live
+        notes: "Citizen Access public search. Date-window splitting for 100-result grid cap."
+      cr:
+        platform: legistar
+        slug: polk-county-bcc
+        status: usable_seed
+
+  santa-rosa-fl:
+    name: Santa Rosa County
+    state: FL
+    fips: "12113"
+    projects:
+      cd2:
+        portal: landmark
+        status: misconfigured
+        notes: "BUG: configs.py URL points to Walton's clerk domain. Needs correct URL before automation."
+      bi:
+        portal: arcgis
+        endpoint: services.arcgis.com/ParcelsOpenData/FeatureServer/0
+        status: active
+        fields: { owner: OwnerName, parcel: ParcelDisp, address: Addr1, use: PRuse, acreage: CALC_ACRE }
+      cr:
+        platform: civicplus
+        slug: santa-rosa-county-bcc
+        status: zero_listing
+
+  walton-fl:
+    name: Walton County
+    state: FL
+    fips: "12131"
+    projects:
+      cd2:
+        portal: landmark
+        url: https://orsearch.clerkofcourts.co.walton.fl.us/LandmarkWeb
+        bypass: cloudflare
+        status: live
+        notes: "curl_cffi. Strip leading 'Legal ' prefix from records."
+      bi:
+        portal: arcgis
+        status: inactive
+        notes: "No county-hosted ArcGIS REST with owner data."
+
+  # Counties active in Builder Inventory only (large FL list, selected key ones):
+  broward-fl:
+    name: Broward County
+    state: FL
+    fips: "12011"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+        notes: "Acreage field is square footage (GIS_SQUARE_FOOT) — auto-divided by 43560."
+      cr:
+        platform: legistar
+        slug: broward-county-bcc
+        status: usable_seed
+
+  collier-fl:
+    name: Collier County
+    state: FL
+    fips: "12021"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+      cr:
+        platform: legistar
+        slug: collier-county-bcc
+        status: usable_seed
+
+  duval-fl:
+    name: Duval County
+    state: FL
+    fips: "12031"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+      cr:
+        platform: civicclerk
+        slug: duval-county-bcc
+        status: partial_or_outlier
+
+  hillsborough-fl:
+    name: Hillsborough County
+    state: FL
+    fips: "12057"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+        notes: "No acreage field available."
+
+  indian-river-fl:
+    name: Indian River County
+    state: FL
+    fips: "12061"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+      cr:
+        platform: civicclerk
+        slug: indian-river-county-bcc
+        status: usable_seed
+
+  lee-fl:
+    name: Lee County
+    state: FL
+    fips: "12071"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  miami-dade-fl:
+    name: Miami-Dade County
+    state: FL
+    fips: "12086"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+        notes: "Acreage field is square footage (LOT_SIZE) — auto-divided by 43560."
+
+  orange-fl:
+    name: Orange County
+    state: FL
+    fips: "12095"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  osceola-fl:
+    name: Osceola County
+    state: FL
+    fips: "12097"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  palm-beach-fl:
+    name: Palm Beach County
+    state: FL
+    fips: "12099"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  pasco-fl:
+    name: Pasco County
+    state: FL
+    fips: "12101"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  pinellas-fl:
+    name: Pinellas County
+    state: FL
+    fips: "12103"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+        notes: "Fully-qualified field names (PGIS.PGIS.<table>.<column>). Must pass verbatim."
+
+  seminole-fl:
+    name: Seminole County
+    state: FL
+    fips: "12117"
+    projects:
+      bi:
+        portal: arcgis
+        endpoint: utility.arcgis.com/InformationKiosk/MapServer/1
+        status: active
+        notes: "Token-served private-but-public endpoint via utility.arcgis.com."
+      cr:
+        platform: civicclerk
+        slug: seminole-county-bcc
+        status: partial_or_outlier
+
+  st-lucie-fl:
+    name: St. Lucie County
+    state: FL
+    fips: "12111"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  volusia-fl:
+    name: Volusia County
+    state: FL
+    fips: "12127"
+    projects:
+      bi:
+        portal: arcgis
+        status: active
+
+  # ── ALABAMA ──────────────────────────────────────────────────────────
+
+  madison-al:
+    name: Madison County
+    state: AL
+    fips: "01089"
+    projects:
+      cd2:
+        portal: countygov-b2c
+        url: https://madisonprobate.countygovservices.com
+        bypass: b2c-auth
+        status: live
+        notes: "Azure AD B2C login. Credentials via env vars. Kendo Grid pagination. Mortgage cross-ref enabled (40% attach rate)."
+      bi:
+        portal: arcgis
+        endpoint: web3.kcsgis.com/Madison_Public_ISV/MapServer/185
+        status: active
+        fields: { owner: PropertyOwner, parcel: null, subdivision: Subdivision, deed_date: DeedDate, prev_owner: PreviousOwners, building_value: TotalBuildingValue, appraised_value: TotalAppraisedValue }
+        notes: "gis_subdivision_field active. Millrose holds 1044 parcels (Lennar land bank)."
+      pt:
+        portal: cityview
+        url: https://cityview.madisoncountyal.gov/Portal
+        status: live
+        notes: "Authenticated CityView scraper. Flagged as brittle — reruns and manual verification prudent."
+    quirks:
+      - "Non-disclosure state: no sale prices on deeds. Mortgage cross-ref needed."
+      - "Assessor data uses 'L L C' spacing — aliases must include both LLC and L L C."
+      - "Millrose Properties = Lennar land bank. Forestar = DR Horton land bank."
+
+  jefferson-al:
+    name: Jefferson County
+    state: AL
+    fips: "01073"
+    projects:
+      bi:
+        portal: arcgis
+        endpoint: jccgis.jccal.org/Parcels/MapServer/0
+        status: active
+        fields: { owner: OWNERNAME, subdivision: SUBDIV_NAME, appraised_value: AssdValue }
+        notes: "No deed date field. 369 DR Horton parcels found."
+    quirks:
+      - "Birmingham metro. Non-disclosure state."
+
+  baldwin-al:
+    name: Baldwin County
+    state: AL
+    fips: "01003"
+    projects:
+      bi:
+        portal: arcgis
+        endpoint: utility.arcgis.com/Permitting_MS/MapServer/75
+        status: active
+        fields: { owner: Owner, subdivision: Subdivision, deed_date: DeedRecorded, prev_owner: PreviousOwner, building_value: CImpValue }
+        notes: "Max records 10000. Token-served endpoint. Uses FST prefix for trust-held parcels."
+    quirks:
+      - "Non-disclosure state."
+      - "793 DR Horton, 292 Lennar, 200 DSLD, 182 Adams Homes."
+
+  montgomery-al:
+    name: Montgomery County
+    state: AL
+    fips: "01101"
+    projects:
+      bi:
+        portal: arcgis
+        endpoint: gis.montgomeryal.gov/Parcels/FeatureServer/0
+        status: active
+        fields: { owner: OwnerName, subdivision: SubDiv1, deed_date: InstDate, building_value: TotalImpValue, appraised_value: TotalValue }
+        notes: "111 DR Horton parcels."
+    quirks:
+      - "Non-disclosure state."
+
+
+  # ── PANAMA CITY JURISDICTIONS (city-level, not county) ───────────────
+
+  panama-city-fl:
+    name: Panama City
+    state: FL
+    fips: "12005"  # Bay County FIPS — city within Bay
+    projects:
+      pt:
+        portal: cloudpermit
+        url: https://www.panamacity.gov/803/Cloudpermit
+        status: live
+        notes: "Public map API (US-FL54700). No auth. Filters: RESIDENTIAL + NEW + SINGLE FAMILY DWELLING."
+      cr:
+        platform: civicplus
+        slug: panama-city-planning-board
+        status: usable_seed
+
+  panama-city-beach-fl:
+    name: Panama City Beach
+    state: FL
+    fips: "12005"  # Bay County FIPS
+    projects:
+      pt:
+        portal: iworq
+        url: https://www.pcbfl.gov/219/Permit-Inspection-Search
+        status: live
+        notes: "iWorQ date-range search. Filters via permit-type exclusion heuristics."
