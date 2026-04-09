@@ -82,7 +82,7 @@ LANDMARK_COUNTIES = {
         'base_url': 'https://orsearch.clerkofcourts.co.walton.fl.us/LandmarkWeb',
         'doc_types': '',
         'column_map': None,
-        'status': 'blocked',  # connection reset
+        'status': 'cloudflare',  # needs curl_cffi TLS impersonation
         'portal': 'landmark',
     },
     'Okaloosa': {
