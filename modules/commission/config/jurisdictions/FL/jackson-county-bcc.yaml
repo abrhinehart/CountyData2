@@ -1,0 +1,27 @@
+slug: jackson-county-bcc
+name: "Jackson County BCC"
+state: FL
+county: Jackson
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: civicclerk
+  base_url: "https://jacksoncofl.portal.civicclerk.com"
+  civicclerk_subdomain: "jacksoncofl"
+  category_id: 27
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "JACKSON COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Agendas on CivicClerk (jacksoncofl)."
+  - "Generic Florida county. Flag sparse items for review."

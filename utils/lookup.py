@@ -142,15 +142,51 @@ class _PartyAliasMatcher:
 
 
 class BuilderMatcher(_PartyAliasMatcher):
+    """Matches homebuilders only (type='builder')."""
+
     def __init__(self, conn):
         super().__init__(conn, 'builders', 'builder_aliases', 'builder_id')
 
+    def _load(self, conn):
+        query = """
+            SELECT a.alias, e.id, e.canonical_name
+            FROM builder_aliases a
+            JOIN builders e ON e.id = a.builder_id
+            WHERE e.type = 'builder'
+        """
+        with conn.cursor() as cur:
+            cur.execute(query)
+            for row in cur.fetchall():
+                alias = row[0]
+                normalized = self._normalize_name(alias)
+                self._aliases[normalized] = row[1:]
+
 
 class LandBankerMatcher(_PartyAliasMatcher):
-    _extra_columns = ('category',)
+    """Matches land bankers, developers, and BTR entities.
+
+    Post-unification: these are stored in the builders table with
+    type in ('land_banker', 'developer', 'btr'). Queries the same
+    builder_aliases table but filters to non-builder types.
+    """
+    _extra_columns = ('type',)
 
     def __init__(self, conn):
-        super().__init__(conn, 'land_bankers', 'land_banker_aliases', 'land_banker_id')
+        super().__init__(conn, 'builders', 'builder_aliases', 'builder_id')
+
+    def _load(self, conn):
+        query = """
+            SELECT a.alias, e.id, e.canonical_name, e.type
+            FROM builder_aliases a
+            JOIN builders e ON e.id = a.builder_id
+            WHERE e.type IN ('land_banker', 'developer', 'btr')
+        """
+        with conn.cursor() as cur:
+            cur.execute(query)
+            for row in cur.fetchall():
+                alias = row[0]
+                normalized = self._normalize_name(alias)
+                self._aliases[normalized] = row[1:]  # (entity_id, canonical_name, type)
 
     def match(self, name: str):
         """
@@ -165,5 +201,5 @@ class LandBankerMatcher(_PartyAliasMatcher):
         result = self._aliases.get(normalized)
         if result is None:
             return None, None, None
-        # result = (entity_id, canonical_name, category)
+        # result = (entity_id, canonical_name, type)
         return result[0], result[1], result[2]

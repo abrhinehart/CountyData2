@@ -1,0 +1,27 @@
+slug: martin-county-lpa
+name: "Martin County LPA"
+state: FL
+county: Martin
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: legistar
+  base_url: "https://martin.legistar.com"
+  legistar_client: "martin"
+  body_names:
+    - "Local Planning Agency"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+    - "ZONING"
+  require_also:
+    - "MARTIN COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning/advisory board — recommendations only, not final authority on legislative items."
+  - "Generic Florida county. Flag sparse items for review."

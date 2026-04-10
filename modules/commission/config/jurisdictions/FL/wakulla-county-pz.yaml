@@ -1,0 +1,23 @@
+slug: wakulla-county-pz
+name: "Wakulla County P&Z"
+state: FL
+county: Wakulla
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: manual
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  extraction_note: "Wakulla County uses mywakulla.com (custom site) — no CivicPlus AgendaCenter. Documents must be uploaded manually."
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+  require_also:
+    - "WAKULLA COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning/advisory board — recommendations only, not final authority on legislative items."
+  - "Generic Florida county. Flag sparse items for review."

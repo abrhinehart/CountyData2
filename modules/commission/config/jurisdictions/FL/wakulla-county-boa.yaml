@@ -1,0 +1,24 @@
+slug: wakulla-county-boa
+name: "Wakulla County BOA"
+state: FL
+county: Wakulla
+municipality: null
+commission_type: board_of_adjustment
+
+scraping:
+  platform: manual
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  extraction_note: "Wakulla County uses mywakulla.com (custom site) — no CivicPlus AgendaCenter. Documents must be uploaded manually."
+
+detection_patterns:
+  header_keywords:
+    - "ADJUSTMENT"
+    - "APPEALS"
+  require_also:
+    - "WAKULLA COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Board of Adjustment — handles variances and appeals, outside core tracking scope."
+  - "Generic Florida county. Flag sparse items for review."

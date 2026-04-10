@@ -1,0 +1,26 @@
+slug: lee-county-bcc
+name: "Lee County BCC"
+state: FL
+county: Lee
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: civicclerk
+  base_url: "https://leecofl.portal.civicclerk.com"
+  civicclerk_subdomain: "leecofl"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  category_id: 26
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "LEE COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Generic Florida county. Flag sparse items for review."

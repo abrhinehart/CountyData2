@@ -1,0 +1,117 @@
+{
+  "jurisdictions": [
+    {
+      "name": "Bay County",
+      "adapter_slug": "bay-county",
+      "adapter_class": "modules.permits.scrapers.adapters.bay_county.BayCountyAdapter",
+      "portal_type": "cityview",
+      "portal_url": "https://portal.baycountyfl.gov/",
+      "active": true
+    },
+    {
+      "name": "Panama City",
+      "adapter_slug": "panama-city",
+      "adapter_class": "modules.permits.scrapers.adapters.panama_city.PanamaCityAdapter",
+      "portal_type": "cloudpermit",
+      "portal_url": "https://www.panamacity.gov/803/Cloudpermit",
+      "active": true
+    },
+    {
+      "name": "Madison County, AL",
+      "adapter_slug": "madison-county-al",
+      "adapter_class": "modules.permits.scrapers.adapters.madison_county_al.MadisonCountyAlAdapter",
+      "portal_type": "cityview",
+      "portal_url": "https://cityview.madisoncountyal.gov/Portal",
+      "active": true,
+      "fragile_note": "Authenticated CityView scraper is live, but brittle enough that reruns and manual verification are still prudent."
+    },
+    {
+      "name": "Okeechobee County",
+      "adapter_slug": "okeechobee",
+      "adapter_class": "modules.permits.scrapers.adapters.okeechobee.OkeechobeeAdapter",
+      "portal_type": "tyler-epl",
+      "portal_url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections",
+      "active": true
+    },
+    {
+      "name": "Citrus County",
+      "adapter_slug": "citrus-county",
+      "adapter_class": "modules.permits.scrapers.adapters.citrus_county.CitrusCountyAdapter",
+      "portal_type": "jsf-primefaces-public-search",
+      "portal_url": "https://apps.citrusbocc.com/permitsearch/search.xhtml",
+      "active": true
+    },
+    {
+      "name": "Polk County",
+      "adapter_slug": "polk-county",
+      "adapter_class": "modules.permits.scrapers.adapters.polk_county.PolkCountyAdapter",
+      "portal_type": "accela",
+      "portal_url": "https://aca-prod.accela.com/POLKCO/Default.aspx",
+      "active": true
+    },
+    {
+      "name": "Panama City Beach",
+      "adapter_slug": "panama-city-beach",
+      "adapter_class": "modules.permits.scrapers.adapters.panama_city_beach.PanamaCityBeachAdapter",
+      "portal_type": "iworq",
+      "portal_url": "https://www.pcbfl.gov/219/Permit-Inspection-Search",
+      "active": true
+    }
+  ],
+  "subdivisions": [
+    {
+      "name": "Breakfast Point East",
+      "jurisdiction": "Panama City Beach",
+      "watched": 1,
+      "notes": "Seeded from PRD watchlist."
+    },
+    {
+      "name": "SweetBay",
+      "jurisdiction": "Panama City",
+      "watched": 1,
+      "notes": "Master-planned bayfront community."
+    },
+    {
+      "name": "Ward Creek",
+      "jurisdiction": "Panama City Beach",
+      "watched": 1,
+      "notes": "Tracked for coastal activity."
+    },
+    {
+      "name": "Salt Creek",
+      "jurisdiction": "Bay County",
+      "watched": 1,
+      "notes": "Seeded from reference list."
+    },
+    {
+      "name": "Titus Park",
+      "jurisdiction": "Panama City",
+      "watched": 1,
+      "notes": "Monitored for builder mix."
+    },
+    {
+      "name": "Liberty",
+      "jurisdiction": "Bay County",
+      "watched": 1,
+      "notes": "Includes multiple active phases."
+    },
+    {
+      "name": "Colonial Landing",
+      "jurisdiction": "Bay County",
+      "watched": 0,
+      "notes": "Optional watchlist seed."
+    },
+    {
+      "name": "College Station",
+      "jurisdiction": "Panama City",
+      "watched": 0,
+      "notes": "Optional watchlist seed."
+    },
+    {
+      "name": "Bannerman Beach Estates",
+      "jurisdiction": "Panama City Beach",
+      "watched": 0,
+      "notes": "Secondary PCB subdivision."
+    }
+  ]
+}

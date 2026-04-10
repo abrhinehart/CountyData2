@@ -1,0 +1,277 @@
+{
+  "bay-county": {
+    "jurisdiction": "Bay County",
+    "portal_type": "cityview",
+    "portal_url": "https://portal.baycountyfl.gov/",
+    "public_access": "The interactive CityView locator is CAPTCHA-gated, but Bay County also publishes public permit report PDFs on its permits page.",
+    "live_ready": true,
+    "status": "live-monthly-report-adapter",
+    "searchable_fields": [
+      "application date",
+      "permit type",
+      "permit number",
+      "property address",
+      "owner name",
+      "contractor name",
+      "issued date",
+      "finalled date",
+      "status",
+      "valuation"
+    ],
+    "notes": [
+      "Official permit search still runs through CityView and now prompts for CAPTCHA at the public locator, which makes direct live scraping brittle.",
+      "Bay County publishes monthly permit report PDFs with permit type, permit number, address, owner, contractor, issued date, status, and valuation.",
+      "The live adapter now consumes those public report PDFs and filters to PRSF one-and-two-family-dwelling permits with issued dates, which is a better fit for pace tracking than the CAPTCHA-protected locator."
+    ],
+    "evidence": [
+      {
+        "label": "Bay County portal",
+        "url": "https://portal.baycountyfl.gov/"
+      },
+      {
+        "label": "Permit reports page",
+        "url": "https://www.baycountyfl.gov/155/Permits"
+      },
+      {
+        "label": "Permit search instructions",
+        "url": "https://www.baycountyfl.gov/DocumentCenter/View/17698/PUBLIC-PORTAL-APPLICATION-SEARCH-INSTRUCITONS"
+      }
+    ]
+  },
+  "panama-city": {
+    "jurisdiction": "Panama City",
+    "portal_type": "cloudpermit",
+    "portal_url": "https://www.panamacity.gov/803/Cloudpermit",
+    "public_access": "Panama City's public Cloudpermit map is available without login and is backed by searchable public-map API calls.",
+    "live_ready": true,
+    "status": "live-public-map-adapter",
+    "searchable_fields": [
+      "municipal case id",
+      "work type",
+      "category",
+      "work target",
+      "full address",
+      "issued date",
+      "completion date",
+      "property owners",
+      "applicants",
+      "property id",
+      "point coordinates"
+    ],
+    "notes": [
+      "Panama City publicly documents that permit applications route through Cloudpermit, and the public map for domain group US-FL54700 is reachable without authentication.",
+      "The public map issues requests to public-map/config-v2 and public-map/search-v2, which can be replayed with Transit request bodies while asking for JSON responses.",
+      "The live adapter now sweeps the municipality map tiles, deduplicates results by municipal case id, and filters to likely new residential dwelling permits so Panama City can participate in the same pace-tracking workflow as the other jurisdictions."
+    ],
+    "evidence": [
+      {
+        "label": "Cloudpermit overview",
+        "url": "https://www.panamacity.gov/803/Cloudpermit"
+      },
+      {
+        "label": "Public Cloudpermit map",
+        "url": "https://us.cloudpermit.com/gov/map/US-FL54700"
+      },
+      {
+        "label": "Public map config",
+        "url": "https://us.cloudpermit.com/api/command/public-map/config-v2?domain-group-id=US-FL54700"
+      }
+    ]
+  },
+  "madison-county-al": {
+    "jurisdiction": "Madison County, AL",
+    "portal_type": "cityview",
+    "portal_url": "https://cityview.madisoncountyal.gov/Portal",
+    "public_access": "Madison County's CityView permit search requires login, but an authenticated account can access a countywide permit locator plus public permit-status pages.",
+    "live_ready": true,
+    "status": "live-authenticated-cityview-adapter",
+    "searchable_fields": [
+      "application number",
+      "permit address",
+      "property id",
+      "application type",
+      "application status",
+      "category of work",
+      "description of work",
+      "application date",
+      "issued date",
+      "property owner"
+    ],
+    "notes": [
+      "Madison County's Inspection Department documents CityView as the portal for applying for permits, scheduling inspections, viewing inspection results, and submitting payments.",
+      "The public CityView property locator is still reachable without login and returns property-review pages by address or PPIN.",
+      "After authentication, the Permit Application Search at /Portal/Permit/Locator exposes countywide permit results and links to permit-status detail pages.",
+      "The live adapter now logs in with configured CityView credentials, pages through PRBD search results by year, and filters permit-status details down to likely new residential dwelling permits."
+    ],
+    "evidence": [
+      {
+        "label": "Madison County CityView portal",
+        "url": "https://cityview.madisoncountyal.gov/Portal"
+      },
+      {
+        "label": "Building and Fire Inspection",
+        "url": "https://www.madisoncountyal.gov/departments/inspection"
+      },
+      {
+        "label": "Residential permitting guidance",
+        "url": "https://www.madisoncountyal.gov/departments/inspection/residential"
+      },
+      {
+        "label": "Authenticated permit locator",
+        "url": "https://cityview.madisoncountyal.gov/Portal/Permit/Locator"
+      }
+    ]
+  },
+  "okeechobee": {
+    "jurisdiction": "Okeechobee County",
+    "portal_type": "tyler-epl",
+    "portal_url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections",
+    "public_access": "Okeechobee County documents a web-based permitting transition to Tyler Technologies Enterprise Permitting and Licensing, but the public-search surface is not yet mapped in this repo.",
+    "live_ready": false,
+    "status": "researched-not-yet-implemented",
+    "searchable_fields": [],
+    "notes": [
+      "Okeechobee County's official Community Development pages describe a transition away from TRAKiT and eTRAKiT to Tyler Technologies Enterprise Permitting and Licensing.",
+      "The county's online-permitting page announced the new system would replace the prior platforms starting June 23, 2025.",
+      "Permit Tracker now includes Okeechobee in the jurisdiction list and research panel, but no live permit-search adapter is implemented yet."
+    ],
+    "evidence": [
+      {
+        "label": "Online permitting and inspections",
+        "url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections"
+      },
+      {
+        "label": "How to use the new permitting system",
+        "url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-and-permitting/how-to-use-the-new-permitting-system"
+      }
+    ]
+  },
+  "polk-county": {
+    "jurisdiction": "Polk County",
+    "portal_type": "accela",
+    "portal_url": "https://aca-prod.accela.com/POLKCO/Default.aspx",
+    "public_access": "Polk County publicly routes permitting through an Accela Citizen Access portal that supports anonymous search by address, parcel number, permit number, contractor, and record type.",
+    "live_ready": true,
+    "status": "live-public-search-adapter",
+    "searchable_fields": [
+      "record number",
+      "record type",
+      "site address",
+      "parcel number",
+      "status",
+      "date",
+      "project name",
+      "description",
+      "applicant",
+      "job value",
+      "subdivision"
+    ],
+    "notes": [
+      "The official Polk County Building service page links directly to the Polk County Access Portal for online permitting.",
+      "The county's Accela user guide documents public search by address, parcel number, permit number, contractor, and record type without requiring a logged-in session.",
+      "The live adapter uses the public Building search for Residential New permits, fetches record detail pages for parcel/job-value metadata, and splits date windows to stay below the apparent 100-result grid cap."
+    ],
+    "evidence": [
+      {
+        "label": "Polk County Building services page",
+        "url": "https://www.polkfl.gov/services/building/"
+      },
+      {
+        "label": "Polk County Access Portal",
+        "url": "https://aca-prod.accela.com/POLKCO/Default.aspx"
+      },
+      {
+        "label": "Polk County Accela user guide",
+        "url": "https://www.polkfl.gov/wp-content/uploads/2023/07/building-accela-user-guide.pdf"
+      },
+      {
+        "label": "Historical permit lookup",
+        "url": "https://apps.polk-county.net/cmslookup/ExternalHansenDetail"
+      }
+    ]
+  },
+  "panama-city-beach": {
+    "jurisdiction": "Panama City Beach",
+    "portal_type": "iworq",
+    "portal_url": "https://www.pcbfl.gov/219/Permit-Inspection-Search",
+    "public_access": "Public permit and inspection search is documented and exposed through an iWorQ portal.",
+    "live_ready": true,
+    "status": "live-date-range-adapter",
+    "searchable_fields": [
+      "permit number",
+      "permit date",
+      "parcel id",
+      "parcel address",
+      "permit type",
+      "contractor name",
+      "inspection status",
+      "inspection dates"
+    ],
+    "notes": [
+      "The official Panama City Beach page lists the public search criteria and links directly into the iWorQ permit search.",
+      "The iWorQ page renders public result grids and inspection details, making this the strongest candidate for a future live adapter.",
+      "The current implementation now uses the public date-range search with searchField=permit_dt_range plus startDate/endDate query params.",
+      "The live adapter currently filters to likely residential new-construction permits using permit-type heuristics so historical backfill can start before more advanced classification is added."
+    ],
+    "evidence": [
+      {
+        "label": "Permit and inspection search page",
+        "url": "https://www.pcbfl.gov/219/Permit-Inspection-Search"
+      },
+      {
+        "label": "iWorQ permit search",
+        "url": "https://panamacitybeach.portal.iworq.net/PANAMACITYBEACH/permits/602"
+      }
+    ]
+  },
+  "citrus-county": {
+    "jurisdiction": "Citrus County",
+    "portal_type": "jsf-primefaces-public-search",
+    "portal_url": "https://apps.citrusbocc.com/permitsearch/search.xhtml",
+    "public_access": "Citrus County exposes a public JSF/PrimeFaces permit search without login, even though the county's Building Division says permit processing moved to Accela for applications.",
+    "live_ready": false,
+    "status": "researched-list-workflow-not-yet-mapped",
+    "searchable_fields": [
+      "permit number",
+      "issue date",
+      "certified occupancy date",
+      "application status",
+      "current application type",
+      "historic application type",
+      "contractor",
+      "address",
+      "subdivision",
+      "development area"
+    ],
+    "notes": [
+      "The official Building Division page says permit processing moved to a new Accela portal on September 1, 2025 and electronic-only applications took effect on January 2, 2026, but that same page still links the public permit search at apps.citrusbocc.com.",
+      "The public search is a JSF/PrimeFaces app. Relevant residential values exposed in the UI include current type `New SFD` and historic type `BPSDT`.",
+      "Public detail pages expose permit number, type, added date, declared value, status, issued date, final date, certified date, description, address, parcel, subdivision, and contacts.",
+      "Research confirmed that the search-page JSF partial workflow can rewrite the View Results handoff to a typed URL containing `type=New SFD`.",
+      "The broad untyped list is publicly reachable, but direct replay of the typed list URL was operationally unstable during research and was not proven to establish reusable list state for pagination.",
+      "Citrus should remain research-only until the typed popup/list workflow is captured interactively and the first list-side request is mapped well enough for a live adapter."
+    ],
+    "evidence": [
+      {
+        "label": "Building Division",
+        "url": "https://www.citrusbocc.com/departments/growth_management/building_division/index.php"
+      },
+      {
+        "label": "Accela portal",
+        "url": "https://aca-prod.accela.com/"
+      },
+      {
+        "label": "Public permit search",
+        "url": "https://apps.citrusbocc.com/permitsearch/search.xhtml"
+      },
+      {
+        "label": "Public results list",
+        "url": "https://apps.citrusbocc.com/permitsearch/list.xhtml"
+      },
+      {
+        "label": "Example permit detail",
+        "url": "https://apps.citrusbocc.com/permitsearch/detail.xhtml?apno=BLD202500486"
+      }
+    ]
+  }
+}

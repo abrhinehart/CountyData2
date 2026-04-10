@@ -1,0 +1,27 @@
+slug: brevard-county-pz
+name: "Brevard County P&Z"
+state: FL
+county: Brevard
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: legistar
+  base_url: "https://brevardfl.legistar.com"
+  legistar_client: "brevardfl"
+  body_names:
+    - "Planning and Zoning Board / Local Planning Agency"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+    - "ZONING"
+  require_also:
+    - "BREVARD COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning/advisory board — recommendations only, not final authority on legislative items."
+  - "Generic Florida county. Flag sparse items for review."

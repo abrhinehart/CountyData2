@@ -1,0 +1,23 @@
+slug: indian-river-county-boa
+name: "Indian River County BOA"
+state: FL
+county: Indian River
+municipality: null
+commission_type: board_of_adjustment
+
+scraping:
+  platform: manual
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "ADJUSTMENT"
+    - "APPEALS"
+  require_also:
+    - "INDIAN RIVER COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Board of Adjustment — handles variances and appeals, outside core tracking scope."
+  - "Generic Florida county. Flag sparse items for review."

@@ -1,0 +1,27 @@
+slug: martin-county-bcc
+name: "Martin County BCC"
+state: FL
+county: Martin
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: legistar
+  base_url: "https://martin.legistar.com"
+  legistar_client: "martin"
+  body_names:
+    - "Board of County Commissioners"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "MARTIN COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Generic Florida county. Flag sparse items for review."

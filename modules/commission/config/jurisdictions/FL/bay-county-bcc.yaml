@@ -1,0 +1,50 @@
+slug: bay-county-bcc
+name: "Bay County BCC"
+state: FL
+county: Bay
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: novusagenda
+  base_url: null  # BCC agendas are on NovusAgenda, not CivicPlus AgendaCenter
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+keywords:
+  - "DSAP"
+  - "PUD"
+  - "DRI"
+  - "rezoning"
+  - "zone change"
+  - "land use"
+  - "comprehensive plan"
+  - "FLUM"
+  - "future land use"
+  - "subdivision"
+  - "plat"
+  - "lots"
+  - "units"
+  - "acres"
+  - "dwelling"
+  - "residential"
+  - "developer agreement"
+  - "PZ"
+  - "Community Development"
+  - "Public Works"
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+  require_also:
+    - "BAY COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Case number format: PZ YY-### (e.g., PZ 22-218). Paired items use sequential numbers."
+  - "Land use and zoning items appear under PUBLIC HEARING - Community Development."
+  - "Plat approvals appear under REGULAR AGENDA - Public Works."
+  - "Section letters vary between meetings — key on section names, not letter prefixes."
+  - "Agendas are detail-poor: include case numbers and addresses but typically omit acreage, lot counts, and applicant names."
+  - "LDR text amendments are regulatory changes, not specific projects. Set approval_type to text_amendment."
+  - "County body — cannot annex. No annexation items."

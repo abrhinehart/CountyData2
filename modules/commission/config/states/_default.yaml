@@ -1,0 +1,47 @@
+state: "__default__"
+state_name: "Generic / Unconfigured"
+
+terminology:
+  annexation:
+    - "annexation"
+  comprehensive_plan_amendment:
+    - "comprehensive plan amendment"
+    - "general plan amendment"
+    - "land use amendment"
+    - "future land use"
+  rezoning:
+    - "rezoning"
+    - "zone change"
+    - "zoning amendment"
+    - "reclassification"
+  planned_development:
+    - "PUD"
+    - "Planned Unit Development"
+    - "planned development"
+    - "PD"
+  subdivision:
+    - "preliminary plat"
+    - "final plat"
+    - "subdivision"
+    - "replat"
+  site_plan:
+    - "site plan"
+    - "development plan"
+    - "development order"
+  developer_agreement:
+    - "developer agreement"
+    - "development agreement"
+  conditional_use:
+    - "conditional use permit"
+    - "special use permit"
+    - "special exception"
+  text_amendment:
+    - "text amendment"
+    - "code amendment"
+    - "ordinance amendment"
+
+case_number_formats: []
+
+commission_structure:
+  notes:
+    - "Claude should use contextual clues to identify entitlement action types"

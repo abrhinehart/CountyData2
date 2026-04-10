@@ -1,0 +1,55 @@
+slug: panama-city-cc
+name: "Panama City CC"
+state: FL
+county: Bay
+municipality: "Panama City"
+commission_type: city_commission
+
+scraping:
+  platform: civicplus
+  base_url: "https://www.panamacity.gov/AgendaCenter"
+  category_id: 1
+  document_formats: [pdf]
+  has_duplicate_page_bug: true
+
+keywords:
+  - "DSAP"
+  - "PUD"
+  - "DRI"
+  - "annexation"
+  - "annex"
+  - "land use"
+  - "zone change"
+  - "rezoning"
+  - "comprehensive plan"
+  - "FLUM"
+  - "future land use"
+  - "subdivision"
+  - "plat"
+  - "lots"
+  - "units"
+  - "acres"
+  - "dwelling"
+  - "residential"
+  - "developer agreement"
+  - "reimbursement agreement"
+  - "ordinance"
+  - "quasi-judicial"
+  - "public hearing"
+
+detection_patterns:
+  header_keywords:
+    - "CITY COMMISSION"
+  require_also:
+    - "PANAMA CITY"
+  header_zone: narrow
+
+extraction_notes:
+  - "Uses ordinance numbers (e.g., Ord 3254.1, Ord 3267) instead of PZ case numbers."
+  - "The .1/.2/.3 suffix links related actions for the same property: typically .1=annexation, .2=land use, .3=zoning. Preserve the full suffix."
+  - "Two-hearing requirement: items appear at 'First of two public hearings' then 'Second and Final.' Extract reading_number as 'first' or 'second_final'."
+  - "Includes parcel IDs (e.g., Parcel ID: 22869-000-000). Extract all parcel IDs."
+  - "References backup documents by filename (e.g., 'AGENDA REQUEST 3254.1.PDF')."
+  - "Plat approvals appear in the Consent Agenda."
+  - "Quasi-Judicial Hearings cover annexation/land use/zoning for specific properties."
+  - "Developer's agreements, reimbursement agreements, and CRA actions are development-relevant."

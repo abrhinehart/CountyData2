@@ -1,0 +1,23 @@
+slug: duval-county-pz
+name: "Duval County P&Z"
+state: FL
+county: Duval
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: manual
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+  require_also:
+    - "DUVAL COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning board — documents must be uploaded manually."
+  - "P&Z hosted on separate COJ site, not Legistar."
+  - "Generic Florida county. Flag sparse items for review."

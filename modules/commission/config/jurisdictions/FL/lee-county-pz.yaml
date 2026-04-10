@@ -1,0 +1,22 @@
+slug: lee-county-pz
+name: "Lee County P&Z"
+state: FL
+county: Lee
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: manual
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+  require_also:
+    - "LEE COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning board — documents must be uploaded manually (hosted on separate leegov.com platform)."
+  - "Generic Florida county. Flag sparse items for review."

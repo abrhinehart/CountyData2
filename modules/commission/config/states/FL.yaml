@@ -1,0 +1,61 @@
+state: FL
+state_name: Florida
+
+terminology:
+  annexation:
+    - "voluntary annexation"
+    - "annexation"
+  comprehensive_plan_amendment:
+    - "Future Land Use Map amendment"
+    - "FLUM amendment"
+    - "comprehensive plan amendment"
+    - "small-scale amendment"
+    - "large-scale amendment"
+  rezoning:
+    - "rezoning"
+    - "zone change"
+    - "reclassification"
+  planned_development:
+    - "PUD"
+    - "Planned Unit Development"
+    - "DSAP"
+    - "Detailed Specific Area Plan"
+    - "DRI"
+    - "Development of Regional Impact"
+  subdivision:
+    - "final plat"
+    - "preliminary plat"
+    - "replat"
+  site_plan:
+    - "site plan"
+    - "major development"
+  developer_agreement:
+    - "developer's agreement"
+    - "developer agreement"
+    - "development agreement"
+    - "reimbursement agreement"
+  conditional_use:
+    - "special exception"
+    - "conditional use"
+  text_amendment:
+    - "LDR amendment"
+    - "ULDC amendment"
+    - "text amendment"
+    - "code amendment"
+
+case_number_formats:
+  - pattern: "PZ\\s*\\d{2}-\\d{3}"
+    description: "Bay County style: PZ 22-218"
+  - pattern: "Ord\\s*\\d{4}(?:\\.\\d+)?"
+    description: "Panama City ordinance: Ord 3254.1"
+  - pattern: "CPC-PLN-\\d{4}-\\d{4}"
+    description: "Panama City Planning: CPC-PLN-2025-0001"
+
+commission_structure:
+  county_body: "Board of County Commissioners"
+  city_body: "City Commission"
+  planning_body: "Planning Board / Planning Commission"
+  notes:
+    - "Florida uses two-hearing process for ordinances (first reading + second/final)"
+    - "Planning boards typically recommend; city/county commissions have final authority"
+    - "Counties cannot annex — only municipalities"

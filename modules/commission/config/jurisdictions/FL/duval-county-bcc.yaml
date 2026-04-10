@@ -1,0 +1,28 @@
+slug: duval-county-bcc
+name: "Duval County BCC"
+state: FL
+county: Duval
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: legistar
+  base_url: "https://webapi.legistar.com/v1/jaxcityc"
+  legistar_client: "jaxcityc"
+  body_names:
+    - "City Council"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "DUVAL COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Jacksonville consolidated city-county. City Council on Legistar (jaxcityc)."
+  - "Generic Florida county. Flag sparse items for review."

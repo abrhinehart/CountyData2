@@ -1,0 +1,25 @@
+slug: sumter-county-bcc
+name: "Sumter County BCC"
+state: FL
+county: Sumter
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: civicplus
+  base_url: "https://sumtercountyfl.gov/AgendaCenter"
+  category_id: 5  # Board of County Commissioners Regular Meeting
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "SUMTER COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Generic Florida county. Flag sparse items for review."

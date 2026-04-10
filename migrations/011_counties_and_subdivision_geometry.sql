@@ -12,8 +12,9 @@ CREATE TABLE IF NOT EXISTS counties (
     created_at      TIMESTAMPTZ DEFAULT NOW()
 );
 
--- Seed all 67 Florida counties
-INSERT INTO counties (name) VALUES
+-- Seed all 67 Florida counties (uses NOT EXISTS to work before and after 013 constraint change)
+INSERT INTO counties (name)
+SELECT name FROM (VALUES
     ('Alachua'), ('Baker'), ('Bay'), ('Bradford'), ('Brevard'),
     ('Broward'), ('Calhoun'), ('Charlotte'), ('Citrus'), ('Clay'),
     ('Collier'), ('Columbia'), ('DeSoto'), ('Dixie'), ('Duval'),
@@ -28,7 +29,8 @@ INSERT INTO counties (name) VALUES
     ('Sarasota'), ('Seminole'), ('St. Johns'), ('St. Lucie'), ('Sumter'),
     ('Suwannee'), ('Taylor'), ('Union'), ('Volusia'), ('Wakulla'),
     ('Walton'), ('Washington')
-ON CONFLICT (name) DO NOTHING;
+) AS v(name)
+WHERE NOT EXISTS (SELECT 1 FROM counties c WHERE c.name = v.name);
 
 -- Add geometry and metadata columns to subdivisions
 ALTER TABLE subdivisions ADD COLUMN IF NOT EXISTS county_id       INTEGER REFERENCES counties(id);

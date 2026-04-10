@@ -1,0 +1,26 @@
+slug: highlands-county-pz
+name: "Highlands County P&Z"
+state: FL
+county: Highlands
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: civicclerk
+  base_url: "https://highlandscofl.portal.civicclerk.com"
+  civicclerk_subdomain: "highlandscofl"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  category_id: 27
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+    - "ZONING"
+  require_also:
+    - "HIGHLANDS COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Combined P&Z Commission and Board of Adjustment — single merged board handles both planning recommendations and variance/appeal decisions."
+  - "Generic Florida county. Flag sparse items for review."

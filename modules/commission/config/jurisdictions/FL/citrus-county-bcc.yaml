@@ -1,0 +1,26 @@
+slug: citrus-county-bcc
+name: "Citrus County BCC"
+state: FL
+county: Citrus
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: civicclerk
+  base_url: "https://citrusbocc.portal.civicclerk.com"
+  civicclerk_subdomain: "citrusbocc"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  # CivicClerk API unavailable — manual upload only
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "CITRUS COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Generic Florida county. Flag sparse items for review."

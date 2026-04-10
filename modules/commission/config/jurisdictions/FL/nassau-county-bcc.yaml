@@ -1,0 +1,24 @@
+slug: nassau-county-bcc
+name: "Nassau County BCC"
+state: FL
+county: Nassau
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: manual
+  base_url: "https://www.nassaucountyfl.com/AgendaCenter"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSIONERS"
+    - "BOARD OF COUNTY COMMISSIONERS"
+  require_also:
+    - "NASSAU COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "Generic Florida county. Flag sparse items for review."

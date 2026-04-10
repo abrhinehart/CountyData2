@@ -1,0 +1,23 @@
+slug: walton-county-pz
+name: "Walton County P&Z"
+state: FL
+county: Walton
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: manual
+  base_url: "https://www.mywaltonfl.gov/AgendaCenter"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+  require_also:
+    - "WALTON COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning/advisory board — recommendations only, not final authority on legislative items."
+  - "Generic Florida county. Flag sparse items for review."

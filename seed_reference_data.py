@@ -3,6 +3,8 @@ seed_reference_data.py - Load subdivision, builder, and land banker reference da
 
 Idempotent: safe to run multiple times (uses ON CONFLICT).
 
+Post-unification: land_bankers are now stored in the builders table with a type column.
+
 Usage:
     python seed_reference_data.py
 """
@@ -56,15 +58,23 @@ def seed_subdivisions(conn):
                     """, (sub_id, alias))
                     inserted_aliases += cur.rowcount
 
+                # Also seed phases into the phases table
+                for phase_name in phases:
+                    cur.execute("""
+                        INSERT INTO phases (subdivision_id, name)
+                        VALUES (%s, %s)
+                        ON CONFLICT (subdivision_id, name) DO NOTHING
+                    """, (sub_id, str(phase_name)))
+
     conn.commit()
     print(f'Subdivisions: {inserted_subs} upserted, {inserted_aliases} new aliases.')
 
 
-def seed_named_alias_entities(conn, path_name: str, entity_table: str,
-                              alias_table: str, alias_fk: str, label: str):
-    path = REF_DIR / path_name
+def seed_builders(conn):
+    """Seed builders from builders.yaml (type='builder')."""
+    path = REF_DIR / 'builders.yaml'
     if not path.exists():
-        print(f'No {path_name} found - skipping.')
+        print('No builders.yaml found - skipping.')
         return
 
     with open(path, encoding='utf-8') as f:
@@ -78,9 +88,9 @@ def seed_named_alias_entities(conn, path_name: str, entity_table: str,
             name = entry['canonical_name']
             aliases = entry.get('aliases', [name])
 
-            cur.execute(f"""
-                INSERT INTO {entity_table} (canonical_name)
-                VALUES (%s)
+            cur.execute("""
+                INSERT INTO builders (canonical_name, type, scope, is_active)
+                VALUES (%s, 'builder', 'national', true)
                 ON CONFLICT (canonical_name) DO NOTHING
                 RETURNING id
             """, (name,))
@@ -89,34 +99,23 @@ def seed_named_alias_entities(conn, path_name: str, entity_table: str,
                 entity_id = row[0]
                 inserted_entities += 1
             else:
-                cur.execute(f"SELECT id FROM {entity_table} WHERE canonical_name = %s", (name,))
+                cur.execute("SELECT id FROM builders WHERE canonical_name = %s", (name,))
                 entity_id = cur.fetchone()[0]
 
             for alias in aliases:
-                cur.execute(f"""
-                    INSERT INTO {alias_table} ({alias_fk}, alias)
+                cur.execute("""
+                    INSERT INTO builder_aliases (builder_id, alias)
                     VALUES (%s, %s)
                     ON CONFLICT (alias) DO NOTHING
                 """, (entity_id, alias))
                 inserted_aliases += cur.rowcount
 
     conn.commit()
-    print(f'{label}: {inserted_entities} new, {inserted_aliases} new aliases.')
-
-
-def seed_builders(conn):
-    seed_named_alias_entities(
-        conn,
-        path_name='builders.yaml',
-        entity_table='builders',
-        alias_table='builder_aliases',
-        alias_fk='builder_id',
-        label='Builders',
-    )
+    print(f'Builders: {inserted_entities} new, {inserted_aliases} new aliases.')
 
 
 def seed_land_bankers(conn):
-    """Seed land bankers with category support (land_banker, developer, btr)."""
+    """Seed land bankers into the unified builders table with appropriate type."""
     path = REF_DIR / 'land_bankers.yaml'
     if not path.exists():
         print('No land_bankers.yaml found - skipping.')
@@ -131,14 +130,14 @@ def seed_land_bankers(conn):
     with conn.cursor() as cur:
         for entry in data:
             name = entry['canonical_name']
-            category = entry.get('category')
+            category = entry.get('category', 'land_banker')
             aliases = entry.get('aliases', [name])
 
             cur.execute("""
-                INSERT INTO land_bankers (canonical_name, category)
-                VALUES (%s, %s)
+                INSERT INTO builders (canonical_name, type, scope, is_active)
+                VALUES (%s, %s, 'national', true)
                 ON CONFLICT (canonical_name) DO UPDATE
-                    SET category = EXCLUDED.category
+                    SET type = EXCLUDED.type
                 RETURNING id
             """, (name, category))
             row = cur.fetchone()
@@ -146,12 +145,12 @@ def seed_land_bankers(conn):
                 entity_id = row[0]
                 inserted_entities += 1
             else:
-                cur.execute("SELECT id FROM land_bankers WHERE canonical_name = %s", (name,))
+                cur.execute("SELECT id FROM builders WHERE canonical_name = %s", (name,))
                 entity_id = cur.fetchone()[0]
 
             for alias in aliases:
                 cur.execute("""
-                    INSERT INTO land_banker_aliases (land_banker_id, alias)
+                    INSERT INTO builder_aliases (builder_id, alias)
                     VALUES (%s, %s)
                     ON CONFLICT (alias) DO NOTHING
                 """, (entity_id, alias))

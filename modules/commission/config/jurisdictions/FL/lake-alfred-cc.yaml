@@ -1,0 +1,49 @@
+slug: lake-alfred-cc
+name: "City of Lake Alfred CC"
+state: FL
+county: Polk
+municipality: "Lake Alfred"
+commission_type: city_commission
+
+scraping:
+  platform: civicplus
+  base_url: "https://www.mylakealfred.com/AgendaCenter"
+  category_id: 2
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+keywords:
+  - "annexation"
+  - "annex"
+  - "land use"
+  - "comprehensive plan"
+  - "FLUM"
+  - "future land use"
+  - "rezoning"
+  - "rezone"
+  - "zone change"
+  - "PUD"
+  - "planned unit"
+  - "subdivision"
+  - "plat"
+  - "replat"
+  - "lots"
+  - "units"
+  - "acres"
+  - "dwelling"
+  - "residential"
+  - "developer agreement"
+  - "site plan"
+  - "conditional use"
+  - "special exception"
+  - "public hearing"
+  - "quasi-judicial"
+  - "ordinance"
+
+detection_patterns:
+  header_keywords:
+    - "CITY COMMISSION"
+  header_zone: wide
+
+extraction_notes:
+  - "Generic Florida jurisdiction. Flag sparse items for review."

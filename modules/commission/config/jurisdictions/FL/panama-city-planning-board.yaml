@@ -1,0 +1,51 @@
+slug: panama-city-planning-board
+name: "Panama City Planning Board"
+state: FL
+county: Bay
+municipality: "Panama City"
+commission_type: planning_board
+
+scraping:
+  platform: civicplus
+  base_url: "https://www.panamacity.gov/AgendaCenter"
+  category_id: 3
+  document_formats: [pdf]
+  has_duplicate_page_bug: true
+
+keywords:
+  - "DSAP"
+  - "PUD"
+  - "DRI"
+  - "annexation"
+  - "annex"
+  - "land use"
+  - "zone change"
+  - "rezoning"
+  - "comprehensive plan"
+  - "FLUM"
+  - "future land use"
+  - "subdivision"
+  - "plat"
+  - "major development"
+  - "MDEV"
+  - "residential"
+  - "developer agreement"
+  - "CPC-PLN"
+  - "quasi-judicial"
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING BOARD"
+    - "COMMUNITY PLANNING COMMISSION"
+  require_also:
+    - "PANAMA CITY"
+  header_zone: narrow
+
+extraction_notes:
+  - "CRITICAL: Do NOT extract variances, ROW vacations, or easement abandonments. ONLY extract Major Development items (site_plan/major_development), rezonings, annexations, land use amendments, PUDs, plats, and developer agreements."
+  - "Case number format: CPC-PLN-YYYY-#### (e.g., CPC-PLN-2025-0001)."
+  - "Legacy case formats (early 2025): MDEV####, VAR####, LDCA#### (e.g., MDEV0001)."
+  - "Planning Board has final authority on Major Development items."
+  - "For rezonings, annexations, PUDs, and plats, the Board only recommends — extract outcome as 'recommended_approval' or 'recommended_denial'."
+  - "If the agenda references a scheduled City Commission date, extract into scheduled_final_reading_date."
+  - "Some agendas are very sparse (just case numbers and backup doc filenames). Extract what's available and set needs_review to true."

@@ -19,5 +19,12 @@ anthropic
 fastapi
 uvicorn[standard]
 
+# SQLAlchemy (used by inventory module and future modules)
+sqlalchemy
+geoalchemy2
+httpx
+apscheduler
+pydantic-settings
+
 # Local verification
 pytest

@@ -1,0 +1,25 @@
+slug: lake-county-pz
+name: "Lake County P&Z Board"
+state: FL
+county: Lake
+municipality: null
+commission_type: planning_board
+
+scraping:
+  platform: civicclerk
+  base_url: "https://lakecountyfl.portal.civicclerk.com"
+  civicclerk_subdomain: "lakecountyfl"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  category_id: 31
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+  require_also:
+    - "LAKE COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "Planning/advisory board — recommendations only, not final authority on legislative items."
+  - "Generic Florida county. Flag sparse items for review."
