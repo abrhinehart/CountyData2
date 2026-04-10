@@ -190,6 +190,21 @@ def get_acclaimweb_config(county: str) -> dict | None:
     return ACCLAIMWEB_COUNTIES.get(county)
 
 
+GIS_PARCEL_COUNTIES = {
+    'Jackson MS': {
+        'layer_url': 'https://webmap.co.jackson.ms.us/arcgis107/rest/services/JacksonCounty/Parcel_2_Web/MapServer/2',
+        'gis_fields': 'jackson',
+        'status': 'working',
+        'portal': 'gis_parcel',
+    },
+}
+
+
+def get_gis_parcel_config(county: str) -> dict | None:
+    """Return the GIS parcel-only config for a county, or None."""
+    return GIS_PARCEL_COUNTIES.get(county)
+
+
 def get_gindex_config(county: str) -> dict | None:
     """Return the General Index config for a county, or None."""
     return GINDEX_COUNTIES.get(county)
@@ -206,5 +221,7 @@ def list_working_counties() -> list[str]:
     counties.extend(name for name, cfg in GINDEX_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     counties.extend(name for name, cfg in ACCLAIMWEB_COUNTIES.items()
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
+    counties.extend(name for name, cfg in GIS_PARCEL_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     return counties

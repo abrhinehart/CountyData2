@@ -29,16 +29,17 @@ import yaml
 from county_scrapers.acclaimweb_client import AcclaimWebSession
 from county_scrapers.configs import (
     get_acclaimweb_config, get_countygov_config, get_duprocess_config,
-    get_gindex_config, get_landmark_config,
+    get_gindex_config, get_gis_parcel_config, get_landmark_config,
 )
 from county_scrapers.configs import (
     ACCLAIMWEB_COUNTIES, COUNTYGOV_COUNTIES, DUPROCESS_COUNTIES,
-    GINDEX_COUNTIES, LANDMARK_COUNTIES,
+    GIS_PARCEL_COUNTIES, GINDEX_COUNTIES, LANDMARK_COUNTIES,
 )
 from county_scrapers.countygov_client import CountyGovSession
 from county_scrapers.duprocess_client import DuProcessSession
 from county_scrapers.entity_filter import build_entity_set, filter_rows
 from county_scrapers.gindex_client import GIndexSession
+from county_scrapers.gis_parcel_client import GISParcelSession, JACKSON_FIELDS
 from county_scrapers.gis_enrichment import (
     enrich_from_gis, MADISON_FIELDS, DESOTO_FIELDS, DEFAULT_FIELDS,
 )
@@ -46,6 +47,10 @@ from county_scrapers.gis_enrichment import (
 _GIS_FIELD_MAPS = {
     'madison': MADISON_FIELDS,
     'desoto': DESOTO_FIELDS,
+}
+
+_GIS_PARCEL_FIELD_MAPS = {
+    'jackson': JACKSON_FIELDS,
 }
 from county_scrapers.landmark_client import LandmarkSession
 
@@ -64,7 +69,7 @@ _FIELD_TO_MAPPING_KEY = {
 
 # Extra fields always included in output (not in column_mapping but useful).
 _EXTRA_COLUMNS = ['Book Type', 'Book', 'Page', 'Instrument Number', 'Mortgage Amount', 'Mortgage Originator',
-                   'Situs Address', 'GIS Acreage', 'GIS Value', 'Latitude', 'Longitude']
+                   'Situs Address', 'GIS Acreage', 'GIS Value', 'Sale Amount', 'Latitude', 'Longitude']
 _EXTRA_FIELD_MAP = {
     'Book Type': 'book_type',
     'Book': 'book',
@@ -75,6 +80,7 @@ _EXTRA_FIELD_MAP = {
     'Situs Address': 'situs_address',
     'GIS Acreage': 'gis_acreage',
     'GIS Value': 'gis_value',
+    'Sale Amount': 'sale_amount',
     'Latitude': 'latitude',
     'Longitude': 'longitude',
 }
@@ -202,15 +208,17 @@ def pull(county: str, begin_date: str, end_date: str, *,
     duprocess_cfg = get_duprocess_config(county)
     gindex_cfg = get_gindex_config(county)
     acclaimweb_cfg = get_acclaimweb_config(county)
+    gis_parcel_cfg = get_gis_parcel_config(county)
 
     all_counties = (
         list(LANDMARK_COUNTIES.keys())
         + list(COUNTYGOV_COUNTIES.keys())
         + list(DUPROCESS_COUNTIES.keys())
         + list(GINDEX_COUNTIES.keys())
-        + list(ACCLAIMWEB_COUNTIES.keys()))
+        + list(ACCLAIMWEB_COUNTIES.keys())
+        + list(GIS_PARCEL_COUNTIES.keys()))
 
-    active_cfg = countygov_cfg or landmark_cfg or duprocess_cfg or gindex_cfg or acclaimweb_cfg
+    active_cfg = countygov_cfg or landmark_cfg or duprocess_cfg or gindex_cfg or acclaimweb_cfg or gis_parcel_cfg
     if active_cfg is None:
         raise ValueError(f'{county} is not a configured county. Available: {", ".join(all_counties)}')
 
@@ -226,6 +234,9 @@ def pull(county: str, begin_date: str, end_date: str, *,
     elif acclaimweb_cfg is not None:
         status = acclaimweb_cfg.get('status', 'unknown')
         portal_type = 'acclaimweb'
+    elif gis_parcel_cfg is not None:
+        status = gis_parcel_cfg.get('status', 'unknown')
+        portal_type = 'gis_parcel'
     else:
         status = landmark_cfg.get('status', 'unknown')
         portal_type = 'landmark'
@@ -254,7 +265,16 @@ def pull(county: str, begin_date: str, end_date: str, *,
              county, begin_date, end_date, doc_types or 'ALL')
 
     # Connect and search
-    if portal_type == 'acclaimweb':
+    if portal_type == 'gis_parcel':
+        fm_name = gis_parcel_cfg.get('gis_fields', '')
+        fm = _GIS_PARCEL_FIELD_MAPS.get(fm_name, JACKSON_FIELDS)
+        with GISParcelSession(
+            layer_url=gis_parcel_cfg['layer_url'],
+            field_map=fm,
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+    elif portal_type == 'acclaimweb':
         with AcclaimWebSession(
             base_url=acclaimweb_cfg['base_url'],
             doc_types=acclaimweb_cfg.get('doc_types', ''),

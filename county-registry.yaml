@@ -568,6 +568,29 @@ counties:
       - "Parcel IDs have internal spaces: '051A-01 -001/01.00'."
       - "deed_page field in GIS has leading whitespace — strip before matching."
 
+  jackson-ms:
+    name: Jackson County
+    state: MS
+    fips: "28059"
+    projects:
+      cd2:
+        portal: gis_parcel
+        url: https://webmap.co.jackson.ms.us/arcgis107/rest/services/JacksonCounty/Parcel_2_Web/MapServer/2
+        bypass: none
+        status: live
+        notes: "GIS-only scraper (Aumentum Recorder portal too complex to automate). ArcGIS MapServer with deed book/page, sale amounts, subdivisions, legal descriptions. 86K parcels. Behind Cloudflare — curl_cffi. 402 DR Horton parcels."
+      bi:
+        portal: arcgis
+        endpoint: webmap.co.jackson.ms.us/arcgis107/rest/services/JacksonCounty/Parcel_2_Web/MapServer/2
+        status: active
+        fields: { owner: NAME, parcel: PIDN, address: LOCATION, acreage: ACREAGE, deed_book: DB, deed_page: DP, subdivision: SUBD, sale_amount: SAMT, sale_date: SDAT }
+        notes: "County-hosted ArcGIS. Richest GIS layer in MS — sale amounts (45%), deed refs (99.6%), legal descriptions."
+    quirks:
+      - "Non-disclosure state but GIS has sale amounts for 45% of parcels."
+      - "Aumentum Recorder deed portal exists but uses ASP.NET WebForms with Infragistics controls — too complex for headless automation."
+      - "GIS layer is the primary data source, queried by sale date (SDAT) range."
+      - "Behind Cloudflare — needs curl_cffi."
+
   desoto-ms:
     name: DeSoto County
     state: MS

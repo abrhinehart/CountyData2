@@ -253,6 +253,31 @@ counties:
       - BLK
     skiprows: 0
 
+  "Jackson MS":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+      sub: Subdivision
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+
   "DeSoto MS":
     input_folder: "output"
     column_mapping:
