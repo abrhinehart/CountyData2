@@ -26,10 +26,27 @@ from pathlib import Path
 
 import yaml
 
-from county_scrapers.configs import get_countygov_config, get_landmark_config
-from county_scrapers.configs import COUNTYGOV_COUNTIES, LANDMARK_COUNTIES
+from county_scrapers.acclaimweb_client import AcclaimWebSession
+from county_scrapers.configs import (
+    get_acclaimweb_config, get_countygov_config, get_duprocess_config,
+    get_gindex_config, get_landmark_config,
+)
+from county_scrapers.configs import (
+    ACCLAIMWEB_COUNTIES, COUNTYGOV_COUNTIES, DUPROCESS_COUNTIES,
+    GINDEX_COUNTIES, LANDMARK_COUNTIES,
+)
 from county_scrapers.countygov_client import CountyGovSession
+from county_scrapers.duprocess_client import DuProcessSession
 from county_scrapers.entity_filter import build_entity_set, filter_rows
+from county_scrapers.gindex_client import GIndexSession
+from county_scrapers.gis_enrichment import (
+    enrich_from_gis, MADISON_FIELDS, DESOTO_FIELDS, DEFAULT_FIELDS,
+)
+
+_GIS_FIELD_MAPS = {
+    'madison': MADISON_FIELDS,
+    'desoto': DESOTO_FIELDS,
+}
 from county_scrapers.landmark_client import LandmarkSession
 
 log = logging.getLogger(__name__)
@@ -46,7 +63,8 @@ _FIELD_TO_MAPPING_KEY = {
 }
 
 # Extra fields always included in output (not in column_mapping but useful).
-_EXTRA_COLUMNS = ['Book Type', 'Book', 'Page', 'Instrument Number', 'Mortgage Amount', 'Mortgage Originator']
+_EXTRA_COLUMNS = ['Book Type', 'Book', 'Page', 'Instrument Number', 'Mortgage Amount', 'Mortgage Originator',
+                   'Situs Address', 'GIS Acreage', 'GIS Value', 'Latitude', 'Longitude']
 _EXTRA_FIELD_MAP = {
     'Book Type': 'book_type',
     'Book': 'book',
@@ -54,6 +72,11 @@ _EXTRA_FIELD_MAP = {
     'Instrument Number': 'instrument',
     'Mortgage Amount': 'mortgage_amount',
     'Mortgage Originator': 'mortgage_originator',
+    'Situs Address': 'situs_address',
+    'GIS Acreage': 'gis_acreage',
+    'GIS Value': 'gis_value',
+    'Latitude': 'latitude',
+    'Longitude': 'longitude',
 }
 
 
@@ -176,15 +199,33 @@ def pull(county: str, begin_date: str, end_date: str, *,
     """
     countygov_cfg = get_countygov_config(county)
     landmark_cfg = get_landmark_config(county)
+    duprocess_cfg = get_duprocess_config(county)
+    gindex_cfg = get_gindex_config(county)
+    acclaimweb_cfg = get_acclaimweb_config(county)
 
-    if countygov_cfg is None and landmark_cfg is None:
-        available = ', '.join(
-            list(LANDMARK_COUNTIES.keys()) + list(COUNTYGOV_COUNTIES.keys()))
-        raise ValueError(f'{county} is not a configured county. Available: {available}')
+    all_counties = (
+        list(LANDMARK_COUNTIES.keys())
+        + list(COUNTYGOV_COUNTIES.keys())
+        + list(DUPROCESS_COUNTIES.keys())
+        + list(GINDEX_COUNTIES.keys())
+        + list(ACCLAIMWEB_COUNTIES.keys()))
+
+    active_cfg = countygov_cfg or landmark_cfg or duprocess_cfg or gindex_cfg or acclaimweb_cfg
+    if active_cfg is None:
+        raise ValueError(f'{county} is not a configured county. Available: {", ".join(all_counties)}')
 
     if countygov_cfg is not None:
         status = countygov_cfg.get('status', 'unknown')
         portal_type = 'countygov'
+    elif duprocess_cfg is not None:
+        status = duprocess_cfg.get('status', 'unknown')
+        portal_type = 'duprocess'
+    elif gindex_cfg is not None:
+        status = gindex_cfg.get('status', 'unknown')
+        portal_type = 'gindex'
+    elif acclaimweb_cfg is not None:
+        status = acclaimweb_cfg.get('status', 'unknown')
+        portal_type = 'acclaimweb'
     else:
         status = landmark_cfg.get('status', 'unknown')
         portal_type = 'landmark'
@@ -197,8 +238,7 @@ def pull(county: str, begin_date: str, end_date: str, *,
     if not column_mapping:
         raise ValueError(f'No column_mapping found for {county} in counties.yaml')
 
-    doc_types = '' if all_doc_types else (
-        countygov_cfg or landmark_cfg).get('doc_types', '')
+    doc_types = '' if all_doc_types else (active_cfg or {}).get('doc_types', '')
     header = _build_csv_header(column_mapping)
 
     # Determine output path
@@ -214,7 +254,40 @@ def pull(county: str, begin_date: str, end_date: str, *,
              county, begin_date, end_date, doc_types or 'ALL')
 
     # Connect and search
-    if portal_type == 'countygov':
+    if portal_type == 'acclaimweb':
+        with AcclaimWebSession(
+            base_url=acclaimweb_cfg['base_url'],
+            doc_types=acclaimweb_cfg.get('doc_types', ''),
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+        # GIS enrichment
+        gis_url = acclaimweb_cfg.get('gis_url')
+        if gis_url:
+            fm = _GIS_FIELD_MAPS.get(acclaimweb_cfg.get('gis_fields', ''))
+            enrich_from_gis(rows, gis_url, field_map=fm)
+    elif portal_type == 'gindex':
+        use_cffi = gindex_cfg.get('status') == 'cloudflare'
+        with GIndexSession(
+            base_url=gindex_cfg['base_url'],
+            book_type=gindex_cfg.get('book_type', '2'),
+            use_cffi=use_cffi,
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+    elif portal_type == 'duprocess':
+        with DuProcessSession(
+            base_url=duprocess_cfg['base_url'],
+            search_type=duprocess_cfg.get('search_type', 'deed'),
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+        # Enrich with GIS parcel data (address, acreage, value, lat/lon)
+        gis_url = duprocess_cfg.get('gis_url')
+        if gis_url:
+            fm = _GIS_FIELD_MAPS.get(duprocess_cfg.get('gis_fields', ''))
+            enrich_from_gis(rows, gis_url, field_map=fm)
+    elif portal_type == 'countygov':
         email = os.environ.get('MADISON_PORTAL_EMAIL', '')
         password = os.environ.get('MADISON_PORTAL_PASSWORD', '')
         if not email or not password:

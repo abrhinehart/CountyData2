@@ -28,6 +28,14 @@ states:
       - "Assessor data uses 'L L C' (spaced) — include both 'LLC' and 'L L C' alias forms"
     notes: "Non-disclosure state. Mortgage records can proxy sale price (40% attach rate). B2C auth portals."
 
+  MS:
+    disclosure: non-disclosure
+    survey_system: plss         # St. Stephens Meridian
+    comp_plan: varies
+    plat_approval: varies
+    alias_quirks: []
+    notes: "Non-disclosure state. DuProcess portals (Catalis/Hyland) used by many counties — no auth required."
+
   GA:
     disclosure: full
     survey_system: metes-and-bounds  # no PLSS
@@ -510,6 +518,122 @@ counties:
     quirks:
       - "Non-disclosure state."
 
+
+  # ── MISSISSIPPI ──────────────────────────────────────────────────────
+
+  hinds-ms:
+    name: Hinds County
+    state: MS
+    fips: "28049"
+    projects:
+      cd2:
+        portal: gindex
+        url: https://www.co.hinds.ms.us/pgs/apps/gindex_query.asp
+        bypass: cloudflare
+        status: live
+        notes: "Custom ASP Classic portal. curl_cffi required (TLS fingerprint rejection). HTML table scraping. 500-record cap — auto-chunks by day. No legal descriptions, no subdivision. Deed Book (sn2=2) and Deed of Trust (sn2=1)."
+      bi:
+        portal: arcgis
+        endpoint: gis.cmpdd.org/arcgis/rest/services/Hosted/Hinds_County_Map/FeatureServer/24
+        status: active
+        fields: { owner: name1, address: loc_alpha, acreage: acres_gis }
+        notes: "CMPDD-hosted. No deed book/page cross-reference. Subdivision codes (chsub1) but no name lookup. Historical sales_amt field (20K records, 1980s-1990s data)."
+    quirks:
+      - "Non-disclosure state: no sale prices on deeds."
+      - "Deed portal returns only names + instrument type + book-page + date. No legal descriptions."
+      - "500-record cap per search — daily chunking needed."
+      - "Pagination requires session cookies (ASP Classic stateful)."
+      - "No GIS deed cross-reference possible (no deed_book/deed_page in GIS)."
+
+  madison-ms:
+    name: Madison County
+    state: MS
+    fips: "28089"
+    projects:
+      cd2:
+        portal: duprocess
+        url: http://records.madison-co.com/DuProcessWebInquiry
+        bypass: none
+        status: live
+        notes: "No auth required. Plain HTTP. Kendo Grid JSON API. DuProcess client reusable for other MS counties (Rankin, Harrison, Forrest, etc.)."
+      bi:
+        portal: arcgis
+        endpoint: gis.cmpdd.org/server/rest/services/Hosted/Madison_County_Map/FeatureServer/36
+        status: active
+        fields: { owner: name, parcel: parcel_number, address: address_1, acreage: total_acres }
+        notes: "Hosted by CMPDD. Max 2000 records/query. WKID 102695. deed_book/deed_page/deed_date fields available."
+    quirks:
+      - "Non-disclosure state: no sale prices on deeds. Mortgage cross-ref possible (idVALUE_MORT field)."
+      - "DuProcess portal is plain HTTP (not HTTPS)."
+      - "Parcel IDs have internal spaces: '051A-01 -001/01.00'."
+      - "deed_page field in GIS has leading whitespace — strip before matching."
+
+  desoto-ms:
+    name: DeSoto County
+    state: MS
+    fips: "28033"
+    projects:
+      cd2:
+        portal: acclaimweb
+        url: https://landrecords.desotocountyms.gov/AcclaimWeb
+        bypass: none
+        status: live
+        notes: "AcclaimWeb (Harris Recording Solutions). Telerik grid JSON API. Doc types: WAR=1509, QCL=1342, DEE=1080. Rich legal descriptions. curl_cffi needed (ASP.NET session)."
+      bi:
+        portal: arcgis
+        endpoint: services6.arcgis.com/4Zxj9BGpFPVGgwpo/arcgis/rest/services/Parcels_2025/FeatureServer/11
+        status: active
+        fields: { owner: OWNER_NAME, parcel: PIN, address: FULL_ADDR, acreage: ACREAGE, deed_book: DEED_BOOK1, deed_page: DEED_PAGE1, subdivision: SUBD_NAME }
+        notes: "ArcGIS Online (not CMPDD). 84K parcels. Deed book/page cross-reference available. Subdivision names."
+    quirks:
+      - "Non-disclosure state: no sale prices on deeds."
+      - "High-growth Memphis metro county. DR Horton and Adams Homes active."
+      - "Legal descriptions include subdivision, lot, plat book/page, S-T-R, and parcel ID in one formatted string."
+      - "RecordDate uses .NET /Date(epoch_ms)/ format."
+      - "Party names use comma-separated Last,First format with <br> for multiple parties."
+
+  harrison-ms:
+    name: Harrison County
+    state: MS
+    fips: "28047"
+    projects:
+      cd2:
+        portal: duprocess
+        url: https://landrecords.co.harrison.ms.us/DuProcessWebInquiry
+        bypass: none
+        status: live
+        notes: "DuProcess. Book types: 'Deed Book'=1, 'Trust Book'=2 (different labels from Madison/Rankin). Two judicial districts (J1=Gulfport, J2=Biloxi). 8000 result cap."
+      bi:
+        portal: arcgis
+        endpoint: geo.co.harrison.ms.us/server/rest/services/AS400/liveParcels/FeatureServer/0
+        status: active
+        fields: { owner: ownerCalc, parcel: PARCEL_ID, address: addCalc, acreage: CALC_ACRE }
+        notes: "County-hosted ArcGIS (not CMPDD). 110K parcels. Max 210K records/query. No deed_book/deed_page cross-reference."
+    quirks:
+      - "Non-disclosure state: no sale prices on deeds."
+      - "Two judicial districts: J1 (Gulfport) and J2 (Biloxi). Blank location_id searches both."
+      - "Book type labels differ: 'Deed Book' and 'Trust Book' instead of 'Deed' / 'Deed of Trust'."
+
+  rankin-ms:
+    name: Rankin County
+    state: MS
+    fips: "28121"
+    projects:
+      cd2:
+        portal: duprocess
+        url: https://www2.rankincounty.org/duprocesswebinquiry
+        bypass: none
+        status: live
+        notes: "DuProcess v23.12.7.2219. Book type IDs differ from Madison (Deed=1, DoT=21 vs 71/70). Auto-detected via BookTypeLookup."
+      bi:
+        portal: arcgis
+        endpoint: gis.cmpdd.org/arcgis/rest/services/Hosted/Rankin_County_Feature_Layer/FeatureServer/8
+        status: active
+        fields: { owner: ownername, parcel: parcel_id, address: street, acreage: total_ac, deed_book: deed_book, deed_page: deed_page, subdivision: sub_name }
+        notes: "CMPDD-hosted. Deed book/page cross-reference available. Rich parcel data."
+    quirks:
+      - "Non-disclosure state: no sale prices on deeds."
+      - "Book type IDs differ from Madison County — auto-detected at connect time."
 
   # ── PANAMA CITY JURISDICTIONS (city-level, not county) ───────────────
 

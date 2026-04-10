@@ -129,10 +129,82 @@ def get_countygov_config(county: str) -> dict | None:
     return COUNTYGOV_COUNTIES.get(county)
 
 
+DUPROCESS_COUNTIES = {
+    'Madison MS': {
+        'base_url': 'http://records.madison-co.com/DuProcessWebInquiry',
+        'search_type': 'deed',
+        'doc_types': '',
+        'status': 'working',
+        'portal': 'duprocess',
+        'gis_url': 'https://gis.cmpdd.org/server/rest/services/Hosted/Madison_County_Map/FeatureServer/36',
+        'gis_fields': 'madison',
+    },
+    'Rankin MS': {
+        'base_url': 'https://www2.rankincounty.org/duprocesswebinquiry',
+        'search_type': 'deed',
+        'doc_types': '',
+        'status': 'working',
+        'portal': 'duprocess',
+        'gis_url': 'https://gis.cmpdd.org/arcgis/rest/services/Hosted/Rankin_County_Feature_Layer/FeatureServer/8',
+    },
+    'Harrison MS': {
+        'base_url': 'https://landrecords.co.harrison.ms.us/DuProcessWebInquiry',
+        'search_type': 'deed',
+        'doc_types': '',
+        'status': 'working',
+        'portal': 'duprocess',
+        'gis_url': 'https://geo.co.harrison.ms.us/server/rest/services/AS400/liveParcels/FeatureServer/0',
+    },
+}
+
+
+def get_duprocess_config(county: str) -> dict | None:
+    """Return the DuProcess config for a county, or None."""
+    return DUPROCESS_COUNTIES.get(county)
+
+
+GINDEX_COUNTIES = {
+    'Hinds MS': {
+        'base_url': 'https://www.co.hinds.ms.us/pgs/apps',
+        'book_type': '2',  # Deed Book only
+        'status': 'cloudflare',  # needs curl_cffi TLS impersonation
+        'portal': 'gindex',
+    },
+}
+
+
+ACCLAIMWEB_COUNTIES = {
+    'DeSoto MS': {
+        'base_url': 'https://landrecords.desotocountyms.gov/AcclaimWeb',
+        'doc_types': '1509,1342,1080',  # WAR + QCL + DEE
+        'status': 'working',
+        'portal': 'acclaimweb',
+        'gis_url': 'https://services6.arcgis.com/4Zxj9BGpFPVGgwpo/arcgis/rest/services/Parcels_2025/FeatureServer/11',
+        'gis_fields': 'desoto',
+    },
+}
+
+
+def get_acclaimweb_config(county: str) -> dict | None:
+    """Return the AcclaimWeb config for a county, or None."""
+    return ACCLAIMWEB_COUNTIES.get(county)
+
+
+def get_gindex_config(county: str) -> dict | None:
+    """Return the General Index config for a county, or None."""
+    return GINDEX_COUNTIES.get(county)
+
+
 def list_working_counties() -> list[str]:
     """Return county names with 'working' status across all portals."""
     counties = [name for name, cfg in LANDMARK_COUNTIES.items()
                 if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare')]
     counties.extend(name for name, cfg in COUNTYGOV_COUNTIES.items()
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
+    counties.extend(name for name, cfg in DUPROCESS_COUNTIES.items()
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
+    counties.extend(name for name, cfg in GINDEX_COUNTIES.items()
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
+    counties.extend(name for name, cfg in ACCLAIMWEB_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     return counties

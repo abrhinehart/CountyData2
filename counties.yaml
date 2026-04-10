@@ -253,6 +253,129 @@ counties:
       - BLK
     skiprows: 0
 
+  "DeSoto MS":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+
+  "Hinds MS":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+
+  "Madison MS":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+      sub: Subdivision
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+
+  "Harrison MS":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+      sub: Subdivision
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+
+  "Rankin MS":
+    input_folder: "output"
+    column_mapping:
+      grantor: Direct Name
+      grantee: Reverse Name
+      date: Record Date
+      instrument: Doc Type
+      legal: Legal
+      sub: Subdivision
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+
   "Madison AL":
     input_folder: "output"
     column_mapping:
