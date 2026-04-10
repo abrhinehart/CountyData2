@@ -1,58 +1,128 @@
 # Mississippi County Onboarding Guide
 
-How to add a new Mississippi county to CountyData2. Mississippi has three portal types in use — identify which one the county uses, then follow the matching section.
+How to add a new Mississippi county to CountyData2. Covers investigation, portal identification, GIS evaluation, and configuration — informed by lessons learned from onboarding 6 counties across 4 portal types.
 
 ---
 
-## Step 1: Identify the Portal Type
+## Step 1: Investigate the GIS Layer First
 
-Visit the county Chancery Clerk website and find their online land records search. Mississippi counties use one of three portal types:
+Before touching the deed portal, check the county's ArcGIS parcel layer. This is the single most important step — Jackson County taught us that a rich GIS layer can replace a difficult portal entirely.
 
-| Portal | How to Identify | Counties Using It |
-|--------|----------------|-------------------|
-| **DuProcess** | URL contains `/DuProcessWebInquiry`. Search page has Infragistics grid, instrument type dropdowns, date pickers. JSON API at `/Home/CriteriaSearch`. | Madison, Rankin, Harrison, plus Forrest, Pearl River, George, Monroe, Lee, Noxubee |
-| **AcclaimWeb** | URL contains `/AcclaimWeb`. Search page has Telerik grid, doc type combo box. ASP.NET MVC with `.aspx`-style views. | DeSoto |
-| **General Index (GIndex)** | URL contains `/gindex_query.asp`. Bare HTML form, server-rendered table results. ASP Classic from 2008. | Hinds |
+### 1a. Find the Parcel Layer
 
-If you find a fourth portal type, you'll need to build a new client class. The existing patterns (`duprocess_client.py`, `acclaimweb_client.py`, `gindex_client.py`) provide templates.
+Search for `{county} mississippi GIS parcels` or check the county website for a GIS viewer. Common hosts by region:
 
----
+| Region | Host | Counties |
+|--------|------|----------|
+| Jackson metro | `gis.cmpdd.org` (CMPDD) | Madison, Rankin, Hinds |
+| Gulf Coast | County-hosted (`geo.co.{name}.ms.us`, `webmap.co.{name}.ms.us`) | Harrison, Jackson |
+| Memphis metro | ArcGIS Online (`services6.arcgis.com`) | DeSoto |
 
-## Step 2: Test Access
-
-Before writing any code, verify the portal works:
+### 1b. Check What Fields Exist
 
 ```bash
-# DuProcess — check if the home page loads and BookTypeLookup returns data
+curl -s "{gis_url}?f=json" | python -c "
+import sys, json
+data = json.load(sys.stdin)
+print(f'Layer: {data.get(\"name\")}  Max records: {data.get(\"maxRecordCount\")}')
+for f in data.get('fields', []):
+    print(f'  {f[\"name\"]:25s} {f[\"type\"]}')" | grep -iE 'deed|book|page|owner|addr|acre|value|sub|sale|samt|sdat|legal|desc|loc'
+```
+
+Look for these critical fields:
+
+| Field | Why It Matters | Example Names |
+|-------|---------------|---------------|
+| **Deed book/page** | Cross-ref to deed portal records | `deed_book`/`deed_page`, `DB`/`DP`, `DEED_BOOK1`/`DEED_PAGE1` |
+| **Sale date** | Query by date range (GIS-only approach) | `SDAT`, `sale_date` |
+| **Sale amount** | Actual prices (rare in non-disclosure state) | `SAMT`, `sale_amount`, `sales_amt` |
+| **Owner** | Current parcel owner | `NAME`, `name`, `OWNER_NAME`, `ownerCalc` |
+| **Address** | Situs/physical address | `LOCATION`, `FULL_ADDR`, `addCalc`, `street_number`+`street_name` |
+| **Subdivision** | Platted subdivision name | `SUBD`, `sub_name`, `SUBD_NAME`, `description_1` |
+| **Legal description** | Free text legal | `DESC1`, `legal1`, `extended_legal001`, `LEGLDESC` |
+| **Acreage** | Parcel size | `ACREAGE`, `CALC_ACRE`, `arcacres`, `total_acres` |
+
+### 1c. Test a Query
+
+```bash
+# Check total parcel count
+curl -s "{gis_url}/query?where=1%3D1&returnCountOnly=true&f=json"
+
+# Sample data quality (skip to mid-dataset to avoid empty header records)
+curl -s "{gis_url}/query" -d "where=1=1" -d "outFields=*" -d "f=json" -d "resultRecordCount=5" -d "resultOffset=5000"
+```
+
+### 1d. Evaluate: Can GIS Be the Primary Source?
+
+The GIS layer can replace the deed portal when it has:
+- Sale date field for date-range queries
+- Owner names
+- Deed book/page (for dedup and cross-referencing)
+- Legal descriptions or subdivision names
+- Polygon geometry (centroid lat/lon)
+
+**Jackson County example**: GIS had all of the above plus sale amounts. The deed portal (Aumentum Recorder with ASP.NET WebForms/Infragistics) would have required a complex new client. GIS-only was the right call — simpler code, richer data.
+
+---
+
+## Step 2: Identify the Deed Portal Type
+
+Visit the county Chancery Clerk website and find their online land records search. Known portal types in Mississippi:
+
+| Portal | How to Identify | Automation | Counties |
+|--------|----------------|------------|----------|
+| **DuProcess** | URL contains `/DuProcessWebInquiry`. Infragistics grid, JSON API at `/Home/CriteriaSearch`. | Straightforward — JSON API, auto-detected book types | Madison, Rankin, Harrison + Forrest, Pearl River, George, Monroe, Lee, Noxubee |
+| **AcclaimWeb** | URL contains `/AcclaimWeb`. Telerik grid, ASP.NET MVC. | Moderate — 3-step POST flow, `curl_cffi` needed | DeSoto |
+| **GIndex** | URL contains `/gindex_query.asp`. Bare HTML tables, ASP Classic. | Simple HTML scraping, `curl_cffi` for TLS | Hinds |
+| **Aumentum Recorder** | ASP.NET WebForms, Infragistics controls, ViewState postbacks. | **Too complex** — check GIS layer instead | Jackson (skipped in favor of GIS) |
+| **GIS Parcel** | No portal used. ArcGIS parcel layer queried directly by sale date. | Simplest — standard ArcGIS REST queries | Jackson |
+
+If you encounter a portal type not listed here, check the GIS layer first. If the GIS has sale dates and deed references, use the GIS Parcel approach. Only build a new portal client if the GIS layer is insufficient.
+
+---
+
+## Step 3: Test Access
+
+```bash
+# DuProcess
 curl -s "http://{portal_url}/" | head -5
 curl -s "http://{portal_url}/Lookup/BookTypeLookup" | python -m json.tool
 
-# AcclaimWeb — check if the search form loads
+# AcclaimWeb
 curl -s "https://{portal_url}/search/SearchTypeDocType" | head -5
 
-# GIndex — check if the search form loads (may need curl_cffi for TLS)
+# GIndex
 curl -s "https://{portal_url}/gindex_query.asp" | head -5
+
+# GIS layer
+curl -s "{gis_url}/query?where=1%3D1&returnCountOnly=true&f=json"
 ```
 
-Check for connection issues. If `curl` works but Python `requests` gets `ConnectionResetError`, the county needs `curl_cffi` TLS impersonation (set `status: 'cloudflare'` in config).
+**TLS check**: If `curl` works but Python `requests` gets `ConnectionResetError`, the site rejects Python's TLS fingerprint. Use `curl_cffi` with `impersonate='chrome'`. This happened with Hinds (GIndex) and Jackson (GIS). Set `status: 'cloudflare'` in config.
 
 ---
 
-## Step 3: DuProcess County Setup
+## Step 4: Decision Tree
 
-DuProcess is the most common MS portal. The `DuProcessSession` client handles everything automatically — book type IDs are auto-detected at connect time.
-
-### 3a. Get the FIPS Code
-
-Look up the county at census.gov or search "FIPS code [county] Mississippi". Format: `28XXX`.
-
-### 3b. Find the Book Type IDs
-
-```bash
-curl -s "http://{portal_url}/Lookup/BookTypeLookup" | python -m json.tool
+```
+Does the GIS layer have sale dates + deed book/page + owner + legal?
+├── YES → Does the deed portal look simple (DuProcess/AcclaimWeb)?
+│         ├── YES → Use deed portal + GIS enrichment (Madison, DeSoto)
+│         └── NO  → Use GIS Parcel approach (Jackson)
+└── NO  → Does the GIS have deed book/page for enrichment?
+          ├── YES → Use deed portal + GIS enrichment (Madison, DeSoto)
+          └── NO  → Use deed portal only (Rankin, Harrison, Hinds)
 ```
 
-The response maps book type names to IDs. Common patterns:
+---
+
+## Step 5: Portal-Specific Setup
+
+### 5a. DuProcess
+
+The most common MS portal. `DuProcessSession` handles everything — book type IDs are auto-detected.
+
+**Book type labels vary per county** (auto-detected via `/Lookup/BookTypeLookup`):
 
 | County | Deed Key | Deed ID | Trust Key | Trust ID |
 |--------|----------|---------|-----------|----------|
@@ -60,24 +130,11 @@ The response maps book type names to IDs. Common patterns:
 | Rankin | "Deed" | 1 | "Deed of Trust" | 21 |
 | Harrison | "Deed Book" | 1 | "Trust Book" | 2 |
 
-The client auto-detects these. If the county uses a new label variant not covered by `_resolve_book_type()` in `duprocess_client.py`, add it to the lookup chain.
+If a new county uses a label not in `_resolve_book_type()`, add it to the lookup chain in `duprocess_client.py`.
 
-### 3c. Test a Search
+**Result cap**: Check the `Max` field from `CriteriaSearchCount`. Madison caps at 2,000 (auto-chunks weekly), Harrison at 8,000.
 
-```bash
-# Get record count for a recent month
-CRITERIA='[{"direction":"","name_direction":false,"full_name":"","file_date_start":"03/01/2026","file_date_end":"03/31/2026","inst_type":"","inst_book_type_id":"{DEED_ID}","location_id":"","book_reel":"","page_image":"","greater_than_page":false,"inst_num":"","description":"","consideration_value_min":"","consideration_value_max":"","parcel_id":"","legal_section":"","legal_township":"","legal_range":"","legal_square":"","subdivision_code":"","block":"","lot_from":"","q_ne":false,"q_nw":false,"q_se":false,"q_sw":false,"q_q_ne":false,"q_q_nw":false,"q_q_se":false,"q_q_sw":false,"q_q_search_type":false,"address_street":"","address_number":"","address_parcel":"","address_ppin":"","patent_number":""}]'
-
-curl -s -G "{portal_url}/Home/CriteriaSearchCount" \
-  --data-urlencode "criteria_array=$CRITERIA" \
-  --data-urlencode "user_id="
-```
-
-Note the result cap (`Max` field). If a typical month exceeds it, the client auto-chunks into weekly ranges.
-
-### 3d. Add Configuration
-
-**`county_scrapers/configs.py`** — add to `DUPROCESS_COUNTIES`:
+**Config** — add to `DUPROCESS_COUNTIES` in `configs.py`:
 
 ```python
 'CountyName MS': {
@@ -86,12 +143,153 @@ Note the result cap (`Max` field). If a typical month exceeds it, the client aut
     'doc_types': '',
     'status': 'working',
     'portal': 'duprocess',
-    'gis_url': '{gis_featureserver_url}',     # if GIS available
-    'gis_fields': '{field_map_name}',         # 'madison', 'desoto', or omit
+    'gis_url': '{gis_url}',             # if GIS enrichment available
+    'gis_fields': '{field_map_name}',   # 'madison', 'desoto', or omit for default
 },
 ```
 
-**`counties.yaml`** — add county entry:
+**Seed subdivisions** (DuProcess only — portal provides a lookup endpoint):
+
+```python
+from county_scrapers.duprocess_client import DuProcessSession
+session = DuProcessSession('{portal_url}')
+session.connect()
+subs = session.fetch_subdivisions()
+session.close()
+```
+
+Then run the grouping script (see `reference_data/subdivisions.yaml` for format).
+
+### 5b. AcclaimWeb
+
+Harris Recording Solutions portal. Uses `curl_cffi`, 3-step search flow.
+
+**Find doc type IDs** from the search page combo box:
+
+```python
+from curl_cffi import requests as cf_requests
+import re, json
+session = cf_requests.Session(impersonate='chrome')
+resp = session.get('{portal_url}/search/SearchTypeDocType')
+combo = re.findall(r'DocTypesDisplay.*?data:\s*(\[.*?\])', resp.text, re.DOTALL)
+items = json.loads(combo[0])
+for i in items:
+    if any(k in i['Text'][:5] for k in ['WAR','QCL','DEE']):
+        print(f'{i["Value"]:>5s}  {i["Text"]}')
+```
+
+**Config** — add to `ACCLAIMWEB_COUNTIES`:
+
+```python
+'CountyName MS': {
+    'base_url': 'https://{portal_url}',
+    'doc_types': '{comma_separated_ids}',   # e.g. '1509,1342,1080'
+    'status': 'working',
+    'portal': 'acclaimweb',
+    'gis_url': '{gis_url}',
+    'gis_fields': '{field_map_name}',
+},
+```
+
+### 5c. GIndex
+
+Bare-bones ASP Classic portal. Minimal data — names, instrument type, book/page, date only. No legal descriptions, no subdivisions.
+
+**Config** — add to `GINDEX_COUNTIES`:
+
+```python
+'CountyName MS': {
+    'base_url': 'https://{county_url}/pgs/apps',
+    'book_type': '2',                       # 1=DoT only, 2=Deed only, 3=Both
+    'status': 'cloudflare',                 # almost always needs curl_cffi
+    'portal': 'gindex',
+},
+```
+
+### 5d. GIS Parcel (Portal Bypass)
+
+When the deed portal is too complex but the GIS layer has everything. Queries ArcGIS by sale date range.
+
+**Verify the approach works**:
+
+```bash
+# Check that sale date queries return data
+curl -s "{gis_url}/query" \
+  -d "where=SDAT >= date '2025-03-01' AND SDAT < date '2025-04-01'" \
+  -d "returnCountOnly=true" -d "f=json"
+```
+
+**Add a field map** in `gis_parcel_client.py` if field names differ from Jackson:
+
+```python
+NEWCOUNTY_FIELDS = {
+    'owner': '{owner_field}',
+    'address': '{address_field}',
+    'deed_book': '{book_field}',
+    'deed_page': '{page_field}',
+    'subdivision': '{sub_field}',
+    'lot': '{lot_field}',
+    'acreage': '{acreage_field}',
+    'total_value': '{value_field}',
+    'sale_amount': '{sale_field}',
+    'sale_date': '{date_field}',
+    'legal': '{legal_field}',
+    'parcel_id': '{parcel_field}',
+}
+```
+
+**Config** — add to `GIS_PARCEL_COUNTIES`:
+
+```python
+'CountyName MS': {
+    'layer_url': '{gis_mapserver_or_featureserver_url}',
+    'gis_fields': '{field_map_name}',
+    'status': 'working',
+    'portal': 'gis_parcel',
+},
+```
+
+---
+
+## Step 6: GIS Enrichment (for Portal-Based Counties)
+
+For counties using a deed portal (DuProcess, AcclaimWeb, GIndex), the GIS layer can enrich deed records with addresses, acreage, values, and centroid lat/lon — but only if the GIS has deed book/page fields for cross-referencing.
+
+### Does Cross-Referencing Work?
+
+| GIS has deed_book/deed_page? | Result |
+|------------------------------|--------|
+| Yes (Madison, DeSoto) | Enrichment works — adds address, acreage, value, lat/lon |
+| No (Rankin, Harrison, Hinds) | Enrichment skipped — no join key |
+| Deed refs removed (Hinds) | `DEED_REFERENCE_REMOVED` field — intentionally stripped |
+
+### GIS Data Lag
+
+GIS snapshots trail current deed records by months. Madison GIS goes through Dec 2024, DeSoto through mid-2025. Enrichment rates for current-month pulls will be low (~0%). Historical pulls within the GIS date range get 30-40% enrichment.
+
+### Add a Field Map
+
+If the GIS field names don't match an existing map, add one in `gis_enrichment.py`:
+
+```python
+NEWCOUNTY_FIELDS = {
+    'deed_book': '{book_field}',
+    'deed_page': '{page_field}',
+    'address': '{addr_field}',          # string or ['num_field', 'name_field']
+    'acreage': '{acreage_field}',       # string or ['primary', 'fallback']
+    'value': '{value_field}',
+}
+```
+
+Reference it in `pull_records.py`'s `_GIS_FIELD_MAPS` dict and set `gis_fields` in the county config.
+
+---
+
+## Step 7: Common Configuration
+
+Regardless of portal type, every county needs these entries.
+
+**`counties.yaml`**:
 
 ```yaml
   "CountyName MS":
@@ -102,7 +300,7 @@ Note the result cap (`Max` field). If a typical month exceeds it, the client aut
       date: Record Date
       instrument: Doc Type
       legal: Legal
-      sub: Subdivision
+      sub: Subdivision           # omit for GIndex (no subdivision data)
     phase_keywords:
       - Phase
       - Ph.?
@@ -129,249 +327,97 @@ Note the result cap (`Max` field). If a typical month exceeds it, the client aut
     fips: "28XXX"
     projects:
       cd2:
-        portal: duprocess
-        url: http://{portal_url}
-        bypass: none
+        portal: duprocess | acclaimweb | gindex | gis_parcel
+        url: {portal_or_gis_url}
+        bypass: none | cloudflare
         status: live
         notes: ""
 ```
 
-### 3e. Seed Subdivisions
-
-```python
-from county_scrapers.duprocess_client import DuProcessSession
-session = DuProcessSession('{portal_url}')
-session.connect()
-subs = session.fetch_subdivisions()
-session.close()
-print(f'{len(subs)} subdivisions')
-```
-
-Then run the grouping/seeding script pattern used for Madison/Rankin/Harrison (see session history or `reference_data/subdivisions.yaml` for format).
-
-### 3f. Live Test
-
-```bash
-python -m county_scrapers --county "CountyName MS" --begin 03/01/2026 --end 03/31/2026 --no-filter
-```
-
-Check the output CSV for:
-- Record count is reasonable (hundreds for a typical month)
-- Legal descriptions are populated (95%+ for DuProcess)
-- Subdivision names present for platted lots
-
 ---
 
-## Step 4: AcclaimWeb County Setup
-
-AcclaimWeb is used by DeSoto County and potentially other Harris Recording Solutions clients.
-
-### 4a. Find Doc Type IDs
-
-Load the search form page and extract the combo box data:
+## Step 8: Verify
 
 ```bash
-curl -s "{portal_url}/search/SearchTypeDocType" | python -c "
-import sys, re, json
-html = sys.stdin.read()
-combo = re.findall(r'DocTypesDisplay.*?data:\s*(\[.*?\])', html, re.DOTALL)
-if combo:
-    items = json.loads(combo[0])
-    for i in items:
-        if any(k in i['Text'][:5] for k in ['WAR','QCL','DEE']):
-            print(f'{i[\"Value\"]:>5s}  {i[\"Text\"]}')
-"
-```
+python -m county_scrapers --county "CountyName MS" --begin 03/01/2025 --end 03/31/2025 --no-filter
 
-Common deed-related types: WAR (warranty deed), QCL (quitclaim), DEE (deed).
-
-### 4b. Test the 3-Step Search Flow
-
-AcclaimWeb requires: GET form → POST search → POST GridResults.
-
-```python
-from curl_cffi import requests as cf_requests
-
-session = cf_requests.Session(impersonate='chrome')
-session.get('{portal_url}/search/SearchTypeDocType')
-session.post('{portal_url}/search/SearchTypeDocType?Length=6',
-             data={'DocTypes': '{ids}', 'RecordDateFrom': '3/1/2026',
-                   'RecordDateTo': '3/7/2026', 'ShowAllNames': 'true',
-                   'ShowAllLegals': 'true'})
-resp = session.post('{portal_url}/Search/GridResults?Length=6',
-                    data={'page': '1', 'size': '5', 'orderBy': '~',
-                          'groupBy': '~', 'filter': '~'},
-                    headers={'X-Requested-With': 'XMLHttpRequest'})
-import json
-data = json.loads(resp.text)
-print(f"Total: {data['total']}, fields: {list(data['data'][0].keys())}")
-```
-
-### 4c. Add Configuration
-
-**`county_scrapers/configs.py`** — add to `ACCLAIMWEB_COUNTIES`:
-
-```python
-'CountyName MS': {
-    'base_url': 'https://{portal_url}',
-    'doc_types': '{comma_separated_ids}',
-    'status': 'working',
-    'portal': 'acclaimweb',
-    'gis_url': '{gis_url}',
-    'gis_fields': '{field_map_name}',
-},
-```
-
-**`counties.yaml`** and **`county-registry.yaml`** — same pattern as DuProcess (see Step 3d).
-
----
-
-## Step 5: GIndex County Setup
-
-GIndex is the bare-bones ASP Classic portal. Only Hinds County uses it so far.
-
-### 5a. Verify the Portal
-
-```bash
-curl -s "https://{county_url}/pgs/apps/gindex_query.asp" | head -5
-```
-
-If this fails with a connection reset, the county needs `curl_cffi` (set `status: 'cloudflare'`).
-
-### 5b. Check Search Form Fields
-
-Look for the `sn2` radio buttons (book type selection):
-- `sn2=1` — Deed of Trust only
-- `sn2=2` — Deed Book only
-- `sn2=3` — Both
-
-### 5c. Add Configuration
-
-**`county_scrapers/configs.py`** — add to `GINDEX_COUNTIES`:
-
-```python
-'CountyName MS': {
-    'base_url': 'https://{county_url}/pgs/apps',
-    'book_type': '2',
-    'status': 'cloudflare',  # or 'working' if plain requests works
-    'portal': 'gindex',
-},
-```
-
-GIndex portals have no legal descriptions, no subdivisions, and no GIS cross-reference. Output is limited to names, instrument type, book/page, and date.
-
----
-
-## Step 6: GIS Parcel Layer
-
-Find the county's ArcGIS parcel layer. Common hosts for MS:
-
-| Region | Host | Counties |
-|--------|------|----------|
-| Jackson metro | `gis.cmpdd.org` (CMPDD) | Madison, Rankin, Hinds |
-| Gulf Coast | County-hosted (`geo.co.{name}.ms.us`) | Harrison |
-| Memphis metro | ArcGIS Online (`services6.arcgis.com`) | DeSoto |
-
-### 6a. Find the Parcel Layer
-
-Search for `{county} mississippi GIS parcels` or check the county's website for a GIS viewer. Then find the ArcGIS REST endpoint.
-
-### 6b. Check Field Names
-
-```bash
-curl -s "{gis_url}?f=json" | python -c "
-import sys, json
-data = json.load(sys.stdin)
-for f in data.get('fields', []):
-    print(f'{f[\"name\"]:25s} {f[\"type\"]}')" | grep -i 'deed\|book\|page\|owner\|addr\|acre\|value\|sub'
-```
-
-Key fields to look for:
-
-| Need | Madison (CMPDD) | DeSoto (ArcGIS Online) |
-|------|-----------------|----------------------|
-| Deed book | `deed_book` | `DEED_BOOK1` |
-| Deed page | `deed_page` | `DEED_PAGE1` |
-| Owner | `name` | `OWNER_NAME` |
-| Address | `street_number` + `street_name` | `FULL_ADDR` |
-| Acreage | `arcacres` | `ACREAGE` |
-| Value | `true_total_value` | `TOT_APVAL` |
-
-If the GIS layer has `deed_book` and `deed_page`, cross-referencing works and you get situs addresses, acreage, values, and centroid lat/lon on matched records.
-
-If it does NOT have deed references (Rankin, Hinds, Harrison), GIS enrichment is skipped — no join key.
-
-### 6c. Add a Field Map (if new field layout)
-
-If the field names don't match an existing map, add a new one in `gis_enrichment.py`:
-
-```python
-NEWCOUNTY_FIELDS = {
-    'deed_book': '{book_field_name}',
-    'deed_page': '{page_field_name}',
-    'address': '{address_field}',        # or ['num_field', 'name_field']
-    'acreage': '{acreage_field}',        # or ['primary', 'fallback']
-    'value': '{value_field}',
-}
-```
-
-Then reference it in `pull_records.py`'s `_GIS_FIELD_MAPS` dict and set `gis_fields` in configs.py.
-
----
-
-## Step 7: Verify the Full Pipeline
-
-```bash
-# Pull records
-python -m county_scrapers --county "CountyName MS" --begin 03/01/2026 --end 03/31/2026 --no-filter
-
-# Check output
 python -c "
 import csv
-with open('output/CountyName MS_03_2026.csv') as f:
+with open('output/CountyName MS_03_2025.csv') as f:
     rows = list(csv.DictReader(f))
 print(f'Records: {len(rows)}')
-print(f'Columns: {list(rows[0].keys())}')
 has_legal = sum(1 for r in rows if r.get('Legal','').strip())
+has_sub = sum(1 for r in rows if r.get('Subdivision','').strip())
 has_addr = sum(1 for r in rows if r.get('Situs Address','').strip())
+has_sale = sum(1 for r in rows if r.get('Sale Amount','').strip())
 has_latlon = sum(1 for r in rows if r.get('Latitude','').strip())
-print(f'With legal: {has_legal} ({100*has_legal//len(rows)}%)')
-print(f'With address: {has_addr}')
-print(f'With lat/lon: {has_latlon}')
+print(f'Legal: {has_legal} ({100*has_legal//len(rows)}%)')
+print(f'Subdivision: {has_sub} ({100*has_sub//len(rows)}%)')
+print(f'Address: {has_addr} ({100*has_addr//len(rows)}%)')
+print(f'Sale amount: {has_sale} ({100*has_sale//len(rows)}%)')
+print(f'Lat/lon: {has_latlon} ({100*has_latlon//len(rows)}%)')
 "
 ```
-
-Expected coverage by portal type:
-
-| Metric | DuProcess | AcclaimWeb | GIndex |
-|--------|-----------|------------|--------|
-| Legal description | 95%+ | 100% | 0% |
-| Subdivision | 50-95% | in legal text | 0% |
-| Situs address | GIS-dependent | GIS-dependent | 0% |
-| Lat/lon | GIS-dependent | GIS-dependent | 0% |
-
----
-
-## MS-Specific Notes
-
-- Mississippi is a **non-disclosure state**. No sale prices on deeds.
-- Survey system is **PLSS** (St. Stephens Meridian). Legal descriptions use Section/Township/Range.
-- Mississippi uses **Deed of Trust** instead of Mortgage. The trust book labels vary per county ("Deed Of Trust", "Deed of Trust", "Trust Book").
-- The `DuProcessSession` auto-detects book type IDs via `/Lookup/BookTypeLookup` at connect time. No need to hardcode them.
-- DuProcess portals also offer `/Lookup/SubdivisionLookup` for seeding reference data.
-- The 82 counties in Mississippi are served by Chancery Clerks (not Circuit Clerks or Clerks of Court as in other states).
 
 ---
 
 ## Current MS County Status
 
-| County | Portal | Status | Legal | Subdivision | GIS Cross-Ref | Lat/Lon |
-|--------|--------|--------|-------|-------------|---------------|---------|
-| Madison | DuProcess | live | 95% | 50% | yes (CMPDD) | yes |
-| Rankin | DuProcess | live | 99% | 64% | no | no |
-| Harrison | DuProcess | live | 94% | 94% | no | no |
-| Hinds | GIndex | live | 0% | 0% | no | no |
-| DeSoto | AcclaimWeb | live | 100% | in legal | yes (ArcGIS Online) | yes |
+| County | Portal | Records/mo | Legal | Subdivision | Address | Lat/Lon | Sale $ |
+|--------|--------|:---:|:---:|:---:|:---:|:---:|:---:|
+| Madison | DuProcess | 1,072 | 95% | 50% | 40%* | 40%* | no |
+| Rankin | DuProcess | 620 | 99% | 64% | no | no | no |
+| Harrison | DuProcess | 1,573 | 94% | 94% | no | no | no |
+| Hinds | GIndex | 1,698 | 0% | 0% | no | no | no |
+| DeSoto | AcclaimWeb | 528 | 100% | in legal | 0%* | 0%* | no |
+| Jackson | GIS Parcel | 531 | 100% | 67% | 100% | 100% | 26% |
+
+*GIS enrichment limited by data lag — GIS snapshots trail current deeds by months.
+
+---
+
+## Expected Coverage by Portal Type
+
+| Metric | DuProcess | AcclaimWeb | GIndex | GIS Parcel |
+|--------|-----------|------------|--------|------------|
+| Legal description | 94-99% | 100% | 0% | 100% |
+| Subdivision | 50-94% | in legal text | 0% | 67% |
+| Situs address | GIS-dependent | GIS-dependent | 0% | 100% |
+| Lat/lon | GIS-dependent | GIS-dependent | 0% | 100% |
+| Sale amount | no | no | no | 26%+ (if GIS has it) |
+| Grantor (seller) | yes | yes | yes | no (current owner only) |
+
+Note: GIS Parcel counties show the current owner as "grantee" but have no grantor (seller) — the GIS only knows who owns the parcel now, not who sold it.
+
+---
+
+## Gotchas
+
+**Subdivision codes don't match across systems.** Harrison County's DuProcess subdivision codes (Chancery Clerk) use a completely different numbering system than the GIS subdivision codes (Tax Assessor). Don't assume they can be joined.
+
+**GIS data lags deed records.** Madison GIS is current through Dec 2024, DeSoto through mid-2025. If you pull March 2026 deeds and try to enrich from GIS, the match rate will be ~0%. Historical pulls within the GIS date range get 30-40%.
+
+**TLS fingerprinting is common.** Hinds and Jackson reject Python `requests` but work with `curl_cffi`. Always test with `curl` first, then try Python. If Python fails, set `status: 'cloudflare'` in config.
+
+**Some GIS layers hide data in related tables.** Harrison County's parcel geometry layer has only 10 fields, but a related LandRoll table (FeatureServer/3) has addresses, values, and subdivision codes. Always check for related tables.
+
+**Deed references are sometimes intentionally removed.** Hinds County GIS has a field literally named `DEED_REFERENCE_REMOVED`. Don't waste time trying to find deed cross-references in the GIS if they've been stripped.
+
+**"Non-disclosure" doesn't mean no prices anywhere.** Jackson County GIS has sale amounts for 45% of parcels despite Mississippi being a non-disclosure state. Always check for SAMT/sale_amount fields.
+
+**Book type labels are unpredictable.** Three DuProcess counties, three different labels: "Deed"/"Deed Of Trust", "Deed"/"Deed of Trust", "Deed Book"/"Trust Book". The auto-detect in `_resolve_book_type()` handles known variants. If you find a new one, add it to the lookup chain.
+
+**The 500/2000/8000 caps vary.** GIndex caps at 500 (daily chunking needed), DuProcess at 2000 or 8000 (weekly chunking), GIS layers at 1000-2000 (offset pagination). The clients handle this automatically.
+
+---
+
+## MS-Specific Notes
+
+- Mississippi is a **non-disclosure state**. No sale prices on deeds. Some GIS layers have sale amounts anyway.
+- Survey system is **PLSS** (St. Stephens Meridian). Legal descriptions use Section/Township/Range.
+- Mississippi uses **Deed of Trust** instead of Mortgage. Labels vary per county.
+- The 82 counties are served by **Chancery Clerks** (not Circuit Clerks or Clerks of Court).
+- DuProcess portals auto-detect book type IDs via `/Lookup/BookTypeLookup` and offer `/Lookup/SubdivisionLookup` for seeding reference data.
 
 ---
 
@@ -383,6 +429,7 @@ Expected coverage by portal type:
 | `counties.yaml` | Column mapping entry |
 | `county-registry.yaml` | County block under Mississippi section |
 | `reference_data/subdivisions.yaml` | Subdivision seed data (DuProcess only) |
-| `county_scrapers/gis_enrichment.py` | New field map (only if GIS field names are novel) |
-| `county_scrapers/pull_records.py` | New field map reference in `_GIS_FIELD_MAPS` (only if new GIS field map) |
+| `county_scrapers/gis_enrichment.py` | New field map (only if GIS enrichment with novel field names) |
+| `county_scrapers/gis_parcel_client.py` | New field map (only if GIS Parcel approach with novel field names) |
+| `county_scrapers/pull_records.py` | New field map reference in `_GIS_FIELD_MAPS` or `_GIS_PARCEL_FIELD_MAPS` |
 | `county_scrapers/duprocess_client.py` | New book type label in `_resolve_book_type()` (only if novel label) |
