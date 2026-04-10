@@ -1,0 +1,186 @@
+import logging
+import os
+import time
+from datetime import datetime
+
+import requests
+
+from modules.commission.constants import (
+    FILE_READ_CHUNK_SIZE,
+    SCRAPE_DOWNLOAD_TIMEOUT,
+    SCRAPE_SEARCH_TIMEOUT,
+)
+from modules.commission.scrapers.base import PlatformScraper, DocumentListing
+
+logger = logging.getLogger("commission_radar.scrapers.legistar")
+
+API_BASE = "https://webapi.legistar.com/v1"
+USER_AGENT = "CommissionRadar/1.0"
+
+# Legistar OData API page size
+PAGE_SIZE = 100
+# Polite delay between paginated requests (seconds)
+REQUEST_DELAY = 0.5
+
+
+class LegistarScraper(PlatformScraper):
+    """Scraper for Legistar platforms using the public OData API.
+
+    Legistar exposes meeting events with agenda/minutes PDFs via:
+        https://webapi.legistar.com/v1/{client}/events
+
+    Config fields:
+        legistar_client: Client slug (e.g., "brevardfl")
+        body_names: List of EventBodyName values to filter by
+    """
+
+    def fetch_listings(self, config: dict, start_date: str, end_date: str) -> list[DocumentListing]:
+        """Fetch document listings from Legistar OData API.
+
+        Args:
+            config: Jurisdiction scraping config with keys:
+                - legistar_client: Legistar client identifier
+                - body_names: List of body name strings to filter events
+            start_date: YYYY-MM-DD
+            end_date: YYYY-MM-DD
+
+        Returns:
+            List of DocumentListing for both agendas and minutes.
+        """
+        client = config.get("legistar_client")
+        body_names = config.get("body_names", [])
+
+        if not client:
+            logger.warning("Legistar scraper requires legistar_client in config")
+            return []
+
+        if not body_names:
+            logger.warning("Legistar scraper requires body_names in config")
+            return []
+
+        listings = []
+        seen_ids = set()
+
+        for body_name in body_names:
+            body_listings = self._fetch_body_events(
+                client, body_name, start_date, end_date, seen_ids,
+            )
+            listings.extend(body_listings)
+
+        return listings
+
+    def _fetch_body_events(self, client, body_name, start_date, end_date, seen_ids):
+        """Fetch events for a single body, handling pagination."""
+        listings = []
+        skip = 0
+
+        while True:
+            events = self._fetch_page(client, body_name, start_date, end_date, skip)
+            if events is None:
+                break
+
+            for event in events:
+                for listing in self._event_to_listings(event, seen_ids):
+                    listings.append(listing)
+
+            if len(events) < PAGE_SIZE:
+                break
+
+            skip += PAGE_SIZE
+            time.sleep(REQUEST_DELAY)
+
+        return listings
+
+    def _fetch_page(self, client, body_name, start_date, end_date, skip):
+        """Fetch a single page of events from the Legistar API."""
+        url = f"{API_BASE}/{client}/events"
+
+        odata_filter = (
+            f"EventDate ge datetime'{start_date}' "
+            f"and EventDate le datetime'{end_date}' "
+            f"and EventBodyName eq '{body_name}'"
+        )
+        params = {
+            "$filter": odata_filter,
+            "$orderby": "EventDate desc",
+            "$top": PAGE_SIZE,
+            "$skip": skip,
+        }
+
+        try:
+            resp = requests.get(
+                url, params=params,
+                headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+                timeout=SCRAPE_SEARCH_TIMEOUT,
+            )
+            resp.raise_for_status()
+            return resp.json()
+        except requests.RequestException as e:
+            logger.error("Legistar API error for %s/%s: %s", client, body_name, e)
+            return None
+
+    def _event_to_listings(self, event, seen_ids):
+        """Convert a Legistar event JSON object into DocumentListing(s)."""
+        event_id = str(event.get("EventId", ""))
+        if not event_id:
+            return
+
+        # Parse date from EventDate (format: "2025-01-13T00:00:00")
+        raw_date = event.get("EventDate", "")
+        try:
+            meeting_date = datetime.strptime(raw_date[:10], "%Y-%m-%d").strftime("%Y-%m-%d")
+        except (ValueError, IndexError):
+            meeting_date = raw_date[:10] if len(raw_date) >= 10 else "unknown"
+
+        body_name = event.get("EventBodyName", "Meeting")
+
+        # Agenda PDF
+        agenda_url = event.get("EventAgendaFile")
+        if agenda_url:
+            doc_id = f"agenda-{event_id}"
+            if doc_id not in seen_ids:
+                seen_ids.add(doc_id)
+                yield DocumentListing(
+                    title=f"{body_name} Agenda - {meeting_date}",
+                    url=agenda_url,
+                    date_str=meeting_date,
+                    document_id=event_id,
+                    document_type="agenda",
+                    file_format="pdf",
+                    filename=f"Agenda_{meeting_date}_{event_id}.pdf",
+                )
+
+        # Minutes PDF
+        minutes_url = event.get("EventMinutesFile")
+        if minutes_url:
+            doc_id = f"minutes-{event_id}"
+            if doc_id not in seen_ids:
+                seen_ids.add(doc_id)
+                yield DocumentListing(
+                    title=f"{body_name} Minutes - {meeting_date}",
+                    url=minutes_url,
+                    date_str=meeting_date,
+                    document_id=event_id,
+                    document_type="minutes",
+                    file_format="pdf",
+                    filename=f"Minutes_{meeting_date}_{event_id}.pdf",
+                )
+
+    def download_document(self, listing: DocumentListing, output_dir: str) -> str:
+        """Download a document from Legistar."""
+        os.makedirs(output_dir, exist_ok=True)
+        filepath = os.path.join(output_dir, listing.filename)
+
+        resp = requests.get(
+            listing.url,
+            headers={"User-Agent": USER_AGENT},
+            stream=True,
+            timeout=SCRAPE_DOWNLOAD_TIMEOUT,
+        )
+        resp.raise_for_status()
+
+        with open(filepath, "wb") as f:
+            for chunk in resp.iter_content(chunk_size=FILE_READ_CHUNK_SIZE):
+                f.write(chunk)
+
+        return filepath

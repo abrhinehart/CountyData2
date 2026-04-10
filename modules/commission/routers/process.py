@@ -27,104 +27,36 @@ from modules.commission.routers.helpers import (
     _send,
 )
 
-# TODO: verify schema — the following helper modules have not yet been ported
-# from commission_radar to modules.commission. Imports are guarded so the
-# router can still be imported in environments where these utilities are not
-# yet available. Any endpoint exercising the pipeline will need them.
-try:
-    from modules.commission.auto_detect import (
-        detect_jurisdiction_details,
-        detect_meeting_date_details,
-        format_detection_error,
-        format_detection_success,
-    )
-except ImportError:  # pragma: no cover
-    detect_jurisdiction_details = None  # type: ignore
-    detect_meeting_date_details = None  # type: ignore
-    format_detection_error = None  # type: ignore
-    format_detection_success = None  # type: ignore
-
-try:
-    from modules.commission.config_loader import load_jurisdiction_config
-except ImportError:  # pragma: no cover
-    def load_jurisdiction_config(*args, **kwargs):  # type: ignore
-        return None
-
-try:
-    from modules.commission.converters import DocumentConverter
-    from modules.commission.converters.base import format_conversion_detail
-except ImportError:  # pragma: no cover
-    DocumentConverter = None  # type: ignore
-    format_conversion_detail = None  # type: ignore
-
-try:
-    from modules.commission.extractor import extract_items
-except ImportError:  # pragma: no cover
-    extract_items = None  # type: ignore
-
-try:
-    from modules.commission.intake import (
-        UPLOAD_ACCEPT,
-        find_source_document_duplicate,
-        get_jurisdiction,
-        validate_doc_type,
-        validate_document_file,
-        validate_iso_date,
-        IntakeValidationError,
-    )
-except ImportError:  # pragma: no cover
-    UPLOAD_ACCEPT = "*"  # type: ignore
-
-    class IntakeValidationError(Exception):  # type: ignore
-        pass
-
-    find_source_document_duplicate = None  # type: ignore
-    get_jurisdiction = None  # type: ignore
-    validate_doc_type = None  # type: ignore
-    validate_document_file = None  # type: ignore
-    validate_iso_date = None  # type: ignore
-
-try:
-    from modules.commission.keyword_filter import (
-        check_keywords,
-        format_keyword_filter_detail,
-    )
-except ImportError:  # pragma: no cover
-    check_keywords = None  # type: ignore
-    format_keyword_filter_detail = None  # type: ignore
-
-try:
-    from modules.commission.packet_fetcher import merge_html_fields_into_items
-except ImportError:  # pragma: no cover
-    def merge_html_fields_into_items(*args, **kwargs):  # type: ignore
-        return 0
-
-try:
-    from modules.commission.record_inserter import insert_records
-except ImportError:  # pragma: no cover
-    insert_records = None  # type: ignore
-
-try:
-    from modules.commission.threshold_filter import evaluate_filters
-except ImportError:  # pragma: no cover
-    evaluate_filters = None  # type: ignore
-
-try:
-    from modules.commission.utils import append_processing_note, compute_file_hash
-except ImportError:  # pragma: no cover
-    def append_processing_note(existing, note):  # type: ignore
-        if not existing:
-            return note
-        return f"{existing}\n{note}"
-
-    def compute_file_hash(path):  # type: ignore
-        import hashlib
-
-        h = hashlib.sha256()
-        with open(path, "rb") as f:
-            for chunk in iter(lambda: f.read(65536), b""):
-                h.update(chunk)
-        return h.hexdigest()
+from modules.commission.auto_detect import (
+    detect_jurisdiction_details,
+    detect_meeting_date_details,
+    format_detection_error,
+    format_detection_success,
+)
+from modules.commission.config_loader import load_jurisdiction_config
+from modules.commission.converters import DocumentConverter
+from modules.commission.converters.base import format_conversion_detail
+from modules.commission.extractor import extract_items
+from modules.commission.intake import (
+    _wrap_jurisdiction,
+    UPLOAD_ACCEPT,
+    find_source_document_duplicate,
+    get_jurisdiction,
+    validate_doc_type,
+    validate_document_file,
+    validate_iso_date,
+    IntakeValidationError,
+)
+from modules.commission.keyword_filter import (
+    check_keywords,
+    format_keyword_filter_detail,
+)
+from modules.commission.packet_fetcher import merge_html_fields_into_items
+from modules.commission.record_inserter import insert_records
+from modules.commission.threshold_filter import evaluate_filters
+from modules.commission.utils import append_processing_note, compute_file_hash
+from modules.commission.matcher import match_agenda_to_minutes
+from modules.commission.lifecycle import refresh_all_lifecycles
 
 
 router = APIRouter(prefix="/process")
@@ -172,13 +104,13 @@ def process_document(
     existing_source_document_id=None,
     collection_review_note=None,
 ):
-    """Run the 6-step pipeline on a document, yielding SSE events.
+    """Run the 8-step pipeline on a document, yielding SSE events.
 
     Yields ``_send()``-formatted strings for each progress update. The final
     yield is either an error event or a ``done`` event with results.
     """
     # Step 1: Convert
-    yield _send({"step": 1, "total": 6, "label": f"{label_prefix}Converting document..."})
+    yield _send({"step": 1, "total": 8, "label": f"{label_prefix}Converting document..."})
 
     needs_dedup = False
     provided_jurisdiction = None
@@ -209,7 +141,7 @@ def process_document(
 
     step_one_payload = {
         "step": 1,
-        "total": 6,
+        "total": 8,
         "label": f"{label_prefix}Converting document...",
         "detail": format_conversion_detail(result),
         "status": "done",
@@ -228,7 +160,7 @@ def process_document(
     yield _send(
         {
             "step": 2,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Detecting jurisdiction and date...",
         }
     )
@@ -251,7 +183,7 @@ def process_document(
                 document_text = result.text
                 dedup_payload = {
                     "step": 1,
-                    "total": 6,
+                    "total": 8,
                     "label": f"{label_prefix}Converting document...",
                     "detail": format_conversion_detail(result),
                     "status": "done",
@@ -439,7 +371,7 @@ def process_document(
     yield _send(
         {
             "step": 2,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Detecting jurisdiction and date...",
             "detail": step_two_detail,
             "status": "done",
@@ -448,14 +380,16 @@ def process_document(
 
     # Step 3: Keyword filter
     yield _send(
-        {"step": 3, "total": 6, "label": f"{label_prefix}Running keyword filter..."}
+        {"step": 3, "total": 8, "label": f"{label_prefix}Running keyword filter..."}
     )
     if skip_filter:
         if source_doc:
             source_doc.keyword_filter_passed = True
         kw_detail = "Keyword filter skipped."
     else:
-        kw_result = check_keywords(document_text, juris)
+        kw_result = check_keywords(
+            document_text, load_jurisdiction_config(juris.slug) or {}
+        )
         if source_doc:
             source_doc.keyword_filter_passed = kw_result["passed"]
         if not kw_result["passed"]:
@@ -490,7 +424,7 @@ def process_document(
     yield _send(
         {
             "step": 3,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Running keyword filter...",
             "detail": kw_detail,
             "status": "done",
@@ -501,7 +435,7 @@ def process_document(
     yield _send(
         {
             "step": 4,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Extracting with Claude API (may take 30+ seconds)...",
         }
     )
@@ -527,12 +461,13 @@ def process_document(
         return
 
     # Merge structured fields from CivicPlus agenda HTML (free, no API)
-    html_enriched = merge_html_fields_into_items(items, source_doc, juris)
+    juris_view = _wrap_jurisdiction(session, juris)
+    html_enriched = merge_html_fields_into_items(items, source_doc, juris_view)
     html_note = f", {html_enriched} enriched from HTML" if html_enriched else ""
     yield _send(
         {
             "step": 4,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Extracting with Claude API...",
             "detail": f"{len(items)} items extracted{html_note}",
             "status": "done",
@@ -543,7 +478,7 @@ def process_document(
     yield _send(
         {
             "step": 5,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Applying threshold filters...",
         }
     )
@@ -554,7 +489,7 @@ def process_document(
     yield _send(
         {
             "step": 5,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Applying threshold filters...",
             "detail": f"{len(filtered_items)} of {len(items)} items passed filters",
             "status": "done",
@@ -562,7 +497,7 @@ def process_document(
     )
 
     # Step 6: Record insertion
-    yield _send({"step": 6, "total": 6, "label": f"{label_prefix}Inserting records..."})
+    yield _send({"step": 6, "total": 8, "label": f"{label_prefix}Inserting records..."})
     if dry_run:
         session.rollback()
         counts = {"projects": 0, "phases": 0, "entitlement_actions": 0}
@@ -583,12 +518,81 @@ def process_document(
     yield _send(
         {
             "step": 6,
-            "total": 6,
+            "total": 8,
             "label": f"{label_prefix}Inserting records...",
             "detail": insert_detail,
             "status": "done",
         }
     )
+
+    match_count = 0
+    lifecycle_count = 0
+    if not dry_run:
+        # Step 7: Agenda-minutes matching
+        yield _send({"step": 7, "total": 8, "label": f"{label_prefix}Matching agenda to minutes..."})
+        try:
+            match_count = match_agenda_to_minutes(session, juris.id)
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            source_doc.processing_notes = append_processing_note(
+                source_doc.processing_notes,
+                f"Matcher failed (non-fatal): {e}",
+            )
+            session.commit()
+            yield _send({
+                "step": 7,
+                "total": 8,
+                "label": f"{label_prefix}Matching agenda to minutes...",
+                "detail": f"Matcher failed (non-fatal): {e}",
+                "status": "done",
+            })
+        else:
+            yield _send({
+                "step": 7,
+                "total": 8,
+                "label": f"{label_prefix}Matching agenda to minutes...",
+                "detail": f"Created {match_count} agenda-minutes links",
+                "status": "done",
+            })
+
+        # Step 8: Lifecycle refresh (scoped to this jurisdiction)
+        yield _send({"step": 8, "total": 8, "label": f"{label_prefix}Refreshing project lifecycles..."})
+        try:
+            lifecycle_count = refresh_all_lifecycles(session, juris.id)
+            session.commit()
+        except Exception as e:
+            session.rollback()
+            source_doc.processing_notes = append_processing_note(
+                source_doc.processing_notes,
+                f"Lifecycle refresh failed (non-fatal): {e}",
+            )
+            session.commit()
+            yield _send({
+                "step": 8,
+                "total": 8,
+                "label": f"{label_prefix}Refreshing project lifecycles...",
+                "detail": f"Lifecycle refresh failed (non-fatal): {e}",
+                "status": "done",
+            })
+        else:
+            yield _send({
+                "step": 8,
+                "total": 8,
+                "label": f"{label_prefix}Refreshing project lifecycles...",
+                "detail": f"Updated lifecycle for {lifecycle_count} projects",
+                "status": "done",
+            })
+    else:
+        # Dry run: emit placeholder step 7/8 messages
+        for step_no, label in ((7, "Matching agenda to minutes..."), (8, "Refreshing project lifecycles...")):
+            yield _send({
+                "step": step_no,
+                "total": 8,
+                "label": f"{label_prefix}{label}",
+                "detail": "Dry run — skipped.",
+                "status": "done",
+            })
 
     removed = [d["item"] for d in filter_decisions if not d["passed"]]
     yield _send(
@@ -599,6 +603,8 @@ def process_document(
                 "passed": len(filtered_items),
                 "projects": counts["projects"],
                 "actions": counts["entitlement_actions"],
+                "agenda_minutes_links": match_count,
+                "lifecycles_updated": lifecycle_count,
             },
             "items": filtered_items,
             "filtered_out": removed,

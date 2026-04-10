@@ -11,6 +11,7 @@ shapely
 selenium
 webdriver-manager
 pdf2image
+pdfplumber
 pytesseract
 openai
 anthropic

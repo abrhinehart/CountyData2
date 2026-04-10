@@ -71,10 +71,7 @@ except ImportError:  # pragma: no cover
     validate_document_file = None  # type: ignore
     validate_scrape_date_range = None  # type: ignore
 
-try:
-    from modules.commission.scrapers import PlatformScraper
-except ImportError:  # pragma: no cover
-    PlatformScraper = None  # type: ignore
+from modules.commission.scrapers import PlatformScraper
 
 
 router = APIRouter(prefix="/scrape")

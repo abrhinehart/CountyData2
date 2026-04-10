@@ -334,21 +334,22 @@ def format_keyword_filter_detail(result: dict) -> str:
     return ". ".join(parts)
 
 
-def check_keywords(text: str, jurisdiction) -> dict:
+def check_keywords(text: str, jurisdiction_config: dict) -> dict:
     """Check if extracted text contains enough development signals to continue.
 
     Args:
         text: Extracted document text.
-        jurisdiction: Jurisdiction-like object exposing a ``config`` dict
-            (jurisdiction config from YAML, or a stub with ``config`` set).
+        jurisdiction_config: Loaded jurisdiction YAML config dict
+            (as returned by ``config_loader.load_jurisdiction_config``).
+            May be empty; an empty dict is treated as "no rules configured"
+            and auto-passes.
 
     Returns:
         dict with keys including:
             passed, matched_keywords, matched_terms, matched_by_strength,
             blocked_terms, score, threshold, reason, auto_passed
     """
-    config = jurisdiction.config
-    rules = _load_keyword_rules(config)
+    rules = _load_keyword_rules(jurisdiction_config or {})
 
     if not rules:
         return {
