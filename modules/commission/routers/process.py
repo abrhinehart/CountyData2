@@ -129,11 +129,9 @@ def process_document(
         else jurisdiction_slug
     )
     if detected_slug:
-        juris_config = load_jurisdiction_config(detected_slug)
-        if juris_config:
-            needs_dedup = juris_config.get("scraping", {}).get(
-                "has_duplicate_page_bug", False
-            )
+        if provided_jurisdiction is not None:
+            juris_view = _wrap_jurisdiction(session, provided_jurisdiction)
+            needs_dedup = juris_view.has_duplicate_page_bug
 
     converter = DocumentConverter.for_format(file_format)
     result = converter.convert(file_path, deduplicate_pages=needs_dedup)
@@ -174,10 +172,18 @@ def process_document(
             )
             return
         detected_slug = jurisdiction_result["value"]
-        juris_config = load_jurisdiction_config(detected_slug)
-        if juris_config and juris_config.get("scraping", {}).get(
-            "has_duplicate_page_bug", False
-        ):
+        detected_juris = (
+            session.query(Jurisdiction)
+            .filter(
+                (Jurisdiction.slug == detected_slug)
+                | (Jurisdiction.name == detected_slug)
+            )
+            .first()
+        )
+        detected_view = (
+            _wrap_jurisdiction(session, detected_juris) if detected_juris else None
+        )
+        if detected_view and detected_view.has_duplicate_page_bug:
             if not needs_dedup:
                 result = converter.convert(file_path, deduplicate_pages=True)
                 document_text = result.text

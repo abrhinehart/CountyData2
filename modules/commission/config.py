@@ -19,8 +19,11 @@ PROJECT_ROOT = MODULE_ROOT.parents[1]
 DEFAULT_PDF_STORAGE_DIR = MODULE_ROOT / "downloaded_agendas"
 DEFAULT_CONFIG_DIR = MODULE_ROOT / "config"
 
-# Load env vars from the shared project .env if present
-load_dotenv(PROJECT_ROOT / ".env", override=False)
+# Load env vars from the shared project .env if present. override=True so
+# the .env file wins over a stale or empty shell export (e.g. a pre-set
+# ANTHROPIC_API_KEY="" from a previous session) — .env is the source of
+# truth for secrets in development.
+load_dotenv(PROJECT_ROOT / ".env", override=True)
 
 
 def _normalize_module_path(path_value, default_path: Path) -> str:

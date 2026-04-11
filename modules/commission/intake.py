@@ -266,6 +266,14 @@ def is_scrapable_jurisdiction(jurisdiction: JurisdictionView) -> bool:
 
 def build_scrape_config(jurisdiction: JurisdictionView) -> dict:
     config = dict(jurisdiction.config) if jurisdiction.config else {}
+    # Merge nested scraping.* fields (category_id, civicclerk_subdomain,
+    # legistar_client, body_names, etc.) into the top level. Scrapers read
+    # these at the top level of the config dict, but the YAML seed stores
+    # them nested under `scraping:` and the seed loader preserves that
+    # nesting in config_json.
+    scraping = config.get("scraping") or {}
+    for key, value in scraping.items():
+        config.setdefault(key, value)
     config["base_url"] = jurisdiction.agenda_source_url
     if "agenda_category_id" in config and "category_id" not in config:
         config["category_id"] = config["agenda_category_id"]

@@ -203,7 +203,7 @@ The Pasco P&Z follow-up triad (2026-04-10) advanced the CR validation surface th
 
 ### Entry 7: CR jurisdiction config nested-YAML drift
 
-- **Status**: `latent` (workaround in Executor driver; module code unfixed)
+- **Status**: `fixed` (in-module fix landed 2026-04-11 in the Entry 7/8 scheduled fix triad; live exercise evidence stands from the Panama City CC first-ingest triad whose workaround dict matched the fix's output)
 - **Category**: CR intake/router drift — nested YAML config fields not surfaced via helper or DB path
 - **First observed**: 2026-04-10, Panama City CC, CR first-ingest triad (Planner research phase)
 
@@ -218,8 +218,8 @@ CR's port from the standalone Commission Radar app retained two access patterns 
 Both sites assume the YAML is the source of truth, but post-unification `cr_jurisdiction_config` is intended to be the DB-backed source of truth with YAML as the seed input. Verified live during Planner research: `build_scrape_config(juris).get("category_id")` returns `None` for `panama-city-cc` despite the YAML storing `scraping.category_id: 1`.
 
 **Seen in**
-- `modules/commission/intake.py:267-272` — **latent (fired this run, worked around)** — `build_scrape_config` does not descend into `scraping.category_id`. Panama City CC triad used a manual scrape_config dict workaround in the Executor driver: `{"base_url": juris.agenda_source_url, "category_id": 1}` — bypasses the helper entirely, no module code modified. If the helper is called directly from the FastAPI `scrape` router (e.g., via the UI), it will silently return zero documents for any jurisdiction whose YAML stores `category_id` nested.
-- `modules/commission/routers/process.py:135,179` — **latent (did not fire this run)** — `has_duplicate_page_bug` is read YAML-only. For Panama City CC both DB and YAML agree (`TRUE`/`true`), so the dedup path DID fire correctly on the 2026-04-10 run. But a jurisdiction with DB=true/YAML=missing would silently skip dedup. Fire condition is any jurisdiction where the YAML was not updated after the DB was.
+- `modules/commission/intake.py:267-281` — **fixed 2026-04-11** — `build_scrape_config` now merges all nested `scraping.*` fields into the top level via `scraping = config.get("scraping") or {}; for key, value in scraping.items(): config.setdefault(key, value)`, preserving any pre-existing top-level keys. The legacy `agenda_category_id → category_id` alias is kept as a fallback. Fix applied 2026-04-11 in the Entry 7/8 scheduled fix triad. Offline probes: (a) Panama City CC-shaped config returns `category_id=1`, (b) legistar-shaped config returns `legistar_client="brevardfl"` and `body_names=["Planning & Zoning"]`, (c) legacy `agenda_category_id` alias still fires when no nested `scraping.category_id` is present. The Panama City CC triad's manual `{"base_url": juris.agenda_source_url, "category_id": 1}` driver workaround in `tmp/run_cr_panama_city_cc.py` is now redundant and should be removed on the next touch of that driver (left intact by this triad per scope). The audit also confirmed that `civicclerk_subdomain`, `legistar_client`, and `body_names` were silently dropped the same way — they are now all surfaced, closing the latent breakage for civicclerk and legistar jurisdictions that would have fired on their first ingest.
+- `modules/commission/routers/process.py:131-134,174-187` — **fixed 2026-04-11** — both `has_duplicate_page_bug` reads now wrap the resolved `Jurisdiction` row into a `JurisdictionView` via the already-imported `_wrap_jurisdiction` helper and read `view.has_duplicate_page_bug` (DB-backed via `cr_jurisdiction_config`). The override branch reuses `provided_jurisdiction`; the auto-detect branch does a small `session.query(Jurisdiction).filter(slug|name)` lookup before wrapping. The YAML-backed `load_jurisdiction_config(slug).get("scraping", {}).get("has_duplicate_page_bug", False)` path is gone at both sites. Live DB probe confirmed the fix reads correctly: Panama City CC returns `True` and Pasco County P&Z returns `False`, matching the `cr_jurisdiction_config` rows. Panama City CC's DB and YAML already agreed (`true`/`true`), so this fix is behavior-preserving for the Panama City CC 2026-04-10 live run — the drift risk for any future jurisdiction where DB and YAML disagree is closed. Fix applied 2026-04-11 in the Entry 7/8 scheduled fix triad. Planner note: the quirks doc's original "use the already-resolved JurisdictionView that process_document holds in scope" was aspirational — no JurisdictionView is in scope at these sites, so the fix constructs one on the fly via the already-imported `_wrap_jurisdiction` helper.
 
 **Fix pattern**
 Two fixes needed, both surgical:
@@ -241,9 +241,11 @@ Two fixes needed, both surgical:
 
 Follow-up triad should audit all other `load_jurisdiction_config(...).get("scraping", {}).get(...)` sites in `modules/commission/` — there may be additional fields with the same YAML-only pattern that will silently drift the first time the DB and YAML disagree.
 
+Follow-up note (2026-04-11): the audit for other `load_jurisdiction_config(...).get("scraping", {}).get(...)` sites was deferred from this triad. One known site remains at `routers/process.py:391` where the step-3 keyword filter still reads `load_jurisdiction_config(juris.slug)` — this is intentionally out of scope for the Entry 7 fix because the keyword filter also relies on `_apply_defaults` merging Florida-default keyword lists into the YAML config (see Entry 9 secondary note), and that merge path does not exist in the DB-backed `CrJurisdictionConfig.config_json`. Migrating the keyword filter to DB-first would require porting the defaults-merge logic first — tracked as follow-up tech debt.
+
 ### Entry 8: CR `.env` loading drift — `load_dotenv(override=False)` vs shell-shadowed empty key
 
-- **Status**: `latent` (workaround in Executor driver; module code unfixed)
+- **Status**: `fixed` (in-module fix landed 2026-04-11 in the Entry 7/8 scheduled fix triad; Option A selected — `override=True`)
 - **Category**: Environment loading — empty pre-existing shell var shadows `.env` file
 - **First observed**: 2026-04-10, Panama City CC, CR first-ingest triad (Executor pre-flight phase)
 
@@ -256,7 +258,7 @@ User correctly adds `ANTHROPIC_API_KEY=sk-ant-...` (len=108) to `C:\Users\abrhi\
 Verified live during Planner research: the planning-shell `env` command showed `ANTHROPIC_API_KEY=""` (empty) pre-set alongside `ANTHROPIC_BASE_URL=https://api.anthropic.com`. After loading `.env` with `override=True`, the key became a valid 108-char `sk-ant-api...` string.
 
 **Seen in**
-- `modules/commission/config.py:23` — **latent (fired this run, worked around)** — `load_dotenv(PROJECT_ROOT / ".env", override=False)`. Panama City CC triad worked around it in the Executor driver by calling `load_dotenv(PROJECT_ROOT / ".env", override=True)` BEFORE any `modules.commission.*` import. No module code modified.
+- `modules/commission/config.py:26` — **fixed 2026-04-11** — `load_dotenv(PROJECT_ROOT / ".env", override=True)`. Selected Option A from the Fix pattern (one-word flip of `override=False` → `override=True`). Rationale: the `.env` file is the source of truth for secrets in development; a stale or empty shell export (e.g. `ANTHROPIC_API_KEY=""` left over from a prior session) should not shadow the file value. Option B as originally described in this entry ("change the check at `config.py:48`") didn't cleanly map onto the actual code — `get_anthropic_api_key` at lines 39-47 already does a strip-and-nullify on the env value; the problem is on the LOAD side, not the READ side. Line shift from `config.py:23` → `config.py:26` is from a 3-line explanatory comment added above the call. Fix applied 2026-04-11 in the Entry 7/8 scheduled fix triad. The early `load_dotenv(PROJECT_ROOT / ".env", override=True)` workaround in `tmp/run_cr_pasco_pz.py` (and similar in `tmp/run_cr_panama_city_cc.py`) is now redundant with the in-module fix and is harmless (load_dotenv is idempotent); left intact by this triad per scope.
 
 **Fix pattern**
 Change the `override=False` to `override=True` in `modules/commission/config.py:23`. Rationale: `.env` is intended to be the source of truth for secrets in development; silent override by a stale shell value is a footgun. Any deployment that legitimately needs to override `.env` from the parent environment (e.g., Docker secrets, CI variables) should set a non-empty value in the parent environment — an empty string is never a legitimate override case.
@@ -264,6 +266,8 @@ Change the `override=False` to `override=True` in `modules/commission/config.py:
 Alternative (broader fix): change the check at `config.py:48` from "is it set?" to "is it set and non-empty?" so an empty-string environment variable falls through to the `.env` lookup. This is safer than just flipping `override=True` because it handles both the shell-shadow case AND any deployment that pre-sets empty strings.
 
 Follow-up triad should also audit `shared/database.py` and other modules' `.env` loading paths for the same pattern — if BI, PT, or sales use `load_dotenv(override=False)` and the same shell-shadow pattern could affect their credentials loading, the fix belongs in the shared bootstrap rather than per-module.
+
+Follow-up note (2026-04-11): the broader audit of `shared/database.py` and other modules' `.env` loading paths for the same `load_dotenv(override=False)` pattern is deferred from this triad — the CR-module fix unblocks CR ingest, and the cross-module audit should run as a separate mini-triad because it touches BI/PT/sales bootstrap.
 
 ### Entry 9: CR extractor tool schema rejected by Anthropic API (step 4 drift)
 
