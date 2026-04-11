@@ -191,7 +191,7 @@ Expected/intentional behavior of the keyword filter — step 3 correctly rejects
 - `modules/commission/keyword_filter.py` — **validated (step 3)** — keyword filter correctly rejected the document as lacking development signals. Pipeline short-circuited as designed, wrote `processing_status='filtered_out'`. Also exercised 2026-04-10 on Pasco P&Z — 1 agenda filtered out (score 3/4, below threshold) and 2 agendas passed (score 23/4 and 29/4 on strong `rezoning` matches), confirming both pass and fail branches under the unified schema.
 - `modules/commission/extractor.py` — **fully validated 2026-04-10 (Entry 9 + Entry 10 both cleared)** — after dropping `"strict": True` from the tool spec, Pasco P&Z Agenda_2026-04-09_1879.pdf ran cleanly through Claude extraction: request accepted, 7 items returned, `_validate_items` enforced value sets, 7 items remained after threshold filter. First successful step-4 run under the unified schema.
 - `modules/commission/threshold_filter.py` — **validated 2026-04-10** — step 5 exercised on Pasco P&Z Agenda_2026-04-09_1879.pdf: 7 of 7 items passed filters. First live run under the unified schema.
-- `modules/commission/packet_fetcher.py:307-358` — **validated (civicclerk early-return branch) 2026-04-10** — Pasco P&Z (civicclerk) ran cleanly through the non-civicplus early-return branch of `merge_html_fields_into_items`, no crash. The civicplus branch (packet enrichment proper) remains NOT EXERCISED — still needs a civicplus jurisdiction with above-threshold items.
+- `modules/commission/packet_fetcher.py:307-358` — **validated (both branches) 2026-04-11** — civicclerk early-return branch validated 2026-04-10 on Pasco P&Z. Civicplus enrichment branch validated 2026-04-11 via `tmp/run_cr_civicplus_packet.py` against Panama City Planning Board (id=79, civicplus, planning_board), exercising both `Agenda_03092026-847.pdf` and `Agenda_02092026-837.pdf`. The function entered past all three early returns at lines 323-328, walked extracted items, called `parse_item_fields_from_html` per item, located matching `div.item` blocks via `_find_matching_item`, and parsed `.desc` structured fields. Live runs reported `enriched_count=0` for both agendas because the LLM extractor had already populated every FIELD_MAP slot (`acreage`, `applicant_name`, `address`, `parcel_ids`) before merge ran — `filled_any` correctly stayed False under the "never overwrite LLM data" rule. Strict positive evidence captured via offline probe with all FIELD_MAP fields nulled: against the Feb 9 agenda (`source_doc.id=9`, case `CPC-PLN-2026-0176`), `parse_item_fields_from_html` returned `{'acreage': 2.324, 'applicant_name': 'Robert Carroll', 'address': '218 BUNKERS COVE ROAD', 'owner': 'ST. ANDREW BAY YACHT CLUB'}` from 7 parsed `.desc` keys (`application type`, `owner`, `applicant`, `address/location`, `acreage (+/-)`, `planning board public hearing date`, `city commission public hearing date (s)`) — proving the parser, the matcher, the field map, and the merge loop all work end-to-end. The civicplus branch is no longer NOT EXERCISED — Entry 6's CR acceptance surface is FULLY CLOSED. Execution log preserved at `cr_civicplus_packet.log`. **Caveat**: a separate parser-fragility drift class was surfaced by the Mar 9 agenda (`source_doc.id=8`, cases `CPC-PLN-2026-0626` / `0633`) where `_parse_desc_fields` returns 0 keys despite a matching `div.item` and present `.desc` block — see new Entry 11.
 - `modules/commission/record_inserter.py:382-390` — **validated 2026-04-10** — the Entry 1 reference pattern is now live-validated for CR: 6 subdivisions created with `county='Pasco'` populated (ids 55042-55047), 7 `cr_entitlement_actions` rows inserted, no NotNullViolation. First live validation of the CR `record_inserter` under the unified schema.
 - `modules/commission/matcher.py` — **validated 2026-04-10** — step 7 exercised on Pasco P&Z: 0 agenda-minutes links created (no matching minutes document in the batch), but the matcher path ran cleanly without error.
 - `modules/commission/lifecycle.py` — **validated 2026-04-10** — step 8 exercised on Pasco P&Z: 6 projects had lifecycle updated; 4 of 6 landed with `lifecycle_stage='planning_board'`. First live run under the unified schema.
@@ -402,3 +402,76 @@ Three possible approaches; all require follow-up research before the Executor co
 **Preferred**: Option 1 (drop `strict: True`) for the follow-up triad, because it is surgical, reversible, and does not change the extraction model. Confirm on the follow-up run that `_validate_items` catches any malformed output the model emits without the strict gate.
 
 The follow-up triad should also grep `modules/commission/` and `modules/permits/` for any other `"strict": True` tool-use flags (`Grep '"strict".*True' modules/`) — this drift class may exist elsewhere. The CR port is the only known site so far.
+
+### Entry 11: CR `_parse_desc_fields` fragile to bare-text-after-strong CivicPlus content shape
+
+- **Status**: `open` (surfaced by validation triad 2026-04-11; civicplus packet-enrichment validation followup to Entry 6)
+- **Category**: Commission Radar port drift — HTML parser assumes a structural pattern the source content does not always emit
+- **First observed**: 2026-04-11, Panama City Planning Board, civicplus packet-enrichment validation triad
+
+**Symptom**
+For some CivicPlus planning-board agendas, `merge_html_fields_into_items` enters past all three early returns, finds the matching `div.item` for an LLM-extracted case_number, finds a present `.desc` block with content visible to the eye — but `_parse_desc_fields` returns 0 keys, and the merge loop produces 0 enrichments. The pipeline does not crash; the failure is silent and the enrichment opportunity is lost. Confirmed for Panama City Planning Board `Agenda_03092026-847.pdf` (`source_doc.id=8`, cases `CPC-PLN-2026-0626` "SweetBay Town Center" and `CPC-PLN-2026-0633` "230 McKENZIE AVE"). The same jurisdiction's prior month agenda `Agenda_02092026-837.pdf` (`source_doc.id=9`, case `CPC-PLN-2026-0176` "218 BUNKERS COVE ROAD") parses correctly with 7 keys returned, proving the parser works on the expected shape — the drift is per-paragraph content-authoring variance, not a jurisdiction-wide issue.
+
+**Root cause**
+`_parse_desc_fields` at `modules/commission/packet_fetcher.py:146-169` assumes the CivicPlus admin tool produces structured HTML in this shape:
+```html
+<p><strong><span>Label:</span></strong><span>Value</span></p>
+```
+The parser walks each `<p>` inside `.desc`, calls `strong.find_next_sibling("span")` to locate the value, and falls back to `p.find_all("span")[1]` if no sibling span is found. **Both lookups fail when the value is a NavigableString text node directly after `</strong>` instead of being wrapped in a `<span>`.** Verified live at `Agenda_03092026-847.pdf`:
+```html
+<p data-pasted="true"><strong>Application Type</strong>: Conceptual Plan</p>
+<p><strong>Owner:&nbsp;</strong>SWEETBAY TOWNCENTER PH 1, LLC</p>
+<p><strong>Applicant:&nbsp;</strong>Richard Pfuntner, Dewberry Engineers, Inc.</p>
+```
+For each `<p>`: `strong.find_next_sibling("span")` returns None (no span sibling), and `p.find_all("span")` returns `[]` (zero spans inside the `<p>`). The parser silently `continue`s on every paragraph, returning `{}`.
+
+The CivicPlus admin tool appears to support both shapes interchangeably depending on how the content was authored — paste-from-Word vs. native-typed produce different HTML. The Feb 9 agenda (matching shape) has `data-pasted="true"` AND span-wrapped values; the Mar 9 agenda has `data-pasted="true"` AND bare text after `</strong>`. So the `data-pasted` attribute is not the determinant — it is per-paragraph content-authoring variance the original parser was never tested against under the unified schema.
+
+**Seen in**
+- `modules/commission/packet_fetcher.py:146-169` — **open** — `_parse_desc_fields` returns `{}` when value text is a bare NavigableString after `</strong>`. Surfaced by `tmp/run_cr_civicplus_packet.py` against Panama City Planning Board `Agenda_03092026-847.pdf` (cases `CPC-PLN-2026-0626` and `CPC-PLN-2026-0633`). Execution log at `cr_civicplus_packet.log`. Driver did NOT work around this — the validation outcome stands as "branch entered, parser fragile" rather than "branch broken." The Feb 9 agenda from the same jurisdiction parses correctly and confirms the parser's happy-path works.
+- `modules/commission/packet_fetcher.py:307-358` — see also Entry 6's `packet_fetcher.py:307-358` bullet which now references this entry as a caveat to its "FULLY CLOSED" status.
+
+**Fix pattern** (deferred to a separate fix triad — validation triad scope)
+Extend `_parse_desc_fields` to handle the bare-text shape by reading the text content of the `<p>` after the `<strong>` element when no value-span is found. Rough shape:
+```python
+def _parse_desc_fields(desc_div):
+    fields = {}
+    for p_tag in desc_div.find_all("p"):
+        strong = p_tag.find("strong")
+        if not strong:
+            continue
+        label = strong.get_text().strip().rstrip(":")
+
+        # Try sibling span first (legacy structured shape)
+        value_span = strong.find_next_sibling("span")
+        if value_span:
+            value = value_span.get_text().strip()
+        else:
+            # Try second span inside the <p>
+            all_spans = p_tag.find_all("span")
+            if len(all_spans) > 1:
+                value = all_spans[1].get_text().strip()
+            else:
+                # NEW: bare-text-after-strong shape — read remaining text
+                # of the <p> after the <strong>, stripped of the strong's
+                # own text and any leading colon/whitespace.
+                full_text = p_tag.get_text()
+                strong_text = strong.get_text()
+                idx = full_text.find(strong_text)
+                if idx >= 0:
+                    value = full_text[idx + len(strong_text):].lstrip(": \xa0").strip()
+                else:
+                    continue
+        if value:
+            fields[label.lower()] = value
+    return fields
+```
+Test against both Mar 9 (bare-text shape) and Feb 9 (span-wrapped shape) agendas to confirm both branches still parse correctly. Add a unit test capturing both HTML shapes as fixtures.
+
+Alternative (broader, more invasive): switch the entire `_parse_desc_fields` implementation to a "split on `</strong>` per `<p>`" approach using BeautifulSoup `Tag.contents` walking, treating any `<strong>` followed by anything as a label/value pair. Lower risk of future drift but a larger diff.
+
+**Why not fixed in this triad**
+Validation-triad discipline: the goal of the 2026-04-11 civicplus packet-enrichment triad was to exercise the civicplus branch end-to-end and surface drift. Drift was found and documented; fixing it is the next triad's job. The Mar 9 agenda's two affected actions (`SweetBay Town Center`, `230 McKENZIE AVE`) were already populated with `address`, `applicant_name`, `acreage`, and `parcel_ids` by the LLM extractor during the validation run, so the immediate data-quality impact of this drift is bounded — packet_fetcher's role is fallback enrichment, and the LLM was thorough enough to make that fallback unnecessary on this particular agenda. Fix priority is therefore "moderate" — real, silent, but not data-blocking under typical conditions.
+
+**Follow-up note**
+Once the fix lands, re-run `tmp/run_cr_civicplus_packet.py` against the Mar 9 agenda (will require deleting `cr_source_documents` row id=8 first since the duplicate-check will skip it otherwise), and verify the strict acceptance criterion (`enriched_count >= 1`) is met. With the fix in place, the merge loop should still return 0 because LLM fields are pre-populated — to actually exercise the fix's effect end-to-end, the test needs an offline probe like the one this triad used in the planner-research phase, which blanks all FIELD_MAP slots before calling `merge_html_fields_into_items`. The probe code lives in the Executor's session log and can be lifted into a permanent test fixture if desired.
