@@ -144,14 +144,18 @@ def _build_extraction_item_schema():
                 "enum": sorted(APPROVAL_TYPES),
             },
             "outcome": {
-                "type": ["string", "null"],
-                "enum": sorted(v for v in OUTCOME_VALUES if v is not None) + [None],
+                "anyOf": [
+                    {"type": "string", "enum": sorted(v for v in OUTCOME_VALUES if v is not None)},
+                    {"type": "null"},
+                ],
             },
             "vote_detail": _nullable_string_schema(),
             "conditions": _nullable_string_schema(),
             "reading_number": {
-                "type": ["string", "null"],
-                "enum": ["first", "second_final", None],
+                "anyOf": [
+                    {"type": "string", "enum": ["first", "second_final"]},
+                    {"type": "null"},
+                ],
             },
             "scheduled_first_reading_date": _nullable_string_schema(),
             "scheduled_final_reading_date": _nullable_string_schema(),
@@ -172,8 +176,10 @@ def _build_extraction_item_schema():
             "review_notes": _nullable_string_schema(),
             "commissioner_votes": {"type": "array", "items": _build_commissioner_vote_schema()},
             "land_use_scale": {
-                "type": ["string", "null"],
-                "enum": ["small_scale", "large_scale", None],
+                "anyOf": [
+                    {"type": "string", "enum": ["small_scale", "large_scale"]},
+                    {"type": "null"},
+                ],
             },
             "action_requested": _nullable_string_schema(),
         },
@@ -199,7 +205,6 @@ EXTRACTION_TOOL = {
         },
         "required": ["items"],
     },
-    "strict": True,
 }
 
 EXTRACTION_TOOL_CHOICE = {
