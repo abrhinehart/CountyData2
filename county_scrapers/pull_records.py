@@ -20,9 +20,14 @@ from calendar import monthrange
 from datetime import date, timedelta
 
 from dotenv import load_dotenv
-
-load_dotenv()
 from pathlib import Path
+
+# Load env vars from the project .env. override=True so the .env file wins
+# over a stale or empty shell export (e.g. a pre-set MADISON_PORTAL_EMAIL=""
+# from a previous session) — .env is the source of truth for secrets in
+# development.
+_PROJECT_ROOT = Path(__file__).resolve().parents[1]
+load_dotenv(_PROJECT_ROOT / ".env", override=True)
 
 import yaml
 
