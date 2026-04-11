@@ -58,7 +58,7 @@ Alternative (**not recommended without cross-module review**): relax the NOT NUL
 
 ### Entry 2: Snapshot summary_text off-by-one from ORM flush timing
 
-- **Status**: `cosmetic` (not yet reproduced conclusively; fix not applied)
+- **Status**: `fixed` (in-module fix landed 2026-04-11 in the BI snapshot_runner fix triad; the surgical `db.flush()` option was selected)
 - **Category**: ORM timing assumption — re-query before flush
 - **First observed**: 2026-04-10, Bay County FL, BI snapshot triad
 
@@ -69,7 +69,7 @@ The stored `bi_snapshots.summary_text` is off by one from the live DB for the sa
 `_build_summary_text` (at `modules/inventory/services/snapshot_runner.py:155-207`) re-queries the DB at the end of a snapshot run to build the human-readable change summary. It joins `BiParcelSnapshot` → `Parcel` → `Builder` and groups by builder + change_type. The most likely explanation is that SQLAlchemy had not flushed all pending INSERTs to Postgres at the moment the query ran, so one row was still sitting in the session's identity map and never made it into the aggregate. Has not been conclusively reproduced — it may also be the case that one parcel had a NULL `builder_id` at query time and was dropped by the inner join, then got its `builder_id` populated by a later step before the one-minute-later re-check. Either way, this is a class of "re-query assumed to see everything the current session just wrote" bug, which probably exists in other ported code.
 
 **Seen in**
-- `modules/inventory/services/snapshot_runner.py:155-207` — **monitored** — `_build_summary_text` function; the re-query is at lines 162-173. Fix not yet applied.
+- `modules/inventory/services/snapshot_runner.py:161-213` — **fixed 2026-04-11** — `_build_summary_text` now calls `db.flush()` immediately before the `.query(...)` re-query so SQLAlchemy materializes all pending `BiParcelSnapshot` INSERTs before the aggregate runs. Selected Option 2 from the Fix pattern (the surgical one-liner; preserves the DB-query shape and avoids the broader refactor to in-memory counters). Line shift from the original 155-207 / 162-173 anchors is from the Entry 1 fix threading `county_name` through `_resolve_subdivision` (+6 lines above this function). Fix applied 2026-04-11 in the BI snapshot_runner fix triad. An explanatory comment was added above the flush call naming Entry 2 so a future maintainer doesn't strip it as dead code. No live reproduction was required — the bug mode is documented, the one-line fix is self-evident from SQLAlchemy session semantics, and the broader "re-query assumed to see everything the current session just wrote" audit suggested in the original Fix pattern is deferred to a follow-up triad (tracked as latent tech debt; no known offender in `modules/permits/` or `modules/commission/` as of this writing).
 
 **Fix pattern** (not yet applied; documented for future work)
 Two options, either acceptable:
@@ -79,9 +79,11 @@ Two options, either acceptable:
 
 Whichever is chosen, **also grep the rest of `modules/inventory/` and `modules/permits/` for other "re-query to build summary" patterns** — the same assumption likely exists in other ported code paths where a function re-queries data the same transaction just wrote.
 
+Follow-up note (2026-04-11): Option 2 (`db.flush()` before the re-query) was selected in the BI snapshot_runner fix triad. Option 1 (in-memory counters) was rejected as out of scope for a surgical fix — it would have required plumbing per-builder tallies through the new/removed/changed branches of `run_snapshot` and removing the Builder join from `_build_summary_text`, which is a refactor rather than a fix. The cross-module "re-query before flush" audit remains open as latent tech debt and is not expected to surface elsewhere soon (a grep of `modules/inventory/` and `modules/permits/` for `.query(` inside the same function that `db.add()`s rows found no other obvious offenders, but the audit was not exhaustive).
+
 ### Entry 3: Invalid source geometry accepted silently
 
-- **Status**: `source-data` (tech-debt category; not unification drift)
+- **Status**: `fixed` (in-module fix landed 2026-04-11 in the BI snapshot_runner fix triad; Option 1 selected — writer-side `make_valid` heal)
 - **Category**: Source-data quality — writer does not validate GIS polygons
 - **First observed**: 2026-04-10, Bay County FL, BI snapshot triad
 
@@ -92,7 +94,7 @@ After a BI snapshot, `ST_IsValid(geom)` returns false for one or more `parcels.g
 **This is not a unification bug.** The county's source GIS layer served an invalid polygon — the ring self-intersected in the source data. `_geojson_to_wkb` in `modules/inventory/services/snapshot_runner.py:32-45` calls `shapely.geometry.shape(geojson_dict)`, normalizes Polygon → MultiPolygon, and hands the WKB to PostGIS with **no validation step**. Any county with imperfect source GIS will produce invalid parcels at approximately the same low rate (1 in ~2k for Bay). This is tech-debt category — it will keep happening — and the fix belongs in the writer, not in any individual county onboarding.
 
 **Seen in**
-- `modules/inventory/services/snapshot_runner.py:32-45` — **monitored** — `_geojson_to_wkb` accepts whatever shapely produces and returns WKB. No `ST_IsValid` / `ST_MakeValid` / `buffer(0)` pass.
+- `modules/inventory/services/snapshot_runner.py:32-62` — **fixed 2026-04-11** — `_geojson_to_wkb` now checks `geom.is_valid` and runs `shapely.validation.make_valid(geom)` when the source polygon is invalid, before the Polygon → MultiPolygon normalization. Selected Option 1 from the Fix pattern (heal silently in the writer). The fix also handles the `make_valid` edge case where a self-intersecting polygon heals into a `GeometryCollection` containing degenerate LineString/Point parts alongside the real Polygon(s) — only the areal parts are kept, and the collection is reconstructed as a `MultiPolygon` so it matches the `parcels.geom` column's `MULTIPOLYGON` geometry-type constraint. `shapely.validation.make_valid` is available in the project's installed shapely 2.1.2; no 1.x `buffer(0)` fallback was needed. Unit tests live at `tests/test_snapshot_runner_geom.py` and cover: valid polygon happy path, self-intersecting bowtie healed to valid MultiPolygon with expected area 0.5, valid MultiPolygon passthrough (regression guard for existing normalization), polygon-with-spike non-crash path, and empty-input contract. Fix applied 2026-04-11 in the BI snapshot_runner fix triad. Acceptance evidence: 5/5 unit tests pass; import smoke clean; no live county re-run required because the bowtie unit test exercises the exact drift class that Bay FL's `07384-109-000` parcel surfaced on 2026-04-10.
 
 **Fix pattern** (not yet applied; documented for future work)
 Add a validity check at write time. Two acceptable approaches:
@@ -101,6 +103,8 @@ Add a validity check at write time. Two acceptable approaches:
 2. **Flag for manual review**: add an `is_valid BOOLEAN` column to `parcels` (or reuse an existing `geom_issue` text column if one exists), populate it with the shapely `is_valid` result, and skip invalid rows from downstream spatial joins until a human reviews them.
 
 **Importantly for the next porter**: if you see spurious spatial-query failures, do NOT chase this as a CRS bug, a migration bug, or a shapely version bug. Run `SELECT parcel_id, ST_IsValid(geom), ST_IsValidReason(geom) FROM parcels WHERE NOT ST_IsValid(geom)` first. Invalid source polygons are expected at a low rate on every county; the fix is writer-side, not onboarding-side. (QA initially flagged the Bay FL case as suspicious, traced it to source data in one query.)
+
+Follow-up note (2026-04-11): Option 1 (`make_valid` in the writer) was selected in the BI snapshot_runner fix triad. Option 2 (add an `is_valid BOOLEAN` column to `parcels` and flag for manual review) was rejected as out of scope for a surgical fix — it would have required a new migration, a backfill, and downstream spatial-join filter updates. Bay FL's one invalid parcel (`07384-109-000`, ring self-intersection at -85.515, 30.128) is the drift case the bowtie unit test reproduces; running the fixed `_geojson_to_wkb` on the same GeoJSON now returns a valid MultiPolygon instead of the PostGIS-invalid row. No backfill of the pre-existing invalid `parcels.geom` row was done in this triad — the fix applies going forward; a one-off `UPDATE parcels SET geom = ST_MakeValid(geom) WHERE NOT ST_IsValid(geom)` is tracked as a separate cleanup item out of scope.
 
 ### Entry 4: PT first-real-scrape clean run (schema adaptation only)
 

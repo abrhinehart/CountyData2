@@ -6,7 +6,8 @@ import time
 from datetime import datetime, timezone
 
 from geoalchemy2.shape import from_shape
-from shapely.geometry import MultiPolygon, Polygon, shape
+from shapely.geometry import GeometryCollection, MultiPolygon, Polygon, shape
+from shapely.validation import make_valid
 from sqlalchemy.orm import Session
 
 from modules.inventory.models import (
@@ -35,6 +36,24 @@ def _geojson_to_wkb(geojson_dict: dict | None):
         return None, None
     try:
         geom = shape(geojson_dict)
+        # Heal invalid source geometry (ring self-intersections, etc.) before
+        # handing WKB to PostGIS. County GIS layers occasionally serve invalid
+        # polygons at a low rate; without this, ST_IsValid fails downstream
+        # and spatial joins misbehave (post-merge-quirks.md Entry 3).
+        if not geom.is_valid:
+            geom = make_valid(geom)
+        # make_valid can return a GeometryCollection containing degenerate
+        # LineString/Point parts alongside the real Polygon(s). Keep only the
+        # areal parts so the normalized MultiPolygon below stays well-formed
+        # and matches the parcels.geom MULTIPOLYGON column constraint.
+        if isinstance(geom, GeometryCollection):
+            polys = [g for g in geom.geoms if isinstance(g, (Polygon, MultiPolygon))]
+            if not polys:
+                logger.warning("Geometry healed to non-areal parts only; dropping")
+                return None, None
+            geom = MultiPolygon(
+                [p for g in polys for p in (g.geoms if isinstance(g, MultiPolygon) else [g])]
+            )
         # Normalize to MultiPolygon for consistent storage
         if isinstance(geom, Polygon):
             geom = MultiPolygon([geom])
@@ -164,6 +183,12 @@ def _build_summary_text(county_name: str, snapshot_id: int, db: Session) -> str:
     Example: "Bay: +12 DR Horton, -3 Adams Homes, 2 changed Lennar"
     """
     from sqlalchemy import func
+
+    # Flush pending INSERTs so the re-query below sees every BiParcelSnapshot
+    # row this transaction just wrote. Without this, SQLAlchemy's identity map
+    # can hold unflushed rows and the aggregate undercounts by 1+ per builder
+    # (post-merge-quirks.md Entry 2).
+    db.flush()
 
     rows = (
         db.query(
