@@ -1482,6 +1482,26 @@ def _ensure_subdivision_id(
 def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int:
     canonical_name = canonicalize_builder_name(raw_contractor_name)
     cur = conn.cursor()
+    # Primary: exact LOWER(TRIM) match against builders.canonical_name OR builder_aliases.alias.
+    # This closes the gap where builder_aliases already contains the correct variant but the
+    # legacy names_match fuzzy scan never consulted it (see post-merge-quirks.md Entry 5).
+    cur.execute(
+        """
+        SELECT b.id
+        FROM builders b
+        LEFT JOIN builder_aliases ba ON ba.builder_id = b.id
+        WHERE LOWER(TRIM(b.canonical_name)) = LOWER(TRIM(%s))
+           OR LOWER(TRIM(ba.alias)) = LOWER(TRIM(%s))
+        LIMIT 1
+        """,
+        (canonical_name, canonical_name),
+    )
+    row = cur.fetchone()
+    if row is not None:
+        cur.close()
+        return row[0]
+    # Fallback: existing SequenceMatcher fuzzy scan for names that canonicalize close-but-not-equal
+    # to an existing canonical_name (and have no matching alias row yet).
     cur.execute("SELECT id, canonical_name FROM builders ORDER BY canonical_name")
     existing = cur.fetchall()
     for builder in existing:
