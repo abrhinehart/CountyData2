@@ -1,5 +1,25 @@
 # Post-Merge Quirks
 
+> **ARCHIVED 2026-04-11 at tag `v2.0.0-unified-validated` (HEAD `cf1b62c`).**
+>
+> All 11 entries below are in `fixed` or `cleared` state. This document is now a **lessons-learned archive**, not an active drift ledger. **Do not append new entries here.**
+>
+> **Grep continuity is load-bearing — do not move, rename, or delete this file.** It is preserved at this exact path because 6 in-code references point at it by entry number:
+> - `modules/inventory/services/snapshot_runner.py` lines 42, 166, 190 (Entries 3, 1, 2)
+> - `modules/permits/services.py` line 1487 (Entry 5)
+> - `tests/test_packet_fetcher.py` line 3 (Entry 11)
+> - `tests/test_snapshot_runner_geom.py` line 3 (Entry 3)
+>
+> Plus doc cross-references from `docs/unification/phase{2,3,4}-handoff.md`.
+>
+> **Where new drift goes after v2.0.0:**
+> - **Per-county or per-portal drift** (a specific county's GIS quirks, a portal's ASP.NET ViewState behavior, state-level alias formatting) → `ONBOARDING-CHECKLIST.md` and the relevant `{STATE}-ONBOARDING.md` (`FL-ONBOARDING.md`, `AL-ONBOARDING.md`, `MS-ONBOARDING.md`), plus a `county-registry.yaml` entry.
+> - **Platform-wide drift** (shared spine, cross-module schema, FastAPI app factory, shared services) → create `docs/unification/post-v2-quirks.md` as a new ledger, but only once **three or more** such items have accumulated. A single in-code TODO or a commit message is sufficient below that threshold.
+>
+> **Freeze marker for LLMs and humans reading below this banner:** the content from here down is **frozen as of HEAD `cf1b62c`**. Any language in the introduction or in individual entries about this doc being "transient", about "appending new entries", or about "retirement criteria" is **historical** and no longer applies. Read for reference; do not edit in place.
+
+---
+
 A running log of quirks, drifts, and gotchas discovered while porting and operating the unified CountyData2 platform after the four-project merge (commit `346fb95`, 2026-04-10). This document is **transient**: it exists to help whoever ports the next module or onboards the next county skip the research phase on problems that have already been seen once.
 
 Each entry follows the same schema (Status, Category, First observed, Symptom, Root cause, Seen in, Fix pattern) so an LLM can scan the file mechanically and a human can skim it by eye. When you hit a new quirk, **just append a new entry to the bottom under `## Entries` using the same fields** — don't reorganize, don't sort, don't consolidate. If you fix one of the "latent" or "monitored" sites, update the `Seen in` bullet for that location rather than rewriting the entry.
