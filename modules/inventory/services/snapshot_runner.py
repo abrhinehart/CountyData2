@@ -138,14 +138,20 @@ def _compute_dimensions(geojson_dict: dict | None):
     return None, None, None
 
 
-def _resolve_subdivision(name: str, county_id: int, db: Session, cache: dict) -> int | None:
-    """Look up or auto-create a subdivision record. Returns subdivision_id."""
+def _resolve_subdivision(
+    name: str, county_id: int, county_name: str, db: Session, cache: dict
+) -> int | None:
+    """Look up or auto-create a subdivision record. Returns subdivision_id.
+
+    ``county_name`` is the legacy ``subdivisions.county`` TEXT NOT NULL column
+    that the shared spine still requires (see post-merge-quirks.md Entry 1).
+    """
     key = (name, county_id)
     if key in cache:
         return cache[key]
     sub = db.query(Subdivision).filter_by(name=name, county_id=county_id).first()
     if not sub:
-        sub = Subdivision(name=name, county_id=county_id)
+        sub = Subdivision(name=name, county_id=county_id, county=county_name)
         db.add(sub)
         db.flush()
         logger.info(f"Auto-created subdivision '{name}' for county {county_id}")
@@ -302,7 +308,9 @@ def run_snapshot(county_id: int, db: Session) -> dict:
 
             sub_id = None
             if parsed.subdivision_name:
-                sub_id = _resolve_subdivision(parsed.subdivision_name, county_id, db, subdivision_cache)
+                sub_id = _resolve_subdivision(
+                    parsed.subdivision_name, county_id, county.name, db, subdivision_cache
+                )
 
             parcel = Parcel(
                 parcel_number=parsed.parcel_number,
@@ -384,7 +392,7 @@ def run_snapshot(county_id: int, db: Session) -> dict:
             # Always update subdivision from GIS field if available
             if parsed.subdivision_name and not parcel.subdivision_id:
                 parcel.subdivision_id = _resolve_subdivision(
-                    parsed.subdivision_name, county_id, db, subdivision_cache
+                    parsed.subdivision_name, county_id, county.name, db, subdivision_cache
                 )
 
             # Always update value/deed fields (these change over time)

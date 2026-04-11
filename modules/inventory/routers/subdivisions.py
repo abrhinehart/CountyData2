@@ -152,7 +152,12 @@ def import_geojson(data: GeoJSONImportRequest, db: Session = Depends(get_db)):
             existing.geom = geom_wkb
             updated += 1
         else:
-            db.add(Subdivision(name=name, county_id=data.county_id, geom=geom_wkb))
+            db.add(Subdivision(
+                name=name,
+                county_id=data.county_id,
+                county=county.name,
+                geom=geom_wkb,
+            ))
             created += 1
 
     db.commit()
