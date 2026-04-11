@@ -4,6 +4,8 @@ import DashboardPage from "./pages/DashboardPage";
 import TransactionsPage from "./pages/TransactionsPage";
 import ReviewPage from "./pages/ReviewPage";
 import PipelinePage from "./pages/PipelinePage";
+import SubdivisionsPage from "./pages/SubdivisionsPage";
+import SubdivisionDetailPage from "./pages/SubdivisionDetailPage";
 
 export default function App() {
   return (
@@ -13,6 +15,8 @@ export default function App() {
         <Route path="transactions" element={<TransactionsPage />} />
         <Route path="review" element={<ReviewPage />} />
         <Route path="pipeline" element={<PipelinePage />} />
+        <Route path="subdivisions" element={<SubdivisionsPage />} />
+        <Route path="subdivisions/:id" element={<SubdivisionDetailPage />} />
       </Route>
     </Routes>
   );

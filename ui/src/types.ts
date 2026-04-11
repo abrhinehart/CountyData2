@@ -129,3 +129,80 @@ export interface TransactionFilters {
   sort_by?: string;
   sort_dir?: string;
 }
+
+export interface CommissionAction {
+  id: number;
+  approval_type: string;
+  case_number: string;
+  ordinance_number: string;
+  outcome: string;
+  meeting_date: string;
+  phase_name: string;
+  acreage: number | null;
+  lot_count: number | null;
+}
+
+export interface CommissionRosterDetail {
+  id: number;
+  name: string;
+  jurisdiction_name: string;
+  county: string;
+  entitlement_status: string;
+  lifecycle_stage: string;
+  lifecycle_stage_label: string;
+  last_action_date: string;
+  next_expected_action: string;
+  actions: CommissionAction[];
+}
+
+export interface PermitRow {
+  id: number;
+  permit_number: string;
+  address: string | null;
+  issue_date: string | null;
+  status: string | null;
+  permit_type: string | null;
+  valuation: number | null;
+  jurisdiction: string | null;
+  subdivision: string | null;
+  builder: string | null;
+}
+
+export interface PermitsResponse {
+  permits: PermitRow[];
+  count: number;
+  total_count: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
+
+export interface ParcelRow {
+  id: number;
+  parcel_number: string;
+  county: string | null;
+  entity: string | null;
+  subdivision: string | null;
+  owner_name: string | null;
+  site_address: string | null;
+  use_type: string | null;
+  acreage: number | null;
+  appraised_value: number | null;
+  parcel_class: string | null;
+}
+
+export interface ParcelPage {
+  items: ParcelRow[];
+  total: number;
+  page: number;
+  page_size: number;
+}
+
+export interface InventorySubdivisionOut {
+  id: number;
+  name: string;
+  county_id: number;
+  county_name: string;
+  has_geometry: boolean;
+  parcel_count: number;
+}

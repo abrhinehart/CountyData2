@@ -8,6 +8,10 @@ import type {
   Stats,
   ETLState,
   TransactionFilters,
+  CommissionRosterDetail,
+  PermitsResponse,
+  ParcelPage,
+  InventorySubdivisionOut,
 } from "./types";
 
 const BASE = "/api";
@@ -140,4 +144,49 @@ export async function exportReviewQueue(params: Record<string, unknown>): Promis
 
 export function downloadUrl(filename: string): string {
   return `${BASE}/export/download/${filename}`;
+}
+
+export async function getCommissionRoster(subdivisionId: number): Promise<CommissionRosterDetail> {
+  const res = await fetch(`${BASE}/commission/roster/${subdivisionId}`);
+  if (res.status === 404) {
+    return {
+      id: subdivisionId,
+      name: "",
+      jurisdiction_name: "",
+      county: "",
+      entitlement_status: "",
+      lifecycle_stage: "",
+      lifecycle_stage_label: "",
+      last_action_date: "",
+      next_expected_action: "",
+      actions: [],
+    };
+  }
+  return checked(res);
+}
+
+export async function getPermitsBySubdivision(subdivisionId: number): Promise<PermitsResponse> {
+  return checked(
+    await fetch(`${BASE}/permits/permits${qs({ subdivision_id: subdivisionId, page_size: 25, sort: "issue_date_desc" })}`)
+  );
+}
+
+export async function getParcelsBySubdivision(subdivisionId: number): Promise<ParcelPage> {
+  return checked(
+    await fetch(`${BASE}/inventory/parcels${qs({ subdivision_id: subdivisionId, page_size: 25, sort: "last_changed", order: "desc" })}`)
+  );
+}
+
+export async function getSalesBySubdivision(
+  canonicalName: string
+): Promise<PaginatedResponse<Transaction>> {
+  return checked(
+    await fetch(`${BASE}/transactions${qs({ subdivision: canonicalName, page_size: 25, sort_by: "date", sort_dir: "desc" })}`)
+  );
+}
+
+export async function searchInventorySubdivisions(
+  params: { search?: string; county_id?: number }
+): Promise<InventorySubdivisionOut[]> {
+  return checked(await fetch(`${BASE}/inventory/subdivisions${qs(params)}`));
 }
