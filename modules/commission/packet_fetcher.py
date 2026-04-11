@@ -146,8 +146,15 @@ def _find_matching_item(soup, terms):
 def _parse_desc_fields(desc_div):
     """Parse structured label/value pairs from a CivicPlus desc div.
 
-    Planning board agendas have structured HTML like:
-        <p><strong><span>Label:</span></strong><span>Value</span></p>
+    Planning board agendas have two interchangeable shapes the CivicPlus
+    admin tool emits depending on how the paragraph was authored:
+
+        span-wrapped (paste-from-Word legacy shape):
+            <p><strong><span>Label:</span></strong><span>Value</span></p>
+
+        bare-text-after-strong (native-typed or pasted-then-edited shape):
+            <p><strong>Label:&nbsp;</strong>Value</p>
+            <p data-pasted="true"><strong>Label</strong>: Value</p>
 
     Returns dict of lowercase label → value string.
     """
@@ -157,13 +164,30 @@ def _parse_desc_fields(desc_div):
         if not strong:
             continue
         label = strong.get_text().strip().rstrip(":")
+
+        # Try sibling span first (legacy span-wrapped shape).
         value_span = strong.find_next_sibling("span")
-        if not value_span:
+        if value_span:
+            value = value_span.get_text().strip()
+        else:
+            # Try second span inside the <p> (legacy shape, span nested
+            # inside the <strong>).
             all_spans = p_tag.find_all("span")
-            value_span = all_spans[1] if len(all_spans) > 1 else None
-        if not value_span:
-            continue
-        value = value_span.get_text().strip()
+            if len(all_spans) > 1:
+                value = all_spans[1].get_text().strip()
+            else:
+                # Bare-text-after-strong shape: the value is a
+                # NavigableString sitting directly after </strong>. Read
+                # the full <p> text, strip off the <strong>'s own text,
+                # and lstrip any leading colon / ASCII whitespace / nbsp
+                # that separated the label from the value.
+                full_text = p_tag.get_text()
+                strong_text = strong.get_text()
+                idx = full_text.find(strong_text)
+                if idx < 0:
+                    continue
+                value = full_text[idx + len(strong_text):].lstrip(": \xa0").strip()
+
         if value:
             fields[label.lower()] = value
     return fields
