@@ -7,3 +7,6 @@ output/
 raw data/
 ui/node_modules/
 ui/dist/
+*.log
+tmp/
+modules/commission/downloaded_agendas/
