@@ -351,7 +351,7 @@ counties:
         portal: arcgis
         status: active
       cr:
-        platform: civicclerk
+        platform: legistar
         slug: duval-county-bcc
         status: partial_or_outlier
 
@@ -374,7 +374,7 @@ counties:
         portal: arcgis
         status: active
       cr:
-        platform: civicclerk
+        platform: legistar
         slug: indian-river-county-bcc
         status: usable_seed
 
@@ -454,7 +454,7 @@ counties:
         status: active
         notes: "Token-served private-but-public endpoint via utility.arcgis.com."
       cr:
-        platform: civicclerk
+        platform: legistar
         slug: seminole-county-bcc
         status: partial_or_outlier
 

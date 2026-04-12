@@ -22,6 +22,10 @@ class ApplyMigrationsTests(unittest.TestCase):
                 '010_land_banker_category.sql',
                 '011_counties_and_subdivision_geometry.sql',
                 '012_mortgage_fields.sql',
+                '013_shared_foundation.sql',
+                '014_builder_inventory_tables.sql',
+                '015_permit_tracker_tables.sql',
+                '016_commission_radar_tables.sql',
             ],
         )
         self.assertTrue(all(path.parent == MIGRATIONS_DIR for path in migrations))
