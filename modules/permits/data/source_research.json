@@ -124,25 +124,138 @@
   },
   "okeechobee": {
     "jurisdiction": "Okeechobee County",
-    "portal_type": "tyler-epl",
-    "portal_url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections",
-    "public_access": "Okeechobee County documents a web-based permitting transition to Tyler Technologies Enterprise Permitting and Licensing, but the public-search surface is not yet mapped in this repo.",
-    "live_ready": false,
-    "status": "researched-not-yet-implemented",
-    "searchable_fields": [],
+    "portal_type": "tyler-energov",
+    "portal_url": "https://okeechobeecountyfl-energovweb.tylerhost.net/apps/selfservice",
+    "public_access": "Tyler EnerGov Civic Access portal with public REST API for permit search by date range. No authentication required.",
+    "live_ready": true,
+    "status": "live-tyler-energov-adapter",
+    "searchable_fields": [
+      "issue date range",
+      "permit type",
+      "case number",
+      "case status",
+      "address",
+      "parcel"
+    ],
     "notes": [
-      "Okeechobee County's official Community Development pages describe a transition away from TRAKiT and eTRAKiT to Tyler Technologies Enterprise Permitting and Licensing.",
-      "The county's online-permitting page announced the new system would replace the prior platforms starting June 23, 2025.",
-      "Permit Tracker now includes Okeechobee in the jurisdiction list and research panel, but no live permit-search adapter is implemented yet."
+      "Okeechobee County transitioned from TRAKiT/eTRAKiT to Tyler Technologies EnerGov Civic Access in June 2025.",
+      "The public Civic Access portal exposes a three-endpoint REST API: tenant init, criteria template, and paginated search.",
+      "The live adapter searches by issue date range, filters to residential new-construction permit types, and maps CaseNumber, AddressDisplay, IssueDate, CaseType, CaseStatus, MainParcel, and ProjectName."
     ],
     "evidence": [
       {
-        "label": "Online permitting and inspections",
-        "url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections"
+        "label": "Tyler EnerGov Civic Access portal",
+        "url": "https://okeechobeecountyfl-energovweb.tylerhost.net/apps/selfservice"
       },
       {
-        "label": "How to use the new permitting system",
-        "url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-and-permitting/how-to-use-the-new-permitting-system"
+        "label": "Online permitting and inspections",
+        "url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections"
+      }
+    ]
+  },
+  "hernando-county": {
+    "jurisdiction": "Hernando County",
+    "portal_type": "tyler-energov",
+    "portal_url": "https://hernandocountyfl-energovweb.tylerhost.net/apps/selfservice",
+    "public_access": "Tyler EnerGov Civic Access portal with public REST API for permit search by date range. No authentication required.",
+    "live_ready": true,
+    "status": "live-tyler-energov-adapter",
+    "searchable_fields": [
+      "issue date range",
+      "permit type",
+      "case number",
+      "case status",
+      "address",
+      "parcel"
+    ],
+    "notes": [
+      "Hernando County uses the same Tyler EnerGov Civic Access portal pattern as Okeechobee.",
+      "The public API uses the same three-endpoint flow: tenant init, criteria template, paginated search."
+    ],
+    "evidence": [
+      {
+        "label": "Tyler EnerGov Civic Access portal",
+        "url": "https://hernandocountyfl-energovweb.tylerhost.net/apps/selfservice"
+      }
+    ]
+  },
+  "marion-county": {
+    "jurisdiction": "Marion County",
+    "portal_type": "tyler-energov",
+    "portal_url": "https://selfservice.marionfl.org/energov_prod/selfservice",
+    "public_access": "Tyler EnerGov Civic Access portal with public REST API for permit search by date range. No authentication required.",
+    "live_ready": true,
+    "status": "live-tyler-energov-adapter",
+    "searchable_fields": [
+      "issue date range",
+      "permit type",
+      "case number",
+      "case status",
+      "address",
+      "parcel"
+    ],
+    "notes": [
+      "Marion County uses the same Tyler EnerGov Civic Access portal pattern, hosted at a custom domain (selfservice.marionfl.org).",
+      "The public API uses the same three-endpoint flow: tenant init, criteria template, paginated search."
+    ],
+    "evidence": [
+      {
+        "label": "Tyler EnerGov Civic Access portal",
+        "url": "https://selfservice.marionfl.org/energov_prod/selfservice"
+      }
+    ]
+  },
+  "walton-county": {
+    "jurisdiction": "Walton County",
+    "portal_type": "tyler-energov",
+    "portal_url": "https://waltoncountyfl-energovweb.tylerhost.net/apps/SelfService",
+    "public_access": "Tyler EnerGov Civic Access portal with public REST API for permit search by date range. No authentication required.",
+    "live_ready": true,
+    "status": "live-tyler-energov-adapter",
+    "searchable_fields": [
+      "issue date range",
+      "permit type",
+      "case number",
+      "case status",
+      "address",
+      "parcel"
+    ],
+    "notes": [
+      "Walton County uses the same Tyler EnerGov Civic Access portal pattern.",
+      "The hostname uses a hyphen: waltoncountyfl-energovweb (not waltoncountyflenergovweb).",
+      "The public API uses the same three-endpoint flow: tenant init, criteria template, paginated search."
+    ],
+    "evidence": [
+      {
+        "label": "Tyler EnerGov Civic Access portal",
+        "url": "https://waltoncountyfl-energovweb.tylerhost.net/apps/SelfService"
+      }
+    ]
+  },
+  "desoto-county-ms": {
+    "jurisdiction": "DeSoto County, MS",
+    "portal_type": "tyler-energov",
+    "portal_url": "https://energovweb.desotocountyms.gov/energov_prod/selfservice",
+    "public_access": "Tyler EnerGov Civic Access portal with public REST API for permit search by date range. No authentication required.",
+    "live_ready": true,
+    "status": "live-tyler-energov-adapter",
+    "searchable_fields": [
+      "issue date range",
+      "permit type",
+      "case number",
+      "case status",
+      "address",
+      "parcel"
+    ],
+    "notes": [
+      "DeSoto County, Mississippi uses the same Tyler EnerGov Civic Access portal pattern, hosted on the county's own domain.",
+      "This is a Mississippi county, not Florida — state is MS.",
+      "The public API uses the same three-endpoint flow: tenant init, criteria template, paginated search."
+    ],
+    "evidence": [
+      {
+        "label": "Tyler EnerGov Civic Access portal",
+        "url": "https://energovweb.desotocountyms.gov/energov_prod/selfservice"
       }
     ]
   },
@@ -226,30 +339,28 @@
   },
   "citrus-county": {
     "jurisdiction": "Citrus County",
-    "portal_type": "jsf-primefaces-public-search",
-    "portal_url": "https://apps.citrusbocc.com/permitsearch/search.xhtml",
-    "public_access": "Citrus County exposes a public JSF/PrimeFaces permit search without login, even though the county's Building Division says permit processing moved to Accela for applications.",
-    "live_ready": false,
-    "status": "researched-list-workflow-not-yet-mapped",
+    "portal_type": "accela",
+    "portal_url": "https://aca-prod.accela.com/CITRUS/Default.aspx",
+    "public_access": "Citrus County runs on Accela Citizen Access with public anonymous search by record type and date range.",
+    "live_ready": true,
+    "status": "live-accela-citizen-access-adapter",
     "searchable_fields": [
-      "permit number",
-      "issue date",
-      "certified occupancy date",
-      "application status",
-      "current application type",
-      "historic application type",
-      "contractor",
-      "address",
-      "subdivision",
-      "development area"
+      "record number",
+      "record type",
+      "site address",
+      "parcel number",
+      "status",
+      "date",
+      "project name",
+      "description",
+      "applicant",
+      "job value",
+      "subdivision"
     ],
     "notes": [
-      "The official Building Division page says permit processing moved to a new Accela portal on September 1, 2025 and electronic-only applications took effect on January 2, 2026, but that same page still links the public permit search at apps.citrusbocc.com.",
-      "The public search is a JSF/PrimeFaces app. Relevant residential values exposed in the UI include current type `New SFD` and historic type `BPSDT`.",
-      "Public detail pages expose permit number, type, added date, declared value, status, issued date, final date, certified date, description, address, parcel, subdivision, and contacts.",
-      "Research confirmed that the search-page JSF partial workflow can rewrite the View Results handoff to a typed URL containing `type=New SFD`.",
-      "The broad untyped list is publicly reachable, but direct replay of the typed list URL was operationally unstable during research and was not proven to establish reusable list state for pagination.",
-      "Citrus should remain research-only until the typed popup/list workflow is captured interactively and the first list-side request is mapped well enough for a live adapter."
+      "Citrus County transitioned permit processing to an Accela Citizen Access portal (agency code CITRUS) on September 1, 2025.",
+      "The same Accela scraping pattern used for Polk County applies: public Building search filtered by record type and date range, detail pages for parcel/job-value metadata.",
+      "The adapter reuses the AccelaCitizenAccessAdapter base class with agency_code='CITRUS'."
     ],
     "evidence": [
       {
@@ -257,20 +368,8 @@
         "url": "https://www.citrusbocc.com/departments/growth_management/building_division/index.php"
       },
       {
-        "label": "Accela portal",
-        "url": "https://aca-prod.accela.com/"
-      },
-      {
-        "label": "Public permit search",
-        "url": "https://apps.citrusbocc.com/permitsearch/search.xhtml"
-      },
-      {
-        "label": "Public results list",
-        "url": "https://apps.citrusbocc.com/permitsearch/list.xhtml"
-      },
-      {
-        "label": "Example permit detail",
-        "url": "https://apps.citrusbocc.com/permitsearch/detail.xhtml?apno=BLD202500486"
+        "label": "Accela Citizen Access portal",
+        "url": "https://aca-prod.accela.com/CITRUS/Default.aspx"
       }
     ]
   }

@@ -119,10 +119,10 @@ counties:
         status: inactive
         notes: "SWFWMD-hosted endpoint unreliable. 6AM-10PM only."
       pt:
-        portal: jsf-primefaces
-        url: https://apps.citrusbocc.com/permitsearch/search.xhtml
-        status: research-only
-        notes: "List-state workflow unstable. Also moved new apps to Accela Sep 2025."
+        portal: accela
+        url: https://aca-prod.accela.com/CITRUS/Default.aspx
+        status: live
+        notes: "Accela Citizen Access (agency CITRUS). Record type Building/Residential/NA/NA. Migrated from JSF-Primefaces Sep 2025."
       cr:
         platform: civicclerk
         status: zero_listing
@@ -143,6 +143,10 @@ counties:
         endpoint: gismaps.myescambia.com/parcels/MapServer/0
         status: active
         fields: { owner: OWNER, parcel: REFNUM, address: SITEADDR, use: LANDTYPE, acreage: LANDSIZE }
+      pt:
+        portal: unknown
+        status: blocked
+        notes: "BOCC agency code on aca-prod.accela.com is Charlotte County, not Escambia. No known Escambia Accela portal."
       cr:
         platform: legistar
         slug: escambia-county-pz
@@ -164,6 +168,11 @@ counties:
         endpoint: services2.arcgis.com/Parcels/FeatureServer/0
         status: active
         fields: { owner: OWNER_NAME, parcel: PARCEL_NUMBER, address: SITUS_ADDRESS, use: CER_DOR_CODE, acreage: ACRES }
+      pt:
+        portal: tyler-energov
+        url: https://hernandocountyfl-energovweb.tylerhost.net/apps/selfservice
+        status: live
+        notes: "Tyler EnerGov Civic Access portal. Public REST API, no auth."
       cr:
         platform: civicclerk
         slug: hernando-county-bcc
@@ -183,6 +192,11 @@ counties:
         endpoint: gis.marionfl.org/General/Parcels/MapServer/0
         status: active
         fields: { owner: NAME, parcel: PARCEL, address: SITUS_1, use: FIC, acreage: ACRES }
+      pt:
+        portal: tyler-energov
+        url: https://selfservice.marionfl.org/energov_prod/selfservice
+        status: live
+        notes: "Tyler EnerGov Civic Access portal. Custom domain (selfservice.marionfl.org). Public REST API, no auth."
       cd2_next:
         portal: browserview
         url: https://selfservice.marioncountyclerk.org/BrowserView/api/search
@@ -224,10 +238,10 @@ counties:
         fields: { owner: Owner1, parcel: ParcelID, address: StreetName, acreage: Acerage }
         notes: "Note: source data has typo 'Acerage' (not Acreage)."
       pt:
-        portal: tyler-epl
-        url: https://www.okeechobeecountyfl.gov/
-        status: research-only
-        notes: "Tyler EPL replaced TRAKiT June 2025. Adapter stub only — public search not yet mapped."
+        portal: tyler-energov
+        url: https://okeechobeecountyfl-energovweb.tylerhost.net/apps/selfservice
+        status: live
+        notes: "Tyler EnerGov Civic Access portal. Public REST API, no auth. Date-range search with client-side filtering."
 
   polk-fl:
     name: Polk County
@@ -283,6 +297,11 @@ counties:
         portal: arcgis
         status: inactive
         notes: "No county-hosted ArcGIS REST with owner data."
+      pt:
+        portal: tyler-energov
+        url: https://waltoncountyfl-energovweb.tylerhost.net/apps/SelfService
+        status: live
+        notes: "Tyler EnerGov Civic Access portal. Hostname uses hyphen (waltoncountyfl-energovweb). Public REST API, no auth."
 
   # Counties active in Builder Inventory only (large FL list, selected key ones):
   broward-fl:
@@ -608,6 +627,11 @@ counties:
         status: active
         fields: { owner: OWNER_NAME, parcel: PIN, address: FULL_ADDR, acreage: ACREAGE, deed_book: DEED_BOOK1, deed_page: DEED_PAGE1, subdivision: SUBD_NAME }
         notes: "ArcGIS Online (not CMPDD). 84K parcels. Deed book/page cross-reference available. Subdivision names."
+      pt:
+        portal: tyler-energov
+        url: https://energovweb.desotocountyms.gov/energov_prod/selfservice
+        status: live
+        notes: "Tyler EnerGov Civic Access portal. County-hosted domain. Public REST API, no auth."
     quirks:
       - "Non-disclosure state: no sale prices on deeds."
       - "High-growth Memphis metro county. DR Horton and Adams Homes active."

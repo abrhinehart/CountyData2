@@ -29,16 +29,48 @@
       "name": "Okeechobee County",
       "adapter_slug": "okeechobee",
       "adapter_class": "modules.permits.scrapers.adapters.okeechobee.OkeechobeeAdapter",
-      "portal_type": "tyler-epl",
-      "portal_url": "https://www.okeechobeecountyfl.gov/departments/community-development/building-department/online-permitting-and-inspections",
+      "portal_type": "tyler-energov",
+      "portal_url": "https://okeechobeecountyfl-energovweb.tylerhost.net/apps/selfservice",
+      "active": true
+    },
+    {
+      "name": "Hernando County",
+      "adapter_slug": "hernando-county",
+      "adapter_class": "modules.permits.scrapers.adapters.hernando_county.HernandoCountyAdapter",
+      "portal_type": "tyler-energov",
+      "portal_url": "https://hernandocountyfl-energovweb.tylerhost.net/apps/selfservice",
+      "active": true
+    },
+    {
+      "name": "Marion County",
+      "adapter_slug": "marion-county",
+      "adapter_class": "modules.permits.scrapers.adapters.marion_county.MarionCountyAdapter",
+      "portal_type": "tyler-energov",
+      "portal_url": "https://selfservice.marionfl.org/energov_prod/selfservice",
+      "active": true
+    },
+    {
+      "name": "Walton County",
+      "adapter_slug": "walton-county",
+      "adapter_class": "modules.permits.scrapers.adapters.walton_county.WaltonCountyAdapter",
+      "portal_type": "tyler-energov",
+      "portal_url": "https://waltoncountyfl-energovweb.tylerhost.net/apps/SelfService",
+      "active": true
+    },
+    {
+      "name": "DeSoto County, MS",
+      "adapter_slug": "desoto-county-ms",
+      "adapter_class": "modules.permits.scrapers.adapters.desoto_county_ms.DeSotoCountyMsAdapter",
+      "portal_type": "tyler-energov",
+      "portal_url": "https://energovweb.desotocountyms.gov/energov_prod/selfservice",
       "active": true
     },
     {
       "name": "Citrus County",
       "adapter_slug": "citrus-county",
       "adapter_class": "modules.permits.scrapers.adapters.citrus_county.CitrusCountyAdapter",
-      "portal_type": "jsf-primefaces-public-search",
-      "portal_url": "https://apps.citrusbocc.com/permitsearch/search.xhtml",
+      "portal_type": "accela",
+      "portal_url": "https://aca-prod.accela.com/CITRUS/Default.aspx",
       "active": true
     },
     {

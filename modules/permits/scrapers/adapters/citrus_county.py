@@ -1,18 +1,9 @@
-from __future__ import annotations
-
-from datetime import date
-
-from modules.permits.scrapers.base import JurisdictionAdapter
+from modules.permits.scrapers.adapters.accela_citizen_access import AccelaCitizenAccessAdapter
 
 
-class CitrusCountyAdapter(JurisdictionAdapter):
+class CitrusCountyAdapter(AccelaCitizenAccessAdapter):
     slug = "citrus-county"
     display_name = "Citrus County"
-    mode = "research-only"
-
-    def fetch_permits(
-        self,
-        start_date: date | None = None,
-        end_date: date | None = None,
-    ) -> list[dict]:
-        return self.load_fixture_records(start_date, end_date)
+    agency_code = "CITRUS"
+    module_name = "Building"
+    target_record_type = "Building/Residential/NA/NA"
