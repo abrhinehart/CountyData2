@@ -186,9 +186,9 @@ counties:
     fips: "12083"
     projects:
       cd2:
-        portal: none
-        status: csv-only
-        notes: "No scraper. Manual CSV export. Has Consideration (price) column. Grantor/grantee sometimes swapped (STAR flag)."
+        portal: browserview
+        status: captcha_hybrid
+        notes: "BrowserView portal (NewVision). reCAPTCHA v3 enforced — hybrid captcha pattern (user does one manual search, then automation takes over). Deed types: D, D2, DD. consid_1 field has sale prices. ~387 deeds/day."
       bi:
         portal: arcgis
         endpoint: gis.marionfl.org/General/Parcels/MapServer/0
@@ -207,8 +207,8 @@ counties:
       cd2_next:
         portal: browserview
         url: https://nvweb.marioncountyclerk.org/BrowserView/api/search
-        status: planned
-        notes: "ASP.NET + Angular portal. JSON API confirmed. considAmount field may have sale prices."
+        status: implemented
+        notes: "Merged into cd2 entry. Hybrid captcha pattern works. BrowserView client built and tested."
 
   okaloosa-fl:
     name: Okaloosa County
@@ -218,9 +218,9 @@ counties:
       cd2:
         portal: landmark
         url: https://clerkapps.okaloosaclerk.com/LandmarkWeb
-        bypass: untested
-        status: untested
-        notes: "Extra header row (skiprows:1). Column names differ from standard. Unresolved multi-delimiter issue."
+        bypass: unknown
+        status: blocked
+        notes: "503 Service Unavailable (server-side, Microsoft-HTTPAPI/2.0). Base domain responds but /LandmarkWeb/ is down. Verified 2026-04-12. Retry later."
       bi:
         portal: arcgis
         endpoint: gis.myokaloosa.com/BaseMap_Layers/MapServer/111
@@ -279,8 +279,9 @@ counties:
       cd2:
         portal: acclaimweb
         url: https://acclaim.srccol.com/AcclaimWeb/
-        status: planned
-        notes: "AcclaimWeb portal (Harris Recording Solutions). Previously misconfigured as Landmark pointing to Walton."
+        bypass: none
+        status: live
+        notes: "AcclaimWeb portal (Harris Recording Solutions). Doc type 79 (DEED). Consideration field has sale prices. Legal in Comments field. 263 records/week verified 2026-04-12."
       bi:
         portal: arcgis
         endpoint: services.arcgis.com/ParcelsOpenData/FeatureServer/0

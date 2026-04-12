@@ -32,13 +32,16 @@ load_dotenv(_PROJECT_ROOT / ".env", override=True)
 import yaml
 
 from county_scrapers.acclaimweb_client import AcclaimWebSession
+from county_scrapers.browserview_client import BrowserViewSession
 from county_scrapers.configs import (
-    get_acclaimweb_config, get_countygov_config, get_duprocess_config,
-    get_gindex_config, get_gis_parcel_config, get_landmark_config,
+    get_acclaimweb_config, get_browserview_config, get_countygov_config,
+    get_duprocess_config, get_gindex_config, get_gis_parcel_config,
+    get_landmark_config,
 )
 from county_scrapers.configs import (
-    ACCLAIMWEB_COUNTIES, COUNTYGOV_COUNTIES, DUPROCESS_COUNTIES,
-    GIS_PARCEL_COUNTIES, GINDEX_COUNTIES, LANDMARK_COUNTIES,
+    ACCLAIMWEB_COUNTIES, BROWSERVIEW_COUNTIES, COUNTYGOV_COUNTIES,
+    DUPROCESS_COUNTIES, GIS_PARCEL_COUNTIES, GINDEX_COUNTIES,
+    LANDMARK_COUNTIES,
 )
 from county_scrapers.countygov_client import CountyGovSession
 from county_scrapers.duprocess_client import DuProcessSession
@@ -147,7 +150,7 @@ def _row_to_csv(record: dict, column_mapping: dict[str, str],
         if col_name:
             row[col_name] = record.get(field, '')
     if 'price' in column_mapping:
-        row[column_mapping['price']] = ''  # not available from search results
+        row[column_mapping['price']] = record.get('consideration', '')
     if 'sub' in column_mapping:
         row[column_mapping['sub']] = record.get('subdivision', '')
     for csv_col, field in _EXTRA_FIELD_MAP.items():
@@ -208,6 +211,7 @@ def pull(county: str, begin_date: str, end_date: str, *,
 
     Returns the path to the output CSV file.
     """
+    browserview_cfg = get_browserview_config(county)
     countygov_cfg = get_countygov_config(county)
     landmark_cfg = get_landmark_config(county)
     duprocess_cfg = get_duprocess_config(county)
@@ -221,13 +225,18 @@ def pull(county: str, begin_date: str, end_date: str, *,
         + list(DUPROCESS_COUNTIES.keys())
         + list(GINDEX_COUNTIES.keys())
         + list(ACCLAIMWEB_COUNTIES.keys())
-        + list(GIS_PARCEL_COUNTIES.keys()))
+        + list(GIS_PARCEL_COUNTIES.keys())
+        + list(BROWSERVIEW_COUNTIES.keys()))
 
-    active_cfg = countygov_cfg or landmark_cfg or duprocess_cfg or gindex_cfg or acclaimweb_cfg or gis_parcel_cfg
+    active_cfg = (browserview_cfg or countygov_cfg or landmark_cfg or duprocess_cfg
+                  or gindex_cfg or acclaimweb_cfg or gis_parcel_cfg)
     if active_cfg is None:
         raise ValueError(f'{county} is not a configured county. Available: {", ".join(all_counties)}')
 
-    if countygov_cfg is not None:
+    if browserview_cfg is not None:
+        status = browserview_cfg.get('status', 'unknown')
+        portal_type = 'browserview'
+    elif countygov_cfg is not None:
         status = countygov_cfg.get('status', 'unknown')
         portal_type = 'countygov'
     elif duprocess_cfg is not None:
@@ -246,7 +255,7 @@ def pull(county: str, begin_date: str, end_date: str, *,
         status = landmark_cfg.get('status', 'unknown')
         portal_type = 'landmark'
 
-    if status not in ('working', 'captcha_hybrid', 'cloudflare'):
+    if status not in ('working', 'captcha_hybrid', 'cloudflare', 'recaptcha_v3'):
         log.warning('County %s has status "%s" — results may be empty or blocked',
                      county, status)
 
@@ -270,7 +279,14 @@ def pull(county: str, begin_date: str, end_date: str, *,
              county, begin_date, end_date, doc_types or 'ALL')
 
     # Connect and search
-    if portal_type == 'gis_parcel':
+    if portal_type == 'browserview':
+        with BrowserViewSession(
+            base_url=browserview_cfg['base_url'],
+            doc_types=doc_types or browserview_cfg.get('doc_types', ''),
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+    elif portal_type == 'gis_parcel':
         fm_name = gis_parcel_cfg.get('gis_fields', '')
         fm = _GIS_PARCEL_FIELD_MAPS.get(fm_name, JACKSON_FIELDS)
         with GISParcelSession(

@@ -162,17 +162,26 @@ class AcclaimWebSession:
         """Parse a single GridResults row into a clean record."""
         book, page = _parse_book_page(str(raw.get('BookPage', '')))
 
+        # doc_type: DeSoto uses DocType (abbreviation), Santa Rosa uses DocTypeDescription
+        doc_type = str(raw.get('DocType', '')) or str(raw.get('DocTypeDescription', ''))
+        # legal: DeSoto uses DocLegalDescription, Santa Rosa uses Comments
+        legal = str(raw.get('DocLegalDescription', '')) or str(raw.get('Comments', ''))
+        # consideration: Santa Rosa has sale prices (FL full-disclosure)
+        consideration = raw.get('Consideration')
+        consideration_str = f'{consideration:.0f}' if consideration else ''
+
         parsed = {
             'instrument': str(raw.get('TransactionItemId', '')),
             'grantor': _clean_name(str(raw.get('DirectName', ''))),
             'grantee': _clean_name(str(raw.get('IndirectName', ''))),
-            'doc_type': str(raw.get('DocType', '')),
+            'doc_type': doc_type,
             'record_date': _convert_date(str(raw.get('RecordDate', ''))),
-            'legal': str(raw.get('DocLegalDescription', '')),
+            'legal': legal,
             'book': book,
             'page': page,
             'book_type': str(raw.get('BookType', '')),
             'transaction_id': str(raw.get('TransactionId', '')),
+            'consideration': consideration_str,
         }
         return parsed if any(v for k, v in parsed.items()) else None
 

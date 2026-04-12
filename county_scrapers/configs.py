@@ -89,7 +89,7 @@ LANDMARK_COUNTIES = {
         'base_url': 'https://clerkapps.okaloosaclerk.com/LandmarkWeb',
         'doc_types': '',
         'column_map': None,
-        'status': 'untested',
+        'status': 'blocked',  # 503 Service Unavailable (server-side, not Cloudflare). Verified 2026-04-12.
         'portal': 'landmark',
     },
     'Bay': {
@@ -182,12 +182,33 @@ ACCLAIMWEB_COUNTIES = {
         'gis_url': 'https://services6.arcgis.com/4Zxj9BGpFPVGgwpo/arcgis/rest/services/Parcels_2025/FeatureServer/11',
         'gis_fields': 'desoto',
     },
+    'Santa Rosa': {
+        'base_url': 'https://acclaim.srccol.com/AcclaimWeb',
+        'doc_types': '79',  # DEED (D) — single type covers all deeds
+        'status': 'working',
+        'portal': 'acclaimweb',
+    },
 }
 
 
 def get_acclaimweb_config(county: str) -> dict | None:
     """Return the AcclaimWeb config for a county, or None."""
     return ACCLAIMWEB_COUNTIES.get(county)
+
+
+BROWSERVIEW_COUNTIES = {
+    'Marion': {
+        'base_url': 'https://nvweb.marioncountyclerk.org/BrowserView',
+        'doc_types': 'D,D2,DD',  # D=Deed, D2=Deed, DD=Deed
+        'status': 'captcha_hybrid',  # user does one manual search, then automation takes over
+        'portal': 'browserview',
+    },
+}
+
+
+def get_browserview_config(county: str) -> dict | None:
+    """Return the BrowserView config for a county, or None."""
+    return BROWSERVIEW_COUNTIES.get(county)
 
 
 GIS_PARCEL_COUNTIES = {
@@ -223,5 +244,7 @@ def list_working_counties() -> list[str]:
     counties.extend(name for name, cfg in ACCLAIMWEB_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     counties.extend(name for name, cfg in GIS_PARCEL_COUNTIES.items()
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
+    counties.extend(name for name, cfg in BROWSERVIEW_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     return counties
