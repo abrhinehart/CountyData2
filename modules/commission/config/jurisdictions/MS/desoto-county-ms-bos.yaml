@@ -1,0 +1,24 @@
+slug: desoto-county-ms-bos
+name: "DeSoto County MS BOS"
+state: MS
+county: DeSoto
+municipality: null
+commission_type: bos
+
+scraping:
+  platform: civicplus
+  base_url: "https://www.desotocountyms.gov/AgendaCenter"
+  category_id: 1
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF SUPERVISORS"
+  require_also:
+    - "DESOTO COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — Board of Supervisors (MS equivalent of BCC)."
+  - "Non-disclosure state — no sale prices on deeds."

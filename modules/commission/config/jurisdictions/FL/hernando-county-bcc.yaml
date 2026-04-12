@@ -6,13 +6,12 @@ municipality: null
 commission_type: bcc
 
 scraping:
-  platform: legistar
-  base_url: "https://hernandocountyfl.legistar.com"
-  legistar_client: "hernandocountyfl"
-  body_names:
-    - "Board of County Commissioners"
+  platform: civicclerk
+  base_url: "https://hernandocounty.portal.civicclerk.com"
+  civicclerk_subdomain: "hernandocounty"
   document_formats: [pdf]
   has_duplicate_page_bug: false
+  # CivicClerk API unavailable — manual upload only
 
 detection_patterns:
   header_keywords:

@@ -1,0 +1,25 @@
+slug: rankin-county-ms-bos
+name: "Rankin County MS BOS"
+state: MS
+county: Rankin
+municipality: null
+commission_type: bos
+
+scraping:
+  platform: civicclerk
+  base_url: "https://rankincoms.portal.civicclerk.com"
+  civicclerk_subdomain: "rankincoms"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  category_id: 26
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF SUPERVISORS"
+  require_also:
+    - "RANKIN COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — Board of Supervisors (MS equivalent of BCC)."
+  - "Non-disclosure state — no sale prices on deeds."

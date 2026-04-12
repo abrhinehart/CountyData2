@@ -1,0 +1,24 @@
+slug: madison-county-ms-bos
+name: "Madison County MS BOS"
+state: MS
+county: Madison
+municipality: null
+commission_type: bos
+
+scraping:
+  platform: manual
+  base_url: "https://tools.madison-co.net/elected-offices/board-of-supervisors/archives3/"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF SUPERVISORS"
+  require_also:
+    - "MADISON COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — Board of Supervisors (MS equivalent of BCC)."
+  - "Non-disclosure state — no sale prices on deeds."
+  - "Manual PDF download — county website archives."

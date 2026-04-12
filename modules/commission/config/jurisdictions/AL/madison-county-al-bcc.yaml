@@ -1,0 +1,24 @@
+slug: madison-county-al-bcc
+name: "Madison County AL BCC"
+state: AL
+county: Madison
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: civicplus
+  base_url: "https://www.madisoncountyal.gov/AgendaCenter"
+  category_id: 1  # TODO: verify — site behind Akamai WAF, could not discover
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "COUNTY COMMISSION"
+  require_also:
+    - "MADISON COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — BCC equivalent in Alabama (County Commission)."
+  - "Non-disclosure state — no sale prices on deeds."

@@ -148,7 +148,7 @@ counties:
         status: blocked
         notes: "BOCC agency code on aca-prod.accela.com is Charlotte County, not Escambia. No known Escambia Accela portal."
       cr:
-        platform: legistar
+        platform: civicclerk
         slug: escambia-county-pz
         status: usable_seed
 
@@ -199,7 +199,7 @@ counties:
         notes: "Tyler EnerGov Civic Access portal. Custom domain (selfservice.marionfl.org). Public REST API, no auth."
       cd2_next:
         portal: browserview
-        url: https://selfservice.marioncountyclerk.org/BrowserView/api/search
+        url: https://nvweb.marioncountyclerk.org/BrowserView/api/search
         status: planned
         notes: "ASP.NET + Angular portal. JSON API confirmed. considAmount field may have sale prices."
 
@@ -269,9 +269,10 @@ counties:
     fips: "12113"
     projects:
       cd2:
-        portal: landmark
-        status: misconfigured
-        notes: "BUG: configs.py URL points to Walton's clerk domain. Needs correct URL before automation."
+        portal: acclaimweb
+        url: https://acclaim.srccol.com/AcclaimWeb/
+        status: planned
+        notes: "AcclaimWeb portal (Harris Recording Solutions). Previously misconfigured as Landmark pointing to Walton."
       bi:
         portal: arcgis
         endpoint: services.arcgis.com/ParcelsOpenData/FeatureServer/0

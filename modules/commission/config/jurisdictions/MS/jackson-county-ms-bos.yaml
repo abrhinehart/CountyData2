@@ -1,0 +1,24 @@
+slug: jackson-county-ms-bos
+name: "Jackson County MS BOS"
+state: MS
+county: Jackson
+municipality: null
+commission_type: bos
+
+scraping:
+  platform: civicplus
+  base_url: "https://co.jackson.ms.us/AgendaCenter"
+  category_id: 2
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF SUPERVISORS"
+  require_also:
+    - "JACKSON COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — Board of Supervisors (MS equivalent of BCC)."
+  - "Non-disclosure state — no sale prices on deeds."

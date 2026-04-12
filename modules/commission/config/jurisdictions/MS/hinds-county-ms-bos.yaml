@@ -1,0 +1,24 @@
+slug: hinds-county-ms-bos
+name: "Hinds County MS BOS"
+state: MS
+county: Hinds
+municipality: null
+commission_type: bos
+
+scraping:
+  platform: manual
+  base_url: "https://www.co.hinds.ms.us/pgs/Boardroom/Boardroom.asp"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF SUPERVISORS"
+  require_also:
+    - "HINDS COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — Board of Supervisors (MS equivalent of BCC)."
+  - "Non-disclosure state — no sale prices on deeds."
+  - "Manual PDF download — no structured agenda portal."

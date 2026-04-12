@@ -1,0 +1,28 @@
+# Shared keyword defaults for Alabama jurisdictions.
+# Individual jurisdiction configs can override or extend these.
+
+keywords:
+  - "annexation"
+  - "annex"
+  - "land use"
+  - "comprehensive plan"
+  - "future land use"
+  - "rezoning"
+  - "rezone"
+  - "zone change"
+  - "PUD"
+  - "planned unit"
+  - "subdivision"
+  - "plat"
+  - "replat"
+  - "lots"
+  - "units"
+  - "acres"
+  - "dwelling"
+  - "residential"
+  - "developer agreement"
+  - "site plan"
+  - "conditional use"
+  - "special exception"
+  - "public hearing"
+  - "ordinance"
