@@ -6,12 +6,11 @@ municipality: null
 commission_type: bcc
 
 scraping:
-  platform: civicclerk
-  base_url: "https://santarosafl.portal.civicclerk.com"
-  civicclerk_subdomain: "santarosafl"
+  platform: civicplus
+  base_url: "https://www.santarosafl.gov/AgendaCenter"
+  category_id: 1
   document_formats: [pdf]
   has_duplicate_page_bug: false
-  # CivicClerk API unavailable — manual upload only
 
 detection_patterns:
   header_keywords:

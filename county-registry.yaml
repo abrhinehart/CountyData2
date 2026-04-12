@@ -125,7 +125,8 @@ counties:
         notes: "Accela Citizen Access (agency CITRUS). Record type Building/Residential/NA/NA. Migrated from JSF-Primefaces Sep 2025."
       cr:
         platform: civicclerk
-        status: zero_listing
+        status: live
+        notes: "Subdomain corrected from citrusbocc to citrusclerk. BCC=26, P&Z=33, BOA=28."
 
   escambia-fl:
     name: Escambia County
@@ -174,9 +175,10 @@ counties:
         status: live
         notes: "Tyler EnerGov Civic Access portal. Public REST API, no auth."
       cr:
-        platform: civicclerk
+        platform: legistar
         slug: hernando-county-bcc
         status: partial_or_outlier
+        notes: "Reverted from civicclerk to legistar. CivicClerk API returns 404; actual platform is hernandocountyfl.legistar.com."
 
   marion-fl:
     name: Marion County

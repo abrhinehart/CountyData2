@@ -7,11 +7,11 @@ commission_type: board_of_adjustment
 
 scraping:
   platform: civicclerk
-  base_url: "https://citrusbocc.portal.civicclerk.com"
-  civicclerk_subdomain: "citrusbocc"
+  base_url: "https://citrusclerk.portal.civicclerk.com"
+  civicclerk_subdomain: "citrusclerk"
   document_formats: [pdf]
   has_duplicate_page_bug: false
-  # CivicClerk API unavailable — manual upload only
+  category_id: 28
 
 detection_patterns:
   header_keywords:
