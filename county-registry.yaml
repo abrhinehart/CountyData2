@@ -177,8 +177,8 @@ counties:
       cr:
         platform: legistar
         slug: hernando-county-bcc
-        status: partial_or_outlier
-        notes: "Reverted from civicclerk to legistar. CivicClerk API returns 404; actual platform is hernandocountyfl.legistar.com."
+        status: live
+        notes: "Legistar OData API validated. 6 listings in 60-day window. Reverted from civicclerk (404) to legistar."
 
   marion-fl:
     name: Marion County
@@ -199,6 +199,11 @@ counties:
         url: https://selfservice.marionfl.org/energov_prod/selfservice
         status: live
         notes: "Tyler EnerGov Civic Access portal. Custom domain (selfservice.marionfl.org). Public REST API, no auth."
+      cr:
+        platform: legistar
+        slug: marion-county-bcc
+        status: live
+        notes: "Legistar OData API. 4 listings in 60-day window (agendas only — minutes not yet posted for recent meetings). PDF download validated."
       cd2_next:
         portal: browserview
         url: https://nvweb.marioncountyclerk.org/BrowserView/api/search
@@ -263,7 +268,8 @@ counties:
       cr:
         platform: legistar
         slug: polk-county-bcc
-        status: usable_seed
+        status: live
+        notes: "Legistar OData API validated. 7 listings in 60-day window (agendas + minutes)."
 
   santa-rosa-fl:
     name: Santa Rosa County
@@ -319,7 +325,8 @@ counties:
       cr:
         platform: legistar
         slug: broward-county-bcc
-        status: usable_seed
+        status: live
+        notes: "Legistar OData API validated. 6 listings in 60-day window (agendas + minutes)."
 
   collier-fl:
     name: Collier County
@@ -659,6 +666,11 @@ counties:
         status: active
         fields: { owner: ownerCalc, parcel: PARCEL_ID, address: addCalc, acreage: CALC_ACRE }
         notes: "County-hosted ArcGIS (not CMPDD). 110K parcels. Max 210K records/query. No deed_book/deed_page cross-reference."
+      cr:
+        platform: legistar
+        slug: harrison-county-ms-bos
+        status: blocked
+        notes: "Legistar events API returns 500 (TargetInvocationException). Bodies endpoint works — 'Board of Supervisors' confirmed. Server-side bug, not fixable on our end."
     quirks:
       - "Non-disclosure state: no sale prices on deeds."
       - "Two judicial districts: J1 (Gulfport) and J2 (Biloxi). Blank location_id searches both."

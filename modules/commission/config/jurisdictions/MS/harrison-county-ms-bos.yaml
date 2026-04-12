@@ -1,0 +1,26 @@
+slug: harrison-county-ms-bos
+name: "Harrison County MS BOS"
+state: MS
+county: Harrison
+municipality: null
+commission_type: bos
+
+scraping:
+  platform: legistar
+  base_url: null  # Legistar Events API returns 500; excluded from automated scraping until resolved
+  legistar_client: "harrison"
+  body_names:
+    - "Board of Supervisors"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF SUPERVISORS"
+  require_also:
+    - "HARRISON COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — Board of Supervisors (MS equivalent of BCC)."
+  - "Non-disclosure state — no sale prices on deeds."
