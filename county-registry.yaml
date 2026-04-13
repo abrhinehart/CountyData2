@@ -145,9 +145,17 @@ counties:
         status: active
         fields: { owner: OWNER, parcel: REFNUM, address: SITEADDR, use: LANDTYPE, acreage: LANDSIZE }
       pt:
-        portal: unknown
-        status: blocked
-        notes: "BOCC agency code on aca-prod.accela.com is Charlotte County, not Escambia. No known Escambia Accela portal."
+        portal: mgo-connect
+        url: https://www.mgoconnect.org/cp/portal
+        jurisdiction_id: 172
+        status: research_done
+        notes: >-
+          MyGovernmentOnline (MGO Connect) SaaS platform, JurisdictionID=172.
+          Old portal: mygovernmentonline.org/permits/?JurisdictionID=172 (being retired).
+          New portal: mgoconnect.org (Angular SPA, no public API found).
+          BOCC on aca-prod.accela.com is Brevard County, not Escambia.
+          City of Pensacola uses separate MGO instance.
+          Needs JS SPA reverse-engineering for adapter development.
       cr:
         platform: civicclerk
         slug: escambia-county-pz
@@ -270,6 +278,53 @@ counties:
         slug: polk-county-bcc
         status: live
         notes: "Legistar OData API validated. 7 listings in 60-day window (agendas + minutes)."
+
+  putnam-fl:
+    name: Putnam County
+    state: FL
+    fips: "12107"
+    projects:
+      cd2:
+        portal: acclaimweb
+        url: https://acclaim.putnamcountyrecorder.com/acclaimweb
+        bypass: none
+        status: research_done
+        notes: >-
+          AcclaimWeb portal (Harris Recording Solutions). 10 search modes: Name, Book/Page,
+          Simple, Instrument Number, Document Type, Record Date, Advanced Legal, Parcel ID,
+          Consideration, Legal/Comments. Records from Jan 1993 onward. Requires JS + cookies.
+          County also has a custom OR viewer at apps.putnam-fl.com/peas/ (limited functionality).
+          Civitek OCRS (civitekflorida.com/ocrs/county/54/) is court records only, not deeds.
+      bi:
+        portal: arcgis
+        endpoint: pamap.putnam-fl.gov/server/rest/services/CadastralData/FeatureServer/2
+        status: active
+        fields: { owner: OWNERNME1, parcel: PARCELID, address: SITEADDRESS, use: USEDSCRP, acreage: STATEDAREA }
+        notes: >-
+          County-hosted ArcGIS Enterprise (pamap.putnam-fl.gov). 65 fields including OWNERNME2,
+          LEGAL, CNVYNAME, RESYRBLT, BLDGAREA, RESFLRAREA, FLOORCOUNT, NBRSTRUCT, MOBILEHOME.
+          Max record count 1000. Supports JSON and geoJSON. Already seeded in seed_bi_county_config.py.
+          Hub site: putnam-pcgis.hub.arcgis.com. PA public map: pamap.putnam-fl.gov/PropertyAppraiserPublicMap/.
+      pt:
+        portal: citizenserve
+        url: https://www4.citizenserve.com/Portal/PortalController?Action=showHomePage&ctzPagePrefix=Portal_&installationID=355
+        status: research_done
+        notes: >-
+          Citizenserve SaaS platform (installationID=355). Apply, track, pay, and schedule inspections online.
+          Also has legacy custom PDS Permits Public Inquiry at apps.putnam-fl.com/bocc/pds/pds_inq/
+          (search by permit number, parcel, property name, 911 address, or date range; 100-record limit).
+          New permits listing at apps.putnam-fl.com/bocc/pds/Permits.html. Phone: (386) 329-0307.
+      cr:
+        platform: custom
+        url: https://www.putnam-fl.gov
+        status: research_done
+        notes: >-
+          No Legistar, CivicClerk, NovusAgenda, or CivicPlus detected. Minutes & Agendas
+          served from putnam-fl.gov website (redirected from main.putnam-fl.com). BCC meets
+          2nd and 4th Tuesdays at 9 AM, Government Complex Suite 100, 2509 Crill Ave, Palatka.
+          Live streamed on YouTube and Facebook. Public comments via BOCCmeetingcomments@putnam-fl.com.
+          apps.putnam-fl.com/bocc/ returned 403 (may require internal access).
+          Planning Commission and Zoning Board of Adjustment also active; contact (386) 329-0491.
 
   santa-rosa-fl:
     name: Santa Rosa County

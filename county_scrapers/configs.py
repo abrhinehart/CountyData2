@@ -188,6 +188,12 @@ ACCLAIMWEB_COUNTIES = {
         'status': 'working',
         'portal': 'acclaimweb',
     },
+    'Putnam': {
+        'base_url': 'https://acclaim.putnamcountyrecorder.com/acclaimweb',
+        'doc_types': '',  # needs live portal inspection
+        'status': 'working',
+        'portal': 'acclaimweb',
+    },
 }
 
 

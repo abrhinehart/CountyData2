@@ -200,6 +200,33 @@ counties:
       - ","
       - Parcel
 
+  Putnam:
+    input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Putnam"
+    column_mapping:
+      grantor: Name
+      grantee: First Crossparty Name
+      date: Record Date
+      instrument: Doc Type
+      price: Consideration
+      legal: Legal
+    phase_keywords:
+      - Phase
+      - Ph.?
+      - PH
+      - Unit
+    lot_block_cutoffs:
+      - Lot
+      - Lots
+      - Unit
+      - Units
+      - Blk
+      - Block
+      - BLK
+    skiprows: 0
+    delimiters:
+      - ","
+      - Parcel
+
   "Santa Rosa":
     input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/SantaRosa"
     column_mapping:
