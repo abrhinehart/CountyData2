@@ -10,6 +10,8 @@ class SubdivisionOut(BaseModel):
     county_name: str
     has_geometry: bool
     parcel_count: int
+    builder_lot_count: int = 0
+    distinct_builder_count: int = 0
     created_at: datetime
     updated_at: datetime
     model_config = ConfigDict(from_attributes=True)
@@ -36,3 +38,21 @@ class SubdivisionImportResult(BaseModel):
 
 class SubdivisionGeometryUpdate(BaseModel):
     geometry: dict  # GeoJSON geometry object
+
+
+class SubdivisionBuilderSummary(BaseModel):
+    builder_id: int
+    builder_name: str
+    lot_count: int
+
+
+class SubdivisionGeoFeature(BaseModel):
+    """One feature in the map GeoJSON response."""
+    id: int
+    name: str
+    county_id: int
+    county_name: str
+    builder_lot_count: int
+    distinct_builder_count: int
+    builders: list[SubdivisionBuilderSummary]
+    geojson: dict  # GeoJSON Geometry object

@@ -22,6 +22,7 @@ import type {
   CommissionSummary,
   CommissionActionsPayload,
   RosterPayload,
+  SubdivisionGeoFeature,
 } from "./types";
 
 const BASE = "/api";
@@ -183,7 +184,7 @@ export async function getPermitsBySubdivision(subdivisionId: number): Promise<Pe
 
 export async function getParcelsBySubdivision(subdivisionId: number): Promise<ParcelPage> {
   return checked(
-    await fetch(`${BASE}/inventory/parcels${qs({ subdivision_id: subdivisionId, page_size: 25, sort: "last_changed", order: "desc" })}`)
+    await fetch(`${BASE}/inventory/parcels${qs({ subdivision_id: subdivisionId, page_size: 2000, sort: "last_changed", order: "desc" })}`)
   );
 }
 
@@ -199,6 +200,12 @@ export async function searchInventorySubdivisions(
   params: { search?: string; county_id?: number }
 ): Promise<InventorySubdivisionOut[]> {
   return checked(await fetch(`${BASE}/inventory/subdivisions${qs(params)}`));
+}
+
+export async function getSubdivisionGeoJSON(
+  params: { county_id?: number; builder_id?: number }
+): Promise<SubdivisionGeoFeature[]> {
+  return checked(await fetch(`${BASE}/inventory/subdivisions/geojson${qs(params)}`));
 }
 
 // ---------------------------------------------------------------------------

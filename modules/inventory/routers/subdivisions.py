@@ -1,18 +1,22 @@
 """Subdivision management -- list, import GeoJSON polygons, trigger parcel relinking."""
 
+import collections
 import logging
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, HTTPException, Query
-from geoalchemy2.shape import from_shape
+from geoalchemy2.shape import from_shape, to_shape
 from shapely.geometry import MultiPolygon, Polygon, mapping, shape
 from shapely.validation import make_valid
-from sqlalchemy import func
+from sqlalchemy import and_, case, func, or_
 from sqlalchemy.orm import Session
 
 from shared.sa_database import get_db
-from modules.inventory.models import County, Parcel, Subdivision
+from modules.inventory.models import Builder, County, Parcel, Subdivision
 from modules.inventory.schemas.subdivision import (
     GeoJSONImportRequest,
+    SubdivisionBuilderSummary,
+    SubdivisionGeoFeature,
     SubdivisionGeometryUpdate,
     SubdivisionImportResult,
     SubdivisionOut,
@@ -60,10 +64,47 @@ def list_subdivisions(
     has_geometry: bool | None = None,
     search: str | None = None,
     relevant_only: bool = False,
+    builder_active_only: bool = True,
     db: Session = Depends(get_db),
 ):
-    """List subdivisions with geometry status and parcel count."""
+    """List subdivisions with geometry status and parcel count.
+
+    builder_active_only (default True): only return subdivisions where a builder
+    has owned at least one lot — either currently active, or last seen within the
+    past 5 years.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=5 * 365)
+
+    # Pre-compute set of builder-active subdivision IDs (fast index scan)
+    if builder_active_only:
+        ba_q = (
+            db.query(Parcel.subdivision_id)
+            .filter(
+                Parcel.subdivision_id.isnot(None),
+                Parcel.builder_id.isnot(None),
+                or_(
+                    Parcel.is_active == True,  # noqa: E712
+                    Parcel.last_seen >= cutoff,
+                ),
+            )
+            .distinct()
+        )
+        if county_id is not None:
+            ba_q = ba_q.filter(Parcel.county_id == county_id)
+        builder_active_ids = {row[0] for row in ba_q.all()}
+    else:
+        builder_active_ids = None
+
+    # Count ALL active parcels (total)
     parcel_count = func.count(Parcel.id).label("parcel_count")
+    # Count only builder-owned active parcels
+    builder_lot_count = func.count(
+        case((Parcel.builder_id.isnot(None), Parcel.id))
+    ).label("builder_lot_count")
+    # Count distinct builders with active parcels
+    distinct_builder_count = func.count(
+        func.distinct(case((Parcel.builder_id.isnot(None), Parcel.builder_id)))
+    ).label("distinct_builder_count")
 
     q = (
         db.query(
@@ -73,6 +114,8 @@ def list_subdivisions(
             County.name.label("county_name"),
             (Subdivision.geom.isnot(None)).label("has_geometry"),
             parcel_count,
+            builder_lot_count,
+            distinct_builder_count,
             Subdivision.created_at,
             Subdivision.updated_at,
         )
@@ -95,7 +138,12 @@ def list_subdivisions(
     if relevant_only:
         q = q.filter(Subdivision.is_relevant == True)  # noqa: E712
 
-    q = q.order_by(Subdivision.name)
+    if builder_active_ids is not None:
+        if not builder_active_ids:
+            return []
+        q = q.filter(Subdivision.id.in_(builder_active_ids))
+
+    q = q.order_by(builder_lot_count.desc(), Subdivision.name)
 
     return [
         SubdivisionOut(
@@ -105,11 +153,133 @@ def list_subdivisions(
             county_name=row.county_name,
             has_geometry=bool(row.has_geometry),
             parcel_count=row.parcel_count,
+            builder_lot_count=row.builder_lot_count,
+            distinct_builder_count=row.distinct_builder_count,
             created_at=row.created_at,
             updated_at=row.updated_at,
         )
         for row in q.all()
     ]
+
+
+@router.get("/geojson", response_model=list[SubdivisionGeoFeature])
+def get_subdivisions_geojson(
+    county_id: int | None = None,
+    builder_id: int | None = None,
+    db: Session = Depends(get_db),
+):
+    """Return all builder-active subdivisions with geometry and per-builder lot breakdowns.
+
+    Designed for the map page so it can load all polygons in a single request
+    instead of making 300+ individual fetches.
+    """
+    cutoff = datetime.now(timezone.utc) - timedelta(days=5 * 365)
+
+    # Pre-compute builder-active subdivision IDs (same logic as list_subdivisions)
+    ba_q = (
+        db.query(Parcel.subdivision_id)
+        .filter(
+            Parcel.subdivision_id.isnot(None),
+            Parcel.builder_id.isnot(None),
+            or_(
+                Parcel.is_active == True,  # noqa: E712
+                Parcel.last_seen >= cutoff,
+            ),
+        )
+        .distinct()
+    )
+    if county_id is not None:
+        ba_q = ba_q.filter(Parcel.county_id == county_id)
+    if builder_id is not None:
+        ba_q = ba_q.filter(Parcel.builder_id == builder_id)
+    builder_active_ids = {row[0] for row in ba_q.all()}
+
+    if not builder_active_ids:
+        return []
+
+    # Fetch subdivisions that have geometry AND are builder-active
+    subs_q = (
+        db.query(
+            Subdivision.id,
+            Subdivision.name,
+            Subdivision.county_id,
+            County.name.label("county_name"),
+            Subdivision.geom,
+        )
+        .join(County, County.id == Subdivision.county_id)
+        .filter(
+            Subdivision.id.in_(builder_active_ids),
+            Subdivision.geom.isnot(None),
+        )
+    )
+    if county_id is not None:
+        subs_q = subs_q.filter(Subdivision.county_id == county_id)
+
+    subdivisions = subs_q.all()
+    if not subdivisions:
+        return []
+
+    sub_ids = [row.id for row in subdivisions]
+
+    # Query per-builder lot counts grouped by subdivision
+    builder_counts_q = (
+        db.query(
+            Parcel.subdivision_id,
+            Parcel.builder_id,
+            Builder.canonical_name.label("builder_name"),
+            func.count(Parcel.id).label("lot_count"),
+        )
+        .join(Builder, Builder.id == Parcel.builder_id)
+        .filter(
+            Parcel.subdivision_id.in_(sub_ids),
+            Parcel.builder_id.isnot(None),
+            or_(
+                Parcel.is_active == True,  # noqa: E712
+                Parcel.last_seen >= cutoff,
+            ),
+        )
+        .group_by(Parcel.subdivision_id, Parcel.builder_id, Builder.canonical_name)
+    )
+    if builder_id is not None:
+        builder_counts_q = builder_counts_q.filter(Parcel.builder_id == builder_id)
+
+    # Group builder data by subdivision_id
+    builders_by_sub: dict[int, list[SubdivisionBuilderSummary]] = collections.defaultdict(list)
+    for row in builder_counts_q.all():
+        builders_by_sub[row.subdivision_id].append(
+            SubdivisionBuilderSummary(
+                builder_id=row.builder_id,
+                builder_name=row.builder_name,
+                lot_count=row.lot_count,
+            )
+        )
+
+    # Build response features
+    features: list[SubdivisionGeoFeature] = []
+    for row in subdivisions:
+        builders = builders_by_sub.get(row.id, [])
+        builder_lot_count = sum(b.lot_count for b in builders)
+        distinct_builder_count = len(builders)
+
+        try:
+            geojson_geom = mapping(to_shape(row.geom))
+        except Exception:
+            continue  # skip subdivisions whose geometry can't be converted
+
+        features.append(
+            SubdivisionGeoFeature(
+                id=row.id,
+                name=row.name,
+                county_id=row.county_id,
+                county_name=row.county_name,
+                builder_lot_count=builder_lot_count,
+                distinct_builder_count=distinct_builder_count,
+                builders=builders,
+                geojson=dict(geojson_geom),
+            )
+        )
+
+    return features
 
 
 @router.post("/import/geojson", response_model=SubdivisionImportResult)

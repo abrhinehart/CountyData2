@@ -207,6 +207,25 @@ export interface InventorySubdivisionOut {
   county_name: string;
   has_geometry: boolean;
   parcel_count: number;
+  builder_lot_count: number;
+  distinct_builder_count: number;
+}
+
+export interface SubdivisionBuilderSummary {
+  builder_id: number;
+  builder_name: string;
+  lot_count: number;
+}
+
+export interface SubdivisionGeoFeature {
+  id: number;
+  name: string;
+  county_id: number;
+  county_name: string;
+  builder_lot_count: number;
+  distinct_builder_count: number;
+  builders: SubdivisionBuilderSummary[];
+  geojson: GeoJSON.Geometry;
 }
 
 // ---------------------------------------------------------------------------
