@@ -246,6 +246,7 @@ export interface BuilderCount {
   builder_id: number;
   builder_name: string;
   count: number;
+  acreage: number;
 }
 
 export interface CountyInventory {
@@ -292,6 +293,8 @@ export interface SnapshotOut {
   unchanged_count: number;
   error_message: string | null;
   summary_text: string | null;
+  progress_current: number;
+  progress_total: number;
 }
 
 // ---------------------------------------------------------------------------

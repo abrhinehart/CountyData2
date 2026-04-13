@@ -38,6 +38,17 @@ def list_snapshots(county_id: int | None = None, limit: int = 20, db: Session = 
     return q.order_by(BiSnapshot.started_at.desc()).limit(limit).all()
 
 
+@router.get("/active", response_model=list[SnapshotOut])
+def list_active_snapshots(db: Session = Depends(get_db)):
+    """Return all currently running snapshots with progress info."""
+    return (
+        db.query(BiSnapshot)
+        .filter(BiSnapshot.status == "running")
+        .order_by(BiSnapshot.started_at.desc())
+        .all()
+    )
+
+
 @router.get("/{snapshot_id}/changes", response_model=SnapshotChangesOut)
 def get_snapshot_changes(snapshot_id: int, db: Session = Depends(get_db)):
     """Return per-builder breakdown of parcel changes for a snapshot."""

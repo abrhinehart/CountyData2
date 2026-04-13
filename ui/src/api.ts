@@ -256,6 +256,10 @@ export async function getInventorySnapshots(params?: {
   return checked(await fetch(`${BASE}/inventory/snapshots${qs(params ?? {})}`));
 }
 
+export async function getActiveSnapshots(): Promise<SnapshotOut[]> {
+  return checked(await fetch(`${BASE}/inventory/snapshots/active`));
+}
+
 export async function triggerSnapshot(county_id?: number): Promise<{ message: string }> {
   return checked(
     await fetch(`${BASE}/inventory/snapshots/run`, {

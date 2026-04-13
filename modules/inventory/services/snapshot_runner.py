@@ -292,6 +292,10 @@ def run_snapshot(county_id: int, db: Session) -> dict:
         builder_ids = list(builder_aliases.keys())
         logger.info(f"Snapshot for {county.name}: {len(aliases)} aliases across {len(builder_ids)} builders (batched)")
 
+        # Set progress total for UI tracking
+        snapshot.progress_total = len(builder_ids)
+        db.commit()
+
         # Query GIS per builder (batched aliases), dedup by parcel_number
         gis_parcels: dict[str, tuple[ParsedParcel, int]] = {}
         alias_delay = AdaptiveDelay(base=ALIAS_DELAY_BASE)
@@ -303,6 +307,9 @@ def run_snapshot(county_id: int, db: Session) -> dict:
                 for p in results:
                     if p.parcel_number not in gis_parcels:
                         gis_parcels[p.parcel_number] = (p, bid)
+
+            snapshot.progress_current = i + 1
+            db.commit()
 
             # Adaptive rate limit: pause between builders (not after the last one)
             if i < len(builder_ids) - 1:

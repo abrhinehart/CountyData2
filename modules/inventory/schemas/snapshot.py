@@ -16,6 +16,8 @@ class SnapshotOut(BaseModel):
     unchanged_count: int
     error_message: str | None
     summary_text: str | None = None
+    progress_current: int = 0
+    progress_total: int = 0
     model_config = ConfigDict(from_attributes=True)
 
 
