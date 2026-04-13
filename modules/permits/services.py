@@ -61,7 +61,9 @@ def seed_demo_data(conn, force: bool = False) -> None:
         cur.execute("DELETE FROM pt_scrape_jobs")
         cur.execute("DELETE FROM pt_scrape_runs")
         cur.execute("DELETE FROM pt_permits")
-        cur.execute("DELETE FROM builders")
+        # NOTE: Removed legacy "DELETE FROM builders" — _ensure_builder_id no longer
+        # auto-inserts, and wiping curated seed data is dangerous.
+        pass
         conn.commit()
 
     fixture_records = json.loads((DATA_DIR / "demo_permits.json").read_text(encoding="utf-8"))
@@ -1506,7 +1508,7 @@ def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int | None:
     electricians, plumbers, and other non-builder permit contractors.
     """
     canonical_name = canonicalize_builder_name(raw_contractor_name)
-    if not canonical_name:
+    if not canonical_name or canonical_name == "Unknown Builder":
         return None
     cur = conn.cursor()
     # Primary: exact LOWER(TRIM) match against builders.canonical_name OR builder_aliases.alias.
