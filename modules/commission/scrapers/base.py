@@ -61,12 +61,14 @@ class PlatformScraper(ABC):
         from modules.commission.scrapers.civicplus import CivicPlusScraper
         from modules.commission.scrapers.legistar import LegistarScraper
         from modules.commission.scrapers.manual import ManualScraper
+        from modules.commission.scrapers.novusagenda import NovusAgendaScraper
 
         scrapers = {
             "civicclerk": CivicClerkScraper,
             "civicplus": CivicPlusScraper,
             "legistar": LegistarScraper,
             "manual": ManualScraper,
+            "novusagenda": NovusAgendaScraper,
         }
         cls = scrapers.get(platform)
         if cls is None:

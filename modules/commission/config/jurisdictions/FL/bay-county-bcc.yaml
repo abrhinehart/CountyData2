@@ -7,8 +7,8 @@ commission_type: bcc
 
 scraping:
   platform: novusagenda
-  base_url: null  # BCC agendas are on NovusAgenda, not CivicPlus AgendaCenter
-  document_formats: [pdf]
+  base_url: "https://baycounty.novusagenda.com/agendapublic"
+  document_formats: [html]
   has_duplicate_page_bug: false
 
 keywords:
