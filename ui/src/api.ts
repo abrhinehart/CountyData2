@@ -14,6 +14,7 @@ import type {
   InventorySubdivisionOut,
   InventoryCounty,
   CountyInventory,
+  CountyDetail,
   BuilderOut,
   SnapshotOut,
   PermitDashboard,
@@ -216,8 +217,32 @@ export async function getInventoryCounties(): Promise<InventoryCounty[]> {
   return checked(await fetch(`${BASE}/inventory/counties`));
 }
 
-export async function getInventorySummary(): Promise<CountyInventory[]> {
-  return checked(await fetch(`${BASE}/inventory/inventory`));
+export async function getInventorySummary(
+  params?: { parcel_class?: string; entity_type?: string[] }
+): Promise<CountyInventory[]> {
+  const search = new URLSearchParams();
+  if (params?.parcel_class) search.append("parcel_class", params.parcel_class);
+  if (params?.entity_type) {
+    for (const t of params.entity_type) search.append("entity_type", t);
+  }
+  const q = search.toString();
+  const base = `${BASE}/inventory/inventory`;
+  return checked(await fetch(q ? `${base}?${q}` : base));
+}
+
+export async function getInventoryCountyDetail(
+  countyId: number,
+  params?: { parcel_class?: string; entity_type?: string[]; builder_id?: number }
+): Promise<CountyDetail> {
+  const search = new URLSearchParams();
+  if (params?.parcel_class) search.append("parcel_class", params.parcel_class);
+  if (params?.entity_type) {
+    for (const t of params.entity_type) search.append("entity_type", t);
+  }
+  if (params?.builder_id != null) search.append("builder_id", String(params.builder_id));
+  const q = search.toString();
+  const base = `${BASE}/inventory/inventory/${countyId}`;
+  return checked(await fetch(q ? `${base}?${q}` : base));
 }
 
 export async function getInventoryBuilders(): Promise<BuilderOut[]> {

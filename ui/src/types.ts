@@ -255,6 +255,20 @@ export interface CountyInventory {
   builders: BuilderCount[];
 }
 
+export interface SubdivisionInventory {
+  subdivision_id: number | null;
+  subdivision: string;
+  total: number;
+  builders: BuilderCount[];
+}
+
+export interface CountyDetail {
+  county_id: number;
+  county: string;
+  total: number;
+  subdivisions: SubdivisionInventory[];
+}
+
 export interface BuilderOut {
   id: number;
   canonical_name: string;
