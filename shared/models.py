@@ -75,6 +75,7 @@ class Subdivision(Base):
     proposed_zoning = Column(String(100))
     watched = Column(Boolean, default=False)
     notes = Column(Text)
+    classification = Column(String(30), default="scattered", server_default="scattered")
     is_active = Column(Boolean, default=True)
     is_relevant = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())

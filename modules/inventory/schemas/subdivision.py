@@ -8,6 +8,7 @@ class SubdivisionOut(BaseModel):
     name: str
     county_id: int
     county_name: str
+    classification: str = "scattered"
     has_geometry: bool
     parcel_count: int
     builder_lot_count: int = 0

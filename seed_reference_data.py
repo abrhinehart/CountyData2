@@ -41,10 +41,11 @@ def seed_subdivisions(conn):
                 aliases = entry.get('aliases', [name])
 
                 cur.execute("""
-                    INSERT INTO subdivisions (canonical_name, county, phases)
-                    VALUES (%s, %s, %s)
+                    INSERT INTO subdivisions (canonical_name, county, phases, classification)
+                    VALUES (%s, %s, %s, 'active_development')
                     ON CONFLICT (canonical_name, county) DO UPDATE
-                        SET phases = EXCLUDED.phases
+                        SET phases = EXCLUDED.phases,
+                            classification = 'active_development'
                     RETURNING id
                 """, (name, county, phases))
                 sub_id = cur.fetchone()[0]

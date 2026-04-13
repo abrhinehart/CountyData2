@@ -63,6 +63,7 @@ def list_subdivisions(
     county_id: int | None = None,
     has_geometry: bool | None = None,
     search: str | None = None,
+    classification: str | None = None,
     relevant_only: bool = False,
     builder_active_only: bool = True,
     db: Session = Depends(get_db),
@@ -112,6 +113,7 @@ def list_subdivisions(
             Subdivision.name,
             Subdivision.county_id,
             County.name.label("county_name"),
+            Subdivision.classification,
             (Subdivision.geom.isnot(None)).label("has_geometry"),
             parcel_count,
             builder_lot_count,
@@ -135,6 +137,9 @@ def list_subdivisions(
     if search:
         q = q.filter(Subdivision.name.ilike(f"%{search}%"))
 
+    if classification:
+        q = q.filter(Subdivision.classification == classification)
+
     if relevant_only:
         q = q.filter(Subdivision.is_relevant == True)  # noqa: E712
 
@@ -151,6 +156,7 @@ def list_subdivisions(
             name=row.name,
             county_id=row.county_id,
             county_name=row.county_name,
+            classification=row.classification or "scattered",
             has_geometry=bool(row.has_geometry),
             parcel_count=row.parcel_count,
             builder_lot_count=row.builder_lot_count,
@@ -166,6 +172,7 @@ def list_subdivisions(
 def get_subdivisions_geojson(
     county_id: int | None = None,
     builder_id: int | None = None,
+    classification: str | None = None,
     db: Session = Depends(get_db),
 ):
     """Return all builder-active subdivisions with geometry and per-builder lot breakdowns.
@@ -214,6 +221,8 @@ def get_subdivisions_geojson(
     )
     if county_id is not None:
         subs_q = subs_q.filter(Subdivision.county_id == county_id)
+    if classification:
+        subs_q = subs_q.filter(Subdivision.classification == classification)
 
     subdivisions = subs_q.all()
     if not subdivisions:
@@ -331,6 +340,7 @@ def import_geojson(data: GeoJSONImportRequest, db: Session = Depends(get_db)):
                 county_id=data.county_id,
                 county=county.name,
                 geom=geom_wkb,
+                classification="active_development",
             ))
             created += 1
 

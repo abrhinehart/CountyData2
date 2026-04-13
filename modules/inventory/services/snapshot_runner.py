@@ -170,10 +170,13 @@ def _resolve_subdivision(
         return cache[key]
     sub = db.query(Subdivision).filter_by(name=name, county_id=county_id).first()
     if not sub:
-        sub = Subdivision(name=name, county_id=county_id, county=county_name)
+        sub = Subdivision(
+            name=name, county_id=county_id, county=county_name,
+            classification="scattered",
+        )
         db.add(sub)
         db.flush()
-        logger.info(f"Auto-created subdivision '{name}' for county {county_id}")
+        logger.info(f"Auto-created subdivision '{name}' (scattered) for county {county_id}")
     cache[key] = sub.id
     return sub.id
 

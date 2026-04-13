@@ -26,6 +26,10 @@ class ApplyMigrationsTests(unittest.TestCase):
                 '014_builder_inventory_tables.sql',
                 '015_permit_tracker_tables.sql',
                 '016_commission_radar_tables.sql',
+                '017_purge_orphan_builders.sql',
+                '018_snapshot_progress_columns.sql',
+                '019_widen_cr_action_varchars.sql',
+                '020_subdivision_classification.sql',
             ],
         )
         self.assertTrue(all(path.parent == MIGRATIONS_DIR for path in migrations))
