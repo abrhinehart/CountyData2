@@ -443,3 +443,17 @@ export interface RosterPayload {
   page: number;
   pages: number;
 }
+
+// ---------------------------------------------------------------------------
+// Inventory trends
+// ---------------------------------------------------------------------------
+
+export interface TrendPoint {
+  date: string;
+  county_id: number;
+  county: string;
+  total_parcels: number;
+  new_count: number;
+  removed_count: number;
+  changed_count: number;
+}

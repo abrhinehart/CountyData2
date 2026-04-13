@@ -245,6 +245,15 @@ export async function getInventoryCountyDetail(
   return checked(await fetch(q ? `${base}?${q}` : base));
 }
 
+export async function getInventoryTrends(
+  countyId?: number,
+  days = 90
+): Promise<import("./types").TrendPoint[]> {
+  const params: Record<string, string | number> = { days };
+  if (countyId != null) params.county_id = countyId;
+  return checked(await fetch(`${BASE}/inventory/inventory/trends${qs(params)}`));
+}
+
 export async function getInventoryBuilders(): Promise<BuilderOut[]> {
   return checked(await fetch(`${BASE}/inventory/builders`));
 }
