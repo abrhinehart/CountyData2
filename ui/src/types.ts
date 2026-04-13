@@ -301,6 +301,22 @@ export interface SnapshotOut {
 // Permit Tracker module
 // ---------------------------------------------------------------------------
 
+export interface PermitJurisdiction {
+  id: number;
+  name: string;
+  portal_type: string | null;
+  portal_url: string | null;
+  active: boolean;
+  runnable?: boolean;
+}
+
+export interface PermitBootstrap {
+  jurisdictions: PermitJurisdiction[];
+  runnable_jurisdictions: PermitJurisdiction[];
+  builders: { id: number; name: string }[];
+  statuses: string[];
+}
+
 export interface PermitDashboard {
   summary: {
     current_month: number;

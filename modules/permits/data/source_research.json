@@ -249,7 +249,7 @@
     ],
     "notes": [
       "DeSoto County, Mississippi uses the same Tyler EnerGov Civic Access portal pattern, hosted on the county's own domain.",
-      "This is a Mississippi county, not Florida — state is MS.",
+      "This is a Mississippi county, not Florida \u00e2\u20ac\u201d state is MS.",
       "The public API uses the same three-endpoint flow: tenant init, criteria template, paginated search."
     ],
     "evidence": [
@@ -370,6 +370,125 @@
       {
         "label": "Accela Citizen Access portal",
         "url": "https://aca-prod.accela.com/CITRUS/Default.aspx"
+      }
+    ]
+  },
+  "lake-alfred": {
+    "jurisdiction": "Lake Alfred",
+    "portal_type": "accela",
+    "portal_url": "https://aca-prod.accela.com/COLA/Default.aspx",
+    "public_access": "Public Accela Citizen Access portal (COLA). Building module searchable without login.",
+    "live_ready": true,
+    "status": "live",
+    "searchable_fields": [
+      "record type",
+      "date",
+      "address",
+      "status",
+      "parcel number",
+      "subdivision",
+      "applicant",
+      "licensed professional"
+    ],
+    "notes": [
+      "Small city in east Polk County. Accela instance COLA. Record type Building/Residential/New/NA for new SFR permits."
+    ],
+    "evidence": [
+      {
+        "label": "Accela COLA portal",
+        "url": "https://aca-prod.accela.com/COLA/Default.aspx"
+      }
+    ]
+  },
+  "winter-haven": {
+    "jurisdiction": "Winter Haven",
+    "portal_type": "accela",
+    "portal_url": "https://aca-prod.accela.com/COWH/Default.aspx",
+    "public_access": "Accela Citizen Access portal (COWH) requires authentication for Building module search.",
+    "live_ready": false,
+    "status": "blocked-auth-required",
+    "searchable_fields": [
+      "record type",
+      "date",
+      "address",
+      "status"
+    ],
+    "notes": [
+      "Largest city in east Polk County. Migrated from Tyler eSuite to Accela in Jan 2026. Building module requires login."
+    ],
+    "evidence": [
+      {
+        "label": "Accela COWH portal",
+        "url": "https://aca-prod.accela.com/COWH/Default.aspx"
+      }
+    ]
+  },
+  "haines-city": {
+    "jurisdiction": "Haines City",
+    "portal_type": "iworq",
+    "portal_url": "https://haines.portal.iworq.net/HAINES/permits/600",
+    "public_access": "Public iWorQ permit portal with date-range search. Non-standard column layout (no permit type column).",
+    "live_ready": true,
+    "status": "live",
+    "searchable_fields": [
+      "permit date",
+      "site address",
+      "application status",
+      "project name"
+    ],
+    "notes": [
+      "Second largest east Polk city. iWorQ portal with unique column layout. Type filtering deferred to detail page Description field. Builders: KB Home, Lennar, DR Horton."
+    ],
+    "evidence": [
+      {
+        "label": "iWorQ portal",
+        "url": "https://haines.portal.iworq.net/HAINES/permits/600"
+      }
+    ]
+  },
+  "davenport": {
+    "jurisdiction": "Davenport",
+    "portal_type": "iworq",
+    "portal_url": "https://portal.iworq.net/DAVENPORT/permits/600",
+    "public_access": "Public iWorQ permit portal with date-range search. 10-column layout with Description, Project Cost, Primary Contractor.",
+    "live_ready": true,
+    "status": "live",
+    "searchable_fields": [
+      "permit date",
+      "site address",
+      "description",
+      "project cost",
+      "permit status",
+      "primary contractor"
+    ],
+    "notes": [
+      "High-growth I-4 corridor city. iWorQ portal with rich column layout. Builders: Highland Homes/Clayton, Trinity Family."
+    ],
+    "evidence": [
+      {
+        "label": "iWorQ portal",
+        "url": "https://portal.iworq.net/DAVENPORT/permits/600"
+      }
+    ]
+  },
+  "lake-hamilton": {
+    "jurisdiction": "Lake Hamilton",
+    "portal_type": "iworq",
+    "portal_url": "https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600",
+    "public_access": "iWorQ portal with reCAPTCHA enforcement and no date-range search field.",
+    "live_ready": false,
+    "status": "blocked-recaptcha",
+    "searchable_fields": [
+      "permit number",
+      "site address"
+    ],
+    "notes": [
+      "Very small municipality (~1500 pop). iWorQ portal blocks automated access with reCAPTCHA. No date-range search available."
+    ],
+    "evidence": [
+      {
+        "label": "iWorQ landing page",
+        "url": "https://townoflakehamilton.portal.iworq.net/portalhome/townoflakehamilton"
       }
     ]
   }

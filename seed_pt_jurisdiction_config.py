@@ -56,6 +56,22 @@ JURISDICTIONS = [
      "modules.permits.scrapers.adapters.madison_county_al.MadisonCountyAlAdapter",
      "cityview", "https://cityview.madisoncountyal.gov/Portal", "live",
      "Authenticated CityView scraper is live, but brittle enough that reruns and manual verification are still prudent."),
+    ("Winter Haven", "Polk", "Winter Haven", "FL", "winter-haven",
+     "modules.permits.scrapers.adapters.winter_haven.WinterHavenAdapter",
+     "accela", "https://aca-prod.accela.com/COWH/Default.aspx", "live", None),
+    ("Lake Alfred", "Polk", "Lake Alfred", "FL", "lake-alfred",
+     "modules.permits.scrapers.adapters.lake_alfred.LakeAlfredAdapter",
+     "accela", "https://aca-prod.accela.com/COLA/Default.aspx", "live", None),
+    ("Haines City", "Polk", "Haines City", "FL", "haines-city",
+     "modules.permits.scrapers.adapters.haines_city.HainesCityAdapter",
+     "iworq", "https://haines.portal.iworq.net/HAINES/permits/600", "live", None),
+    ("Davenport", "Polk", "Davenport", "FL", "davenport",
+     "modules.permits.scrapers.adapters.davenport.DavenportAdapter",
+     "iworq", "https://portal.iworq.net/DAVENPORT/permits/600", "live", None),
+    ("Lake Hamilton", "Polk", "Lake Hamilton", "FL", "lake-hamilton",
+     "modules.permits.scrapers.adapters.lake_hamilton.LakeHamiltonAdapter",
+     "iworq", "https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600",
+     "live", "iWorQ portal uses reCAPTCHA and has no date-range search. Needs browser-based scraper."),
 ]
 
 # Subdivisions to mark as watched (name, jurisdiction_name, notes)

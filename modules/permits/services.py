@@ -1519,8 +1519,7 @@ def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int | None:
         SELECT b.id
         FROM builders b
         LEFT JOIN builder_aliases ba ON ba.builder_id = b.id
-        WHERE b.is_active = TRUE
-          AND (LOWER(TRIM(b.canonical_name)) = LOWER(TRIM(%s))
+        WHERE (LOWER(TRIM(b.canonical_name)) = LOWER(TRIM(%s))
                OR LOWER(TRIM(ba.alias)) = LOWER(TRIM(%s)))
         LIMIT 1
         """,
@@ -1533,7 +1532,7 @@ def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int | None:
     # Fallback: existing SequenceMatcher fuzzy scan for names that canonicalize close-but-not-equal
     # to an existing canonical_name (and have no matching alias row yet).
     cur.execute(
-        "SELECT id, canonical_name FROM builders WHERE is_active = TRUE ORDER BY canonical_name"
+        "SELECT id, canonical_name FROM builders ORDER BY canonical_name"
     )
     existing = cur.fetchall()
     for builder in existing:

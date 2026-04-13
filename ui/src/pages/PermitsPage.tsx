@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getPermitDashboard, getPermitList, getPermitScrapeJobs } from "../api";
+import {
+  getPermitBootstrap,
+  getPermitDashboard,
+  getPermitList,
+  getPermitScrapeJobs,
+  triggerPermitScrape,
+} from "../api";
 import Pagination from "../components/Pagination";
 
 function fmt(n: number): string {
@@ -10,15 +16,27 @@ function fmt(n: number): string {
 export default function PermitsPage() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
+  const [jurisdictionId, setJurisdictionId] = useState<number | undefined>();
+
+  const bootQ = useQuery({
+    queryKey: ["permit-bootstrap"],
+    queryFn: getPermitBootstrap,
+    staleTime: 5 * 60_000,
+  });
 
   const dashQ = useQuery({
-    queryKey: ["permit-dashboard"],
-    queryFn: getPermitDashboard,
+    queryKey: ["permit-dashboard", jurisdictionId],
+    queryFn: () => getPermitDashboard({ jurisdiction_id: jurisdictionId }),
   });
 
   const listQ = useQuery({
-    queryKey: ["permit-list", page, pageSize],
-    queryFn: () => getPermitList({ page: String(page), page_size: String(pageSize) }),
+    queryKey: ["permit-list", page, pageSize, jurisdictionId],
+    queryFn: () =>
+      getPermitList({
+        page: String(page),
+        page_size: String(pageSize),
+        jurisdiction_id: jurisdictionId,
+      }),
   });
 
   const jobsQ = useQuery({
@@ -29,10 +47,25 @@ export default function PermitsPage() {
   const dash = dashQ.data;
   const permits = listQ.data;
   const jobs = jobsQ.data?.jobs ?? [];
+  const jurisdictions = bootQ.data?.jurisdictions ?? [];
+
+  const handleJurisdictionChange = (id: number | undefined) => {
+    setJurisdictionId(id);
+    setPage(1);
+  };
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-800">Permit Tracker</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-gray-800">Permit Tracker</h1>
+        <div className="flex items-center gap-3">
+          <JurisdictionFilter
+            jurisdictions={jurisdictions}
+            value={jurisdictionId}
+            onChange={handleJurisdictionChange}
+          />
+        </div>
+      </div>
 
       {/* KPI cards */}
       {dash && (
@@ -43,7 +76,6 @@ export default function PermitsPage() {
             label="vs Last Month"
             value={(() => {
               const { current_month, last_month, month_delta } = dash.summary;
-              // Normalize to daily rate to avoid misleading early-month deltas (#20)
               const now = new Date();
               const dayOfMonth = now.getDate();
               const daysInLastMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
@@ -123,10 +155,18 @@ export default function PermitsPage() {
 
       {/* Permit listing table */}
       <div className="bg-white border border-gray-200 rounded-lg overflow-x-auto">
-        <div className="px-5 py-3 border-b border-gray-200">
+        <div className="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
             All Permits
           </h2>
+          {jurisdictionId && (
+            <button
+              onClick={() => handleJurisdictionChange(undefined)}
+              className="text-xs text-blue-600 hover:text-blue-800"
+            >
+              Clear filter
+            </button>
+          )}
         </div>
         <table className="w-full text-sm">
           <thead>
@@ -217,7 +257,7 @@ export default function PermitsPage() {
                     {new Date(j.queued_at).toLocaleString()}
                   </td>
                   <td className="px-3 py-1.5 text-right tabular-nums text-gray-700">
-                    {j.summary?.permits_found ?? "—"}
+                    {j.summary?.permits_found ?? "\u2014"}
                   </td>
                 </tr>
               ))}
@@ -245,7 +285,7 @@ export default function PermitsPage() {
               {dash.last_runs.map((r) => (
                 <tr key={r.name} className="border-b border-gray-100">
                   <td className="px-3 py-1.5 text-gray-700">{r.name}</td>
-                  <td className="px-3 py-1.5 text-gray-500">{r.portal_type ?? "—"}</td>
+                  <td className="px-3 py-1.5 text-gray-500">{r.portal_type ?? "\u2014"}</td>
                   <td className="px-3 py-1.5 text-gray-700 whitespace-nowrap">
                     {r.last_success ? new Date(r.last_success).toLocaleDateString() : "Never"}
                   </td>
@@ -261,6 +301,52 @@ export default function PermitsPage() {
     </div>
   );
 }
+
+/* ------------------------------------------------------------------ */
+/*  Jurisdiction filter dropdown                                       */
+/* ------------------------------------------------------------------ */
+
+interface JurisdictionOption {
+  id: number;
+  name: string;
+  portal_type: string | null;
+  active: boolean;
+}
+
+function JurisdictionFilter({
+  jurisdictions,
+  value,
+  onChange,
+}: {
+  jurisdictions: JurisdictionOption[];
+  value: number | undefined;
+  onChange: (id: number | undefined) => void;
+}) {
+  // Group by county-level vs city-level based on naming heuristics
+  // (cities in Polk County are the new ones we're adding)
+  const sorted = [...jurisdictions].sort((a, b) => a.name.localeCompare(b.name));
+
+  return (
+    <select
+      value={value ?? ""}
+      onChange={(e) => onChange(e.target.value ? Number(e.target.value) : undefined)}
+      className="text-sm border border-gray-300 rounded-md px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
+      <option value="">All Jurisdictions</option>
+      {sorted.map((j) => (
+        <option key={j.id} value={j.id} disabled={!j.active}>
+          {j.name}
+          {j.portal_type ? ` (${j.portal_type})` : ""}
+          {!j.active ? " \u2014 inactive" : ""}
+        </option>
+      ))}
+    </select>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Helper components                                                  */
+/* ------------------------------------------------------------------ */
 
 function Card({
   label,

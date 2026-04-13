@@ -88,6 +88,48 @@
       "portal_type": "iworq",
       "portal_url": "https://www.pcbfl.gov/219/Permit-Inspection-Search",
       "active": true
+    },
+    {
+      "name": "Winter Haven",
+      "adapter_slug": "winter-haven",
+      "adapter_class": "modules.permits.scrapers.adapters.winter_haven.WinterHavenAdapter",
+      "portal_type": "accela",
+      "portal_url": "https://aca-prod.accela.com/COWH/Default.aspx",
+      "active": false,
+      "fragile_note": "COWH Accela Building module requires authentication. Returns 0 permits until auth support is added."
+    },
+    {
+      "name": "Lake Alfred",
+      "adapter_slug": "lake-alfred",
+      "adapter_class": "modules.permits.scrapers.adapters.lake_alfred.LakeAlfredAdapter",
+      "portal_type": "accela",
+      "portal_url": "https://aca-prod.accela.com/COLA/Default.aspx",
+      "active": true
+    },
+    {
+      "name": "Haines City",
+      "adapter_slug": "haines-city",
+      "adapter_class": "modules.permits.scrapers.adapters.haines_city.HainesCityAdapter",
+      "portal_type": "iworq",
+      "portal_url": "https://haines.portal.iworq.net/HAINES/permits/600",
+      "active": true
+    },
+    {
+      "name": "Davenport",
+      "adapter_slug": "davenport",
+      "adapter_class": "modules.permits.scrapers.adapters.davenport.DavenportAdapter",
+      "portal_type": "iworq",
+      "portal_url": "https://portal.iworq.net/DAVENPORT/permits/600",
+      "active": true
+    },
+    {
+      "name": "Lake Hamilton",
+      "adapter_slug": "lake-hamilton",
+      "adapter_class": "modules.permits.scrapers.adapters.lake_hamilton.LakeHamiltonAdapter",
+      "portal_type": "iworq",
+      "portal_url": "https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600",
+      "active": false,
+      "fragile_note": "iWorQ portal uses reCAPTCHA and has no date-range search field. Needs browser-based scraper."
     }
   ],
   "subdivisions": [

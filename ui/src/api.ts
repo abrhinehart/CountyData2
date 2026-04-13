@@ -17,6 +17,7 @@ import type {
   CountyDetail,
   BuilderOut,
   SnapshotOut,
+  PermitBootstrap,
   PermitDashboard,
   PermitListPayload,
   ScrapeJob,
@@ -283,8 +284,14 @@ export async function triggerSnapshot(county_id?: number): Promise<{ message: st
 // Permit Tracker module
 // ---------------------------------------------------------------------------
 
-export async function getPermitDashboard(): Promise<PermitDashboard> {
-  return checked(await fetch(`${BASE}/permits/dashboard`));
+export async function getPermitBootstrap(): Promise<PermitBootstrap> {
+  return checked(await fetch(`${BASE}/permits/bootstrap`));
+}
+
+export async function getPermitDashboard(params?: {
+  jurisdiction_id?: number;
+}): Promise<PermitDashboard> {
+  return checked(await fetch(`${BASE}/permits/dashboard${qs(params ?? {})}`));
 }
 
 export async function getPermitList(params?: {
