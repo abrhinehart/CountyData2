@@ -8,6 +8,7 @@ import {
   triggerSnapshot,
 } from "../api";
 import type { InventoryCounty } from "../types";
+import DrillDownTable from "../components/DrillDownTable";
 
 function fmt(n: number): string {
   return n.toLocaleString();
@@ -112,38 +113,13 @@ export default function InventoryPage() {
         </div>
       </div>
 
-      {/* County inventory breakdown + builders side by side */}
+      {/* Inventory drill-down + builders side by side */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white border border-gray-200 rounded-lg p-5">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-            Lots by County
+            Inventory Drill-Down
           </h2>
-          {inventoryQ.isLoading ? (
-            <p className="text-sm text-gray-400">Loading...</p>
-          ) : inventory.length === 0 ? (
-            <p className="text-sm text-gray-400">No inventory data.</p>
-          ) : (
-            <div className="space-y-2">
-              {inventory.map((c) => (
-                <div key={c.county_id} className="flex items-center gap-3">
-                  <span className="text-sm font-medium text-gray-700 w-28 shrink-0">
-                    {c.county}
-                  </span>
-                  <div className="flex-1 bg-gray-100 rounded-full h-5 overflow-hidden">
-                    <div
-                      className="bg-emerald-500 h-full rounded-full transition-all"
-                      style={{
-                        width: `${Math.max((c.total / totalLots) * 100, 2)}%`,
-                      }}
-                    />
-                  </div>
-                  <span className="text-sm text-gray-500 w-16 text-right tabular-nums">
-                    {fmt(c.total)}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
+          <DrillDownTable />
         </div>
 
         <div className="bg-white border border-gray-200 rounded-lg p-5">
