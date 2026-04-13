@@ -330,8 +330,26 @@ export default function MapPage() {
   });
 
   // Client-side filter by county name + builder filter
+  const MIN_LOTS_FOR_MAP = 3;
+
+  // BTR builder IDs — excluded from map display
+  const btrIds = useMemo(() => {
+    const set = new Set<number>();
+    for (const b of buildersQ.data ?? []) {
+      if (b.type === "btr") set.add(b.id);
+    }
+    return set;
+  }, [buildersQ.data]);
+
   const features = useMemo(() => {
-    let result = geoQ.data ?? [];
+    if (!geoQ.data) return [];
+    // Strip BTR builders from each feature, recompute lot count
+    let result = geoQ.data.map((f) => {
+      const builders = f.builders.filter((b) => !btrIds.has(b.builder_id));
+      const builder_lot_count = builders.reduce((s, b) => s + b.lot_count, 0);
+      return { ...f, builders, builder_lot_count, distinct_builder_count: builders.length };
+    });
+    result = result.filter((f) => f.builder_lot_count >= MIN_LOTS_FOR_MAP);
     if (selectedCounty) {
       result = result.filter((f) => f.county_name === selectedCounty);
     }
@@ -341,7 +359,7 @@ export default function MapPage() {
       );
     }
     return result;
-  }, [geoQ.data, selectedCounty, builderFilter]);
+  }, [geoQ.data, selectedCounty, builderFilter, btrIds]);
 
   // Stable callback for polygon clicks
   const onFeatureClick = useCallback((f: SubdivisionGeoFeature) => {
@@ -373,10 +391,10 @@ export default function MapPage() {
       { maxZoom: 19 }
     ).addTo(map);
 
-    // Road/transportation labels overlay
+    // Road/transportation labels overlay (dimmed so polygons stand out)
     L.tileLayer(
       "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}",
-      { maxZoom: 19 }
+      { maxZoom: 19, opacity: 0.4 }
     ).addTo(map);
 
     layerRef.current = L.layerGroup().addTo(map);
@@ -419,24 +437,24 @@ export default function MapPage() {
       if (isGracePeriod) {
         fillColor = "#6B7280";
         strokeColor = "#4B5563";
-        fillOpacity = 0.15;
+        fillOpacity = 0.3;
         dashArray = "6 4";
       } else if (sorted.length > 1) {
         // Multi-builder: diagonal stripe pattern
         fillColor = getOrCreateStripePattern(map, sorted);
         strokeColor = getBuilderColor(primary.builder_id).stroke;
-        fillOpacity = 0.5;
+        fillOpacity = 0.7;
         dashArray = undefined;
       } else if (primary) {
         const colors = getBuilderColor(primary.builder_id);
         fillColor = colors.fill;
         strokeColor = colors.stroke;
-        fillOpacity = 0.35;
+        fillOpacity = 0.6;
         dashArray = undefined;
       } else {
         fillColor = "#9CA3AF";
         strokeColor = "#6B7280";
-        fillOpacity = 0.25;
+        fillOpacity = 0.45;
         dashArray = undefined;
       }
 
@@ -454,7 +472,7 @@ export default function MapPage() {
       const layer = L.geoJSON(feat.geojson as GeoJSON.GeoJsonObject, {
         style: {
           color: strokeColor,
-          weight: 2,
+          weight: 3,
           fillColor,
           fillOpacity,
           dashArray,
@@ -473,10 +491,10 @@ export default function MapPage() {
 
       // Hover highlight
       layer.on("mouseover", () => {
-        layer.setStyle({ weight: 3, fillOpacity: fillOpacity + 0.15 });
+        layer.setStyle({ weight: 4, fillOpacity: Math.min(fillOpacity + 0.15, 0.85) });
       });
       layer.on("mouseout", () => {
-        layer.setStyle({ weight: 2, fillOpacity });
+        layer.setStyle({ weight: 3, fillOpacity });
       });
 
       layer.addTo(group);
