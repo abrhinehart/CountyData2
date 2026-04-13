@@ -8,6 +8,7 @@ const links = [
   { to: "/permits", label: "Permits" },
   { to: "/commission", label: "Commission" },
   { to: "/pipeline", label: "Pipeline" },
+  { to: "/map", label: "Map" },
 ];
 
 export default function Layout() {

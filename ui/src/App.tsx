@@ -8,6 +8,7 @@ import SubdivisionDetailPage from "./pages/SubdivisionDetailPage";
 import InventoryPage from "./pages/InventoryPage";
 import PermitsPage from "./pages/PermitsPage";
 import CommissionPage from "./pages/CommissionPage";
+import MapPage from "./pages/MapPage";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="pipeline" element={<PipelinePage />} />
         <Route path="subdivisions" element={<SubdivisionsPage />} />
         <Route path="subdivisions/:id" element={<SubdivisionDetailPage />} />
+        <Route path="map" element={<MapPage />} />
       </Route>
     </Routes>
   );
