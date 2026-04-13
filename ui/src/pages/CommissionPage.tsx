@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { getCommissionSummary, getCommissionActions, getCommissionRosterList } from "../api";
 import MeetingCalendar from "../components/MeetingCalendar";
-import type { CommissionActionItem } from "../types";
+import type { CommissionActionItem, CommissionerVote } from "../types";
 
 function fmt(n: number): string {
   return n.toLocaleString();
@@ -16,6 +16,7 @@ export default function CommissionPage() {
   const [actionPage, setActionPage] = useState(1);
   const [rosterPage, setRosterPage] = useState(1);
   const [rosterSearch, setRosterSearch] = useState("");
+  const [selectedAction, setSelectedAction] = useState<CommissionActionItem | null>(null);
 
   const summaryQ = useQuery({
     queryKey: ["commission-summary"],
@@ -154,6 +155,7 @@ export default function CommissionPage() {
                 date={group.date}
                 jurisdiction={group.jurisdiction}
                 items={group.items}
+                onActionClick={setSelectedAction}
               />
             ))
           )}
@@ -274,6 +276,11 @@ export default function CommissionPage() {
           </div>
         </div>
       )}
+
+      {/* Action detail panel */}
+      {selectedAction && (
+        <ActionDetailPanel action={selectedAction} onClose={() => setSelectedAction(null)} />
+      )}
     </div>
   );
 }
@@ -286,33 +293,41 @@ function MeetingGroup({
   date,
   jurisdiction,
   items,
+  onActionClick,
 }: {
   date: string;
   jurisdiction: string;
   items: CommissionActionItem[];
+  onActionClick: (a: CommissionActionItem) => void;
 }) {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <div id={`meeting-${date}`} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
       <button
         onClick={() => setExpanded((e) => !e)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 text-left"
+        className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 text-left border-b border-gray-200"
       >
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-gray-800">{date || "No date"}</span>
-          <span className="text-sm text-gray-500">{jurisdiction}</span>
-          <span className="text-xs text-gray-400">{items.length} action{items.length !== 1 ? "s" : ""}</span>
+          <span className="text-sm font-bold text-gray-900">{date || "No date"}</span>
+          <span className="text-sm font-medium text-gray-600">{jurisdiction}</span>
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+            {items.length} action{items.length !== 1 ? "s" : ""}
+          </span>
         </div>
         <span className="text-gray-400 text-sm">{expanded ? "\u25b2" : "\u25bc"}</span>
       </button>
       {expanded && (
-        <div className="border-t border-gray-100">
+        <div>
           <table className="w-full text-sm">
             <tbody>
               {items.map((a) => (
-                <tr key={a.id} className="border-b border-gray-50 last:border-0 hover:bg-blue-50/30">
-                  <td className="px-4 py-1.5 text-gray-700 font-medium max-w-[200px] truncate" title={a.project_name}>
+                <tr
+                  key={a.id}
+                  className="border-b border-gray-50 last:border-0 hover:bg-blue-50/50 cursor-pointer"
+                  onClick={() => onActionClick(a)}
+                >
+                  <td className="pl-8 pr-3 py-1.5 text-gray-700 font-medium max-w-[200px] truncate" title={a.project_name}>
                     {a.project_name}
                   </td>
                   <td className="px-3 py-1.5 text-gray-500">{a.approval_type.replace(/_/g, " ")}</td>
@@ -392,6 +407,205 @@ function OutcomeBadge({ status }: { status: string }) {
   return (
     <span className={`px-2 py-0.5 rounded text-xs font-medium ${styles}`}>
       {status}
+    </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Action detail panel
+// ---------------------------------------------------------------------------
+
+function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
+  if (!value || value === "") return null;
+  return (
+    <div>
+      <dt className="text-xs text-gray-400 uppercase tracking-wide">{label}</dt>
+      <dd className="text-sm text-gray-800 mt-0.5">{value}</dd>
+    </div>
+  );
+}
+
+function ActionDetailPanel({
+  action: a,
+  onClose,
+}: {
+  action: CommissionActionItem;
+  onClose: () => void;
+}) {
+  const hasZoningChange = a.current_zoning || a.proposed_zoning;
+  const hasLandUseChange = a.current_land_use || a.proposed_land_use;
+  const votes = a.commissioner_votes ?? [];
+
+  return (
+    <div className="fixed right-0 top-[53px] bottom-0 w-[480px] bg-white shadow-xl border-l border-gray-200 z-[1000] overflow-y-auto">
+      {/* Header */}
+      <div className="sticky top-0 bg-white border-b border-gray-200 px-5 py-4 flex items-start justify-between">
+        <div className="min-w-0 pr-4">
+          <h2 className="text-lg font-semibold text-gray-900">{a.project_name}</h2>
+          <div className="flex items-center gap-2 mt-1 flex-wrap">
+            <OutcomeBadge status={a.status} />
+            <span className="text-sm text-gray-500">{a.jurisdiction_name}</span>
+            <span className="text-sm text-gray-400">{a.meeting_date}</span>
+          </div>
+        </div>
+        <button
+          onClick={onClose}
+          className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 shrink-0"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="p-5 space-y-5">
+        {/* Case info */}
+        <section className="space-y-2">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Case Information</h3>
+          <dl className="space-y-2">
+            <DetailRow label="Approval Type" value={a.approval_type.replace(/_/g, " ")} />
+            <DetailRow label="Case Number" value={a.case_number} />
+            <DetailRow label="Ordinance" value={a.ordinance_number} />
+            <DetailRow label="Reading" value={a.reading_number} />
+            <DetailRow label="Action Requested" value={a.action_requested} />
+            <DetailRow label="Document Type" value={a.document_type} />
+          </dl>
+        </section>
+
+        {/* Project details */}
+        <section className="space-y-2">
+          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Project Details</h3>
+          <dl className="space-y-2">
+            <DetailRow label="Phase" value={a.phase_name} />
+            <DetailRow label="Address" value={a.address} />
+            <DetailRow label="Applicant" value={a.applicant_name} />
+            {a.acreage != null && <DetailRow label="Acreage" value={a.acreage.toLocaleString()} />}
+            {a.lot_count != null && <DetailRow label="Lot Count" value={a.lot_count.toLocaleString()} />}
+            {a.parcel_ids.length > 0 && (
+              <DetailRow label="Parcel IDs" value={a.parcel_ids.join(", ")} />
+            )}
+          </dl>
+        </section>
+
+        {/* Land use / zoning changes */}
+        {(hasLandUseChange || hasZoningChange) && (
+          <section className="space-y-2">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Land Use &amp; Zoning</h3>
+            <dl className="space-y-2">
+              {hasLandUseChange && (
+                <DetailRow
+                  label="Land Use"
+                  value={
+                    a.current_land_use && a.proposed_land_use
+                      ? <span>{a.current_land_use} <span className="text-gray-400">&rarr;</span> <span className="font-medium">{a.proposed_land_use}</span></span>
+                      : a.proposed_land_use || a.current_land_use
+                  }
+                />
+              )}
+              {a.land_use_scale && <DetailRow label="Scale" value={a.land_use_scale} />}
+              {hasZoningChange && (
+                <DetailRow
+                  label="Zoning"
+                  value={
+                    a.current_zoning && a.proposed_zoning
+                      ? <span>{a.current_zoning} <span className="text-gray-400">&rarr;</span> <span className="font-medium">{a.proposed_zoning}</span></span>
+                      : a.proposed_zoning || a.current_zoning
+                  }
+                />
+              )}
+            </dl>
+          </section>
+        )}
+
+        {/* Summary */}
+        {a.action_summary && (
+          <section className="space-y-2">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Summary</h3>
+            <p className="text-sm text-gray-700 whitespace-pre-wrap">{a.action_summary}</p>
+          </section>
+        )}
+
+        {/* Conditions */}
+        {a.conditions && (
+          <section className="space-y-2">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Conditions</h3>
+            <p className="text-sm text-gray-700 whitespace-pre-wrap">{a.conditions}</p>
+          </section>
+        )}
+
+        {/* Vote */}
+        {(a.vote_detail || votes.length > 0) && (
+          <section className="space-y-2">
+            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Vote</h3>
+            {a.vote_detail && <p className="text-sm text-gray-700">{a.vote_detail}</p>}
+            {votes.length > 0 && (
+              <table className="w-full text-sm mt-2">
+                <thead>
+                  <tr className="text-left text-xs text-gray-400 border-b border-gray-100">
+                    <th className="pb-1 font-medium">Commissioner</th>
+                    <th className="pb-1 font-medium">Vote</th>
+                    <th className="pb-1 font-medium text-right">Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {votes.map((v) => (
+                    <tr key={v.commissioner_id} className="border-b border-gray-50 last:border-0">
+                      <td className="py-1 text-gray-700">
+                        {v.name}
+                        {v.title && <span className="text-gray-400 text-xs ml-1">({v.title})</span>}
+                      </td>
+                      <td className="py-1">
+                        <VoteBadge vote={v.vote} />
+                      </td>
+                      <td className="py-1 text-right text-xs text-gray-400">
+                        {v.made_motion && "Motion"}
+                        {v.made_motion && v.seconded_motion && " / "}
+                        {v.seconded_motion && "Second"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </section>
+        )}
+
+        {/* Review notes */}
+        {a.needs_review && a.review_notes && (
+          <section className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+            <h3 className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">Needs Review</h3>
+            <p className="text-sm text-amber-800">{a.review_notes}</p>
+          </section>
+        )}
+
+        {/* Source document link */}
+        {a.document_url && (
+          <a
+            href={a.document_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block text-center text-sm font-medium text-blue-600 hover:text-blue-800 py-2 border border-blue-200 rounded hover:bg-blue-50 transition-colors"
+          >
+            View Source Document &#8599;
+          </a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function VoteBadge({ vote }: { vote: string }) {
+  const v = vote.toLowerCase();
+  const styles = v === "yes" || v === "aye"
+    ? "bg-green-100 text-green-700"
+    : v === "no" || v === "nay"
+      ? "bg-red-100 text-red-700"
+      : v === "absent" || v === "abstain"
+        ? "bg-gray-100 text-gray-500"
+        : "bg-gray-100 text-gray-600";
+  return (
+    <span className={`px-2 py-0.5 rounded text-xs font-medium ${styles}`}>
+      {vote}
     </span>
   );
 }
