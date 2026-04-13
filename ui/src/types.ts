@@ -68,6 +68,7 @@ export interface SubdivisionDetail {
   canonical_name: string;
   county: string;
   phases: string[];
+  geojson: GeoJSON.Geometry | null;
 }
 
 export interface CountyStat {
@@ -137,6 +138,7 @@ export interface CommissionAction {
   ordinance_number: string;
   outcome: string;
   meeting_date: string;
+  reading_number: string;
   phase_name: string;
   acreage: number | null;
   lot_count: number | null;
@@ -205,4 +207,178 @@ export interface InventorySubdivisionOut {
   county_name: string;
   has_geometry: boolean;
   parcel_count: number;
+}
+
+// ---------------------------------------------------------------------------
+// Builder Inventory module
+// ---------------------------------------------------------------------------
+
+export interface InventoryCounty {
+  id: number;
+  name: string;
+  state: string;
+  is_active: boolean;
+  has_endpoint: boolean;
+  last_snapshot_at: string | null;
+  last_snapshot_parcels: number | null;
+}
+
+export interface BuilderCount {
+  builder_id: number;
+  builder_name: string;
+  count: number;
+}
+
+export interface CountyInventory {
+  county_id: number;
+  county: string;
+  total: number;
+  builders: BuilderCount[];
+}
+
+export interface BuilderOut {
+  id: number;
+  canonical_name: string;
+  type: string;
+  is_active: boolean;
+  scope: string;
+  aliases: { id: number; alias: string }[];
+  counties: { id: number; county_id: number }[];
+}
+
+export interface SnapshotOut {
+  id: number;
+  county_id: number;
+  started_at: string;
+  completed_at: string | null;
+  status: string;
+  total_parcels_queried: number;
+  new_count: number;
+  removed_count: number;
+  changed_count: number;
+  unchanged_count: number;
+  error_message: string | null;
+  summary_text: string | null;
+}
+
+// ---------------------------------------------------------------------------
+// Permit Tracker module
+// ---------------------------------------------------------------------------
+
+export interface PermitDashboard {
+  summary: {
+    current_month: number;
+    last_month: number;
+    month_delta: number;
+    total_permits: number;
+    watchlist_count: number;
+  };
+  trend: { label: string; count: number }[];
+  top_subdivisions: { name: string; total: number }[];
+  top_builders: { name: string; total: number }[];
+  last_runs: {
+    name: string;
+    portal_type: string | null;
+    last_success: string | null;
+    last_attempt: string | null;
+    freshness: string;
+  }[];
+}
+
+export interface PermitListItem {
+  id: number;
+  permit_number: string;
+  address: string | null;
+  issue_date: string | null;
+  status: string | null;
+  permit_type: string | null;
+  valuation: number | null;
+  jurisdiction: string | null;
+  subdivision: string | null;
+  builder: string | null;
+}
+
+export interface PermitListPayload {
+  permits: PermitListItem[];
+  count: number;
+  total_count: number;
+  page: number;
+  page_size: number;
+  total_pages: number;
+}
+
+export interface ScrapeJob {
+  id: number;
+  jurisdiction: string;
+  status: string;
+  trigger_type: string;
+  queued_at: string;
+  started_at: string | null;
+  finished_at: string | null;
+  last_error: string | null;
+  attempt_count: number;
+  can_retry: boolean;
+  summary: { permits_found?: number; [key: string]: unknown } | null;
+}
+
+// ---------------------------------------------------------------------------
+// Commission Radar module
+// ---------------------------------------------------------------------------
+
+export interface CommissionSummary {
+  documents_processed: number;
+  projects_tracked: number;
+  actions_extracted: number;
+  needs_review: number;
+  jurisdictions_active: number;
+}
+
+export interface CommissionActionItem {
+  id: number;
+  jurisdiction_name: string;
+  jurisdiction_slug: string;
+  project_name: string;
+  phase_name: string;
+  approval_type: string;
+  case_number: string;
+  ordinance_number: string;
+  ref_number: string;
+  outcome: string;
+  status: string;
+  meeting_date: string;
+  acreage: number | null;
+  lot_count: number | null;
+  action_summary: string;
+  needs_review: boolean;
+  document_type: string;
+}
+
+export interface CommissionActionsPayload {
+  items: CommissionActionItem[];
+  total: number;
+  page: number;
+  pages: number;
+}
+
+export interface RosterItem {
+  id: number;
+  name: string;
+  county: string;
+  jurisdiction_name: string;
+  jurisdiction_slug: string;
+  acreage: number | null;
+  lot_count: number | null;
+  entitlement_status: string;
+  lifecycle_stage: string;
+  lifecycle_stage_label: string;
+  last_action_date: string;
+  action_count: number;
+  action_types: string[];
+}
+
+export interface RosterPayload {
+  items: RosterItem[];
+  total: number;
+  page: number;
+  pages: number;
 }

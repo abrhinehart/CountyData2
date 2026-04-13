@@ -7,9 +7,8 @@ import type { InventorySubdivisionOut } from "../types";
 export default function SubdivisionsPage() {
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [countyFilter, setCountyFilter] = useState<string>("");
+  const [countyFilter, setCountyFilter] = useState<string>("Bay");
 
-  // Debounce search input 250ms
   useEffect(() => {
     const t = setTimeout(() => setDebouncedSearch(searchInput.trim()), 250);
     return () => clearTimeout(t);
@@ -33,7 +32,6 @@ export default function SubdivisionsPage() {
     enabled: gated,
   });
 
-  // Client-side county filter (see plan risk #8)
   const rows = (subsQ.data ?? []).filter((r) =>
     countyFilter ? r.county_name === countyFilter : true
   );
@@ -65,11 +63,17 @@ export default function SubdivisionsPage() {
               <option value="">All Counties</option>
               {countiesQ.data?.map((c) => (
                 <option key={c} value={c}>
-                  {c}
+                  {c}, FL
                 </option>
               ))}
             </select>
           </div>
+
+          {gated && rows.length > 0 && (
+            <span className="text-sm text-gray-500 pb-1">
+              {rows.length} builder-active subdivision{rows.length !== 1 ? "s" : ""}
+            </span>
+          )}
         </div>
       </div>
 
@@ -85,7 +89,7 @@ export default function SubdivisionsPage() {
             Failed to load: {(subsQ.error as Error).message}
           </p>
         ) : rows.length === 0 ? (
-          <p className="text-sm text-gray-400">No subdivisions matched.</p>
+          <p className="text-sm text-gray-400">No builder-active subdivisions found.</p>
         ) : (
           <ul className="divide-y divide-gray-100">
             {rows.map((row) => (
@@ -95,7 +99,7 @@ export default function SubdivisionsPage() {
                   className="flex items-center gap-4 px-2 py-2 rounded hover:bg-blue-50"
                 >
                   <span className="flex-1 font-semibold text-gray-800">{row.name}</span>
-                  <span className="text-sm text-gray-500 w-40 truncate">{row.county_name}</span>
+                  <span className="text-sm text-gray-500 w-40 truncate">{row.county_name}, FL</span>
                   <span className="text-sm text-gray-400 w-24 text-right tabular-nums">
                     {row.parcel_count.toLocaleString()} parcels
                   </span>

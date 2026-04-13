@@ -12,6 +12,16 @@ import type {
   PermitsResponse,
   ParcelPage,
   InventorySubdivisionOut,
+  InventoryCounty,
+  CountyInventory,
+  BuilderOut,
+  SnapshotOut,
+  PermitDashboard,
+  PermitListPayload,
+  ScrapeJob,
+  CommissionSummary,
+  CommissionActionsPayload,
+  RosterPayload,
 } from "./types";
 
 const BASE = "/api";
@@ -189,4 +199,105 @@ export async function searchInventorySubdivisions(
   params: { search?: string; county_id?: number }
 ): Promise<InventorySubdivisionOut[]> {
   return checked(await fetch(`${BASE}/inventory/subdivisions${qs(params)}`));
+}
+
+// ---------------------------------------------------------------------------
+// Builder Inventory module
+// ---------------------------------------------------------------------------
+
+export async function getInventoryCounties(): Promise<InventoryCounty[]> {
+  return checked(await fetch(`${BASE}/inventory/counties`));
+}
+
+export async function getInventorySummary(): Promise<CountyInventory[]> {
+  return checked(await fetch(`${BASE}/inventory/inventory`));
+}
+
+export async function getInventoryBuilders(): Promise<BuilderOut[]> {
+  return checked(await fetch(`${BASE}/inventory/builders`));
+}
+
+export async function getInventorySnapshots(params?: {
+  county_id?: number;
+  limit?: number;
+}): Promise<SnapshotOut[]> {
+  return checked(await fetch(`${BASE}/inventory/snapshots${qs(params ?? {})}`));
+}
+
+export async function triggerSnapshot(county_id?: number): Promise<{ message: string }> {
+  return checked(
+    await fetch(`${BASE}/inventory/snapshots/run`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(county_id ? { county_id } : {}),
+    })
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Permit Tracker module
+// ---------------------------------------------------------------------------
+
+export async function getPermitDashboard(): Promise<PermitDashboard> {
+  return checked(await fetch(`${BASE}/permits/dashboard`));
+}
+
+export async function getPermitList(params?: {
+  page?: string;
+  page_size?: string;
+  sort?: string;
+  jurisdiction_id?: number;
+  status?: string;
+}): Promise<PermitListPayload> {
+  return checked(await fetch(`${BASE}/permits/permits${qs(params ?? {})}`));
+}
+
+export async function getPermitScrapeJobs(params?: {
+  limit?: number;
+  status?: string;
+}): Promise<{ jobs: ScrapeJob[]; active_count: number }> {
+  return checked(await fetch(`${BASE}/permits/scrape/jobs${qs(params ?? {})}`));
+}
+
+export async function triggerPermitScrape(params?: {
+  jurisdiction?: string;
+}): Promise<{ message: string }> {
+  return checked(
+    await fetch(`${BASE}/permits/scrape/run`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(params ?? {}),
+    })
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Commission Radar module
+// ---------------------------------------------------------------------------
+
+export async function getCommissionSummary(): Promise<CommissionSummary> {
+  return checked(await fetch(`${BASE}/commission/dashboard/summary`));
+}
+
+export async function getCommissionActions(params?: {
+  page?: number;
+  per_page?: number;
+  jurisdiction?: string;
+  approval_type?: string;
+  outcome?: string;
+  needs_review?: string;
+  date_from?: string;
+  date_to?: string;
+}): Promise<CommissionActionsPayload> {
+  return checked(await fetch(`${BASE}/commission/dashboard/actions${qs(params ?? {})}`));
+}
+
+export async function getCommissionRosterList(params?: {
+  page?: number;
+  per_page?: number;
+  county?: string;
+  search?: string;
+  sort?: string;
+}): Promise<RosterPayload> {
+  return checked(await fetch(`${BASE}/commission/roster${qs(params ?? {})}`));
 }

@@ -1,7 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
-import { getTransactions, getCounties, getSubdivisions, getStats, exportTransactions, downloadUrl } from "../api";
+import { getTransactions, getCounties, getSubdivisions, getReviewQueue, exportTransactions, downloadUrl, resolveAction } from "../api";
 import type { TransactionFilters } from "../types";
 import Pagination from "../components/Pagination";
 import TransactionDetailPanel from "../components/TransactionDetailPanel";
@@ -36,6 +36,13 @@ const SORT_MAP: Record<string, string> = {
   Acres: "acres",
   "$ / Acre": "price_per_acre",
 };
+
+const FILTER_PRESETS: { label: string; params: Record<string, string> }[] = [
+  { label: "All Transactions", params: {} },
+  { label: "Flagged for Review", params: { unmatched_only: "true" } },
+  { label: "Bay Unmatched", params: { county: "Bay", unmatched_only: "true" } },
+  { label: "House Sales", params: { inventory_category: "House Sale" } },
+];
 
 function fmt(val: unknown, numeric?: boolean): string {
   if (val == null) return "";
@@ -88,25 +95,37 @@ export default function TransactionsPage() {
     },
     [setSearchParams],
   );
+  const queryClient = useQueryClient();
   const [search, setSearch] = useState(filters.search ?? "");
   const [exporting, setExporting] = useState(false);
+  const [bulkResolving, setBulkResolving] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
 
   const { data: counties } = useQuery({ queryKey: ["counties"], queryFn: getCounties });
   const { data: subdivisions } = useQuery({
     queryKey: ["subdivisions", filters.county],
     queryFn: () => getSubdivisions(filters.county),
   });
-  const { data: stats } = useQuery({ queryKey: ["stats"], queryFn: getStats });
 
   const { data, isLoading } = useQuery({
     queryKey: ["transactions", filters],
     queryFn: () => getTransactions(filters),
   });
 
+  // Review queue depth for context stats
+  const reviewDepthQ = useQuery({
+    queryKey: ["review-queue-depth", filters.county],
+    queryFn: () => getReviewQueue({
+      county: filters.county,
+      page: 1,
+      page_size: 1,
+    }),
+  });
+
   const applySearch = useCallback(() => {
     setFilters((f) => ({ ...f, search: search || undefined, page: 1 }));
-  }, [search]);
+  }, [search, setFilters]);
 
   const toggleSort = (col: string) => {
     const dbCol = SORT_MAP[col];
@@ -138,31 +157,82 @@ export default function TransactionsPage() {
     }
   };
 
+  const toggleRow = (id: number) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const applyPreset = (params: Record<string, string>) => {
+    setSearchParams(params);
+  };
+
+  const handleBulkResolve = async () => {
+    if (selectedIds.size === 0) return;
+    setBulkResolving(true);
+    try {
+      await Promise.all(
+        [...selectedIds].map((id) => resolveAction(id, { action: "dismiss", note: "Bulk resolved" }))
+      );
+      setSelectedIds(new Set());
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["stats"] });
+    } catch {
+      alert("Some items failed to resolve");
+    } finally {
+      setBulkResolving(false);
+    }
+  };
+
   return (
     <div>
-      {/* Stats cards */}
-      {stats && (
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="text-2xl font-semibold text-gray-800">{stats.total_transactions.toLocaleString()}</div>
-            <div className="text-sm text-gray-500">Total Transactions</div>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="text-2xl font-semibold text-gray-800">{stats.by_county.length}</div>
-            <div className="text-sm text-gray-500">Counties</div>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="text-2xl font-semibold text-gray-800">{stats.flagged_for_review.toLocaleString()}</div>
-            <div className="text-sm text-gray-500">Flagged for Review</div>
-          </div>
-          <div className="bg-white rounded-lg border border-gray-200 p-4">
-            <div className="text-sm text-gray-800">
-              {stats.date_range.min ?? "N/A"} - {stats.date_range.max ?? "N/A"}
-            </div>
-            <div className="text-sm text-gray-500">Date Range</div>
-          </div>
-        </div>
-      )}
+      {/* Context stats bar */}
+      <div className="flex items-center gap-4 mb-4 text-sm">
+        <span className="text-gray-800 font-semibold">
+          {data ? `${data.total.toLocaleString()} transactions` : "Loading..."}
+        </span>
+        {filters.county && (
+          <span className="text-gray-500">
+            in {filters.county}
+          </span>
+        )}
+        {(reviewDepthQ.data?.total ?? 0) > 0 && (
+          <span className="text-amber-600 font-medium">
+            {reviewDepthQ.data!.total.toLocaleString()} flagged
+            {filters.county ? ` in ${filters.county}` : ""}
+          </span>
+        )}
+        {filters.unmatched_only && (
+          <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs font-medium">
+            Review mode
+          </span>
+        )}
+      </div>
+
+      {/* Filter presets */}
+      <div className="flex gap-1.5 mb-3">
+        {FILTER_PRESETS.map((p) => {
+          const isActive = Object.entries(p.params).every(
+            ([k, v]) => searchParams.get(k) === v
+          ) && (Object.keys(p.params).length > 0 || searchParams.toString() === "");
+          return (
+            <button
+              key={p.label}
+              onClick={() => applyPreset(p.params)}
+              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                isActive
+                  ? "bg-blue-100 text-blue-700"
+                  : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+              }`}
+            >
+              {p.label}
+            </button>
+          );
+        })}
+      </div>
 
       {/* Filters */}
       <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
@@ -246,7 +316,7 @@ export default function TransactionsPage() {
               disabled={exporting}
               className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
             >
-              {exporting ? "Exporting..." : "Export to Excel"}
+              {exporting ? "Exporting..." : "Export"}
             </button>
           </div>
         </div>
@@ -257,6 +327,28 @@ export default function TransactionsPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-200 bg-gray-50">
+              <th className="px-3 py-2 w-8">
+                <input
+                  type="checkbox"
+                  checked={selectedIds.size > 0 && data?.items.every((r) => {
+                    const id = (r as Record<string, unknown>).id;
+                    return typeof id === "number" && selectedIds.has(id);
+                  })}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      const ids = new Set(selectedIds);
+                      data?.items.forEach((r) => {
+                        const id = (r as Record<string, unknown>).id;
+                        if (typeof id === "number") ids.add(id);
+                      });
+                      setSelectedIds(ids);
+                    } else {
+                      setSelectedIds(new Set());
+                    }
+                  }}
+                  className="rounded"
+                />
+              </th>
               {COLUMNS.map((col) => (
                 <th
                   key={col.key}
@@ -276,33 +368,44 @@ export default function TransactionsPage() {
           <tbody>
             {isLoading ? (
               <tr>
-                <td colSpan={COLUMNS.length} className="px-3 py-8 text-center text-gray-400">Loading...</td>
+                <td colSpan={COLUMNS.length + 1} className="px-3 py-8 text-center text-gray-400">Loading...</td>
               </tr>
             ) : data?.items.length === 0 ? (
               <tr>
-                <td colSpan={COLUMNS.length} className="px-3 py-8 text-center text-gray-400">No transactions found</td>
+                <td colSpan={COLUMNS.length + 1} className="px-3 py-8 text-center text-gray-400">No transactions found</td>
               </tr>
             ) : (
-              data?.items.map((row, i) => (
-                <tr
-                  key={i}
-                  onClick={() => {
-                    const id = (row as Record<string, unknown>).id;
-                    if (typeof id === "number") setSelectedId(id);
-                  }}
-                  className="border-b border-gray-100 hover:bg-blue-50 cursor-pointer"
-                >
-                  {COLUMNS.map((col) => (
-                    <td
-                      key={col.key}
-                      className={`px-3 py-1.5 truncate max-w-xs ${col.numeric ? "text-right tabular-nums" : ""}`}
-                      title={fmt((row as Record<string, unknown>)[col.key])}
-                    >
-                      {fmt((row as Record<string, unknown>)[col.key], col.numeric)}
+              data?.items.map((row, i) => {
+                const id = (row as Record<string, unknown>).id;
+                const isSelected = typeof id === "number" && selectedIds.has(id);
+                return (
+                  <tr
+                    key={i}
+                    onClick={() => {
+                      if (typeof id === "number") setSelectedId(id);
+                    }}
+                    className={`border-b border-gray-100 hover:bg-blue-50 cursor-pointer ${isSelected ? "bg-blue-50/50" : ""}`}
+                  >
+                    <td className="px-3 py-1.5" onClick={(e) => e.stopPropagation()}>
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => { if (typeof id === "number") toggleRow(id); }}
+                        className="rounded"
+                      />
                     </td>
-                  ))}
-                </tr>
-              ))
+                    {COLUMNS.map((col) => (
+                      <td
+                        key={col.key}
+                        className={`px-3 py-1.5 truncate max-w-xs ${col.numeric ? "text-right tabular-nums" : ""}`}
+                        title={fmt((row as Record<string, unknown>)[col.key])}
+                      >
+                        {fmt((row as Record<string, unknown>)[col.key], col.numeric)}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
@@ -316,6 +419,26 @@ export default function TransactionsPage() {
           onPageChange={(p) => setFilters((f) => ({ ...f, page: p }))}
           onPageSizeChange={(s) => setFilters((f) => ({ ...f, page_size: s, page: 1 }))}
         />
+      )}
+
+      {/* Bulk action bar */}
+      {selectedIds.size > 0 && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white rounded-lg shadow-xl px-5 py-3 flex items-center gap-4 z-30">
+          <span className="text-sm">{selectedIds.size} selected</span>
+          <button
+            onClick={handleBulkResolve}
+            disabled={bulkResolving}
+            className="px-3 py-1.5 text-sm bg-amber-500 text-white rounded hover:bg-amber-600 disabled:opacity-50 font-medium"
+          >
+            {bulkResolving ? "Resolving..." : "Dismiss Selected"}
+          </button>
+          <button
+            onClick={() => setSelectedIds(new Set())}
+            className="px-3 py-1.5 text-sm text-gray-300 hover:text-white"
+          >
+            Clear
+          </button>
+        </div>
       )}
 
       {selectedId !== null && (

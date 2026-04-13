@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   getSubdivision,
   getCommissionRoster,
@@ -7,6 +7,8 @@ import {
   getParcelsBySubdivision,
   getSalesBySubdivision,
 } from "../api";
+import SubdivisionMap from "../components/SubdivisionMap";
+import EntitlementProgress from "../components/EntitlementProgress";
 import type {
   CommissionRosterDetail,
   PermitsResponse,
@@ -21,51 +23,76 @@ function fmtNum(n: number | null | undefined): string {
   return n.toLocaleString(undefined, { maximumFractionDigits: 0 });
 }
 
+function fmtDollar(n: number | null | undefined): string {
+  if (n == null) return "";
+  return `$${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+}
+
 export default function SubdivisionDetailPage() {
   const { id: idParam } = useParams<{ id: string }>();
   const id = Number(idParam);
-
-  if (!idParam || Number.isNaN(id)) {
-    return <p className="text-red-600">Invalid subdivision id</p>;
-  }
+  const navigate = useNavigate();
+  const valid = !!idParam && !Number.isNaN(id);
 
   const subdivisionQ = useQuery<SubdivisionDetail>({
     queryKey: ["subdivision", id],
     queryFn: () => getSubdivision(id),
+    enabled: valid,
   });
 
   const commissionQ = useQuery<CommissionRosterDetail>({
     queryKey: ["commission-roster", id],
     queryFn: () => getCommissionRoster(id),
+    enabled: valid,
   });
 
   const permitsQ = useQuery<PermitsResponse>({
     queryKey: ["permits-by-sub", id],
     queryFn: () => getPermitsBySubdivision(id),
+    enabled: valid,
   });
 
   const parcelsQ = useQuery<ParcelPage>({
     queryKey: ["parcels-by-sub", id],
     queryFn: () => getParcelsBySubdivision(id),
+    enabled: valid,
   });
 
   const canonicalName = subdivisionQ.data?.canonical_name;
   const salesQ = useQuery<PaginatedResponse<Transaction>>({
     queryKey: ["sales-by-sub", canonicalName],
     queryFn: () => getSalesBySubdivision(canonicalName as string),
-    enabled: !!canonicalName,
+    enabled: valid && !!canonicalName,
   });
 
-  // Header
+  if (!valid) {
+    return <p className="text-red-600">Invalid subdivision id</p>;
+  }
+
   const header = subdivisionQ.data;
   const commission = commissionQ.data;
   const hasCommissionMeta =
     commission && (commission.entitlement_status || commission.lifecycle_stage_label);
 
+  // Derive builder totals from parcels
+  const parcels = parcelsQ.data?.items ?? [];
+  const builderTotals = new Map<string, number>();
+  for (const p of parcels) {
+    const owner = p.owner_name ?? "Unknown";
+    builderTotals.set(owner, (builderTotals.get(owner) ?? 0) + 1);
+  }
+  const sortedBuilders = [...builderTotals.entries()].sort((a, b) => b[1] - a[1]);
+
   return (
-    <div className="space-y-6">
-      {/* Header */}
+    <div className="space-y-6 max-w-6xl">
+      {/* Back button + Header */}
       <div>
+        <button
+          onClick={() => navigate("/subdivisions")}
+          className="text-sm text-blue-600 hover:text-blue-800 mb-2 inline-flex items-center gap-1"
+        >
+          <span>&larr;</span> Back to Subdivisions
+        </button>
         {subdivisionQ.isLoading ? (
           <p className="text-gray-400">Loading subdivision...</p>
         ) : subdivisionQ.error || !header ? (
@@ -76,7 +103,7 @@ export default function SubdivisionDetailPage() {
           <>
             <h1 className="text-2xl font-semibold text-gray-800">{header.canonical_name}</h1>
             <div className="flex items-center gap-3 mt-1">
-              <span className="text-sm text-gray-500">{header.county}</span>
+              <span className="text-sm text-gray-500">{header.county}, FL</span>
               {hasCommissionMeta && (
                 <>
                   {commission?.entitlement_status && (
@@ -96,23 +123,76 @@ export default function SubdivisionDetailPage() {
         )}
       </div>
 
-      {/* Four panels */}
+      {/* Info + Map layout (1:2) — map placeholder for now */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Subdivision info (1/3) */}
+        <div className="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
+          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">Details</h2>
+          <dl className="space-y-2 text-sm">
+            {header?.county && (
+              <div><dt className="text-gray-400">County</dt><dd className="text-gray-800 font-medium">{header.county}, FL</dd></div>
+            )}
+            {header?.phases && header.phases.length > 0 && (
+              <div><dt className="text-gray-400">Phases</dt><dd className="text-gray-800">{header.phases.join(", ")}</dd></div>
+            )}
+            {commission?.last_action_date && (
+              <div><dt className="text-gray-400">Last Commission Action</dt><dd className="text-gray-800">{commission.last_action_date}</dd></div>
+            )}
+            {commission?.next_expected_action && (
+              <div><dt className="text-gray-400">Next Expected</dt><dd className="text-gray-800">{commission.next_expected_action}</dd></div>
+            )}
+            <div><dt className="text-gray-400">Total Parcels</dt><dd className="text-gray-800 font-medium">{fmtNum(parcelsQ.data?.total)}</dd></div>
+            <div><dt className="text-gray-400">Total Permits</dt><dd className="text-gray-800 font-medium">{fmtNum(permitsQ.data?.total_count)}</dd></div>
+            <div><dt className="text-gray-400">Total Sales</dt><dd className="text-gray-800 font-medium">{fmtNum(salesQ.data?.total)}</dd></div>
+          </dl>
+        </div>
+
+        {/* Map (2/3) */}
+        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg overflow-hidden min-h-[300px]">
+          <SubdivisionMap geojson={header?.geojson ?? null} />
+        </div>
+      </div>
+
+      {/* Builder totals (instead of individual lot listing) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {/* Builder inventory */}
+        <PanelShell title="Builder Lots" subtitle={`${fmtNum(parcelsQ.data?.total)} total parcels`}>
+          {parcelsQ.isLoading ? (
+            <p className="text-gray-400 text-sm">Loading...</p>
+          ) : parcelsQ.error ? (
+            <p className="text-red-600 text-sm">Failed to load</p>
+          ) : sortedBuilders.length === 0 ? (
+            <p className="text-gray-400 text-sm">No parcels tracked.</p>
+          ) : (
+            <div className="space-y-1.5">
+              {sortedBuilders.slice(0, 10).map(([name, count]) => (
+                <div key={name} className="flex items-center justify-between text-sm">
+                  <span className="text-gray-700 truncate max-w-[200px]" title={name}>{name}</span>
+                  <span className="text-gray-500 tabular-nums shrink-0 ml-2">{fmtNum(count)}</span>
+                </div>
+              ))}
+              {sortedBuilders.length > 10 && (
+                <p className="text-xs text-gray-400">+{sortedBuilders.length - 10} more owners</p>
+              )}
+            </div>
+          )}
+        </PanelShell>
+
+        {/* Commission actions */}
         <CommissionPanel
           isLoading={commissionQ.isLoading}
           error={commissionQ.error as Error | null}
           data={commissionQ.data}
         />
+
+        {/* Permits */}
         <PermitsPanel
           isLoading={permitsQ.isLoading}
           error={permitsQ.error as Error | null}
           data={permitsQ.data}
         />
-        <InventoryPanel
-          isLoading={parcelsQ.isLoading}
-          error={parcelsQ.error as Error | null}
-          data={parcelsQ.data}
-        />
+
+        {/* Sales */}
         <SalesPanel
           isLoading={salesQ.isLoading || (!canonicalName && !subdivisionQ.error)}
           error={salesQ.error as Error | null}
@@ -124,7 +204,7 @@ export default function SubdivisionDetailPage() {
 }
 
 // ---------------------------------------------------------------------------
-// Panel components (inline — do not factor out per plan)
+// Panel components
 // ---------------------------------------------------------------------------
 
 function PanelShell({
@@ -158,7 +238,7 @@ function CommissionPanel({
 }) {
   const actions = data?.actions ?? [];
   const subtitle = data
-    ? `${data.entitlement_status || "—"} · ${data.lifecycle_stage_label || "—"} · ${actions.length} actions`
+    ? `${data.entitlement_status || "—"} · ${actions.length} actions`
     : undefined;
 
   return (
@@ -170,28 +250,27 @@ function CommissionPanel({
       ) : actions.length === 0 ? (
         <p className="text-gray-400 text-sm">No commission actions.</p>
       ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Date</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Type</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Case</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Outcome</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Phase</th>
-            </tr>
-          </thead>
-          <tbody>
-            {actions.map((a) => (
-              <tr key={a.id} className="border-b border-gray-100">
-                <td className="px-3 py-1.5 text-gray-700 whitespace-nowrap">{a.meeting_date}</td>
-                <td className="px-3 py-1.5 text-gray-700">{a.approval_type}</td>
-                <td className="px-3 py-1.5 text-gray-700">{a.case_number}</td>
-                <td className="px-3 py-1.5 text-gray-700">{a.outcome}</td>
-                <td className="px-3 py-1.5 text-gray-700">{a.phase_name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="space-y-3">
+          <EntitlementProgress actions={actions} />
+          <div className="space-y-1.5">
+          {actions.slice(0, 8).map((a) => (
+            <div key={a.id} className="text-sm">
+              <div className="flex items-center gap-2">
+                <span className="text-gray-500 text-xs shrink-0">{a.meeting_date}</span>
+                <span className="text-gray-700 truncate">{a.approval_type.replace(/_/g, " ")}</span>
+              </div>
+              {a.outcome && (
+                <span className={`text-xs font-medium ${a.outcome === "approved" ? "text-green-600" : a.outcome === "denied" ? "text-red-600" : "text-gray-500"}`}>
+                  {a.outcome}
+                </span>
+              )}
+            </div>
+          ))}
+          {actions.length > 8 && (
+            <p className="text-xs text-gray-400">+{actions.length - 8} more actions</p>
+          )}
+          </div>
+        </div>
       )}
     </PanelShell>
   );
@@ -207,95 +286,29 @@ function PermitsPanel({
   data: PermitsResponse | undefined;
 }) {
   const rows = data?.permits ?? [];
-  const subtitle = data ? `showing ${rows.length} of ${data.total_count}` : undefined;
+  const subtitle = data ? `${data.total_count} total` : undefined;
 
   return (
     <PanelShell title="Permits" subtitle={subtitle}>
       {isLoading ? (
         <p className="text-gray-400 text-sm">Loading...</p>
       ) : error ? (
-        <p className="text-red-600 text-sm">Failed to load: {error.message}</p>
+        <p className="text-red-600 text-sm">Failed to load</p>
       ) : rows.length === 0 ? (
         <p className="text-gray-400 text-sm">No permits.</p>
       ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Issued</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Permit #</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Status</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Address</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Builder</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((p) => (
-              <tr key={p.id} className="border-b border-gray-100">
-                <td className="px-3 py-1.5 text-gray-700 whitespace-nowrap">{p.issue_date ?? ""}</td>
-                <td className="px-3 py-1.5 text-gray-700">{p.permit_number}</td>
-                <td className="px-3 py-1.5 text-gray-700">{p.status ?? ""}</td>
-                <td className="px-3 py-1.5 text-gray-700 max-w-[220px] truncate" title={p.address ?? ""}>
-                  {p.address ?? ""}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700">{p.builder ?? ""}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
-    </PanelShell>
-  );
-}
-
-function InventoryPanel({
-  isLoading,
-  error,
-  data,
-}: {
-  isLoading: boolean;
-  error: Error | null;
-  data: ParcelPage | undefined;
-}) {
-  const rows = data?.items ?? [];
-  const subtitle = data ? `showing ${rows.length} of ${data.total}` : undefined;
-
-  return (
-    <PanelShell title="Builder Inventory" subtitle={subtitle}>
-      {isLoading ? (
-        <p className="text-gray-400 text-sm">Loading...</p>
-      ) : error ? (
-        <p className="text-red-600 text-sm">Failed to load: {error.message}</p>
-      ) : rows.length === 0 ? (
-        <p className="text-gray-400 text-sm">No parcels.</p>
-      ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Parcel #</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Owner</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Address</th>
-              <th className="px-3 py-1.5 text-right font-medium text-gray-600">Acres</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.id} className="border-b border-gray-100">
-                <td className="px-3 py-1.5 text-gray-700">{r.parcel_number}</td>
-                <td className="px-3 py-1.5 text-gray-700 max-w-[180px] truncate" title={r.owner_name ?? ""}>
-                  {r.owner_name ?? ""}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700 max-w-[220px] truncate" title={r.site_address ?? ""}>
-                  {r.site_address ?? ""}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700 text-right tabular-nums">
-                  {r.acreage != null ? r.acreage.toFixed(2) : ""}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700">{r.parcel_class ?? ""}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="space-y-1.5">
+          {rows.slice(0, 8).map((p) => (
+            <div key={p.id} className="flex items-center gap-2 text-sm">
+              <span className="text-gray-500 text-xs shrink-0">{p.issue_date ?? ""}</span>
+              <span className="text-gray-700 truncate">{p.address ?? p.permit_number}</span>
+              {p.builder && <span className="text-gray-400 text-xs shrink-0">{p.builder}</span>}
+            </div>
+          ))}
+          {rows.length > 8 && (
+            <p className="text-xs text-gray-400">+{data!.total_count - 8} more permits</p>
+          )}
+        </div>
       )}
     </PanelShell>
   );
@@ -311,49 +324,33 @@ function SalesPanel({
   data: PaginatedResponse<Transaction> | undefined;
 }) {
   const rows = data?.items ?? [];
-  const subtitle = data ? `showing ${rows.length} of ${data.total}` : undefined;
+  const subtitle = data ? `${data.total} total` : undefined;
 
   return (
     <PanelShell title="Sales" subtitle={subtitle}>
       {isLoading ? (
         <p className="text-gray-400 text-sm">Loading...</p>
       ) : error ? (
-        <p className="text-red-600 text-sm">Failed to load: {error.message}</p>
+        <p className="text-red-600 text-sm">Failed to load</p>
       ) : rows.length === 0 ? (
         <p className="text-gray-400 text-sm">No transactions.</p>
       ) : (
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Date</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Type</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Grantor</th>
-              <th className="px-3 py-1.5 text-left font-medium text-gray-600">Grantee</th>
-              <th className="px-3 py-1.5 text-right font-medium text-gray-600">Price</th>
-              <th className="px-3 py-1.5 text-right font-medium text-gray-600">Lots</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((t, i) => (
-              <tr key={i} className="border-b border-gray-100">
-                <td className="px-3 py-1.5 text-gray-700 whitespace-nowrap">{t.Date ?? ""}</td>
-                <td className="px-3 py-1.5 text-gray-700">{t.Type ?? ""}</td>
-                <td className="px-3 py-1.5 text-gray-700 max-w-[160px] truncate" title={t.Grantor}>
-                  {t.Grantor}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700 max-w-[160px] truncate" title={t.Grantee ?? ""}>
-                  {t.Grantee ?? ""}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700 text-right tabular-nums">
-                  {fmtNum(t.Price)}
-                </td>
-                <td className="px-3 py-1.5 text-gray-700 text-right tabular-nums">
-                  {fmtNum(t.Lots)}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="space-y-1.5">
+          {rows.slice(0, 8).map((t, i) => (
+            <div key={i} className="flex items-center gap-2 text-sm">
+              <span className="text-gray-500 text-xs shrink-0">{t.Date ?? ""}</span>
+              <span className="text-gray-700 truncate">{t.Grantor}</span>
+              {t.Price != null && (
+                <span className="text-gray-500 tabular-nums text-xs shrink-0 ml-auto">
+                  {fmtDollar(t.Price)}
+                </span>
+              )}
+            </div>
+          ))}
+          {rows.length > 8 && (
+            <p className="text-xs text-gray-400">+{data!.total - 8} more sales</p>
+          )}
+        </div>
       )}
     </PanelShell>
   );
