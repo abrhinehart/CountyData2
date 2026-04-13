@@ -9,6 +9,7 @@ import {
   getParcelsBySubdivision,
   getSalesBySubdivision,
   getCommissionRoster,
+  getInventoryBuilders,
 } from "../api";
 import { getBuilderColor } from "../config/builderColors";
 import type {
@@ -17,6 +18,7 @@ import type {
   PaginatedResponse,
   Transaction,
   CommissionRosterDetail,
+  BuilderOut,
 } from "../types";
 
 // ---------------------------------------------------------------------------
@@ -31,6 +33,80 @@ function fmtNum(n: number | null | undefined): string {
 function fmtDollar(n: number | null | undefined): string {
   if (n == null) return "";
   return `$${n.toLocaleString(undefined, { maximumFractionDigits: 0 })}`;
+}
+
+// ---------------------------------------------------------------------------
+// SVG stripe pattern for multi-builder polygons
+// ---------------------------------------------------------------------------
+
+let patternCounter = 0;
+
+interface BuilderStripeInfo {
+  builder_id: number;
+  lot_count: number;
+}
+
+/**
+ * Creates a diagonal stripe SVG pattern in the Leaflet SVG renderer's <defs>.
+ * Each stripe width is proportional to the builder's lot share.
+ * Returns `url(#patternId)` for use as a fill value.
+ */
+function getOrCreateStripePattern(
+  map: L.Map,
+  builders: BuilderStripeInfo[],
+): string {
+  // Access the SVG renderer's root <svg> element
+  const renderer = (map as unknown as { _renderer?: { _container?: SVGSVGElement } })._renderer;
+  if (!renderer?._container) return getBuilderColor(builders[0]?.builder_id ?? 0).fill;
+
+  const svg = renderer._container;
+
+  // Ensure <defs> exists
+  let defs = svg.querySelector("defs");
+  if (!defs) {
+    defs = document.createElementNS("http://www.w3.org/2000/svg", "defs");
+    svg.insertBefore(defs, svg.firstChild);
+  }
+
+  const totalLots = builders.reduce((sum, b) => sum + b.lot_count, 0);
+  if (totalLots === 0) return getBuilderColor(builders[0]?.builder_id ?? 0).fill;
+
+  const patternId = `builder-stripe-${patternCounter++}`;
+  const stripeWidth = 12; // total pattern width in px
+
+  const pattern = document.createElementNS("http://www.w3.org/2000/svg", "pattern");
+  pattern.setAttribute("id", patternId);
+  pattern.setAttribute("patternUnits", "userSpaceOnUse");
+  pattern.setAttribute("width", String(stripeWidth));
+  pattern.setAttribute("height", String(stripeWidth));
+  pattern.setAttribute("patternTransform", "rotate(45)");
+
+  let offset = 0;
+  for (const b of builders) {
+    const w = (b.lot_count / totalLots) * stripeWidth;
+    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute("x", String(offset));
+    rect.setAttribute("y", "0");
+    rect.setAttribute("width", String(w));
+    rect.setAttribute("height", String(stripeWidth));
+    rect.setAttribute("fill", getBuilderColor(b.builder_id).fill);
+    pattern.appendChild(rect);
+    offset += w;
+  }
+
+  defs.appendChild(pattern);
+  return `url(#${patternId})`;
+}
+
+/**
+ * Remove all builder stripe patterns from the SVG renderer and reset counter.
+ */
+function clearStripePatterns(map: L.Map) {
+  patternCounter = 0;
+  const renderer = (map as unknown as { _renderer?: { _container?: SVGSVGElement } })._renderer;
+  if (!renderer?._container) return;
+  const defs = renderer._container.querySelector("defs");
+  if (defs) defs.innerHTML = "";
 }
 
 // ---------------------------------------------------------------------------
@@ -232,9 +308,11 @@ export default function MapPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
+  const svgRendererRef = useRef<L.SVG | null>(null);
 
   const [selectedCounty, setSelectedCounty] = useState<string>("");
   const [selectedFeature, setSelectedFeature] = useState<SubdivisionGeoFeature | null>(null);
+  const [builderFilter, setBuilderFilter] = useState<number[]>([]);
 
   const countiesQ = useQuery<string[]>({
     queryKey: ["counties"],
@@ -246,12 +324,24 @@ export default function MapPage() {
     queryFn: () => getSubdivisionGeoJSON({}),
   });
 
-  // Client-side filter by county name
+  const buildersQ = useQuery<BuilderOut[]>({
+    queryKey: ["inventory-builders"],
+    queryFn: getInventoryBuilders,
+  });
+
+  // Client-side filter by county name + builder filter
   const features = useMemo(() => {
-    const all = geoQ.data ?? [];
-    if (!selectedCounty) return all;
-    return all.filter((f) => f.county_name === selectedCounty);
-  }, [geoQ.data, selectedCounty]);
+    let result = geoQ.data ?? [];
+    if (selectedCounty) {
+      result = result.filter((f) => f.county_name === selectedCounty);
+    }
+    if (builderFilter.length > 0) {
+      result = result.filter((f) =>
+        f.builders.some((b) => builderFilter.includes(b.builder_id)),
+      );
+    }
+    return result;
+  }, [geoQ.data, selectedCounty, builderFilter]);
 
   // Stable callback for polygon clicks
   const onFeatureClick = useCallback((f: SubdivisionGeoFeature) => {
@@ -265,11 +355,15 @@ export default function MapPage() {
     if (!containerRef.current) return;
     if (mapRef.current) return; // already created
 
+    const svgRenderer = L.svg();
+    svgRendererRef.current = svgRenderer;
+
     const map = L.map(containerRef.current, {
       center: [28.5, -81.5], // Central Florida default
       zoom: 10,
       attributionControl: false,
       zoomControl: true,
+      renderer: svgRenderer,
     });
     mapRef.current = map;
 
@@ -291,6 +385,7 @@ export default function MapPage() {
       map.remove();
       mapRef.current = null;
       layerRef.current = null;
+      svgRendererRef.current = null;
     };
   }, []);
 
@@ -299,8 +394,12 @@ export default function MapPage() {
   // ---------------------------------------------------------------------------
   useEffect(() => {
     const group = layerRef.current;
-    if (!group) return;
+    const map = mapRef.current;
+    if (!group || !map) return;
     group.clearLayers();
+
+    // Clean up old stripe patterns from previous render
+    clearStripePatterns(map);
 
     if (features.length === 0) return;
 
@@ -322,6 +421,12 @@ export default function MapPage() {
         strokeColor = "#4B5563";
         fillOpacity = 0.15;
         dashArray = "6 4";
+      } else if (sorted.length > 1) {
+        // Multi-builder: diagonal stripe pattern
+        fillColor = getOrCreateStripePattern(map, sorted);
+        strokeColor = getBuilderColor(primary.builder_id).stroke;
+        fillOpacity = 0.5;
+        dashArray = undefined;
       } else if (primary) {
         const colors = getBuilderColor(primary.builder_id);
         fillColor = colors.fill;
@@ -406,6 +511,35 @@ export default function MapPage() {
             </option>
           ))}
         </select>
+
+        <label className="text-sm font-medium text-gray-700">Builder</label>
+        <select
+          multiple
+          value={builderFilter.map(String)}
+          onChange={(e) => {
+            const selected = Array.from(e.target.selectedOptions, (o) => Number(o.value));
+            setBuilderFilter(selected);
+          }}
+          className="text-sm border border-gray-300 rounded px-2 py-1 bg-white min-w-[140px] max-h-24"
+        >
+          {(buildersQ.data ?? [])
+            .filter((b) => b.is_active)
+            .sort((a, b) => a.canonical_name.localeCompare(b.canonical_name))
+            .map((b) => (
+              <option key={b.id} value={b.id}>
+                {b.canonical_name}
+              </option>
+            ))}
+        </select>
+        {builderFilter.length > 0 && (
+          <button
+            onClick={() => setBuilderFilter([])}
+            className="text-xs text-blue-600 hover:text-blue-800 underline"
+          >
+            Clear
+          </button>
+        )}
+
         {geoQ.isLoading && <span className="text-xs text-gray-400">Loading polygons...</span>}
         {geoQ.error && (
           <span className="text-xs text-red-500">
