@@ -25,6 +25,9 @@ import type {
   RosterPayload,
   SubdivisionGeoFeature,
   GeometryCoverageRow,
+  BiSnapshotHealthRow,
+  PtScrapeHealthRow,
+  CrDocumentHealthRow,
 } from "./types";
 
 const BASE = "/api";
@@ -354,4 +357,16 @@ export async function getCommissionRosterList(params?: {
 
 export async function getGeometryCoverage(): Promise<{ rows: GeometryCoverageRow[] }> {
   return checked(await fetch(`${BASE}/platform/geometry-coverage`));
+}
+
+export async function getBiSnapshotHealth(): Promise<{ rows: BiSnapshotHealthRow[] }> {
+  return checked(await fetch(`${BASE}/platform/bi-snapshot-health`));
+}
+
+export async function getPtScrapeHealth(): Promise<{ rows: PtScrapeHealthRow[] }> {
+  return checked(await fetch(`${BASE}/platform/pt-scrape-health`));
+}
+
+export async function getCrDocumentHealth(): Promise<{ rows: CrDocumentHealthRow[] }> {
+  return checked(await fetch(`${BASE}/platform/cr-document-health`));
 }

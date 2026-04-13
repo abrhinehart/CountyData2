@@ -98,8 +98,8 @@ counties:
         notes: "Consumes monthly PDF permit reports (avoids CAPTCHA). Prefix filter: PRSF."
       cr:
         platform: novusagenda
-        status: usable_seed
-        notes: "NovusAgenda scraper built. BCC agendas served as HTML. Site was returning errors as of 2026-04-13."
+        status: portal_down
+        notes: "NovusAgenda scraper built. BCC agendas served as HTML. Portal returning HTTP errors as of 2026-04-13; revisit monthly."
     quirks:
       - "CD2: cleanup_patterns strip leading L\\d+ and LOTS?\\d+ from legal descriptions"
 
@@ -177,6 +177,7 @@ counties:
         endpoint: services2.arcgis.com/Parcels/FeatureServer/0
         status: active
         fields: { owner: OWNER_NAME, parcel: PARCEL_NUMBER, address: SITUS_ADDRESS, use: CER_DOR_CODE, acreage: ACRES }
+        notes: "Integer use_type crash fixed in f259d87 — parcel classifier now coerces CER_DOR_CODE to str."
       pt:
         portal: tyler-energov
         url: https://hernandocountyfl-energovweb.tylerhost.net/apps/selfservice
