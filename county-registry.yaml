@@ -224,11 +224,10 @@ counties:
     fips: "12091"
     projects:
       cd2:
-        portal: landmark
-        url: https://clerkapps.okaloosaclerk.com/LandmarkWeb
-        bypass: unknown
-        status: blocked
-        notes: "503 Service Unavailable (server-side, Microsoft-HTTPAPI/2.0). Base domain responds but /LandmarkWeb/ is down. Verified 2026-04-12. Retry later."
+        portal: tyler-selfservice
+        url: https://okaloosacountyfl-web.tylerhost.net/web
+        status: needs_client
+        notes: "LandmarkWeb decommissioned, migrated to Tyler Technologies self-service (Version 2025.1.31). New portal is live and functional. No Tyler self-service scraper client exists yet. Kiosk variant at okaloosacountyfl-kiosk.tylerhost.net. ClerkQuest at clerkapps.okaloosaclerk.com/ClerkQuest is court records only, not deeds."
       bi:
         portal: arcgis
         endpoint: gis.myokaloosa.com/BaseMap_Layers/MapServer/111

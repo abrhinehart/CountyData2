@@ -85,13 +85,9 @@ LANDMARK_COUNTIES = {
         'status': 'cloudflare',  # needs curl_cffi TLS impersonation
         'portal': 'landmark',
     },
-    'Okaloosa': {
-        'base_url': 'https://clerkapps.okaloosaclerk.com/LandmarkWeb',
-        'doc_types': '',
-        'column_map': None,
-        'status': 'blocked',  # 503 Service Unavailable (server-side, not Cloudflare). Verified 2026-04-12.
-        'portal': 'landmark',
-    },
+    # Okaloosa: removed from LANDMARK_COUNTIES — LandmarkWeb decommissioned.
+    # Migrated to Tyler Technologies self-service: https://okaloosacountyfl-web.tylerhost.net/web
+    # Status: needs_client (no Tyler self-service scraper exists yet).
     'Bay': {
         'base_url': 'https://records2.baycoclerk.com/Recording',
         'doc_types': '',
