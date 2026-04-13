@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   getInventoryCounties,
   getInventorySummary,
   getInventoryBuilders,
   getInventorySnapshots,
+  getActiveSnapshots,
   triggerSnapshot,
 } from "../api";
 import type { InventoryCounty } from "../types";
@@ -22,6 +23,8 @@ export default function InventoryPage() {
   const queryClient = useQueryClient();
   const [selectedCounty, setSelectedCounty] = useState<number | null>(null);
   const [triggering, setTriggering] = useState(false);
+  const [confirmState, setConfirmState] = useState<null | { label: string }>(null);
+  const [elapsedTick, setElapsedTick] = useState(0);
 
   const countiesQ = useQuery({
     queryKey: ["inventory-counties"],
@@ -43,6 +46,34 @@ export default function InventoryPage() {
     queryFn: () => getInventorySnapshots({ limit: 5 }),
   });
 
+  const activeQ = useQuery({
+    queryKey: ["active-snapshots"],
+    queryFn: getActiveSnapshots,
+    refetchInterval: (query) => {
+      return (query.state.data?.length ?? 0) > 0 ? 3000 : false;
+    },
+  });
+
+  // Tick elapsed timer every second while snapshots are active
+  useEffect(() => {
+    const hasActive = (activeQ.data?.length ?? 0) > 0;
+    if (!hasActive) return;
+    const id = setInterval(() => setElapsedTick((t) => t + 1), 1000);
+    return () => clearInterval(id);
+  }, [activeQ.data]);
+
+  // Detect when active snapshots transition from >0 to 0 and refresh data
+  const prevActiveCount = useRef(0);
+  useEffect(() => {
+    const count = activeQ.data?.length ?? 0;
+    if (prevActiveCount.current > 0 && count === 0) {
+      queryClient.invalidateQueries({ queryKey: ["inventory-snapshots"] });
+      queryClient.invalidateQueries({ queryKey: ["inventory-counties"] });
+      queryClient.invalidateQueries({ queryKey: ["inventory-summary"] });
+    }
+    prevActiveCount.current = count;
+  }, [activeQ.data, queryClient]);
+
   const counties = countiesQ.data ?? [];
   const runnableCounties = counties.filter((c) => c.has_endpoint && c.is_active);
   const inventory = inventoryQ.data ?? [];
@@ -56,10 +87,29 @@ export default function InventoryPage() {
   // Last successful snapshot info
   const lastSnapshot = deriveLastSnapshot(counties);
 
-  const handleTrigger = async () => {
+  // Build county name lookup for active snapshots display
+  const countyNameMap = new Map(counties.map((c) => [c.id, c.name]));
+
+  // Recent failed snapshots for error display
+  const recentFailed = snapshots.filter(
+    (s) => s.status === "failed" && s.error_message
+  );
+
+  const handleRunClick = () => {
+    if (selectedCounty) {
+      const county = counties.find((c) => c.id === selectedCounty);
+      setConfirmState({ label: `Run snapshot for ${county?.name ?? "selected county"}?` });
+    } else {
+      setConfirmState({ label: `Run snapshot for all ${runnableCounties.length} counties?` });
+    }
+  };
+
+  const handleConfirm = async () => {
+    setConfirmState(null);
     setTriggering(true);
     try {
       await triggerSnapshot(selectedCounty ?? undefined);
+      queryClient.invalidateQueries({ queryKey: ["active-snapshots"] });
       queryClient.invalidateQueries({ queryKey: ["inventory-snapshots"] });
       queryClient.invalidateQueries({ queryKey: ["inventory-counties"] });
     } catch {
@@ -67,6 +117,10 @@ export default function InventoryPage() {
     } finally {
       setTriggering(false);
     }
+  };
+
+  const handleCancel = () => {
+    setConfirmState(null);
   };
 
   return (
@@ -104,13 +158,91 @@ export default function InventoryPage() {
             </select>
           </div>
           <button
-            onClick={handleTrigger}
-            disabled={triggering}
+            onClick={handleRunClick}
+            disabled={triggering || confirmState !== null}
             className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
           >
             {triggering ? "Triggering..." : selectedCounty ? "Run Selected" : "Run All"}
           </button>
         </div>
+
+        {/* Inline confirm dialog */}
+        {confirmState && (
+          <div className="mt-3 flex items-center gap-3 bg-amber-50 border border-amber-200 rounded px-4 py-2.5">
+            <span className="text-sm text-amber-800">{confirmState.label}</span>
+            <button
+              onClick={handleCancel}
+              className="px-3 py-1 text-sm rounded border border-gray-300 text-gray-600 hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={handleConfirm}
+              className="px-3 py-1 text-sm rounded bg-blue-600 text-white hover:bg-blue-700"
+            >
+              Confirm
+            </button>
+          </div>
+        )}
+
+        {/* Active snapshots with progress */}
+        {(activeQ.data?.length ?? 0) > 0 && (
+          <div className="mt-4 space-y-3">
+            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
+              Running
+            </h3>
+            {activeQ.data!.map((snap) => {
+              const elapsed = Date.now() - new Date(snap.started_at).getTime();
+              const minutes = Math.floor(elapsed / 60_000);
+              const seconds = Math.floor((elapsed % 60_000) / 1000);
+              const pct = snap.progress_total > 0
+                ? Math.round((snap.progress_current / snap.progress_total) * 100)
+                : 0;
+              // elapsedTick is used to force re-render every second
+              void elapsedTick;
+              return (
+                <div key={snap.id} className="space-y-1">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="font-medium text-gray-700">
+                      {countyNameMap.get(snap.county_id) ?? `County #${snap.county_id}`}
+                    </span>
+                    <span className="text-gray-400 tabular-nums">
+                      {minutes}m {seconds}s
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                      <div
+                        className="h-full bg-blue-500 rounded-full transition-all"
+                        style={{ width: `${pct}%` }}
+                      />
+                    </div>
+                    <span className="text-xs text-gray-500 tabular-nums whitespace-nowrap">
+                      {snap.progress_current} / {snap.progress_total} builders
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Recent failed snapshot errors */}
+        {recentFailed.length > 0 && (
+          <div className="mt-4 space-y-2">
+            {recentFailed.map((snap) => (
+              <div
+                key={snap.id}
+                className="bg-red-50 border border-red-200 rounded px-4 py-2.5 text-sm text-red-700"
+              >
+                <span className="font-medium">
+                  {countyNameMap.get(snap.county_id) ?? `County #${snap.county_id}`} failed:
+                </span>{" "}
+                {snap.error_message}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Inventory drill-down + builders side by side */}
@@ -122,42 +254,7 @@ export default function InventoryPage() {
           <DrillDownTable />
         </div>
 
-        <div className="bg-white border border-gray-200 rounded-lg p-5">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-            Builders
-          </h2>
-          {buildersQ.isLoading ? (
-            <p className="text-sm text-gray-400">Loading...</p>
-          ) : builders.length === 0 ? (
-            <p className="text-sm text-gray-400">No builders.</p>
-          ) : (
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="text-left text-gray-400 border-b border-gray-100">
-                  <th className="pb-2 font-medium">Name</th>
-                  <th className="pb-2 font-medium">Type</th>
-                  <th className="pb-2 font-medium">Scope</th>
-                  <th className="pb-2 font-medium text-right">Aliases</th>
-                </tr>
-              </thead>
-              <tbody>
-                {builders.slice(0, 20).map((b) => (
-                  <tr
-                    key={b.id}
-                    className="border-b border-gray-50 last:border-0"
-                  >
-                    <td className="py-1.5 text-gray-700 font-medium">{b.canonical_name}</td>
-                    <td className="py-1.5 text-gray-500">{b.type}</td>
-                    <td className="py-1.5 text-gray-500">{b.scope}</td>
-                    <td className="py-1.5 text-right text-gray-500 tabular-nums">
-                      {b.aliases.length}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
+        <BuilderTable builders={builders} isLoading={buildersQ.isLoading} />
       </div>
 
       {/* Most recent snapshot */}
@@ -281,5 +378,135 @@ function SnapshotBadge({ status }: { status: string }) {
     <span className={`px-2 py-0.5 rounded text-xs font-medium ${styles[status] ?? styles.pending}`}>
       {status}
     </span>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Builder table with type filter
+// ---------------------------------------------------------------------------
+
+type BuilderType = "all" | "builder" | "developer" | "land_banker" | "btr";
+const BUILDER_TYPE_OPTIONS: { key: BuilderType; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "builder", label: "Builder" },
+  { key: "developer", label: "Developer" },
+  { key: "land_banker", label: "Land Banker" },
+  { key: "btr", label: "BTR" },
+];
+
+function BuilderTable({
+  builders,
+  isLoading,
+}: {
+  builders: { id: number; canonical_name: string; type: string }[];
+  isLoading: boolean;
+}) {
+  const [typeFilter, setTypeFilter] = useState<BuilderType>("all");
+
+  const allTypes = ["builder", "developer", "land_banker", "btr"];
+
+  // Lot counts + lot acreage per builder
+  const lotInvQ = useQuery({
+    queryKey: ["inventory-summary-lot-all-types"],
+    queryFn: () => getInventorySummary({ parcel_class: "lot", entity_type: allTypes }),
+  });
+
+  // Total acreage (all parcel classes) per builder — for undeveloped acreage calc
+  const allInvQ = useQuery({
+    queryKey: ["inventory-summary-all-classes"],
+    queryFn: () => getInventorySummary({ entity_type: allTypes }),
+  });
+
+  // Aggregate per builder: parcel count, lot acreage, total acreage
+  const builderAgg = new Map<number, { parcels: number; lotAcreage: number; totalAcreage: number }>();
+  for (const county of lotInvQ.data ?? []) {
+    for (const b of county.builders) {
+      const entry = builderAgg.get(b.builder_id) ?? { parcels: 0, lotAcreage: 0, totalAcreage: 0 };
+      entry.parcels += b.count;
+      entry.lotAcreage += b.acreage;
+      builderAgg.set(b.builder_id, entry);
+    }
+  }
+  for (const county of allInvQ.data ?? []) {
+    for (const b of county.builders) {
+      const entry = builderAgg.get(b.builder_id) ?? { parcels: 0, lotAcreage: 0, totalAcreage: 0 };
+      entry.totalAcreage += b.acreage;
+      builderAgg.set(b.builder_id, entry);
+    }
+  }
+
+  const showAcreage = typeFilter === "land_banker" || typeFilter === "developer";
+
+  const filtered = (typeFilter === "all"
+    ? builders
+    : builders.filter((b) => b.type === typeFilter)
+  )
+    .map((b) => {
+      const agg = builderAgg.get(b.id) ?? { parcels: 0, lotAcreage: 0, totalAcreage: 0 };
+      return {
+        ...b,
+        parcels: agg.parcels,
+        undevelopedAcreage: agg.totalAcreage - agg.lotAcreage,
+      };
+    })
+    .sort((a, b) => b.parcels - a.parcels);
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-lg p-5">
+      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+        Builders
+      </h2>
+
+      {/* Type filter toggles */}
+      <div className="flex items-center gap-1 mb-3">
+        {BUILDER_TYPE_OPTIONS.map((opt) => (
+          <button
+            key={opt.key}
+            onClick={() => setTypeFilter(opt.key)}
+            className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
+              typeFilter === opt.key
+                ? "bg-blue-100 text-blue-700"
+                : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            {opt.label}
+          </button>
+        ))}
+        {filtered.length > 0 && (
+          <span className="text-xs text-gray-400 ml-2">{filtered.length}</span>
+        )}
+      </div>
+
+      {isLoading ? (
+        <p className="text-sm text-gray-400">Loading...</p>
+      ) : filtered.length === 0 ? (
+        <p className="text-sm text-gray-400">No builders match filter.</p>
+      ) : (
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="text-left text-gray-400 border-b border-gray-100">
+              <th className="pb-2 font-medium">Name</th>
+              <th className="pb-2 font-medium">Type</th>
+              <th className="pb-2 font-medium text-right">Parcels</th>
+              {showAcreage && <th className="pb-2 font-medium text-right">Undeveloped Acres</th>}
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((b) => (
+              <tr key={b.id} className="border-b border-gray-50 last:border-0">
+                <td className="py-1.5 text-gray-700 font-medium">{b.canonical_name}</td>
+                <td className="py-1.5 text-gray-500">{b.type}</td>
+                <td className="py-1.5 text-right text-gray-700 tabular-nums font-medium">{b.parcels.toLocaleString()}</td>
+                {showAcreage && (
+                  <td className="py-1.5 text-right text-gray-600 tabular-nums">
+                    {b.undevelopedAcreage > 0 ? b.undevelopedAcreage.toLocaleString(undefined, { maximumFractionDigits: 1 }) : "—"}
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
   );
 }
