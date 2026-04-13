@@ -246,6 +246,7 @@ def get_scrapable_jurisdictions(session, slug_or_name: str | None = None) -> lis
         session.query(Jurisdiction, CrJurisdictionConfig)
         .join(CrJurisdictionConfig, CrJurisdictionConfig.jurisdiction_id == Jurisdiction.id)
         .filter(
+            CrJurisdictionConfig.is_active == True,  # noqa: E712
             CrJurisdictionConfig.agenda_source_url.isnot(None),
             CrJurisdictionConfig.agenda_platform.isnot(None),
             CrJurisdictionConfig.agenda_platform != "manual",

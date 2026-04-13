@@ -95,6 +95,7 @@ def scrape_jurisdictions(db: Session = Depends(get_db)):
             CrJurisdictionConfig,
             CrJurisdictionConfig.jurisdiction_id == Jurisdiction.id,
         )
+        .filter(CrJurisdictionConfig.is_active == True)  # noqa: E712
         .filter(CrJurisdictionConfig.agenda_platform.isnot(None))
         .filter(CrJurisdictionConfig.agenda_platform != "manual")
         .order_by(Jurisdiction.name)

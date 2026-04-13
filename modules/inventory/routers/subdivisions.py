@@ -59,6 +59,7 @@ def list_subdivisions(
     county_id: int | None = None,
     has_geometry: bool | None = None,
     search: str | None = None,
+    relevant_only: bool = False,
     db: Session = Depends(get_db),
 ):
     """List subdivisions with geometry status and parcel count."""
@@ -90,6 +91,9 @@ def list_subdivisions(
 
     if search:
         q = q.filter(Subdivision.name.ilike(f"%{search}%"))
+
+    if relevant_only:
+        q = q.filter(Subdivision.is_relevant == True)  # noqa: E712
 
     q = q.order_by(Subdivision.name)
 

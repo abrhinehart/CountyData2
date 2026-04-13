@@ -54,6 +54,7 @@ class CrJurisdictionConfig(Base):
     agenda_source_url = Column(String(500), nullable=True)
     agenda_platform = Column(String(100), nullable=True)
     has_duplicate_page_bug = Column(Boolean, default=False)
+    is_active = Column(Boolean, default=True)
     pinned = Column(Boolean, default=False)
     config_json = Column(Text, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utc_now)

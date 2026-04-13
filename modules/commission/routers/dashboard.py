@@ -32,10 +32,10 @@ DEVELOPMENT_TYPES = {
     "zoning",
     "development_review",
     "subdivision",
-    "developer_agreement",
     "conditional_use",
 }
 REGULATORY_TYPES = {"text_amendment"}
+ANCILLARY_TYPES = {"developer_agreement"}
 
 
 def _approval_type_set(category):
@@ -165,8 +165,19 @@ def dashboard_summary(
         review_q = review_q.filter(EntitlementAction.approval_type.in_(type_set))
     needs_review = review_q.scalar() or 0
 
-    projects_tracked = db.query(func.count(Project.id)).scalar() or 0
-    jurisdictions_active = db.query(func.count(Jurisdiction.id)).scalar() or 0
+    # Count only subdivisions that have at least one entitlement action
+    projects_tracked = (
+        db.query(func.count(func.distinct(EntitlementAction.subdivision_id)))
+        .filter(EntitlementAction.subdivision_id.isnot(None))
+        .scalar()
+        or 0
+    )
+    jurisdictions_active = (
+        db.query(func.count(CrJurisdictionConfig.id))
+        .filter(CrJurisdictionConfig.is_active == True)  # noqa: E712
+        .scalar()
+        or 0
+    )
 
     return {
         "documents_processed": documents_processed,

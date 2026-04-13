@@ -109,7 +109,9 @@ def get_subdivision(subdivision_id: int):
     try:
         with conn.cursor() as cur:
             cur.execute(
-                "SELECT id, canonical_name, county, phases FROM subdivisions WHERE id = %s",
+                """SELECT id, canonical_name, county, phases,
+                          ST_AsGeoJSON(geom)::json AS geojson
+                   FROM subdivisions WHERE id = %s""",
                 [subdivision_id],
             )
             row = cur.fetchone()
@@ -118,7 +120,13 @@ def get_subdivision(subdivision_id: int):
 
     if not row:
         return JSONResponse(status_code=404, content={"error": "Subdivision not found"})
-    return {"id": row[0], "canonical_name": row[1], "county": row[2], "phases": row[3] or []}
+    return {
+        "id": row[0],
+        "canonical_name": row[1],
+        "county": row[2],
+        "phases": row[3] or [],
+        "geojson": row[4],
+    }
 
 
 @router.get("/subdivisions")

@@ -961,7 +961,7 @@ def get_dashboard_payload(conn, filters: dict) -> dict:
         {base_sql}
         GROUP BY COALESCE(s.canonical_name, 'Unmatched')
         ORDER BY total DESC, name
-        LIMIT 8
+        LIMIT 15
         """,
         params,
     )
@@ -973,7 +973,7 @@ def get_dashboard_payload(conn, filters: dict) -> dict:
         {base_sql}
         GROUP BY COALESCE(b.canonical_name, 'Unknown Builder')
         ORDER BY total DESC, builder_name
-        LIMIT 8
+        LIMIT 15
         """,
         params,
     )
@@ -1442,16 +1442,25 @@ def _ensure_subdivision_id(
     jurisdiction_id: int,
     name: str,
     notes: str | None = None,
-) -> int:
+) -> int | None:
+    """Match a subdivision name to an existing record by canonical name or alias.
+
+    Returns the subdivision ID if a match is found, or None if no match exists.
+    Does NOT auto-insert unknown names — the permits pipeline is match-only
+    to avoid polluting the curated subdivisions table with noise.
+    """
+    if not name or not name.strip():
+        return None
     cur = conn.cursor()
     # Resolve the county for this jurisdiction
     cur.execute("SELECT county_id FROM jurisdictions WHERE id = %s", (jurisdiction_id,))
     row = cur.fetchone()
     if row is None:
         cur.close()
-        raise ValueError(f"Jurisdiction {jurisdiction_id} not found")
+        return None
     county_id = row[0]
 
+    # Primary: exact match on canonical_name
     cur.execute(
         """
         SELECT id
@@ -1466,21 +1475,39 @@ def _ensure_subdivision_id(
         cur.close()
         return existing[0]
 
+    # Secondary: match against subdivision_aliases (same pattern as builder_aliases)
     cur.execute(
         """
-        INSERT INTO subdivisions (canonical_name, county, county_id, watched, notes)
-        VALUES (%s, (SELECT name FROM counties WHERE id = %s), %s, FALSE, %s)
-        RETURNING id
+        SELECT s.id
+        FROM subdivisions s
+        JOIN subdivision_aliases sa ON sa.subdivision_id = s.id
+        WHERE s.county_id = %s
+          AND lower(sa.alias) = lower(%s)
+        LIMIT 1
         """,
-        (name, county_id, county_id, notes),
+        (county_id, name),
     )
-    new_id = cur.fetchone()[0]
+    alias_match = cur.fetchone()
+    if alias_match is not None:
+        cur.close()
+        return alias_match[0]
+
+    # No match found — return None instead of auto-inserting.
     cur.close()
-    return new_id
+    return None
 
 
-def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int:
+def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int | None:
+    """Match a raw contractor name to an existing builder.
+
+    Returns the builder ID if a match is found, or None if no match exists.
+    Does NOT auto-insert unknown names — unmatched contractors are simply
+    left unlinked to avoid polluting the curated builders table with
+    electricians, plumbers, and other non-builder permit contractors.
+    """
     canonical_name = canonicalize_builder_name(raw_contractor_name)
+    if not canonical_name:
+        return None
     cur = conn.cursor()
     # Primary: exact LOWER(TRIM) match against builders.canonical_name OR builder_aliases.alias.
     # This closes the gap where builder_aliases already contains the correct variant but the
@@ -1490,8 +1517,9 @@ def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int:
         SELECT b.id
         FROM builders b
         LEFT JOIN builder_aliases ba ON ba.builder_id = b.id
-        WHERE LOWER(TRIM(b.canonical_name)) = LOWER(TRIM(%s))
-           OR LOWER(TRIM(ba.alias)) = LOWER(TRIM(%s))
+        WHERE b.is_active = TRUE
+          AND (LOWER(TRIM(b.canonical_name)) = LOWER(TRIM(%s))
+               OR LOWER(TRIM(ba.alias)) = LOWER(TRIM(%s)))
         LIMIT 1
         """,
         (canonical_name, canonical_name),
@@ -1502,19 +1530,17 @@ def _ensure_builder_id(conn, raw_contractor_name: str | None) -> int:
         return row[0]
     # Fallback: existing SequenceMatcher fuzzy scan for names that canonicalize close-but-not-equal
     # to an existing canonical_name (and have no matching alias row yet).
-    cur.execute("SELECT id, canonical_name FROM builders ORDER BY canonical_name")
+    cur.execute(
+        "SELECT id, canonical_name FROM builders WHERE is_active = TRUE ORDER BY canonical_name"
+    )
     existing = cur.fetchall()
     for builder in existing:
         if names_match(builder[1], canonical_name):
             cur.close()
             return builder[0]
-    cur.execute(
-        "INSERT INTO builders (canonical_name, type, scope) VALUES (%s, 'builder', 'national') RETURNING id",
-        (canonical_name,),
-    )
-    new_id = cur.fetchone()[0]
+    # No match found — return None instead of auto-inserting.
     cur.close()
-    return new_id
+    return None
 
 
 def _build_trend(issue_dates: list, grain: str) -> list[dict]:

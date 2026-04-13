@@ -76,6 +76,7 @@ class Subdivision(Base):
     watched = Column(Boolean, default=False)
     notes = Column(Text)
     is_active = Column(Boolean, default=True)
+    is_relevant = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
@@ -130,6 +131,7 @@ class Builder(Base):
     canonical_name = Column(Text, nullable=False, unique=True)
     type = Column(String(20), nullable=False, default="builder")
     scope = Column(String(20), nullable=False, default="national")
+    source = Column(String(20), nullable=False, server_default="manual")
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())

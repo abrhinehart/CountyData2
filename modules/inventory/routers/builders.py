@@ -32,7 +32,11 @@ def list_builders(
     type: list[str] | None = Query(default=None),
     db: Session = Depends(get_db),
 ):
-    q = db.query(Builder)
+    q = (
+        db.query(Builder)
+        .filter(Builder.is_active == True)  # noqa: E712
+        .filter(Builder.aliases.any())  # Only builders with curated aliases (excludes permit auto-inserts)
+    )
     if type:
         q = q.filter(Builder.type.in_(type))
     return q.order_by(Builder.canonical_name).all()
