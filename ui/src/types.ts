@@ -369,6 +369,15 @@ export interface CommissionSummary {
   jurisdictions_active: number;
 }
 
+export interface CommissionerVote {
+  commissioner_id: number;
+  name: string;
+  title: string;
+  vote: string;
+  made_motion: boolean;
+  seconded_motion: boolean;
+}
+
 export interface CommissionActionItem {
   id: number;
   jurisdiction_name: string;
@@ -387,6 +396,22 @@ export interface CommissionActionItem {
   action_summary: string;
   needs_review: boolean;
   document_type: string;
+  review_notes: string;
+  source_filename: string;
+  document_url: string;
+  address: string;
+  parcel_ids: string[];
+  applicant_name: string;
+  current_land_use: string;
+  proposed_land_use: string;
+  current_zoning: string;
+  proposed_zoning: string;
+  vote_detail: string;
+  conditions: string;
+  reading_number: string;
+  land_use_scale: string;
+  action_requested: string;
+  commissioner_votes: CommissionerVote[];
 }
 
 export interface CommissionActionsPayload {

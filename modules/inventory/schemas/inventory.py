@@ -7,6 +7,7 @@ class BuilderCount(BaseModel):
     builder_id: int
     builder_name: str
     count: int
+    acreage: float = 0.0
 
 
 class CountyInventory(BaseModel):

@@ -38,6 +38,7 @@ def get_inventory(
             Builder.id,
             Builder.canonical_name,
             func.count(Parcel.id),
+            func.coalesce(func.sum(Parcel.acreage), 0.0),
         )
         .join(Parcel, Parcel.county_id == County.id)
         .join(Builder, Builder.id == Parcel.builder_id)
@@ -62,12 +63,14 @@ def get_inventory(
     )
 
     counties: dict[int, CountyInventory] = {}
-    for county_id, county_name, bid, builder_name, count in rows:
+    for county_id, county_name, bid, builder_name, count, acreage in rows:
         if county_id not in counties:
             counties[county_id] = CountyInventory(
                 county_id=county_id, county=county_name, total=0, builders=[]
             )
-        counties[county_id].builders.append(BuilderCount(builder_id=bid, builder_name=builder_name, count=count))
+        counties[county_id].builders.append(
+            BuilderCount(builder_id=bid, builder_name=builder_name, count=count, acreage=float(acreage))
+        )
         counties[county_id].total += count
 
     return list(counties.values())

@@ -112,7 +112,7 @@ def list_parcels(
     sort: str = "last_changed",
     order: str = "desc",
     page: int = Query(default=1, ge=1),
-    page_size: int = Query(default=50, ge=1, le=200),
+    page_size: int = Query(default=50, ge=1, le=2000),
     db: Session = Depends(get_db),
 ):
     q = _build_parcel_query(
