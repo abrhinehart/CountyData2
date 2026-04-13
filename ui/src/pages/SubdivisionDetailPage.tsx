@@ -74,12 +74,12 @@ export default function SubdivisionDetailPage() {
   const hasCommissionMeta =
     commission && (commission.entitlement_status || commission.lifecycle_stage_label);
 
-  // Derive builder totals from parcels
+  // Derive builder totals from parcels — group by canonical builder name (entity)
   const parcels = parcelsQ.data?.items ?? [];
   const builderTotals = new Map<string, number>();
   for (const p of parcels) {
-    const owner = p.owner_name ?? "Unknown";
-    builderTotals.set(owner, (builderTotals.get(owner) ?? 0) + 1);
+    const builder = p.entity ?? p.owner_name ?? "Unknown";
+    builderTotals.set(builder, (builderTotals.get(builder) ?? 0) + 1);
   }
   const sortedBuilders = [...builderTotals.entries()].sort((a, b) => b[1] - a[1]);
 
