@@ -457,3 +457,10 @@ export interface TrendPoint {
   removed_count: number;
   changed_count: number;
 }
+
+export interface GeometryCoverageRow {
+  county: string;
+  total: number;
+  with_geom: number;
+  without_geom: number;
+}

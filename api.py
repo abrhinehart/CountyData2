@@ -84,6 +84,30 @@ def list_modules():
     return {"modules": modules}
 
 
+@app.get("/api/platform/geometry-coverage")
+def geometry_coverage():
+    """Per-county subdivision geometry coverage stats."""
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT c.name                                          AS county,
+                       COUNT(*)                                        AS total,
+                       COUNT(*) FILTER (WHERE s.geom IS NOT NULL)      AS with_geom,
+                       COUNT(*) FILTER (WHERE s.geom IS NULL)          AS without_geom
+                  FROM subdivisions s
+                  JOIN counties c ON c.id = s.county_id
+                 WHERE s.is_active = true
+                 GROUP BY c.name
+                 ORDER BY c.name
+            """)
+            cols = [d[0] for d in cur.description]
+            rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        pool.putconn(conn)
+    return {"rows": rows}
+
+
 # ---------------------------------------------------------------------------
 # Static file serving (production: serve built React app)
 # ---------------------------------------------------------------------------
