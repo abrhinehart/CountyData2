@@ -243,6 +243,10 @@ COUNTY_GIS_CONFIGS = [
         "gis_address_field": "PROP_ADRSTR",
         "gis_use_field": "DOR_USE_CODE_DESC",
         "gis_acreage_field": "TOT_ACREAGE",
+        "gis_subdivision_field": "SUBDIVISION",
+        "gis_building_value_field": "TOT_BLD_VAL",
+        "gis_appraised_value_field": "ASSESSVAL",
+        "gis_deed_date_field": "DEED_DT",
     },
     {
         "name": "Putnam", "state": "FL",

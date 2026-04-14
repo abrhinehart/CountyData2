@@ -19,9 +19,14 @@ CENSUS_GEOCODER_URL = (
 # Jurisdiction-specific address suffixes the Census geocoder already knows.
 _JURISDICTION_STATE_HINTS: dict[str, str] = {
     "Bay County": ", FL",
+    "Davenport": ", FL",
+    "Haines City": ", FL",
+    "Lake Alfred": ", FL",
+    "Lake Hamilton": ", FL",
     "Panama City": ", Panama City, FL",
     "Panama City Beach": ", Panama City Beach, FL",
     "Polk County": ", FL",
+    "Winter Haven": ", FL",
 }
 
 
