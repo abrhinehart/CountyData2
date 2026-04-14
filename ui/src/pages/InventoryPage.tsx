@@ -13,7 +13,6 @@ import type { NameType, ValueType } from "recharts/types/component/DefaultToolti
 import {
   getInventoryCounties,
   getInventorySummary,
-  getInventoryBuilders,
   getInventorySnapshots,
   getActiveSnapshots,
   getInventoryTrends,
@@ -132,18 +131,25 @@ function TrendChart({ counties }: { counties: { id: number; name: string }[] }) 
     ? counties.find((c) => c.id === trendCounty)?.name ?? "County"
     : "All Counties";
 
-  if (isLoading) return <div className="bg-white border border-gray-200 rounded-lg p-5"><p className="text-sm text-gray-400">Loading trend data...</p></div>;
+  if (isLoading) {
+    return (
+      <div className="surface-card panel-pad">
+        <p className="data-note">Loading trend data...</p>
+      </div>
+    );
+  }
   if (!rawPoints || rawPoints.length === 0) return null;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-5">
-      <div className="flex justify-between items-center mb-3 flex-wrap gap-2">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-          Inventory Trend — {chartTitle}
-        </h2>
+    <div className="surface-card panel-pad">
+      <div className="section-head mb-3">
+        <div>
+          <h2 className="section-title">Inventory Trend</h2>
+          <p className="section-caption">{chartTitle}</p>
+        </div>
         <div className="flex gap-2 items-center">
           <select
-            className="border border-gray-300 rounded px-2 py-1 text-sm bg-white min-w-[140px]"
+            className="form-control min-w-[140px]"
             value={trendCounty ?? ""}
             onChange={(e) => setTrendCounty(e.target.value ? Number(e.target.value) : undefined)}
           >
@@ -153,7 +159,7 @@ function TrendChart({ counties }: { counties: { id: number; name: string }[] }) 
             ))}
           </select>
           <select
-            className="border border-gray-300 rounded px-2 py-1 text-sm bg-white min-w-[90px]"
+            className="form-control min-w-[110px]"
             value={trendDays}
             onChange={(e) => setTrendDays(Number(e.target.value))}
           >
@@ -165,7 +171,7 @@ function TrendChart({ counties }: { counties: { id: number; name: string }[] }) 
         </div>
       </div>
       {chartData.length < 2 ? (
-        <div className="text-gray-400 text-sm py-8 text-center">
+        <div className="table-empty text-center">
           Not enough data points to chart. Run more snapshots to see trends.
         </div>
       ) : (
@@ -216,30 +222,35 @@ function Leaderboard({ data }: { data: CountyInventory[] | undefined }) {
   if (leaders.length === 0) return null;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-5">
-      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-        Top Entities
-      </h2>
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="text-left border-b border-gray-200">
-            <th className="pb-2 w-9 text-center text-gray-400 font-medium">#</th>
-            <th className="pb-2 text-gray-400 font-medium">Entity</th>
-            <th className="pb-2 text-right text-gray-400 font-medium">Lots</th>
-            <th className="pb-2 text-right text-gray-400 font-medium">Counties</th>
-          </tr>
-        </thead>
-        <tbody>
-          {leaders.map((l, i) => (
-            <tr key={l.id} className="border-b border-gray-50 last:border-0">
-              <td className="py-1.5 text-center text-gray-400 text-xs">{i + 1}</td>
-              <td className="py-1.5 font-medium text-gray-800">{l.name}</td>
-              <td className="py-1.5 text-right tabular-nums font-semibold text-gray-800">{l.total.toLocaleString()}</td>
-              <td className="py-1.5 text-right tabular-nums text-gray-500">{l.counties}</td>
+    <div className="surface-card panel-pad">
+      <div className="section-head mb-3">
+        <div>
+          <h2 className="section-title">Top Entities</h2>
+          <p className="section-caption">Most active builders across current filters.</p>
+        </div>
+      </div>
+      <div className="data-shell">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th className="w-9 text-center">#</th>
+              <th className="text-left">Entity</th>
+              <th className="text-right">Lots</th>
+              <th className="text-right">Counties</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {leaders.map((l, i) => (
+              <tr key={l.id}>
+                <td className="text-center text-xs text-[var(--text-soft)]">{i + 1}</td>
+                <td className="font-medium">{l.name}</td>
+                <td className="text-right font-semibold tabular-nums">{l.total.toLocaleString()}</td>
+                <td className="text-right tabular-nums text-[var(--text-muted)]">{l.counties}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
@@ -281,7 +292,8 @@ function CountyTable({
   function toggleExpand(id: number) {
     setExpanded((prev) => {
       const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
   }
@@ -295,44 +307,51 @@ function CountyTable({
     sortBy === col ? (sortDir === "asc" ? " \u25B2" : " \u25BC") : "";
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-5">
+    <div className="surface-card panel-pad">
+      <div className="section-head mb-4">
+        <div>
+          <h2 className="section-title">County Drilldown</h2>
+          <p className="section-caption">Expand counties into builders and subdivision counts.</p>
+        </div>
+      </div>
       <div className="flex items-center gap-3 mb-4">
         <input
           type="search"
           placeholder="Search counties..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white w-72"
+          className="form-control max-w-xs"
         />
         {search && (
-          <span className="text-xs text-gray-400">
+          <span className="data-note">
             {filtered.length} result{filtered.length !== 1 ? "s" : ""}
           </span>
         )}
       </div>
 
       {filtered.length === 0 ? (
-        <p className="text-sm text-gray-400 py-4">No inventory data for this filter.</p>
+        <p className="table-empty">No inventory data for this filter.</p>
       ) : (
-        <table className="w-full">
+        <div className="data-shell">
+        <table className="data-table">
           <thead>
-            <tr className="bg-gray-50 border-b border-gray-200">
+            <tr>
               <th
-                className="py-3 px-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide cursor-pointer select-none"
+                className="cursor-pointer select-none text-left"
                 onClick={() => toggleSort("name")}
               >
                 County{arrow("name")}
               </th>
-              <th className="py-3 px-4 text-center text-xs font-semibold text-gray-500 uppercase tracking-wide w-24">
+              <th className="w-24 text-center">
                 Entities
               </th>
               <th
-                className="py-3 px-4 text-right text-xs font-semibold text-gray-500 uppercase tracking-wide cursor-pointer select-none w-32"
+                className="w-32 cursor-pointer select-none text-right"
                 onClick={() => toggleSort("total")}
               >
                 Parcels{arrow("total")}
               </th>
-              <th className="py-3 pl-10 pr-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wide w-40">
+              <th className="w-40 text-left">
                 Last Scanned
               </th>
             </tr>
@@ -351,14 +370,15 @@ function CountyTable({
                 />
               );
             })}
-            <tr className="bg-gray-50 border-t-2 border-gray-200">
-              <td className="py-3 px-4 font-semibold text-gray-700">Total ({filtered.length} counties)</td>
+            <tr>
+              <td className="font-semibold">Total ({filtered.length} counties)</td>
               <td></td>
-              <td className="py-3 px-4 text-right font-bold tabular-nums text-gray-800 text-base">{filtered.reduce((s, c) => s + c.total, 0).toLocaleString()}</td>
+              <td className="text-right font-bold tabular-nums">{filtered.reduce((s, c) => s + c.total, 0).toLocaleString()}</td>
               <td></td>
             </tr>
           </tbody>
         </table>
+        </div>
       )}
     </div>
   );
@@ -380,17 +400,17 @@ function CountyRow({
   return (
     <>
       <tr
-        className={`cursor-pointer transition-colors border-l-4 ${
+        className={`cursor-pointer border-l-4 transition-colors ${
           isOpen
-            ? "border-l-blue-500 bg-blue-50/40 hover:bg-blue-50/60"
-            : "border-l-transparent hover:bg-gray-50"
+            ? "border-l-[var(--accent)] bg-[rgba(29,78,216,0.08)] hover:bg-[rgba(29,78,216,0.12)]"
+            : "border-l-transparent"
         }`}
         onClick={onToggle}
       >
-        <td className="py-2.5 px-4 text-base font-semibold text-gray-800">{county.county}</td>
-        <td className="py-2.5 px-4 text-center text-sm text-gray-500">{county.builders.length}</td>
-        <td className="py-2.5 px-4 text-right font-bold tabular-nums text-blue-700 text-base">{county.total.toLocaleString()}</td>
-        <td className="py-2.5 pl-10 pr-4 text-sm whitespace-nowrap">
+        <td className="text-base font-semibold">{county.county}</td>
+        <td className="text-center text-sm text-[var(--text-muted)]">{county.builders.length}</td>
+        <td className="text-right text-base font-bold tabular-nums text-[var(--accent)]">{county.total.toLocaleString()}</td>
+        <td className="whitespace-nowrap text-sm">
           <FreshnessDot age={age} />
         </td>
       </tr>
@@ -443,33 +463,33 @@ function BuilderRow({
   return (
     <>
       <tr
-        className={`cursor-pointer transition-colors border-l-4 border-l-blue-500 ${
+        className={`cursor-pointer border-l-4 border-l-[var(--accent)] transition-colors ${
           isExpanded
-            ? "bg-blue-50/60 hover:bg-blue-100/50"
-            : "bg-blue-50/20 hover:bg-blue-50/40"
+            ? "bg-[rgba(29,78,216,0.12)] hover:bg-[rgba(29,78,216,0.16)]"
+            : "bg-[rgba(29,78,216,0.05)] hover:bg-[rgba(29,78,216,0.1)]"
         }`}
         onClick={onToggle}
       >
-        <td className="py-2 pl-10 pr-4 text-sm font-medium text-gray-700">{builderName}</td>
+        <td className="pl-10 text-sm font-medium">{builderName}</td>
         <td></td>
-        <td className="py-2 px-4 text-right tabular-nums text-sm font-semibold text-blue-600">{count.toLocaleString()}</td>
+        <td className="text-right text-sm font-semibold tabular-nums text-[var(--accent)]">{count.toLocaleString()}</td>
         <td></td>
       </tr>
       {isExpanded && (
         detailQ.isLoading ? (
-          <tr className="border-l-4 border-l-blue-500 bg-gray-50/50">
-            <td colSpan={4} className="py-2 pl-16 pr-4 text-sm text-gray-400">Loading subdivisions...</td>
+          <tr className="border-l-4 border-l-[var(--accent)] bg-[var(--surface-muted)]">
+            <td colSpan={4} className="pl-16 text-sm text-[var(--text-soft)]">Loading subdivisions...</td>
           </tr>
         ) : subdivisions.length === 0 ? (
-          <tr className="border-l-4 border-l-blue-500 bg-gray-50/50">
-            <td colSpan={4} className="py-2 pl-16 pr-4 text-sm text-gray-400">No subdivision data</td>
+          <tr className="border-l-4 border-l-[var(--accent)] bg-[var(--surface-muted)]">
+            <td colSpan={4} className="pl-16 text-sm text-[var(--text-soft)]">No subdivision data</td>
           </tr>
         ) : (
           subdivisions.map((s) => (
-            <tr key={s.subdivision_id ?? s.subdivision} className="border-l-4 border-l-blue-500 bg-gray-50/40">
-              <td className="py-1.5 pl-16 pr-4 text-sm text-gray-500">{s.subdivision}</td>
+            <tr key={s.subdivision_id ?? s.subdivision} className="border-l-4 border-l-[var(--accent)] bg-[var(--surface-muted)]">
+              <td className="pl-16 text-sm text-[var(--text-muted)]">{s.subdivision}</td>
               <td></td>
-              <td className="py-1.5 px-4 text-right tabular-nums text-sm text-gray-500">{s.total.toLocaleString()}</td>
+              <td className="text-right text-sm tabular-nums text-[var(--text-muted)]">{s.total.toLocaleString()}</td>
               <td></td>
             </tr>
           ))
@@ -556,17 +576,21 @@ function SnapshotControls({
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-5">
-      <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-        Run Snapshot
-      </h2>
-      <div className="flex items-end gap-3">
+    <div className="surface-card panel-pad">
+      <div className="section-head mb-3">
         <div>
-          <label className="block text-xs text-gray-500 mb-1">County</label>
+          <h2 className="section-title">Run Snapshot</h2>
+          <p className="section-caption">Trigger county refreshes and monitor live snapshot progress.</p>
+        </div>
+      </div>
+      <div className="filter-grid items-end">
+        <div className="field-stack">
+          <label className="field-label" htmlFor="snapshot-county">County</label>
           <select
+            id="snapshot-county"
             value={selectedCounty ?? ""}
             onChange={(e) => setSelectedCounty(e.target.value ? Number(e.target.value) : null)}
-            className="border border-gray-300 rounded px-2 py-1.5 text-sm bg-white min-w-[200px]"
+            className="form-control min-w-[240px]"
           >
             <option value="">All Counties ({runnableCounties.length})</option>
             {runnableCounties.map((c) => (
@@ -580,23 +604,23 @@ function SnapshotControls({
         <button
           onClick={handleRunClick}
           disabled={triggering || confirmState !== null}
-          className="px-4 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+          className="button-primary"
         >
           {triggering ? "Triggering..." : selectedCounty ? "Run Selected" : "Run All"}
         </button>
       </div>
 
       {confirmState && (
-        <div className="mt-3 flex items-center gap-3 bg-amber-50 border border-amber-200 rounded px-4 py-2.5">
-          <span className="text-sm text-amber-800">{confirmState.label}</span>
-          <button onClick={() => setConfirmState(null)} className="px-3 py-1 text-sm rounded border border-gray-300 text-gray-600 hover:bg-gray-100">Cancel</button>
-          <button onClick={handleConfirm} className="px-3 py-1 text-sm rounded bg-blue-600 text-white hover:bg-blue-700">Confirm</button>
+        <div className="mt-3 flex flex-wrap items-center gap-3 rounded-[var(--radius-lg)] border border-[rgba(161,98,7,0.28)] bg-[rgba(161,98,7,0.08)] px-4 py-2.5">
+          <span className="text-sm text-[var(--warning)]">{confirmState.label}</span>
+          <button onClick={() => setConfirmState(null)} className="button-ghost">Cancel</button>
+          <button onClick={handleConfirm} className="button-primary">Confirm</button>
         </div>
       )}
 
       {(activeQ.data?.length ?? 0) > 0 && (
         <div className="mt-4 space-y-3">
-          <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">Running</h3>
+          <h3 className="field-label">Running</h3>
           {activeQ.data!.map((snap) => {
             const elapsed = Date.now() - new Date(snap.started_at).getTime();
             const minutes = Math.floor(elapsed / 60_000);
@@ -604,16 +628,16 @@ function SnapshotControls({
             const pct = snap.progress_total > 0 ? Math.round((snap.progress_current / snap.progress_total) * 100) : 0;
             void elapsedTick;
             return (
-              <div key={snap.id} className="space-y-1">
+              <div key={snap.id} className="surface-muted space-y-1 rounded-[var(--radius-lg)] border border-[var(--border-subtle)] px-3 py-3">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium text-gray-700">{countyNameMap.get(snap.county_id) ?? `County #${snap.county_id}`}</span>
-                  <span className="text-gray-400 tabular-nums">{minutes}m {seconds}s</span>
+                  <span className="font-medium text-[var(--text)]">{countyNameMap.get(snap.county_id) ?? `County #${snap.county_id}`}</span>
+                  <span className="tabular-nums text-[var(--text-soft)]">{minutes}m {seconds}s</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-blue-500 rounded-full transition-all" style={{ width: `${pct}%` }} />
+                  <div className="h-2 flex-1 overflow-hidden rounded-full bg-[rgba(214,211,209,0.8)]">
+                    <div className="h-full rounded-full bg-[var(--accent)] transition-all" style={{ width: `${pct}%` }} />
                   </div>
-                  <span className="text-xs text-gray-500 tabular-nums whitespace-nowrap">{snap.progress_current} / {snap.progress_total} builders</span>
+                  <span className="whitespace-nowrap text-xs tabular-nums text-[var(--text-muted)]">{snap.progress_current} / {snap.progress_total} builders</span>
                 </div>
               </div>
             );
@@ -624,7 +648,7 @@ function SnapshotControls({
       {recentFailed.length > 0 && (
         <div className="mt-4 space-y-2">
           {recentFailed.map((snap) => (
-            <div key={snap.id} className="bg-red-50 border border-red-200 rounded px-4 py-2.5 text-sm text-red-700">
+            <div key={snap.id} className="rounded-[var(--radius-lg)] border border-[rgba(185,28,28,0.24)] bg-[rgba(185,28,28,0.08)] px-4 py-2.5 text-sm text-[var(--danger)]">
               <span className="font-medium">{countyNameMap.get(snap.county_id) ?? `County #${snap.county_id}`} failed:</span>{" "}
               {snap.error_message}
             </div>
@@ -652,7 +676,7 @@ export default function InventoryPage() {
   });
 
   const countiesQ = useQuery({ queryKey: ["inventory-counties"], queryFn: getInventoryCounties });
-  const counties = countiesQ.data ?? [];
+  const counties = useMemo(() => countiesQ.data ?? [], [countiesQ.data]);
 
   const snapshotMap = useMemo(() => {
     const m = new Map<number, string | null>();
@@ -666,54 +690,85 @@ export default function InventoryPage() {
   const totalEntities = new Set(data?.flatMap((c) => c.builders.map((b) => b.builder_name)) ?? []).size;
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-800">Builder Inventory</h1>
+    <div className="page-stack report-page">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Inventory Intelligence</p>
+          <h1 className="page-title">Builder Inventory</h1>
+          <p className="page-subtitle">
+            Track lot ownership, snapshot freshness, and county-level builder mix from one report workspace.
+          </p>
+        </div>
+      </div>
 
-      {/* Filter bar */}
-      <div className="flex items-center gap-4 flex-wrap">
-        <div className="flex items-center gap-1">
-          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide mr-1">Parcels</span>
+      <section className="filter-band">
+        <div className="section-head">
+          <div>
+            <p className="section-title">Filters</p>
+            <p className="section-caption">Switch parcel class and entity role before drilling into county detail.</p>
+          </div>
+        </div>
+        <div className="chip-row">
+          <span className="field-label mr-1">Parcels</span>
           {PARCEL_FILTERS.map((f) => (
             <button
               key={f.key}
-              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                parcelFilter === f.key
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-              }`}
+              className={`chip-pill ${parcelFilter === f.key ? "active" : ""}`}
               onClick={() => setParcelFilter(f.key)}
             >
               {f.label}
             </button>
           ))}
         </div>
-        <div className="h-5 w-px bg-gray-200" />
-        <div className="flex items-center gap-1">
-          <span className="text-xs font-semibold text-gray-400 uppercase tracking-wide mr-1">Entity</span>
+        <div className="chip-row">
+          <span className="field-label mr-1">Entity</span>
           {ENTITY_FILTERS.map((f) => (
             <button
               key={f.key}
-              className={`px-3 py-1 rounded text-sm font-medium transition-colors ${
-                entityFilter === f.key
-                  ? "bg-blue-100 text-blue-700"
-                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
-              }`}
+              className={`chip-pill ${entityFilter === f.key ? "active" : ""}`}
               onClick={() => setEntityFilter(f.key)}
             >
               {f.label}
             </button>
           ))}
         </div>
-      </div>
+      </section>
 
       {isLoading ? (
-        <p className="text-sm text-gray-400">Loading...</p>
+        <p className="data-note">Loading...</p>
       ) : error ? (
-        <p className="text-sm text-red-500">Error loading inventory</p>
+        <p className="data-note text-[var(--danger)]">Error loading inventory</p>
       ) : (
         <>
-          {/* Stats row */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+          <section className="hero-band panel-pad">
+            <div className="section-head">
+              <div>
+                <p className="section-title text-slate-50">Inventory posture</p>
+                <p className="section-caption text-slate-300">
+                  Coverage, lot totals, and active entities for the current inventory slice.
+                </p>
+              </div>
+            </div>
+            <div className="hero-grid">
+              <div className="hero-stat">
+                <span className="hero-label">Counties reporting</span>
+                <span className="hero-value">{String(data?.length ?? 0)}</span>
+                <span className="hero-meta">Current feed footprint</span>
+              </div>
+              <div className="hero-stat">
+                <span className="hero-label">Total parcels</span>
+                <span className="hero-value">{fmt(grandTotal)}</span>
+                <span className="hero-meta">Across visible counties</span>
+              </div>
+              <div className="hero-stat">
+                <span className="hero-label">Active entities</span>
+                <span className="hero-value">{String(totalEntities)}</span>
+                <span className="hero-meta">Distinct names in current slice</span>
+              </div>
+            </div>
+          </section>
+
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
             <Card label="Counties reporting" value={String(data?.length ?? 0)} accent="blue" />
             <Card label="Total parcels" value={fmt(grandTotal)} accent="green" />
             <Card label="Active entities" value={String(totalEntities)} accent="purple" />
@@ -741,11 +796,11 @@ export default function InventoryPage() {
 // ---------------------------------------------------------------------------
 
 function Card({ label, value, accent }: { label: string; value: string; accent: "blue" | "green" | "purple" }) {
-  const border = { blue: "border-l-blue-500", green: "border-l-green-500", purple: "border-l-purple-500" }[accent];
+  const tone = accent === "green" ? "" : accent === "purple" ? "warn" : "";
   return (
-    <div className={`bg-white border border-gray-200 rounded-lg p-4 border-l-4 ${border}`}>
-      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">{label}</p>
-      <p className="text-2xl font-semibold text-gray-800 tabular-nums">{value}</p>
+    <div className={`metric-card ${tone}`.trim()}>
+      <p className="metric-label">{label}</p>
+      <p className="metric-value">{value}</p>
     </div>
   );
 }

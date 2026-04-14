@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 
 const links = [
   { to: "/", label: "Dashboard" },
@@ -8,35 +8,55 @@ const links = [
   { to: "/permits", label: "Permits" },
   { to: "/commission", label: "Commission" },
   { to: "/pipeline", label: "Pipeline" },
-  { to: "/map", label: "Map" },
+  { to: "/map", label: "Map", tone: "map" },
   { to: "/health", label: "Health" },
 ];
 
+function routeContext(pathname: string): string {
+  if (pathname === "/") return "Unified county intelligence workspace";
+  if (pathname.startsWith("/transactions")) return "Sales ETL queue and deed investigation";
+  if (pathname.startsWith("/review")) return "Flagged transaction triage";
+  if (pathname.startsWith("/inventory")) return "Builder lot and parcel reporting";
+  if (pathname.startsWith("/permits")) return "Permit scraping and watchlist tracking";
+  if (pathname.startsWith("/commission")) return "Entitlement and agenda monitoring";
+  if (pathname.startsWith("/pipeline")) return "Operational runs and exports";
+  if (pathname.startsWith("/subdivisions/")) return "Subdivision report canvas";
+  if (pathname.startsWith("/subdivisions")) return "Builder-active subdivision index";
+  if (pathname.startsWith("/map")) return "Spatial overlay workspace";
+  if (pathname.startsWith("/health")) return "Platform diagnostics";
+  return "CountyData2 operational workspace";
+}
+
 export default function Layout() {
+  const location = useLocation();
+  const isMap = location.pathname.startsWith("/map");
+
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <nav className="bg-white border-b border-gray-200 px-6 py-3 flex items-center gap-8">
-        <span className="font-semibold text-lg text-gray-800">CountyData2</span>
-        <div className="flex gap-1">
-          {links.map((l) => (
-            <NavLink
-              key={l.to}
-              to={l.to}
-              end={l.to === "/"}
-              className={({ isActive }) =>
-                `px-3 py-1.5 rounded text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-blue-100 text-blue-700"
-                    : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                }`
-              }
-            >
-              {l.label}
-            </NavLink>
-          ))}
+    <div className="app-shell">
+      <nav className="shell-nav">
+        <div className="shell-nav-inner">
+          <div className="brand-lockup">
+            <span className="brand-kicker">County Intelligence</span>
+            <span className="brand-name">CountyData2</span>
+            <span className="brand-context">{routeContext(location.pathname)}</span>
+          </div>
+          <div className="shell-links">
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                end={link.to === "/"}
+                className={({ isActive }) =>
+                  `${isActive ? "nav-link active" : "nav-link"}${link.tone === "map" ? " map-link" : ""}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
         </div>
       </nav>
-      <main className="p-6">
+      <main className={isMap ? "shell-main shell-main--map" : "shell-main"}>
         <Outlet />
       </main>
     </div>

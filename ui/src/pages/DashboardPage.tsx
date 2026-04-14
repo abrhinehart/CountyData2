@@ -11,6 +11,16 @@ import {
   getPermitScrapeJobs,
   getInventorySnapshots,
 } from "../api";
+import type {
+  CommissionSummary,
+  ETLState,
+  InventoryCounty,
+  InventorySubdivisionOut,
+  PermitDashboard,
+  ScrapeJob,
+  SnapshotOut,
+  Stats,
+} from "../types";
 
 function fmt(n: number): string {
   return n.toLocaleString();
@@ -28,33 +38,45 @@ function relTime(iso: string | null | undefined): string {
   return `${days}d ago`;
 }
 
-const MODULE_COLORS = {
-  transactions: { border: "border-blue-300", bg: "bg-blue-50", text: "text-blue-700", dot: "bg-blue-500" },
-  subdivisions: { border: "border-violet-300", bg: "bg-violet-50", text: "text-violet-700", dot: "bg-violet-500" },
-  inventory: { border: "border-green-300", bg: "bg-green-50", text: "text-green-700", dot: "bg-green-500" },
-  permits: { border: "border-amber-300", bg: "bg-amber-50", text: "text-amber-700", dot: "bg-amber-500" },
-  commission: { border: "border-rose-300", bg: "bg-rose-50", text: "text-rose-700", dot: "bg-rose-500" },
-  pipeline: { border: "border-cyan-300", bg: "bg-cyan-50", text: "text-cyan-700", dot: "bg-cyan-500" },
+const MODULE_TONES = {
+  transactions: { border: "rgba(29, 78, 216, 0.34)", dot: "#2563eb", text: "#1d4ed8" },
+  inventory: { border: "rgba(15, 118, 110, 0.28)", dot: "#0f766e", text: "#0f766e" },
+  permits: { border: "rgba(217, 119, 6, 0.3)", dot: "#d97706", text: "#a16207" },
+  commission: { border: "rgba(225, 29, 72, 0.24)", dot: "#e11d48", text: "#be123c" },
+  subdivisions: { border: "rgba(124, 58, 237, 0.22)", dot: "#7c3aed", text: "#6d28d9" },
+  pipeline: { border: "rgba(15, 23, 42, 0.2)", dot: "#334155", text: "#334155" },
 } as const;
 
 export default function DashboardPage() {
   const navigate = useNavigate();
 
-  const statsQ = useQuery({ queryKey: ["stats"], queryFn: getStats });
-  const permitsQ = useQuery({ queryKey: ["permit-dashboard"], queryFn: getPermitDashboard });
-  const commissionQ = useQuery({ queryKey: ["commission-summary"], queryFn: getCommissionSummary });
-  const inventoryQ = useQuery({ queryKey: ["inventory-counties"], queryFn: getInventoryCounties });
-  const etlQ = useQuery({ queryKey: ["etl-status"], queryFn: getETLStatus });
+  const statsQ = useQuery<Stats>({ queryKey: ["stats"], queryFn: getStats });
+  const permitsQ = useQuery<PermitDashboard>({
+    queryKey: ["permit-dashboard"],
+    queryFn: () => getPermitDashboard(),
+  });
+  const commissionQ = useQuery<CommissionSummary>({
+    queryKey: ["commission-summary"],
+    queryFn: getCommissionSummary,
+  });
+  const inventoryQ = useQuery<InventoryCounty[]>({
+    queryKey: ["inventory-counties"],
+    queryFn: getInventoryCounties,
+  });
+  const etlQ = useQuery<ETLState>({ queryKey: ["etl-status"], queryFn: getETLStatus });
   const reviewQ = useQuery({
     queryKey: ["review-queue", "", "", 1, 1],
     queryFn: () => getReviewQueue({ page: 1, page_size: 1 }),
   });
-  const subdivisionsQ = useQuery({ queryKey: ["inventory-subdivisions-count"], queryFn: () => searchInventorySubdivisions({}) });
-  const scrapeJobsQ = useQuery({
+  const subdivisionsQ = useQuery<InventorySubdivisionOut[]>({
+    queryKey: ["inventory-subdivisions-count"],
+    queryFn: () => searchInventorySubdivisions({}),
+  });
+  const scrapeJobsQ = useQuery<{ jobs: ScrapeJob[]; active_count: number }>({
     queryKey: ["scrape-jobs-recent"],
     queryFn: () => getPermitScrapeJobs({ limit: 10 }),
   });
-  const snapshotsQ = useQuery({
+  const snapshotsQ = useQuery<SnapshotOut[]>({
     queryKey: ["inventory-snapshots-recent"],
     queryFn: () => getInventorySnapshots({ limit: 10 }),
   });
@@ -64,250 +86,319 @@ export default function DashboardPage() {
   const commission = commissionQ.data;
   const counties = inventoryQ.data ?? [];
   const etl = etlQ.data;
-  const subdivisions = subdivisionsQ.data;
-  const scrapeJobs = scrapeJobsQ.data;
-  const snapshots = snapshotsQ.data;
+  const subdivisions = subdivisionsQ.data ?? [];
+  const scrapeJobs = scrapeJobsQ.data?.jobs ?? [];
+  const snapshots = snapshotsQ.data ?? [];
 
-  // Derive inventory freshness
+  const inventoryLots = counties.reduce((sum, county) => sum + (county.last_snapshot_parcels ?? 0), 0);
   const latestSnapshot = counties
-    .filter((c) => c.last_snapshot_at)
-    .sort((a, b) => new Date(b.last_snapshot_at!).getTime() - new Date(a.last_snapshot_at!).getTime())[0];
-  const inventoryLots = counties.reduce((s, c) => s + (c.last_snapshot_parcels ?? 0), 0);
+    .filter((county) => county.last_snapshot_at)
+    .sort((a, b) => new Date(b.last_snapshot_at ?? 0).getTime() - new Date(a.last_snapshot_at ?? 0).getTime())[0];
 
-  // Pipeline counts
-  const recentScrapes = scrapeJobs?.jobs?.length ?? 0;
-  const recentSnapshots = snapshots?.length ?? 0;
-
-  // Action needed items
-  const actionItems: { label: string; onClick: () => void; color: "amber" | "blue" | "red" }[] = [];
+  const actionItems: { label: string; route: string; tone: "warning" | "danger" | "accent" }[] = [];
   if ((stats?.flagged_for_review ?? 0) > 0) {
     actionItems.push({
       label: `${fmt(stats!.flagged_for_review)} transactions flagged for review`,
-      onClick: () => navigate("/transactions?unmatched_only=true"),
-      color: "amber",
+      route: "/transactions?unmatched_only=true",
+      tone: "warning",
     });
   }
   if ((commission?.needs_review ?? 0) > 0) {
     actionItems.push({
       label: `${fmt(commission!.needs_review)} commission actions need review`,
-      onClick: () => navigate("/commission"),
-      color: "amber",
+      route: "/commission",
+      tone: "warning",
     });
   }
   if ((reviewQ.data?.total ?? 0) > 0) {
     actionItems.push({
-      label: `${fmt(reviewQ.data!.total)} items in review queue`,
-      onClick: () => navigate("/transactions?unmatched_only=true"),
-      color: "blue",
+      label: `${fmt(reviewQ.data!.total)} rows still in the review queue`,
+      route: "/review",
+      tone: "accent",
     });
   }
-  if (permits && permits.last_runs.some((r) => r.freshness === "stale" || r.freshness === "dead")) {
+  if (permits && permits.last_runs.some((run) => run.freshness === "stale" || run.freshness === "dead")) {
     actionItems.push({
-      label: `${permits.last_runs.filter((r) => r.freshness !== "fresh").length} permit scrapers stale or dead`,
-      onClick: () => navigate("/permits"),
-      color: "red",
+      label: `${permits.last_runs.filter((run) => run.freshness !== "fresh").length} permit scrapers are stale or dead`,
+      route: "/permits",
+      tone: "danger",
     });
   }
   if (etl?.status === "failed") {
     actionItems.push({
-      label: "Last ETL run failed",
-      onClick: () => navigate("/pipeline"),
-      color: "red",
+      label: "The last ETL run failed and needs attention",
+      route: "/pipeline",
+      tone: "danger",
     });
   }
 
-  const anyLoading = statsQ.isLoading || permitsQ.isLoading || commissionQ.isLoading || inventoryQ.isLoading;
+  const anyLoading =
+    statsQ.isLoading ||
+    permitsQ.isLoading ||
+    commissionQ.isLoading ||
+    inventoryQ.isLoading ||
+    etlQ.isLoading;
 
-  if (anyLoading) return <p className="text-gray-500 p-6">Loading dashboard...</p>;
+  if (anyLoading) {
+    return (
+      <div className="page-stack report-page">
+        <div className="hero-band">
+          <div className="page-kicker" style={{ color: "rgba(191,219,254,0.82)" }}>
+            Command Summary
+          </div>
+          <h1 className="page-title" style={{ color: "#f8fafc", marginTop: 8 }}>
+            Loading platform snapshot
+          </h1>
+          <p className="page-subtitle" style={{ color: "rgba(226,232,240,0.8)" }}>
+            Pulling the latest counts, run status, and queue pressure across the unified workspace.
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6 max-w-6xl">
-      {/* 6 Module Cards — 2x3 grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-        {/* Transactions */}
+    <div className="page-stack report-page">
+      <header className="page-header">
+        <div className="page-heading">
+          <span className="page-kicker">Command Summary</span>
+          <h1 className="page-title">CountyData2 operational overview</h1>
+          <p className="page-subtitle">
+            One place to scan the live state of sales ETL, builder inventory, permit scraping,
+            subdivision tracking, entitlement activity, and platform health before you dive into a workflow.
+          </p>
+        </div>
+      </header>
+
+      <section className="hero-band">
+        <div className="section-head" style={{ marginBottom: 18 }}>
+          <div>
+            <div className="section-title" style={{ color: "rgba(191,219,254,0.88)" }}>
+              Today&apos;s pulse
+            </div>
+            <div className="hero-meta">
+              Latest ETL {etl?.completed_at ? relTime(etl.completed_at) : "not run yet"} · latest BI snapshot{" "}
+              {latestSnapshot?.last_snapshot_at ? relTime(latestSnapshot.last_snapshot_at) : "never"}
+            </div>
+          </div>
+          <span className={`badge ${etl?.status === "failed" ? "badge-danger" : etl?.status === "running" ? "badge-accent" : "badge-success"}`}>
+            ETL {etl?.status ?? "idle"}
+          </span>
+        </div>
+
+        <div className="hero-grid">
+          <div className="hero-stat">
+            <div className="hero-label">Transactions</div>
+            <div className="hero-value">{stats ? fmt(stats.total_transactions) : "—"}</div>
+            <div className="hero-meta">{stats ? `${fmt(stats.flagged_for_review)} flagged` : "No stats"}</div>
+          </div>
+          <div className="hero-stat">
+            <div className="hero-label">Builder Lots</div>
+            <div className="hero-value">{fmt(inventoryLots)}</div>
+            <div className="hero-meta">{counties.filter((county) => county.has_endpoint).length} counties reporting</div>
+          </div>
+          <div className="hero-stat">
+            <div className="hero-label">Permits</div>
+            <div className="hero-value">{permits ? fmt(permits.summary.total_permits) : "—"}</div>
+            <div className="hero-meta">{permits ? `${fmt(permits.summary.current_month)} this month` : "No permit data"}</div>
+          </div>
+          <div className="hero-stat">
+            <div className="hero-label">Entitlement Actions</div>
+            <div className="hero-value">{commission ? fmt(commission.actions_extracted) : "—"}</div>
+            <div className="hero-meta">{commission ? `${fmt(commission.projects_tracked)} tracked projects` : "No commission data"}</div>
+          </div>
+        </div>
+      </section>
+
+      {actionItems.length > 0 && (
+        <section className="surface-card panel-pad">
+          <div className="section-head">
+            <div>
+              <div className="section-title">Action Needed</div>
+              <div className="section-caption">Priority queues that need a human pass before the next run.</div>
+            </div>
+          </div>
+          <div className="page-stack" style={{ gap: 10 }}>
+            {actionItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => navigate(item.route)}
+                className="surface-muted"
+                style={{
+                  padding: "14px 16px",
+                  borderColor:
+                    item.tone === "danger"
+                      ? "rgba(185, 28, 28, 0.2)"
+                      : item.tone === "warning"
+                        ? "rgba(161, 98, 7, 0.24)"
+                        : "rgba(29, 78, 216, 0.18)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 14,
+                  textAlign: "left",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 14,
+                    fontWeight: 600,
+                    color:
+                      item.tone === "danger"
+                        ? "var(--danger)"
+                        : item.tone === "warning"
+                          ? "var(--warning)"
+                          : "var(--accent)",
+                  }}
+                >
+                  {item.label}
+                </span>
+                <span className={`badge ${item.tone === "danger" ? "badge-danger" : item.tone === "warning" ? "badge-warning" : "badge-accent"}`}>
+                  Open
+                </span>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="metric-grid">
         <ModuleCard
           title="Transactions"
-          color="transactions"
-          onClick={() => navigate("/transactions")}
+          tone="transactions"
+          status={etl?.status === "running" ? "Running" : etl?.completed_at ? relTime(etl.completed_at) : "Idle"}
           stats={[
             { label: "Total", value: stats ? fmt(stats.total_transactions) : "—" },
             { label: "Counties", value: stats ? String(stats.by_county.length) : "—" },
-            { label: "Flagged", value: stats ? fmt(stats.flagged_for_review) : "—", accent: (stats?.flagged_for_review ?? 0) > 0 },
+            { label: "Flagged", value: stats ? fmt(stats.flagged_for_review) : "—", emphasis: (stats?.flagged_for_review ?? 0) > 0 ? "warn" : undefined },
           ]}
-          footer={stats?.date_range ? `${stats.date_range.min} — ${stats.date_range.max}` : undefined}
-          status={etl?.status === "running" ? "Running" : etl?.completed_at ? relTime(etl.completed_at) : "Idle"}
-          statusColor={etl?.status === "running" ? "text-blue-600" : etl?.completed_at ? "text-green-600" : "text-gray-400"}
+          footer={stats?.date_range ? `${stats.date_range.min ?? "—"} → ${stats.date_range.max ?? "—"}` : undefined}
+          onClick={() => navigate("/transactions")}
         />
-
-        {/* Subdivisions */}
-        <ModuleCard
-          title="Subdivisions"
-          color="subdivisions"
-          onClick={() => navigate("/subdivisions")}
-          stats={[
-            { label: "Total", value: subdivisions ? fmt(subdivisions.length) : "—" },
-            { label: "Counties", value: stats ? String(stats.by_county.length) : "—" },
-          ]}
-          status={subdivisions ? `${fmt(subdivisions.length)} loaded` : "—"}
-          statusColor="text-gray-500"
-        />
-
-        {/* Inventory */}
         <ModuleCard
           title="Inventory"
-          color="inventory"
-          onClick={() => navigate("/inventory")}
-          stats={[
-            { label: "Active Lots", value: fmt(inventoryLots) },
-            { label: "Counties", value: String(counties.filter((c) => c.has_endpoint).length) },
-            { label: "Tracked", value: String(counties.length) },
-          ]}
+          tone="inventory"
           status={latestSnapshot?.last_snapshot_at ? relTime(latestSnapshot.last_snapshot_at) : "Never"}
-          statusColor={latestSnapshot ? "text-green-600" : "text-gray-400"}
+          stats={[
+            { label: "Builder Lots", value: fmt(inventoryLots) },
+            { label: "Tracked", value: String(counties.length) },
+            { label: "Endpoints", value: String(counties.filter((county) => county.has_endpoint).length) },
+          ]}
+          footer={`${snapshots.length} recent snapshots`}
+          onClick={() => navigate("/inventory")}
         />
-
-        {/* Permits */}
         <ModuleCard
           title="Permits"
-          color="permits"
-          onClick={() => navigate("/permits")}
+          tone="permits"
+          status={permits?.last_runs[0]?.last_success ? relTime(permits.last_runs[0].last_success) : "No successful run"}
           stats={[
             { label: "Total", value: permits ? fmt(permits.summary.total_permits) : "—" },
             { label: "This Month", value: permits ? fmt(permits.summary.current_month) : "—" },
-            { label: "Watchlist", value: permits?.summary?.watchlist_count != null ? fmt(permits.summary.watchlist_count) : "—" },
+            { label: "Watchlist", value: permits ? fmt(permits.summary.watchlist_count) : "—" },
           ]}
-          footer={permits?.summary?.month_delta != null
-            ? `${permits.summary.month_delta >= 0 ? "+" : ""}${permits.summary.month_delta} vs last month`
-            : undefined}
-          status={permits?.last_runs[0]?.last_success ? relTime(permits.last_runs[0].last_success) : "—"}
-          statusColor={permits?.last_runs[0]?.freshness === "fresh" ? "text-green-600" : "text-amber-600"}
+          footer={`${scrapeJobs.length} recent scrape jobs`}
+          onClick={() => navigate("/permits")}
         />
-
-        {/* Commission */}
         <ModuleCard
           title="Commission"
-          color="commission"
-          onClick={() => navigate("/commission")}
+          tone="commission"
+          status={commission ? `${fmt(commission.jurisdictions_active)} jurisdictions` : "No summary"}
           stats={[
             { label: "Actions", value: commission ? fmt(commission.actions_extracted) : "—" },
             { label: "Projects", value: commission ? fmt(commission.projects_tracked) : "—" },
-            { label: "Review", value: commission ? fmt(commission.needs_review) : "—", accent: (commission?.needs_review ?? 0) > 0 },
+            { label: "Needs Review", value: commission ? fmt(commission.needs_review) : "—", emphasis: (commission?.needs_review ?? 0) > 0 ? "warn" : undefined },
           ]}
-          status={`${commission?.jurisdictions_active ?? 0} jurisdictions`}
-          statusColor="text-gray-500"
+          footer="Agenda extraction and lifecycle tracking"
+          onClick={() => navigate("/commission")}
         />
-
-        {/* Pipeline */}
+        <ModuleCard
+          title="Subdivisions"
+          tone="subdivisions"
+          status={subdivisions.length > 0 ? `${fmt(subdivisions.length)} loaded` : "Idle"}
+          stats={[
+            { label: "Visible", value: fmt(subdivisions.length) },
+            { label: "Counties", value: stats ? String(stats.by_county.length) : "—" },
+            { label: "Geometry Candidates", value: String(subdivisions.filter((row) => row.has_geometry).length) },
+          ]}
+          footer="Builder-active subdivision index"
+          onClick={() => navigate("/subdivisions")}
+        />
         <ModuleCard
           title="Pipeline"
-          color="pipeline"
-          onClick={() => navigate("/pipeline")}
+          tone="pipeline"
+          status={etl?.completed_at ? relTime(etl.completed_at) : "Not run"}
           stats={[
-            { label: "ETL", value: etl?.status ? etl.status.charAt(0).toUpperCase() + etl.status.slice(1) : "—" },
-            { label: "Scrape Jobs", value: String(recentScrapes) },
-            { label: "Snapshots", value: String(recentSnapshots) },
+            { label: "ETL", value: etl?.status ? etl.status.toUpperCase() : "IDLE", emphasis: etl?.status === "failed" ? "danger" : undefined },
+            { label: "Scrapes", value: String(scrapeJobs.length) },
+            { label: "Snapshots", value: String(snapshots.length) },
           ]}
-          status={etl?.completed_at ? relTime(etl.completed_at) : etl?.started_at ? relTime(etl.started_at) : "—"}
-          statusColor={
-            etl?.status === "failed" ? "text-red-600"
-              : etl?.status === "running" ? "text-blue-600"
-                : etl?.status === "completed" ? "text-green-600"
-                  : "text-gray-400"
-          }
+          footer="Runs, exports, and queue pressure"
+          onClick={() => navigate("/pipeline")}
         />
-      </div>
-
-      {/* Action Needed — only when items exist */}
-      {actionItems.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-lg p-5">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-            Action Needed
-          </h2>
-          <div className="space-y-2">
-            {actionItems.map((item) => (
-              <ActionItem key={item.label} {...item} />
-            ))}
-          </div>
-        </div>
-      )}
+      </section>
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// Sub-components
-// ---------------------------------------------------------------------------
-
 function ModuleCard({
   title,
-  color,
-  onClick,
+  tone,
   stats,
-  footer,
   status,
-  statusColor,
+  footer,
+  onClick,
 }: {
   title: string;
-  color: keyof typeof MODULE_COLORS;
-  onClick: () => void;
-  stats: { label: string; value: string; accent?: boolean }[];
-  footer?: string;
+  tone: keyof typeof MODULE_TONES;
+  stats: { label: string; value: string; emphasis?: "warn" | "danger" }[];
   status: string;
-  statusColor: string;
+  footer?: string;
+  onClick: () => void;
 }) {
-  const c = MODULE_COLORS[color];
+  const palette = MODULE_TONES[tone];
   return (
     <button
       onClick={onClick}
-      className={`bg-white border border-gray-200 rounded-xl p-5 text-left hover:${c.border} hover:shadow-md transition-all group`}
+      className="surface-card panel-pad"
+      style={{
+        textAlign: "left",
+        borderColor: palette.border,
+        transition: "transform 180ms var(--ease-standard), box-shadow 180ms var(--ease-standard), border-color 180ms var(--ease-standard)",
+      }}
     >
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <span className={`w-2.5 h-2.5 rounded-full ${c.dot}`} />
-          <h3 className={`text-sm font-bold uppercase tracking-wide ${c.text}`}>{title}</h3>
+      <div className="section-head">
+        <div>
+          <div className="section-title" style={{ color: palette.text }}>
+            {title}
+          </div>
+          <div className="section-caption">{status}</div>
         </div>
-        <span className={`text-xs font-medium ${statusColor}`}>{status}</span>
+        <span
+          style={{
+            width: 12,
+            height: 12,
+            borderRadius: 999,
+            background: palette.dot,
+            boxShadow: `0 0 0 6px ${palette.border}`,
+          }}
+        />
       </div>
-      <div className="flex flex-wrap gap-x-6 gap-y-2">
-        {stats.map((s) => (
-          <div key={s.label}>
-            <div className={`text-xl font-bold tabular-nums ${s.accent ? "text-amber-600" : "text-gray-800"}`}>
-              {s.value}
+
+      <div className="hero-grid" style={{ gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: 12 }}>
+        {stats.map((stat) => (
+          <div key={stat.label} className="surface-muted" style={{ padding: "12px 12px 10px", borderRadius: 14 }}>
+            <div className="metric-label">{stat.label}</div>
+            <div
+              className={`metric-value ${stat.emphasis === "warn" ? "warn" : stat.emphasis === "danger" ? "danger" : ""}`}
+              style={{ fontSize: "1.55rem", marginTop: 8 }}
+            >
+              {stat.value}
             </div>
-            <div className="text-xs text-gray-400 mt-0.5">{s.label}</div>
           </div>
         ))}
       </div>
-      {footer && (
-        <div className="mt-3 text-xs text-gray-400">{footer}</div>
-      )}
-      <div className={`mt-3 text-xs font-medium ${c.text} opacity-0 group-hover:opacity-100 transition-opacity`}>
-        View details &rarr;
-      </div>
-    </button>
-  );
-}
 
-function ActionItem({
-  label,
-  onClick,
-  color,
-}: {
-  label: string;
-  onClick: () => void;
-  color: "amber" | "blue" | "red";
-}) {
-  const colors = {
-    amber: "bg-amber-50 border-amber-200 text-amber-800 hover:bg-amber-100",
-    blue: "bg-blue-50 border-blue-200 text-blue-800 hover:bg-blue-100",
-    red: "bg-red-50 border-red-200 text-red-800 hover:bg-red-100",
-  };
-  return (
-    <button
-      onClick={onClick}
-      className={`w-full text-left px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${colors[color]}`}
-    >
-      {label}
+      {footer && <div className="metric-meta">{footer}</div>}
     </button>
   );
 }

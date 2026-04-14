@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, useMemo } from "react";
+import { useEffect, useRef, useState, useCallback, useMemo, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import L from "leaflet";
@@ -175,129 +175,149 @@ function DetailPanel({
   const actions = commissionQ.data?.actions ?? [];
 
   return (
-    <div className="fixed right-0 top-[53px] bottom-0 w-96 bg-white shadow-xl border-l border-gray-200 z-[1000] overflow-y-auto">
-      {/* Header */}
-      <div className="sticky top-0 bg-white border-b border-gray-200 px-4 py-3 flex items-start justify-between">
+    <aside className="inspector-drawer map-drawer">
+      <div className="inspector-header">
         <div className="min-w-0">
-          <h2 className="text-lg font-semibold text-gray-900 truncate">{feature.name}</h2>
-          <p className="text-sm text-gray-500">{feature.county_name}</p>
+          <p className="inspector-kicker">Subdivision</p>
+          <h2 className="inspector-title truncate">{feature.name}</h2>
+          <p className="inspector-subtitle">{feature.county_name}</p>
         </div>
         <button
           onClick={onClose}
-          className="ml-2 p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 shrink-0"
+          className="inspector-close"
           aria-label="Close panel"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <div className="p-4 space-y-5">
-        {/* Builder lots + appraised values */}
-        <Section title="Builder Lots">
+      <div className="inspector-body">
+        <section className="inspector-section flat">
+          <div className="section-head">
+            <h3 className="section-title">At a glance</h3>
+            <span className="badge badge-neutral">Live map</span>
+          </div>
+          <div className="detail-grid">
+            <DetailRow label="Builder lots" value={fmtNum(feature.builder_lot_count) || "0"} />
+            <DetailRow label="Builders" value={fmtNum(feature.distinct_builder_count) || "0"} />
+            <DetailRow label="County" value={feature.county_name} />
+          </div>
+        </section>
+
+        <section className="inspector-section">
+          <div className="section-head">
+            <h3 className="section-title">Builder Mix</h3>
+            <span className="badge badge-accent">Parcels</span>
+          </div>
           {parcelsQ.isLoading ? (
-            <p className="text-gray-400 text-sm">Loading...</p>
+            <p className="data-note">Loading parcel mix...</p>
           ) : parcelsQ.error ? (
-            <p className="text-red-500 text-sm">Failed to load parcels</p>
+            <p className="data-note text-[var(--danger)]">Failed to load parcels</p>
           ) : builderStats.length === 0 ? (
-            <p className="text-gray-400 text-sm">No parcels tracked</p>
+            <p className="data-note">No parcels tracked.</p>
           ) : (
-            <div className="space-y-1.5">
+            <div className="space-y-2">
               {builderStats.slice(0, 12).map((b) => (
-                <div key={b.name} className="flex items-center justify-between text-sm">
-                  <span className="text-gray-700 truncate mr-2" title={b.name}>
+                <div key={b.name} className="detail-row">
+                  <span className="detail-label truncate" title={b.name}>
                     {b.name}
                   </span>
-                  <span className="text-gray-500 tabular-nums shrink-0">
+                  <span className="detail-value tabular-nums">
                     {fmtNum(b.count)}
-                    {b.avgValue != null && (
-                      <span className="text-gray-400 ml-1">avg {fmtDollar(b.avgValue)}</span>
-                    )}
+                    {b.avgValue != null ? ` avg ${fmtDollar(b.avgValue)}` : ""}
                   </span>
                 </div>
               ))}
               {builderStats.length > 12 && (
-                <p className="text-xs text-gray-400">+{builderStats.length - 12} more</p>
+                <p className="data-note">+{builderStats.length - 12} more builders</p>
               )}
             </div>
           )}
-        </Section>
+        </section>
 
-        {/* Monthly sales velocity */}
-        <Section title="Sales Velocity">
+        <section className="inspector-section">
+          <div className="section-head">
+            <h3 className="section-title">Sales Velocity</h3>
+            <span className="badge badge-success">Trend</span>
+          </div>
           {salesQ.isLoading ? (
-            <p className="text-gray-400 text-sm">Loading...</p>
+            <p className="data-note">Loading sales history...</p>
           ) : salesQ.error ? (
-            <p className="text-red-500 text-sm">Failed to load sales</p>
+            <p className="data-note text-[var(--danger)]">Failed to load sales</p>
           ) : monthlyVelocity.length === 0 ? (
-            <p className="text-gray-400 text-sm">No sales recorded</p>
+            <p className="data-note">No sales recorded.</p>
           ) : (
-            <div className="space-y-1">
+            <div className="space-y-2">
               {monthlyVelocity.slice(0, 12).map(([month, count]) => (
-                <div key={month} className="flex items-center justify-between text-sm">
-                  <span className="text-gray-600">{month}</span>
-                  <span className="text-gray-500 tabular-nums">{count}</span>
+                <div key={month} className="detail-row">
+                  <span className="detail-label">{month}</span>
+                  <span className="detail-value tabular-nums">{count}</span>
                 </div>
               ))}
               {monthlyVelocity.length > 12 && (
-                <p className="text-xs text-gray-400">+{monthlyVelocity.length - 12} more months</p>
+                <p className="data-note">+{monthlyVelocity.length - 12} more months</p>
               )}
             </div>
           )}
-        </Section>
+        </section>
 
-        {/* Commission actions */}
         {actions.length > 0 && (
-          <Section title="Commission Actions">
-            <div className="space-y-1.5">
+          <section className="inspector-section">
+            <div className="section-head">
+              <h3 className="section-title">Commission Actions</h3>
+              <span className="badge badge-warning">{actions.length}</span>
+            </div>
+            <div className="space-y-2">
               {actions.slice(0, 6).map((a) => (
-                <div key={a.id} className="text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="text-gray-500 text-xs shrink-0">{a.meeting_date}</span>
-                    <span className="text-gray-700 truncate">
-                      {a.approval_type.replace(/_/g, " ")}
-                    </span>
+                <div key={a.id} className="surface-muted rounded-[var(--radius-lg)] border border-[var(--border-subtle)] px-3 py-2.5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--text-muted)]">
+                        {a.meeting_date}
+                      </p>
+                      <p className="truncate text-sm text-[var(--text-strong)]">
+                        {a.approval_type.replace(/_/g, " ")}
+                      </p>
+                    </div>
+                    {a.outcome && (
+                      <span
+                        className={`badge ${
+                          a.outcome === "approved"
+                            ? "badge-success"
+                            : a.outcome === "denied"
+                              ? "badge-danger"
+                              : "badge-neutral"
+                        }`}
+                      >
+                        {a.outcome}
+                      </span>
+                    )}
                   </div>
-                  {a.outcome && (
-                    <span
-                      className={`text-xs font-medium ${
-                        a.outcome === "approved"
-                          ? "text-green-600"
-                          : a.outcome === "denied"
-                            ? "text-red-600"
-                            : "text-gray-500"
-                      }`}
-                    >
-                      {a.outcome}
-                    </span>
-                  )}
                 </div>
               ))}
-              {actions.length > 6 && (
-                <p className="text-xs text-gray-400">+{actions.length - 6} more</p>
-              )}
+              {actions.length > 6 && <p className="data-note">+{actions.length - 6} more</p>}
             </div>
-          </Section>
+          </section>
         )}
 
-        {/* Link to detail page */}
         <Link
           to={`/subdivisions/${feature.id}`}
-          className="block text-center text-sm font-medium text-blue-600 hover:text-blue-800 py-2 border border-blue-200 rounded hover:bg-blue-50 transition-colors"
+          className="button-primary w-full justify-center"
         >
-          View Full Details
+          View full details
         </Link>
       </div>
-    </div>
+    </aside>
   );
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+function DetailRow({ label, value }: { label: string; value: string }) {
   return (
-    <div>
-      <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{title}</h3>
-      {children}
+    <div className="detail-row">
+      <span className="detail-label">{label}</span>
+      <span className="detail-value">{value}</span>
     </div>
   );
 }
@@ -333,7 +353,7 @@ export default function MapPage() {
     queryFn: getInventoryBuilders,
   });
 
-  const permitDashQ = useQuery({
+  const permitDashQ = useQuery<PermitDashboard>({
     queryKey: ["permit-dashboard-map"],
     queryFn: () => getPermitDashboard(),
   });
@@ -559,91 +579,180 @@ export default function MapPage() {
   }, [permitDashQ.data?.map_points, showPermits]);
 
   return (
-    <div className="fixed inset-0 top-[53px] z-0 flex flex-col">
-      {/* Filter bar */}
-      <div className="bg-white/90 backdrop-blur border-b border-gray-200 px-4 py-2 flex items-center gap-4 z-[500]">
-        <label className="text-sm font-medium text-gray-700">County</label>
-        <select
-          value={selectedCounty}
-          onChange={(e) => setSelectedCounty(e.target.value)}
-          className="text-sm border border-gray-300 rounded px-2 py-1 bg-white"
-        >
-          <option value="">All Counties</option>
-          {(countiesQ.data ?? []).map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
+    <div className="map-page fixed inset-0 top-[var(--shell-height)] z-0 overflow-hidden">
+      <div ref={containerRef} className="absolute inset-0" />
 
-        <label className="text-sm font-medium text-gray-700">Builder</label>
-        <select
-          multiple
-          value={builderFilter.map(String)}
-          onChange={(e) => {
-            const selected = Array.from(e.target.selectedOptions, (o) => Number(o.value));
-            setBuilderFilter(selected);
-          }}
-          className="text-sm border border-gray-300 rounded px-2 py-1 bg-white min-w-[140px] max-h-24"
-        >
-          {(buildersQ.data ?? [])
-            .filter((b) => b.is_active)
-            .sort((a, b) => a.canonical_name.localeCompare(b.canonical_name))
-            .map((b) => (
-              <option key={b.id} value={b.id}>
-                {b.canonical_name}
-              </option>
-            ))}
-        </select>
-        {builderFilter.length > 0 && (
-          <button
-            onClick={() => setBuilderFilter([])}
-            className="text-xs text-blue-600 hover:text-blue-800 underline"
-          >
-            Clear
-          </button>
-        )}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-[500]">
+        <div className="mx-auto flex w-full max-w-[var(--shell-max)] flex-col gap-3 px-4 pb-4 pt-4 sm:px-6 lg:px-8">
+          <div className="map-toolbar pointer-events-auto">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+              <div className="min-w-0 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="badge badge-accent">Spatial exception</span>
+                  <span className="badge badge-neutral">Live overlays</span>
+                </div>
+                <div>
+                  <p className="page-kicker">Map workspace</p>
+                  <h1 className="page-title">Subdivision atlas</h1>
+                  <p className="page-subtitle">
+                    Filter by county or builder, inspect polygon mix, and layer permit activity over the map.
+                  </p>
+                </div>
+              </div>
 
-        <label className="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={showPermits}
-            onChange={(e) => setShowPermits(e.target.checked)}
-            className="rounded border-gray-300"
-          />
-          Permits
-          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "#22c55e" }} />
-          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "#f59e0b" }} />
-          {showPermits && permitDashQ.data?.map_meta && (
-            <span className="text-xs text-gray-400 tabular-nums">
-              ({permitDashQ.data.map_meta.count.toLocaleString()})
-            </span>
-          )}
-        </label>
+              <div className="grid gap-2 sm:grid-cols-3 xl:grid-cols-1 xl:min-w-[15rem]">
+                <StatCard
+                  label="Visible subdivisions"
+                  value={fmtNum(features.length) || "0"}
+                  meta={selectedCounty || "All counties"}
+                />
+                <StatCard
+                  label="Builder filters"
+                  value={fmtNum(builderFilter.length) || "0"}
+                  meta={builderFilter.length > 0 ? "Active" : "None selected"}
+                />
+                <StatCard
+                  label="Permit points"
+                  value={fmtNum(permitDashQ.data?.map_meta?.count ?? 0) || "0"}
+                  meta={showPermits ? "Layer on" : "Layer hidden"}
+                />
+              </div>
+            </div>
 
-        {geoQ.isLoading && <span className="text-xs text-gray-400">Loading polygons...</span>}
-        {geoQ.error && (
-          <span className="text-xs text-red-500">
-            Failed to load: {(geoQ.error as Error).message}
-          </span>
-        )}
-        {!geoQ.isLoading && !geoQ.error && (
-          <span className="text-xs text-gray-400">
-            {features.length} subdivision{features.length !== 1 ? "s" : ""}
-          </span>
-        )}
+            <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_minmax(14rem,0.9fr)]">
+              <div className="surface-muted rounded-[var(--radius-xl)] border border-[var(--border-subtle)] p-3">
+                <div className="filter-grid">
+                  <FieldLabel label="County">
+                    <select
+                      value={selectedCounty}
+                      onChange={(e) => setSelectedCounty(e.target.value)}
+                      className="form-control"
+                    >
+                      <option value="">All counties</option>
+                      {(countiesQ.data ?? []).map((c) => (
+                        <option key={c} value={c}>
+                          {c}
+                        </option>
+                      ))}
+                    </select>
+                  </FieldLabel>
+
+                  <FieldLabel label="Builder">
+                    <select
+                      multiple
+                      value={builderFilter.map(String)}
+                      onChange={(e) => {
+                        const selected = Array.from(e.target.selectedOptions, (o) => Number(o.value));
+                        setBuilderFilter(selected);
+                      }}
+                      className="form-control min-h-[6.5rem]"
+                    >
+                      {(buildersQ.data ?? [])
+                        .filter((b) => b.is_active)
+                        .sort((a, b) => a.canonical_name.localeCompare(b.canonical_name))
+                        .map((b) => (
+                          <option key={b.id} value={b.id}>
+                            {b.canonical_name}
+                          </option>
+                        ))}
+                    </select>
+                  </FieldLabel>
+
+                  <FieldLabel label="Permits">
+                    <button
+                      type="button"
+                      onClick={() => setShowPermits((value) => !value)}
+                      className={`chip-pill justify-between ${showPermits ? "active" : ""}`}
+                    >
+                      <span className="inline-flex items-center gap-2">
+                        <span className="inline-block h-2 w-2 rounded-full bg-[var(--success)]" />
+                        Show permit layer
+                      </span>
+                      <span>{showPermits ? "On" : "Off"}</span>
+                    </button>
+                  </FieldLabel>
+                </div>
+
+                <div className="mt-3 flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setBuilderFilter([])}
+                    className="button-ghost"
+                    disabled={builderFilter.length === 0}
+                  >
+                    Clear builder filters
+                  </button>
+                  <span className="data-note">
+                    {geoQ.isLoading
+                      ? "Loading polygons..."
+                      : geoQ.error
+                        ? `Failed to load: ${(geoQ.error as Error).message}`
+                        : `${features.length} subdivision${features.length !== 1 ? "s" : ""} visible`}
+                  </span>
+                </div>
+              </div>
+
+              <div className="grid gap-2 sm:grid-cols-2 xl:grid-cols-1">
+                <div className="surface-card map-stat p-3">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-2.5 w-2.5 rounded-full bg-[var(--accent)]" />
+                    <p className="text-sm font-medium text-[var(--text-strong)]">Polygon mix</p>
+                  </div>
+                  <p className="data-note mt-1">Multi-builder parcels use striped fills; grace-period areas stay muted.</p>
+                </div>
+                <div className="surface-card map-stat p-3">
+                  <div className="flex items-center gap-2">
+                    <span className="inline-block h-2.5 w-2.5 rounded-full bg-[var(--success)]" />
+                    <p className="text-sm font-medium text-[var(--text-strong)]">Permit pins</p>
+                  </div>
+                  <p className="data-note mt-1">Green marks closed permits and amber marks open work.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* Map container */}
-      <div ref={containerRef} className="flex-1" />
-
-      {/* Detail side panel */}
       {selectedFeature && (
-        <DetailPanel
-          feature={selectedFeature}
-          onClose={() => setSelectedFeature(null)}
-        />
+        <>
+          <div
+            className="drawer-scrim"
+            aria-hidden="true"
+            onClick={() => setSelectedFeature(null)}
+          />
+          <DetailPanel
+            feature={selectedFeature}
+            onClose={() => setSelectedFeature(null)}
+          />
+        </>
       )}
     </div>
+  );
+}
+
+function StatCard({
+  label,
+  value,
+  meta,
+}: {
+  label: string;
+  value: string;
+  meta: string;
+}) {
+  return (
+    <div className="map-stat">
+      <span className="hero-label">{label}</span>
+      <span className="hero-value">{value}</span>
+      <span className="hero-meta">{meta}</span>
+    </div>
+  );
+}
+
+function FieldLabel({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <label className="field-stack">
+      <span className="field-label">{label}</span>
+      {children}
+    </label>
   );
 }

@@ -8,7 +8,6 @@ import {
 import type {
   InventoryCounty,
   CountyInventory,
-  BuilderCount,
   SubdivisionInventory,
 } from "../types";
 
@@ -69,32 +68,6 @@ function aggregateByState(
     .sort((a, b) => b.total - a.total);
 }
 
-/** Aggregate builders across counties for a given state */
-function aggregateBuildersByState(
-  inventory: CountyInventory[],
-  counties: InventoryCounty[],
-  stateCode: string
-): BuilderCount[] {
-  const countyStateMap = new Map(counties.map((c) => [c.id, c.state]));
-  const builderMap = new Map<number, { name: string; count: number }>();
-
-  for (const ci of inventory) {
-    if (countyStateMap.get(ci.county_id) !== stateCode) continue;
-    for (const b of ci.builders) {
-      const existing = builderMap.get(b.builder_id);
-      if (existing) {
-        existing.count += b.count;
-      } else {
-        builderMap.set(b.builder_id, { name: b.builder_name, count: b.count });
-      }
-    }
-  }
-
-  return Array.from(builderMap.entries())
-    .map(([id, v]) => ({ builder_id: id, builder_name: v.name, count: v.count }))
-    .sort((a, b) => b.count - a.count);
-}
-
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -137,8 +110,8 @@ export default function DrillDownTable() {
       (drill.level === "builder" || drill.level === "subdivision"),
   });
 
-  const counties = countiesQ.data ?? [];
-  const inventory = summaryQ.data ?? [];
+  const counties = useMemo(() => countiesQ.data ?? [], [countiesQ.data]);
+  const inventory = useMemo(() => summaryQ.data ?? [], [summaryQ.data]);
   const countyDetail = countyDetailQ.data;
 
   // --- Derived rows ---

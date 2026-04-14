@@ -14,7 +14,7 @@ function NoteField({ value, onChange }: { value: string; onChange: (v: string) =
       onChange={(e) => onChange(e.target.value)}
       placeholder="Optional note"
       rows={2}
-      className="w-full border border-gray-300 rounded px-3 py-2 text-sm resize-none"
+      className="form-control"
     />
   );
 }
@@ -40,7 +40,7 @@ function ActionButton({
       disabled={disabled || loading}
       className={
         className ??
-        "w-full px-4 py-2 text-sm font-medium bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+        "button-primary w-full justify-center"
       }
     >
       {loading ? (loadingLabel ?? "Working...") : label}
@@ -74,13 +74,13 @@ function SubdivisionDropdown({
   }, [subdivisions, filter]);
 
   return (
-    <div className="space-y-1">
+    <div className="space-y-2">
       <input
         type="text"
         placeholder="Type to filter subdivisions..."
         value={filter}
         onChange={(e) => setFilter(e.target.value)}
-        className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+        className="form-control"
       />
       <select
         value={value ?? ""}
@@ -89,7 +89,7 @@ function SubdivisionDropdown({
           const sub = subdivisions?.find((s) => s.id === id) ?? null;
           onChange(id, sub);
         }}
-        className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm bg-white"
+        className="form-control min-h-[11rem]"
         size={Math.min(filtered.length + 1, 8)}
       >
         <option value="">-- Select subdivision --</option>
@@ -114,12 +114,12 @@ function PhaseInput({
   onChange: (v: string) => void;
 }) {
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-col gap-2 sm:flex-row">
       {phases.length > 0 && (
         <select
           value={phases.includes(value) ? value : ""}
           onChange={(e) => onChange(e.target.value)}
-          className="border border-gray-300 rounded px-2 py-1.5 text-sm bg-white flex-1"
+          className="form-control flex-1"
         >
           <option value="">-- Select phase --</option>
           {phases.map((p) => (
@@ -134,7 +134,7 @@ function PhaseInput({
         placeholder={phases.length > 0 ? "Or type phase" : "Phase"}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border border-gray-300 rounded px-2 py-1.5 text-sm flex-1"
+        className="form-control flex-1"
       />
     </div>
   );
@@ -195,12 +195,12 @@ export function SubdivisionAssigner({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+      <h4 className="field-label">
         Assign Subdivision
       </h4>
 
       <div>
-        <label className="block text-xs text-gray-500 mb-1">Subdivision ({transaction.county})</label>
+        <label className="field-label mb-1 block">Subdivision ({transaction.county})</label>
         <SubdivisionDropdown
           county={transaction.county}
           value={selectedSubId}
@@ -212,40 +212,40 @@ export function SubdivisionAssigner({
       </div>
 
       <div>
-        <label className="block text-xs text-gray-500 mb-1">Phase</label>
+        <label className="field-label mb-1 block">Phase</label>
         <PhaseInput phases={phases} value={phase} onChange={setPhase} />
       </div>
 
       <div>
-        <label className="block text-xs text-gray-500 mb-1">Lots</label>
+        <label className="field-label mb-1 block">Lots</label>
         <input
           type="number"
           min="1"
           value={lots}
           onChange={(e) => setLots(e.target.value)}
-          className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+          className="form-control"
         />
       </div>
 
-      <div className="flex items-center gap-2">
+      <label className="chip-pill">
         <input
           type="checkbox"
           id="add-alias"
           checked={addAlias}
           onChange={(e) => setAddAlias(e.target.checked)}
-          className="rounded border-gray-300"
+          className="h-4 w-4 rounded border-stone-300"
         />
-        <label htmlFor="add-alias" className="text-sm text-gray-700">
+        <span className="text-sm text-[var(--text)]">
           Also add alias
-        </label>
-      </div>
+        </span>
+      </label>
       {addAlias && (
         <input
           type="text"
           value={aliasText}
           onChange={(e) => setAliasText(e.target.value)}
           placeholder="Alias text"
-          className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+          className="form-control"
         />
       )}
 
@@ -314,18 +314,18 @@ export function PhaseResolver({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+      <h4 className="field-label">
         Resolve Phase
       </h4>
 
-      <div className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-sm">
-        <span className="text-gray-500">Current phase:</span>{" "}
-        <span className="font-medium text-gray-800">{transaction.phase ?? "(none)"}</span>
+      <div className="surface-muted rounded-[var(--radius-lg)] border border-[var(--border-subtle)] px-3 py-2.5 text-sm">
+        <span className="detail-label">Current phase:</span>{" "}
+        <span className="font-medium text-[var(--text)]">{transaction.phase ?? "(none)"}</span>
         {transaction.subdivision && (
           <>
             <br />
-            <span className="text-gray-500">Subdivision:</span>{" "}
-            <span className="font-medium text-gray-800">{transaction.subdivision}</span>
+            <span className="detail-label">Subdivision:</span>{" "}
+            <span className="font-medium text-[var(--text)]">{transaction.subdivision}</span>
           </>
         )}
       </div>
@@ -333,21 +333,13 @@ export function PhaseResolver({
       <div className="flex gap-2">
         <button
           onClick={() => setMode("confirm")}
-          className={`flex-1 px-3 py-1.5 text-sm rounded border ${
-            mode === "confirm"
-              ? "bg-blue-50 border-blue-300 text-blue-700 font-medium"
-              : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50"
-          }`}
+          className={`chip-pill flex-1 justify-center ${mode === "confirm" ? "active" : ""}`}
         >
           Confirm phase
         </button>
         <button
           onClick={() => setMode("override")}
-          className={`flex-1 px-3 py-1.5 text-sm rounded border ${
-            mode === "override"
-              ? "bg-blue-50 border-blue-300 text-blue-700 font-medium"
-              : "bg-white border-gray-300 text-gray-600 hover:bg-gray-50"
-          }`}
+          className={`chip-pill flex-1 justify-center ${mode === "override" ? "active" : ""}`}
         >
           Override phase
         </button>
@@ -355,7 +347,7 @@ export function PhaseResolver({
 
       {mode === "override" && (
         <div>
-          <label className="block text-xs text-gray-500 mb-1">New phase</label>
+          <label className="field-label mb-1 block">New phase</label>
           <PhaseInput phases={phases} value={overridePhase} onChange={setOverridePhase} />
         </div>
       )}
@@ -442,13 +434,13 @@ export function SubdivisionPicker({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+      <h4 className="field-label">
         Pick Subdivision
       </h4>
 
       {candidates.length > 0 && !showFull && (
-        <div className="space-y-1.5">
-          <label className="block text-xs text-gray-500">Candidates</label>
+        <div className="space-y-2">
+          <label className="field-label">Candidates</label>
           {candidates.map((cand, i) => {
             const id = cand.subdivision_id ?? null;
             const name = cand.subdivision ?? cand.raw ?? "(unknown)";
@@ -457,18 +449,18 @@ export function SubdivisionPicker({
               <button
                 key={i}
                 onClick={() => handleCandidateSelect(cand)}
-                className={`w-full text-left px-3 py-2 rounded border text-sm ${
+                className={`w-full rounded-[var(--radius-lg)] border px-3 py-2.5 text-left text-sm transition-colors ${
                   isSelected
-                    ? "bg-blue-50 border-blue-300 text-blue-800"
-                    : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
+                    ? "border-[rgba(29,78,216,0.24)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                    : "border-[var(--border-subtle)] bg-[var(--surface-muted)] text-[var(--text)] hover:bg-white"
                 }`}
               >
                 <span className="font-medium">{name}</span>
                 {cand.phase && (
-                  <span className="text-gray-500 ml-2">phase: {cand.phase}</span>
+                  <span className="ml-2 text-[var(--text-muted)]">phase: {cand.phase}</span>
                 )}
                 {cand.details?.alias_source ? (
-                  <span className="text-gray-400 ml-2 text-xs">
+                  <span className="ml-2 text-xs text-[var(--text-soft)]">
                     alias: {String(cand.details.alias_source)}
                   </span>
                 ) : null}
@@ -477,7 +469,7 @@ export function SubdivisionPicker({
           })}
           <button
             onClick={() => setShowFull(true)}
-            className="text-xs text-blue-600 hover:underline mt-1"
+            className="text-xs font-medium text-[var(--accent)] hover:underline"
           >
             Use full subdivision list instead
           </button>
@@ -486,12 +478,12 @@ export function SubdivisionPicker({
 
       {showFull && (
         <div>
-          <div className="flex items-center justify-between mb-1">
-            <label className="block text-xs text-gray-500">Subdivision ({transaction.county})</label>
+          <div className="mb-1 flex items-center justify-between">
+            <label className="field-label">Subdivision ({transaction.county})</label>
             {candidates.length > 0 && (
               <button
                 onClick={() => setShowFull(false)}
-                className="text-xs text-blue-600 hover:underline"
+                className="text-xs font-medium text-[var(--accent)] hover:underline"
               >
                 Back to candidates
               </button>
@@ -509,7 +501,7 @@ export function SubdivisionPicker({
       )}
 
       <div>
-        <label className="block text-xs text-gray-500 mb-1">Phase</label>
+        <label className="field-label mb-1 block">Phase</label>
         <PhaseInput phases={phases} value={phase} onChange={setPhase} />
       </div>
 
@@ -564,27 +556,27 @@ export function PhasePicker({
 
   return (
     <div className="space-y-3">
-      <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
+      <h4 className="field-label">
         Pick Phase
       </h4>
 
       {transaction.subdivision && (
-        <div className="bg-gray-50 border border-gray-200 rounded px-3 py-2 text-sm">
-          <span className="text-gray-500">Subdivision:</span>{" "}
-          <span className="font-medium text-gray-800">{transaction.subdivision}</span>
+        <div className="surface-muted rounded-[var(--radius-lg)] border border-[var(--border-subtle)] px-3 py-2.5 text-sm">
+          <span className="detail-label">Subdivision:</span>{" "}
+          <span className="font-medium text-[var(--text)]">{transaction.subdivision}</span>
         </div>
       )}
 
       {candidates.length > 0 ? (
-        <div className="space-y-1.5">
-          <label className="block text-xs text-gray-500">Phase candidates</label>
+        <div className="space-y-2">
+          <label className="field-label">Phase candidates</label>
           {candidates.map((cand) => (
             <label
               key={cand}
-              className={`flex items-center gap-2 px-3 py-2 rounded border text-sm cursor-pointer ${
+              className={`flex items-center gap-2 rounded-[var(--radius-lg)] border px-3 py-2.5 text-sm ${
                 selected === cand
-                  ? "bg-blue-50 border-blue-300 text-blue-800"
-                  : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50"
+                  ? "border-[rgba(29,78,216,0.24)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                  : "border-[var(--border-subtle)] bg-[var(--surface-muted)] text-[var(--text)] hover:bg-white"
               }`}
             >
               <input
@@ -593,7 +585,7 @@ export function PhasePicker({
                 value={cand}
                 checked={selected === cand}
                 onChange={() => setSelected(cand)}
-                className="text-blue-600"
+                className="h-4 w-4 border-stone-300 text-[var(--accent)]"
               />
               <span className="font-medium">{cand}</span>
             </label>
@@ -601,13 +593,13 @@ export function PhasePicker({
         </div>
       ) : (
         <div>
-          <label className="block text-xs text-gray-500 mb-1">Phase</label>
+          <label className="field-label mb-1 block">Phase</label>
           <input
             type="text"
             value={selected}
             onChange={(e) => setSelected(e.target.value)}
             placeholder="Enter phase"
-            className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm"
+            className="form-control"
           />
         </div>
       )}
@@ -662,7 +654,7 @@ export function DismissAction({
         loading={loading}
         label="Dismiss (clear review flag)"
         loadingLabel="Dismissing..."
-        className="w-full px-4 py-2 text-sm font-medium bg-gray-500 text-white rounded hover:bg-gray-600 disabled:opacity-50"
+        className="button-danger w-full justify-center"
       />
     </div>
   );

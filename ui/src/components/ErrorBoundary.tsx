@@ -23,19 +23,36 @@ export default class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.error) {
       return (
-        <div className="p-8 max-w-lg mx-auto mt-16">
-          <h1 className="text-lg font-semibold text-red-700 mb-2">
-            Something went wrong
-          </h1>
-          <pre className="text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded p-3 whitespace-pre-wrap">
-            {this.state.error.message}
-          </pre>
-          <button
-            onClick={() => this.setState({ error: null })}
-            className="mt-4 px-4 py-2 text-sm bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Try again
-          </button>
+        <div className="page-stack" style={{ maxWidth: 760, margin: "80px auto", padding: "0 24px" }}>
+          <div className="hero-band">
+            <div className="page-kicker" style={{ color: "rgba(191,219,254,0.88)" }}>
+              Frontend Recovery
+            </div>
+            <h1 className="page-title" style={{ color: "#f8fafc", marginTop: 8 }}>
+              Something went wrong in the workspace
+            </h1>
+            <p className="page-subtitle" style={{ color: "rgba(226,232,240,0.82)" }}>
+              The UI hit an unexpected rendering error. You can retry without leaving the current thread.
+            </p>
+          </div>
+          <div className="surface-strong panel-pad page-stack">
+            <div className="section-head" style={{ marginBottom: 0 }}>
+              <div>
+                <div className="section-title">Error Message</div>
+                <div className="section-caption">Captured by the global React error boundary.</div>
+              </div>
+              <span className="badge badge-danger">Render Failure</span>
+            </div>
+            <pre className="code-block">{this.state.error.message}</pre>
+            <div className="button-row">
+              <button
+                onClick={() => this.setState({ error: null })}
+                className="button-primary"
+              >
+                Retry Render
+              </button>
+            </div>
+          </div>
         </div>
       );
     }

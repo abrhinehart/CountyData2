@@ -5,7 +5,6 @@ import {
   getPermitDashboard,
   getPermitList,
   getPermitScrapeJobs,
-  triggerPermitScrape,
 } from "../api";
 import Pagination from "../components/Pagination";
 import type { PermitDashboard } from "../types";
@@ -56,10 +55,16 @@ export default function PermitsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-gray-800">Permit Tracker</h1>
-        <div className="flex items-center gap-3">
+    <div className="page-stack report-page">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Permit Tracker</p>
+          <h1 className="page-title">Permits</h1>
+          <p className="page-subtitle">
+            Monitor permit volume, top subdivisions, and scraper freshness by jurisdiction.
+          </p>
+        </div>
+        <div className="page-actions">
           <JurisdictionFilter
             jurisdictions={jurisdictions}
             value={jurisdictionId}
@@ -82,12 +87,12 @@ export default function PermitsPage() {
       {/* Top subdivisions + Top builders side by side */}
       {dash && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Top Subdivisions
-            </h2>
+          <div className="surface-card panel-pad">
+            <div className="section-head mb-4">
+              <h2 className="section-title">Top Subdivisions</h2>
+            </div>
             {dash.top_subdivisions.length === 0 ? (
-              <p className="text-sm text-gray-400">No data.</p>
+              <p className="data-note">No data.</p>
             ) : (
               <table className="w-full text-sm">
                 <thead>
@@ -115,12 +120,12 @@ export default function PermitsPage() {
             )}
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-            <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Top Builders
-            </h2>
+          <div className="surface-card panel-pad">
+            <div className="section-head mb-4">
+              <h2 className="section-title">Top Builders</h2>
+            </div>
             {dash.top_builders.length === 0 ? (
-              <p className="text-sm text-gray-400">No data.</p>
+              <p className="data-note">No data.</p>
             ) : (
               <table className="w-full text-sm">
                 <thead>
@@ -146,64 +151,63 @@ export default function PermitsPage() {
       )}
 
       {/* Permit listing table */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-x-auto">
-        <div className="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-            All Permits
-          </h2>
+      <div className="surface-card data-shell">
+        <div className="data-toolbar">
+          <div>
+            <p className="section-title">All Permits</p>
+            <p className="data-note">Issued permits, builder attribution, and valuation by jurisdiction.</p>
+          </div>
           {jurisdictionId && (
             <button
               onClick={() => handleJurisdictionChange(undefined)}
-              className="text-xs text-blue-600 hover:text-blue-800"
+              className="button-ghost"
             >
               Clear filter
             </button>
           )}
         </div>
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Issued</th>
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Permit #</th>
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Status</th>
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Jurisdiction</th>
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Address</th>
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Subdivision</th>
-              <th className="px-3 py-2 text-left font-medium text-gray-600">Builder</th>
-              <th className="px-3 py-2 text-right font-medium text-gray-600">Valuation</th>
-            </tr>
-          </thead>
-          <tbody>
-            {listQ.isLoading ? (
+        <div className="overflow-x-auto">
+          <table className="data-table">
+            <thead>
               <tr>
-                <td colSpan={8} className="px-3 py-8 text-center text-gray-400">Loading...</td>
+                <th className="text-left">Issued</th>
+                <th className="text-left">Permit #</th>
+                <th className="text-left">Status</th>
+                <th className="text-left">Jurisdiction</th>
+                <th className="text-left">Address</th>
+                <th className="text-left">Subdivision</th>
+                <th className="text-left">Builder</th>
+                <th className="text-right">Valuation</th>
               </tr>
-            ) : !permits || permits.permits.length === 0 ? (
-              <tr>
-                <td colSpan={8} className="px-3 py-8 text-center text-gray-400">No permits found</td>
-              </tr>
-            ) : (
-              permits.permits.map((p) => (
-                <tr key={p.id} className="border-b border-gray-100 hover:bg-blue-50">
-                  <td className="px-3 py-1.5 text-gray-700 whitespace-nowrap">{p.issue_date ?? ""}</td>
-                  <td className="px-3 py-1.5 text-gray-700">{p.permit_number}</td>
-                  <td className="px-3 py-1.5">
-                    <StatusBadge status={p.status} />
-                  </td>
-                  <td className="px-3 py-1.5 text-gray-700">{p.jurisdiction ?? ""}</td>
-                  <td className="px-3 py-1.5 text-gray-700 max-w-[220px] truncate" title={p.address ?? ""}>
-                    {p.address ?? ""}
-                  </td>
-                  <td className="px-3 py-1.5 text-gray-700">{p.subdivision ?? ""}</td>
-                  <td className="px-3 py-1.5 text-gray-700">{p.builder ?? ""}</td>
-                  <td className="px-3 py-1.5 text-right tabular-nums text-gray-700">
-                    {p.valuation != null ? `$${fmt(p.valuation)}` : ""}
-                  </td>
+            </thead>
+            <tbody>
+              {listQ.isLoading ? (
+                <tr>
+                  <td colSpan={8} className="table-empty text-center">Loading...</td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : !permits || permits.permits.length === 0 ? (
+                <tr>
+                  <td colSpan={8} className="table-empty text-center">No permits found</td>
+                </tr>
+              ) : (
+                permits.permits.map((p) => (
+                  <tr key={p.id}>
+                    <td className="whitespace-nowrap">{p.issue_date ?? ""}</td>
+                    <td>{p.permit_number}</td>
+                    <td><StatusBadge status={p.status} /></td>
+                    <td>{p.jurisdiction ?? ""}</td>
+                    <td className="max-w-[220px] truncate" title={p.address ?? ""}>{p.address ?? ""}</td>
+                    <td>{p.subdivision ?? ""}</td>
+                    <td>{p.builder ?? ""}</td>
+                    <td className="text-right tabular-nums">
+                      {p.valuation != null ? `$${fmt(p.valuation)}` : ""}
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
         {permits && (
           <div className="px-3">
             <Pagination
@@ -218,14 +222,14 @@ export default function PermitsPage() {
       </div>
 
       {/* Scrape jobs */}
-      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-        <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-          Recent Scrape Jobs
-        </h2>
+      <div className="surface-card panel-pad">
+        <div className="section-head mb-4">
+          <h2 className="section-title">Recent Scrape Jobs</h2>
+        </div>
         {jobsQ.isLoading ? (
-          <p className="text-sm text-gray-400">Loading...</p>
+          <p className="data-note">Loading...</p>
         ) : jobs.length === 0 ? (
-          <p className="text-sm text-gray-400">No scrape jobs.</p>
+          <p className="data-note">No scrape jobs.</p>
         ) : (
           <table className="w-full text-sm">
             <thead>
@@ -260,10 +264,10 @@ export default function PermitsPage() {
 
       {/* Scraper health */}
       {dash && dash.last_runs.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-            Scraper Health
-          </h2>
+        <div className="surface-card panel-pad">
+          <div className="section-head mb-4">
+            <h2 className="section-title">Scraper Health</h2>
+          </div>
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-gray-200 bg-gray-50">
@@ -322,7 +326,7 @@ function JurisdictionFilter({
     <select
       value={value ?? ""}
       onChange={(e) => onChange(e.target.value ? Number(e.target.value) : undefined)}
-      className="text-sm border border-gray-300 rounded-md px-3 py-1.5 bg-white text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+      className="form-control min-w-[220px]"
     >
       <option value="">All Jurisdictions</option>
       {sorted.map((j) => (
@@ -353,17 +357,15 @@ function VsLastMonthCard({ summary }: { summary: PermitDashboard["summary"] }) {
   const positive = month_delta >= 0;
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
-      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
-        vs Last Month
-      </p>
-      <p className={`text-2xl font-semibold tabular-nums ${positive ? "text-green-600" : "text-red-600"}`}>
+    <div className={`metric-card ${positive ? "" : "danger"}`.trim()}>
+      <p className="metric-label">vs Last Month</p>
+      <p className={`metric-value ${positive ? "" : "danger"}`.trim()}>
         {positive ? "+" : ""}{month_delta}
       </p>
-      <p className={`text-xs tabular-nums mt-0.5 ${pctChange >= 0 ? "text-green-600" : "text-red-600"}`}>
+      <p className={`metric-meta ${pctChange >= 0 ? "text-[var(--success)]" : "text-[var(--danger)]"}`}>
         {pctChange >= 0 ? "+" : ""}{pctChange}% daily rate
       </p>
-      <p className="text-xs text-gray-400 tabular-nums mt-0.5">
+      <p className="metric-meta">
         ~{fmt(projected)} projected
       </p>
     </div>
@@ -386,17 +388,9 @@ function Card({
   tooltip?: string;
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4" title={tooltip}>
-      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
-        {label}
-      </p>
-      <p
-        className={`text-2xl font-semibold tabular-nums ${
-          accent ? "text-red-600" : "text-gray-800"
-        }`}
-      >
-        {value}
-      </p>
+    <div className={`metric-card ${accent ? "danger" : ""}`.trim()} title={tooltip}>
+      <p className="metric-label">{label}</p>
+      <p className={`metric-value ${accent ? "danger" : ""}`.trim()}>{value}</p>
     </div>
   );
 }

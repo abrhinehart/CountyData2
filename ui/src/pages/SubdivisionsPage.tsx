@@ -61,7 +61,7 @@ export default function SubdivisionsPage() {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
-  const [countyId, setCountyId] = useState<number | null>(null);
+  const [countyId, setCountyId] = useState<number | "all" | undefined>(undefined);
   const [sortBy, setSortBy] = useState<SortKey>("lots");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
 
@@ -84,24 +84,25 @@ export default function SubdivisionsPage() {
     queryFn: getInventoryCounties,
   });
 
-  // Default to Bay (most data) or first county
-  useEffect(() => {
-    if (countyId === null && countiesQ.data && countiesQ.data.length > 0) {
-      const bay = countiesQ.data.find((c) => c.name === "Bay");
-      setCountyId(bay ? bay.id : countiesQ.data[0].id);
-    }
-  }, [countiesQ.data, countyId]);
+  const defaultCountyId = useMemo(() => {
+    if (!countiesQ.data || countiesQ.data.length === 0) return null;
+    const bay = countiesQ.data.find((c) => c.name === "Bay");
+    return bay ? bay.id : countiesQ.data[0].id;
+  }, [countiesQ.data]);
+
+  const activeCountyId =
+    countyId === undefined ? defaultCountyId : countyId === "all" ? null : countyId;
 
   const hasSearch = debouncedSearch.length >= 2;
-  const hasCounty = countyId !== null;
+  const hasCounty = activeCountyId !== null;
   const gated = hasSearch || hasCounty;
 
   const subsQ = useQuery<InventorySubdivisionOut[]>({
-    queryKey: ["inventory-subdivisions", debouncedSearch, countyId],
+    queryKey: ["inventory-subdivisions", debouncedSearch, activeCountyId],
     queryFn: () =>
       searchInventorySubdivisions({
         search: hasSearch ? debouncedSearch : undefined,
-        county_id: hasCounty ? countyId : undefined,
+        county_id: hasCounty ? activeCountyId : undefined,
       }),
     enabled: gated,
   });
@@ -139,38 +140,48 @@ export default function SubdivisionsPage() {
   }, [subsQ.data, sortBy, sortDir]);
 
   // Find the selected county object for display in the result badge
-  const selectedCounty = countiesQ.data?.find((c) => c.id === countyId);
+  const selectedCounty = countiesQ.data?.find((c) => c.id === activeCountyId);
 
   return (
-    <div className="space-y-4 max-w-6xl">
-      <h1 className="text-2xl font-semibold text-gray-800">Subdivisions</h1>
-      <p className="text-sm text-gray-500">
-        Showing subdivisions where builders own or have recently owned lots.
-      </p>
+    <div className="page-stack report-page max-w-6xl">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Subdivision Search</p>
+          <h1 className="page-title">Subdivisions</h1>
+          <p className="page-subtitle">
+            Search for builder-active subdivisions, sort by lot footprint, and jump into the detail report.
+          </p>
+        </div>
+      </div>
 
-      {/* Filter card */}
-      <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
-        <div className="flex flex-wrap gap-3 items-end">
+      <div className="filter-band">
+        <div className="section-head">
+          <div>
+            <p className="section-title">Search Filters</p>
+            <p className="section-caption">Search by name or narrow the inventory atlas to one county.</p>
+          </div>
+        </div>
+        <div className="filter-grid">
           <div className="flex-1 min-w-[240px]">
-            <label className="block text-xs text-gray-500 mb-1">Search</label>
+            <label className="field-label mb-1 block">Search</label>
             <input
               type="text"
               placeholder="Subdivision name..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 transition-colors"
+              className="form-control"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-gray-500 mb-1">County</label>
+            <label className="field-label mb-1 block">County</label>
             <select
-              value={countyId ?? ""}
+              value={activeCountyId ?? ""}
               onChange={(e) => {
                 const v = e.target.value;
-                setCountyId(v ? Number(v) : null);
+                setCountyId(v ? Number(v) : "all");
               }}
-              className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white min-w-[180px] focus:outline-none focus:ring-2 focus:ring-violet-300 focus:border-violet-400 transition-colors"
+              className="form-control min-w-[220px]"
             >
               <option value="">All Counties</option>
               {countiesQ.data?.map((c) => (
@@ -182,7 +193,7 @@ export default function SubdivisionsPage() {
           </div>
 
           {gated && rows.length > 0 && (
-            <span className="inline-flex items-center rounded-full bg-violet-100 text-violet-700 px-2.5 py-1 text-xs font-medium">
+            <span className="badge badge-accent">
               {rows.length} subdivision{rows.length !== 1 ? "s" : ""}
               {selectedCounty ? ` in ${selectedCounty.name}` : ""}
             </span>
@@ -191,23 +202,23 @@ export default function SubdivisionsPage() {
       </div>
 
       {/* Table container */}
-      <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+      <div className="surface-card data-shell overflow-hidden">
         {!gated ? (
-          <p className="text-sm text-gray-400 p-5">
+          <p className="table-empty">
             Type at least 2 characters or pick a county to search.
           </p>
         ) : subsQ.isLoading ? (
-          <p className="text-sm text-gray-400 p-5">Loading...</p>
+          <p className="table-empty">Loading...</p>
         ) : subsQ.error ? (
-          <p className="text-sm text-red-600 p-5">
+          <p className="table-empty text-[var(--danger)]">
             Failed to load: {(subsQ.error as Error).message}
           </p>
         ) : rows.length === 0 ? (
-          <p className="text-sm text-gray-400 p-5">No subdivisions with builder activity found.</p>
+          <p className="table-empty">No subdivisions with builder activity found.</p>
         ) : (
-          <table className="w-full text-sm">
+          <table className="data-table">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-semibold uppercase tracking-wide">
+              <tr>
                 <SortTh label="Subdivision" sortKey="name" align="left" active={sortBy} dir={sortDir} onSort={toggleSort} />
                 <SortTh label="County" sortKey="county" align="left" className="w-32" active={sortBy} dir={sortDir} onSort={toggleSort} />
                 <SortTh label="Parcels" sortKey="parcels" align="right" className="w-24" active={sortBy} dir={sortDir} onSort={toggleSort} />
@@ -217,44 +228,44 @@ export default function SubdivisionsPage() {
                 <SortTh label="Last Activity" sortKey="activity" align="right" className="w-28" active={sortBy} dir={sortDir} onSort={toggleSort} />
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody>
               {rows.map((row) => {
                 const cls = classificationLabel(row.classification);
                 return (
                   <tr
                     key={row.id}
                     onClick={() => navigate(`/subdivisions/${row.id}`)}
-                    className="cursor-pointer hover:bg-violet-50/60 transition-colors"
+                    className="cursor-pointer"
                   >
-                    <td className="px-4 py-3">
+                    <td>
                       <Link
                         to={`/subdivisions/${row.id}`}
-                        className="font-semibold text-gray-900 hover:text-gray-900"
+                        className="font-semibold text-[var(--text)] hover:text-[var(--text)]"
                         onClick={(e) => e.stopPropagation()}
                       >
                         {toTitleCase(row.name)}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-gray-500">{row.county_name}</td>
-                    <td className="px-4 py-3 text-right tabular-nums text-gray-700">
+                    <td>{row.county_name}</td>
+                    <td className="text-right tabular-nums">
                       {row.parcel_count.toLocaleString()}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums text-gray-700">
+                    <td className="text-right tabular-nums">
                       {row.distinct_builder_count}
                     </td>
-                    <td className="px-4 py-3 text-right tabular-nums font-medium text-gray-800">
+                    <td className="text-right tabular-nums font-medium">
                       {row.builder_lot_count.toLocaleString()}
                     </td>
-                    <td className="px-4 py-3">
+                    <td>
                       {cls.classes ? (
-                        <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${cls.classes}`}>
+                        <span className={`badge ${cls.classes.includes("green") ? "badge-success" : "badge-neutral"}`}>
                           {cls.text}
                         </span>
                       ) : (
-                        <span className="text-gray-400">{cls.text}</span>
+                        <span className="text-[var(--text-soft)]">{cls.text}</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-right text-gray-500 text-xs">
+                    <td className="text-right text-xs text-[var(--text-muted)]">
                       {relTime(row.updated_at)}
                     </td>
                   </tr>
@@ -289,9 +300,9 @@ function SortTh({
   const arrow = isActive ? (dir === "asc" ? " \u25B2" : " \u25BC") : "";
   return (
     <th
-      className={`px-4 py-3 cursor-pointer select-none hover:text-gray-800 transition-colors ${
+      className={`cursor-pointer select-none transition-colors hover:text-[var(--text)] ${
         align === "right" ? "text-right" : "text-left"
-      } ${isActive ? "text-gray-800" : "text-gray-500"} ${className ?? ""}`}
+      } ${isActive ? "text-[var(--text)]" : "text-[var(--text-muted)]"} ${className ?? ""}`}
       onClick={() => onSort(sortKey)}
     >
       {label}{arrow}

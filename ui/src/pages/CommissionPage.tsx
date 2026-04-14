@@ -1,9 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { getCommissionSummary, getCommissionActions, getCommissionRosterList } from "../api";
 import MeetingCalendar from "../components/MeetingCalendar";
-import type { CommissionActionItem, CommissionerVote } from "../types";
+import type { CommissionActionItem } from "../types";
 
 function fmt(n: number): string {
   return n.toLocaleString();
@@ -73,8 +73,16 @@ export default function CommissionPage() {
   }, [actionsQ.data]);
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-semibold text-gray-800">Commission Radar</h1>
+    <div className="page-stack report-page">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Commission Radar</p>
+          <h1 className="page-title">Entitlement Watch</h1>
+          <p className="page-subtitle">
+            Track meetings, project rosters, and action outcomes across county commissions.
+          </p>
+        </div>
+      </div>
 
       {/* KPI cards — #23: fix "Projects Tracked" to meaningful count (backend already fixed) */}
       {summary && (
@@ -89,10 +97,10 @@ export default function CommissionPage() {
 
       {/* Calendar + Upcoming meetings (#25, #26) */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white border border-gray-200 rounded-lg p-5">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-            Meeting Calendar
-          </h2>
+        <div className="surface-card panel-pad">
+          <div className="section-head mb-3">
+            <h2 className="section-title">Meeting Calendar</h2>
+          </div>
           <MeetingCalendar
             meetingDates={meetingDates}
             onDateClick={(date) => {
@@ -104,27 +112,27 @@ export default function CommissionPage() {
             }}
           />
         </div>
-        <div className="lg:col-span-2 bg-white border border-gray-200 rounded-lg p-5">
-          <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
-            Upcoming Meetings
-          </h2>
+        <div className="lg:col-span-2 surface-card panel-pad">
+          <div className="section-head mb-3">
+            <h2 className="section-title">Upcoming Meetings</h2>
+          </div>
           {futureMeetings.length === 0 ? (
-            <p className="text-sm text-gray-400">No upcoming meetings in current data.</p>
+            <p className="data-note">No upcoming meetings in current data.</p>
           ) : (
             <div className="space-y-2">
               {futureMeetings.slice(0, 10).map((date) => {
                 const actions = actionsQ.data?.items.filter((a) => a.meeting_date === date) ?? [];
                 const jurisdictions = [...new Set(actions.map((a) => a.jurisdiction_name))];
                 return (
-                  <div key={date} className="flex items-center gap-3 text-sm">
-                    <span className="font-semibold text-gray-800 w-24 shrink-0">{date}</span>
-                    <span className="text-gray-600">{jurisdictions.join(", ")}</span>
-                    <span className="text-gray-400 text-xs ml-auto">{actions.length} action{actions.length !== 1 ? "s" : ""}</span>
+                  <div key={date} className="surface-muted flex items-center gap-3 rounded-[var(--radius-lg)] border border-[var(--border-subtle)] px-3 py-2 text-sm">
+                    <span className="w-24 shrink-0 font-semibold text-[var(--text)]">{date}</span>
+                    <span className="text-[var(--text-muted)]">{jurisdictions.join(", ")}</span>
+                    <span className="ml-auto text-xs text-[var(--text-soft)]">{actions.length} action{actions.length !== 1 ? "s" : ""}</span>
                   </div>
                 );
               })}
               {futureMeetings.length > 10 && (
-                <p className="text-xs text-gray-400">+{futureMeetings.length - 10} more dates</p>
+                <p className="data-note">+{futureMeetings.length - 10} more dates</p>
               )}
             </div>
           )}
@@ -132,7 +140,7 @@ export default function CommissionPage() {
       </div>
 
       {/* Tab switcher */}
-      <div className="flex gap-1 border-b border-gray-200">
+      <div className="chip-row">
         <TabButton active={tab === "meetings"} onClick={() => setTab("meetings")}>
           Recent Meetings
         </TabButton>
@@ -145,9 +153,9 @@ export default function CommissionPage() {
       {tab === "meetings" && (
         <div className="space-y-3">
           {actionsQ.isLoading ? (
-            <p className="text-sm text-gray-400">Loading...</p>
+            <p className="data-note">Loading...</p>
           ) : meetingGroups.length === 0 ? (
-            <p className="text-sm text-gray-400">No meetings found.</p>
+            <p className="data-note">No meetings found.</p>
           ) : (
             meetingGroups.map((group) => (
               <MeetingGroup
@@ -160,22 +168,22 @@ export default function CommissionPage() {
             ))
           )}
           {actionsQ.data && actionsQ.data.pages > 1 && (
-            <div className="flex items-center justify-between text-sm text-gray-600 px-1 pt-2">
-              <span>
+            <div className="data-toolbar pt-2">
+              <span className="data-note">
                 Page {actionsQ.data.page} of {actionsQ.data.pages} ({fmt(actionsQ.data.total)} actions)
               </span>
-              <div className="flex gap-1">
+              <div className="button-row">
                 <button
                   onClick={() => setActionPage((p) => Math.max(1, p - 1))}
                   disabled={actionPage <= 1}
-                  className="px-2 py-1 rounded border border-gray-300 bg-white disabled:opacity-40 hover:bg-gray-50"
+                  className="button-ghost"
                 >
                   Prev
                 </button>
                 <button
                   onClick={() => setActionPage((p) => p + 1)}
                   disabled={actionPage >= (actionsQ.data?.pages ?? 1)}
-                  className="px-2 py-1 rounded border border-gray-300 bg-white disabled:opacity-40 hover:bg-gray-50"
+                  className="button-ghost"
                 >
                   Next
                 </button>
@@ -188,85 +196,85 @@ export default function CommissionPage() {
       {/* Roster tab (#29: filter to projects with action_count > 0) */}
       {tab === "roster" && (
         <div>
-          <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4">
+          <div className="surface-card panel-pad mb-4">
             <input
               type="text"
               placeholder="Search projects..."
               value={rosterSearch}
               onChange={(e) => { setRosterSearch(e.target.value); setRosterPage(1); }}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm w-72"
+              className="form-control w-full max-w-xs"
             />
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-lg overflow-x-auto">
-            <table className="w-full text-sm">
+          <div className="surface-card data-shell overflow-x-auto">
+            <table className="data-table">
               <thead>
-                <tr className="border-b border-gray-200 bg-gray-50">
-                  <th className="px-3 py-2 text-left font-medium text-gray-600">Project</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-600">County</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-600">Jurisdiction</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-600">Status</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-600">Stage</th>
-                  <th className="px-3 py-2 text-left font-medium text-gray-600">Last Action</th>
-                  <th className="px-3 py-2 text-right font-medium text-gray-600">Actions</th>
+                <tr>
+                  <th className="text-left">Project</th>
+                  <th className="text-left">County</th>
+                  <th className="text-left">Jurisdiction</th>
+                  <th className="text-left">Status</th>
+                  <th className="text-left">Stage</th>
+                  <th className="text-left">Last Action</th>
+                  <th className="text-right">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 {rosterQ.isLoading ? (
                   <tr>
-                    <td colSpan={7} className="px-3 py-8 text-center text-gray-400">Loading...</td>
+                    <td colSpan={7} className="table-empty text-center">Loading...</td>
                   </tr>
                 ) : !rosterQ.data || rosterQ.data.items.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-3 py-8 text-center text-gray-400">No projects found</td>
+                    <td colSpan={7} className="table-empty text-center">No projects found</td>
                   </tr>
                 ) : (
                   rosterQ.data.items
                     .filter((r) => r.action_count > 0)
                     .map((r) => (
-                      <tr key={r.id} className="border-b border-gray-100 hover:bg-blue-50">
-                        <td className="px-3 py-1.5">
+                      <tr key={r.id}>
+                        <td>
                           <Link
                             to={`/subdivisions/${r.id}`}
-                            className="text-blue-600 hover:underline font-medium"
+                            className="font-medium text-[var(--accent)] hover:underline"
                           >
                             {r.name}
                           </Link>
                         </td>
-                        <td className="px-3 py-1.5 text-gray-700">{r.county}</td>
-                        <td className="px-3 py-1.5 text-gray-700">{r.jurisdiction_name}</td>
-                        <td className="px-3 py-1.5">
+                        <td>{r.county}</td>
+                        <td>{r.jurisdiction_name}</td>
+                        <td>
                           {r.entitlement_status && (
-                            <span className="px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                            <span className="badge badge-accent">
                               {r.entitlement_status}
                             </span>
                           )}
                         </td>
-                        <td className="px-3 py-1.5 text-gray-500">{r.lifecycle_stage_label}</td>
-                        <td className="px-3 py-1.5 text-gray-700 whitespace-nowrap">{r.last_action_date}</td>
-                        <td className="px-3 py-1.5 text-right tabular-nums text-gray-700">{r.action_count}</td>
+                        <td>{r.lifecycle_stage_label}</td>
+                        <td className="whitespace-nowrap">{r.last_action_date}</td>
+                        <td className="text-right tabular-nums">{r.action_count}</td>
                       </tr>
                     ))
                 )}
               </tbody>
             </table>
             {rosterQ.data && rosterQ.data.pages > 1 && (
-              <div className="flex items-center justify-between text-sm text-gray-600 px-3 py-3">
-                <span>
+              <div className="data-toolbar">
+                <span className="data-note">
                   Page {rosterQ.data.page} of {rosterQ.data.pages} ({fmt(rosterQ.data.total)} total)
                 </span>
-                <div className="flex gap-1">
+                <div className="button-row">
                   <button
                     onClick={() => setRosterPage((p) => Math.max(1, p - 1))}
                     disabled={rosterPage <= 1}
-                    className="px-2 py-1 rounded border border-gray-300 bg-white disabled:opacity-40 hover:bg-gray-50"
+                    className="button-ghost"
                   >
                     Prev
                   </button>
                   <button
                     onClick={() => setRosterPage((p) => p + 1)}
                     disabled={rosterPage >= (rosterQ.data?.pages ?? 1)}
-                    className="px-2 py-1 rounded border border-gray-300 bg-white disabled:opacity-40 hover:bg-gray-50"
+                    className="button-ghost"
                   >
                     Next
                   </button>
@@ -303,39 +311,39 @@ function MeetingGroup({
   const [expanded, setExpanded] = useState(false);
 
   return (
-    <div id={`meeting-${date}`} className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+    <div id={`meeting-${date}`} className="surface-card overflow-hidden">
       <button
         onClick={() => setExpanded((e) => !e)}
-        className="w-full flex items-center justify-between px-4 py-3 bg-gray-50 hover:bg-gray-100 text-left border-b border-gray-200"
+        className="surface-muted flex w-full items-center justify-between border-b border-[var(--border-subtle)] px-4 py-3 text-left"
       >
         <div className="flex items-center gap-3">
-          <span className="text-sm font-bold text-gray-900">{date || "No date"}</span>
-          <span className="text-sm font-medium text-gray-600">{jurisdiction}</span>
-          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+          <span className="text-sm font-bold text-[var(--text)]">{date || "No date"}</span>
+          <span className="text-sm font-medium text-[var(--text-muted)]">{jurisdiction}</span>
+          <span className="badge badge-accent">
             {items.length} action{items.length !== 1 ? "s" : ""}
           </span>
         </div>
-        <span className="text-gray-400 text-sm">{expanded ? "\u25b2" : "\u25bc"}</span>
+        <span className="text-sm text-[var(--text-soft)]">{expanded ? "\u25b2" : "\u25bc"}</span>
       </button>
       {expanded && (
-        <div>
-          <table className="w-full text-sm">
+        <div className="data-shell">
+          <table className="data-table">
             <tbody>
               {items.map((a) => (
                 <tr
                   key={a.id}
-                  className="border-b border-gray-50 last:border-0 hover:bg-blue-50/50 cursor-pointer"
+                  className="cursor-pointer"
                   onClick={() => onActionClick(a)}
                 >
-                  <td className="pl-8 pr-3 py-1.5 text-gray-700 font-medium max-w-[200px] truncate" title={a.project_name}>
+                  <td className="max-w-[200px] truncate pl-8 font-medium" title={a.project_name}>
                     {a.project_name}
                   </td>
-                  <td className="px-3 py-1.5 text-gray-500">{a.approval_type.replace(/_/g, " ")}</td>
-                  <td className="px-3 py-1.5 text-gray-500">{a.ref_number}</td>
-                  <td className="px-3 py-1.5">
+                  <td>{a.approval_type.replace(/_/g, " ")}</td>
+                  <td>{a.ref_number}</td>
+                  <td>
                     <OutcomeBadge status={a.status} />
                   </td>
-                  <td className="px-3 py-1.5 text-gray-400 text-xs">{a.document_type}</td>
+                  <td className="text-xs text-[var(--text-soft)]">{a.document_type}</td>
                 </tr>
               ))}
             </tbody>
@@ -356,17 +364,9 @@ function Card({
   accent?: boolean;
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
-        {label}
-      </p>
-      <p
-        className={`text-2xl font-semibold tabular-nums ${
-          accent ? "text-amber-600" : "text-gray-800"
-        }`}
-      >
-        {value}
-      </p>
+    <div className={`metric-card ${accent ? "warn" : ""}`.trim()}>
+      <p className="metric-label">{label}</p>
+      <p className={`metric-value ${accent ? "warn" : ""}`.trim()}>{value}</p>
     </div>
   );
 }
@@ -378,16 +378,12 @@ function TabButton({
 }: {
   active: boolean;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <button
       onClick={onClick}
-      className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
-        active
-          ? "border-blue-600 text-blue-700"
-          : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
-      }`}
+      className={`chip-pill ${active ? "active" : ""}`}
     >
       {children}
     </button>
@@ -398,14 +394,14 @@ function OutcomeBadge({ status }: { status: string }) {
   if (!status) return <span className="text-gray-400 text-xs">&mdash;</span>;
   const s = status.toLowerCase();
   const styles = s.includes("approv") || s.includes("rec. approval")
-    ? "bg-green-100 text-green-700"
+    ? "badge-success"
     : s.includes("denied") || s.includes("rec. denial")
-      ? "bg-red-100 text-red-700"
+      ? "badge-danger"
       : s.includes("tabled") || s.includes("deferred")
-        ? "bg-amber-100 text-amber-700"
-        : "bg-gray-100 text-gray-600";
+        ? "badge-warning"
+        : "badge-neutral";
   return (
-    <span className={`px-2 py-0.5 rounded text-xs font-medium ${styles}`}>
+    <span className={`badge ${styles}`}>
       {status}
     </span>
   );
@@ -415,12 +411,12 @@ function OutcomeBadge({ status }: { status: string }) {
 // Action detail panel
 // ---------------------------------------------------------------------------
 
-function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
+function DetailRow({ label, value }: { label: string; value: ReactNode }) {
   if (!value || value === "") return null;
   return (
-    <div>
-      <dt className="text-xs text-gray-400 uppercase tracking-wide">{label}</dt>
-      <dd className="text-sm text-gray-800 mt-0.5">{value}</dd>
+    <div className="detail-row">
+      <dt className="detail-label">{label}</dt>
+      <dd className="detail-value">{value}</dd>
     </div>
   );
 }
@@ -437,20 +433,22 @@ function ActionDetailPanel({
   const votes = a.commissioner_votes ?? [];
 
   return (
-    <div className="fixed right-0 top-[53px] bottom-0 w-[480px] bg-white shadow-xl border-l border-gray-200 z-[1000] overflow-y-auto">
-      {/* Header */}
-      <div className="sticky top-0 bg-white border-b border-gray-200 px-5 py-4 flex items-start justify-between">
+    <>
+      <div className="drawer-scrim" onClick={onClose} />
+      <aside className="inspector-drawer">
+      <div className="inspector-header">
         <div className="min-w-0 pr-4">
-          <h2 className="text-lg font-semibold text-gray-900">{a.project_name}</h2>
-          <div className="flex items-center gap-2 mt-1 flex-wrap">
+          <p className="inspector-kicker">Commission Action</p>
+          <h2 className="inspector-title">{a.project_name}</h2>
+          <div className="drawer-chip-row mt-2">
             <OutcomeBadge status={a.status} />
-            <span className="text-sm text-gray-500">{a.jurisdiction_name}</span>
-            <span className="text-sm text-gray-400">{a.meeting_date}</span>
+            <span className="badge badge-neutral">{a.jurisdiction_name}</span>
+            <span className="badge badge-neutral">{a.meeting_date}</span>
           </div>
         </div>
         <button
           onClick={onClose}
-          className="p-1 rounded hover:bg-gray-100 text-gray-400 hover:text-gray-600 shrink-0"
+          className="inspector-close"
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -458,11 +456,12 @@ function ActionDetailPanel({
         </button>
       </div>
 
-      <div className="p-5 space-y-5">
-        {/* Case info */}
-        <section className="space-y-2">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Case Information</h3>
-          <dl className="space-y-2">
+      <div className="inspector-body">
+        <section className="inspector-section">
+          <div className="section-head">
+            <h3 className="section-title">Case Information</h3>
+          </div>
+          <dl className="detail-grid">
             <DetailRow label="Approval Type" value={a.approval_type.replace(/_/g, " ")} />
             <DetailRow label="Case Number" value={a.case_number} />
             <DetailRow label="Ordinance" value={a.ordinance_number} />
@@ -473,9 +472,11 @@ function ActionDetailPanel({
         </section>
 
         {/* Project details */}
-        <section className="space-y-2">
-          <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Project Details</h3>
-          <dl className="space-y-2">
+        <section className="inspector-section">
+          <div className="section-head">
+            <h3 className="section-title">Project Details</h3>
+          </div>
+          <dl className="detail-grid">
             <DetailRow label="Phase" value={a.phase_name} />
             <DetailRow label="Address" value={a.address} />
             <DetailRow label="Applicant" value={a.applicant_name} />
@@ -489,9 +490,11 @@ function ActionDetailPanel({
 
         {/* Land use / zoning changes */}
         {(hasLandUseChange || hasZoningChange) && (
-          <section className="space-y-2">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Land Use &amp; Zoning</h3>
-            <dl className="space-y-2">
+          <section className="inspector-section">
+            <div className="section-head">
+              <h3 className="section-title">Land Use &amp; Zoning</h3>
+            </div>
+            <dl className="detail-grid">
               {hasLandUseChange && (
                 <DetailRow
                   label="Land Use"
@@ -519,25 +522,31 @@ function ActionDetailPanel({
 
         {/* Summary */}
         {a.action_summary && (
-          <section className="space-y-2">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Summary</h3>
-            <p className="text-sm text-gray-700 whitespace-pre-wrap">{a.action_summary}</p>
+          <section className="inspector-section">
+            <div className="section-head">
+              <h3 className="section-title">Summary</h3>
+            </div>
+            <p className="detail-value whitespace-pre-wrap">{a.action_summary}</p>
           </section>
         )}
 
         {/* Conditions */}
         {a.conditions && (
-          <section className="space-y-2">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Conditions</h3>
-            <p className="text-sm text-gray-700 whitespace-pre-wrap">{a.conditions}</p>
+          <section className="inspector-section">
+            <div className="section-head">
+              <h3 className="section-title">Conditions</h3>
+            </div>
+            <p className="detail-value whitespace-pre-wrap">{a.conditions}</p>
           </section>
         )}
 
         {/* Vote */}
         {(a.vote_detail || votes.length > 0) && (
-          <section className="space-y-2">
-            <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wide">Vote</h3>
-            {a.vote_detail && <p className="text-sm text-gray-700">{a.vote_detail}</p>}
+          <section className="inspector-section">
+            <div className="section-head">
+              <h3 className="section-title">Vote</h3>
+            </div>
+            {a.vote_detail && <p className="detail-value">{a.vote_detail}</p>}
             {votes.length > 0 && (
               <table className="w-full text-sm mt-2">
                 <thead>
@@ -572,9 +581,12 @@ function ActionDetailPanel({
 
         {/* Review notes */}
         {a.needs_review && a.review_notes && (
-          <section className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-            <h3 className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">Needs Review</h3>
-            <p className="text-sm text-amber-800">{a.review_notes}</p>
+          <section className="inspector-section flat">
+            <div className="section-head">
+              <h3 className="section-title">Needs Review</h3>
+              <span className="badge badge-warning">Review</span>
+            </div>
+            <p className="detail-value text-[var(--warning)]">{a.review_notes}</p>
           </section>
         )}
 
@@ -584,27 +596,28 @@ function ActionDetailPanel({
             href={a.document_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center text-sm font-medium text-blue-600 hover:text-blue-800 py-2 border border-blue-200 rounded hover:bg-blue-50 transition-colors"
+            className="button-primary w-full justify-center"
           >
             View Source Document &#8599;
           </a>
         )}
       </div>
-    </div>
+      </aside>
+    </>
   );
 }
 
 function VoteBadge({ vote }: { vote: string }) {
   const v = vote.toLowerCase();
   const styles = v === "yes" || v === "aye"
-    ? "bg-green-100 text-green-700"
+    ? "badge-success"
     : v === "no" || v === "nay"
-      ? "bg-red-100 text-red-700"
+      ? "badge-danger"
       : v === "absent" || v === "abstain"
-        ? "bg-gray-100 text-gray-500"
-        : "bg-gray-100 text-gray-600";
+        ? "badge-neutral"
+        : "badge-neutral";
   return (
-    <span className={`px-2 py-0.5 rounded text-xs font-medium ${styles}`}>
+    <span className={`badge ${styles}`}>
       {vote}
     </span>
   );

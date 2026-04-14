@@ -1,12 +1,27 @@
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
-import { getTransactions, getCounties, getSubdivisions, getReviewQueue, exportTransactions, downloadUrl, resolveAction } from "../api";
-import type { TransactionFilters } from "../types";
+import {
+  downloadUrl,
+  exportTransactions,
+  getCounties,
+  getReviewQueue,
+  getSubdivisions,
+  getTransactions,
+  resolveAction,
+} from "../api";
 import Pagination from "../components/Pagination";
 import TransactionDetailPanel from "../components/TransactionDetailPanel";
+import type { TransactionFilters } from "../types";
 
-const COLUMNS = [
+interface ColumnDef {
+  key: string;
+  label: string;
+  w: string;
+  numeric?: boolean;
+}
+
+const COLUMNS: ColumnDef[] = [
   { key: "Date", label: "Date", w: "w-24" },
   { key: "County", label: "County", w: "w-24" },
   { key: "Type", label: "Type", w: "w-32" },
@@ -46,7 +61,9 @@ const FILTER_PRESETS: { label: string; params: Record<string, string> }[] = [
 
 function fmt(val: unknown, numeric?: boolean): string {
   if (val == null) return "";
-  if (numeric && typeof val === "number") return val.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  if (numeric && typeof val === "number") {
+    return val.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  }
   return String(val);
 }
 
@@ -113,27 +130,32 @@ export default function TransactionsPage() {
     queryFn: () => getTransactions(filters),
   });
 
-  // Review queue depth for context stats
   const reviewDepthQ = useQuery({
     queryKey: ["review-queue-depth", filters.county],
-    queryFn: () => getReviewQueue({
-      county: filters.county,
-      page: 1,
-      page_size: 1,
-    }),
+    queryFn: () =>
+      getReviewQueue({
+        county: filters.county,
+        page: 1,
+        page_size: 1,
+      }),
   });
 
+  const selectedOnPage = data?.items.filter((row) => {
+    const id = (row as Record<string, unknown>).id;
+    return typeof id === "number" && selectedIds.has(id);
+  }).length ?? 0;
+
   const applySearch = useCallback(() => {
-    setFilters((f) => ({ ...f, search: search || undefined, page: 1 }));
+    setFilters((prev) => ({ ...prev, search: search || undefined, page: 1 }));
   }, [search, setFilters]);
 
   const toggleSort = (col: string) => {
     const dbCol = SORT_MAP[col];
     if (!dbCol) return;
-    setFilters((f) => ({
-      ...f,
+    setFilters((prev) => ({
+      ...prev,
       sort_by: dbCol,
-      sort_dir: f.sort_by === dbCol && f.sort_dir === "asc" ? "desc" : "asc",
+      sort_dir: prev.sort_by === dbCol && prev.sort_dir === "asc" ? "desc" : "asc",
       page: 1,
     }));
   };
@@ -175,11 +197,14 @@ export default function TransactionsPage() {
     setBulkResolving(true);
     try {
       await Promise.all(
-        [...selectedIds].map((id) => resolveAction(id, { action: "dismiss", note: "Bulk resolved" }))
+        [...selectedIds].map((id) =>
+          resolveAction(id, { action: "dismiss", note: "Bulk resolved" }),
+        ),
       );
       setSelectedIds(new Set());
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
       queryClient.invalidateQueries({ queryKey: ["stats"] });
+      queryClient.invalidateQueries({ queryKey: ["review-queue"] });
     } catch {
       alert("Some items failed to resolve");
     } finally {
@@ -188,253 +213,386 @@ export default function TransactionsPage() {
   };
 
   return (
-    <div>
-      {/* Context stats bar */}
-      <div className="flex items-center gap-4 mb-4 text-sm">
-        <span className="text-gray-800 font-semibold">
-          {data ? `${data.total.toLocaleString()} transactions` : "Loading..."}
-        </span>
-        {filters.county && (
-          <span className="text-gray-500">
-            in {filters.county}
-          </span>
-        )}
-        {(reviewDepthQ.data?.total ?? 0) > 0 && (
-          <span className="text-amber-600 font-medium">
-            {reviewDepthQ.data!.total.toLocaleString()} flagged
-            {filters.county ? ` in ${filters.county}` : ""}
-          </span>
-        )}
-        {filters.unmatched_only && (
-          <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded text-xs font-medium">
-            Review mode
-          </span>
-        )}
+    <div className="page-stack report-page">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Sales Workbench</p>
+          <h1 className="page-title">Transactions</h1>
+          <p className="page-subtitle">
+            Review deed flow, filter by county and subdivision, and clear flagged
+            rows without leaving the table.
+          </p>
+        </div>
+        <div className="page-actions">
+          <button
+            type="button"
+            onClick={handleExport}
+            disabled={exporting}
+            className="button-primary"
+          >
+            {exporting ? "Exporting..." : "Export"}
+          </button>
+        </div>
       </div>
 
-      {/* Filter presets */}
-      <div className="flex gap-1.5 mb-3">
-        {FILTER_PRESETS.map((p) => {
-          const isActive = Object.entries(p.params).every(
-            ([k, v]) => searchParams.get(k) === v
-          ) && (Object.keys(p.params).length > 0 || searchParams.toString() === "");
-          return (
-            <button
-              key={p.label}
-              onClick={() => applyPreset(p.params)}
-              className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                isActive
-                  ? "bg-blue-100 text-blue-700"
-                  : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-              }`}
-            >
-              {p.label}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
-        <div className="flex flex-wrap gap-3 items-end">
+      <section className="hero-band panel-pad">
+        <div className="section-head">
           <div>
-            <label className="block text-xs text-gray-500 mb-1">County</label>
+            <p className="section-title text-slate-50">Queue posture</p>
+            <p className="section-caption text-slate-300">
+              Active filters and review pressure for the current transaction set.
+            </p>
+          </div>
+          <div className="chip-row">
+            {filters.county && (
+              <span className="badge badge-accent">{filters.county}</span>
+            )}
+            {filters.unmatched_only && (
+              <span className="badge badge-warning">Review mode</span>
+            )}
+          </div>
+        </div>
+        <div className="hero-grid">
+          <div className="hero-stat">
+            <span className="hero-label">Visible transactions</span>
+            <span className="hero-value">{data ? data.total.toLocaleString() : "..."}</span>
+            <span className="hero-meta">Current result set</span>
+          </div>
+          <div className="hero-stat">
+            <span className="hero-label">Flagged rows</span>
+            <span className="hero-value">
+              {(reviewDepthQ.data?.total ?? 0).toLocaleString()}
+            </span>
+            <span className="hero-meta">
+              {filters.county ? `Within ${filters.county}` : "Across all counties"}
+            </span>
+          </div>
+          <div className="hero-stat">
+            <span className="hero-label">Selected rows</span>
+            <span className="hero-value">{selectedIds.size.toLocaleString()}</span>
+            <span className="hero-meta">
+              {selectedOnPage > 0 ? `${selectedOnPage} on this page` : "Ready for bulk dismissal"}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="surface-card panel-pad">
+        <div className="section-head">
+          <div>
+            <p className="section-title">Presets</p>
+            <p className="section-caption">
+              Jump into the most common queue slices without rebuilding filters.
+            </p>
+          </div>
+        </div>
+        <div className="chip-row">
+          {FILTER_PRESETS.map((preset) => {
+            const isActive =
+              Object.entries(preset.params).every(([key, value]) => searchParams.get(key) === value) &&
+              (Object.keys(preset.params).length > 0 || searchParams.toString() === "");
+            return (
+              <button
+                key={preset.label}
+                type="button"
+                onClick={() => applyPreset(preset.params)}
+                className={`chip-pill ${isActive ? "active" : ""}`}
+              >
+                {preset.label}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="filter-band">
+        <div className="section-head">
+          <div>
+            <p className="section-title">Filters</p>
+            <p className="section-caption">
+              Combine county, subdivision, date, and keyword filters before drilling
+              into a transaction.
+            </p>
+          </div>
+        </div>
+        <div className="filter-grid">
+          <div className="field-stack">
+            <label className="field-label" htmlFor="tx-county">
+              County
+            </label>
             <select
+              id="tx-county"
               value={filters.county ?? ""}
-              onChange={(e) => setFilters((f) => ({ ...f, county: e.target.value || undefined, subdivision: undefined, page: 1 }))}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm bg-white min-w-[140px]"
+              onChange={(event) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  county: event.target.value || undefined,
+                  subdivision: undefined,
+                  page: 1,
+                }))
+              }
+              className="form-control"
             >
               <option value="">All Counties</option>
-              {counties?.map((c) => <option key={c} value={c}>{c}</option>)}
+              {counties?.map((county) => (
+                <option key={county} value={county}>
+                  {county}
+                </option>
+              ))}
             </select>
           </div>
 
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">Subdivision</label>
+          <div className="field-stack">
+            <label className="field-label" htmlFor="tx-subdivision">
+              Subdivision
+            </label>
             <select
+              id="tx-subdivision"
               value={filters.subdivision ?? ""}
-              onChange={(e) => setFilters((f) => ({ ...f, subdivision: e.target.value || undefined, page: 1 }))}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm bg-white min-w-[180px]"
+              onChange={(event) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  subdivision: event.target.value || undefined,
+                  page: 1,
+                }))
+              }
+              className="form-control"
             >
               <option value="">All Subdivisions</option>
-              {subdivisions?.map((s) => <option key={s.id} value={s.canonical_name}>{s.canonical_name}</option>)}
+              {subdivisions?.map((subdivision) => (
+                <option key={subdivision.id} value={subdivision.canonical_name}>
+                  {subdivision.canonical_name}
+                </option>
+              ))}
             </select>
           </div>
 
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">From</label>
+          <div className="field-stack">
+            <label className="field-label" htmlFor="tx-date-from">
+              From
+            </label>
             <input
+              id="tx-date-from"
               type="date"
               value={filters.date_from ?? ""}
-              onChange={(e) => setFilters((f) => ({ ...f, date_from: e.target.value || undefined, page: 1 }))}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm"
+              onChange={(event) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  date_from: event.target.value || undefined,
+                  page: 1,
+                }))
+              }
+              className="form-control"
             />
           </div>
 
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">To</label>
+          <div className="field-stack">
+            <label className="field-label" htmlFor="tx-date-to">
+              To
+            </label>
             <input
+              id="tx-date-to"
               type="date"
               value={filters.date_to ?? ""}
-              onChange={(e) => setFilters((f) => ({ ...f, date_to: e.target.value || undefined, page: 1 }))}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm"
+              onChange={(event) =>
+                setFilters((prev) => ({
+                  ...prev,
+                  date_to: event.target.value || undefined,
+                  page: 1,
+                }))
+              }
+              className="form-control"
             />
           </div>
 
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">Search</label>
-            <div className="flex gap-1">
+          <div className="field-stack min-w-[260px] flex-[1.3]">
+            <label className="field-label" htmlFor="tx-search">
+              Search
+            </label>
+            <div className="flex gap-2">
               <input
+                id="tx-search"
                 type="text"
                 placeholder="Grantor, grantee, subdivision..."
                 value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && applySearch()}
-                className="border border-gray-300 rounded px-2 py-1.5 text-sm w-60"
+                onChange={(event) => setSearch(event.target.value)}
+                onKeyDown={(event) => event.key === "Enter" && applySearch()}
+                className="form-control"
               />
-              <button onClick={applySearch} className="px-3 py-1.5 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">
+              <button type="button" onClick={applySearch} className="button-primary">
                 Search
               </button>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 pb-0.5">
-            <label className="flex items-center gap-1.5 text-sm cursor-pointer">
+          <label className="field-stack min-w-[170px] justify-end">
+            <span className="field-label">Queue mode</span>
+            <span className="chip-pill">
               <input
                 type="checkbox"
                 checked={filters.unmatched_only ?? false}
-                onChange={(e) => setFilters((f) => ({ ...f, unmatched_only: e.target.checked || undefined, page: 1 }))}
-                className="rounded"
+                onChange={(event) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    unmatched_only: event.target.checked || undefined,
+                    page: 1,
+                  }))
+                }
+                className="h-4 w-4 rounded border-stone-300"
               />
               Flagged only
-            </label>
-          </div>
+            </span>
+          </label>
+        </div>
+      </section>
 
-          <div className="ml-auto pb-0.5">
-            <button
-              onClick={handleExport}
-              disabled={exporting}
-              className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
-            >
-              {exporting ? "Exporting..." : "Export"}
-            </button>
+      <section className="surface-card data-shell">
+        <div className="data-toolbar">
+          <div>
+            <p className="section-title">Transaction grid</p>
+            <p className="data-note">
+              Click a row to inspect details. Selected rows stay staged for bulk
+              dismissal while you paginate.
+            </p>
+          </div>
+          <div className="chip-row">
+            {filters.search && <span className="badge badge-neutral">Search active</span>}
+            {filters.subdivision && (
+              <span className="badge badge-accent">{filters.subdivision}</span>
+            )}
+            {filters.inventory_category && (
+              <span className="badge badge-neutral">{filters.inventory_category}</span>
+            )}
           </div>
         </div>
-      </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              <th className="px-3 py-2 w-8">
-                <input
-                  type="checkbox"
-                  checked={selectedIds.size > 0 && data?.items.every((r) => {
-                    const id = (r as Record<string, unknown>).id;
-                    return typeof id === "number" && selectedIds.has(id);
-                  })}
-                  onChange={(e) => {
-                    if (e.target.checked) {
-                      const ids = new Set(selectedIds);
-                      data?.items.forEach((r) => {
-                        const id = (r as Record<string, unknown>).id;
-                        if (typeof id === "number") ids.add(id);
-                      });
-                      setSelectedIds(ids);
-                    } else {
-                      setSelectedIds(new Set());
+        <div className="overflow-x-auto">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th className="w-10">
+                  <input
+                    type="checkbox"
+                    checked={
+                      selectedIds.size > 0 &&
+                      data?.items.every((row) => {
+                        const id = (row as Record<string, unknown>).id;
+                        return typeof id === "number" && selectedIds.has(id);
+                      }) === true
                     }
-                  }}
-                  className="rounded"
-                />
-              </th>
-              {COLUMNS.map((col) => (
-                <th
-                  key={col.key}
-                  onClick={() => toggleSort(col.key)}
-                  className={`px-3 py-2 text-left font-medium text-gray-600 cursor-pointer hover:text-gray-900 select-none ${col.w} ${
-                    col.numeric ? "text-right" : ""
-                  }`}
-                >
-                  {col.label}
-                  {filters.sort_by === SORT_MAP[col.key] && (
-                    <span className="ml-1">{filters.sort_dir === "asc" ? "\u25b2" : "\u25bc"}</span>
-                  )}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
-              <tr>
-                <td colSpan={COLUMNS.length + 1} className="px-3 py-8 text-center text-gray-400">Loading...</td>
-              </tr>
-            ) : data?.items.length === 0 ? (
-              <tr>
-                <td colSpan={COLUMNS.length + 1} className="px-3 py-8 text-center text-gray-400">No transactions found</td>
-              </tr>
-            ) : (
-              data?.items.map((row, i) => {
-                const id = (row as Record<string, unknown>).id;
-                const isSelected = typeof id === "number" && selectedIds.has(id);
-                return (
-                  <tr
-                    key={i}
-                    onClick={() => {
-                      if (typeof id === "number") setSelectedId(id);
+                    onChange={(event) => {
+                      if (event.target.checked) {
+                        const ids = new Set(selectedIds);
+                        data?.items.forEach((row) => {
+                          const id = (row as Record<string, unknown>).id;
+                          if (typeof id === "number") ids.add(id);
+                        });
+                        setSelectedIds(ids);
+                      } else {
+                        setSelectedIds(new Set());
+                      }
                     }}
-                    className={`border-b border-gray-100 hover:bg-blue-50 cursor-pointer ${isSelected ? "bg-blue-50/50" : ""}`}
+                    className="h-4 w-4 rounded border-stone-300"
+                  />
+                </th>
+                {COLUMNS.map((column) => (
+                  <th
+                    key={column.key}
+                    onClick={() => toggleSort(column.key)}
+                    className={`${column.w} cursor-pointer select-none ${column.numeric ? "text-right" : "text-left"}`}
                   >
-                    <td className="px-3 py-1.5" onClick={(e) => e.stopPropagation()}>
-                      <input
-                        type="checkbox"
-                        checked={isSelected}
-                        onChange={() => { if (typeof id === "number") toggleRow(id); }}
-                        className="rounded"
-                      />
-                    </td>
-                    {COLUMNS.map((col) => (
-                      <td
-                        key={col.key}
-                        className={`px-3 py-1.5 truncate max-w-xs ${col.numeric ? "text-right tabular-nums" : ""}`}
-                        title={fmt((row as Record<string, unknown>)[col.key])}
-                      >
-                        {fmt((row as Record<string, unknown>)[col.key], col.numeric)}
+                    {column.label}
+                    {filters.sort_by === SORT_MAP[column.key] && (
+                      <span className="ml-1">
+                        {filters.sort_dir === "asc" ? "\u25b2" : "\u25bc"}
+                      </span>
+                    )}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr>
+                  <td colSpan={COLUMNS.length + 1} className="table-empty text-center">
+                    Loading transactions...
+                  </td>
+                </tr>
+              ) : data?.items.length === 0 ? (
+                <tr>
+                  <td colSpan={COLUMNS.length + 1} className="table-empty text-center">
+                    No transactions found for the current filter set.
+                  </td>
+                </tr>
+              ) : (
+                data?.items.map((row, index) => {
+                  const id = (row as Record<string, unknown>).id;
+                  const isSelected = typeof id === "number" && selectedIds.has(id);
+                  return (
+                    <tr
+                      key={index}
+                      onClick={() => {
+                        if (typeof id === "number") setSelectedId(id);
+                      }}
+                      className={isSelected ? "is-selected cursor-pointer" : "cursor-pointer"}
+                    >
+                      <td onClick={(event) => event.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          checked={isSelected}
+                          onChange={() => {
+                            if (typeof id === "number") toggleRow(id);
+                          }}
+                          className="h-4 w-4 rounded border-stone-300"
+                        />
                       </td>
-                    ))}
-                  </tr>
-                );
-              })
-            )}
-          </tbody>
-        </table>
-      </div>
+                      {COLUMNS.map((column) => (
+                        <td
+                          key={column.key}
+                          className={`${column.numeric ? "text-right tabular-nums" : ""} truncate max-w-xs`}
+                          title={fmt((row as Record<string, unknown>)[column.key])}
+                        >
+                          {fmt((row as Record<string, unknown>)[column.key], column.numeric)}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       {data && (
         <Pagination
           page={data.page}
           pageSize={data.page_size}
           total={data.total}
-          onPageChange={(p) => setFilters((f) => ({ ...f, page: p }))}
-          onPageSizeChange={(s) => setFilters((f) => ({ ...f, page_size: s, page: 1 }))}
+          onPageChange={(page) => setFilters((prev) => ({ ...prev, page }))}
+          onPageSizeChange={(pageSize) =>
+            setFilters((prev) => ({ ...prev, page_size: pageSize, page: 1 }))
+          }
         />
       )}
 
-      {/* Bulk action bar */}
       {selectedIds.size > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 text-white rounded-lg shadow-xl px-5 py-3 flex items-center gap-4 z-30">
-          <span className="text-sm">{selectedIds.size} selected</span>
+        <div className="bulk-dock">
+          <span className="text-sm font-medium text-slate-100">
+            {selectedIds.size} selected
+          </span>
           <button
+            type="button"
             onClick={handleBulkResolve}
             disabled={bulkResolving}
-            className="px-3 py-1.5 text-sm bg-amber-500 text-white rounded hover:bg-amber-600 disabled:opacity-50 font-medium"
+            className="button-primary"
           >
             {bulkResolving ? "Resolving..." : "Dismiss Selected"}
           </button>
           <button
+            type="button"
             onClick={() => setSelectedIds(new Set())}
-            className="px-3 py-1.5 text-sm text-gray-300 hover:text-white"
+            className="button-ghost"
           >
             Clear
           </button>

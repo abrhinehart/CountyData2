@@ -1,17 +1,30 @@
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { getReviewQueue, getCounties, getTransaction, exportReviewQueue, downloadUrl } from "../api";
+import {
+  downloadUrl,
+  exportReviewQueue,
+  getCounties,
+  getReviewQueue,
+  getTransaction,
+} from "../api";
 import Pagination from "../components/Pagination";
 import {
-  SubdivisionAssigner,
-  PhaseResolver,
-  SubdivisionPicker,
-  PhasePicker,
   DismissAction,
+  PhasePicker,
+  PhaseResolver,
+  SubdivisionAssigner,
+  SubdivisionPicker,
 } from "../components/ResolutionActions";
 import type { TransactionDetail } from "../types";
 
-const COLUMNS = [
+interface ColumnDef {
+  key: string;
+  label: string;
+  w: string;
+  numeric?: boolean;
+}
+
+const COLUMNS: ColumnDef[] = [
   { key: "ID", label: "ID", w: "w-16" },
   { key: "County", label: "County", w: "w-24" },
   { key: "Date", label: "Date", w: "w-24" },
@@ -25,23 +38,74 @@ const COLUMNS = [
   { key: "Inventory Category", label: "Category", w: "w-28" },
 ];
 
+const DETAIL_FIELDS: { label: string; key: keyof TransactionDetail }[] = [
+  { label: "County", key: "county" },
+  { label: "Date", key: "date" },
+  { label: "Type", key: "type" },
+  { label: "Instrument", key: "instrument" },
+  { label: "Grantor", key: "grantor" },
+  { label: "Grantee", key: "grantee" },
+  { label: "Subdivision", key: "subdivision" },
+  { label: "Phase", key: "phase" },
+  { label: "Inventory Category", key: "inventory_category" },
+  { label: "Lots", key: "lots" },
+  { label: "Price", key: "price" },
+  { label: "Acres", key: "acres" },
+  { label: "Notes", key: "notes" },
+  { label: "Source File", key: "source_file" },
+];
+
+const SUBDIVISION_REASONS = [
+  "subdivision_unmatched",
+  "subdivision_unparsed_lines",
+  "legal_unparsed_lines",
+];
+const PHASE_UNCONFIRMED_REASONS = ["phase_not_confirmed_by_lookup"];
+const SUBDIVISION_PICK_REASONS = [
+  "subdivision_ambiguous_candidates",
+  "multiple_subdivision_candidates",
+];
+const PHASE_PICK_REASONS = ["multiple_phase_candidates"];
+
 function fmt(val: unknown, numeric?: boolean): string {
   if (val == null) return "";
-  if (numeric && typeof val === "number") return val.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  if (numeric && typeof val === "number") {
+    return val.toLocaleString(undefined, { maximumFractionDigits: 0 });
+  }
   return String(val);
+}
+
+function pickResolutionComponent(
+  reviewReasons: string[],
+  transaction: TransactionDetail,
+  onResolved: () => void,
+) {
+  const reasons = new Set(reviewReasons);
+  if (SUBDIVISION_REASONS.some((reason) => reasons.has(reason))) {
+    return <SubdivisionAssigner transaction={transaction} onResolved={onResolved} />;
+  }
+  if (SUBDIVISION_PICK_REASONS.some((reason) => reasons.has(reason))) {
+    return <SubdivisionPicker transaction={transaction} onResolved={onResolved} />;
+  }
+  if (PHASE_UNCONFIRMED_REASONS.some((reason) => reasons.has(reason))) {
+    return <PhaseResolver transaction={transaction} onResolved={onResolved} />;
+  }
+  if (PHASE_PICK_REASONS.some((reason) => reasons.has(reason))) {
+    return <PhasePicker transaction={transaction} onResolved={onResolved} />;
+  }
+  return null;
 }
 
 export default function ReviewPage() {
   const queryClient = useQueryClient();
-  const [county, setCounty] = useState<string>("");
-  const [reason, setReason] = useState<string>("");
+  const [county, setCounty] = useState("");
+  const [reason, setReason] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(50);
   const [exporting, setExporting] = useState(false);
   const [selectedId, setSelectedId] = useState<number | null>(null);
 
   const { data: counties } = useQuery({ queryKey: ["counties"], queryFn: getCounties });
-
   const { data, isLoading } = useQuery({
     queryKey: ["review-queue", county, reason, page, pageSize],
     queryFn: () =>
@@ -72,104 +136,200 @@ export default function ReviewPage() {
     setSelectedId(null);
     queryClient.invalidateQueries({ queryKey: ["review-queue"] });
     queryClient.invalidateQueries({ queryKey: ["stats"] });
+    queryClient.invalidateQueries({ queryKey: ["transactions"] });
   };
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-xl font-semibold text-gray-800">Review Queue</h2>
-        <button
-          onClick={handleExport}
-          disabled={exporting}
-          className="px-3 py-1.5 text-sm bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
-        >
-          {exporting ? "Exporting..." : "Export to Excel"}
-        </button>
-      </div>
-
-      {/* Filters */}
-      <div className="bg-white rounded-lg border border-gray-200 p-4 mb-4">
-        <div className="flex gap-3 items-end">
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">County</label>
-            <select
-              value={county}
-              onChange={(e) => { setCounty(e.target.value); setPage(1); }}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm bg-white min-w-[140px]"
-            >
-              <option value="">All Counties</option>
-              {counties?.map((c) => <option key={c} value={c}>{c}</option>)}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-xs text-gray-500 mb-1">Review Reason</label>
-            <input
-              type="text"
-              placeholder="e.g. subdivision_unmatched"
-              value={reason}
-              onChange={(e) => { setReason(e.target.value); setPage(1); }}
-              className="border border-gray-300 rounded px-2 py-1.5 text-sm w-64"
-            />
-          </div>
-
-          {data && (
-            <span className="text-sm text-gray-500 pb-1">
-              {data.total.toLocaleString()} flagged rows
-            </span>
-          )}
+    <div className="page-stack report-page">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Review Queue</p>
+          <h1 className="page-title">Triage Workbench</h1>
+          <p className="page-subtitle">
+            Investigate flagged deeds, scan review reasons quickly, and resolve
+            subdivision or phase issues from one focused queue.
+          </p>
+        </div>
+        <div className="page-actions">
+          <button
+            type="button"
+            onClick={handleExport}
+            disabled={exporting}
+            className="button-primary"
+          >
+            {exporting ? "Exporting..." : "Export Queue"}
+          </button>
         </div>
       </div>
 
-      {/* Table */}
-      <div className="bg-white rounded-lg border border-gray-200 overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-gray-200 bg-gray-50">
-              {COLUMNS.map((col) => (
-                <th
-                  key={col.key}
-                  className={`px-3 py-2 text-left font-medium text-gray-600 ${col.w} ${col.numeric ? "text-right" : ""}`}
-                >
-                  {col.label}
-                </th>
+      <section className="hero-band panel-pad">
+        <div className="section-head">
+          <div>
+            <p className="section-title text-slate-50">Triage posture</p>
+            <p className="section-caption text-slate-300">
+              Review volume, active county focus, and reason filtering for the
+              current queue slice.
+            </p>
+          </div>
+          <div className="chip-row">
+            {county && <span className="badge badge-accent">{county}</span>}
+            {reason && <span className="badge badge-warning">{reason}</span>}
+          </div>
+        </div>
+        <div className="hero-grid">
+          <div className="hero-stat">
+            <span className="hero-label">Flagged rows</span>
+            <span className="hero-value">{data ? data.total.toLocaleString() : "..."}</span>
+            <span className="hero-meta">Current triage set</span>
+          </div>
+          <div className="hero-stat">
+            <span className="hero-label">Page size</span>
+            <span className="hero-value">{pageSize.toLocaleString()}</span>
+            <span className="hero-meta">Rows per review sweep</span>
+          </div>
+          <div className="hero-stat">
+            <span className="hero-label">Focused reason</span>
+            <span className="hero-value">{reason ? "1" : "All"}</span>
+            <span className="hero-meta">
+              {reason ? "Single issue isolated" : "No reason filter applied"}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="filter-band">
+        <div className="section-head">
+          <div>
+            <p className="section-title">Queue Filters</p>
+            <p className="section-caption">
+              Narrow the queue by county or one specific parsing reason.
+            </p>
+          </div>
+        </div>
+        <div className="filter-grid">
+          <div className="field-stack">
+            <label className="field-label" htmlFor="review-county">
+              County
+            </label>
+            <select
+              id="review-county"
+              value={county}
+              onChange={(event) => {
+                setCounty(event.target.value);
+                setPage(1);
+              }}
+              className="form-control"
+            >
+              <option value="">All Counties</option>
+              {counties?.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {isLoading ? (
+            </select>
+          </div>
+
+          <div className="field-stack min-w-[280px] flex-1">
+            <label className="field-label" htmlFor="review-reason">
+              Review reason
+            </label>
+            <input
+              id="review-reason"
+              type="text"
+              placeholder="e.g. subdivision_unmatched"
+              value={reason}
+              onChange={(event) => {
+                setReason(event.target.value);
+                setPage(1);
+              }}
+              className="form-control"
+            />
+          </div>
+
+          <div className="field-stack min-w-[180px]">
+            <span className="field-label">Queue volume</span>
+            <span className="chip-pill">
+              {data ? `${data.total.toLocaleString()} flagged rows` : "Loading..."}
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <section className="surface-card data-shell">
+        <div className="data-toolbar">
+          <div>
+            <p className="section-title">Review grid</p>
+            <p className="data-note">
+              Review reasons stay visible in-line so the queue remains scannable
+              before you open the drawer.
+            </p>
+          </div>
+          <div className="chip-row">
+            {county && <span className="badge badge-accent">{county}</span>}
+            {reason && <span className="badge badge-warning">Reason filter</span>}
+          </div>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="data-table">
+            <thead>
               <tr>
-                <td colSpan={COLUMNS.length} className="px-3 py-8 text-center text-gray-400">Loading...</td>
+                {COLUMNS.map((column) => (
+                  <th
+                    key={column.key}
+                    className={`${column.w} ${column.numeric ? "text-right" : "text-left"}`}
+                  >
+                    {column.label}
+                  </th>
+                ))}
               </tr>
-            ) : data?.items.length === 0 ? (
-              <tr>
-                <td colSpan={COLUMNS.length} className="px-3 py-8 text-center text-gray-400">No review rows found</td>
-              </tr>
-            ) : (
-              data?.items.map((row, i) => (
-                <tr
-                  key={i}
-                  onClick={() => {
-                    const id = (row as Record<string, unknown>).ID;
-                    if (typeof id === "number") setSelectedId(id);
-                  }}
-                  className="border-b border-gray-100 hover:bg-blue-50 cursor-pointer"
-                >
-                  {COLUMNS.map((col) => (
-                    <td
-                      key={col.key}
-                      className={`px-3 py-1.5 truncate max-w-xs ${col.numeric ? "text-right tabular-nums" : ""}`}
-                      title={fmt((row as Record<string, unknown>)[col.key])}
-                    >
-                      {fmt((row as Record<string, unknown>)[col.key], col.numeric)}
-                    </td>
-                  ))}
+            </thead>
+            <tbody>
+              {isLoading ? (
+                <tr>
+                  <td colSpan={COLUMNS.length} className="table-empty text-center">
+                    Loading review queue...
+                  </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              ) : data?.items.length === 0 ? (
+                <tr>
+                  <td colSpan={COLUMNS.length} className="table-empty text-center">
+                    No review rows found.
+                  </td>
+                </tr>
+              ) : (
+                data?.items.map((row, index) => {
+                  const id = (row as Record<string, unknown>).ID;
+                  const reasons = fmt((row as Record<string, unknown>)["Review Reasons"]);
+                  return (
+                    <tr
+                      key={index}
+                      onClick={() => {
+                        if (typeof id === "number") setSelectedId(id);
+                      }}
+                      className="cursor-pointer"
+                    >
+                      {COLUMNS.map((column) => (
+                        <td
+                          key={column.key}
+                          className={`${column.numeric ? "text-right tabular-nums" : ""} truncate max-w-xs`}
+                          title={fmt((row as Record<string, unknown>)[column.key])}
+                        >
+                          {column.key === "Review Reasons" ? (
+                            <ReviewReasonCell text={reasons} />
+                          ) : (
+                            fmt((row as Record<string, unknown>)[column.key], column.numeric)
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })
+              )}
+            </tbody>
+          </table>
+        </div>
+      </section>
 
       {data && (
         <Pagination
@@ -177,7 +337,10 @@ export default function ReviewPage() {
           pageSize={data.page_size}
           total={data.total}
           onPageChange={setPage}
-          onPageSizeChange={(s) => { setPageSize(s); setPage(1); }}
+          onPageSizeChange={(size) => {
+            setPageSize(size);
+            setPage(1);
+          }}
         />
       )}
 
@@ -192,65 +355,27 @@ export default function ReviewPage() {
   );
 }
 
+function ReviewReasonCell({ text }: { text: string }) {
+  const parts = text
+    .split(/[,;]+/)
+    .map((part) => part.trim())
+    .filter(Boolean);
 
-// --- Review Detail Panel ---
-
-const DETAIL_FIELDS: { label: string; key: keyof TransactionDetail }[] = [
-  { label: "County", key: "county" },
-  { label: "Date", key: "date" },
-  { label: "Type", key: "type" },
-  { label: "Instrument", key: "instrument" },
-  { label: "Grantor", key: "grantor" },
-  { label: "Grantee", key: "grantee" },
-  { label: "Subdivision", key: "subdivision" },
-  { label: "Phase", key: "phase" },
-  { label: "Inventory Category", key: "inventory_category" },
-  { label: "Lots", key: "lots" },
-  { label: "Price", key: "price" },
-  { label: "Acres", key: "acres" },
-  { label: "Notes", key: "notes" },
-  { label: "Source File", key: "source_file" },
-];
-
-const SUBDIVISION_REASONS = [
-  "subdivision_unmatched",
-  "subdivision_unparsed_lines",
-  "legal_unparsed_lines",
-];
-
-const PHASE_UNCONFIRMED_REASONS = ["phase_not_confirmed_by_lookup"];
-
-const SUBDIVISION_PICK_REASONS = [
-  "subdivision_ambiguous_candidates",
-  "multiple_subdivision_candidates",
-];
-
-const PHASE_PICK_REASONS = ["multiple_phase_candidates"];
-
-
-function pickResolutionComponent(
-  reviewReasons: string[],
-  transaction: TransactionDetail,
-  onResolved: () => void,
-) {
-  const reasons = new Set(reviewReasons);
-
-  // Priority: subdivision issues > phase issues > fallback
-  if (SUBDIVISION_REASONS.some((r) => reasons.has(r))) {
-    return <SubdivisionAssigner transaction={transaction} onResolved={onResolved} />;
+  if (parts.length === 0) {
+    return <span className="text-[var(--text-soft)]">No reason recorded</span>;
   }
-  if (SUBDIVISION_PICK_REASONS.some((r) => reasons.has(r))) {
-    return <SubdivisionPicker transaction={transaction} onResolved={onResolved} />;
-  }
-  if (PHASE_UNCONFIRMED_REASONS.some((r) => reasons.has(r))) {
-    return <PhaseResolver transaction={transaction} onResolved={onResolved} />;
-  }
-  if (PHASE_PICK_REASONS.some((r) => reasons.has(r))) {
-    return <PhasePicker transaction={transaction} onResolved={onResolved} />;
-  }
-  return null;
+
+  return (
+    <div className="drawer-chip-row">
+      {parts.slice(0, 2).map((part) => (
+        <span key={part} className="badge badge-warning">
+          {part.replace(/_/g, " ")}
+        </span>
+      ))}
+      {parts.length > 2 && <span className="badge badge-neutral">+{parts.length - 2}</span>}
+    </div>
+  );
 }
-
 
 function ReviewDetailPanel({
   transactionId,
@@ -266,106 +391,99 @@ function ReviewDetailPanel({
     queryFn: () => getTransaction(transactionId),
   });
 
-  const reviewReasons: string[] =
-    (data?.parsed_data as Record<string, unknown> | null)?.review_reasons as string[] ?? [];
+  const reviewReasons =
+    ((data?.parsed_data as Record<string, unknown> | null)?.review_reasons as string[] | undefined) ??
+    [];
 
   return (
     <>
-      <div className="fixed inset-0 bg-black/20 z-40" onClick={onClose} />
-      <div className="fixed inset-y-0 right-0 w-full max-w-lg bg-white shadow-xl z-50 flex flex-col border-l border-gray-200">
-        {/* Header */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-gray-200 bg-gray-50 shrink-0">
-          <h2 className="text-sm font-semibold text-gray-700">
-            Review #{transactionId}
-          </h2>
-          <button
-            onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-lg leading-none px-1"
-          >
+      <div className="drawer-scrim" onClick={onClose} />
+      <aside className="inspector-drawer">
+        <div className="inspector-header">
+          <div>
+            <p className="inspector-kicker">Review</p>
+            <h2 className="inspector-title">#{transactionId}</h2>
+            <p className="inspector-subtitle">
+              Flagged transaction detail with legal context and resolution controls.
+            </p>
+          </div>
+          <button onClick={onClose} className="inspector-close" aria-label="Close panel">
             &times;
           </button>
         </div>
 
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-5">
-          {isLoading && <p className="text-gray-400 text-sm">Loading...</p>}
-          {error && <p className="text-red-600 text-sm">Failed to load transaction.</p>}
+        <div className="inspector-body">
+          {isLoading && <p className="data-note">Loading review detail...</p>}
+          {error && <p className="data-note text-[var(--danger)]">Failed to load transaction.</p>}
           {data && (
             <>
-              {/* Review reasons */}
-              <div>
-                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
-                  Review Reasons
-                </h3>
+              <section className="inspector-section flat">
+                <div className="section-head">
+                  <h3 className="section-title">Review Reasons</h3>
+                  <span className="badge badge-warning">
+                    {reviewReasons.length > 0 ? reviewReasons.length : 1}
+                  </span>
+                </div>
                 {reviewReasons.length > 0 ? (
-                  <div className="flex flex-wrap gap-1.5">
-                    {reviewReasons.map((r) => (
-                      <span
-                        key={r}
-                        className="px-2 py-0.5 text-xs font-medium bg-amber-100 text-amber-800 rounded"
-                      >
-                        {r}
+                  <div className="drawer-chip-row">
+                    {reviewReasons.map((reason) => (
+                      <span key={reason} className="badge badge-warning">
+                        {reason.replace(/_/g, " ")}
                       </span>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-500">No specific reasons recorded</p>
+                  <p className="data-note">No specific reasons recorded.</p>
                 )}
-              </div>
+              </section>
 
-              {/* Legal description */}
               {data.export_legal_desc && (
-                <div>
-                  <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-1">
-                    Legal Description
-                  </h3>
-                  <pre className="text-xs bg-gray-50 border border-gray-200 rounded p-2 whitespace-pre-wrap">
-                    {data.export_legal_desc}
-                  </pre>
-                </div>
+                <section className="inspector-section">
+                  <div className="section-head">
+                    <h3 className="section-title">Legal Description</h3>
+                    <span className="badge badge-neutral">Parsed text</span>
+                  </div>
+                  <pre className="code-block">{data.export_legal_desc}</pre>
+                </section>
               )}
 
-              {/* Transaction details */}
-              <div>
-                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">
-                  Transaction Details
-                </h3>
-                <dl className="space-y-2">
-                  {DETAIL_FIELDS.map((f) => {
-                    const val = data[f.key];
-                    if (val == null) return null;
+              <section className="inspector-section">
+                <div className="section-head">
+                  <h3 className="section-title">Transaction Detail</h3>
+                  <span className="badge badge-neutral">Record</span>
+                </div>
+                <div className="detail-grid">
+                  {DETAIL_FIELDS.map((field) => {
+                    const value = data[field.key];
+                    if (value == null) return null;
                     return (
-                      <div key={f.key} className="flex gap-2">
-                        <dt className="text-xs text-gray-400 w-28 shrink-0 text-right pt-0.5">
-                          {f.label}
-                        </dt>
-                        <dd className="text-sm text-gray-800">
-                          {typeof val === "number"
-                            ? val.toLocaleString(undefined, { maximumFractionDigits: 2 })
-                            : String(val)}
-                        </dd>
+                      <div key={field.key} className="detail-row">
+                        <span className="detail-label">{field.label}</span>
+                        <span className="detail-value">
+                          {typeof value === "number"
+                            ? value.toLocaleString(undefined, { maximumFractionDigits: 2 })
+                            : String(value)}
+                        </span>
                       </div>
                     );
                   })}
-                </dl>
-              </div>
+                </div>
+              </section>
 
-              {/* Resolution actions */}
-              <div className="border-t border-gray-200 pt-4 space-y-4">
-                <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wide">
-                  Resolve
-                </h3>
+              <section className="inspector-section">
+                <div className="section-head">
+                  <h3 className="section-title">Resolve</h3>
+                  <span className="badge badge-accent">Action panel</span>
+                </div>
                 {pickResolutionComponent(reviewReasons, data, onResolved)}
-
-                {/* Dismiss is always available as fallback */}
-                <div className="border-t border-gray-100 pt-3">
+                <div className="mt-4 border-t border-[var(--border-subtle)] pt-4">
                   <DismissAction transaction={data} onResolved={onResolved} />
                 </div>
-              </div>
+              </section>
             </>
           )}
         </div>
-      </div>
+      </aside>
     </>
   );
 }

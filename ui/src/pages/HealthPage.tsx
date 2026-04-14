@@ -7,7 +7,6 @@ import {
   getCrDocumentHealth,
 } from "../api";
 import type {
-  GeometryCoverageRow,
   BiSnapshotHealthRow,
   PtScrapeHealthRow,
   CrDocumentHealthRow,
@@ -96,25 +95,33 @@ export default function HealthPage() {
     d ? `${((n / d) * 100).toFixed(1)}%` : "\u2014";
 
   return (
-    <div className="space-y-6 max-w-4xl">
-      <h1 className="text-2xl font-semibold text-gray-800">Platform Health</h1>
+    <div className="page-stack report-page max-w-6xl">
+      <div className="page-header">
+        <div className="page-heading">
+          <p className="page-kicker">Platform Health</p>
+          <h1 className="page-title">System Coverage</h1>
+          <p className="page-subtitle">
+            Audit geometry coverage, inventory snapshots, permit scrapes, and commission extraction quality.
+          </p>
+        </div>
+      </div>
 
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Subdivision Geometry Coverage
-        </h2>
+      <section className="surface-card panel-pad">
+        <div className="section-head mb-3">
+          <h2 className="section-title">Subdivision Geometry Coverage</h2>
+        </div>
 
-        {isLoading && <p className="text-sm text-gray-500">Loading...</p>}
+        {isLoading && <p className="data-note">Loading...</p>}
         {error && (
-          <p className="text-sm text-red-600">
+          <p className="data-note text-[var(--danger)]">
             Failed to load geometry coverage.
           </p>
         )}
 
         {rows.length > 0 && (
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-200">
+          <div className="data-shell">
+            <table className="data-table">
+              <thead>
                 <tr>
                   {([
                     ["county", "County"],
@@ -126,7 +133,7 @@ export default function HealthPage() {
                     <th
                       key={key}
                       onClick={() => toggleSort(key)}
-                      className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900"
+                      className="cursor-pointer select-none text-left hover:text-[var(--text)]"
                     >
                       {label}
                       {arrow(key)}
@@ -134,34 +141,34 @@ export default function HealthPage() {
                   ))}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody>
                 {rows.map((r) => (
-                  <tr key={r.county} className="hover:bg-gray-50">
-                    <td className="px-4 py-2 font-medium text-gray-800">
+                  <tr key={r.county}>
+                    <td className="font-medium">
                       {r.county}
                     </td>
-                    <td className="px-4 py-2 text-gray-700">{r.total}</td>
-                    <td className="px-4 py-2 text-gray-700">{r.with_geom}</td>
-                    <td className="px-4 py-2 text-gray-700">
+                    <td>{r.total}</td>
+                    <td>{r.with_geom}</td>
+                    <td>
                       {r.without_geom}
                     </td>
-                    <td className="px-4 py-2 text-gray-700">
+                    <td>
                       {pct(r.with_geom, r.total)}
                     </td>
                   </tr>
                 ))}
               </tbody>
-              <tfoot className="bg-gray-50 border-t border-gray-200 font-medium">
+              <tfoot className="bg-[var(--surface-muted)] font-medium">
                 <tr>
-                  <td className="px-4 py-2 text-gray-800">Total</td>
-                  <td className="px-4 py-2 text-gray-700">{totals.total}</td>
-                  <td className="px-4 py-2 text-gray-700">
+                  <td>Total</td>
+                  <td>{totals.total}</td>
+                  <td>
                     {totals.with_geom}
                   </td>
-                  <td className="px-4 py-2 text-gray-700">
+                  <td>
                     {totals.without_geom}
                   </td>
-                  <td className="px-4 py-2 text-gray-700">
+                  <td>
                     {pct(totals.with_geom, totals.total)}
                   </td>
                 </tr>
@@ -172,56 +179,46 @@ export default function HealthPage() {
       </section>
 
       {/* ── BI Snapshot Health ─────────────────────────────────────── */}
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Builder Inventory — Latest Snapshots
-        </h2>
+      <section className="surface-card panel-pad">
+        <div className="section-head mb-3">
+          <h2 className="section-title">Builder Inventory — Latest Snapshots</h2>
+        </div>
 
-        {biHealth.isLoading && <p className="text-sm text-gray-500">Loading...</p>}
+        {biHealth.isLoading && <p className="data-note">Loading...</p>}
         {biHealth.error && (
-          <p className="text-sm text-red-600">Failed to load BI snapshot health.</p>
+          <p className="data-note text-[var(--danger)]">Failed to load BI snapshot health.</p>
         )}
 
         {biHealth.data && biHealth.data.rows.length > 0 && (
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-200">
+          <div className="data-shell overflow-x-auto">
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">County</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Status</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Started</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Parcels</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">New</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Changed</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Error</th>
+                  <th className="text-left">County</th>
+                  <th className="text-left">Status</th>
+                  <th className="text-left">Started</th>
+                  <th className="text-left">Parcels</th>
+                  <th className="text-left">New</th>
+                  <th className="text-left">Changed</th>
+                  <th className="text-left">Error</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody>
                 {biHealth.data.rows.map((r: BiSnapshotHealthRow) => (
-                  <tr key={r.county} className="hover:bg-gray-50">
-                    <td className="px-4 py-2 font-medium text-gray-800">{r.county}</td>
-                    <td className="px-4 py-2">
-                      <span
-                        className={
-                          r.status === "completed"
-                            ? "text-green-600"
-                            : r.status === "failed"
-                            ? "text-red-600"
-                            : r.status === "running"
-                            ? "text-blue-600"
-                            : "text-gray-600"
-                        }
-                      >
+                  <tr key={r.county}>
+                    <td className="font-medium">{r.county}</td>
+                    <td>
+                      <span className={`badge ${statusBadge(r.status)}`}>
                         {r.status}
                       </span>
                     </td>
-                    <td className="px-4 py-2 text-gray-700">
+                    <td>
                       {r.started_at ? new Date(r.started_at).toLocaleString() : "\u2014"}
                     </td>
-                    <td className="px-4 py-2 text-gray-700">{r.total_parcels_queried}</td>
-                    <td className="px-4 py-2 text-gray-700">{r.new_count}</td>
-                    <td className="px-4 py-2 text-gray-700">{r.changed_count}</td>
-                    <td className="px-4 py-2 text-gray-700 max-w-xs truncate">
+                    <td>{r.total_parcels_queried}</td>
+                    <td>{r.new_count}</td>
+                    <td>{r.changed_count}</td>
+                    <td className="max-w-xs truncate">
                       {r.error_message || "\u2014"}
                     </td>
                   </tr>
@@ -233,64 +230,54 @@ export default function HealthPage() {
       </section>
 
       {/* ── PT Scrape Health ───────────────────────────────────────── */}
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Permit Tracker — Recent Scrape Jobs
-        </h2>
+      <section className="surface-card panel-pad">
+        <div className="section-head mb-3">
+          <h2 className="section-title">Permit Tracker — Recent Scrape Jobs</h2>
+        </div>
 
-        {ptHealth.isLoading && <p className="text-sm text-gray-500">Loading...</p>}
+        {ptHealth.isLoading && <p className="data-note">Loading...</p>}
         {ptHealth.error && (
-          <p className="text-sm text-red-600">Failed to load PT scrape health.</p>
+          <p className="data-note text-[var(--danger)]">Failed to load PT scrape health.</p>
         )}
 
         {ptHealth.data && ptHealth.data.rows.length > 0 && (
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-200">
+          <div className="data-shell overflow-x-auto">
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">ID</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Jurisdiction</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Status</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Trigger</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Queued</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Finished</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Attempts</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Error</th>
+                  <th className="text-left">ID</th>
+                  <th className="text-left">Jurisdiction</th>
+                  <th className="text-left">Status</th>
+                  <th className="text-left">Trigger</th>
+                  <th className="text-left">Queued</th>
+                  <th className="text-left">Finished</th>
+                  <th className="text-left">Attempts</th>
+                  <th className="text-left">Error</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody>
                 {ptHealth.data.rows.map((r: PtScrapeHealthRow) => (
-                  <tr key={r.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-2 text-gray-700">{r.id}</td>
-                    <td className="px-4 py-2 font-medium text-gray-800">
+                  <tr key={r.id}>
+                    <td>{r.id}</td>
+                    <td className="font-medium">
                       {r.jurisdiction_name || "All"}
                     </td>
-                    <td className="px-4 py-2">
-                      <span
-                        className={
-                          r.status === "completed"
-                            ? "text-green-600"
-                            : r.status === "failed"
-                            ? "text-red-600"
-                            : r.status === "running"
-                            ? "text-blue-600"
-                            : "text-gray-600"
-                        }
-                      >
+                    <td>
+                      <span className={`badge ${statusBadge(r.status)}`}>
                         {r.status}
                       </span>
                     </td>
-                    <td className="px-4 py-2 text-gray-700">{r.trigger_type}</td>
-                    <td className="px-4 py-2 text-gray-700">
+                    <td>{r.trigger_type}</td>
+                    <td>
                       {new Date(r.queued_at).toLocaleString()}
                     </td>
-                    <td className="px-4 py-2 text-gray-700">
+                    <td>
                       {r.finished_at ? new Date(r.finished_at).toLocaleString() : "\u2014"}
                     </td>
-                    <td className="px-4 py-2 text-gray-700">
+                    <td>
                       {r.attempt_count}/{r.max_attempts}
                     </td>
-                    <td className="px-4 py-2 text-gray-700 max-w-xs truncate">
+                    <td className="max-w-xs truncate">
                       {r.last_error || "\u2014"}
                     </td>
                   </tr>
@@ -302,38 +289,38 @@ export default function HealthPage() {
       </section>
 
       {/* ── CR Document Health ─────────────────────────────────────── */}
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Commission Radar — Document Extraction
-        </h2>
+      <section className="surface-card panel-pad">
+        <div className="section-head mb-3">
+          <h2 className="section-title">Commission Radar — Document Extraction</h2>
+        </div>
 
-        {crHealth.isLoading && <p className="text-sm text-gray-500">Loading...</p>}
+        {crHealth.isLoading && <p className="data-note">Loading...</p>}
         {crHealth.error && (
-          <p className="text-sm text-red-600">Failed to load CR document health.</p>
+          <p className="data-note text-[var(--danger)]">Failed to load CR document health.</p>
         )}
 
         {crHealth.data && crHealth.data.rows.length > 0 && (
-          <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-            <table className="min-w-full text-sm">
-              <thead className="bg-gray-50 border-b border-gray-200">
+          <div className="data-shell overflow-x-auto">
+            <table className="data-table">
+              <thead>
                 <tr>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Jurisdiction</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Total Docs</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Extracted OK</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Failed</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Not Attempted</th>
-                  <th className="px-4 py-2 text-left font-medium text-gray-600">Latest Meeting</th>
+                  <th className="text-left">Jurisdiction</th>
+                  <th className="text-left">Total Docs</th>
+                  <th className="text-left">Extracted OK</th>
+                  <th className="text-left">Failed</th>
+                  <th className="text-left">Not Attempted</th>
+                  <th className="text-left">Latest Meeting</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody>
                 {crHealth.data.rows.map((r: CrDocumentHealthRow) => (
-                  <tr key={r.jurisdiction} className="hover:bg-gray-50">
-                    <td className="px-4 py-2 font-medium text-gray-800">{r.jurisdiction}</td>
-                    <td className="px-4 py-2 text-gray-700">{r.total_documents}</td>
-                    <td className="px-4 py-2 text-green-600">{r.extracted_ok}</td>
-                    <td className="px-4 py-2 text-red-600">{r.extracted_fail}</td>
-                    <td className="px-4 py-2 text-gray-700">{r.not_attempted}</td>
-                    <td className="px-4 py-2 text-gray-700">
+                  <tr key={r.jurisdiction}>
+                    <td className="font-medium">{r.jurisdiction}</td>
+                    <td>{r.total_documents}</td>
+                    <td className="text-[var(--success)]">{r.extracted_ok}</td>
+                    <td className="text-[var(--danger)]">{r.extracted_fail}</td>
+                    <td>{r.not_attempted}</td>
+                    <td>
                       {r.latest_meeting || "\u2014"}
                     </td>
                   </tr>
@@ -345,4 +332,11 @@ export default function HealthPage() {
       </section>
     </div>
   );
+}
+
+function statusBadge(status: string) {
+  if (status === "completed") return "badge-success";
+  if (status === "failed") return "badge-danger";
+  if (status === "running") return "badge-accent";
+  return "badge-neutral";
 }
