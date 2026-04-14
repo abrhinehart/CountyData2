@@ -6,12 +6,15 @@ xlrd
 psycopg2-binary
 python-dotenv
 requests
+beautifulsoup4
+lxml
 curl_cffi
 shapely
 selenium
 webdriver-manager
 pdf2image
 pdfplumber
+pypdf
 pytesseract
 openai
 anthropic
@@ -26,6 +29,3 @@ geoalchemy2
 httpx
 apscheduler
 pydantic-settings
-
-# Local verification
-pytest

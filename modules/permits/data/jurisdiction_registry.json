@@ -22,8 +22,8 @@
       "adapter_class": "modules.permits.scrapers.adapters.madison_county_al.MadisonCountyAlAdapter",
       "portal_type": "cityview",
       "portal_url": "https://cityview.madisoncountyal.gov/Portal",
-      "active": true,
-      "fragile_note": "Authenticated CityView scraper is live, but brittle enough that reruns and manual verification are still prudent."
+      "active": false,
+      "fragile_note": "Blocked on CityView credentials. See `docs/permits/madison-county-al-cityview-todo.md`."
     },
     {
       "name": "Okeechobee County",

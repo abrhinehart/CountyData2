@@ -19,18 +19,11 @@ from modules.commission.models import (
     Subdivision as Project,
 )
 
-# TODO: verify schema — lifecycle constants not yet ported to modules.commission.
-# Provide minimal fallbacks so the router imports cleanly.
-try:
-    from modules.commission.lifecycle import (
-        LIFECYCLE_STAGES,
-        STAGE_INDEX,
-        STAGE_LABELS,
-    )
-except ImportError:  # pragma: no cover
-    LIFECYCLE_STAGES: list[str] = []
-    STAGE_INDEX: dict[str, int] = {}
-    STAGE_LABELS: dict[str, str] = {}
+from modules.commission.lifecycle import (
+    LIFECYCLE_STAGES,
+    STAGE_INDEX,
+    STAGE_LABELS,
+)
 
 
 router = APIRouter(prefix="/roster")
@@ -39,8 +32,6 @@ router = APIRouter(prefix="/roster")
 @router.get("/counties")
 def roster_counties(db: Session = Depends(get_db)):
     """Return distinct counties that have projects (subdivisions)."""
-    # TODO: verify schema — Subdivisions are linked to counties directly by
-    # county_id. Prefer the canonical name from the ``counties`` table.
     rows = (
         db.query(County.name)
         .join(Project, Project.county_id == County.id)
@@ -65,10 +56,10 @@ def roster_list(
     db: Session = Depends(get_db),
 ):
     """Paginated project roster with lifecycle tracking."""
-    # TODO: verify schema — Project no longer has jurisdiction_id. We join
-    # Project.county_id → Jurisdiction.county_id so a project may map to
-    # multiple jurisdictions sharing that county. When the caller filters by
-    # a specific jurisdiction slug, we still use that join to scope the list.
+    # Project has no jurisdiction_id. We join Project.county_id to
+    # Jurisdiction.county_id so a project may map to multiple jurisdictions
+    # sharing that county. When the caller filters by a specific jurisdiction
+    # slug, we still use that join to scope the list.
     query = db.query(Project, Jurisdiction).outerjoin(
         Jurisdiction, Jurisdiction.county_id == Project.county_id
     )
@@ -136,7 +127,7 @@ def roster_list(
                 "jurisdiction_slug": juris.slug if juris else "",
                 "county": project.county or "",
                 "acreage": project.platted_acreage,
-                # TODO: verify schema — Subdivision has no lot_count; fall back to None.
+                # Subdivision has no lot_count column; fall back to None.
                 "lot_count": None,
                 "proposed_land_use": project.proposed_land_use or "",
                 "proposed_zoning": project.proposed_zoning or "",
@@ -174,7 +165,7 @@ def roster_detail(project_id: int, db: Session = Depends(get_db)):
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
 
-    # TODO: verify schema — pick the first jurisdiction sharing this county.
+    # Pick the first jurisdiction sharing this county.
     juris = (
         db.query(Jurisdiction)
         .filter(Jurisdiction.county_id == project.county_id)
@@ -254,7 +245,7 @@ def roster_detail(project_id: int, db: Session = Depends(get_db)):
         "jurisdiction_slug": juris.slug if juris else "",
         "county": project.county or "",
         "acreage": project.platted_acreage,
-        "lot_count": None,  # TODO: verify schema — no lot_count on Subdivision.
+        "lot_count": None,  # No lot_count column on Subdivision.
         "proposed_land_use": project.proposed_land_use or "",
         "proposed_zoning": project.proposed_zoning or "",
         "entitlement_status": project.entitlement_status or "",

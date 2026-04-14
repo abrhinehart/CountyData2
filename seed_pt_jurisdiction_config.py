@@ -54,11 +54,12 @@ JURISDICTIONS = [
      "live", None),
     ("Madison County, AL", "Madison", None, "AL", "madison-county-al",
      "modules.permits.scrapers.adapters.madison_county_al.MadisonCountyAlAdapter",
-     "cityview", "https://cityview.madisoncountyal.gov/Portal", "live",
-     "Authenticated CityView scraper is live, but brittle enough that reruns and manual verification are still prudent."),
+     "cityview", "https://cityview.madisoncountyal.gov/Portal", "fixture",
+     "Blocked on CityView credentials. See docs/permits/madison-county-al-cityview-todo.md."),
     ("Winter Haven", "Polk", "Winter Haven", "FL", "winter-haven",
      "modules.permits.scrapers.adapters.winter_haven.WinterHavenAdapter",
-     "accela", "https://aca-prod.accela.com/COWH/Default.aspx", "live", None),
+     "accela", "https://aca-prod.accela.com/COWH/Default.aspx", "fixture",
+     "COWH Accela Building module requires authentication. Returns 0 permits until auth support is added."),
     ("Lake Alfred", "Polk", "Lake Alfred", "FL", "lake-alfred",
      "modules.permits.scrapers.adapters.lake_alfred.LakeAlfredAdapter",
      "accela", "https://aca-prod.accela.com/COLA/Default.aspx", "live", None),
@@ -71,7 +72,7 @@ JURISDICTIONS = [
     ("Lake Hamilton", "Polk", "Lake Hamilton", "FL", "lake-hamilton",
      "modules.permits.scrapers.adapters.lake_hamilton.LakeHamiltonAdapter",
      "iworq", "https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600",
-     "live", "iWorQ portal uses reCAPTCHA and has no date-range search. Needs browser-based scraper."),
+     "fixture", "iWorQ portal uses reCAPTCHA and has no date-range search. Needs browser-based scraper."),
 ]
 
 # Subdivisions to mark as watched (name, jurisdiction_name, notes)

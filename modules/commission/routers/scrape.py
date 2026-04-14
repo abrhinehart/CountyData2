@@ -24,53 +24,23 @@ from modules.commission.routers.helpers import (
 )
 from modules.commission.routers.process import process_document
 
-# TODO: verify schema — these supporting modules have not yet been ported
-# from commission_radar to modules.commission. The router imports them
-# defensively so the module can still be loaded during the migration.
-try:
-    from modules.commission.collection_review import (
-        flag_source_document_for_review,
-        inspect_listing_for_collection_review,
-        inspect_primary_document_for_collection_review,
-        should_queue_collection_review,
-        source_document_status_label,
-    )
-except ImportError:  # pragma: no cover
-    flag_source_document_for_review = None  # type: ignore
-    inspect_listing_for_collection_review = None  # type: ignore
-    inspect_primary_document_for_collection_review = None  # type: ignore
-
-    def should_queue_collection_review(*args, **kwargs):  # type: ignore
-        return False
-
-    def source_document_status_label(*args, **kwargs):  # type: ignore
-        return "unknown"
-
-try:
-    from modules.commission.config import SCRAPE_DELAY_SECONDS
-except ImportError:  # pragma: no cover
-    SCRAPE_DELAY_SECONDS = 0
-
-try:
-    from modules.commission.intake import (
-        IntakeValidationError,
-        build_scrape_config,
-        find_listing_duplicate,
-        get_scrapable_jurisdictions,
-        normalize_external_document_id,
-        validate_document_file,
-        validate_scrape_date_range,
-    )
-except ImportError:  # pragma: no cover
-    class IntakeValidationError(Exception):  # type: ignore
-        pass
-
-    build_scrape_config = None  # type: ignore
-    find_listing_duplicate = None  # type: ignore
-    get_scrapable_jurisdictions = None  # type: ignore
-    normalize_external_document_id = None  # type: ignore
-    validate_document_file = None  # type: ignore
-    validate_scrape_date_range = None  # type: ignore
+from modules.commission.collection_review import (
+    flag_source_document_for_review,
+    inspect_listing_for_collection_review,
+    inspect_primary_document_for_collection_review,
+    should_queue_collection_review,
+    source_document_status_label,
+)
+from modules.commission.config import SCRAPE_DELAY_SECONDS
+from modules.commission.intake import (
+    IntakeValidationError,
+    build_scrape_config,
+    find_listing_duplicate,
+    get_scrapable_jurisdictions,
+    normalize_external_document_id,
+    validate_document_file,
+    validate_scrape_date_range,
+)
 
 from modules.commission.scrapers import PlatformScraper
 
