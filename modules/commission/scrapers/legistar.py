@@ -64,12 +64,13 @@ class LegistarScraper(PlatformScraper):
         for body_name in body_names:
             body_listings = self._fetch_body_events(
                 client, body_name, start_date, end_date, seen_ids,
+                config=config,
             )
             listings.extend(body_listings)
 
         return listings
 
-    def _fetch_body_events(self, client, body_name, start_date, end_date, seen_ids):
+    def _fetch_body_events(self, client, body_name, start_date, end_date, seen_ids, *, config=None):
         """Fetch events for a single body, handling pagination."""
         listings = []
         skip = 0
@@ -80,7 +81,7 @@ class LegistarScraper(PlatformScraper):
                 break
 
             for event in events:
-                for listing in self._event_to_listings(event, seen_ids):
+                for listing in self._event_to_listings(event, seen_ids, config=config):
                     listings.append(listing)
 
             if len(events) < PAGE_SIZE:
@@ -119,7 +120,7 @@ class LegistarScraper(PlatformScraper):
             logger.error("Legistar API error for %s/%s: %s", client, body_name, e)
             return None
 
-    def _event_to_listings(self, event, seen_ids):
+    def _event_to_listings(self, event, seen_ids, *, config: dict | None = None):
         """Convert a Legistar event JSON object into DocumentListing(s)."""
         event_id = str(event.get("EventId", ""))
         if not event_id:
@@ -133,6 +134,21 @@ class LegistarScraper(PlatformScraper):
             meeting_date = raw_date[:10] if len(raw_date) >= 10 else "unknown"
 
         body_name = event.get("EventBodyName", "Meeting")
+
+        # Optionally fetch structured event items + votes
+        structured_items = None
+        if config and config.get("fetch_event_items"):
+            client = config.get("legistar_client")
+            if client:
+                try:
+                    structured_items = self._fetch_event_items(client, int(event.get("EventId", 0)))
+                except Exception:
+                    logger.warning(
+                        "Failed to fetch event items for event %s",
+                        event_id,
+                        exc_info=True,
+                    )
+                    structured_items = None
 
         # Agenda PDF
         agenda_url = event.get("EventAgendaFile")
@@ -148,6 +164,7 @@ class LegistarScraper(PlatformScraper):
                     document_type="agenda",
                     file_format="pdf",
                     filename=f"Agenda_{meeting_date}_{event_id}.pdf",
+                    structured_items=structured_items,
                 )
 
         # Minutes PDF
@@ -164,7 +181,84 @@ class LegistarScraper(PlatformScraper):
                     document_type="minutes",
                     file_format="pdf",
                     filename=f"Minutes_{meeting_date}_{event_id}.pdf",
+                    structured_items=structured_items,
                 )
+
+    def _fetch_event_items(self, client: str, event_id: int) -> list[dict]:
+        """Fetch event items and their votes for a Legistar event.
+
+        GET /v1/{client}/events/{event_id}/eventitems
+        For each item, fetch votes via _fetch_item_votes.
+
+        Returns normalized list of dicts.
+        """
+        url = f"{API_BASE}/{client}/events/{event_id}/eventitems"
+        items: list[dict] = []
+
+        try:
+            resp = requests.get(
+                url,
+                headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+                timeout=SCRAPE_SEARCH_TIMEOUT,
+            )
+            resp.raise_for_status()
+            raw_items = resp.json()
+        except requests.RequestException as e:
+            logger.error("Legistar event items API error for %s/%s: %s", client, event_id, e)
+            return []
+
+        for raw_item in raw_items:
+            event_item_id = raw_item.get("EventItemId")
+            if not event_item_id:
+                continue
+
+            time.sleep(REQUEST_DELAY)
+            votes = self._fetch_item_votes(client, event_item_id)
+
+            items.append({
+                "event_item_id": event_item_id,
+                "item_title": raw_item.get("EventItemTitle"),
+                "item_action_name": raw_item.get("EventItemActionName"),
+                "item_action_text": raw_item.get("EventItemActionText"),
+                "item_passed_flag": raw_item.get("EventItemPassedFlag"),
+                "item_mover": raw_item.get("EventItemMover"),
+                "item_seconder": raw_item.get("EventItemSeconder"),
+                "matter_id": raw_item.get("EventItemMatterId"),
+                "matter_file": raw_item.get("EventItemMatterFile"),
+                "matter_name": raw_item.get("EventItemMatterName"),
+                "matter_type": raw_item.get("EventItemMatterType"),
+                "votes": votes,
+            })
+
+        return items
+
+    def _fetch_item_votes(self, client: str, event_item_id: int) -> list[dict]:
+        """Fetch votes for a single event item.
+
+        GET /v1/{client}/eventitems/{event_item_id}/votes
+        """
+        url = f"{API_BASE}/{client}/eventitems/{event_item_id}/votes"
+
+        try:
+            resp = requests.get(
+                url,
+                headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+                timeout=SCRAPE_SEARCH_TIMEOUT,
+            )
+            resp.raise_for_status()
+            raw_votes = resp.json()
+        except requests.RequestException as e:
+            logger.error("Legistar votes API error for item %s: %s", event_item_id, e)
+            return []
+
+        votes: list[dict] = []
+        for raw_vote in raw_votes:
+            votes.append({
+                "person_name": raw_vote.get("VotePersonName"),
+                "vote_value": raw_vote.get("VoteValueName"),
+            })
+
+        return votes
 
     def download_document(self, listing: DocumentListing, output_dir: str) -> str:
         """Download a document from Legistar."""

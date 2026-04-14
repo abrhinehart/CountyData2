@@ -211,3 +211,199 @@ def test_fetch_permits_mocked(monkeypatch):
     assert p["raw_contractor_name"] == "JOHN DOE"
     assert p["raw_applicant_name"] == "SMITH BUILDERS INC"
     assert p["raw_licensed_professional_name"] == "JOHN DOE"
+    # No inspections section in this fixture
+    assert p["inspections"] is None
+
+
+# ── Inspection parsing ──────────────────────────────────────────────────
+
+def test_parse_inspections_table():
+    """Verify table-based inspection parsing from detail HTML."""
+    from bs4 import BeautifulSoup
+
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+
+    html = """
+    <html><body>
+    <h3>Inspections</h3>
+    <table>
+      <tr><th>Type</th><th>Status</th><th>Scheduled Date</th><th>Result</th><th>Inspector</th></tr>
+      <tr>
+        <td>Foundation</td>
+        <td>Completed</td>
+        <td>03/10/2026</td>
+        <td>Pass</td>
+        <td>Bob Smith</td>
+      </tr>
+      <tr>
+        <td>Framing</td>
+        <td>Scheduled</td>
+        <td>03/20/2026</td>
+        <td></td>
+        <td>Jane Doe</td>
+      </tr>
+    </table>
+    </body></html>
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    result = adapter._parse_inspections(soup)
+
+    assert result is not None
+    assert len(result) == 2
+    assert result[0]["type"] == "Foundation"
+    assert result[0]["status"] == "Completed"
+    assert result[0]["scheduled_date"] == "03/10/2026"
+    assert result[0]["result"] == "Pass"
+    assert result[0]["inspector"] == "Bob Smith"
+    assert result[1]["type"] == "Framing"
+    assert result[1]["status"] == "Scheduled"
+    assert result[1]["result"] is None
+
+
+def test_parse_inspections_no_section():
+    """Return None when no inspection section exists."""
+    from bs4 import BeautifulSoup
+
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+
+    html = """
+    <html><body>
+    <div>Parcel Number: 12-34-56</div>
+    <div>No inspections here</div>
+    </body></html>
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    result = adapter._parse_inspections(soup)
+    assert result is None
+
+
+def test_parse_inspections_empty_table():
+    """Return None when inspection table has headers but no data rows."""
+    from bs4 import BeautifulSoup
+
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+
+    html = """
+    <html><body>
+    <h3>Inspections</h3>
+    <table>
+      <tr><th>Type</th><th>Status</th><th>Scheduled Date</th><th>Result</th><th>Inspector</th></tr>
+    </table>
+    </body></html>
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    result = adapter._parse_inspections(soup)
+    assert result is None
+
+
+def test_parse_inspections_malformed_html_returns_none():
+    """Malformed or unexpected HTML returns None, never raises."""
+    from bs4 import BeautifulSoup
+
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+
+    # Inspection heading but no table — just random text
+    html = """
+    <html><body>
+    <h3>Inspections</h3>
+    <p>Something went wrong with the rendering.</p>
+    </body></html>
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    result = adapter._parse_inspections(soup)
+    assert result is None
+
+
+def test_fetch_permits_with_inspections(monkeypatch):
+    """Verify inspections are included when detail page contains inspection table."""
+    from unittest.mock import MagicMock
+    from modules.permits.scrapers.adapters.polk_county import PolkCountyAdapter
+
+    SEARCH_HTML = """
+    <html><body>
+    <form id="aspnetForm" action="CapHome.aspx" method="post">
+      <input type="hidden" name="__VIEWSTATE" value="abc123" />
+      <input type="hidden" name="__EVENTTARGET" value="" />
+      <input type="hidden" name="__EVENTARGUMENT" value="" />
+      <input type="hidden" name="__EVENTVALIDATION" value="xyz" />
+      <div>Showing 1-1 of 1 Result</div>
+      <table id="ctl00_PlaceHolderMain_dgvPermitList_gdvPermitList">
+        <tr><th>Date</th><th>Record Number</th><th>Record Type</th><th>Address</th><th>Status</th></tr>
+        <tr>
+          <td>03/01/2026</td>
+          <td><a href="/POLKCO/Cap/CapDetail.aspx?capID1=X&amp;capID2=Y&amp;capID3=Z">BLD2026-00099</a></td>
+          <td>Building/Residential/New/NA</td>
+          <td>200 OAK AVE, LAKELAND FL 33801</td>
+          <td>Issued</td>
+        </tr>
+      </table>
+    </form>
+    </body></html>
+    """
+
+    DETAIL_HTML_WITH_INSPECTIONS = """
+    <html><body>
+    <div>Parcel Number: 99-99-99-000000-000001</div>
+    <div>Job Value($): $250,000.00</div>
+    <div>Subdivision: TEST ACRES</div>
+    <div>Fees</div>
+    <div>Applicant: TEST BUILDER</div>
+    <div>Licensed Professional: TEST PRO</div>
+    <div>Project Description: NEW SFR</div>
+    <h4>Inspections</h4>
+    <table>
+      <tr><th>Type</th><th>Status</th><th>Scheduled Date</th><th>Result</th><th>Inspector</th></tr>
+      <tr><td>Slab</td><td>Completed</td><td>02/15/2026</td><td>Pass</td><td>Inspector A</td></tr>
+      <tr><td>Electrical</td><td>Pending</td><td>03/05/2026</td><td></td><td>Inspector B</td></tr>
+    </table>
+    <div>More Details</div>
+    </body></html>
+    """
+
+    adapter = PolkCountyAdapter()
+    mock_session = MagicMock()
+
+    initial_response = MagicMock()
+    initial_response.text = SEARCH_HTML
+    initial_response.status_code = 200
+    initial_response.raise_for_status = MagicMock()
+
+    search_response = MagicMock()
+    search_response.text = SEARCH_HTML
+    search_response.status_code = 200
+    search_response.url = "https://aca-prod.accela.com/POLKCO/Cap/CapHome.aspx"
+    search_response.headers = {"Content-Type": "text/html"}
+    search_response.raise_for_status = MagicMock()
+    search_response.request = MagicMock()
+    search_response.request.method = "POST"
+
+    detail_response = MagicMock()
+    detail_response.text = DETAIL_HTML_WITH_INSPECTIONS
+    detail_response.status_code = 200
+    detail_response.url = "https://aca-prod.accela.com/POLKCO/Cap/CapDetail.aspx"
+    detail_response.headers = {"Content-Type": "text/html"}
+    detail_response.raise_for_status = MagicMock()
+    detail_response.request = MagicMock()
+    detail_response.request.method = "GET"
+
+    mock_session.get = MagicMock(side_effect=[initial_response, detail_response])
+    mock_session.post = MagicMock(return_value=search_response)
+    mock_session.request = MagicMock(return_value=detail_response)
+    mock_session.headers = {}
+
+    monkeypatch.setattr(adapter, "build_session", lambda **kwargs: mock_session)
+
+    permits = adapter.fetch_permits(
+        start_date=date(2026, 3, 1),
+        end_date=date(2026, 3, 7),
+    )
+
+    assert len(permits) == 1
+    p = permits[0]
+    assert p["inspections"] is not None
+    assert len(p["inspections"]) == 2
+    assert p["inspections"][0]["type"] == "Slab"
+    assert p["inspections"][0]["result"] == "Pass"
+    assert p["inspections"][1]["type"] == "Electrical"
+    assert p["inspections"][1]["status"] == "Pending"
+    assert p["inspections"][1]["result"] is None

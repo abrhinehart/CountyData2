@@ -277,24 +277,25 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
                     "raw_licensed_professional_name": detail_fields.get("licensed_professional"),
                     "latitude": None,
                     "longitude": None,
+                    "inspections": detail_fields.get("inspections"),
                 }
             )
         return permits
 
     def _fetch_detail_fields(self, session: requests.Session, detail_href: str) -> dict[str, str | None]:
         detail_url = self._absolute_url(detail_href)
-        text = " ".join(
-            BeautifulSoup(
-                self.get_cached_text(
-                    session,
-                    detail_url,
-                    timeout=30,
-                    artifact_type="detail-page",
-                    metadata={"detail_href": detail_url},
-                ),
-                "html.parser",
-            ).get_text(" ", strip=True).split()
+        raw_html = self.get_cached_text(
+            session,
+            detail_url,
+            timeout=30,
+            artifact_type="detail-page",
+            metadata={"detail_href": detail_url},
         )
+        soup = BeautifulSoup(raw_html, "html.parser")
+        text = " ".join(soup.get_text(" ", strip=True).split())
+
+        inspections = self._parse_inspections(soup)
+
         return {
             "parcel_id": self._extract_match(self.parcel_pattern, text),
             "subdivision": self._extract_match(self.subdivision_pattern, text),
@@ -302,7 +303,123 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
             "licensed_professional": self._extract_match(self.licensed_professional_pattern, text),
             "project_description": self._extract_match(self.project_description_pattern, text),
             "job_value": self._extract_match(re.compile(r"Job Value\(\$\):\s*\$?[\d,]+(?:\.\d+)?"), text),
+            "inspections": inspections,
         }
+
+    def _parse_inspections(self, soup: BeautifulSoup) -> list[dict] | None:
+        """Extract inspection rows from the detail page HTML.
+
+        Accela detail pages may render inspections as:
+        1. A ``<table>`` under a heading containing "Inspection"
+        2. A div-based list with class patterns like ``InspectionListRow``
+
+        Returns a list of dicts with keys: type, status, scheduled_date,
+        result, inspector.  Returns None if no inspection section is found
+        or no rows are parseable.
+        """
+        try:
+            return self._parse_inspections_from_table(soup) or self._parse_inspections_from_divs(soup)
+        except Exception:
+            return None
+
+    def _parse_inspections_from_table(self, soup: BeautifulSoup) -> list[dict] | None:
+        """Parse inspections from a table-based layout."""
+        # Look for a heading that contains "Inspection" then find the next table
+        heading = soup.find(
+            lambda tag: tag.name in ("h1", "h2", "h3", "h4", "h5", "h6", "span", "div", "td")
+            and tag.string
+            and "inspection" in tag.get_text(strip=True).lower()
+            and "result" not in tag.get_text(strip=True).lower()
+        )
+        if heading is None:
+            return None
+
+        table = heading.find_next("table")
+        if table is None:
+            return None
+
+        # Build column map from header row
+        header_row = table.find("tr")
+        if header_row is None:
+            return None
+        headers = header_row.find_all(["th", "td"])
+        if not headers:
+            return None
+
+        col_map: dict[str, int] = {}
+        for idx, cell in enumerate(headers):
+            label = cell.get_text(strip=True).lower()
+            col_map[label] = idx
+
+        # Map known column names to our canonical keys
+        _INSPECTION_ALIASES: dict[str, tuple[str, ...]] = {
+            "type": ("type", "inspection type", "inspection"),
+            "status": ("status", "inspection status"),
+            "scheduled_date": ("scheduled date", "date", "scheduled", "request date"),
+            "result": ("result", "inspection result", "result date"),
+            "inspector": ("inspector", "inspector name"),
+        }
+        field_idx: dict[str, int | None] = {}
+        for key, aliases in _INSPECTION_ALIASES.items():
+            field_idx[key] = next((col_map[a] for a in aliases if a in col_map), None)
+
+        rows: list[dict] = []
+        for tr in table.find_all("tr")[1:]:
+            cells = tr.find_all("td")
+            if not cells:
+                continue
+            row: dict[str, str | None] = {}
+            for key in _INSPECTION_ALIASES:
+                ci = field_idx.get(key)
+                if ci is not None and ci < len(cells):
+                    val = cells[ci].get_text(strip=True)
+                    row[key] = val if val else None
+                else:
+                    row[key] = None
+            # Only include rows that have at least a type or status
+            if row.get("type") or row.get("status"):
+                rows.append(row)
+
+        return rows if rows else None
+
+    def _parse_inspections_from_divs(self, soup: BeautifulSoup) -> list[dict] | None:
+        """Parse inspections from a div-based layout."""
+        inspection_divs = soup.find_all(
+            "div",
+            class_=lambda c: c and "inspection" in str(c).lower(),
+        )
+        if not inspection_divs:
+            return None
+
+        rows: list[dict] = []
+        for div in inspection_divs:
+            text = div.get_text(" ", strip=True)
+            if not text or len(text) < 3:
+                continue
+            row: dict[str, str | None] = {
+                "type": None,
+                "status": None,
+                "scheduled_date": None,
+                "result": None,
+                "inspector": None,
+            }
+            # Try to extract key-value pairs from the text
+            for field, patterns in (
+                ("type", (r"(?:Inspection\s+)?Type:\s*(.+?)(?:\s*[-|]|$)",)),
+                ("status", (r"Status:\s*(.+?)(?:\s*[-|]|$)",)),
+                ("scheduled_date", (r"(?:Scheduled\s+)?Date:\s*(.+?)(?:\s*[-|]|$)",)),
+                ("result", (r"Result:\s*(.+?)(?:\s*[-|]|$)",)),
+                ("inspector", (r"Inspector:\s*(.+?)(?:\s*[-|]|$)",)),
+            ):
+                for pattern in patterns:
+                    m = re.search(pattern, text, re.IGNORECASE)
+                    if m:
+                        row[field] = m.group(1).strip() or None
+                        break
+            if row.get("type") or row.get("status"):
+                rows.append(row)
+
+        return rows if rows else None
 
     def _extract_total_results(self, html: str) -> int:
         text = " ".join(BeautifulSoup(html, "html.parser").get_text(" ", strip=True).split())

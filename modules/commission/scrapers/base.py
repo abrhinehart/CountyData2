@@ -12,6 +12,7 @@ class DocumentListing:
     document_type: str      # "agenda" or "minutes"
     file_format: str        # "pdf", "html", "docx"
     filename: str           # suggested filename for local storage
+    structured_items: list[dict] | None = None  # Legistar event items + votes
 
 
 class PlatformScraper(ABC):

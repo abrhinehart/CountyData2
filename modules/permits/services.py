@@ -117,6 +117,8 @@ def ingest_permits(
             permit.get("longitude"),
         )
         builder_id = _ensure_builder_id(conn, permit.get("raw_contractor_name"))
+        inspections_raw = permit.get("inspections")
+        inspections_json = json.dumps(inspections_raw) if inspections_raw is not None else None
         payload = {
             "subdivision_id": subdivision_id,
             "builder_id": builder_id,
@@ -132,6 +134,7 @@ def ingest_permits(
             "raw_licensed_professional_name": permit.get("raw_licensed_professional_name"),
             "latitude": permit.get("latitude"),
             "longitude": permit.get("longitude"),
+            "inspections_json": inspections_json,
         }
 
         cur.execute(
@@ -139,7 +142,8 @@ def ingest_permits(
             SELECT id, subdivision_id, builder_id, address, parcel_id,
                    issue_date, status, permit_type, valuation,
                    raw_subdivision_name, raw_contractor_name, raw_applicant_name,
-                   raw_licensed_professional_name, latitude, longitude
+                   raw_licensed_professional_name, latitude, longitude,
+                   inspections_json
             FROM pt_permits
             WHERE jurisdiction_id = %s AND permit_number = %s
             """,
@@ -155,9 +159,10 @@ def ingest_permits(
                     parcel_id, issue_date, status, permit_type, valuation,
                     raw_subdivision_name, raw_contractor_name, raw_applicant_name,
                     raw_licensed_professional_name, latitude, longitude,
+                    inspections_json,
                     first_seen_at, last_updated_at, last_seen_at
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                 """,
                 (
                     permit["permit_number"],
@@ -176,6 +181,7 @@ def ingest_permits(
                     payload["raw_licensed_professional_name"],
                     payload["latitude"],
                     payload["longitude"],
+                    payload["inspections_json"],
                     run_at,
                     run_at,
                     run_at,
@@ -187,7 +193,7 @@ def ingest_permits(
         # existing columns: id, subdivision_id, builder_id, address, parcel_id,
         #   issue_date, status, permit_type, valuation,
         #   raw_subdivision_name, raw_contractor_name, raw_applicant_name,
-        #   raw_licensed_professional_name, latitude, longitude
+        #   raw_licensed_professional_name, latitude, longitude, inspections_json
         existing_id = existing[0]
         existing_dict = {
             "subdivision_id": existing[1],
@@ -204,6 +210,7 @@ def ingest_permits(
             "raw_licensed_professional_name": existing[12],
             "latitude": existing[13],
             "longitude": existing[14],
+            "inspections_json": json.dumps(existing[15]) if isinstance(existing[15], (list, dict)) else existing[15],
         }
 
         # Normalize issue_date for comparison: existing may be a date object
@@ -236,6 +243,7 @@ def ingest_permits(
                 "raw_licensed_professional_name",
                 "latitude",
                 "longitude",
+                "inspections_json",
             )
         )
         if not changed:
@@ -252,6 +260,7 @@ def ingest_permits(
                 issue_date = %s, status = %s, permit_type = %s, valuation = %s,
                 raw_subdivision_name = %s, raw_contractor_name = %s, raw_applicant_name = %s,
                 raw_licensed_professional_name = %s, latitude = %s, longitude = %s,
+                inspections_json = %s,
                 last_updated_at = %s, last_seen_at = %s
             WHERE id = %s
             """,
@@ -270,6 +279,7 @@ def ingest_permits(
                 payload["raw_licensed_professional_name"],
                 payload["latitude"],
                 payload["longitude"],
+                payload["inspections_json"],
                 run_at,
                 run_at,
                 existing_id,
@@ -1106,7 +1116,8 @@ def get_permits_payload(conn, filters: dict) -> dict:
             p.raw_subdivision_name,
             p.raw_contractor_name,
             p.raw_applicant_name,
-            p.raw_licensed_professional_name
+            p.raw_licensed_professional_name,
+            p.inspections_json
         {base_sql}
         ORDER BY {sort_sql}
         LIMIT %s OFFSET %s

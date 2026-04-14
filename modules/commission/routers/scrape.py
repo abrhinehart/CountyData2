@@ -11,6 +11,7 @@ from sqlalchemy.orm import Session
 from shared.sa_database import get_db, SessionLocal
 from modules.commission.models import (
     CrJurisdictionConfig,
+    CrSourceDocument as SourceDocument,
     Jurisdiction,
     SOURCE_DOCUMENT_STATUS_FLAGGED_FOR_REVIEW,
 )
@@ -418,6 +419,23 @@ def scrape_run(
                         counts["errors"] += 1
                     else:
                         counts["processed"] += 1
+                        # Persist structured event items if the listing carries them
+                        if listing.structured_items:
+                            try:
+                                source_doc = (
+                                    session.query(SourceDocument)
+                                    .filter_by(
+                                        jurisdiction_id=juris.id,
+                                        external_document_id=external_document_id,
+                                    )
+                                    .order_by(SourceDocument.id.desc())
+                                    .first()
+                                )
+                                if source_doc is not None:
+                                    source_doc.structured_event_items = listing.structured_items
+                                    session.commit()
+                            except Exception:
+                                session.rollback()
 
                 if SCRAPE_DELAY_SECONDS > 0:
                     time.sleep(SCRAPE_DELAY_SECONDS)

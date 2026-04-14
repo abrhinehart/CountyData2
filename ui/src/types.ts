@@ -157,6 +157,14 @@ export interface CommissionRosterDetail {
   actions: CommissionAction[];
 }
 
+export interface PermitInspection {
+  type: string | null;
+  status: string | null;
+  scheduled_date: string | null;
+  result: string | null;
+  inspector: string | null;
+}
+
 export interface PermitRow {
   id: number;
   permit_number: string;
@@ -168,6 +176,7 @@ export interface PermitRow {
   jurisdiction: string | null;
   subdivision: string | null;
   builder: string | null;
+  inspections_json?: PermitInspection[] | null;
 }
 
 export interface PermitsResponse {

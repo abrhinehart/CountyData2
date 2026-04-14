@@ -24,6 +24,7 @@ from sqlalchemy import (
     Text,
     UniqueConstraint,
 )
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
 
 from shared.models import Base, Jurisdiction, Phase, Subdivision  # noqa: F401
@@ -86,6 +87,7 @@ class CrSourceDocument(Base):
     failure_stage = Column(String(50), nullable=True)
     failure_reason = Column(Text, nullable=True)
     processing_notes = Column(Text, nullable=True)
+    structured_event_items = Column(JSONB, nullable=True)
     created_at = Column(DateTime(timezone=True), default=utc_now)
     updated_at = Column(DateTime(timezone=True), default=utc_now, onupdate=utc_now)
 

@@ -31,6 +31,7 @@ class ApplyMigrationsTests(unittest.TestCase):
                 '019_widen_cr_action_varchars.sql',
                 '020_subdivision_classification.sql',
                 '021_cleanup_polluted_builders.sql',
+                '022_permit_inspections_and_cr_event_items.sql',
             ],
         )
         self.assertTrue(all(path.parent == MIGRATIONS_DIR for path in migrations))
