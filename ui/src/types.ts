@@ -209,6 +209,8 @@ export interface InventorySubdivisionOut {
   parcel_count: number;
   builder_lot_count: number;
   distinct_builder_count: number;
+  classification: string | null;
+  updated_at: string | null;
 }
 
 export interface SubdivisionBuilderSummary {
