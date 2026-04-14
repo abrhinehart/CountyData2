@@ -8,7 +8,7 @@ commission_type: city_commission
 scraping:
   platform: civicplus
   base_url: "https://www.lakewalesfl.gov/AgendaCenter"
-  category_id: 3
+  category_id: 4  # City Commission Regular Meeting (portal panel id 4; id 3 was Planning & Zoning Board)
   document_formats: [pdf]
   has_duplicate_page_bug: false
 

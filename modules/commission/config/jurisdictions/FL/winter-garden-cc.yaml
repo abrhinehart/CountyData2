@@ -8,7 +8,7 @@ commission_type: city_commission
 scraping:
   platform: civicplus
   base_url: "https://www.cwgdn.com/AgendaCenter"
-  category_id: 2
+  category_id: 6  # City Commission (portal panel id 6; id 2 was Architectural Review & Historic Preservation Board)
   document_formats: [pdf]
   has_duplicate_page_bug: false
 
