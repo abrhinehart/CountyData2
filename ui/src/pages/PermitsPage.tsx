@@ -1,7 +1,5 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import {
   getPermitBootstrap,
   getPermitDashboard,
@@ -78,26 +76,6 @@ export default function PermitsPage() {
           <VsLastMonthCard summary={dash.summary} />
           <Card label="Last Month" value={fmt(dash.summary.last_month)} />
           <Card label="Watchlist" value={fmt(dash.summary.watchlist_count)} tooltip="Permits from builders on your watchlist" />
-        </div>
-      )}
-
-      {/* Permit map */}
-      {dash && dash.map_points.length > 0 && (
-        <div>
-          <div className="flex items-center gap-4 mb-2 text-xs text-gray-500">
-            <span className="flex items-center gap-1">
-              <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "#22c55e" }} />
-              Closed
-            </span>
-            <span className="flex items-center gap-1">
-              <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "#f59e0b" }} />
-              Open
-            </span>
-            <span className="ml-auto tabular-nums">
-              {fmt(dash.map_meta.count)} permits mapped
-            </span>
-          </div>
-          <PermitMap points={dash.map_points} />
         </div>
       )}
 
@@ -389,75 +367,6 @@ function VsLastMonthCard({ summary }: { summary: PermitDashboard["summary"] }) {
         ~{fmt(projected)} projected
       </p>
     </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  Permit map                                                         */
-/* ------------------------------------------------------------------ */
-
-function PermitMap({ points }: { points: PermitDashboard["map_points"] }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const mapRef = useRef<L.Map | null>(null);
-
-  useEffect(() => {
-    if (!containerRef.current || points.length === 0) return;
-
-    // Destroy previous instance
-    if (mapRef.current) {
-      mapRef.current.remove();
-      mapRef.current = null;
-    }
-
-    const map = L.map(containerRef.current, { scrollWheelZoom: false });
-    mapRef.current = map;
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: "&copy; OpenStreetMap contributors",
-      maxZoom: 18,
-    }).addTo(map);
-
-    const bounds = L.latLngBounds([]);
-
-    for (const pt of points) {
-      const color = pt.status_group === "closed" ? "#22c55e" : "#f59e0b";
-      const latlng = L.latLng(pt.latitude, pt.longitude);
-      bounds.extend(latlng);
-
-      L.circleMarker(latlng, {
-        radius: 6,
-        color,
-        fillColor: color,
-        fillOpacity: 0.8,
-        weight: 1,
-      })
-        .bindPopup(
-          `<div style="font-size:13px;line-height:1.5">
-            <strong>${pt.permit_number}</strong><br/>
-            ${pt.address ?? ""}<br/>
-            ${pt.jurisdiction} &middot; ${pt.status ?? ""}${pt.issue_date ? `<br/>${pt.issue_date}` : ""}
-            ${pt.subdivision !== "Unmatched" ? `<br/>${pt.subdivision}` : ""}
-            ${pt.builder !== "Unknown Builder" ? `<br/>${pt.builder}` : ""}
-          </div>`,
-        )
-        .addTo(map);
-    }
-
-    if (bounds.isValid()) {
-      map.fitBounds(bounds, { padding: [30, 30] });
-    }
-
-    return () => {
-      map.remove();
-      mapRef.current = null;
-    };
-  }, [points]);
-
-  return (
-    <div
-      ref={containerRef}
-      className="h-[400px] rounded-xl border border-gray-200 shadow-sm overflow-hidden"
-    />
   );
 }
 

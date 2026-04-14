@@ -10,6 +10,7 @@ import {
   getSalesBySubdivision,
   getCommissionRoster,
   getInventoryBuilders,
+  getPermitDashboard,
 } from "../api";
 import { getBuilderColor } from "../config/builderColors";
 import type {
@@ -19,6 +20,7 @@ import type {
   Transaction,
   CommissionRosterDetail,
   BuilderOut,
+  PermitDashboard,
 } from "../types";
 
 // ---------------------------------------------------------------------------
@@ -308,11 +310,13 @@ export default function MapPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
+  const permitLayerRef = useRef<L.LayerGroup | null>(null);
   const svgRendererRef = useRef<L.SVG | null>(null);
 
   const [selectedCounty, setSelectedCounty] = useState<string>("");
   const [selectedFeature, setSelectedFeature] = useState<SubdivisionGeoFeature | null>(null);
   const [builderFilter, setBuilderFilter] = useState<number[]>([]);
+  const [showPermits, setShowPermits] = useState(true);
 
   const countiesQ = useQuery<string[]>({
     queryKey: ["counties"],
@@ -327,6 +331,11 @@ export default function MapPage() {
   const buildersQ = useQuery<BuilderOut[]>({
     queryKey: ["inventory-builders"],
     queryFn: getInventoryBuilders,
+  });
+
+  const permitDashQ = useQuery({
+    queryKey: ["permit-dashboard-map"],
+    queryFn: () => getPermitDashboard(),
   });
 
   // Client-side filter by county name + builder filter
@@ -398,11 +407,13 @@ export default function MapPage() {
     ).addTo(map);
 
     layerRef.current = L.layerGroup().addTo(map);
+    permitLayerRef.current = L.layerGroup().addTo(map);
 
     return () => {
       map.remove();
       mapRef.current = null;
       layerRef.current = null;
+      permitLayerRef.current = null;
       svgRendererRef.current = null;
     };
   }, []);
@@ -512,6 +523,41 @@ export default function MapPage() {
     }
   }, [features, onFeatureClick]);
 
+  // ---------------------------------------------------------------------------
+  // Render permit pin layer
+  // ---------------------------------------------------------------------------
+  useEffect(() => {
+    const group = permitLayerRef.current;
+    if (!group) return;
+    group.clearLayers();
+
+    const points = permitDashQ.data?.map_points;
+    if (!showPermits || !points || points.length === 0) return;
+
+    for (const pt of points) {
+      const color = pt.status_group === "closed" ? "#22c55e" : "#f59e0b";
+      const latlng = L.latLng(pt.latitude, pt.longitude);
+
+      L.circleMarker(latlng, {
+        radius: 4,
+        color,
+        fillColor: color,
+        fillOpacity: 0.85,
+        weight: 1,
+      })
+        .bindPopup(
+          `<div style="font-size:13px;line-height:1.5">
+            <strong>${pt.permit_number}</strong><br/>
+            ${pt.address ?? ""}<br/>
+            ${pt.jurisdiction} &middot; ${pt.status ?? ""}${pt.issue_date ? `<br/>${pt.issue_date}` : ""}
+            ${pt.subdivision !== "Unmatched" ? `<br/>${pt.subdivision}` : ""}
+            ${pt.builder !== "Unknown Builder" ? `<br/>${pt.builder}` : ""}
+          </div>`,
+        )
+        .addTo(group);
+    }
+  }, [permitDashQ.data?.map_points, showPermits]);
+
   return (
     <div className="fixed inset-0 top-[53px] z-0 flex flex-col">
       {/* Filter bar */}
@@ -557,6 +603,23 @@ export default function MapPage() {
             Clear
           </button>
         )}
+
+        <label className="flex items-center gap-1.5 text-sm text-gray-700 cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={showPermits}
+            onChange={(e) => setShowPermits(e.target.checked)}
+            className="rounded border-gray-300"
+          />
+          Permits
+          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "#22c55e" }} />
+          <span className="inline-block w-2 h-2 rounded-full" style={{ background: "#f59e0b" }} />
+          {showPermits && permitDashQ.data?.map_meta && (
+            <span className="text-xs text-gray-400 tabular-nums">
+              ({permitDashQ.data.map_meta.count.toLocaleString()})
+            </span>
+          )}
+        </label>
 
         {geoQ.isLoading && <span className="text-xs text-gray-400">Loading polygons...</span>}
         {geoQ.error && (
