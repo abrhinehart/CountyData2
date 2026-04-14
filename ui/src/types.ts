@@ -328,8 +328,27 @@ export interface PermitDashboard {
     watchlist_count: number;
   };
   trend: { label: string; count: number }[];
-  top_subdivisions: { name: string; total: number }[];
+  top_subdivisions: { name: string; total: number; current_month: number }[];
   top_builders: { name: string; total: number }[];
+  map_points: {
+    permit_number: string;
+    address: string | null;
+    issue_date: string | null;
+    status: string | null;
+    latitude: number;
+    longitude: number;
+    jurisdiction: string;
+    subdivision: string;
+    builder: string;
+    status_group: string;
+  }[];
+  map_meta: {
+    count: number;
+    date_start: string | null;
+    date_end: string | null;
+    open_count: number;
+    closed_count: number;
+  };
   last_runs: {
     name: string;
     portal_type: string | null;

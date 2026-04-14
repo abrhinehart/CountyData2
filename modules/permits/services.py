@@ -959,15 +959,17 @@ def get_dashboard_payload(conn, filters: dict) -> dict:
 
     cur.execute(
         f"""
-        SELECT COALESCE(s.canonical_name, 'Unmatched') AS name, COUNT(*) AS total
+        SELECT COALESCE(s.canonical_name, 'Unmatched') AS name,
+               COUNT(*) AS total,
+               COUNT(*) FILTER (WHERE p.issue_date >= %s AND p.issue_date < %s) AS current_month
         {base_sql}
         GROUP BY COALESCE(s.canonical_name, 'Unmatched')
         ORDER BY total DESC, name
         LIMIT 15
         """,
-        params,
+        params + [month_start.isoformat(), next_month.isoformat()],
     )
-    top_subdivisions = [{"name": r[0], "total": r[1]} for r in cur.fetchall()]
+    top_subdivisions = [{"name": r[0], "total": r[1], "current_month": r[2]} for r in cur.fetchall()]
 
     cur.execute(
         f"""

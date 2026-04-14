@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
 import {
   getPermitBootstrap,
   getPermitDashboard,
@@ -8,6 +10,7 @@ import {
   triggerPermitScrape,
 } from "../api";
 import Pagination from "../components/Pagination";
+import type { PermitDashboard } from "../types";
 
 function fmt(n: number): string {
   return n.toLocaleString();
@@ -72,30 +75,36 @@ export default function PermitsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-4">
           <Card label="Total Permits" value={fmt(dash.summary.total_permits)} />
           <Card label="This Month" value={fmt(dash.summary.current_month)} />
-          <Card
-            label="vs Last Month"
-            value={(() => {
-              const { current_month, last_month, month_delta } = dash.summary;
-              const now = new Date();
-              const dayOfMonth = now.getDate();
-              const daysInLastMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-              const dailyThis = dayOfMonth > 0 ? current_month / dayOfMonth : 0;
-              const dailyLast = daysInLastMonth > 0 ? last_month / daysInLastMonth : 0;
-              const pct = dailyLast > 0 ? Math.round(((dailyThis - dailyLast) / dailyLast) * 100) : 0;
-              const sign = month_delta >= 0 ? "+" : "";
-              return `${sign}${month_delta} (${pct >= 0 ? "+" : ""}${pct}%/day)`;
-            })()}
-            accent={dash.summary.month_delta < 0}
-          />
+          <VsLastMonthCard summary={dash.summary} />
           <Card label="Last Month" value={fmt(dash.summary.last_month)} />
           <Card label="Watchlist" value={fmt(dash.summary.watchlist_count)} tooltip="Permits from builders on your watchlist" />
+        </div>
+      )}
+
+      {/* Permit map */}
+      {dash && dash.map_points.length > 0 && (
+        <div>
+          <div className="flex items-center gap-4 mb-2 text-xs text-gray-500">
+            <span className="flex items-center gap-1">
+              <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "#22c55e" }} />
+              Closed
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="inline-block w-2.5 h-2.5 rounded-full" style={{ background: "#f59e0b" }} />
+              Open
+            </span>
+            <span className="ml-auto tabular-nums">
+              {fmt(dash.map_meta.count)} permits mapped
+            </span>
+          </div>
+          <PermitMap points={dash.map_points} />
         </div>
       )}
 
       {/* Top subdivisions + Top builders side by side */}
       {dash && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white border border-gray-200 rounded-lg p-5">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
             <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
               Top Subdivisions
             </h2>
@@ -115,6 +124,11 @@ export default function PermitsPage() {
                       <td className="py-1.5 text-gray-700">{s.name}</td>
                       <td className="py-1.5 text-right text-gray-500 tabular-nums">
                         {fmt(s.total)}
+                        {s.current_month > 0 && (
+                          <span className="ml-2 text-amber-600 text-xs">
+                            {s.current_month} this mo
+                          </span>
+                        )}
                       </td>
                     </tr>
                   ))}
@@ -123,7 +137,7 @@ export default function PermitsPage() {
             )}
           </div>
 
-          <div className="bg-white border border-gray-200 rounded-lg p-5">
+          <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
             <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
               Top Builders
             </h2>
@@ -154,7 +168,7 @@ export default function PermitsPage() {
       )}
 
       {/* Permit listing table */}
-      <div className="bg-white border border-gray-200 rounded-lg overflow-x-auto">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-x-auto">
         <div className="px-5 py-3 border-b border-gray-200 flex items-center justify-between">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
             All Permits
@@ -226,7 +240,7 @@ export default function PermitsPage() {
       </div>
 
       {/* Scrape jobs */}
-      <div className="bg-white border border-gray-200 rounded-lg p-5">
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
         <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
           Recent Scrape Jobs
         </h2>
@@ -268,7 +282,7 @@ export default function PermitsPage() {
 
       {/* Scraper health */}
       {dash && dash.last_runs.length > 0 && (
-        <div className="bg-white border border-gray-200 rounded-lg p-5">
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-5">
           <h2 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
             Scraper Health
           </h2>
@@ -345,6 +359,109 @@ function JurisdictionFilter({
 }
 
 /* ------------------------------------------------------------------ */
+/*  VS Last Month KPI                                                  */
+/* ------------------------------------------------------------------ */
+
+function VsLastMonthCard({ summary }: { summary: PermitDashboard["summary"] }) {
+  const { current_month, last_month, month_delta } = summary;
+  const now = new Date();
+  const dayOfMonth = now.getDate();
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const daysInLastMonth = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+  const dailyRate = dayOfMonth > 0 ? current_month / dayOfMonth : 0;
+  const dailyLast = daysInLastMonth > 0 ? last_month / daysInLastMonth : 0;
+  const pctChange = dailyLast > 0 ? Math.round(((dailyRate - dailyLast) / dailyLast) * 100) : 0;
+  const projected = Math.round(dailyRate * daysInMonth);
+  const positive = month_delta >= 0;
+
+  return (
+    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4">
+      <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
+        vs Last Month
+      </p>
+      <p className={`text-2xl font-semibold tabular-nums ${positive ? "text-green-600" : "text-red-600"}`}>
+        {positive ? "+" : ""}{month_delta}
+      </p>
+      <p className={`text-xs tabular-nums mt-0.5 ${pctChange >= 0 ? "text-green-600" : "text-red-600"}`}>
+        {pctChange >= 0 ? "+" : ""}{pctChange}% daily rate
+      </p>
+      <p className="text-xs text-gray-400 tabular-nums mt-0.5">
+        ~{fmt(projected)} projected
+      </p>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/*  Permit map                                                         */
+/* ------------------------------------------------------------------ */
+
+function PermitMap({ points }: { points: PermitDashboard["map_points"] }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<L.Map | null>(null);
+
+  useEffect(() => {
+    if (!containerRef.current || points.length === 0) return;
+
+    // Destroy previous instance
+    if (mapRef.current) {
+      mapRef.current.remove();
+      mapRef.current = null;
+    }
+
+    const map = L.map(containerRef.current, { scrollWheelZoom: false });
+    mapRef.current = map;
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+      maxZoom: 18,
+    }).addTo(map);
+
+    const bounds = L.latLngBounds([]);
+
+    for (const pt of points) {
+      const color = pt.status_group === "closed" ? "#22c55e" : "#f59e0b";
+      const latlng = L.latLng(pt.latitude, pt.longitude);
+      bounds.extend(latlng);
+
+      L.circleMarker(latlng, {
+        radius: 6,
+        color,
+        fillColor: color,
+        fillOpacity: 0.8,
+        weight: 1,
+      })
+        .bindPopup(
+          `<div style="font-size:13px;line-height:1.5">
+            <strong>${pt.permit_number}</strong><br/>
+            ${pt.address ?? ""}<br/>
+            ${pt.jurisdiction} &middot; ${pt.status ?? ""}${pt.issue_date ? `<br/>${pt.issue_date}` : ""}
+            ${pt.subdivision !== "Unmatched" ? `<br/>${pt.subdivision}` : ""}
+            ${pt.builder !== "Unknown Builder" ? `<br/>${pt.builder}` : ""}
+          </div>`,
+        )
+        .addTo(map);
+    }
+
+    if (bounds.isValid()) {
+      map.fitBounds(bounds, { padding: [30, 30] });
+    }
+
+    return () => {
+      map.remove();
+      mapRef.current = null;
+    };
+  }, [points]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="h-[400px] rounded-xl border border-gray-200 shadow-sm overflow-hidden"
+    />
+  );
+}
+
+/* ------------------------------------------------------------------ */
 /*  Helper components                                                  */
 /* ------------------------------------------------------------------ */
 
@@ -360,7 +477,7 @@ function Card({
   tooltip?: string;
 }) {
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4" title={tooltip}>
+    <div className="bg-white border border-gray-200 rounded-xl shadow-sm p-4" title={tooltip}>
       <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
         {label}
       </p>
