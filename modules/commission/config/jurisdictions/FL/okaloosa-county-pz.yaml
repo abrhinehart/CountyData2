@@ -6,10 +6,10 @@ municipality: null
 commission_type: planning_board
 
 scraping:
-  platform: manual
+  platform: granicus
+  base_url: "https://okaloosacountyfl.iqm2.com/Citizens"
   document_formats: [pdf]
   has_duplicate_page_bug: false
-  extraction_note: "Okaloosa County uses IQM2 platform (okaloosacountyfl.iqm2.com), not CivicPlus. Documents must be uploaded manually."
 
 detection_patterns:
   header_keywords:

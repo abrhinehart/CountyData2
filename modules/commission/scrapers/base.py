@@ -59,6 +59,7 @@ class PlatformScraper(ABC):
         """
         from modules.commission.scrapers.civicclerk import CivicClerkScraper
         from modules.commission.scrapers.civicplus import CivicPlusScraper
+        from modules.commission.scrapers.granicus import GranicusScraper
         from modules.commission.scrapers.legistar import LegistarScraper
         from modules.commission.scrapers.manual import ManualScraper
         from modules.commission.scrapers.novusagenda import NovusAgendaScraper
@@ -66,6 +67,7 @@ class PlatformScraper(ABC):
         scrapers = {
             "civicclerk": CivicClerkScraper,
             "civicplus": CivicPlusScraper,
+            "granicus": GranicusScraper,
             "legistar": LegistarScraper,
             "manual": ManualScraper,
             "novusagenda": NovusAgendaScraper,

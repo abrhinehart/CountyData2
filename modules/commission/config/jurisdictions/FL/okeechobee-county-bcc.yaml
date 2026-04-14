@@ -1,13 +1,13 @@
-slug: okaloosa-county-bcc
-name: "Okaloosa County BCC"
+slug: okeechobee-county-bcc
+name: "Okeechobee County BCC"
 state: FL
-county: Okaloosa
+county: Okeechobee
 municipality: null
 commission_type: bcc
 
 scraping:
   platform: granicus
-  base_url: "https://okaloosacountyfl.iqm2.com/Citizens"
+  base_url: "https://okeechobeecountyfl.iqm2.com/Citizens"
   document_formats: [pdf]
   has_duplicate_page_bug: false
 
@@ -16,7 +16,7 @@ detection_patterns:
     - "COUNTY COMMISSIONERS"
     - "BOARD OF COUNTY COMMISSIONERS"
   require_also:
-    - "OKALOOSA COUNTY"
+    - "OKEECHOBEE COUNTY"
   header_zone: wide
 
 extraction_notes:

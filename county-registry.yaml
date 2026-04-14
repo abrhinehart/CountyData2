@@ -234,6 +234,10 @@ counties:
         endpoint: gis.myokaloosa.com/BaseMap_Layers/MapServer/111
         status: active
         fields: { owner: PATPCL_OWNER, parcel: PATPCL_PIN, address: PATPCL_ADDR1, use: PATPCL_USEDESC, acreage: PATPCL_LGL_ACRE }
+      cr:
+        platform: granicus
+        slug: okaloosa-county-bcc
+        status: pending_validation
 
   okeechobee-fl:
     name: Okeechobee County
@@ -257,6 +261,10 @@ counties:
         url: https://okeechobeecountyfl-energovweb.tylerhost.net/apps/selfservice
         status: live
         notes: "Tyler EnerGov Civic Access portal. Public REST API, no auth. Date-range search with client-side filtering."
+      cr:
+        platform: granicus
+        slug: okeechobee-county-bcc
+        status: pending_validation
 
   polk-fl:
     name: Polk County
