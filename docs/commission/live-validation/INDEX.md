@@ -27,7 +27,9 @@ separate downstream step.
 | [brevard-county-bcc](brevard-county-bcc.md) | legistar | PASS | 30 | 21 | 136 KB PDF | 2nd legistar tenant; no DNS flake |
 | [sumter-county-bcc](sumter-county-bcc.md) | civicplus | PASS | 7 | 7 | 736 KB PDF | config fix: category_id 5→3 (portal panel id, 5 was Budget Workshop) |
 | [hialeah-cc](hialeah-cc.md) | civicplus | PASS | 5 | 3 | 71 KB PDF | large-city high-traffic; sparse cadence is real |
-| [lake-wales-cc](lake-wales-cc.md) | civicplus | PASS | 7 | 4 | 56 KB PDF | category_id=3 surfaces P&Z not CC — works at fetch level |
+| [lake-wales-cc](lake-wales-cc.md) | civicplus | PASS | 13 | 7 | (post-fix) | config fix: category_id 3→4 (3 was P&Z Board, 4 is City Commission Regular) |
+| [sumter-county-pz](sumter-county-pz.md) | civicplus | PASS | 5 | 5 | (post-fix) | config fix: category_id 2→20 (2 was BCC Workshop, 20 is Planning and Zoning Special Master) |
+| [winter-garden-cc](winter-garden-cc.md) | civicplus | PASS* | 59 | — | 91 MB PDF | config fix: category_id 2→6 (2 was Architectural Review, 6 is City Commission); *in 6-month window 0 listings, extended window confirms fix |
 
 ## Scraper families proven in this pass
 
@@ -46,3 +48,27 @@ The README counts three jurisdictions validated end-to-end before this pass
 (Bay / Panama City Beach on Permits, Polk end-to-end). The CR-specific
 "3 actively validated" baseline referenced in README §Status predates this
 directory and is being superseded by the per-jurisdiction notes above.
+
+## 2026-04-14 audit — CR YAML category_id drift sweep
+
+Sweep of all 34 in-scope FL configs with `category_id` (15 civicplus + 19 civicclerk).
+
+- **Date:** 2026-04-14
+- **Window:** 2025-10-01 → 2026-04-14
+- **Total audited:** 34
+- **OK (title confirms board match, PASS):** 10
+- **OK_UNVERIFIED (PASS, generic filenames — no drift signal):** 14
+- **DRIFT (PASS but first titles name a different body):** 3 fixed + 1 deferred = 4
+- **EMPTY (FAIL, 0 listings):** 6
+- **FLAKE:** 0
+
+**Drifts fixed (3):** lake-wales-cc, sumter-county-pz, winter-garden-cc (see INDEX rows above).
+
+**Deferred follow-ups (7):** collier-county-boa (no Board of Adjustment in portal);
+north-miami-beach-cc (City Commission not in AgendaCenter at all); pembroke-pines-cc
+(ditto); santa-rosa-county-bcc and santa-rosa-county-zb (base_url DNS broken — wrong
+domain `santarosafl.gov`; real domain is `santarosa.fl.gov`); citrus-county-pz
+(category_id correct; body inactive since 2024-12); lake-county-pz (category_id correct;
+scraper adapter returns 0 despite Events API showing records — adapter bug, not config).
+
+All deferred items are tracked in `docs/sessions/2026-04-14-cr-yaml-audit.md`.

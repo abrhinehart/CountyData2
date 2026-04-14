@@ -8,7 +8,7 @@ commission_type: planning_board
 scraping:
   platform: civicplus
   base_url: "https://sumtercountyfl.gov/AgendaCenter"
-  category_id: 2  # TODO: verify category ID from AgendaCenter page
+  category_id: 20  # Planning and Zoning Special Master (PZSM) (portal panel id 20; id 2 was BCC Workshop)
   document_formats: [pdf]
   has_duplicate_page_bug: false
 
