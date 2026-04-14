@@ -473,3 +473,47 @@ export interface TrendPoint {
   removed_count: number;
   changed_count: number;
 }
+
+export interface GeometryCoverageRow {
+  county: string;
+  total: number;
+  with_geom: number;
+  without_geom: number;
+}
+
+// ---------------------------------------------------------------------------
+// Platform Health detail rows
+// ---------------------------------------------------------------------------
+
+export interface BiSnapshotHealthRow {
+  county: string;
+  started_at: string;
+  completed_at: string | null;
+  status: string;
+  total_parcels_queried: number;
+  new_count: number;
+  changed_count: number;
+  error_message: string | null;
+}
+
+export interface PtScrapeHealthRow {
+  id: number;
+  jurisdiction_name: string | null;
+  status: string;
+  trigger_type: string;
+  queued_at: string;
+  started_at: string | null;
+  finished_at: string | null;
+  last_error: string | null;
+  attempt_count: number;
+  max_attempts: number;
+}
+
+export interface CrDocumentHealthRow {
+  jurisdiction: string;
+  total_documents: number;
+  extracted_ok: number;
+  extracted_fail: number;
+  not_attempted: number;
+  latest_meeting: string | null;
+}

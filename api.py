@@ -84,6 +84,110 @@ def list_modules():
     return {"modules": modules}
 
 
+@app.get("/api/platform/geometry-coverage")
+def geometry_coverage():
+    """Per-county subdivision geometry coverage stats."""
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT c.name                                          AS county,
+                       COUNT(*)                                        AS total,
+                       COUNT(*) FILTER (WHERE s.geom IS NOT NULL)      AS with_geom,
+                       COUNT(*) FILTER (WHERE s.geom IS NULL)          AS without_geom
+                  FROM subdivisions s
+                  JOIN counties c ON c.id = s.county_id
+                 WHERE s.is_active = true
+                 GROUP BY c.name
+                 ORDER BY c.name
+            """)
+            cols = [d[0] for d in cur.description]
+            rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        pool.putconn(conn)
+    return {"rows": rows}
+
+
+@app.get("/api/platform/bi-snapshot-health")
+def bi_snapshot_health():
+    """Latest BI snapshot per county."""
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT DISTINCT ON (c.name)
+                       c.name                       AS county,
+                       s.started_at,
+                       s.completed_at,
+                       s.status,
+                       s.total_parcels_queried,
+                       s.new_count,
+                       s.changed_count,
+                       s.error_message
+                  FROM bi_snapshots s
+                  JOIN counties c ON c.id = s.county_id
+                 ORDER BY c.name, s.started_at DESC
+            """)
+            cols = [d[0] for d in cur.description]
+            rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        pool.putconn(conn)
+    return {"rows": rows}
+
+
+@app.get("/api/platform/pt-scrape-health")
+def pt_scrape_health():
+    """Recent PT scrape jobs."""
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT id,
+                       jurisdiction_name,
+                       status,
+                       trigger_type,
+                       queued_at,
+                       started_at,
+                       finished_at,
+                       last_error,
+                       attempt_count,
+                       max_attempts
+                  FROM pt_scrape_jobs
+                 ORDER BY queued_at DESC
+                 LIMIT 50
+            """)
+            cols = [d[0] for d in cur.description]
+            rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        pool.putconn(conn)
+    return {"rows": rows}
+
+
+@app.get("/api/platform/cr-document-health")
+def cr_document_health():
+    """CR source document stats grouped by jurisdiction."""
+    conn = pool.getconn()
+    try:
+        with conn.cursor() as cur:
+            cur.execute("""
+                SELECT j.name                                                        AS jurisdiction,
+                       COUNT(*)                                                      AS total_documents,
+                       COUNT(*) FILTER (WHERE d.extraction_successful = true)        AS extracted_ok,
+                       COUNT(*) FILTER (WHERE d.extraction_successful = false)       AS extracted_fail,
+                       COUNT(*) FILTER (WHERE d.extraction_attempted = false)        AS not_attempted,
+                       MAX(d.meeting_date)                                           AS latest_meeting
+                  FROM cr_source_documents d
+                  JOIN jurisdictions j ON j.id = d.jurisdiction_id
+                 GROUP BY j.name
+                 ORDER BY j.name
+            """)
+            cols = [d[0] for d in cur.description]
+            rows = [dict(zip(cols, r)) for r in cur.fetchall()]
+    finally:
+        pool.putconn(conn)
+    return {"rows": rows}
+
+
 # ---------------------------------------------------------------------------
 # Static file serving (production: serve built React app)
 # ---------------------------------------------------------------------------

@@ -68,7 +68,7 @@ TRACT_ACREAGE_THRESHOLD = 5.0  # parcels above this with no specific use type â†
 
 def classify_parcel(use_type: str | None, acreage: float | None) -> str:
     """Classify a single parcel. Returns one of: lot, common_area, tract, other."""
-    ut = (use_type or "").strip()
+    ut = str(use_type).strip() if use_type is not None else ""
 
     # Check use_type patterns first
     if ut:

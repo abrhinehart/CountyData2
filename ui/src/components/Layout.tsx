@@ -9,6 +9,7 @@ const links = [
   { to: "/commission", label: "Commission" },
   { to: "/pipeline", label: "Pipeline" },
   { to: "/map", label: "Map" },
+  { to: "/health", label: "Health" },
 ];
 
 export default function Layout() {

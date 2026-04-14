@@ -9,6 +9,7 @@ import InventoryPage from "./pages/InventoryPage";
 import PermitsPage from "./pages/PermitsPage";
 import CommissionPage from "./pages/CommissionPage";
 import MapPage from "./pages/MapPage";
+import HealthPage from "./pages/HealthPage";
 
 export default function App() {
   return (
@@ -24,6 +25,7 @@ export default function App() {
         <Route path="subdivisions" element={<SubdivisionsPage />} />
         <Route path="subdivisions/:id" element={<SubdivisionDetailPage />} />
         <Route path="map" element={<MapPage />} />
+        <Route path="health" element={<HealthPage />} />
       </Route>
     </Routes>
   );
