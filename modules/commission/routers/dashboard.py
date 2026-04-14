@@ -53,10 +53,6 @@ def load_jurisdictions(db: Session):
     ``CrJurisdictionConfig`` and must be joined in. County name comes from
     the shared ``counties`` table via ``Jurisdiction.county_id``.
     """
-    # TODO: verify schema — county name lookup. Currently using
-    # Jurisdiction.county_id joined to counties table would be ideal, but
-    # we keep the legacy ``county`` text column unavailable, so we rely on
-    # the Jurisdiction relationship or a simple join-free display for now.
     from shared.models import County
 
     rows = (
@@ -202,10 +198,10 @@ def dashboard_actions(
     date_to: str | None = Query(None),
     db: Session = Depends(get_db),
 ):
-    # TODO: verify schema — Project (Subdivision) no longer has jurisdiction_id.
-    # We approximate "project jurisdiction" by joining Subdivision.county_id
-    # to Jurisdiction.county_id. This means a project can map to multiple
-    # jurisdictions sharing a county, so we prefer the source document's
+    # Project (Subdivision) has no jurisdiction_id. We approximate
+    # "project jurisdiction" by joining Subdivision.county_id to
+    # Jurisdiction.county_id. Because a project can map to multiple
+    # jurisdictions sharing a county, we prefer the source document's
     # jurisdiction when displaying.
     SrcJurisdiction = aliased(Jurisdiction)
 
@@ -411,9 +407,9 @@ def toggle_pin(slug: str, db: Session = Depends(get_db)):
         .first()
     )
     if not config:
-        # TODO: verify schema — commission_type is non-null on
-        # CrJurisdictionConfig, so auto-creating a config row here requires
-        # a sensible default. Use 'unknown' and expect operators to edit.
+        # commission_type is non-null on CrJurisdictionConfig, so
+        # auto-creating a config row here requires a sensible default.
+        # Use 'unknown' and expect operators to edit.
         config = CrJurisdictionConfig(
             jurisdiction_id=juris.id, commission_type="unknown", pinned=True
         )

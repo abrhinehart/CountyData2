@@ -3,25 +3,9 @@
 import json
 import os
 
-# TODO: verify schema — these helper modules have not yet been ported to
-# modules.commission. Imports are best-effort placeholders and should be
-# updated once the underlying helpers are migrated.
-try:
-    from modules.commission.collection_review import source_document_status_label
-except ImportError:  # pragma: no cover - module not yet ported
-    def source_document_status_label(*args, **kwargs):  # type: ignore
-        return "unknown"
-
-try:
-    from modules.commission.config import PDF_STORAGE_DIR
-except ImportError:  # pragma: no cover - module not yet ported
-    PDF_STORAGE_DIR = os.environ.get("CR_PDF_STORAGE_DIR", "pdf_storage")
-
-try:
-    from modules.commission.converters.base import format_conversion_warnings
-except ImportError:  # pragma: no cover - module not yet ported
-    def format_conversion_warnings(metadata):  # type: ignore
-        return ""
+from modules.commission.collection_review import source_document_status_label
+from modules.commission.config import PDF_STORAGE_DIR
+from modules.commission.converters.base import format_conversion_warnings
 
 
 def _send(payload):

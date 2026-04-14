@@ -22,33 +22,12 @@ from modules.commission.routers.helpers import (
 )
 from modules.commission.routers.process import process_document
 
-# TODO: verify schema — these helpers have not yet been ported from
-# commission_radar to modules.commission. Provide fallbacks so the module
-# can at least be imported.
-try:
-    from modules.commission.collection_review import source_document_status_label
-except ImportError:  # pragma: no cover
-    def source_document_status_label(*args, **kwargs):  # type: ignore
-        return "unknown"
-
-try:
-    from modules.commission.intake import (
-        IntakeValidationError,
-        validate_document_file,
-    )
-except ImportError:  # pragma: no cover
-    class IntakeValidationError(Exception):  # type: ignore
-        pass
-
-    validate_document_file = None  # type: ignore
-
-try:
-    from modules.commission.utils import append_processing_note
-except ImportError:  # pragma: no cover
-    def append_processing_note(existing, note):  # type: ignore
-        if not existing:
-            return note
-        return f"{existing}\n{note}"
+from modules.commission.collection_review import source_document_status_label
+from modules.commission.intake import (
+    IntakeValidationError,
+    validate_document_file,
+)
+from modules.commission.utils import append_processing_note
 
 
 router = APIRouter(prefix="/review")

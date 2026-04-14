@@ -82,9 +82,9 @@
     "jurisdiction": "Madison County, AL",
     "portal_type": "cityview",
     "portal_url": "https://cityview.madisoncountyal.gov/Portal",
-    "public_access": "Madison County's CityView permit search requires login, but an authenticated account can access a countywide permit locator plus public permit-status pages.",
-    "live_ready": true,
-    "status": "live-authenticated-cityview-adapter",
+    "public_access": "Madison County's CityView permit search requires login. The authenticated permit locator is the only path to countywide PRBD results; without credentials the adapter has no usable public surface.",
+    "live_ready": false,
+    "status": "blocked-awaiting-credentials",
     "searchable_fields": [
       "application number",
       "permit address",
@@ -98,10 +98,11 @@
       "property owner"
     ],
     "notes": [
-      "Madison County's Inspection Department documents CityView as the portal for applying for permits, scheduling inspections, viewing inspection results, and submitting payments.",
-      "The public CityView property locator is still reachable without login and returns property-review pages by address or PPIN.",
-      "After authentication, the Permit Application Search at /Portal/Permit/Locator exposes countywide permit results and links to permit-status detail pages.",
-      "The live adapter now logs in with configured CityView credentials, pages through PRBD search results by year, and filters permit-status details down to likely new residential dwelling permits."
+      "Adapter is currently a stub — fetch_permits() raises NotImplementedError until CityView credentials are provisioned.",
+      "Target portal is CityView (Harris) at https://cityview.madisoncountyal.gov/Portal. Login at /Portal/Account/Login.",
+      "Target flow once credentials exist: authenticated PRBD year search at /Portal/Permit/Locator, following links to permit-status detail pages.",
+      "Required env vars when implementing: MADISON_AL_CITYVIEW_EMAIL, MADISON_AL_CITYVIEW_PASSWORD.",
+      "Do NOT conflate with the Madison County probate portal at madisonprobate.countygovservices.com (Azure AD B2C + Kendo Grid, documented in AL-ONBOARDING.md) — different vendor, different auth, different data."
     ],
     "evidence": [
       {

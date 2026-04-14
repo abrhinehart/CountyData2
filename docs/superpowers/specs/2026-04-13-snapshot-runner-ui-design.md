@@ -57,3 +57,29 @@ When a snapshot completes successfully:
 - Modify: `modules/inventory/routers/snapshots.py` — add active snapshots endpoint
 - Modify: `modules/inventory/schemas/snapshot.py` — add progress fields to SnapshotOut
 - Modify: `ui/src/pages/InventoryPage.tsx` — confirm dialog, polling, progress display, error display
+
+## Status: Shipped (2026-04-14)
+
+Verified shipped end-to-end during project reload. Backend columns/endpoint + frontend polling/progress/error display all present. Documented via triad audit.
+
+### Implementation Map
+
+| Spec bullet | Code location |
+|---|---|
+| `progress_current` / `progress_total` columns | `migrations/018_snapshot_progress_columns.sql` + `modules/inventory/models.py` |
+| Runner writes progress per builder | `modules/inventory/services/snapshot_runner.py` |
+| `GET /snapshots/active` endpoint | `modules/inventory/routers/snapshots.py:41-42` |
+| `SnapshotOut` includes progress | `modules/inventory/schemas/snapshot.py` |
+| Inline confirm dialog | `ui/src/pages/InventoryPage.tsx:534-541, 589-595` |
+| 3s poll while any running | `ui/src/pages/InventoryPage.tsx:499-505` |
+| Progress bar + current/total | `ui/src/pages/InventoryPage.tsx:604-617` |
+| Elapsed time (1s tick) | `ui/src/pages/InventoryPage.tsx:512-517, 601-610` |
+| Error display on failed | `ui/src/pages/InventoryPage.tsx:532, 624-633` |
+| Invalidate on completion | `ui/src/pages/InventoryPage.tsx:519-529` |
+| `getActiveSnapshots()` API | `ui/src/api.ts:273` |
+| `Snapshot.progress_*` types | `ui/src/types.ts:307-308` |
+
+### Accepted simplifications
+
+- No explicit error-dismiss button. Recent failed snapshots (last 5) display and auto-clear when new snapshots supersede them.
+- No transient success toast. Completion invalidates dependent queries (counties, summary, trends), so the main snapshot table refreshes with new/removed/changed counts instead.
