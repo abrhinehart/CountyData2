@@ -1,12 +1,15 @@
 # Polk County Scrapers vs API Maps — Improvement Report
 
-Last updated: 2026-04-14
+Last updated: 2026-04-15
 
 Source api-maps:
 - [polk-county-accela.md](polk-county-accela.md)
 - [polk-county-arcgis.md](polk-county-arcgis.md)
 - [polk-county-iworq.md](polk-county-iworq.md)
 - [polk-county-legistar.md](polk-county-legistar.md)
+
+Related findings:
+- [accela-rest-probe-findings.md](accela-rest-probe-findings.md) — April 2026 probe establishing REST is not a viable path for bulk public extraction. Materially revises the ACCELA-02 recommendation below.
 
 Source scrapers:
 - `modules/permits/scrapers/adapters/polk_county.py`, `accela_citizen_access.py`, `lake_alfred.py`, `winter_haven.py`
@@ -23,7 +26,7 @@ Source scrapers:
 ## Executive Summary
 
 - **Highest-ROI single change (P0, S):** Fix the api-map / seed drift for the Polk ArcGIS (BI) surface. `seed_bi_county_config.py` already maps **9 fields** for Polk (parcel, owner, address, use, acreage, subdivision, building_value, appraised_value, deed_date), but the api-map states only 5 are mapped. Either the seed has not been run against the production DB, or the api-map is stale. A one-row DB check + api-map correction removes a false "gap" and unblocks correct prioritization of the other BI gaps. See `ARCGIS-00`.
-- **Highest strategic-value multi-session project (P1, L):** Migrate the Accela scrapers (polk-county, lake-alfred, winter-haven) from HTML+regex to the Accela v4 REST API (`https://apis.accela.com`). This single project unlocks ~30 fields currently marked NO in §4 of the Accela map (owner, all contacts, fees, documents, workflow, related records, lat/lon), bypasses the Winter Haven auth wall, collapses binary date-splitting into simple offset pagination, and stabilizes extraction against HTML markup changes. Blocked only on free Citizen App registration at developer.accela.com.
+- **Highest strategic-value multi-session project (P1, L):** Harden and expand the Accela HTML extraction path — specifically, wire the Inspections-tab sub-page fetch (ACCELA-06), add structured contact/owner DOM parsing (ACCELA-03, ACCELA-04), and iterate over the 34+ record types (ACCELA-01). An April 2026 v4 REST probe across POLKCO, CITRUS, COLA, BOCC, and BREVARD established that Accela v4 REST is designed for authorized integrations, not bulk anonymous extraction: no tested Florida agency has the "anonymous user" toggle enabled (all return `anonymous_user_unavailable`), and ~half of the relevant endpoints require a bearer token even when it is enabled. The ACA citizen-portal HTML path is the mechanism Accela designed for our use case. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md) and ACCELA-02 below for the full reframing.
 - **Most urgent drift / correctness concern (P0, S):** `AccelaCitizenAccessAdapter._parse_inspections` returns silently `None` for Polk because Polk's inspection data lives on a separate "Record Info > Inspections" tab, not inline on CapDetail.aspx. The unit tests use synthetic HTML with a direct `<h3>Inspections</h3>` + `<table>` and therefore cannot catch this. The adapter populates `permit["inspections"] = None` while emitting no warning, giving the illusion of a feature that silently produces no data. See `ACCELA-05`.
 
 ---
@@ -47,38 +50,39 @@ Extraction is 100% HTML scraping:
 1. ~30+ fields are visible on `CapDetail.aspx` and NOT extracted: full owner, applicant/contractor phone/email/company/mailing address/license type+number/fax, all 15+ ASI custom form fields (gate code, NOC, FS 119 status, disposal equipment, plan-submission method, private provider, work type, property type, mechanical mini-split flags), Power Provider ASI (provider/type/release date/release by), Block/Lot.
 2. Accela exposes 4 publicly-relevant tabs (Inspections, Attachments, Fees, Processing Status, Related Records, Conditions) — all reachable without login but NONE fetched by the adapter.
 3. The portal supports 6 search modes (General / Address / Licensed Professional / Record Information / Trade Name / Contact). We only use General, single `ddlGSPermitType`, missing ~30 other record types across Building, Enforcement, and Land Dev modules.
-4. A free public Accela v4 REST API (`https://apis.accela.com`) with 15+ relevant endpoints would replace ALL of the above with structured JSON, including `/v4/geo/geocode/reverse` (lat/lon gap).
+4. A public Accela v4 REST API (`https://apis.accela.com`) with 15+ relevant endpoints exists, but an April 2026 probe (see [accela-rest-probe-findings.md](accela-rest-probe-findings.md)) established it is NOT available for bulk anonymous extraction: all tested FL agencies have `anonymous_user_unavailable`, and half the endpoints (contacts, owners, inspections, fees, documents, workflow, related) require a bearer token regardless. The REST path becomes a possibility only if a specific agency admin enables the anonymous-user toggle on their end — not a roadmap item we can drive.
 5. Charlotte County (same platform) rate-limits aggressively (0.5s detail delay); POLKCO does not yet but is the same software.
-6. Winter Haven's auth wall is an agency-level toggle in Civic Platform — REST anonymous access may still work with a registered App ID even though the HTML search is locked.
+6. Winter Haven's auth wall is an agency-level toggle in Civic Platform. The April 2026 REST probe rules out REST as a bypass route — COWH's anonymous-user toggle will be off like every other tested FL agency. Winter Haven remains fixture-mode pending either HTML-side login work or direct outreach to the agency.
 
 ### Gaps
 
 | ID | Category | Current | API Map Offers | Recommended Action | Effort | Risk | Priority |
 |----|----------|---------|----------------|--------------------|--------|------|----------|
 | ACCELA-01 | Coverage Gap | Only `Building/Residential/New/NA` record type extracted | 4 residential + 9 single-trade + 6 commercial + mobile-home + Land Dev (34+ record types) | Parametrize `target_record_type` as a list; iterate and dedup; optionally introduce sibling adapter slugs for Commercial/Trade splits (needed because analytics is residential-centric) | M | Low | P1 |
-| ACCELA-02 | Endpoint/Protocol | 100% HTML+regex via ASP.NET postback | Accela v4 REST API with 15+ JSON endpoints (records, contacts, inspections, fees, documents, workflow, related, geocode) | Register free Citizen App at developer.accela.com; build `AccelaRestAdapter` that reads App ID from env; keep HTML adapter as fallback for agencies that haven't enabled anonymous REST. Strategic, unlocks most other ACCELA-\* gaps. | L | High | P1 |
-| ACCELA-03 | Field Mapping | Owner name/address not extracted | Owner section on detail page (Name, full address) and `/v4/records/{id}/owners` | Add `owner_pattern` regex in HTML path, or pick up via REST once ACCELA-02 lands | S | Low | P1 |
-| ACCELA-04 | Field Mapping | Applicant/contractor = flattened-text regex, frequently null; only name captured | Full name, company, license type+number, phone, email, fax, mailing address; "View Additional Licensed Professionals" subcontractor list | Prefer structured parsing (detail page has stable DOM anchors per section) over flattened regex; or switch via REST `/contacts` + `/professionals` | M | Med | P1 |
+| ACCELA-02 | Endpoint/Protocol | 100% HTML+regex via ASP.NET postback | Accela v4 REST API exists but April 2026 probe shows it is NOT usable for bulk anonymous extraction (see [accela-rest-probe-findings.md](accela-rest-probe-findings.md)). | **BLOCKED — deferred.** External dependency: agency admin must enable anonymous-user toggle in Civic Platform. Not a project we can schedule. Keep as aspirational / opportunistic — if an agency ever contacts us and offers REST credentials, reopen. Until then: invest in the HTML path (ACCELA-01, 03, 04, 06, 11). | L | High | P3 (blocked) |
+| ACCELA-03 | Field Mapping | Owner name/address not extracted | Owner section on detail page (Name, full address) and `/v4/records/{id}/owners` | Add `owner_pattern` regex/DOM parser in the HTML path. REST owners endpoint unreachable without agency cooperation (see ACCELA-02). | S | Low | P1 |
+| ACCELA-04 | Field Mapping | Applicant/contractor = flattened-text regex, frequently null; only name captured | Full name, company, license type+number, phone, email, fax, mailing address; "View Additional Licensed Professionals" subcontractor list | Structured DOM parsing against the detail page's stable per-section anchors. REST `/contacts` + `/professionals` require a bearer token even when anonymous user is enabled (see ACCELA-02), so the HTML path is the only actionable route. | M | Med | P1 |
 | ACCELA-05 | Robustness | `_parse_inspections` runs on detail HTML but Polk's Inspections live on a separate `Record Info > Inspections` sub-page. Returns `None` silently on Polk; emits `permit["inspections"] = None` with no warning. Unit tests use synthetic inline HTML and do not catch this. | Inspections tab URL + REST `/v4/records/{id}/inspections` (60+ fields per inspection) | Either (a) fetch the Inspections sub-tab explicitly and parse it, or (b) remove the `inspections` key from Polk output until wired properly, or (c) log a DEBUG warning when the field is None on agencies that have inspections. See also ACCELA-06. | S | Low | P0 |
-| ACCELA-06 | Coverage Gap | Inspections tab never fetched | Full inspection list with type/date/status/result/inspector (public; no login for viewing) | Add tab fetch to the detail flow; REST path strongly preferred | M | Low | P1 |
-| ACCELA-07 | Coverage Gap | Fees tab never fetched | Fee line items, invoice numbers, amounts, dates (Outstanding section is public) | Fetch tab or REST `/records/{id}/fees` | M | Low | P2 |
-| ACCELA-08 | Coverage Gap | Attachments tab never fetched | Document filenames, types, dates, download URLs (public list + public downloads) | Fetch tab or REST `/records/{id}/documents`; storage cost is the main decision. | M | Med | P2 |
-| ACCELA-09 | Coverage Gap | Processing Status tab never fetched | Workflow task names, statuses, assignees, due dates | REST `/records/{id}/workflowTasks` once ACCELA-02 lands | S | Low | P2 |
-| ACCELA-10 | Coverage Gap | Related Records tab never fetched | Parent/child permit tree (e.g., Residential New → trade permits) | REST `/records/{id}/related`; valuable for de-duplicating trade-permit noise against the main residential permit | S | Low | P2 |
-| ACCELA-11 | Field Mapping | `latitude`/`longitude` hard-coded `None` in the permit dict | REST `/v4/geo/geocode/reverse`, or `xCoordinate`/`yCoordinate` on address object | Wire via REST (preferred) or chain through existing `modules/permits/geocoding.py` (already hints `", FL"` for Polk County/Lake Alfred/Winter Haven) | S | Low | P1 |
-| ACCELA-12 | Field Mapping | ASI (Application Specific Info) sections ignored — gate code, NOC, FS 119, disposal equipment, mechanical mini-split, private-provider flag, Work Type, Property Type, Power Provider table | REST `/records/{id}/customForms` and `/customTables`; or expand regex set in HTML path | Capture a small subset in the HTML path (gate code, Work Type, Property Type) — most other ASI is not analytically useful for our residential-leads use case. Full capture only via REST. | M | Low | P2 |
-| ACCELA-13 | Performance | Binary date-range splitting on `total >= 100`. Every split re-submits the full search with a fresh session in the recursion; each call re-fetches the ~100KB VIEWSTATE page. For wide date ranges with many permits this is O(n log n) network hits. | REST supports straight `$offset`/`$limit` pagination with no ViewState | Expected to vanish under ACCELA-02. Short-term mitigation: skip the initial `_submit_search` per recursion and reuse the existing page payload for the split halves. Low priority if ACCELA-02 is on the roadmap. | S | Med | P2 |
-| ACCELA-14 | Robustness | No fixture-drift guardrail. `tests/test_accela_citizen_access_adapter.py` uses synthetic HTML only. Any ACA markup change breaks regex extraction silently (all fields return None). | Deterministic JSON via REST removes this risk entirely. | Add a monthly cron that runs the adapter against one known permit number and asserts parcel/contractor/valuation are non-null — until ACCELA-02 lands. | S | Low | P1 |
+| ACCELA-06 | Coverage Gap | Inspections tab never fetched | Full inspection list with type/date/status/result/inspector (public; no login for viewing) | Fetch the Inspections sub-tab URL and parse it into the per-permit dict. (The prior recommendation favored REST — deprecated by April 2026 probe findings; REST `/inspections` is token-gated. HTML tab fetch is the only actionable route.) | M | Low | P1 |
+| ACCELA-07 | Coverage Gap | Fees tab never fetched | Fee line items, invoice numbers, amounts, dates (Outstanding section is public) | Fetch the Fees tab URL. REST `/records/{id}/fees` requires a bearer token (see ACCELA-02). | M | Low | P2 |
+| ACCELA-08 | Coverage Gap | Attachments tab never fetched | Document filenames, types, dates, download URLs (public list + public downloads) | Fetch the Attachments tab URL. REST `/records/{id}/documents` requires a bearer token (see ACCELA-02). Storage cost is the main decision. | M | Med | P2 |
+| ACCELA-09 | Coverage Gap | Processing Status tab never fetched | Workflow task names, statuses, assignees, due dates | HTML Processing Status tab fetch. REST `/workflowTasks` is token-gated (see ACCELA-02) so the HTML tab is the only actionable route. | M | Low | P2 |
+| ACCELA-10 | Coverage Gap | Related Records tab never fetched | Parent/child permit tree (e.g., Residential New → trade permits) | HTML Related Records tab fetch. REST `/related` is token-gated (see ACCELA-02). Valuable for de-duplicating trade-permit noise against the main residential permit. | M | Low | P2 |
+| ACCELA-11 | Field Mapping | `latitude`/`longitude` hard-coded `None` in the permit dict | REST `/v4/geo/geocode/reverse`, or `xCoordinate`/`yCoordinate` on address object | Chain through existing `modules/permits/geocoding.py` (already hints `", FL"` for Polk County / Lake Alfred / Winter Haven). REST `/geo/geocode/reverse` was the original preferred path but is blocked by ACCELA-02; `geocoding.py` is the only actionable route. | S | Low | P1 |
+| ACCELA-12 | Field Mapping | ASI (Application Specific Info) sections ignored — gate code, NOC, FS 119, disposal equipment, mechanical mini-split, private-provider flag, Work Type, Property Type, Power Provider table | REST `/records/{id}/customForms` and `/customTables`; or expand regex set in HTML path | Capture a small subset in the HTML path (gate code, Work Type, Property Type) — most other ASI is not analytically useful for our residential-leads use case. Full-ASI capture would have required REST `/customForms`, which is blocked (ACCELA-02). | M | Low | P2 |
+| ACCELA-13 | Performance | Binary date-range splitting on `total >= 100`. Every split re-submits the full search with a fresh session in the recursion; each call re-fetches the ~100KB VIEWSTATE page. For wide date ranges with many permits this is O(n log n) network hits. | REST supports straight `$offset`/`$limit` pagination with no ViewState | ACCELA-02 (formerly expected to make this moot) is now blocked, so this mitigation becomes the actual fix: skip the initial `_submit_search` per recursion and reuse the existing page payload for the split halves. Re-scope to P2 (was P2) but raise engagement odds since the REST workaround is off the table. | S | Med | P2 |
+| ACCELA-14 | Robustness | No fixture-drift guardrail. `tests/test_accela_citizen_access_adapter.py` uses synthetic HTML only. Any ACA markup change breaks regex extraction silently (all fields return None). | Deterministic JSON via REST would have removed this risk, but REST is blocked (ACCELA-02); HTML-side canary is the only mitigation. | Add a monthly cron that runs the adapter against one known permit number and asserts parcel/contractor/valuation are non-null. (The "until ACCELA-02 lands" escape hatch is no longer available — ACCELA-02 is blocked per the April 2026 probe; this canary becomes permanent.) | S | Low | P1 |
 | ACCELA-15 | Config/Registry | `permit_type_filter = ()` but `target_record_type` locks extraction to one record type at the search layer, making the filter field dead code on Polk. | — | Remove or repurpose `permit_type_filter` for the record types where the grid returns a mixed set. Low urgency. | S | Low | P2 |
-| ACCELA-16 | Coverage Gap | Winter Haven (COWH) = 0 permits; listed as `fixture` mode in `seed_pt_jurisdiction_config.py` because HTML search requires login. | Agency-level auth gate may not apply to anonymous REST with a registered App ID. Land Dev or Enforcement modules may not require auth even in HTML. | As part of ACCELA-02: probe whether COWH exposes `/v4/search/records` anonymously. Separately: test Enforcement-module HTML search which may not share the Building auth gate. | M | Med | P1 |
+| ACCELA-16 | Coverage Gap | Winter Haven (COWH) = 0 permits; listed as `fixture` mode in `seed_pt_jurisdiction_config.py` because HTML search requires login. | REST probe closed this door (see ACCELA-02 / probe findings). HTML Land Dev / Enforcement modules remain the open lead. | The REST-probe half of this gap is now resolved negatively: COWH will have the same `anonymous_user_unavailable` posture as every other tested FL agency (see [accela-rest-probe-findings.md](accela-rest-probe-findings.md)). Remaining actionable work: test the Enforcement-module HTML search against COWH — it may not share the Building-module auth gate — and consider a fixture-mode authenticated scraper that re-uses browser cookies. | M | Med | P1 |
 
 ### Prioritized Action List (this surface)
 
-1. **P0**: ACCELA-05 — close the inspections drift bug (1-2 hours).
-2. **P1 / foundation**: ACCELA-02 + ACCELA-11 — register Citizen App, prototype REST record+address+geocode fetch against a handful of known permits.
-3. **P1 / quick wins**: ACCELA-03, ACCELA-14 — add owner regex; add monthly drift canary.
-4. **P1 / expansion**: ACCELA-01, ACCELA-04, ACCELA-06, ACCELA-16 — once REST works, add record-type iteration, structured contact parsing, inspection capture, and retry Winter Haven via REST.
-5. **P2 / opportunistic**: ACCELA-07 through ACCELA-10, ACCELA-12, ACCELA-13, ACCELA-15.
+1. **P0**: ACCELA-05 — close the inspections drift bug (1-2 hours). _[already shipped in commit `be5d02f`; leave as-is unless Executor discovers it still open]_
+2. **P1 / strategic pivot**: ACCELA-06 + ACCELA-03 + ACCELA-04 — fetch the Inspections sub-tab, add owner extraction, add structured contact/professional DOM parsing. This is the new "foundation" replacing the blocked ACCELA-02.
+3. **P1 / quick wins**: ACCELA-11 (geocoding.py wire), ACCELA-14 (monthly drift canary — now permanent since REST fallback is gone).
+4. **P1 / expansion**: ACCELA-01 (34+ record-type iteration). ACCELA-16 partial (Enforcement-module HTML probe for Winter Haven).
+5. **P2 / opportunistic**: ACCELA-07, ACCELA-08, ACCELA-09, ACCELA-10, ACCELA-12, ACCELA-13, ACCELA-15.
+6. **P3 / blocked**: ACCELA-02 — deferred pending agency-side anonymous-user toggle or staff-credential grant. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md).
 
 ---
 
@@ -218,9 +222,13 @@ Request cadence: `$top=100`, `$skip+=100`, 0.5s sleep between paginated pages. S
 
 ## Cross-Surface / Meta Recommendations
 
-### Theme 1 — REST is the strategic unlock for Accela
+### Theme 1 — REST is NOT the strategic unlock for Accela (revised April 2026)
 
-The Accela HTML layer is the single biggest source of fragility (silent regex failures, VIEWSTATE complexity, auth-gated modules). ACCELA-02 replaces most of Section 1's gap backlog with a single project. This project also resolves the Winter Haven (ACCELA-16) stall and the "no coordinates" gap (ACCELA-11) in one sweep.
+Original hypothesis (v1 of this report, 2026-04-14): ACCELA-02 (migrate to v4 REST) would collapse Section 1's gap backlog into one project.
+
+Probe result (2026-04-15): v4 REST is designed for authorized integrations, not bulk anonymous extraction. No tested FL agency (POLKCO, CITRUS, COLA, BOCC, BREVARD) has the "anonymous user" toggle enabled, and ~half of the relevant endpoints require a bearer token regardless. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md).
+
+Revised strategy: treat the HTML ACA portal as the primary extraction mechanism, harden it (ACCELA-03, 04, 06, 11, 14), and iterate coverage (ACCELA-01). The REST path remains on the backlog as P3/blocked — reopen only if a specific agency offers the anonymous-user toggle or staff credentials.
 
 ### Theme 2 — Drift guardrails are absent on all three HTML surfaces
 
@@ -238,7 +246,7 @@ Polk County's permit data is fragmented across 6 jurisdictions on 2 platforms:
 - **Lake Alfred: Accela COLA** (east-Polk, city-issued).
 - **Winter Haven: Accela COWH** (east-Polk, city-issued, AUTH-BLOCKED).
 
-All 6 are dependent on the same underlying platform decisions. ACCELA-02 (REST migration) would affect 3 of 6; ARCGIS field additions would enrich county-wide parcel data that underpins analysis across all 6.
+All 6 are dependent on the same underlying platform decisions. ACCELA-02 (REST migration) was originally expected to affect 3 of 6 (POLKCO + COLA + COWH); the April 2026 probe established that REST is blocked at all three. ARCGIS field additions remain the cross-cutting enrichment path — county-wide parcel data underpins analysis across all 6 regardless of permit source.
 
 ### Theme 5 — Data already present in responses but dropped on the floor
 
@@ -264,7 +272,7 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 | ARCGIS-00 | ArcGIS | Config/Registry | P0 | S | Low | Reconcile api-map (5 fields) vs seed (9 fields) for Polk BI |
 | LEGISTAR-03 | Legistar | Coverage Gap | P0 | S | Low | Enable `fetch_event_items: true` on BCC + P&Z YAMLs |
 | ACCELA-03 | Accela | Field Mapping | P1 | S | Low | Add owner name/address regex extraction |
-| ACCELA-11 | Accela | Field Mapping | P1 | S | Low | Populate lat/lon (REST geocode, or route via existing geocoding.py) |
+| ACCELA-11 | Accela | Field Mapping | P1 | S | Low | Populate lat/lon via existing geocoding.py (REST geocode blocked by ACCELA-02) |
 | ACCELA-14 | Accela | Robustness | P1 | S | Low | Monthly drift canary against a known permit |
 | ARCGIS-01 | ArcGIS | Performance | P1 | S | Low | Replace `outFields="*"` with mapped-field list |
 | ARCGIS-02 | ArcGIS | Field Mapping | P1 | S | Low | Add HMSTD + HMSTD_VAL |
@@ -277,16 +285,15 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 | LEGISTAR-02 | Legistar | Coverage Gap | P1 | S | Low | Add BCC Organizational / Budget / Final Budget body names |
 | ACCELA-01 | Accela | Coverage Gap | P1 | M | Low | Iterate over multiple record types (34+ available) |
 | ACCELA-04 | Accela | Field Mapping | P1 | M | Med | Structured contact parsing instead of flattened regex |
-| ACCELA-06 | Accela | Coverage Gap | P1 | M | Low | Fetch Inspections tab (or REST /inspections) |
-| ACCELA-16 | Accela | Coverage Gap | P1 | M | Med | Probe Winter Haven REST with App ID |
+| ACCELA-06 | Accela | Coverage Gap | P1 | M | Low | Fetch Inspections sub-tab HTML (REST /inspections blocked by ACCELA-02) |
+| ACCELA-16 | Accela | Coverage Gap | P1 | M | Med | Test Winter Haven Enforcement-module HTML (REST probe closed negatively — see ACCELA-02) |
 | ARCGIS-04 | ArcGIS | Field Mapping | P1 | M | Low | Capture MAIL_ADDR_1..3 + MAIL_ZIP |
 | ARCGIS-05 | ArcGIS | Field Mapping | P1 | M | Med | Concatenate full site address from structured sub-fields |
-| ACCELA-02 | Accela | Endpoint/Protocol | P1 | L | High | Migrate Accela adapters to v4 REST API |
-| ACCELA-07 | Accela | Coverage Gap | P2 | M | Low | Fetch Fees tab (or REST /fees) |
-| ACCELA-08 | Accela | Coverage Gap | P2 | M | Med | Fetch Attachments tab (or REST /documents) |
-| ACCELA-09 | Accela | Coverage Gap | P2 | S | Low | Fetch Processing Status (REST /workflowTasks) |
-| ACCELA-10 | Accela | Coverage Gap | P2 | S | Low | Fetch Related Records (REST /related) |
+| ACCELA-07 | Accela | Coverage Gap | P2 | M | Low | Fetch Fees tab HTML (REST /fees blocked by ACCELA-02) |
+| ACCELA-09 | Accela | Coverage Gap | P2 | M | Low | Fetch Processing Status tab HTML (REST /workflowTasks blocked by ACCELA-02) |
+| ACCELA-10 | Accela | Coverage Gap | P2 | M | Low | Fetch Related Records tab HTML (REST /related blocked by ACCELA-02) |
 | ACCELA-12 | Accela | Field Mapping | P2 | M | Low | Capture ASI custom forms (gate code, work type, property type) |
+| ACCELA-08 | Accela | Coverage Gap | P2 | M | Med | Fetch Attachments tab HTML (REST /documents blocked by ACCELA-02) |
 | ACCELA-13 | Accela | Performance | P2 | S | Med | Optimize binary date-range split (reuse VIEWSTATE) |
 | ACCELA-15 | Accela | Config/Registry | P2 | S | Low | Remove dead `permit_type_filter` or repurpose |
 | ARCGIS-06 | ArcGIS | Coverage Gap | P2 | M | Med | Query Layer 3 for full subdivision names |
@@ -303,6 +310,12 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 | LEGISTAR-06 | Legistar | Coverage Gap | P2 | L | Med | Use /matters and /persons endpoints (cross-surface) |
 | LEGISTAR-07 | Legistar | Robustness | P2 | S | Low | Port adaptive delay to Legistar |
 | LEGISTAR-08 | Legistar | Robustness | P2 | S | Low | Emit upcoming-event listing when agenda null but items present |
+
+### P3 / Blocked by external dependency
+
+| ID | Surface | Category | Priority | Effort | Risk | Short Description |
+|----|---------|----------|----------|--------|------|-------------------|
+| ACCELA-02 | Accela | Endpoint/Protocol | P3 | L | High | **BLOCKED** — v4 REST migration. Requires agency-side enablement of anonymous-user toggle or staff creds. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md). |
 
 ---
 
@@ -366,7 +379,7 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 
 - Whether 12 bodies really exist on the live Polk Legistar instance (not verified without a live API call). Taken on trust from api-map §1.
 - Whether `seed_bi_county_config.py` has been applied to the production DB for Polk (reconciliation task ARCGIS-00).
-- Whether POLKCO exposes anonymous v4 REST endpoints to an arbitrary registered App ID. Requires a probe (part of ACCELA-02).
+- ~~Whether POLKCO exposes anonymous v4 REST endpoints to an arbitrary registered App ID. Requires a probe (part of ACCELA-02).~~ **Resolved 2026-04-15: No.** POLKCO returns `anonymous_user_unavailable` for all endpoints; the probe also confirmed CITRUS, COLA, BOCC, and BREVARD share the same posture. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md).
 - Whether `docs/commission/live-validation/polk-county-bcc.md` exists — file not found at the referenced path.
 - Lake Hamilton's actual live HTML layout — seed marks it reCAPTCHA-blocked, adapter inherits default 6-column assumption; neither has been validated against a real render.
 - Whether Winter Haven Enforcement-module HTML search requires the same auth gate as the Building module (module-level auth is agency-configurable in Civic Platform).
