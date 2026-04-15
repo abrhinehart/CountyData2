@@ -13,6 +13,7 @@ scraping:
     - "Board of County Commissioners"
   document_formats: [pdf]
   has_duplicate_page_bug: false
+  fetch_event_items: true
 
 detection_patterns:
   header_keywords:

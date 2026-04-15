@@ -141,6 +141,7 @@ class LegistarScraper(PlatformScraper):
             client = config.get("legistar_client")
             if client:
                 try:
+                    time.sleep(REQUEST_DELAY)
                     structured_items = self._fetch_event_items(client, int(event.get("EventId", 0)))
                 except Exception:
                     logger.warning(
