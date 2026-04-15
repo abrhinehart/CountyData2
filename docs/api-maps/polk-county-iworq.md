@@ -19,7 +19,7 @@ Five east Polk County municipalities were onboarded for permit tracking. Three u
 |------|----------|---------|--------------------------|-------|
 | Davenport | **iWorQ** | `DavenportAdapter` | `https://portal.iworq.net/DAVENPORT/permits/600` | Live, 10-column layout |
 | Haines City | **iWorQ** | `HainesCityAdapter` | `https://haines.portal.iworq.net/HAINES/permits/600` | Live, 10-column layout (no type column) |
-| Lake Hamilton | **iWorQ** | `LakeHamiltonAdapter` | `https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600` | URL unverified, uses default layout |
+| Lake Hamilton | **iWorQ** | `LakeHamiltonAdapter` | `https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600` | `scrape_mode='fixture'` — portal uses reCAPTCHA and has no date-range search; needs browser-based scraper |
 | Lake Alfred | Accela (ACA) | `LakeAlfredAdapter` | Agency code `COLA` | See polk-county-accela.md |
 | Winter Haven | Accela (ACA) | `WinterHavenAdapter` | Agency code `COWH` | Requires auth; returns 0 permits until auth support added |
 
@@ -244,9 +244,9 @@ Final permit output from the iWorQ adapter:
 
 3. **Column layout varies by city.** Each city's iWorQ portal has a different column layout in the search results table. Davenport has contractor and cost columns; Haines City has multiple review status columns but no type or contractor column. Each city subclass overrides `_extract_row_fields` to handle its layout.
 
-4. **Lake Hamilton URL unverified.** The search URL `https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600` follows the standard iWorQ pattern but has not been tested against the live portal. The research found a landing page at `townoflakehamilton.portal.iworq.net/portalhome/townoflakehamilton`, but the permits module path needs verification.
+4. **Lake Hamilton blocked by reCAPTCHA.** Deployed as `scrape_mode='fixture'` with `fragile_note='iWorQ portal uses reCAPTCHA and has no date-range search. Needs browser-based scraper.'` (see `seed_pt_jurisdiction_config.py:72`). The search URL `https://townoflakehamilton.portal.iworq.net/LAKEHAMILTON/permits/600` follows the standard iWorQ pattern, and the research found a landing page at `townoflakehamilton.portal.iworq.net/portalhome/townoflakehamilton`, but the path cannot be exercised programmatically without a browser-based captcha solver. The HTTP-based `LakeHamiltonAdapter` is kept in-tree for when that blocker is resolved; until then the jurisdiction runs off fixtures.
 
-5. **Lake Hamilton uses default column mapping.** The `LakeHamiltonAdapter` does not override `_extract_row_fields`, so it uses the base class's 6-column assumption. If the actual portal has a different layout (like Haines City's 10-column layout), extraction will be wrong or will skip rows.
+5. **Lake Hamilton uses default column mapping.** The `LakeHamiltonAdapter` does not override `_extract_row_fields`, so it uses the base class's 6-column assumption. If the actual portal has a different layout (like Haines City's 10-column layout), extraction will be wrong or will skip rows. This cannot be verified until the reCAPTCHA blocker above is resolved.
 
 6. **Detail page fetch for every row.** The adapter fetches the detail page for every search result row, even rows that will be filtered out by type. For Haines City (no type column in grid), this is unavoidable. For Davenport, type filtering happens at the grid level, so detail pages are only fetched for rows that pass the filter.
 
