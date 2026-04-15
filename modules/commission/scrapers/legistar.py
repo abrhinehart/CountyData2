@@ -185,6 +185,33 @@ class LegistarScraper(PlatformScraper):
                     structured_items=structured_items,
                 )
 
+    def _get_json_with_retry(self, url: str, *, retries: int = 1, backoff: float = 1.0):
+        """GET a URL expecting JSON. Retry once on transient ConnectionError.
+
+        Legistar occasionally closes connections mid-request (RemoteDisconnected);
+        a single retry after a short backoff recovers cleanly most of the time.
+        Non-connection errors (4xx/5xx, timeouts, bad JSON) are not retried.
+        """
+        attempts = retries + 1
+        for attempt in range(attempts):
+            try:
+                resp = requests.get(
+                    url,
+                    headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
+                    timeout=SCRAPE_SEARCH_TIMEOUT,
+                )
+                resp.raise_for_status()
+                return resp.json()
+            except requests.ConnectionError as e:
+                if attempt + 1 < attempts:
+                    logger.info(
+                        "Legistar transient connection error on %s (attempt %s/%s); retrying in %ss",
+                        url, attempt + 1, attempts, backoff,
+                    )
+                    time.sleep(backoff)
+                    continue
+                raise
+
     def _fetch_event_items(self, client: str, event_id: int) -> list[dict]:
         """Fetch event items and their votes for a Legistar event.
 
@@ -197,13 +224,7 @@ class LegistarScraper(PlatformScraper):
         items: list[dict] = []
 
         try:
-            resp = requests.get(
-                url,
-                headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-                timeout=SCRAPE_SEARCH_TIMEOUT,
-            )
-            resp.raise_for_status()
-            raw_items = resp.json()
+            raw_items = self._get_json_with_retry(url)
         except requests.RequestException as e:
             logger.error("Legistar event items API error for %s/%s: %s", client, event_id, e)
             return []
@@ -241,13 +262,7 @@ class LegistarScraper(PlatformScraper):
         url = f"{API_BASE}/{client}/eventitems/{event_item_id}/votes"
 
         try:
-            resp = requests.get(
-                url,
-                headers={"User-Agent": USER_AGENT, "Accept": "application/json"},
-                timeout=SCRAPE_SEARCH_TIMEOUT,
-            )
-            resp.raise_for_status()
-            raw_votes = resp.json()
+            raw_votes = self._get_json_with_retry(url)
         except requests.RequestException as e:
             logger.error("Legistar votes API error for item %s: %s", event_item_id, e)
             return []

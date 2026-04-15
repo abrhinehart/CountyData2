@@ -115,6 +115,46 @@ def test_fetch_item_votes_api_error_returns_empty():
     assert result == []
 
 
+# ── Retry behavior on transient ConnectionError ───────────────────────
+
+def test_get_json_with_retry_recovers_from_connection_error():
+    """First call raises ConnectionError (RemoteDisconnected style); retry succeeds."""
+    import requests as req
+
+    scraper = LegistarScraper()
+
+    success_response = MagicMock()
+    success_response.raise_for_status = MagicMock()
+    success_response.json.return_value = [{"VotePersonName": "Alice", "VoteValueName": "Aye"}]
+
+    with patch("modules.commission.scrapers.legistar.requests.get") as mock_get, \
+         patch("modules.commission.scrapers.legistar.time.sleep"):
+        mock_get.side_effect = [req.ConnectionError("RemoteDisconnected"), success_response]
+        result = scraper._fetch_item_votes("testclient", 101)
+
+    # Retry produced the successful payload
+    assert len(result) == 1
+    assert result[0]["person_name"] == "Alice"
+    # Confirm two attempts occurred
+    assert mock_get.call_count == 2
+
+
+def test_get_json_with_retry_gives_up_after_final_attempt():
+    """Both attempts raise ConnectionError; caller receives empty list (graceful)."""
+    import requests as req
+
+    scraper = LegistarScraper()
+
+    with patch("modules.commission.scrapers.legistar.requests.get") as mock_get, \
+         patch("modules.commission.scrapers.legistar.time.sleep"):
+        mock_get.side_effect = req.ConnectionError("RemoteDisconnected")
+        result = scraper._fetch_item_votes("testclient", 101)
+
+    assert result == []
+    # Default retries=1, so two attempts total
+    assert mock_get.call_count == 2
+
+
 # ── Config flag gating ─────────────────────────────────────────────────
 
 def test_event_items_not_fetched_without_config_flag():
