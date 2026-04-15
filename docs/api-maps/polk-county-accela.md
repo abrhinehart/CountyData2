@@ -205,8 +205,8 @@ https://aca-prod.accela.com/POLKCO/Cap/CapDetail.aspx?Module=Building&TabName=Bu
 ### Owner
 | Field | Extracted? | Notes |
 |-------|-----------|-------|
-| Name | NO | e.g., "COOPER JOSEPH G" |
-| Address | NO | Full address shown |
+| Name | YES (regex) | `owner_name_pattern`; split on blue asterisk glyph (ACCELA-03) |
+| Address | YES (regex) | `owner_address_pattern`; terminates at duplicate `OWNER:` label (ACCELA-03) |
 
 ### Project Description
 | Field | Extracted? | Notes |
@@ -321,11 +321,13 @@ The permit card PDF reveals the standard inspection sequence for residential per
 
 ### Currently Extracted?
 
-**Attempted in prior code; now intentionally skipped.** The base `AccelaCitizenAccessAdapter` defines `_parse_inspections(soup)` (`modules/permits/scrapers/adapters/accela_citizen_access.py:309`) which scans the CapDetail HTML for an inline inspection table or div layout. Polk renders inspections on a separate Record Info tab, not inline on CapDetail, so the prior call emitted `inspections: None` with no log. `PolkCountyAdapter` now sets `inspections_on_separate_tab = True`, which short-circuits the base adapter to emit `inspections: []` and skip the useless parse. Real inspection capture is deferred to the REST migration (ACCELA-06); see `docs/api-maps/polk-county-improvement-report.md`.
+**Inspections are unavailable for anonymous viewers; the adapter emits `[]`.** April 2026 live recon established that Polk's "Inspections sub-tab" is not a separate page — it is a hash-anchored `<div id="tab-inspections">` already inline in the CapDetail HTML, whose rows are populated by a `__doPostBack` to `ctl00$PlaceHolderMain$InspectionList$btnRefreshGridView`. For anonymous users (the only mode our scraper supports) that postback returns an MS-AJAX delta with empty `panelsToRefreshIDs` and the inline panel renders "There are no completed inspections on this record." regardless of the permit's true inspection state. Identical behavior was observed on BREVARD and BOCC, confirming the gate is platform-wide, not agency-specific.
 
-### REST API Inspection Fields
+`PolkCountyAdapter` therefore sets `inspections_on_separate_tab = True`, which short-circuits the base adapter to emit `inspections: []` (ACCELA-05). If Polk's ACA admin ever enables the anonymous-user toggle in Civic Platform (the same gate that blocks ACCELA-02), flip the attribute to False and the base `_parse_inspections_from_table()` will pick up the now-populated grid without further code changes. Until then, ACCELA-06 is BLOCKED — see `docs/api-maps/polk-county-improvement-report.md`.
 
-The `GET /v4/records/{recordId}/inspections` endpoint returns 60+ fields per inspection including: id, type, status, category, resultType, completedDate, scheduleDate, inspectorFullName, requestComment, resultComment, grade, totalScore, latitude, longitude, and full address/contact objects.
+### REST API Inspection Fields (informational; gated)
+
+The `GET /v4/records/{recordId}/inspections` endpoint returns 60+ fields per inspection (id, type, status, category, resultType, completedDate, scheduleDate, inspectorFullName, requestComment, resultComment, grade, totalScore, latitude, longitude, full address/contact objects). Token-gated; see `accela-rest-probe-findings.md`.
 
 ---
 
@@ -358,8 +360,8 @@ The `GET /v4/records/{recordId}/inspections` endpoint returns 60+ fields per ins
 ### Owner
 | Field | Available | Extracted |
 |-------|-----------|-----------|
-| Name | YES | NO |
-| Address | YES | NO |
+| Name | YES | YES (regex, ACCELA-03) |
+| Address | YES | YES (regex, ACCELA-03) |
 
 ### Contact Information Grid (Account Management)
 Columns: First Name, Middle Name, Last Name, Business Name, SSN, FEIN, Contact Type, Status, Action, Full Name
@@ -582,8 +584,8 @@ https://apis.accela.com
 | Applicant Name | PARTIAL | Detail page regex | Full name, company, phone, email, mailing address | Detail page / REST API |
 | Licensed Professional Name | PARTIAL | Detail page regex | + all subcontractors via "View Additional Licensed Professionals" | Detail page / REST API |
 | Latitude/Longitude | ALWAYS NULL | -- | Available via REST API geocoding or address xCoordinate/yCoordinate | REST API |
-| Owner Name | NO | -- | Name + address | Detail page Owner section |
-| Owner Address | NO | -- | Full address | Detail page Owner section |
+| Owner Name | YES (regex) | Detail page regex (ACCELA-03) | -- | -- |
+| Owner Address | YES (regex) | Detail page regex (ACCELA-03) | Email, phone, owner type (Primary/Secondary/Trust) | REST API owners endpoint |
 | Project Description | PARTIAL | Detail page regex | Full text | Detail page / REST API |
 | Inspections | NO | -- | Type, date, status, result, inspector, comments | Inspections tab / REST API |
 | Fees | NO | -- | Line items, amounts, dates, invoice numbers | Fees tab / REST API |

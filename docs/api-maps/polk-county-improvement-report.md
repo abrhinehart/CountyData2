@@ -60,10 +60,10 @@ Extraction is 100% HTML scraping:
 |----|----------|---------|----------------|--------------------|--------|------|----------|
 | ACCELA-01 | Coverage Gap | Only `Building/Residential/New/NA` record type extracted | 4 residential + 9 single-trade + 6 commercial + mobile-home + Land Dev (34+ record types) | Parametrize `target_record_type` as a list; iterate and dedup; optionally introduce sibling adapter slugs for Commercial/Trade splits (needed because analytics is residential-centric) | M | Low | P1 |
 | ACCELA-02 | Endpoint/Protocol | 100% HTML+regex via ASP.NET postback | Accela v4 REST API exists but April 2026 probe shows it is NOT usable for bulk anonymous extraction (see [accela-rest-probe-findings.md](accela-rest-probe-findings.md)). | **BLOCKED — deferred.** External dependency: agency admin must enable anonymous-user toggle in Civic Platform. Not a project we can schedule. Keep as aspirational / opportunistic — if an agency ever contacts us and offers REST credentials, reopen. Until then: invest in the HTML path (ACCELA-01, 03, 04, 06, 11). | L | High | P3 (blocked) |
-| ACCELA-03 | Field Mapping | Owner name/address not extracted | Owner section on detail page (Name, full address) and `/v4/records/{id}/owners` | Add `owner_pattern` regex/DOM parser in the HTML path. REST owners endpoint unreachable without agency cooperation (see ACCELA-02). | S | Low | P1 |
+| ACCELA-03 | Field Mapping | ✅ **Shipped** — Owner name + address captured via regex on the flattened CapDetail text (live-validated on Polk BR-2026-2894: `LGI HOMES FLORIDA LLC` / `1450 LAKE ROBBINS DR STE 430 THE WOODLANDS TX 77380`). Migration `023_permit_owner_fields.sql` adds `raw_owner_name` / `raw_owner_address` columns. | Owner section on detail page (Name, full address) and `/v4/records/{id}/owners` | `owner_name_pattern` / `owner_address_pattern` / `owner_fallback_pattern` in `accela_citizen_access.py`. REST owners endpoint still unreachable without agency cooperation (see ACCELA-02) — the regex path is the only actionable route. | S | Low | ✅ Shipped |
 | ACCELA-04 | Field Mapping | Applicant/contractor = flattened-text regex, frequently null; only name captured | Full name, company, license type+number, phone, email, fax, mailing address; "View Additional Licensed Professionals" subcontractor list | Structured DOM parsing against the detail page's stable per-section anchors. REST `/contacts` + `/professionals` require a bearer token even when anonymous user is enabled (see ACCELA-02), so the HTML path is the only actionable route. | M | Med | P1 |
 | ACCELA-05 | Robustness | `_parse_inspections` runs on detail HTML but Polk's Inspections live on a separate `Record Info > Inspections` sub-page. Returns `None` silently on Polk; emits `permit["inspections"] = None` with no warning. Unit tests use synthetic inline HTML and do not catch this. | Inspections tab URL + REST `/v4/records/{id}/inspections` (60+ fields per inspection) | Either (a) fetch the Inspections sub-tab explicitly and parse it, or (b) remove the `inspections` key from Polk output until wired properly, or (c) log a DEBUG warning when the field is None on agencies that have inspections. See also ACCELA-06. | S | Low | P0 |
-| ACCELA-06 | Coverage Gap | Inspections tab never fetched | Full inspection list with type/date/status/result/inspector (public; no login for viewing) | Fetch the Inspections sub-tab URL and parse it into the per-permit dict. (The prior recommendation favored REST — deprecated by April 2026 probe findings; REST `/inspections` is token-gated. HTML tab fetch is the only actionable route.) | M | Low | P1 |
+| ACCELA-06 | Coverage Gap | Inspections tab never fetched | Full inspection list with type/date/status/result/inspector (public; no login for viewing) | **BLOCKED — deferred.** April 2026 live recon (POLKCO/BREVARD/BOCC) established that the Inspections "tab" is not a separate page — it is a hash-anchored `<div id="tab-inspections">` already inline in CapDetail HTML, with rows populated via a `btnRefreshGridView` partial postback. Anonymous users (our only viewer mode) receive a byte-identical empty placeholder ("There are no completed inspections on this record.") regardless of the permit's true state. Same agency-config gate as ACCELA-02. Implementation requires the agency to enable the anonymous-user toggle in Civic Platform; until then the `inspections_on_separate_tab=True` short-circuit (ACCELA-05) remains the correct behavior. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md). | S | Low | P3 (blocked) |
 | ACCELA-07 | Coverage Gap | Fees tab never fetched | Fee line items, invoice numbers, amounts, dates (Outstanding section is public) | Fetch the Fees tab URL. REST `/records/{id}/fees` requires a bearer token (see ACCELA-02). | M | Low | P2 |
 | ACCELA-08 | Coverage Gap | Attachments tab never fetched | Document filenames, types, dates, download URLs (public list + public downloads) | Fetch the Attachments tab URL. REST `/records/{id}/documents` requires a bearer token (see ACCELA-02). Storage cost is the main decision. | M | Med | P2 |
 | ACCELA-09 | Coverage Gap | Processing Status tab never fetched | Workflow task names, statuses, assignees, due dates | HTML Processing Status tab fetch. REST `/workflowTasks` is token-gated (see ACCELA-02) so the HTML tab is the only actionable route. | M | Low | P2 |
@@ -78,7 +78,7 @@ Extraction is 100% HTML scraping:
 ### Prioritized Action List (this surface)
 
 1. **P0**: ACCELA-05 — close the inspections drift bug (1-2 hours). _[already shipped in commit `be5d02f`; leave as-is unless Executor discovers it still open]_
-2. **P1 / strategic pivot**: ACCELA-06 + ACCELA-03 + ACCELA-04 — fetch the Inspections sub-tab, add owner extraction, add structured contact/professional DOM parsing. This is the new "foundation" replacing the blocked ACCELA-02.
+2. **P1 / strategic pivot**: ~~ACCELA-03~~ ✅ shipped (owner regex + migration 023) + ACCELA-04 — add structured contact/professional DOM parsing. (ACCELA-06 was listed here; April 2026 HTML-tab recon downgraded it to P3/blocked alongside ACCELA-02 — see [accela-rest-probe-findings.md](accela-rest-probe-findings.md).)
 3. **P1 / quick wins**: ACCELA-11 (geocoding.py wire), ACCELA-14 (monthly drift canary — now permanent since REST fallback is gone).
 4. **P1 / expansion**: ACCELA-01 (34+ record-type iteration). ACCELA-16 partial (Enforcement-module HTML probe for Winter Haven).
 5. **P2 / opportunistic**: ACCELA-07, ACCELA-08, ACCELA-09, ACCELA-10, ACCELA-12, ACCELA-13, ACCELA-15.
@@ -271,7 +271,7 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 | ACCELA-05 | Accela | Robustness | P0 | S | Low | Fix silent-None inspections drift on Polk detail pages |
 | ARCGIS-00 | ArcGIS | Config/Registry | P0 | S | Low | Reconcile api-map (5 fields) vs seed (9 fields) for Polk BI |
 | LEGISTAR-03 | Legistar | Coverage Gap | P0 | S | Low | Enable `fetch_event_items: true` on BCC + P&Z YAMLs |
-| ACCELA-03 | Accela | Field Mapping | P1 | S | Low | Add owner name/address regex extraction |
+| ACCELA-03 | Accela | Field Mapping | ✅ Shipped | S | Low | ~~Add owner name/address regex extraction~~ — shipped (migration 023, `owner_name_pattern` / `owner_address_pattern`) |
 | ACCELA-11 | Accela | Field Mapping | P1 | S | Low | Populate lat/lon via existing geocoding.py (REST geocode blocked by ACCELA-02) |
 | ACCELA-14 | Accela | Robustness | P1 | S | Low | Monthly drift canary against a known permit |
 | ARCGIS-01 | ArcGIS | Performance | P1 | S | Low | Replace `outFields="*"` with mapped-field list |
@@ -285,7 +285,6 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 | LEGISTAR-02 | Legistar | Coverage Gap | P1 | S | Low | Add BCC Organizational / Budget / Final Budget body names |
 | ACCELA-01 | Accela | Coverage Gap | P1 | M | Low | Iterate over multiple record types (34+ available) |
 | ACCELA-04 | Accela | Field Mapping | P1 | M | Med | Structured contact parsing instead of flattened regex |
-| ACCELA-06 | Accela | Coverage Gap | P1 | M | Low | Fetch Inspections sub-tab HTML (REST /inspections blocked by ACCELA-02) |
 | ACCELA-16 | Accela | Coverage Gap | P1 | M | Med | Test Winter Haven Enforcement-module HTML (REST probe closed negatively — see ACCELA-02) |
 | ARCGIS-04 | ArcGIS | Field Mapping | P1 | M | Low | Capture MAIL_ADDR_1..3 + MAIL_ZIP |
 | ARCGIS-05 | ArcGIS | Field Mapping | P1 | M | Med | Concatenate full site address from structured sub-fields |
@@ -316,6 +315,7 @@ Sorted by Priority (P0 first) → Effort (S first) → Risk (Low first).
 | ID | Surface | Category | Priority | Effort | Risk | Short Description |
 |----|---------|----------|----------|--------|------|-------------------|
 | ACCELA-02 | Accela | Endpoint/Protocol | P3 | L | High | **BLOCKED** — v4 REST migration. Requires agency-side enablement of anonymous-user toggle or staff creds. See [accela-rest-probe-findings.md](accela-rest-probe-findings.md). |
+| ACCELA-06 | Accela | Coverage Gap | P3 | S | Low | Inspection tab fetch — BLOCKED, anon users get empty placeholder (see ACCELA-02) |
 
 ---
 

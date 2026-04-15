@@ -105,6 +105,17 @@ The ACA portal is what Accela designed for anonymous public access. REST is desi
 
 Accela's citizen-authorization model scopes access to records the user is personally tied to (as applicant, owner, or contact). A per-user `authorization_code` or `password` grant token cannot see other citizens' public permits — it sees only the records the authenticated citizen has standing on. This means even if we walked an end user through the OAuth redirect, the returned token would be useless for the portfolio-wide analytics we actually need.
 
+### Finding 7 — HTML Inspection-tab follow-up probe (April 2026)
+
+A follow-up probe on 2026-04-14 tested whether the Accela CapDetail "Inspections sub-tab" could be fetched directly via HTTP as an alternative to the token-gated REST endpoint. Findings:
+
+- **Not a separate page.** The `<div id="tab-inspections">` is embedded inline in the CapDetail HTML response. Tab navigation is pure client-side hash anchors; there is no independent URL for the inspection grid.
+- **Partial postback returns empty.** Full ASP.NET AJAX partial-postback (headers `X-MicrosoftAjax: Delta=true`, `__ASYNCPOST=true`, ScriptManager=`inspectionUpdatePanel|btnRefreshGridView`) returns a valid 31 KB MS-AJAX delta but `panelsToRefreshIDs` is empty. Two sequential postbacks with refreshed ViewState produce identical empty results.
+- **Platform-level gate.** The dispositive JS in the CapDetail page source: `if ($.global.isAdmin) { unhide real content } else { __doPostBack('...btnRefreshGridView') }`. The admin branch unhides pre-rendered server content; the anonymous branch fires a postback the server intentionally returns empty for.
+- **Identical across agencies and permit ages.** Sampled POLKCO permits BR-2026-2894, BT-2024-2125, BR-2024-1234, BR-2022-1500, and eight BR-2025-46xx permits. Also tested BREVARD `24BC01760` and BOCC (Charlotte) old residential permits. Every response rendered byte-identical "There are no completed inspections on this record." placeholder regardless of the permit's actual inspection history.
+
+**Implication:** ACCELA-06 (originally scoped as an HTML tab-fetch alternative to the token-gated REST `/inspections`) is blocked by the same platform-level agency-config gate that blocks ACCELA-02. Until an agency's Civic Platform admin enables the anonymous-user toggle, inspections are not extractable via HTML either. ACCELA-06 reclassified to P3/blocked in the Polk improvement report.
+
 ## What would unblock
 
 Three theoretical paths, honestly assessed:

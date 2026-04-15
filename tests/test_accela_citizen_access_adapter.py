@@ -151,6 +151,19 @@ def test_fetch_permits_mocked(monkeypatch):
     <div>Applicant: SMITH BUILDERS INC</div>
     <div>Licensed Professional: JOHN DOE</div>
     <div>Project Description: NEW SFR 4BR 2BA</div>
+    <h1><span>Owner:</span></h1>
+    <span>
+      <table><tr><td>
+        <table><tr><td>
+          <table>
+            <tr><td>SMITH FAMILY TRUST<Span style='color:blue';> *</Span></td></tr>
+            <tr><td>500 BEACON ST</td></tr>
+            <tr><td>BOSTON MA 02108</td></tr>
+            <tr><td>OWNER: SMITH FAMILY TRUST</td></tr>
+          </table>
+        </td></tr></table>
+      </td></tr></table>
+    </span>
     <div>More Details</div>
     </body></html>
     """
@@ -211,6 +224,8 @@ def test_fetch_permits_mocked(monkeypatch):
     assert p["raw_contractor_name"] == "JOHN DOE"
     assert p["raw_applicant_name"] == "SMITH BUILDERS INC"
     assert p["raw_licensed_professional_name"] == "JOHN DOE"
+    assert p["raw_owner_name"] == "SMITH FAMILY TRUST"
+    assert p["raw_owner_address"] == "500 BEACON ST BOSTON MA 02108"
     # Polk has inspections_on_separate_tab=True, so base adapter short-circuits
     # and emits an empty list regardless of detail-page contents (ACCELA-05).
     assert p["inspections"] == []
@@ -419,13 +434,16 @@ def test_fetch_permits_with_inspections(monkeypatch):
     assert p["inspections"][1]["type"] == "Electrical"
     assert p["inspections"][1]["status"] == "Pending"
     assert p["inspections"][1]["result"] is None
+    # ACCELA-03: no Owner block in this fixture — regex must not spuriously match.
+    assert p["raw_owner_name"] is None
+    assert p["raw_owner_address"] is None
 
 
 def test_fetch_permits_inspections_skipped_for_separate_tab_agencies(monkeypatch):
-    """Pin ACCELA-05 fix: Polk (inspections_on_separate_tab=True) MUST emit
-    inspections: [] even when the detail page contains an inline inspection
-    table — proving the skip short-circuits the parse rather than relying on
-    absent-section fallback.
+    """Pin ACCELA-05 + ACCELA-06 behavior: Polk (inspections_on_separate_tab=True)
+    MUST emit inspections: [] even when the detail page contains an inline
+    inspection table, because anonymous Accela ACA does not expose real
+    inspection rows (see docs/api-maps/accela-rest-probe-findings.md).
     """
     from unittest.mock import MagicMock
     from modules.permits.scrapers.adapters.polk_county import PolkCountyAdapter
@@ -515,3 +533,52 @@ def test_fetch_permits_inspections_skipped_for_separate_tab_agencies(monkeypatch
     # Even though the detail page DOES have an inline inspection table,
     # the Polk adapter opts out via inspections_on_separate_tab=True.
     assert p["inspections"] == []
+    # ACCELA-03: no Owner block in this fixture — regex must not spuriously match.
+    assert p["raw_owner_name"] is None
+    assert p["raw_owner_address"] is None
+
+
+# ── Owner regex extraction (ACCELA-03) ────────────────────────────────────
+
+def test_parse_owner_from_flat_text():
+    """Exercise the owner_name / owner_address regexes against canned flat text
+    slices of the Accela CapDetail Owner section.  Pins the regex shape against
+    the live Polk BR-2026-2894 recon and three synthetic variants.
+    """
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+
+    # Case 1: standard LLC with asterisk + duplicate OWNER label (live Polk shape).
+    polk_text = (
+        "Project Description: new construction "
+        "Owner: LGI HOMES FLORIDA LLC * 1450 LAKE ROBBINS DR STE 430 "
+        "THE WOODLANDS TX 77380 OWNER: LGI HOMES FLORIDA LLC More Details"
+    )
+    name = adapter._extract_match(AccelaCitizenAccessAdapter.owner_name_pattern, polk_text)
+    addr = adapter._extract_match(AccelaCitizenAccessAdapter.owner_address_pattern, polk_text)
+    assert name == "LGI HOMES FLORIDA LLC"
+    assert addr == "1450 LAKE ROBBINS DR STE 430 THE WOODLANDS TX 77380"
+
+    # Case 2: no-asterisk fallback — name captured via fallback pattern.
+    no_ast_text = "Owner: JANE DOE More Details"
+    name = adapter._extract_match(AccelaCitizenAccessAdapter.owner_name_pattern, no_ast_text)
+    assert name is None  # primary pattern requires asterisk
+    fallback_name = adapter._extract_match(
+        AccelaCitizenAccessAdapter.owner_fallback_pattern, no_ast_text
+    )
+    assert fallback_name == "JANE DOE"
+
+    # Case 3: Owner section entirely absent — both patterns return None.
+    no_owner_text = "Project Description: NEW SFR More Details"
+    assert adapter._extract_match(AccelaCitizenAccessAdapter.owner_name_pattern, no_owner_text) is None
+    assert adapter._extract_match(AccelaCitizenAccessAdapter.owner_address_pattern, no_owner_text) is None
+    assert adapter._extract_match(AccelaCitizenAccessAdapter.owner_fallback_pattern, no_owner_text) is None
+
+    # Case 4: individual owner at FL address — free-form address captured as string.
+    individual_text = (
+        "Owner: JOHN Q PUBLIC * 123 MAIN ST LAKELAND FL 33801 "
+        "OWNER: JOHN Q PUBLIC More Details"
+    )
+    name = adapter._extract_match(AccelaCitizenAccessAdapter.owner_name_pattern, individual_text)
+    addr = adapter._extract_match(AccelaCitizenAccessAdapter.owner_address_pattern, individual_text)
+    assert name == "JOHN Q PUBLIC"
+    assert addr == "123 MAIN ST LAKELAND FL 33801"

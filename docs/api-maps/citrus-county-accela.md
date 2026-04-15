@@ -129,7 +129,9 @@ Format per row: `{Inspection Type} ({ID}) - {Status} {Date}`, with an `Inspector
 
 ### Currently Extracted?
 
-**Intentionally skipped.** The base adapter defines `_parse_inspections(soup)` but `CitrusCountyAdapter` sets `inspections_on_separate_tab = True`, which short-circuits the base to emit `inspections: []` and skip the parse. Citrus (like Polk) renders inspections on a separate Record Info tab rather than inline, so the parser would always return `None` -- the old code emitted `None` with no log, which was the silent-None bug (ACCELA-05). Real inspection capture is deferred to the REST migration (ACCELA-06).
+**Inspections are unavailable for anonymous viewers; the adapter emits `[]`.** April 2026 live recon against POLKCO, BREVARD, and BOCC established that the Accela "Inspections sub-tab" is not a separate page — it is a hash-anchored `<div id="tab-inspections">` already inline in the CapDetail HTML, whose rows are populated by a `__doPostBack` that returns empty for anonymous users on every tested agency. Citrus shares the same platform gate.
+
+`CitrusCountyAdapter` therefore sets `inspections_on_separate_tab = True`, which short-circuits the base adapter to emit `inspections: []` (ACCELA-05). If Citrus's ACA admin ever enables the anonymous-user toggle in Civic Platform (the same gate that blocks ACCELA-02), flip the attribute to False and the base `_parse_inspections_from_table()` will pick up the now-populated grid. Until then, ACCELA-06 is BLOCKED — see `docs/api-maps/accela-rest-probe-findings.md`.
 
 ---
 
@@ -141,7 +143,7 @@ Three contact types on every detail page:
 |---------|-----------|
 | Applicant (name, company, address, phone, email) | PARTIAL (name via regex) |
 | Licensed Professional (name, email, company, address, license type + number) | PARTIAL (name via regex) |
-| Owner (name, address) | NO |
+| Owner (name, address) | YES (regex, ACCELA-03) |
 
 The regex extraction is the same brittle pattern described in the Polk Accela doc. Any HTML change breaks it silently.
 
@@ -241,7 +243,7 @@ Key endpoints (same as Polk, but pointed at agency `CITRUS`):
 | Subdivision | PARTIAL | Detail regex | -- | -- |
 | Contractor name | PARTIAL | Detail regex | Full contractor record | Detail / REST |
 | Applicant | PARTIAL | Detail regex | Full applicant record | Detail / REST |
-| Owner | NO | -- | Name + address | Detail / REST |
+| Owner | YES (regex) | Detail regex (ACCELA-03) | Email, phone, owner type | REST owners endpoint |
 | Project Description | PARTIAL | Detail regex | Full text | Detail / REST |
 | Inspections | NO | -- | Type, date, status, result, inspector | Inspections / REST |
 | Fees | NO | -- | Line items, amounts | Fees / REST |
@@ -272,7 +274,7 @@ Key endpoints (same as Polk, but pointed at agency `CITRUS`):
 
 9. **Cannot use Polk's `%`-prefix legacy-search trick.** The `%` legacy-permit search trick is specific to Polk's Hansen migration. Citrus migrated from JSF-Primefaces, not Hansen.
 
-10. **No owner data in HTML scrape.** Owner is visible on the Accela detail page but is not captured by the regex extractor.
+10. ~~No owner data in HTML scrape.~~ **Resolved (ACCELA-03):** Owner name and address are now captured via `owner_name_pattern` / `owner_address_pattern` on the shared Accela adapter. The regex splits name from address on the blue-asterisk glyph rendered between them in the flattened detail-page text.
 
 11. **Fees tab may show "Loading..." without JS.** The detail-page Fees section can lazy-load via JavaScript. A simple `requests.get` may not capture fee data -- the REST API would bypass this entirely.
 

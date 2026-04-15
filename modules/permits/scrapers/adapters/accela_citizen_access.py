@@ -51,6 +51,25 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         r"Project Description:\s*(.*?)\s*(?:Owner:|More Details|Additional Information|$)",
         re.IGNORECASE,
     )
+    # ACCELA-03: Owner section sits between Project Description and More Details on
+    # CapDetail.  Blue asterisk (* glyph) separates name from address in the flattened
+    # text; _extract_match strips * post-capture, so we anchor on \* in the regex
+    # itself and use two patterns.  Captures the first-listed owner only — Polk
+    # permits observed to have one Owner block per record (api-map §4 Owner).
+    owner_name_pattern = re.compile(
+        r"Owner:\s*(.+?)\s*\*\s*",
+        re.IGNORECASE,
+    )
+    owner_address_pattern = re.compile(
+        r"Owner:\s*.+?\s*\*\s*(.+?)\s*(?:OWNER:|More Details|Additional Information|$)",
+        re.IGNORECASE,
+    )
+    # Fallback when the blue-asterisk separator is missing (defensive; not seen in
+    # Polk BR-2026-2894 recon but kept to avoid silent-null regression on alt layouts).
+    owner_fallback_pattern = re.compile(
+        r"Owner:\s*(.+?)\s*(?:OWNER:|More Details|Additional Information|$)",
+        re.IGNORECASE,
+    )
     address_pattern = re.compile(
         r"^(?P<street>.+?),\s*(?P<city>[A-Za-z .'-]+)\s+FL\s+(?P<zip>\d{5}(?:-\d{4})?)$",
         re.IGNORECASE,
@@ -276,6 +295,8 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
                     "raw_contractor_name": detail_fields.get("licensed_professional") or detail_fields.get("applicant"),
                     "raw_applicant_name": detail_fields.get("applicant"),
                     "raw_licensed_professional_name": detail_fields.get("licensed_professional"),
+                    "raw_owner_name": detail_fields.get("owner_name"),
+                    "raw_owner_address": detail_fields.get("owner_address"),
                     "latitude": None,
                     "longitude": None,
                     "inspections": detail_fields.get("inspections"),
@@ -296,12 +317,25 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         text = " ".join(soup.get_text(" ", strip=True).split())
 
         if self.inspections_on_separate_tab:
-            # Inspections render on a separate Record Info tab on this agency's
-            # layout; not fetched by the HTML scrape path. Real inspection
-            # capture moves to the REST API (ACCELA-06).
+            # ACA renders the Inspections grid in a hash-anchored <div id="tab-inspections">
+            # whose rows load via a __doPostBack to InspectionList$btnRefreshGridView.
+            # Anonymous users (the only viewer mode our adapter supports) get a
+            # platform-level empty placeholder regardless of the permit's true
+            # inspection state — see docs/api-maps/accela-rest-probe-findings.md
+            # for the live-recon evidence and ACCELA-06 in the improvement report.
+            # If an agency ever enables the "anonymous user" toggle in Civic
+            # Platform, flip this attribute to False on the subclass and the
+            # existing _parse_inspections() table parser will pick up the rows.
             inspections: list[dict] = []
         else:
             inspections = self._parse_inspections(soup) or []
+
+        owner_name = self._extract_match(self.owner_name_pattern, text)
+        owner_address = self._extract_match(self.owner_address_pattern, text)
+        if owner_name is None:
+            # Fallback: no asterisk separator detected; capture combined string as name.
+            owner_name = self._extract_match(self.owner_fallback_pattern, text)
+            owner_address = None
 
         return {
             "parcel_id": self._extract_match(self.parcel_pattern, text),
@@ -310,6 +344,8 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
             "licensed_professional": self._extract_match(self.licensed_professional_pattern, text),
             "project_description": self._extract_match(self.project_description_pattern, text),
             "job_value": self._extract_match(re.compile(r"Job Value\(\$\):\s*\$?[\d,]+(?:\.\d+)?"), text),
+            "owner_name": owner_name,
+            "owner_address": owner_address,
             "inspections": inspections,
         }
 
