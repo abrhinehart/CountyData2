@@ -7,3 +7,4 @@ class PolkCountyAdapter(AccelaCitizenAccessAdapter):
     agency_code = "POLKCO"
     module_name = "Building"
     target_record_type = "Building/Residential/New/NA"
+    inspections_on_separate_tab = True

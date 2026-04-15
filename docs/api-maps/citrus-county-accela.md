@@ -129,7 +129,7 @@ Format per row: `{Inspection Type} ({ID}) - {Status} {Date}`, with an `Inspector
 
 ### Currently Extracted?
 
-**Attempted, but silently null on Citrus's layout.** The base `AccelaCitizenAccessAdapter` calls `_parse_inspections(soup)` on every CapDetail response (`modules/permits/scrapers/adapters/accela_citizen_access.py:297`). That method scans the detail HTML for a heading containing "inspection" followed by a `<table>`, or a div layout with `InspectionListRow`-style classes. Citrus (like Polk) renders inspections on a separate tab rather than inline on CapDetail, so the parser finds no inspection section and returns `None`. The `inspections` key is always present on the emitted permit dict but is empty in practice. To actually capture inspections, the adapter would need an extra request to the Inspections tab URL (or the REST `GET /v4/records/{id}/inspections` endpoint -- see §11).
+**Intentionally skipped.** The base adapter defines `_parse_inspections(soup)` but `CitrusCountyAdapter` sets `inspections_on_separate_tab = True`, which short-circuits the base to emit `inspections: []` and skip the parse. Citrus (like Polk) renders inspections on a separate Record Info tab rather than inline, so the parser would always return `None` -- the old code emitted `None` with no log, which was the silent-None bug (ACCELA-05). Real inspection capture is deferred to the REST migration (ACCELA-06).
 
 ---
 

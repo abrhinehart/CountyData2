@@ -27,6 +27,7 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
     target_record_type = "Building/Residential/New/NA"
     permit_type_filter: tuple[str, ...] = ()  # when non-empty, only keep rows whose permit_type matches one of these
     detail_request_delay: float = 0.0  # seconds to sleep between detail-page GETs (rate-limit courtesy)
+    inspections_on_separate_tab: bool = False  # when True, skip _parse_inspections and emit []; see ACCELA-06
 
     bootstrap_lookback_days = 120
     rolling_overlap_days = 14
@@ -294,7 +295,13 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         soup = BeautifulSoup(raw_html, "html.parser")
         text = " ".join(soup.get_text(" ", strip=True).split())
 
-        inspections = self._parse_inspections(soup)
+        if self.inspections_on_separate_tab:
+            # Inspections render on a separate Record Info tab on this agency's
+            # layout; not fetched by the HTML scrape path. Real inspection
+            # capture moves to the REST API (ACCELA-06).
+            inspections: list[dict] = []
+        else:
+            inspections = self._parse_inspections(soup) or []
 
         return {
             "parcel_id": self._extract_match(self.parcel_pattern, text),

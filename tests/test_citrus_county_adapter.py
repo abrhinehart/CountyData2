@@ -135,7 +135,9 @@ def test_citrus_county_fetch_permits_mocked(monkeypatch):
     assert p["raw_applicant_name"] == "SAMPLE APPLICANT LLC"
     assert p["raw_licensed_professional_name"] == "SAMPLE CONTRACTOR INC"
     assert p["raw_contractor_name"] == "SAMPLE CONTRACTOR INC"
-    assert p["inspections"] is None
+    # Citrus has inspections_on_separate_tab=True, so base adapter short-circuits
+    # and emits an empty list regardless of detail-page contents (ACCELA-05).
+    assert p["inspections"] == []
 
     # Verify Citrus-specific target_record_type was posted.
     posted_payload = mock_session.post.call_args.kwargs.get("data") or {}

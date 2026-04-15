@@ -7,3 +7,4 @@ class CitrusCountyAdapter(AccelaCitizenAccessAdapter):
     agency_code = "CITRUS"
     module_name = "Building"
     target_record_type = "Building/Residential/NA/NA"
+    inspections_on_separate_tab = True

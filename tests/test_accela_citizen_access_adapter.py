@@ -211,8 +211,9 @@ def test_fetch_permits_mocked(monkeypatch):
     assert p["raw_contractor_name"] == "JOHN DOE"
     assert p["raw_applicant_name"] == "SMITH BUILDERS INC"
     assert p["raw_licensed_professional_name"] == "JOHN DOE"
-    # No inspections section in this fixture
-    assert p["inspections"] is None
+    # Polk has inspections_on_separate_tab=True, so base adapter short-circuits
+    # and emits an empty list regardless of detail-page contents (ACCELA-05).
+    assert p["inspections"] == []
 
 
 # ── Inspection parsing ──────────────────────────────────────────────────
@@ -315,9 +316,20 @@ def test_parse_inspections_malformed_html_returns_none():
 
 
 def test_fetch_permits_with_inspections(monkeypatch):
-    """Verify inspections are included when detail page contains inspection table."""
+    """Verify inspections are included when detail page contains inspection table.
+
+    Uses a throwaway subclass that opts out of the separate-tab behavior so the
+    inline-parse path is exercised (Polk/Citrus now default to skipping it;
+    see ACCELA-05).
+    """
     from unittest.mock import MagicMock
-    from modules.permits.scrapers.adapters.polk_county import PolkCountyAdapter
+
+    class _InlineInspectionsAccela(AccelaCitizenAccessAdapter):
+        slug = "inline-test"
+        display_name = "Inline Test"
+        agency_code = "POLKCO"
+        target_record_type = "Building/Residential/New/NA"
+        inspections_on_separate_tab = False  # opt-in to the inline-parse path
 
     SEARCH_HTML = """
     <html><body>
@@ -360,7 +372,7 @@ def test_fetch_permits_with_inspections(monkeypatch):
     </body></html>
     """
 
-    adapter = PolkCountyAdapter()
+    adapter = _InlineInspectionsAccela()
     mock_session = MagicMock()
 
     initial_response = MagicMock()
@@ -407,3 +419,99 @@ def test_fetch_permits_with_inspections(monkeypatch):
     assert p["inspections"][1]["type"] == "Electrical"
     assert p["inspections"][1]["status"] == "Pending"
     assert p["inspections"][1]["result"] is None
+
+
+def test_fetch_permits_inspections_skipped_for_separate_tab_agencies(monkeypatch):
+    """Pin ACCELA-05 fix: Polk (inspections_on_separate_tab=True) MUST emit
+    inspections: [] even when the detail page contains an inline inspection
+    table — proving the skip short-circuits the parse rather than relying on
+    absent-section fallback.
+    """
+    from unittest.mock import MagicMock
+    from modules.permits.scrapers.adapters.polk_county import PolkCountyAdapter
+
+    SEARCH_HTML = """
+    <html><body>
+    <form id="aspnetForm" action="CapHome.aspx" method="post">
+      <input type="hidden" name="__VIEWSTATE" value="abc123" />
+      <input type="hidden" name="__EVENTTARGET" value="" />
+      <input type="hidden" name="__EVENTARGUMENT" value="" />
+      <input type="hidden" name="__EVENTVALIDATION" value="xyz" />
+      <div>Showing 1-1 of 1 Result</div>
+      <table id="ctl00_PlaceHolderMain_dgvPermitList_gdvPermitList">
+        <tr><th>Date</th><th>Record Number</th><th>Record Type</th><th>Address</th><th>Status</th></tr>
+        <tr>
+          <td>03/01/2026</td>
+          <td><a href="/POLKCO/Cap/CapDetail.aspx?capID1=X&amp;capID2=Y&amp;capID3=Z">BLD2026-00099</a></td>
+          <td>Building/Residential/New/NA</td>
+          <td>200 OAK AVE, LAKELAND FL 33801</td>
+          <td>Issued</td>
+        </tr>
+      </table>
+    </form>
+    </body></html>
+    """
+
+    DETAIL_HTML_WITH_INSPECTIONS = """
+    <html><body>
+    <div>Parcel Number: 99-99-99-000000-000001</div>
+    <div>Job Value($): $250,000.00</div>
+    <div>Subdivision: TEST ACRES</div>
+    <div>Fees</div>
+    <div>Applicant: TEST BUILDER</div>
+    <div>Licensed Professional: TEST PRO</div>
+    <div>Project Description: NEW SFR</div>
+    <h4>Inspections</h4>
+    <table>
+      <tr><th>Type</th><th>Status</th><th>Scheduled Date</th><th>Result</th><th>Inspector</th></tr>
+      <tr><td>Slab</td><td>Completed</td><td>02/15/2026</td><td>Pass</td><td>Inspector A</td></tr>
+    </table>
+    <div>More Details</div>
+    </body></html>
+    """
+
+    adapter = PolkCountyAdapter()
+    assert adapter.inspections_on_separate_tab is True
+
+    mock_session = MagicMock()
+
+    initial_response = MagicMock()
+    initial_response.text = SEARCH_HTML
+    initial_response.status_code = 200
+    initial_response.raise_for_status = MagicMock()
+
+    search_response = MagicMock()
+    search_response.text = SEARCH_HTML
+    search_response.status_code = 200
+    search_response.url = "https://aca-prod.accela.com/POLKCO/Cap/CapHome.aspx"
+    search_response.headers = {"Content-Type": "text/html"}
+    search_response.raise_for_status = MagicMock()
+    search_response.request = MagicMock()
+    search_response.request.method = "POST"
+
+    detail_response = MagicMock()
+    detail_response.text = DETAIL_HTML_WITH_INSPECTIONS
+    detail_response.status_code = 200
+    detail_response.url = "https://aca-prod.accela.com/POLKCO/Cap/CapDetail.aspx"
+    detail_response.headers = {"Content-Type": "text/html"}
+    detail_response.raise_for_status = MagicMock()
+    detail_response.request = MagicMock()
+    detail_response.request.method = "GET"
+
+    mock_session.get = MagicMock(side_effect=[initial_response, detail_response])
+    mock_session.post = MagicMock(return_value=search_response)
+    mock_session.request = MagicMock(return_value=detail_response)
+    mock_session.headers = {}
+
+    monkeypatch.setattr(adapter, "build_session", lambda **kwargs: mock_session)
+
+    permits = adapter.fetch_permits(
+        start_date=date(2026, 3, 1),
+        end_date=date(2026, 3, 7),
+    )
+
+    assert len(permits) == 1
+    p = permits[0]
+    # Even though the detail page DOES have an inline inspection table,
+    # the Polk adapter opts out via inspections_on_separate_tab=True.
+    assert p["inspections"] == []

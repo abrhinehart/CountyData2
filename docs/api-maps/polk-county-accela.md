@@ -321,7 +321,7 @@ The permit card PDF reveals the standard inspection sequence for residential per
 
 ### Currently Extracted?
 
-**NO.** The adapter does not visit the Inspections tab or parse any inspection data.
+**Attempted in prior code; now intentionally skipped.** The base `AccelaCitizenAccessAdapter` defines `_parse_inspections(soup)` (`modules/permits/scrapers/adapters/accela_citizen_access.py:309`) which scans the CapDetail HTML for an inline inspection table or div layout. Polk renders inspections on a separate Record Info tab, not inline on CapDetail, so the prior call emitted `inspections: None` with no log. `PolkCountyAdapter` now sets `inspections_on_separate_tab = True`, which short-circuits the base adapter to emit `inspections: []` and skip the useless parse. Real inspection capture is deferred to the REST migration (ACCELA-06); see `docs/api-maps/polk-county-improvement-report.md`.
 
 ### REST API Inspection Fields
 

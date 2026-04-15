@@ -135,7 +135,9 @@ def test_lake_alfred_fetch_permits_mocked(monkeypatch):
     assert p["raw_applicant_name"] == "SAMPLE APPLICANT LLC"
     assert p["raw_licensed_professional_name"] == "SAMPLE CONTRACTOR INC"
     assert p["raw_contractor_name"] == "SAMPLE CONTRACTOR INC"
-    assert p["inspections"] is None
+    # Base adapter unifies the inspections envelope: no inspection section in
+    # this fixture means an empty list rather than None (ACCELA-05).
+    assert p["inspections"] == []
 
     # Verify the POST-back used the target_record_type.
     posted_payload = mock_session.post.call_args.kwargs.get("data") or (
