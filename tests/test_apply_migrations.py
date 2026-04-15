@@ -33,6 +33,8 @@ class ApplyMigrationsTests(unittest.TestCase):
                 '021_cleanup_polluted_builders.sql',
                 '022_permit_inspections_and_cr_event_items.sql',
                 '023_permit_owner_fields.sql',
+                '024_permit_contact_fields.sql',
+                '025_permit_subcontractors.sql',
             ],
         )
         self.assertTrue(all(path.parent == MIGRATIONS_DIR for path in migrations))

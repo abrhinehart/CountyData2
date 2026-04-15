@@ -25,6 +25,11 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
 
     module_name = "Building"
     target_record_type = "Building/Residential/New/NA"
+    # ACCELA-01: Iterate over multiple record types per search.  Override on
+    # subclass with a tuple of ddlGSPermitType values to expand coverage.  When
+    # empty, falls back to (target_record_type,) for back-compat.
+    target_record_types: tuple[str, ...] = ()
+    record_type_delay: float = 2.0  # seconds to sleep between record-type iterations (ACCELA-01)
     permit_type_filter: tuple[str, ...] = ()  # when non-empty, only keep rows whose permit_type matches one of these
     detail_request_delay: float = 0.0  # seconds to sleep between detail-page GETs (rate-limit courtesy)
     inspections_on_separate_tab: bool = False  # when True, skip _parse_inspections and emit []; see ACCELA-06
@@ -70,6 +75,90 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         r"Owner:\s*(.+?)\s*(?:OWNER:|More Details|Additional Information|$)",
         re.IGNORECASE,
     )
+    # ACCELA-04: Structured Contacts DOM Parse.  Polk CapDetail BR-2026-2894
+    # flat text renders applicant and licensed professional sections as
+    # label-delimited runs with no sub-labels between name / company /
+    # phone / email — we anchor on the section label and terminate on the
+    # next known label (Work Phone, Mobile Phone, email-glyph, Licensed
+    # Professional, View Additional Licensed Professionals, Project
+    # Description).  See docs/api-maps/polk-county-accela.md §4 and the
+    # Wave-1 recon in tmp/inspect_contacts.py for the observed layout:
+    #   "Applicant: <Name> <Company?> Work Phone: <digits> <email>
+    #    Licensed Professional: <Name> <email> <COMPANY, LLC>
+    #    <street> <CITY, ST, ZIP> <License Type> <License Number>
+    #    View Additional Licensed Professionals>> ..."
+    # applicant_company is intentionally fuzzy — without a label delimiter
+    # between applicant name and company it may over-capture personal-name
+    # tokens (e.g. "Jeff Cunningham LGI Homes" for Polk BR-2026-2894).
+    # Consumers should dedupe against raw_applicant_name.
+    applicant_company_pattern = re.compile(
+        r"Applicant:\s+"
+        r"(?:[A-Z][A-Za-z.'\-]+\s+){0,4}?"
+        r"([A-Z][A-Za-z0-9 &,.'\-]*?"
+        r"(?:\bHomes\b|\bInc\b|\bLLC\b|\bCorp\b|\bCompany\b|\bGroup\b"
+        r"|\bLtd\b|\bLP\b|\bBuilders\b|\bConstruction\b|\bServices\b"
+        r"|\bEnterprises\b|\bProperties\b|\bDevelopment\b))"
+        r"(?=\s+(?:\d+\s+[A-Z].*?)?(?:Work\s+Phone|Mobile\s+Phone"
+        r"|[a-zA-Z0-9._%+\-]+@|Licensed\s+Professional))",
+        re.IGNORECASE | re.DOTALL,
+    )
+    applicant_address_pattern = re.compile(
+        r"Applicant:.*?(\d+\s+[A-Z0-9][A-Z0-9 .'\-]*"
+        r"(?:\s+(?:ST|AVE|BLVD|DR|RD|LN|CT|WAY|PL|HWY|PKWY|STE|CIR|TRL))"
+        r"[A-Z0-9 .'\-,]*\s+[A-Z]{2}\s+\d{5}(?:-\d{4})?)"
+        r"\s+(?:Work\s+Phone|Mobile\s+Phone|[a-zA-Z0-9._%+\-]+@"
+        r"|Licensed\s+Professional)",
+        re.IGNORECASE | re.DOTALL,
+    )
+    applicant_phone_pattern = re.compile(
+        r"Applicant:.*?(?:Work\s+Phone|Mobile\s+Phone)[:\s]*(\d{7,15})",
+        re.IGNORECASE | re.DOTALL,
+    )
+    applicant_email_pattern = re.compile(
+        r"Applicant:.*?([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})"
+        r"\s+Licensed\s+Professional:",
+        re.IGNORECASE | re.DOTALL,
+    )
+    # Contractor license number — FL pattern is 2-4 letters + 5-10 digits
+    # (e.g. CAC1820196, CBC1258722, EC13011194).  Non-greedy + terminator
+    # anchored on "View Additional Licensed Professionals" | "Project
+    # Description" so we grab the PRIMARY LP's license only, not subcontractor
+    # licenses that follow.  ACCELA-04 scope is primary only — subcontractor
+    # list is deferred follow-up.
+    contractor_license_number_pattern = re.compile(
+        r"Licensed Professional:.*?([A-Z]{2,4}\d{5,10})"
+        r"\s+(?:View Additional Licensed Professionals|Project Description|$)",
+        re.IGNORECASE | re.DOTALL,
+    )
+    contractor_license_type_pattern = re.compile(
+        r"Licensed Professional:.*?\d{5}(?:-\d{4})?\s+(.+?)"
+        r"\s+[A-Z]{2,4}\d{5,10}"
+        r"\s+(?:View Additional Licensed Professionals|Project Description|$)",
+        re.IGNORECASE | re.DOTALL,
+    )
+    # ACCELA-04a: Subcontractor / Additional Licensed Professionals list.
+    # The "View Additional Licensed Professionals>>" link is a JS DOM toggle
+    # (DisplayAdditionInfo on tr_licenseProfessional / tbl_licensedps) — the
+    # data is already inline in the flat text following that anchor, formatted
+    # as enumerated items: "1) <name> <email?> <COMPANY> <street> <CITY, ST,
+    # ZIP> <license-type> <license-number> 2) ...".  Terminated by "Project
+    # Description:" / "Owner:" / "More Details" / end-of-string.  Live-recon
+    # evidence: Polk BR-2026-2659 returned 4 subs (roofing CCC1336147, plumbing
+    # CFC1431566, general CGC1526755, electric EC13015339).
+    additional_licensed_professionals_pattern = re.compile(
+        r"View Additional Licensed Professionals>>\s*(.+?)"
+        r"\s*(?:Project Description:|Owner:|More Details|Additional Information|$)",
+        re.IGNORECASE | re.DOTALL,
+    )
+    # Per-item splitter: enumerated "N) " marker.  Captures the raw chunk after
+    # the index; chunk parsing happens in _parse_additional_lps.
+    _additional_lp_item_pattern = re.compile(r"\d+\)\s+", re.IGNORECASE)
+    # FL contractor license code (same shape as primary contractor_license_number_pattern):
+    # 2-4 letters + 5-10 digits, anchored at end of chunk.
+    _additional_lp_license_pattern = re.compile(
+        r"\b([A-Z]{2,4}\d{5,10})\s*$",
+        re.IGNORECASE,
+    )
     address_pattern = re.compile(
         r"^(?P<street>.+?),\s*(?P<city>[A-Za-z .'-]+)\s+FL\s+(?P<zip>\d{5}(?:-\d{4})?)$",
         re.IGNORECASE,
@@ -95,6 +184,16 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
             "Referer": self.search_url,
         }
 
+    def _resolve_record_types(self) -> tuple[str, ...]:
+        """ACCELA-01: Return the tuple of ddlGSPermitType values to iterate.
+        Subclasses set ``target_record_types`` to expand coverage; when empty,
+        falls back to single-element ``(target_record_type,)`` for back-compat
+        with Lake Alfred / Winter Haven / Citrus.
+        """
+        if self.target_record_types:
+            return self.target_record_types
+        return (self.target_record_type,)
+
     def fetch_permits(
         self,
         start_date: date | None = None,
@@ -106,8 +205,19 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         session = self.build_session(headers=self.request_headers)
 
         permits_by_number: dict[str, dict] = {}
-        for permit in self._fetch_range(session, start_date, end_date):
-            permits_by_number[permit["permit_number"]] = permit
+        record_types = self._resolve_record_types()
+        for idx, record_type in enumerate(record_types):
+            if idx > 0 and self.record_type_delay > 0:
+                time.sleep(self.record_type_delay)
+            try:
+                for permit in self._fetch_range(session, start_date, end_date, record_type):
+                    permits_by_number[permit["permit_number"]] = permit
+            except Exception:
+                # ACCELA-01: per-type try/except keeps a single bad record type
+                # (rate-limit, transient 5xx, novel layout) from killing the
+                # whole run.  Surface as warning via the trace; outer caller
+                # treats each successful type as additive.
+                continue
         return list(permits_by_number.values())
 
     def _fetch_range(
@@ -115,13 +225,16 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         session: requests.Session,
         start_date: date,
         end_date: date,
+        record_type: str | None = None,
     ) -> list[dict]:
-        page_html = self._submit_search(session, start_date, end_date)
+        if record_type is None:
+            record_type = self.target_record_type
+        page_html = self._submit_search(session, start_date, end_date, record_type)
         total = self._extract_total_results(page_html)
         if total >= self.search_result_cap and start_date < end_date:
             midpoint = start_date + timedelta(days=(end_date - start_date).days // 2)
-            left = self._fetch_range(session, start_date, midpoint)
-            right = self._fetch_range(session, midpoint + timedelta(days=1), end_date)
+            left = self._fetch_range(session, start_date, midpoint, record_type)
+            right = self._fetch_range(session, midpoint + timedelta(days=1), end_date, record_type)
             return left + right
 
         permits = self._parse_search_results(page_html, session, start_date, end_date)
@@ -137,13 +250,16 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
         session: requests.Session,
         start_date: date,
         end_date: date,
+        record_type: str | None = None,
     ) -> str:
+        if record_type is None:
+            record_type = self.target_record_type
         initial_page = session.get(self.search_url, timeout=30)
         initial_page.raise_for_status()
         payload = self.extract_form_fields(initial_page.text)
         payload["ctl00$PlaceHolderMain$generalSearchForm$txtGSStartDate"] = start_date.strftime("%m/%d/%Y")
         payload["ctl00$PlaceHolderMain$generalSearchForm$txtGSEndDate"] = end_date.strftime("%m/%d/%Y")
-        payload["ctl00$PlaceHolderMain$generalSearchForm$ddlGSPermitType"] = self.target_record_type
+        payload["ctl00$PlaceHolderMain$generalSearchForm$ddlGSPermitType"] = record_type
         payload["__EVENTTARGET"] = "ctl00$PlaceHolderMain$btnNewSearch"
         payload["__EVENTARGUMENT"] = ""
         response = session.post(
@@ -158,7 +274,7 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
             metadata={
                 "start_date": start_date.isoformat(),
                 "end_date": end_date.isoformat(),
-                "record_type": self.target_record_type,
+                "record_type": record_type,
             },
         )
         return response.text
@@ -297,6 +413,13 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
                     "raw_licensed_professional_name": detail_fields.get("licensed_professional"),
                     "raw_owner_name": detail_fields.get("owner_name"),
                     "raw_owner_address": detail_fields.get("owner_address"),
+                    "raw_applicant_company": detail_fields.get("applicant_company"),
+                    "raw_applicant_address": detail_fields.get("applicant_address"),
+                    "raw_applicant_phone": detail_fields.get("applicant_phone"),
+                    "raw_applicant_email": detail_fields.get("applicant_email"),
+                    "raw_contractor_license_number": detail_fields.get("contractor_license_number"),
+                    "raw_contractor_license_type": detail_fields.get("contractor_license_type"),
+                    "raw_additional_licensed_professionals": detail_fields.get("additional_licensed_professionals"),
                     "latitude": None,
                     "longitude": None,
                     "inspections": detail_fields.get("inspections"),
@@ -337,6 +460,11 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
             owner_name = self._extract_match(self.owner_fallback_pattern, text)
             owner_address = None
 
+        additional_lp_segment = self._extract_match(
+            self.additional_licensed_professionals_pattern, text
+        )
+        additional_lps = self._parse_additional_lps(additional_lp_segment)
+
         return {
             "parcel_id": self._extract_match(self.parcel_pattern, text),
             "subdivision": self._extract_match(self.subdivision_pattern, text),
@@ -346,8 +474,96 @@ class AccelaCitizenAccessAdapter(JurisdictionAdapter):
             "job_value": self._extract_match(re.compile(r"Job Value\(\$\):\s*\$?[\d,]+(?:\.\d+)?"), text),
             "owner_name": owner_name,
             "owner_address": owner_address,
+            "applicant_company": self._extract_match(self.applicant_company_pattern, text),
+            "applicant_address": self._extract_match(self.applicant_address_pattern, text),
+            "applicant_phone": self._extract_match(self.applicant_phone_pattern, text),
+            "applicant_email": self._extract_match(self.applicant_email_pattern, text),
+            "contractor_license_number": self._extract_match(self.contractor_license_number_pattern, text),
+            "contractor_license_type": self._extract_match(self.contractor_license_type_pattern, text),
+            "additional_licensed_professionals": additional_lps,
             "inspections": inspections,
         }
+
+    def _parse_additional_lps(self, segment: str | None) -> str | None:
+        """Parse the "View Additional Licensed Professionals>>" segment into a
+        pipe-delimited string.
+
+        Input shape (live-recon Polk BR-2026-2659):
+            "1) Gonzalo Rubin permitting@level-roofing.com LEVEL ROOFING ...
+            1401 BEULAH RD WINTER GARDEN, FL, 34787 Roofing CCC1336147 2) ..."
+
+        Per-LP we extract:
+            * NAME — leading words up to the first email or company-suffix run.
+              Falls back to first 4 word-tokens if neither present.
+            * LICENSE_NUMBER — trailing FL contractor code (2-4 letters + 5-10
+              digits) at the chunk end.
+            * LICENSE_TYPE — the run of words between the address line and the
+              license number (typically 1-4 words: "Roofing", "Air Condition
+              Class A", "Electric With Alarm").
+
+        Output: "NAME|LICENSE_NUMBER|LICENSE_TYPE; NAME|LICENSE_NUMBER|LICENSE_TYPE; ...".
+        Returns None when segment is empty / no LPs successfully parsed.
+
+        ACCELA-04a — see api-map §4 (Additional Licensed Professionals).
+        """
+        if not segment:
+            return None
+
+        # Split on enumeration markers; first chunk is empty (text starts with "1)").
+        chunks = self._additional_lp_item_pattern.split(segment)
+        chunks = [c.strip() for c in chunks if c and c.strip()]
+        if not chunks:
+            return None
+
+        records: list[str] = []
+        for chunk in chunks:
+            try:
+                parsed = self._parse_single_additional_lp(chunk)
+            except Exception:
+                continue
+            if parsed is None:
+                continue
+            records.append(parsed)
+
+        if not records:
+            return None
+        return "; ".join(records)
+
+    def _parse_single_additional_lp(self, chunk: str) -> str | None:
+        """Parse one enumerated subcontractor chunk.  Returns "NAME|LICENSE|TYPE"
+        or None if the chunk lacks a recognizable license number.
+        """
+        # License number (trailing FL contractor code).
+        license_match = self._additional_lp_license_pattern.search(chunk)
+        if license_match is None:
+            return None
+        license_number = license_match.group(1).upper()
+        body = chunk[: license_match.start()].strip()
+
+        # License type — words just before the license number.  ZIP is the
+        # nearest reliable left-anchor; whatever sits between the ZIP and the
+        # license number is the type (1-4 tokens).
+        type_match = re.search(r"\b\d{5}(?:-\d{4})?\s+(.+?)\s*$", body)
+        license_type = (type_match.group(1).strip() if type_match else "").strip()
+
+        # Name — first 1-4 capitalized word-tokens before the first email
+        # (or before COMPANY if no email present).
+        email_match = re.search(r"\s+[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}", chunk)
+        if email_match:
+            name = chunk[: email_match.start()].strip()
+        else:
+            # Fall back to first 4 tokens (handles email-less LPs).
+            tokens = chunk.split()
+            name = " ".join(tokens[:4]) if tokens else ""
+
+        # Defensive: cap name length at ~80 chars to avoid swallowing the
+        # company tail when both name and email are missing.
+        if len(name) > 80:
+            name = name[:80].rstrip()
+
+        if not name and not license_type:
+            return f"|{license_number}|"
+        return f"{name}|{license_number}|{license_type}"
 
     def _parse_inspections(self, soup: BeautifulSoup) -> list[dict] | None:
         """Extract inspection rows from the detail page HTML.

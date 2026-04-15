@@ -184,23 +184,24 @@ https://aca-prod.accela.com/POLKCO/Cap/CapDetail.aspx?Module=Building&TabName=Bu
 | Field | Extracted? | Notes |
 |-------|-----------|-------|
 | Name | YES (partial) | Via regex on flattened text |
-| Company | NO | Visible on detail page |
-| Street Address | NO | Full mailing address shown |
-| City/State/Zip | NO | |
-| Work Phone | NO | |
-| Email | NO | |
-| Mailing Address | NO | Separate from street address |
+| Company | YES (ACCELA-04) | `applicant_company_pattern`; fuzzy — captures name+company when corp suffix present |
+| Street Address | YES (ACCELA-04) | `applicant_address_pattern`; NULL on Polk (no applicant address rendered) — reserved for alt agency layouts |
+| City/State/Zip | YES (ACCELA-04) | Captured inline with Street Address |
+| Work Phone | YES (ACCELA-04) | `applicant_phone_pattern`; Work Phone or Mobile Phone label |
+| Email | YES (ACCELA-04) | `applicant_email_pattern` |
+| Mailing Address | NO | Separate from street address; not rendered on anonymous Polk |
 
 ### Licensed Professional
 | Field | Extracted? | Notes |
 |-------|-----------|-------|
 | Name | YES (partial) | Via regex on flattened text |
-| Email | NO | |
-| Company | NO | |
-| Address | NO | |
+| Email | NO | Inline in `raw_licensed_professional_name` blob |
+| Company | NO | Inline in `raw_licensed_professional_name` blob |
+| Address | NO | Inline in `raw_licensed_professional_name` blob |
 | Fax | NO | |
-| License Type + Number | NO | e.g., "Air Condition Class A CAC057633" |
-| "View Additional Licensed Professionals>>" link | NO | Shows subcontractors |
+| License Type | YES (ACCELA-04) | `contractor_license_type_pattern`; e.g., "Air Condition Class A" |
+| License Number | YES (ACCELA-04) | `contractor_license_number_pattern`; e.g., "CAC1820196" — primary only; subcontractor list captured separately (ACCELA-04a) |
+| "View Additional Licensed Professionals>>" link | YES (ACCELA-04a) | Subcontractor list captured via `additional_licensed_professionals_pattern` + `_parse_additional_lps()`; serialized as `NAME\|LICENSE_NUMBER\|LICENSE_TYPE` per LP joined by `; ` and stored in `raw_additional_licensed_professionals` (migration 025).  Live-recon Polk BR-2026-2659 extracted 4 trade subs. |
 
 ### Owner
 | Field | Extracted? | Notes |
@@ -337,25 +338,25 @@ The `GET /v4/records/{recordId}/inspections` endpoint returns 60+ fields per ins
 | Field | Available | Extracted |
 |-------|-----------|-----------|
 | First/Last Name | YES | YES (partial, via regex) |
-| Company / Business Name | YES | NO |
-| Street Address | YES | NO |
-| City/State/Zip | YES | NO |
-| Work Phone | YES | NO |
-| Mobile Phone | YES | NO |
-| Email | YES | NO |
-| Mailing Address | YES | NO |
+| Company / Business Name | YES | YES (ACCELA-04, fuzzy) |
+| Street Address | YES | YES (ACCELA-04) — NULL on Polk, populated on agencies that render applicant address |
+| City/State/Zip | YES | YES (ACCELA-04) — inline with Street Address |
+| Work Phone | YES | YES (ACCELA-04) |
+| Mobile Phone | YES | YES (ACCELA-04) — same column as Work Phone |
+| Email | YES | YES (ACCELA-04) |
+| Mailing Address | YES | NO (separate from street address) |
 
 ### Licensed Professional (Primary Contractor)
 | Field | Available | Extracted |
 |-------|-----------|-----------|
 | Name | YES | YES (partial, via regex) |
-| Email | YES | NO |
-| Company | YES | NO |
-| Address | YES | NO |
+| Email | YES | NO (inline in name blob) |
+| Company | YES | NO (inline in name blob) |
+| Address | YES | NO (inline in name blob) |
 | Fax | YES | NO |
-| License Type | YES | NO |
-| License Number | YES | NO |
-| Additional Licensed Professionals | YES (via link) | NO |
+| License Type | YES | YES (ACCELA-04) |
+| License Number | YES | YES (ACCELA-04) |
+| Additional Licensed Professionals | YES (inline DOM, JS toggle) | YES (ACCELA-04a) — pipe-delimited `NAME\|LICENSE\|TYPE; ...` in `raw_additional_licensed_professionals` (migration 025) |
 
 ### Owner
 | Field | Available | Extracted |
@@ -582,8 +583,8 @@ https://apis.accela.com
 | Subdivision | YES (partial) | Detail page regex | -- | -- |
 | Contractor Name | PARTIAL | Detail page regex (often null) | Full name, company, license type, license number, phone, email, fax, address | Detail page / REST API |
 | Applicant Name | PARTIAL | Detail page regex | Full name, company, phone, email, mailing address | Detail page / REST API |
-| Licensed Professional Name | PARTIAL | Detail page regex | + all subcontractors via "View Additional Licensed Professionals" | Detail page / REST API |
-| Latitude/Longitude | ALWAYS NULL | -- | Available via REST API geocoding or address xCoordinate/yCoordinate | REST API |
+| Licensed Professional Name | YES (ACCELA-04) primary + YES (ACCELA-04a) subcontractors | Detail page regex; subcontractor list serialized pipe-delimited in `raw_additional_licensed_professionals` | Fax, full-address sub-fields | Detail page / REST API |
+| Latitude/Longitude | YES (ACCELA-11 — post-ingest geocode via Census) | Pipeline-stage in `_run_single_adapter`; Polk hint `, FL` in `geocoding.py` | Higher-precision match for rural-road addresses | ArcGIS BI centroid fallback or REST geocoding |
 | Owner Name | YES (regex) | Detail page regex (ACCELA-03) | -- | -- |
 | Owner Address | YES (regex) | Detail page regex (ACCELA-03) | Email, phone, owner type (Primary/Secondary/Trust) | REST API owners endpoint |
 | Project Description | PARTIAL | Detail page regex | Full text | Detail page / REST API |

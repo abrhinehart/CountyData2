@@ -148,8 +148,8 @@ def test_fetch_permits_mocked(monkeypatch):
     <div>Job Value($): $350,000.00</div>
     <div>Subdivision: OAK MEADOWS PHASE 2</div>
     <div>Fees</div>
-    <div>Applicant: SMITH BUILDERS INC</div>
-    <div>Licensed Professional: JOHN DOE</div>
+    <div>Applicant: John Smith SMITH BUILDERS INC Work Phone: 8135551234 jsmith@smithbuilders.com</div>
+    <div>Licensed Professional: JOHN DOE doe@abcroofing.com ABC ROOFING LLC 100 PARK AVE ORLANDO, FL, 32801 Roofing CCC1234567 View Additional Licensed Professionals&gt;&gt; 1) Sub Plumber sub@plumb.com SUB PLUMBING LLC 200 OAK AVE TAMPA, FL, 33601 Plumbing CFC2222222 2) Sub Electric esub@elec.com SUB ELECTRIC LLC 300 PINE ST MIAMI, FL, 33101 Electric With Alarm EC13099999</div>
     <div>Project Description: NEW SFR 4BR 2BA</div>
     <h1><span>Owner:</span></h1>
     <span>
@@ -221,11 +221,38 @@ def test_fetch_permits_mocked(monkeypatch):
     assert p["permit_type"] == "Building/Residential/New/NA"
     assert p["valuation"] == 350000.0
     assert p["raw_subdivision_name"] == "OAK MEADOWS PHASE 2"
-    assert p["raw_contractor_name"] == "JOHN DOE"
-    assert p["raw_applicant_name"] == "SMITH BUILDERS INC"
-    assert p["raw_licensed_professional_name"] == "JOHN DOE"
+    # Existing applicant/LP regexes are greedy-section-capture (ACCELA-03
+    # shape): raw_applicant_name captures the full applicant block, and
+    # raw_contractor_name falls back to the LP name when applicant is distinct.
+    assert p["raw_applicant_name"] == (
+        "John Smith SMITH BUILDERS INC Work Phone: 8135551234 "
+        "jsmith@smithbuilders.com"
+    )
+    assert p["raw_licensed_professional_name"] == (
+        "JOHN DOE doe@abcroofing.com ABC ROOFING LLC 100 PARK AVE "
+        "ORLANDO, FL, 32801 Roofing CCC1234567"
+    )
+    assert p["raw_contractor_name"] == p["raw_licensed_professional_name"]
     assert p["raw_owner_name"] == "SMITH FAMILY TRUST"
     assert p["raw_owner_address"] == "500 BEACON ST BOSTON MA 02108"
+    # ACCELA-04: structured sub-fields from Applicant / Licensed Professional.
+    assert p["raw_applicant_company"] == "John Smith SMITH BUILDERS INC"
+    assert p["raw_applicant_address"] is None  # no applicant address in synth
+    assert p["raw_applicant_phone"] == "8135551234"
+    assert p["raw_applicant_email"] == "jsmith@smithbuilders.com"
+    assert p["raw_contractor_license_number"] == "CCC1234567"
+    assert p["raw_contractor_license_type"] == "Roofing"
+    # ACCELA-04a: subcontractor list captured from "View Additional Licensed
+    # Professionals>>" segment, serialized as "NAME|LICENSE|TYPE; ..." per LP.
+    assert p["raw_additional_licensed_professionals"] is not None
+    parts = p["raw_additional_licensed_professionals"].split("; ")
+    assert len(parts) == 2
+    assert parts[0].startswith("Sub Plumber|")
+    assert "|CFC2222222|" in parts[0]
+    assert parts[0].endswith("|Plumbing")
+    assert parts[1].startswith("Sub Electric|")
+    assert "|EC13099999|" in parts[1]
+    assert parts[1].endswith("|Electric With Alarm")
     # Polk has inspections_on_separate_tab=True, so base adapter short-circuits
     # and emits an empty list regardless of detail-page contents (ACCELA-05).
     assert p["inspections"] == []
@@ -582,3 +609,210 @@ def test_parse_owner_from_flat_text():
     addr = adapter._extract_match(AccelaCitizenAccessAdapter.owner_address_pattern, individual_text)
     assert name == "JOHN Q PUBLIC"
     assert addr == "123 MAIN ST LAKELAND FL 33801"
+
+
+# ── Contact regex extraction (ACCELA-04) ──────────────────────────────────
+
+def test_parse_contact_fields_from_flat_text():
+    """Exercise applicant/contractor sub-field regexes against flat-text slices
+    of the Accela CapDetail Applicant and Licensed Professional sections.
+    Pins the pattern shape against the live Polk BR-2026-2894 recon (see
+    docs/api-maps/polk-county-accela.md §4).
+    """
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+    A = AccelaCitizenAccessAdapter
+
+    # Case 1: live-Polk shape — all six fields present (BR-2026-2894 extract).
+    polk_text = (
+        "Applicant: Jeff Cunningham LGI Homes Work Phone: 8137315791 "
+        "jeff.cunningham@lgihomes.com Licensed Professional: Jason Lee James "
+        "permitting@mechanicalone.com MECHANICAL ONE, LLC 307 CRANES ROOST BLVD "
+        "ALTAMONTE SPRINGS, FL, 32701 Air Condition Class A CAC1820196 "
+        "View Additional Licensed Professionals>> 1) Daniel A Williams "
+        "trey.williams@lgihomes.com LGI HOMES - FLORIDA, LLC 989 WEDGEWOOD SE "
+        "WINTER HAVEN, FL, 33880 Building CBC1258722 Project Description: new construction"
+    )
+    assert adapter._extract_match(A.applicant_company_pattern, polk_text) == "Jeff Cunningham LGI Homes"
+    assert adapter._extract_match(A.applicant_address_pattern, polk_text) is None
+    assert adapter._extract_match(A.applicant_phone_pattern, polk_text) == "8137315791"
+    assert adapter._extract_match(A.applicant_email_pattern, polk_text) == "jeff.cunningham@lgihomes.com"
+    # Primary LP only — must NOT bleed into subcontractor CBC1258722.
+    assert adapter._extract_match(A.contractor_license_number_pattern, polk_text) == "CAC1820196"
+    assert adapter._extract_match(A.contractor_license_type_pattern, polk_text) == "Air Condition Class A"
+
+    # Case 2: partial — applicant has name+email but no phone; LP absent.
+    partial_text = (
+        "Applicant: JANE SMITH ACME BUILDERS jane@acme.com "
+        "Licensed Professional: foo Project Description: NEW SFR"
+    )
+    assert adapter._extract_match(A.applicant_company_pattern, partial_text) == "JANE SMITH ACME BUILDERS"
+    assert adapter._extract_match(A.applicant_phone_pattern, partial_text) is None
+    assert adapter._extract_match(A.applicant_email_pattern, partial_text) == "jane@acme.com"
+    assert adapter._extract_match(A.contractor_license_number_pattern, partial_text) is None
+    assert adapter._extract_match(A.contractor_license_type_pattern, partial_text) is None
+
+    # Case 3: no Applicant / LP section — all patterns return None cleanly.
+    empty_text = "Parcel Number: 12-34-56 Project Description: NEW SFR More Details"
+    assert adapter._extract_match(A.applicant_company_pattern, empty_text) is None
+    assert adapter._extract_match(A.applicant_address_pattern, empty_text) is None
+    assert adapter._extract_match(A.applicant_phone_pattern, empty_text) is None
+    assert adapter._extract_match(A.applicant_email_pattern, empty_text) is None
+    assert adapter._extract_match(A.contractor_license_number_pattern, empty_text) is None
+    assert adapter._extract_match(A.contractor_license_type_pattern, empty_text) is None
+
+    # Case 4: LP with "View Additional Licensed Professionals>>" terminator —
+    # subcontractor license codes MUST NOT leak into the primary contractor
+    # license fields.  Regression guard for the ACCELA-04 terminator anchor.
+    subcontractors_text = (
+        "Licensed Professional: Alice Primary alice@primary.com PRIMARY CO LLC "
+        "100 MAIN ST TAMPA, FL, 33601 Building CBC9999999 "
+        "View Additional Licensed Professionals>> 1) Bob Sub bob@sub.com "
+        "SUB LLC 200 OAK AVE MIAMI, FL, 33101 Roofing CCC1111111 "
+        "Project Description: NEW SFR"
+    )
+    assert adapter._extract_match(A.contractor_license_number_pattern, subcontractors_text) == "CBC9999999"
+    assert adapter._extract_match(A.contractor_license_type_pattern, subcontractors_text) == "Building"
+
+
+# ── Subcontractor / Additional LP parsing (ACCELA-04a) ────────────────────
+
+def test_parse_additional_lps():
+    """Exercise _parse_additional_lps against four shapes:
+       1) live-Polk multi-sub format (BR-2026-2659 — 4 trade subs).
+       2) single-LP segment.
+       3) empty / None segment.
+       4) malformed chunk (no license number — must drop it without raising).
+    """
+    adapter = AccelaCitizenAccessAdapter.__new__(AccelaCitizenAccessAdapter)
+
+    # Case 1: live-Polk shape (4 subs from BR-2026-2659).
+    polk_segment = (
+        "1) Gonzalo Rubin permitting@level-roofing.com LEVEL ROOFING SOLUTIONS, "
+        "LLC 1401 BEULAH RD WINTER GARDEN, FL, 34787 Roofing CCC1336147 "
+        "2) Alexis Lopez dp@dogplumbing.com DOG PLUMBING LLC 1590 W 73 STREET "
+        "MIAMI, FL, 33166 Plumbing CFC1431566 "
+        "3) DANIEL PATRICK MCKEARAN danny@duckyjohnson.com DUCKY RECOVERY LLC "
+        "5333 RIVER ROAD HARAHAN, LA, 70123 General CGC1526755 "
+        "4) Colby Anthony Miller camiller2020@gmail.com SOUTHEASTERN ELECTRICAL "
+        "CONTRACTOR LLC 9704 GALETON COURT WEST MOBILE, AL, 36695 "
+        "Electric With Alarm EC13015339"
+    )
+    result = adapter._parse_additional_lps(polk_segment)
+    assert result is not None
+    parts = result.split("; ")
+    assert len(parts) == 4
+    # Each part is NAME|LICENSE|TYPE.
+    for part in parts:
+        assert part.count("|") == 2
+    # Spot-check first and last entries.
+    assert parts[0].startswith("Gonzalo Rubin|")
+    assert "|CCC1336147|" in parts[0]
+    assert parts[0].endswith("|Roofing")
+    assert parts[3].startswith("Colby Anthony Miller|")
+    assert "|EC13015339|" in parts[3]
+    assert parts[3].endswith("|Electric With Alarm")
+
+    # Case 2: single-LP segment.
+    single_segment = (
+        "1) Jane Doe jane@xyz.com XYZ CONTRACTING 100 MAIN ST OCALA, FL, 34470 "
+        "Plumbing CFC9999999"
+    )
+    result = adapter._parse_additional_lps(single_segment)
+    assert result is not None
+    assert "; " not in result  # only one record
+    assert result.startswith("Jane Doe|")
+    assert "|CFC9999999|" in result
+    assert result.endswith("|Plumbing")
+
+    # Case 3: empty / None.
+    assert adapter._parse_additional_lps(None) is None
+    assert adapter._parse_additional_lps("") is None
+    assert adapter._parse_additional_lps("   ") is None
+
+    # Case 4: malformed chunk (no FL license number at end) → dropped.
+    malformed_segment = "1) Bogus Name no email no company plain text"
+    assert adapter._parse_additional_lps(malformed_segment) is None
+
+
+# ── ACCELA-01 record-type iteration ───────────────────────────────────────
+
+def test_fetch_permits_iterates_multiple_record_types(monkeypatch):
+    """Verify the adapter loops over target_record_types and dedups by
+    permit_number across types.  Mock _fetch_range to return one unique permit
+    per record type and assert the final list has one entry per type.
+    """
+    from modules.permits.scrapers.adapters.polk_county import PolkCountyAdapter
+
+    adapter = PolkCountyAdapter()
+    # Sanity-check the override: Polk now has 9 curated record types.
+    assert len(adapter._resolve_record_types()) == 9
+
+    submitted: list[str] = []
+
+    def fake_fetch_range(self, session, start_date, end_date, record_type=None):
+        submitted.append(record_type)
+        # one synthetic permit per record type, keyed by full record-type path
+        # (so "Building/Residential/New" and "Building/Commercial/New" don't collide).
+        return [{
+            "permit_number": f"FAKE-{record_type.replace('/', '_')}",
+            "address": "1 TEST DR, LAKELAND, FL 33801",
+            "issue_date": "2026-04-01",
+            "permit_type": record_type,
+        }]
+
+    monkeypatch.setattr(adapter, "_fetch_range", fake_fetch_range.__get__(adapter, type(adapter)))
+    # Avoid 2s sleeps in unit tests.
+    adapter.record_type_delay = 0
+    # Avoid actually building a session.
+    monkeypatch.setattr(adapter, "build_session", lambda **kwargs: object())
+
+    permits = adapter.fetch_permits(
+        start_date=date(2026, 3, 1),
+        end_date=date(2026, 4, 1),
+    )
+
+    # Each record type submitted exactly once.
+    assert submitted == list(adapter.target_record_types)
+    # 9 unique permits emitted (one per record type).
+    assert len(permits) == 9
+    permit_numbers = {p["permit_number"] for p in permits}
+    assert len(permit_numbers) == 9
+
+
+def test_fetch_permits_back_compat_single_record_type(monkeypatch):
+    """Adapters that don't set ``target_record_types`` (Citrus / Lake Alfred /
+    Winter Haven) MUST keep their existing single-type behavior.  Resolve
+    falls back to ``(target_record_type,)``.
+    """
+    from modules.permits.scrapers.adapters.citrus_county import CitrusCountyAdapter
+
+    adapter = CitrusCountyAdapter()
+    # Fallback behavior: resolves to single-element tuple.
+    resolved = adapter._resolve_record_types()
+    assert resolved == (adapter.target_record_type,)
+
+
+def test_fetch_permits_per_record_type_exception_does_not_abort(monkeypatch):
+    """One bad record type (e.g. portal returns malformed HTML or transient
+    error) must NOT prevent the surviving types from yielding permits.
+    """
+    from modules.permits.scrapers.adapters.polk_county import PolkCountyAdapter
+
+    adapter = PolkCountyAdapter()
+    adapter.record_type_delay = 0
+
+    def fake_fetch_range(self, session, start_date, end_date, record_type=None):
+        if "Pool" in record_type:
+            raise RuntimeError("simulated portal 500")
+        return [{
+            "permit_number": f"OK-{record_type.replace('/', '_')}",
+            "address": "x", "issue_date": "2026-04-01", "permit_type": record_type,
+        }]
+
+    monkeypatch.setattr(adapter, "_fetch_range", fake_fetch_range.__get__(adapter, type(adapter)))
+    monkeypatch.setattr(adapter, "build_session", lambda **kwargs: object())
+
+    permits = adapter.fetch_permits(start_date=date(2026, 3, 1), end_date=date(2026, 4, 1))
+    # 9 record types, 1 raises → 8 surviving permits.
+    assert len(permits) == 8
+    assert all("OK-" in p["permit_number"] for p in permits)
