@@ -2,6 +2,8 @@
 
 Last updated: 2026-04-14
 
+> **Status: Not Implemented.** The `charlotte_county.py` adapter referenced throughout this document was intentionally deleted during the 2026-04-14 project-reload registry audit (see `docs/sessions/2026-04-14-project-reload.md` item 14) -- it was mis-coded with `agency_code='BOCC'` (ambiguous abbreviation; Charlotte FL's correct agency code is `CHARLOTTEFL`) and was an orphan across all three metadata sources (`county-registry.yaml`, `modules/permits/scrapers/adapters/__init__.py`, and `seed_pt_jurisdiction_config.py`). This document is retained as portal-surface reconnaissance for a future re-implementation; references to a "CharlotteCountyAdapter" class are historical or aspirational and do NOT describe code that currently exists under `modules/`. No Charlotte permit extraction is currently running.
+
 ## 1. Portal Overview
 
 | Property | Value |
@@ -10,28 +12,29 @@ Last updated: 2026-04-14
 | Portal URL (primary) | `https://aca-prod.accela.com/BOCC/Default.aspx` |
 | Portal URL (alternate) | `https://aca-prod.accela.com/CHARLOTTE/Default.aspx` (BOTH paths return HTTP 200 at probe time; the **authoritative** agency path is `BOCC` because the adapter's `agency_code = "BOCC"` is the literal path Accela routes on) |
 | Agency code | `BOCC` (unique in repo -- every other county uses a county-named code like `POLKCO`, `CITRUS`) |
-| Adapter | `modules.permits.scrapers.adapters.charlotte_county.CharlotteCountyAdapter` |
+| Adapter | None -- `modules/permits/scrapers/adapters/charlotte_county.py` was deleted 2026-04-14; see Status banner above |
 | Base class | `AccelaCitizenAccessAdapter` |
 | Module | `Building` (inherited default) |
 | Target record type | `""` (empty string -- BOCC portal has NO record-type dropdown; search runs across ALL Building permits) |
 | `permit_type_filter` | `("Residential Single Family",)` (post-search tuple filter to keep only new-construction rows) |
 | `detail_request_delay` | `0.5` seconds (BOCC portal rate-limits aggressively) |
 | Registry status | **ABSENT -- no entry in `county-registry.yaml`** |
-| Adapter registration | **NOT registered in `modules/permits/scrapers/adapters/__init__.py`** (the `__init__.py` file is empty, 1 line) -- see Quirks §9.1 |
+| Adapter registration | N/A -- adapter file deleted; `__init__.py` is empty (confirms no Charlotte registration) |
 | Auth | Anonymous search and detail view |
 
+**Historical adapter shape (for future re-implementation reference only -- this file no longer exists in the repo):**
+
 ```python
-# modules/permits/scrapers/adapters/charlotte_county.py -- full file (11 lines)
-from modules.permits.scrapers.adapters.accela_citizen_access import AccelaCitizenAccessAdapter
-
-
-class CharlotteCountyAdapter(AccelaCitizenAccessAdapter):
-    slug = "charlotte-county"
-    display_name = "Charlotte County"
-    agency_code = "BOCC"
-    target_record_type = ""  # BOCC portal has no record-type dropdown; search all Building permits
-    permit_type_filter = ("Residential Single Family",)  # post-search filter for new-construction
-    detail_request_delay = 0.5  # BOCC portal rate-limits aggressively
+# Deleted 2026-04-14. Previously at:
+# modules/permits/scrapers/adapters/charlotte_county.py (11 lines)
+#
+# class CharlotteCountyAdapter(AccelaCitizenAccessAdapter):
+#     slug = "charlotte-county"
+#     display_name = "Charlotte County"
+#     agency_code = "BOCC"           # mis-coded; should be "CHARLOTTEFL"
+#     target_record_type = ""
+#     permit_type_filter = ("Residential Single Family",)
+#     detail_request_delay = 0.5
 ```
 
 ### Difference from Polk / Citrus Accela
@@ -43,6 +46,7 @@ class CharlotteCountyAdapter(AccelaCitizenAccessAdapter):
 | Post-search filter | none | none | **`permit_type_filter=("Residential Single Family",)`** |
 | Detail request delay | 0.0s | 0.0s | **0.5s** (rate-limit courtesy) |
 | `__init__.py` registration | YES | YES | **NO (orphan)** |
+| Adapter file exists | YES | YES | **NO -- deleted 2026-04-14** |
 
 ---
 
@@ -120,9 +124,9 @@ The inherited `AccelaCitizenAccessAdapter._fetch_detail_fields` flattens the det
 | Licensed Professional Name | PARTIAL | Detail regex |
 | Job Value | YES | Detail regex on `Job Value($):` |
 | Subdivision | YES (partial) | Detail regex |
-| Inspections | YES (via `_parse_inspections`) | Table-based or div-based parse |
+| Inspections | N/A -- adapter does not exist (base method `_parse_inspections` would be inherited IF re-implemented) | Table or div parse |
 
-**Inspection extraction is present in the base adapter** (ref: commit `b16df13` `feat: add Accela inspection extraction and Legistar event items/votes`). The `_parse_inspections` method tries a table layout first, then a div layout; each row yields `{type, status, scheduled_date, result, inspector}`.
+**If Charlotte is re-implemented as a minimal `AccelaCitizenAccessAdapter` subclass, inspection extraction would be inherited from the base** (ref: commit `b16df13`). On Charlotte's live portal (BOCC), whether `_parse_inspections` returns rows depends on whether the CapDetail page renders inspections inline or on a separate tab (same question as open for Polk/Citrus; see `docs/api-maps/polk-county-improvement-report.md` ACCELA-05).
 
 ---
 
@@ -130,13 +134,15 @@ The inherited `AccelaCitizenAccessAdapter._fetch_detail_fields` flattens the det
 
 Portal location: Record Info dropdown > Inspections.
 
-**Currently extracted?** **YES -- via base adapter** `_parse_inspections` (commit `b16df13`). Returns a list of dicts per record with keys `type`, `status`, `scheduled_date`, `result`, `inspector`. Falls back to `None` when no inspection section is found.
+**Currently extracted?** **N/A -- no Charlotte adapter currently exists.** If re-implemented as a trivial base-class subclass, inherited `_parse_inspections` would attempt extraction on each CapDetail response and return rows or `None` depending on BOCC portal layout. See Status banner at top and `docs/api-maps/polk-county-improvement-report.md` ACCELA-05 for the shared separate-tab caveat.
 
 ---
 
 ## 6. Contacts, Documents, Fees, Processing Status, Related Records
 
 Same surfaces as Citrus / Polk:
+
+> Note: the "Extracted?" column below reflects the pre-deletion behavior of the now-removed Charlotte adapter (deleted 2026-04-14) -- it does NOT describe a currently-running integration. See Status banner at top.
 
 | Tab | Extracted? |
 |-----|-----------|
@@ -155,6 +161,8 @@ Same Accela REST surface (`https://apis.accela.com`). Public-citizen auth patter
 ---
 
 ## 8. What We Currently Extract vs What's Available
+
+> Note: the "Currently Extracted" column below reflects the pre-deletion behavior of the now-removed Charlotte adapter (deleted 2026-04-14) -- it does NOT describe a currently-running integration. Charlotte is not presently producing any permit data. See Status banner at top.
 
 | Data Point | Currently Extracted | Source | Notes |
 |-----------|--------------------|--------|-------|
@@ -180,19 +188,19 @@ Same Accela REST surface (`https://apis.accela.com`). Public-citizen auth patter
 
 ## 9. Known Limitations and Quirks
 
-1. **Adapter is NOT registered in `modules/permits/scrapers/adapters/__init__.py` -- it is an orphan.** The `__init__.py` file is empty (1 line, 0 bytes of exports). `CharlotteCountyAdapter` exists as a class in `charlotte_county.py` but is not surfaced through the package's public namespace. Any runner that imports adapters by registry-based discovery will NOT instantiate Charlotte. The adapter can be imported directly via its fully-qualified module path, but is orphaned from automated wiring.
+1. **Adapter deleted 2026-04-14 -- this map documents a planning/recon surface, not a live integration.** The adapter file `modules/permits/scrapers/adapters/charlotte_county.py` was removed during the project-reload registry audit; see `docs/sessions/2026-04-14-project-reload.md` item 14 for the deletion rationale (mis-coded `agency_code='BOCC'` + orphan across all three metadata sources). Any runner that attempts to import a Charlotte adapter by name will fail. References to "CharlotteCountyAdapter" elsewhere in this document are historical (describing the deleted shape) or aspirational (describing the shape a future re-implementation should take).
 
-2. **`agency_code = "BOCC"` is unique in the repo.** Every other Accela-backed adapter uses a county-named code (`POLKCO`, `CITRUS`). Charlotte's Accela instance is filed under the "Board of County Commissioners" acronym `BOCC` -- a generic three-letter agency code that could collide with other Accela tenants if cross-agency routing ever becomes ambiguous. URL paths, form postbacks, and REST calls must all use `BOCC`.
+2. **The deleted adapter used `agency_code = "BOCC"` -- mis-coded.** Every other Accela-backed adapter uses a county-named code (`POLKCO`, `CITRUS`). Charlotte's Accela instance is filed under the "Board of County Commissioners" acronym `BOCC` -- a generic three-letter agency code. A future re-implementation should prefer `CHARLOTTEFL` as the canonical agency code per the 2026-04-14 project-reload audit. URL paths, form postbacks, and REST calls must use the agency slug that Accela actually routes on (both `/BOCC/` and `/CHARLOTTE/` return HTTP 200 at probe time).
 
-3. **Both `/CHARLOTTE/` and `/BOCC/` URL paths return HTTP 200 at probe time.** The Charlotte County Accela landing page appears to resolve under both agency slugs. The adapter's `agency_code = "BOCC"` is the definitive routing value (used to build form postback URLs and the REST `x-accela-agency` header); `/CHARLOTTE/` appears to be a human-friendly redirect. Always use `BOCC` in production calls.
+3. **Both `/CHARLOTTE/` and `/BOCC/` URL paths return HTTP 200 at probe time.** The Charlotte County Accela landing page resolves under both agency slugs. The deleted adapter's `agency_code = "BOCC"` was used to build form postback URLs and the REST `x-accela-agency` header; a future re-implementation should verify which slug Accela actually routes search postbacks on before committing to either. `/CHARLOTTE/` may be a human-friendly redirect to `/BOCC/` or vice-versa.
 
-4. **`target_record_type = ""` (empty string).** The BOCC portal has NO record-type dropdown on the General Search form. Posting an empty value retrieves ALL Building permits for the date range. Filtering to residential new-construction happens AFTER the search via the `permit_type_filter` tuple.
+4. **The deleted adapter used `target_record_type = ""` (empty string).** The BOCC portal has NO record-type dropdown on the General Search form. Posting an empty value retrieves ALL Building permits for the date range. Filtering to residential new-construction happened (pre-deletion) AFTER the search via the `permit_type_filter` tuple.
 
-5. **`permit_type_filter = ("Residential Single Family",)` is a post-search filter.** Unlike Polk's server-side `target_record_type=Building/Residential/New/NA` filter, Charlotte filters client-side by substring match against the `Record Type` grid column. This wastes bandwidth (all Building permits fetched from the grid) but is the only option because the form lacks a dropdown.
+5. **The deleted adapter used `permit_type_filter = ("Residential Single Family",)` as a post-search filter.** Unlike Polk's server-side `target_record_type=Building/Residential/New/NA` filter, Charlotte filtered client-side by substring match against the `Record Type` grid column. This wastes bandwidth (all Building permits fetched from the grid) but was the only option because the form lacks a dropdown. A re-implementation should keep this pattern.
 
-6. **`detail_request_delay = 0.5` is unique to Charlotte.** Every other Accela adapter uses 0.0s. The inline comment "BOCC portal rate-limits aggressively" in `charlotte_county.py` documents the reason. A scraper that pays this delay on every detail-page GET for a 120-day bootstrap window may run materially slower than Polk/Citrus.
+6. **The deleted adapter set `detail_request_delay = 0.5` (unique to Charlotte).** Every other Accela adapter uses 0.0s. The inline comment "BOCC portal rate-limits aggressively" in the former `charlotte_county.py` documented the reason. A future re-implementation should preserve this delay; a scraper that pays this delay on every detail-page GET for a 120-day bootstrap window will run materially slower than Polk/Citrus.
 
-7. **Registry absence: Charlotte has no entry in `county-registry.yaml`.** There is no `charlotte-fl.projects.pt` block. The sole sources of truth are `modules/permits/scrapers/adapters/charlotte_county.py` (11 lines) and the base class `accela_citizen_access.py`.
+7. **Registry absence: Charlotte has no entry in `county-registry.yaml`.** There is no `charlotte-fl.projects.pt` block. Combined with the 2026-04-14 deletion of the adapter file, this means there is currently no persistent source of truth for a Charlotte PT integration -- only this document and the base class `accela_citizen_access.py`.
 
 8. **Same regex brittleness as Polk / Citrus Accela.** Parcel, applicant, licensed professional, project description, job value, and subdivision are all extracted via regex against flattened HTML. An HTML change breaks silently (field becomes null).
 
@@ -200,8 +208,8 @@ Same Accela REST surface (`https://apis.accela.com`). Public-citizen auth patter
 
 10. **No Charlotte-specific permit-number format documented.** Do NOT assume Polk's `BR-YYYY-NNNN` / `BT-YYYY-NNNN` patterns apply.
 
-11. **Inspection extraction is inherited from the base adapter (commit `b16df13`).** Charlotte automatically benefits from `_parse_inspections` without any subclass override. Inspection rows are attached to each permit's `inspections` key.
+11. **Inspection extraction would be inherited from the base adapter (commit `b16df13`) IF Charlotte were re-implemented.** A trivial `AccelaCitizenAccessAdapter` subclass would automatically invoke `_parse_inspections` on each CapDetail; whether it actually returns rows depends on BOCC's portal layout (see §5 note and the Polk improvement-report ACCELA-05 caveat about separate-tab rendering).
 
-12. **Related commits:** `b16df13` (Accela inspection extraction), `c33a871` (Polk ArcGIS field mappings), `00434af` (Polk Accela surface map). The base-adapter inspection machinery added in `b16df13` is what gives Charlotte inspection data without any Charlotte-specific code.
+12. **Related commits:** `b16df13` (Accela inspection extraction, still present in base class), `c33a871` (Polk ArcGIS field mappings), `00434af` (Polk Accela surface map). The base-adapter inspection machinery added in `b16df13` would give any future Charlotte re-implementation inspection data without Charlotte-specific code. See also `docs/sessions/2026-04-14-project-reload.md` item 14 for the Charlotte adapter deletion.
 
-**Source of truth:** `modules/permits/scrapers/adapters/charlotte_county.py` (11 lines, lines 1-11), `modules/permits/scrapers/adapters/accela_citizen_access.py` (490-line base class), `modules/permits/scrapers/adapters/__init__.py` (empty -- confirms orphan status), live probe against `https://aca-prod.accela.com/BOCC/Default.aspx` (HTTP 200) and `https://aca-prod.accela.com/CHARLOTTE/Default.aspx` (HTTP 200) on 2026-04-14, absence from `county-registry.yaml`
+**Source of truth (historical, pre-deletion):** former `modules/permits/scrapers/adapters/charlotte_county.py` (11 lines; deleted 2026-04-14 -- recorded in `docs/sessions/2026-04-14-project-reload.md` item 14), `modules/permits/scrapers/adapters/accela_citizen_access.py` (490-line base class -- still in repo), `modules/permits/scrapers/adapters/__init__.py` (empty -- confirms no Charlotte registration), live portal probes against `https://aca-prod.accela.com/BOCC/Default.aspx` (HTTP 200) and `https://aca-prod.accela.com/CHARLOTTE/Default.aspx` (HTTP 200) on 2026-04-14, absence from `county-registry.yaml`.

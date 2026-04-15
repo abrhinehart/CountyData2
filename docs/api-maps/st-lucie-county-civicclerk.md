@@ -14,7 +14,7 @@ Last updated: 2026-04-14
 | Document format | PDF (agendas + minutes) |
 | Registry status | CR is NOT in `county-registry.yaml` -- only `bi: active` is tracked under `st-lucie-fl.projects` (L524-531). CR surface is YAML-only. |
 | Bodies configured | 3 (BCC, BOA, P&Z); **BCC + P&Z are auto-scraped** (`platform: civicclerk`), **BOA is `platform: manual`** |
-| Adapter | Generic `CivicClerkAdapter` under `modules/commission/` (no St.-Lucie-specific subclass) |
+| Scraper | Shared `CivicClerkScraper` at `modules/commission/scrapers/civicclerk.py:65` (multi-tenant; no St.-Lucie-specific subclass -- tenants differ only by `civicclerk_subdomain` + `category_id` from YAML) |
 
 ### Probe (2026-04-14)
 
