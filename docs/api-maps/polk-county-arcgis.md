@@ -77,7 +77,7 @@ Complete field catalog from the layer metadata (55 attribute fields + OBJECTID):
 | SECTION | esriFieldTypeString | SECTION | 2 | NO | -- |
 | TOWNSHIP | esriFieldTypeString | TOWNSHIP | 2 | NO | -- |
 | RANGE | esriFieldTypeString | RANGE | 6 | NO | -- |
-| SUBDIVISION | esriFieldTypeString | SUB | 6 | NO | -- |
+| SUBDIVISION | esriFieldTypeString | SUB | 6 | **YES** | `subdivision_name` |
 | PARCEL | esriFieldTypeString | PARCEL | 6 | NO | -- |
 | DOR_CD | esriFieldTypeString | DORUS_CODE | 16 | NO | -- |
 | DORDESC | esriFieldTypeString | DORDESC | 10 | NO | -- |
@@ -94,11 +94,11 @@ Complete field catalog from the layer metadata (55 attribute fields + OBJECTID):
 | VALUETYPE | esriFieldTypeString | VALUETYPE | 2 | NO | -- |
 | VALUEDESC | esriFieldTypeString | VALUEDESC | 50 | NO | -- |
 | TOT_LND_VAL | esriFieldTypeInteger | TOT_LND_VAL | -- | NO | -- |
-| TOT_BLD_VAL | esriFieldTypeInteger | TOT_BLD_VAL | -- | NO | -- |
+| TOT_BLD_VAL | esriFieldTypeInteger | TOT_BLD_VAL | -- | **YES** | `building_value` |
 | TOT_XF_VAL | esriFieldTypeInteger | TOT_XF_VAL | -- | NO | -- |
 | TOTALVAL | esriFieldTypeInteger | TOTALVAL | -- | NO | -- |
 | RECONCILE | esriFieldTypeString | RECONCILE | 6 | NO | -- |
-| ASSESSVAL | esriFieldTypeDouble | ASSESSVAL | -- | NO | -- |
+| ASSESSVAL | esriFieldTypeDouble | ASSESSVAL | -- | **YES** | `appraised_value` |
 | TAXVAL | esriFieldTypeDouble | TAXVAL | -- | NO | -- |
 | CURTAXDIST | esriFieldTypeString | CURTAXDIST | 16 | NO | -- |
 | TAXDIST | esriFieldTypeString | TAXDIST | 16 | NO | -- |
@@ -174,10 +174,10 @@ Each feature is parsed into a `ParsedParcel` dataclass:
 | `site_address` | PROP_ADRSTR | Street address only (no city, state, zip) |
 | `use_type` | DOR_USE_CODE_DESC | FL DOR use code description (e.g., "SINGLE FAMILY") |
 | `acreage` | TOT_ACREAGE | Pre-computed acreage from the PA; no unit conversion needed |
-| `subdivision_name` | -- | Not configured for Polk County |
-| `building_value` | -- | Not configured for Polk County |
-| `appraised_value` | -- | Not configured for Polk County |
-| `deed_date` | -- | Not configured for Polk County |
+| `subdivision_name` | SUBDIVISION | Subdivision code (6-char) from the parcel layer |
+| `building_value` | TOT_BLD_VAL | Total building value (integer, USD) |
+| `appraised_value` | ASSESSVAL | County assessed value (double, USD) |
+| `deed_date` | DEED_DT | Deed date from the Property Appraiser |
 | `previous_owner` | -- | Not configured for Polk County |
 | `geometry` | Feature geometry | Converted from ArcGIS JSON rings to GeoJSON Polygon/MultiPolygon |
 
@@ -193,15 +193,16 @@ Each feature is parsed into a `ParsedParcel` dataclass:
 | DOR Use Code | YES | DOR_USE_CODE_DESC | Numeric DOR code | DOR_CD |
 | Acreage | YES | TOT_ACREAGE | GIS-computed acreage | GIS_ACREAGE |
 | Geometry | YES | rings | -- | -- |
-| Subdivision code | NO | -- | Subdivision code (6-char) | SUBDIVISION |
+| Subdivision code | YES | SUBDIVISION | Subdivision boundary polygon (Layer 3) | Spatial join to Layer 3 |
 | Section/Township/Range | NO | -- | Legal description components | SECTION, TOWNSHIP, RANGE |
 | Homestead status | NO | -- | Homestead flag and value | HMSTD, HMSTD_VAL |
 | Exemption info | NO | -- | Code and description | EXCODE, EXDESC |
 | Land value | NO | -- | Total land value | TOT_LND_VAL |
-| Building value | NO | -- | Total building value | TOT_BLD_VAL |
+| Building value | YES | TOT_BLD_VAL | -- | -- |
 | Extra features value | NO | -- | Total extra features value | TOT_XF_VAL |
 | Total value | NO | -- | Total assessed value | TOTALVAL |
-| Assessed value | NO | -- | County assessed value | ASSESSVAL |
+| Assessed value | YES | ASSESSVAL | -- | -- |
+| Deed date | YES | DEED_DT | Previous owner | (not mapped) |
 | Taxable value | NO | -- | Tax value and amount due | TAXVAL, AMTDUE |
 | Tax district | NO | -- | Current and historical | CURTAXDIST, TAXDIST |
 | Mill rate | NO | -- | Current mill rate | MILLRATE |
@@ -216,7 +217,7 @@ Each feature is parsed into a `ParsedParcel` dataclass:
 | Value type | NO | -- | Valuation method code + description | VALUETYPE, VALUEDESC |
 | Classified land value | NO | -- | Classified land value | CLS_LND_VAL |
 
-Of 55 attribute fields, we currently map 5. The remaining 50 include valuation, tax, mailing address, legal description, homestead, and neighborhood data.
+Of 55 attribute fields, we currently map 9. The remaining 46 include valuation, tax, mailing address, legal description, homestead, and neighborhood data.
 
 ---
 
@@ -247,9 +248,9 @@ When a county's acreage field is a geometry-computed area (e.g., `Shape__Area`),
 
 1. **outFields=\* is inefficient.** We request all 55+ fields but only use 5. Specifying the needed fields would reduce response size significantly, especially for large batch queries.
 
-2. **No subdivision mapping.** The layer has a `SUBDIVISION` field (6-character code) but our Polk config does not map it. Other counties (e.g., Harrison, Jackson) do map subdivision fields.
+2. **Subdivision code only (no boundary join).** Subdivision code is mapped via `SUBDIVISION`; the subdivision BOUNDARY polygon on Layer 3 is still not joined.
 
-3. **No valuation mapping.** The layer exposes `TOT_BLD_VAL`, `TOTALVAL`, `ASSESSVAL`, and `TAXVAL` but none are mapped. Other counties map `building_value` and `appraised_value` fields.
+3. **Partial valuation mapping.** Building value (`TOT_BLD_VAL`) and assessed value (`ASSESSVAL`) are mapped; `TOTALVAL` and `TAXVAL` remain unmapped.
 
 4. **Address is street-only.** `PROP_ADRSTR` gives the street address but omits direction, suffix, city, and zip. A full address would require concatenating `PROP_ADRNO`, `PROP_ADRDIR`, `PROP_ADRSTR`, `PROP_ADRSUF`, `PROP_UNITNO`, `PROP_CITY`, `PROP_ZIP`.
 
@@ -259,7 +260,7 @@ When a county's acreage field is a geometry-computed area (e.g., `Shape__Area`),
 
 7. **Web Mercator native SRS.** The data is stored in WKID 102100 (Web Mercator). We request `outSR=4326` for WGS84, which the server handles via datum transformation (WGS_1984 to NAD_1983).
 
-8. **No deed date or previous owner.** Unlike some other configured counties (e.g., Harrison AL, Jackson AL), Polk's configuration does not map `deed_date` or `previous_owner`, even though such data might be available through the Property Appraiser's primary database (just not exposed in this GIS layer).
+8. **No previous owner.** Previous owner is not mapped. Deed date (`DEED_DT`) is now mapped.
 
 9. **Layer 3 (Subdivision) is separate.** Subdivision boundary polygons live on Layer 3, not on the Parcels layer. A spatial join could theoretically enrich parcels with subdivision names, but this is not implemented.
 
