@@ -23,7 +23,7 @@ from modules.commission.models import (
 from modules.commission.routers import helpers as helpers_module
 from shared.models import Jurisdiction
 
-from tests.conftest import seed_commission_fixtures
+from conftest import seed_commission_fixtures
 
 
 # ---------------------------------------------------------------------------
