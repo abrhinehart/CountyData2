@@ -8,11 +8,7 @@ A unified Python + FastAPI + React platform that consolidates four formerly-sepa
 
 ## Status
 
-**Tag:** `v2.0.0-unified-validated` · **HEAD:** `cf1b62c` · **Date:** 2026-04-11.
-
-The platform is **structurally complete and live-validated end-to-end**: 78 routes across four modules, 16 idempotent SQL migrations, 18,109 sales transactions, 48 BI GIS configs, 7 PT jurisdiction configs (3 actively scraped: Bay, Panama City Beach, Polk), 98 CR jurisdiction configs (7 + 5 actively validated: altamonte-springs-cc, okaloosa-county-bcc, okeechobee-county-bcc, polk-county-bcc, plus 3 baseline, plus batch-2 pasco-county-bcc, brevard-county-bcc, sumter-county-bcc, hialeah-cc, lake-wales-cc — see `docs/commission/live-validation/INDEX.md`). All 11 entries in the post-merge quirks ledger are in `fixed` or `cleared` state and the doc has been archived in place.
-
-For the design-of-record see `docs/unification/schema-reconciliation.md`. For per-phase port notes see `docs/unification/phase2-handoff.md` (Builder Inventory), `phase3-handoff.md` (Permit Tracker), and `phase4-handoff.md` (Commission Radar).
+See [STATUS.md](STATUS.md) (regenerated via `python scripts/status.py --write`) for current HEAD, counts, and pytest baseline. See [TODO.md](TODO.md) for the open-work backlog.
 
 ---
 
