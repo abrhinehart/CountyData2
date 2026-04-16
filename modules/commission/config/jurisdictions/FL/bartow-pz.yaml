@@ -1,0 +1,53 @@
+slug: bartow-pz
+name: "City of Bartow P&Z"
+state: FL
+county: Polk
+municipality: "Bartow"
+commission_type: planning_board
+
+scraping:
+  platform: civicplus
+  base_url: "https://www.cityofbartow.net/AgendaCenter"
+  category_id: 2
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+keywords:
+  - "annexation"
+  - "annex"
+  - "land use"
+  - "comprehensive plan"
+  - "FLUM"
+  - "future land use"
+  - "rezoning"
+  - "rezone"
+  - "zone change"
+  - "PUD"
+  - "planned unit"
+  - "subdivision"
+  - "plat"
+  - "replat"
+  - "lots"
+  - "units"
+  - "acres"
+  - "dwelling"
+  - "residential"
+  - "developer agreement"
+  - "site plan"
+  - "conditional use"
+  - "special exception"
+  - "public hearing"
+  - "quasi-judicial"
+  - "ordinance"
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING"
+    - "ZONING"
+  require_also:
+    - "BARTOW"
+  header_zone: wide
+
+extraction_notes:
+  - "Generic Florida jurisdiction. Flag sparse items for review."
+  - "Planning/advisory board — recommendations only, not final authority on legislative items."
