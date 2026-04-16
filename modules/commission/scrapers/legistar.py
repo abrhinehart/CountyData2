@@ -23,6 +23,22 @@ PAGE_SIZE = 100
 REQUEST_DELAY = 0.5
 
 
+def parse_event_utc(value: str | None) -> datetime | None:
+    """Parse a Legistar *LastPublishedUTC string as a timezone-aware UTC datetime.
+
+    Legistar returns values like "2026-04-13T12:51:54.823" (no tz suffix,
+    UTC implied by field name). Returns None on falsy or unparseable input.
+    """
+    if not value:
+        return None
+    from datetime import timezone
+    try:
+        return datetime.fromisoformat(value).replace(tzinfo=timezone.utc)
+    except ValueError:
+        logger.warning("Unparseable Legistar UTC timestamp: %r", value)
+        return None
+
+
 class LegistarScraper(PlatformScraper):
     """Scraper for Legistar platforms using the public OData API.
 
@@ -135,6 +151,17 @@ class LegistarScraper(PlatformScraper):
 
         body_name = event.get("EventBodyName", "Meeting")
 
+        event_meta = {
+            "event_portal_url": event.get("EventInSiteURL"),
+            "event_location": event.get("EventLocation"),
+            "event_time": event.get("EventTime"),
+            "event_comment": event.get("EventComment"),
+            "agenda_status_name": event.get("EventAgendaStatusName"),
+            "agenda_last_published_utc": event.get("EventAgendaLastPublishedUTC"),
+            "minutes_status_name": event.get("EventMinutesStatusName"),
+            "minutes_last_published_utc": event.get("EventMinutesLastPublishedUTC"),
+        }
+
         # Optionally fetch structured event items + votes
         structured_items = None
         if config and config.get("fetch_event_items"):
@@ -166,6 +193,7 @@ class LegistarScraper(PlatformScraper):
                     file_format="pdf",
                     filename=f"Agenda_{meeting_date}_{event_id}.pdf",
                     structured_items=structured_items,
+                    **event_meta,
                 )
 
         # Minutes PDF
@@ -183,6 +211,7 @@ class LegistarScraper(PlatformScraper):
                     file_format="pdf",
                     filename=f"Minutes_{meeting_date}_{event_id}.pdf",
                     structured_items=structured_items,
+                    **event_meta,
                 )
 
         # LEGISTAR-08 preview-listing emission:
@@ -209,6 +238,7 @@ class LegistarScraper(PlatformScraper):
                         file_format="html",
                         filename=f"AgendaPreview_{meeting_date}_{event_id}.html",
                         structured_items=structured_items,
+                        **event_meta,
                     )
 
     def _get_json_with_retry(self, url: str, *, retries: int = 1, backoff: float = 1.0):

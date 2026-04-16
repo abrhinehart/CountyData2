@@ -43,9 +43,23 @@ from modules.commission.intake import (
 )
 
 from modules.commission.scrapers import PlatformScraper
+from modules.commission.scrapers.legistar import parse_event_utc
 
 
 router = APIRouter(prefix="/scrape")
+
+
+EVENT_METADATA_FIELDS = (
+    "event_portal_url", "event_location", "event_time", "event_comment",
+    "agenda_status_name", "agenda_last_published_utc",
+    "minutes_status_name", "minutes_last_published_utc",
+)
+
+
+def _has_event_metadata(listing) -> bool:
+    if listing.structured_items:
+        return True
+    return any(getattr(listing, f) is not None for f in EVENT_METADATA_FIELDS)
 
 
 @router.get("/jurisdictions")
@@ -334,6 +348,7 @@ def scrape_run(
                         source_url=listing.url,
                         external_document_id=external_document_id,
                         inspection=inspection,
+                        listing=listing,
                     )
                     session.commit()
                     counts["flagged"] += 1
@@ -389,8 +404,8 @@ def scrape_run(
                         counts["errors"] += 1
                     else:
                         counts["processed"] += 1
-                        # Persist structured event items if the listing carries them
-                        if listing.structured_items:
+                        # Persist structured event items + Legistar per-event metadata
+                        if _has_event_metadata(listing):
                             try:
                                 source_doc = (
                                     session.query(SourceDocument)
@@ -403,6 +418,14 @@ def scrape_run(
                                 )
                                 if source_doc is not None:
                                     source_doc.structured_event_items = listing.structured_items
+                                    source_doc.event_portal_url = listing.event_portal_url
+                                    source_doc.event_location = listing.event_location
+                                    source_doc.event_time = listing.event_time
+                                    source_doc.event_comment = listing.event_comment
+                                    source_doc.agenda_status_name = listing.agenda_status_name
+                                    source_doc.minutes_status_name = listing.minutes_status_name
+                                    source_doc.agenda_last_published_utc = parse_event_utc(listing.agenda_last_published_utc)
+                                    source_doc.minutes_last_published_utc = parse_event_utc(listing.minutes_last_published_utc)
                                     session.commit()
                             except Exception:
                                 session.rollback()

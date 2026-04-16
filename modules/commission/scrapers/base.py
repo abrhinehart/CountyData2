@@ -13,6 +13,14 @@ class DocumentListing:
     file_format: str        # "pdf", "html", "docx"
     filename: str           # suggested filename for local storage
     structured_items: list[dict] | None = None  # Legistar event items + votes
+    event_portal_url: str | None = None
+    event_location: str | None = None
+    event_time: str | None = None
+    event_comment: str | None = None
+    agenda_status_name: str | None = None
+    agenda_last_published_utc: str | None = None   # ISO string, parsed at persistence
+    minutes_status_name: str | None = None
+    minutes_last_published_utc: str | None = None
 
 
 class PlatformScraper(ABC):

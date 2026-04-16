@@ -1,7 +1,11 @@
 from dataclasses import dataclass
 from datetime import date
+from typing import TYPE_CHECKING
 
 import pdfplumber
+
+if TYPE_CHECKING:
+    from modules.commission.scrapers.base import DocumentListing
 
 from modules.commission.converters.base import DocumentConverter
 from modules.commission.constants import PRIMARY_AGENDA_MAX_PAGES, PRIMARY_DOCUMENT_PACKET_TERMS
@@ -296,6 +300,7 @@ def flag_source_document_for_review(
     source_url: str | None,
     external_document_id: str | None,
     inspection: CollectionReviewInspection,
+    listing: "DocumentListing | None" = None,
 ) -> SourceDocument:
     """Persist a scraped document that was collected but held for human review."""
     source_doc = SourceDocument(
@@ -319,6 +324,20 @@ def flag_source_document_for_review(
     )
     session.add(source_doc)
     session.flush()
+
+    if listing is not None:
+        from modules.commission.scrapers.legistar import parse_event_utc
+        source_doc.structured_event_items = listing.structured_items
+        source_doc.event_portal_url = listing.event_portal_url
+        source_doc.event_location = listing.event_location
+        source_doc.event_time = listing.event_time
+        source_doc.event_comment = listing.event_comment
+        source_doc.agenda_status_name = listing.agenda_status_name
+        source_doc.minutes_status_name = listing.minutes_status_name
+        source_doc.agenda_last_published_utc = parse_event_utc(listing.agenda_last_published_utc)
+        source_doc.minutes_last_published_utc = parse_event_utc(listing.minutes_last_published_utc)
+        session.flush()
+
     return source_doc
 
 

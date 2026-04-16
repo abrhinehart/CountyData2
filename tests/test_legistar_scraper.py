@@ -412,3 +412,135 @@ def test_preview_listing_not_emitted_when_fetch_flag_off():
         event, seen, config={"legistar_client": "polkcountyfl"},
     ))
     assert listings == []
+
+
+# ── LEGISTAR-04: per-event metadata capture ───────────────────────────
+
+def _metadata_event_payload():
+    """Shared fixture for a fully-populated event with all 7 metadata source fields."""
+    return {
+        "EventId": 600,
+        "EventDate": "2026-04-13T00:00:00",
+        "EventBodyName": "Board of County Commissioners",
+        "EventAgendaFile": "https://example.com/agenda.pdf",
+        "EventMinutesFile": "https://example.com/minutes.pdf",
+        "EventInSiteURL": "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=600",
+        "EventLocation": "County Administration Building, Room 101",
+        "EventTime": "9:00 AM",
+        "EventComment": "Regular meeting; public hearings at 1:30 PM",
+        "EventAgendaStatusName": "Final",
+        "EventAgendaLastPublishedUTC": "2026-04-10T18:30:00.123",
+        "EventMinutesStatusName": "Draft",
+        "EventMinutesLastPublishedUTC": "2026-04-13T22:45:00.000",
+    }
+
+
+def _assert_all_metadata_populated(listing):
+    assert listing.event_portal_url == "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=600"
+    assert listing.event_location == "County Administration Building, Room 101"
+    assert listing.event_time == "9:00 AM"
+    assert listing.event_comment == "Regular meeting; public hearings at 1:30 PM"
+    assert listing.agenda_status_name == "Final"
+    assert listing.agenda_last_published_utc == "2026-04-10T18:30:00.123"
+    assert listing.minutes_status_name == "Draft"
+    assert listing.minutes_last_published_utc == "2026-04-13T22:45:00.000"
+
+
+def test_event_metadata_populated_on_agenda_listing():
+    """Event with all 7 source metadata fields → agenda listing carries all 8 fields."""
+    scraper = LegistarScraper()
+    event = _metadata_event_payload()
+
+    seen = set()
+    listings = list(scraper._event_to_listings(event, seen, config={}))
+
+    agenda = next(l for l in listings if l.document_type == "agenda")
+    _assert_all_metadata_populated(agenda)
+
+
+def test_event_metadata_populated_on_minutes_listing():
+    """Same event → minutes listing also carries all 8 fields."""
+    scraper = LegistarScraper()
+    event = _metadata_event_payload()
+
+    seen = set()
+    listings = list(scraper._event_to_listings(event, seen, config={}))
+
+    minutes = next(l for l in listings if l.document_type == "minutes")
+    _assert_all_metadata_populated(minutes)
+
+
+def test_event_metadata_populated_on_preview_listing():
+    """Null agenda+minutes + structured items + metadata → preview listing carries metadata."""
+    scraper = LegistarScraper()
+    event = _metadata_event_payload()
+    event["EventAgendaFile"] = None
+    event["EventMinutesFile"] = None
+
+    items_response = MagicMock()
+    items_response.raise_for_status = MagicMock()
+    items_response.json.return_value = [{
+        "EventItemId": 801, "EventItemTitle": "Placeholder",
+        "EventItemActionName": None, "EventItemActionText": None,
+        "EventItemPassedFlag": None, "EventItemMover": None,
+        "EventItemSeconder": None, "EventItemMatterId": None,
+        "EventItemMatterFile": None, "EventItemMatterName": None,
+        "EventItemMatterType": None,
+    }]
+    votes_response = MagicMock()
+    votes_response.raise_for_status = MagicMock()
+    votes_response.json.return_value = []
+
+    with patch("modules.commission.scrapers.legistar.requests.get") as mock_get, \
+         patch("modules.commission.scrapers.legistar.time.sleep"):
+        mock_get.side_effect = [items_response, votes_response]
+        seen = set()
+        listings = list(scraper._event_to_listings(
+            event, seen,
+            config={"fetch_event_items": True, "legistar_client": "polkcountyfl"},
+        ))
+
+    assert len(listings) == 1
+    preview = listings[0]
+    assert preview.document_id == "preview-600"
+    _assert_all_metadata_populated(preview)
+
+
+def test_event_metadata_handles_missing_fields():
+    """Event with only the bare minimum → all 8 metadata fields are None."""
+    scraper = LegistarScraper()
+    event = {
+        "EventId": 700,
+        "EventDate": "2026-06-01T00:00:00",
+        "EventBodyName": "Planning Commission",
+        "EventAgendaFile": "https://example.com/agenda.pdf",
+    }
+
+    seen = set()
+    listings = list(scraper._event_to_listings(event, seen, config={}))
+
+    assert len(listings) == 1
+    l = listings[0]
+    assert l.event_portal_url is None
+    assert l.event_location is None
+    assert l.event_time is None
+    assert l.event_comment is None
+    assert l.agenda_status_name is None
+    assert l.agenda_last_published_utc is None
+    assert l.minutes_status_name is None
+    assert l.minutes_last_published_utc is None
+
+
+def test_parse_event_utc_handles_legistar_format():
+    """parse_event_utc: valid Legistar ISO → tz-aware UTC; None/garbage → None."""
+    from datetime import datetime, timezone
+
+    from modules.commission.scrapers.legistar import parse_event_utc
+
+    parsed = parse_event_utc("2026-04-13T12:51:54.823")
+    assert parsed == datetime(2026, 4, 13, 12, 51, 54, 823000, tzinfo=timezone.utc)
+    assert parsed.tzinfo is not None
+
+    assert parse_event_utc(None) is None
+    assert parse_event_utc("") is None
+    assert parse_event_utc("garbage") is None

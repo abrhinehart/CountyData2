@@ -293,6 +293,90 @@ def test_scrape_jurisdictions_filters_inactive(client, db_session):
 # ---------------------------------------------------------------------------
 
 
+def test_scrape_run_persists_legistar_event_metadata(db_session, tmp_path):
+    """LEGISTAR-04: flag_source_document_for_review(listing=...) copies the 8 new
+    per-event metadata fields (plus structured_items) onto the flagged SourceDocument
+    and parses the *LastPublishedUTC strings to tz-aware UTC datetimes.
+    """
+    from datetime import datetime, timezone
+
+    from modules.commission.collection_review import (
+        CollectionReviewInspection,
+        COLLECTION_REVIEW_OUTCOME_AMBIGUOUS,
+        flag_source_document_for_review,
+    )
+    from modules.commission.scrapers.base import DocumentListing
+
+    fixtures = seed_commission_fixtures(db_session)
+    juris_id = fixtures["juris_pinned"].id
+
+    # Minimal file on disk so compute_file_hash + inspection.page_count paths work.
+    fake_pdf = tmp_path / "2026-04-13-agenda.pdf"
+    fake_pdf.write_bytes(b"%PDF-1.4\n%stub\n")
+
+    listing = DocumentListing(
+        title="Board of County Commissioners Agenda - 2026-04-13",
+        url="https://example.com/agenda.pdf",
+        date_str="2026-04-13",
+        document_id="600",
+        document_type="agenda",
+        file_format="pdf",
+        filename="2026-04-13-agenda.pdf",
+        structured_items=None,  # JSONB is patched to Text under SQLite; structured_items coverage lives in test_legistar_scraper.py
+        event_portal_url="https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=600",
+        event_location="County Administration Building, Room 101",
+        event_time="9:00 AM",
+        event_comment="Regular meeting",
+        agenda_status_name="Final",
+        agenda_last_published_utc="2026-04-10T18:30:00.123",
+        minutes_status_name="Draft",
+        minutes_last_published_utc="2026-04-13T22:45:00.000",
+    )
+
+    inspection = CollectionReviewInspection(
+        outcome=COLLECTION_REVIEW_OUTCOME_AMBIGUOUS,
+        page_count=1,
+        review_reason="test-ambiguous",
+    )
+
+    flagged = flag_source_document_for_review(
+        db_session,
+        jurisdiction_id=juris_id,
+        file_path=str(fake_pdf),
+        filename=listing.filename,
+        file_format="pdf",
+        doc_type=listing.document_type,
+        meeting_date=listing.date_str,
+        source_url=listing.url,
+        external_document_id=listing.document_id,
+        inspection=inspection,
+        listing=listing,
+    )
+    db_session.commit()
+
+    persisted = db_session.query(CrSourceDocument).filter_by(id=flagged.id).first()
+    assert persisted is not None
+    assert persisted.processing_status == SOURCE_DOCUMENT_STATUS_FLAGGED_FOR_REVIEW
+    assert persisted.event_portal_url == "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=600"
+    assert persisted.event_location == "County Administration Building, Room 101"
+    assert persisted.event_time == "9:00 AM"
+    assert persisted.event_comment == "Regular meeting"
+    assert persisted.agenda_status_name == "Final"
+    assert persisted.minutes_status_name == "Draft"
+    # SQLite strips tzinfo on DateTime(timezone=True) round-trip; compare naively.
+    # Postgres in production preserves the tz (see parse_event_utc unit test).
+    expected_agenda = datetime(2026, 4, 10, 18, 30, 0, 123000, tzinfo=timezone.utc)
+    expected_minutes = datetime(2026, 4, 13, 22, 45, 0, 0, tzinfo=timezone.utc)
+    actual_agenda = persisted.agenda_last_published_utc
+    actual_minutes = persisted.minutes_last_published_utc
+    if actual_agenda is not None and actual_agenda.tzinfo is None:
+        actual_agenda = actual_agenda.replace(tzinfo=timezone.utc)
+    if actual_minutes is not None and actual_minutes.tzinfo is None:
+        actual_minutes = actual_minutes.replace(tzinfo=timezone.utc)
+    assert actual_agenda == expected_agenda
+    assert actual_minutes == expected_minutes
+
+
 def test_helpers_pure_functions():
     # _send prefixes SSE data: and trailing newlines.
     frame = helpers_module._send({"event": "hello"})
