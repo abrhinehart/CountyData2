@@ -285,3 +285,130 @@ def test_document_listing_with_structured_items():
         structured_items=items,
     )
     assert listing.structured_items == items
+
+
+# ── LEGISTAR-08: agenda-preview emission ──────────────────────────────
+
+def test_preview_listing_emitted_when_agenda_null_and_items_present():
+    """Null agenda+minutes + structured items + InSiteURL → preview listing."""
+    scraper = LegistarScraper()
+
+    event = {
+        "EventId": 500,
+        "EventDate": "2026-05-15T00:00:00",
+        "EventBodyName": "Board of County Commissioners",
+        "EventAgendaFile": None,
+        "EventMinutesFile": None,
+        "EventInSiteURL": "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=500",
+    }
+
+    items_response = MagicMock()
+    items_response.raise_for_status = MagicMock()
+    items_response.json.return_value = [{
+        "EventItemId": 700, "EventItemTitle": "Rezoning RZ-2026-99",
+        "EventItemActionName": None, "EventItemActionText": None,
+        "EventItemPassedFlag": None, "EventItemMover": None,
+        "EventItemSeconder": None, "EventItemMatterId": None,
+        "EventItemMatterFile": None, "EventItemMatterName": None,
+        "EventItemMatterType": None,
+    }]
+    votes_response = MagicMock()
+    votes_response.raise_for_status = MagicMock()
+    votes_response.json.return_value = []
+
+    with patch("modules.commission.scrapers.legistar.requests.get") as mock_get, \
+         patch("modules.commission.scrapers.legistar.time.sleep"):
+        mock_get.side_effect = [items_response, votes_response]
+        seen = set()
+        listings = list(scraper._event_to_listings(
+            event, seen,
+            config={"fetch_event_items": True, "legistar_client": "polkcountyfl"},
+        ))
+
+    assert len(listings) == 1
+    l = listings[0]
+    assert l.document_type == "agenda"
+    assert l.file_format == "html"
+    assert l.document_id == "preview-500"
+    assert l.filename == "AgendaPreview_2026-05-15_500.html"
+    assert l.url == "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=500"
+    assert l.structured_items and l.structured_items[0]["event_item_id"] == 700
+
+
+def test_preview_listing_not_emitted_when_agenda_present():
+    """Published event keeps the old behavior: agenda yielded, no preview."""
+    scraper = LegistarScraper()
+    event = {
+        "EventId": 501,
+        "EventDate": "2026-05-15T00:00:00",
+        "EventBodyName": "Planning Commission",
+        "EventAgendaFile": "https://example.com/agenda.pdf",
+        "EventMinutesFile": None,
+        "EventInSiteURL": "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=501",
+    }
+    items_response = MagicMock()
+    items_response.raise_for_status = MagicMock()
+    items_response.json.return_value = []
+
+    with patch("modules.commission.scrapers.legistar.requests.get") as mock_get, \
+         patch("modules.commission.scrapers.legistar.time.sleep"):
+        mock_get.side_effect = [items_response]
+        seen = set()
+        listings = list(scraper._event_to_listings(
+            event, seen,
+            config={"fetch_event_items": True, "legistar_client": "polkcountyfl"},
+        ))
+
+    assert len(listings) == 1
+    assert listings[0].document_type == "agenda"
+    assert listings[0].document_id == "501"
+    assert "preview" not in listings[0].filename.lower()
+
+
+def test_preview_listing_not_emitted_when_items_empty():
+    """Null agenda + empty structured_items (no EventItems returned) → no listing.
+
+    Critical gate: must NOT emit a listing for truly empty upcoming events,
+    or the review queue will flood with placeholder entries.
+    """
+    scraper = LegistarScraper()
+    event = {
+        "EventId": 502,
+        "EventDate": "2026-05-15T00:00:00",
+        "EventBodyName": "Board of County Commissioners",
+        "EventAgendaFile": None,
+        "EventMinutesFile": None,
+        "EventInSiteURL": "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=502",
+    }
+    items_response = MagicMock()
+    items_response.raise_for_status = MagicMock()
+    items_response.json.return_value = []
+
+    with patch("modules.commission.scrapers.legistar.requests.get") as mock_get, \
+         patch("modules.commission.scrapers.legistar.time.sleep"):
+        mock_get.side_effect = [items_response]
+        seen = set()
+        listings = list(scraper._event_to_listings(
+            event, seen,
+            config={"fetch_event_items": True, "legistar_client": "polkcountyfl"},
+        ))
+
+    assert listings == []
+
+
+def test_preview_listing_not_emitted_when_fetch_flag_off():
+    """Null agenda + no fetch_event_items flag → no listing (never fetches items)."""
+    scraper = LegistarScraper()
+    event = {
+        "EventId": 503,
+        "EventDate": "2026-05-15T00:00:00",
+        "EventBodyName": "Board of County Commissioners",
+        "EventAgendaFile": None,
+        "EventMinutesFile": None,
+        "EventInSiteURL": "https://polkcountyfl.legistar.com/MeetingDetail.aspx?LEGID=503",
+    }
+    seen = set()
+    listings = list(scraper._event_to_listings(
+        event, seen, config={"legistar_client": "polkcountyfl"},
+    ))
+    assert listings == []

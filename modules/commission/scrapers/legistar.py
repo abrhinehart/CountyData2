@@ -185,6 +185,32 @@ class LegistarScraper(PlatformScraper):
                     structured_items=structured_items,
                 )
 
+        # LEGISTAR-08 preview-listing emission:
+        # If fetch_event_items is enabled AND we successfully got structured_items
+        # AND no agenda/minutes PDF was yielded for this event (both are null),
+        # emit a "preview" listing anchored on EventInSiteURL so downstream
+        # persistence has a home for the structured items.
+        if (
+            structured_items
+            and not agenda_url
+            and not minutes_url
+        ):
+            in_site_url = event.get("EventInSiteURL")
+            if in_site_url:
+                preview_doc_id = f"preview-{event_id}"
+                if preview_doc_id not in seen_ids:
+                    seen_ids.add(preview_doc_id)
+                    yield DocumentListing(
+                        title=f"{body_name} Agenda Preview - {meeting_date}",
+                        url=in_site_url,
+                        date_str=meeting_date,
+                        document_id=preview_doc_id,
+                        document_type="agenda",
+                        file_format="html",
+                        filename=f"AgendaPreview_{meeting_date}_{event_id}.html",
+                        structured_items=structured_items,
+                    )
+
     def _get_json_with_retry(self, url: str, *, retries: int = 1, backoff: float = 1.0):
         """GET a URL expecting JSON. Retry once on transient ConnectionError.
 

@@ -1,0 +1,29 @@
+slug: polk-county-tpo
+name: "Polk County TPO"
+state: FL
+county: Polk
+municipality: null
+commission_type: tpo
+
+scraping:
+  platform: legistar
+  base_url: "https://polkcountyfl.legistar.com"
+  legistar_client: "polkcountyfl"
+  body_names:
+    - "Transportation Planning Organization (TPO)"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  fetch_event_items: true
+
+detection_patterns:
+  header_keywords:
+    - "TRANSPORTATION PLANNING ORGANIZATION"
+    - "TPO"
+  require_also:
+    - "POLK"
+  header_zone: wide
+
+extraction_notes:
+  - "Polk TPO — coordinates transportation funding and road/transit priorities; not a legislative body but approves road projects and impact-fee frameworks that affect builder economics."
+  - "TPO TAC (BodyId 251) and TPO TD LCB (BodyId 252) are committee-level and intentionally excluded — track only the TPO Board itself."
+  - "Generic Florida county. Flag sparse items for review."

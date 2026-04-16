@@ -11,6 +11,9 @@ scraping:
   legistar_client: "polkcountyfl"
   body_names:
     - "Board of County Commissioners"
+    - "Board of County Commissioners (Organizational)"
+    - "Board of County Commissioners (Budget)"
+    - "Board of County Commissioners (Final Budget)"
   document_formats: [pdf]
   has_duplicate_page_bug: false
   fetch_event_items: true
