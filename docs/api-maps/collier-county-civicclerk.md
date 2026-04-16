@@ -75,7 +75,7 @@ The scraper iterates across `category_id` values 26 (BCC), 28 (CCPC), and 32 (BO
 
 ### Pagination
 
-100 events per page. All four YAMLs set `has_duplicate_page_bug: false`.
+The CivicClerk OData endpoint caps page size server-side (typically 15 events). The scraper follows `@odata.nextLink` until exhausted; default page size 15. See `CIVICCLERK_MAX_PAGES` in `modules/commission/scrapers/civicclerk.py` for the safety cap. All four YAMLs set `has_duplicate_page_bug: false`.
 
 ---
 

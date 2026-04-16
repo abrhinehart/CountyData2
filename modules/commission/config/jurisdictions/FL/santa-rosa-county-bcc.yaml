@@ -1,0 +1,32 @@
+slug: santa-rosa-county-bcc
+name: "Santa Rosa County BCC"
+state: FL
+county: "Santa Rosa"
+municipality: null
+commission_type: bcc
+
+scraping:
+  platform: civicclerk
+  base_url: "https://santarosacofl.portal.civicclerk.com"
+  civicclerk_subdomain: "santarosacofl"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+  category_id: 24
+  event_name_filter:
+    - "Commission Regular Meeting"
+    - "Commission Committee Meeting"
+    - "Commission Special Rezoning Meeting"
+
+detection_patterns:
+  header_keywords:
+    - "BOARD OF COUNTY COMMISSIONERS"
+    - "COUNTY COMMISSIONERS"
+  require_also:
+    - "SANTA ROSA COUNTY"
+  header_zone: wide
+
+extraction_notes:
+  - "County body — cannot annex."
+  - "CivicClerk tenant 'santarosacofl'. Public-facing landing at https://www.santarosa.fl.gov/656/Commissioner-Meeting-Agendas embeds clerk-embed-simple via CivicPlus CMS — actual API is santarosacofl.api.civicclerk.com."
+  - "Category 24 is overloaded with non-BCC bodies (Zoning Board, advisory boards, VAB, TDC). event_name_filter pins to the three BCC meeting series."
+  - "Zoning Board explicitly excluded — dormant since 2019 + dual-role LPA+BOA (BOA/ZBA skip rule)."

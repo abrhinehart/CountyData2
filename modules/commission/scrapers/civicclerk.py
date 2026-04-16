@@ -33,6 +33,10 @@ logger = logging.getLogger("commission_radar.scrapers.civicclerk")
 USER_AGENT = "CommissionRadar/1.0"
 REQUEST_DELAY = 1.0  # seconds between API calls
 
+# CivicClerk's OData endpoint enforces a server-side page cap (typically 15).
+# We page via @odata.nextLink. Cap the loop to bound worst-case latency.
+CIVICCLERK_MAX_PAGES = 100
+
 # Map CivicClerk file type names to our document types.
 # "Agenda" is the short index with structured items — this is what we extract from.
 # "Agenda Packet" is the full backup bundle (hundreds of pages) — skip it to avoid
@@ -71,6 +75,11 @@ class CivicClerkScraper(PlatformScraper):
             Derived from base_url when not provided.
         category_id: Optional EventCategory ID to filter events for a
             specific board/commission.
+        event_name_filter: Optional case-insensitive substring or list of
+            substrings; when set, only events whose ``eventName`` contains
+            one of the substrings are kept. Use this when a category is
+            overloaded with multiple bodies (e.g. BCC mixed with advisory
+            boards under the same categoryId).
     """
 
     def fetch_listings(
@@ -107,6 +116,22 @@ class CivicClerkScraper(PlatformScraper):
             return []
 
         logger.info("CivicClerk %s: found %d events in date range", subdomain, len(events))
+
+        # --- Step 1b: optional event-name filter for overloaded categories ---
+        raw_filter = config.get("event_name_filter")
+        if raw_filter:
+            patterns = [raw_filter] if isinstance(raw_filter, str) else list(raw_filter)
+            patterns_lc = [p.strip().lower() for p in patterns if p and p.strip()]
+            if patterns_lc:
+                before = len(events)
+                events = [
+                    e for e in events
+                    if any(p in (e.get("eventName") or "").lower() for p in patterns_lc)
+                ]
+                logger.info(
+                    "CivicClerk %s: event_name_filter %r reduced %d -> %d events",
+                    subdomain, patterns_lc, before, len(events),
+                )
 
         # --- Step 2-3: for each event, get meeting files and resolve blob URIs ---
         listings: list[DocumentListing] = []
@@ -185,7 +210,12 @@ class CivicClerkScraper(PlatformScraper):
         start_date: str,
         end_date: str,
     ) -> list[dict] | None:
-        """GET /v1/Events with OData filters.  Returns None on 404."""
+        """GET /v1/Events with OData filters, following @odata.nextLink.
+
+        Returns None on 404 (portal has no public API). Returns the
+        accumulated ``value`` arrays across all pages on success. Bounded
+        by CIVICCLERK_MAX_PAGES to prevent runaway loops.
+        """
         filters = [
             f"eventDate ge {start_date}T00:00:00Z",
             f"eventDate le {end_date}T23:59:59Z",
@@ -199,29 +229,59 @@ class CivicClerkScraper(PlatformScraper):
         }
 
         url = f"{api_base}/Events"
-        try:
-            resp = session.get(url, params=params, timeout=SCRAPE_SEARCH_TIMEOUT)
-        except requests.RequestException as exc:
-            logger.error("CivicClerk Events request failed: %s", exc)
-            return None
+        accumulated: list[dict] = []
+        next_url: str | None = None
+        next_params: dict | None = params
 
-        if resp.status_code == 404:
+        for page_index in range(CIVICCLERK_MAX_PAGES):
+            try:
+                if next_url is not None:
+                    resp = session.get(next_url, timeout=SCRAPE_SEARCH_TIMEOUT)
+                else:
+                    resp = session.get(url, params=next_params, timeout=SCRAPE_SEARCH_TIMEOUT)
+            except requests.RequestException as exc:
+                logger.error("CivicClerk Events request failed: %s", exc)
+                return None if page_index == 0 else accumulated
+
+            if resp.status_code == 404:
+                logger.warning(
+                    "CivicClerk API not available at %s (404). "
+                    "This portal may not expose a public API.",
+                    resp.url,
+                )
+                return None if page_index == 0 else accumulated
+
+            try:
+                resp.raise_for_status()
+            except requests.HTTPError as exc:
+                logger.error(
+                    "CivicClerk Events request returned %s: %s", resp.status_code, exc
+                )
+                return None if page_index == 0 else accumulated
+
+            data = resp.json()
+            if not isinstance(data, dict):
+                return data if page_index == 0 else accumulated
+
+            page_values = data.get("value", [])
+            if isinstance(page_values, list):
+                accumulated.extend(page_values)
+
+            next_link = data.get("@odata.nextLink")
+            if not next_link:
+                return accumulated
+
+            next_url = next_link
+            next_params = None
+        else:
             logger.warning(
-                "CivicClerk API not available at %s (404). "
-                "This portal may not expose a public API.",
+                "CivicClerk pagination hit safety cap of %d pages at %s; "
+                "returning %d events accumulated so far.",
+                CIVICCLERK_MAX_PAGES,
                 url,
+                len(accumulated),
             )
-            return None
-
-        try:
-            resp.raise_for_status()
-        except requests.HTTPError as exc:
-            logger.error("CivicClerk Events request returned %s: %s", resp.status_code, exc)
-            return None
-
-        data = resp.json()
-        # OData responses wrap results in a "value" array.
-        return data.get("value", data) if isinstance(data, dict) else data
+            return accumulated
 
     def _fetch_meeting_files(
         self, session: requests.Session, api_base: str, agenda_id: int
