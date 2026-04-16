@@ -69,6 +69,7 @@ class PlatformScraper(ABC):
         from modules.commission.scrapers.civicclerk import CivicClerkScraper
         from modules.commission.scrapers.civicplus import CivicPlusScraper
         from modules.commission.scrapers.civicweb_icompass import CivicWebIcompassScraper
+        from modules.commission.scrapers.escribe import EscribeScraper
         from modules.commission.scrapers.granicus import GranicusScraper
         from modules.commission.scrapers.granicus_viewpublisher import ViewPublisherScraper
         from modules.commission.scrapers.legistar import LegistarScraper
@@ -79,6 +80,7 @@ class PlatformScraper(ABC):
             "civicclerk": CivicClerkScraper,
             "civicplus": CivicPlusScraper,
             "civicweb_icompass": CivicWebIcompassScraper,
+            "escribe": EscribeScraper,
             "granicus": GranicusScraper,
             "granicus_viewpublisher": ViewPublisherScraper,
             "legistar": LegistarScraper,

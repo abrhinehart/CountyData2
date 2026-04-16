@@ -1,0 +1,27 @@
+slug: haines-city-pc
+name: "City of Haines City PC"
+state: FL
+county: Polk
+municipality: "Haines City"
+commission_type: planning_commission
+
+scraping:
+  platform: escribe
+  base_url: "https://pub-hainescity.escribemeetings.com/"
+  tenant_host: "pub-hainescity.escribemeetings.com"
+  body_filter:
+    - "Planning Commission"
+  body_label: "Planning Commission"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+detection_patterns:
+  header_keywords:
+    - "PLANNING COMMISSION"
+  require_also:
+    - "HAINES CITY"
+  header_zone: wide
+
+extraction_notes:
+  - "Generic Florida jurisdiction. Flag sparse items for review."
+  - "eSCRIBE (Diligent) portal — same tenant as haines-city-cc; selector is MeetingType == 'Planning Commission'."
