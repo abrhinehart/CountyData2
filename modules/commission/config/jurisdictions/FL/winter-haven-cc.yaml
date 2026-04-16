@@ -1,0 +1,54 @@
+slug: winter-haven-cc
+name: "City of Winter Haven CC"
+state: FL
+county: Polk
+municipality: "Winter Haven"
+commission_type: city_commission
+
+scraping:
+  platform: granicus_viewpublisher
+  base_url: "https://winterhaven-fl.granicus.com/ViewPublisher.php?view_id=1"
+  tenant_slug: "winterhaven-fl"
+  view_id: 1
+  body_filter: "City Commission"
+  document_formats: [pdf]
+  has_duplicate_page_bug: false
+
+keywords:
+  - "annexation"
+  - "annex"
+  - "land use"
+  - "comprehensive plan"
+  - "FLUM"
+  - "future land use"
+  - "rezoning"
+  - "rezone"
+  - "zone change"
+  - "PUD"
+  - "planned unit"
+  - "subdivision"
+  - "plat"
+  - "replat"
+  - "lots"
+  - "units"
+  - "acres"
+  - "dwelling"
+  - "residential"
+  - "developer agreement"
+  - "site plan"
+  - "conditional use"
+  - "special exception"
+  - "public hearing"
+  - "quasi-judicial"
+  - "ordinance"
+
+detection_patterns:
+  header_keywords:
+    - "CITY COMMISSION"
+  require_also:
+    - "WINTER HAVEN"
+  header_zone: wide
+
+extraction_notes:
+  - "Generic Florida jurisdiction. Flag sparse items for review."
+  - "Granicus ViewPublisher — both City Commission and Planning Commission share view_id=1; body_filter selects per-jurisdiction."
