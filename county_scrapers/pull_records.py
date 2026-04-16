@@ -36,13 +36,14 @@ from county_scrapers.browserview_client import BrowserViewSession
 from county_scrapers.configs import (
     get_acclaimweb_config, get_browserview_config, get_countygov_config,
     get_duprocess_config, get_gindex_config, get_gis_parcel_config,
-    get_landmark_config,
+    get_landmark_config, get_tyler_selfservice_config,
 )
 from county_scrapers.configs import (
     ACCLAIMWEB_COUNTIES, BROWSERVIEW_COUNTIES, COUNTYGOV_COUNTIES,
     DUPROCESS_COUNTIES, GIS_PARCEL_COUNTIES, GINDEX_COUNTIES,
-    LANDMARK_COUNTIES,
+    LANDMARK_COUNTIES, TYLER_SELFSERVICE_COUNTIES,
 )
+from county_scrapers.tyler_selfservice_client import TylerSelfServiceSession
 from county_scrapers.countygov_client import CountyGovSession
 from county_scrapers.duprocess_client import DuProcessSession
 from county_scrapers.entity_filter import build_entity_set, filter_rows
@@ -218,6 +219,7 @@ def pull(county: str, begin_date: str, end_date: str, *,
     gindex_cfg = get_gindex_config(county)
     acclaimweb_cfg = get_acclaimweb_config(county)
     gis_parcel_cfg = get_gis_parcel_config(county)
+    tyler_cfg = get_tyler_selfservice_config(county)
 
     all_counties = (
         list(LANDMARK_COUNTIES.keys())
@@ -226,10 +228,11 @@ def pull(county: str, begin_date: str, end_date: str, *,
         + list(GINDEX_COUNTIES.keys())
         + list(ACCLAIMWEB_COUNTIES.keys())
         + list(GIS_PARCEL_COUNTIES.keys())
-        + list(BROWSERVIEW_COUNTIES.keys()))
+        + list(BROWSERVIEW_COUNTIES.keys())
+        + list(TYLER_SELFSERVICE_COUNTIES.keys()))
 
     active_cfg = (browserview_cfg or countygov_cfg or landmark_cfg or duprocess_cfg
-                  or gindex_cfg or acclaimweb_cfg or gis_parcel_cfg)
+                  or gindex_cfg or acclaimweb_cfg or gis_parcel_cfg or tyler_cfg)
     if active_cfg is None:
         raise ValueError(f'{county} is not a configured county. Available: {", ".join(all_counties)}')
 
@@ -251,6 +254,9 @@ def pull(county: str, begin_date: str, end_date: str, *,
     elif gis_parcel_cfg is not None:
         status = gis_parcel_cfg.get('status', 'unknown')
         portal_type = 'gis_parcel'
+    elif tyler_cfg is not None:
+        status = tyler_cfg.get('status', 'unknown')
+        portal_type = 'tyler_selfservice'
     else:
         status = landmark_cfg.get('status', 'unknown')
         portal_type = 'landmark'
@@ -292,6 +298,14 @@ def pull(county: str, begin_date: str, end_date: str, *,
         with GISParcelSession(
             layer_url=gis_parcel_cfg['layer_url'],
             field_map=fm,
+        ) as session:
+            session.connect()
+            rows = session.search_by_date_range(begin_date, end_date)
+    elif portal_type == 'tyler_selfservice':
+        with TylerSelfServiceSession(
+            base_url=tyler_cfg['base_url'],
+            search_id=tyler_cfg.get('search_id', 'DOCSEARCH138S1'),
+            doc_types=doc_types or tyler_cfg.get('doc_types', ''),
         ) as session:
             session.connect()
             rows = session.search_by_date_range(begin_date, end_date)

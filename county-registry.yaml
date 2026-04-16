@@ -227,8 +227,8 @@ counties:
       cd2:
         portal: tyler-selfservice
         url: https://okaloosacountyfl-web.tylerhost.net/web
-        status: needs_client
-        notes: "LandmarkWeb decommissioned, migrated to Tyler Technologies self-service (Version 2025.1.31). New portal is live and functional. No Tyler self-service scraper client exists yet. Kiosk variant at okaloosacountyfl-kiosk.tylerhost.net. ClerkQuest at clerkapps.okaloosaclerk.com/ClerkQuest is court records only, not deeds."
+        status: live
+        notes: "Tyler Technologies self-service (Version 2025.1.31) scraper shipped 2026-04-15. Adapter: county_scrapers.tyler_selfservice_client.TylerSelfServiceSession with search_id DOCSEARCH138S1. Anonymous + disclaimer-gated (JSESSIONID + disclaimerAccepted); the searchPost endpoint requires an `ajaxRequest: true` header or the server returns HTML instead of JSON. Consideration/sale price is not exposed by the listing JSON/HTML (PDF-only on detail pages). Kiosk variant at okaloosacountyfl-kiosk.tylerhost.net and ClerkQuest at clerkapps.okaloosaclerk.com/ClerkQuest are out of scope."
       bi:
         portal: arcgis
         endpoint: gis.myokaloosa.com/BaseMap_Layers/MapServer/111

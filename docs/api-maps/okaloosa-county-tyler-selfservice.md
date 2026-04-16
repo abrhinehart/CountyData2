@@ -195,3 +195,49 @@ Because no client exists yet, this table is prospective -- based on what Tyler S
 12. **No `county_scrapers/configs.py` entry for Okaloosa.** The historical LandmarkWeb entry was removed in the migration commit. Re-adding an entry under a new `TYLER_SELF_SERVICE_COUNTIES` (or similar) registry will be part of the `needs_client` work.
 
 **Source of truth:** `county-registry.yaml` (`okaloosa-fl.projects.cd2`, L226-231), `county_scrapers/configs.py` L88-90 (removal comment), commit `cc489d2` (status transition: "docs: update Okaloosa CD2 from blocked to needs_client (Tyler migration)"), `processors/county_parsers.py::parse_okaloosa_row` (line 474), `FL-ONBOARDING.md` L131 (parser quirks) and L309 (historical status table), live probe of `https://okaloosacountyfl-web.tylerhost.net/web` (HTTP 200, version string `2025.1.31`).
+
+---
+
+## Implementation
+
+**Status flipped from `needs_client` to `live` on 2026-04-15.** Adapter module is `county_scrapers/tyler_selfservice_client.py` (`TylerSelfServiceSession`). Registered in `county_scrapers/configs.py` under `TYLER_SELFSERVICE_COUNTIES` and wired into the `pull_records.pull()` dispatch chain as `portal_type == 'tyler_selfservice'`.
+
+### Verified endpoint recipe
+
+All requests are anonymous. Two cookies carry the session: `JSESSIONID` (set on the initial GET) and `disclaimerAccepted=true` (set by POSTing an empty body to the disclaimer endpoint). No CSRF token, no captcha observed, no rate limiting hit at a 1.0s inter-request delay.
+
+1. `GET {base_url}` -> 200, sets `JSESSIONID`.
+2. `POST {base_url}/user/disclaimer` (no body) -> returns `true`, sets `disclaimerAccepted=true`.
+3. `GET {base_url}/search/{search_id}` -> renders the search form HTML (we discard the content).
+4. `POST {base_url}/searchPost/{search_id}` with a 20-field URL-encoded form body (all `field_*` keys listed in the module docstring) -> JSON shell `{"validationMessages": {}, "totalPages": N, "currentPage": 1, ...}`. Dates go in as `M/D/YYYY` (no zero-padding).
+5. `GET {base_url}/searchResults/{search_id}?page=N` for `N` in `1..totalPages` -> HTML page with up to 100 `<li class="ss-search-row">` entries per page.
+
+For Okaloosa specifically, `search_id = DOCSEARCH138S1`.
+
+### Parse shape
+
+Each `<li class="ss-search-row">` carries:
+
+- `data-documentid="DOC549S1614"` on the opening tag -> `document_id`.
+- `<h1>` with the instrument number and doc type separated by a bullet entity (`&nbsp;&#149;&nbsp;`).
+- Four `<div class="searchResultFourColumn">` blocks in fixed order: Recording Date, Grantor/Party 1, Grantee/Party 2, Legal. Each column renders its values inside `<b>...</b>` tags; multi-party names or multi-line legals simply add more `<b>` values, which the client joins with `; ` (names) or `\n` (legal).
+- Parcel ID appears as a sub-value inside the Legal column, prefixed with `Parcel:` -- extracted into a separate `parcel` field.
+
+### Gotcha: `ajaxRequest: true` header on searchPost
+
+The `searchPost` endpoint returns an HTML error page (not JSON) if the request omits the `ajaxRequest: true` header. The client sets this unconditionally and there is a regression-guard test (`AjaxHeaderRegressionTest` in `tests/test_tyler_selfservice_client.py`). If this client ever starts raising `Tyler searchPost returned non-JSON response` in the wild, this header is the first thing to check -- Tyler may have renamed or repurposed it.
+
+### Limitations
+
+- **Consideration / sale price is not surfaced.** Tyler self-service exposes the sale-price field only on the per-document PDF viewer; the search-results HTML does not carry it. `consideration` is emitted as `''` for every row.
+- **Book / page / book type are blank.** Tyler assigns a global instrument number (`3808515`, etc.); the old LandmarkWeb book/page numbering is not present in the self-service view.
+- **Doc-type filter is deferred.** The portal's doc-type input is autocomplete-backed; rather than wiring the autocomplete endpoint for v1, the client pulls all document types and relies on the existing `entity_filter` downstream to select deeds.
+- **`counties.yaml` `skiprows` flipped from 1 to 0.** `pull_records.py` writes a header row at row 0 (unlike the LandmarkWeb-era Excel export which carried a title row). The processor was reading Okaloosa with `skiprows=1`; updating it here aligns it with the other `pull_records` outputs.
+
+### Reference
+
+- Client: `county_scrapers/tyler_selfservice_client.py`
+- Tests: `tests/test_tyler_selfservice_client.py` (28 tests including the `ajaxRequest` regression guard)
+- Fixture: `tests/fixtures/tyler_selfservice_results_sample.html`
+- Config registration: `county_scrapers/configs.py::TYLER_SELFSERVICE_COUNTIES`
+- Dispatch: `county_scrapers/pull_records.py::pull` (`portal_type == 'tyler_selfservice'` branch)

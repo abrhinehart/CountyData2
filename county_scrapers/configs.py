@@ -198,6 +198,22 @@ def get_acclaimweb_config(county: str) -> dict | None:
     return ACCLAIMWEB_COUNTIES.get(county)
 
 
+TYLER_SELFSERVICE_COUNTIES = {
+    'Okaloosa': {
+        'base_url': 'https://okaloosacountyfl-web.tylerhost.net/web',
+        'search_id': 'DOCSEARCH138S1',
+        'doc_types': '',  # all types; entity_filter handles deed selection downstream
+        'status': 'working',
+        'portal': 'tyler_selfservice',
+    },
+}
+
+
+def get_tyler_selfservice_config(county: str) -> dict | None:
+    """Return the Tyler Self-Service config for a county, or None."""
+    return TYLER_SELFSERVICE_COUNTIES.get(county)
+
+
 BROWSERVIEW_COUNTIES = {
     'Marion': {
         'base_url': 'https://nvweb.marioncountyclerk.org/BrowserView',
@@ -248,5 +264,7 @@ def list_working_counties() -> list[str]:
     counties.extend(name for name, cfg in GIS_PARCEL_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     counties.extend(name for name, cfg in BROWSERVIEW_COUNTIES.items()
+                    if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
+    counties.extend(name for name, cfg in TYLER_SELFSERVICE_COUNTIES.items()
                     if cfg.get('status') in ('working', 'captcha_hybrid', 'cloudflare'))
     return counties

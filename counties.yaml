@@ -172,7 +172,7 @@ counties:
       - Blk
       - Block
       - BLK
-    skiprows: 1
+    skiprows: 0
 
   Okeechobee:
     input_folder: "Z:/Shared/_Office_Shared/Adam/Code/Format/County Data/Okeechobee"
