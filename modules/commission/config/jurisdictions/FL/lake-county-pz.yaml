@@ -23,3 +23,4 @@ detection_patterns:
 extraction_notes:
   - "Planning/advisory board — recommendations only, not final authority on legislative items."
   - "Generic Florida county. Flag sparse items for review."
+  - "Data-availability note (verified 2026-04-16): CivicClerk Events API returns events for category 31, but per-event Meeting records carry agendaIsPublish=false and empty publishedFiles arrays. Lake County P&Z does not publish agendas/packets through the CivicClerk API surface — scraper correctly returns 0 listings. Config is kept so coverage auto-resumes if/when the county begins publishing. Do not re-classify this as a scraper bug without first re-checking Meeting.publishedFiles on a published event."

@@ -66,8 +66,11 @@ def test_haines_city_instantiates_with_expected_attributes():
     assert adapter.display_name == "Haines City"
     assert adapter.search_url == "https://haines.portal.iworq.net/HAINES/permits/600"
     assert adapter.mode == "live"
-    assert adapter.bootstrap_lookback_days == 120
+    # Narrowed bootstrap window (vs 120 on the IworqAdapter base) — see
+    # the "Production throttling" note on HainesCityAdapter.
+    assert adapter.bootstrap_lookback_days == 30
     assert adapter.rolling_overlap_days == 14
+    assert adapter.detail_request_delay_seconds == 0.5
     assert isinstance(adapter, IworqAdapter)
     # Inherits residential filter vocabulary from IworqAdapter
     assert "single family" in adapter.residential_type_terms
@@ -132,6 +135,35 @@ def test_haines_city_row_extraction_skips_short_rows():
 
 
 # ── Deferred type filter (description from detail page) ───────────────────
+
+def test_haines_city_detail_fetch_sleeps_before_upstream_call(monkeypatch):
+    """Every detail-page GET must first sleep so a 30-day bootstrap run
+    does not fan out as hundreds of zero-delay requests against the iWorQ
+    tenant."""
+    adapter = HainesCityAdapter()
+
+    sleeps: list[float] = []
+    monkeypatch.setattr(
+        "modules.permits.scrapers.adapters.haines_city.time.sleep",
+        lambda seconds: sleeps.append(seconds),
+    )
+
+    captured: dict[str, str] = {}
+
+    def _stub_super(self, session, detail_url):
+        captured["detail_url"] = detail_url
+        return {"Parcel #": "STUB"}
+
+    monkeypatch.setattr(IworqAdapter, "_fetch_detail_fields", _stub_super)
+
+    out = adapter._fetch_detail_fields(session=None, detail_url="https://x/detail/1")
+
+    # Sleep fires exactly once, with the configured delay, before the base
+    # class is invoked.
+    assert sleeps == [0.5]
+    assert captured["detail_url"] == "https://x/detail/1"
+    assert out == {"Parcel #": "STUB"}
+
 
 def test_haines_city_type_filter_delegates_to_base_vocabulary():
     """Haines has no type column; verify the inherited filter still works
