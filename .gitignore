@@ -10,3 +10,5 @@ ui/dist/
 *.log
 tmp/
 modules/commission/downloaded_agendas/
+.venv/
+database-backup/
