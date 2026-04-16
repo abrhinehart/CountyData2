@@ -35,8 +35,9 @@ Tracker table, Regressions if any).
 ## Manual invocation
 
 ```sh
-# Fast smoke (offline, capped at 5 per bucket):
-.venv/Scripts/python.exe scripts/drift_canary_full.py --dry-run --limit 5
+# Fast smoke (offline, capped at 5 per bucket). Always pass --report-dir
+# to a scratch path so the committed dated report is not overwritten:
+.venv/Scripts/python.exe scripts/drift_canary_full.py --dry-run --limit 5 --report-dir tmp/
 
 # Full dry-run sweep (offline):
 .venv/Scripts/python.exe scripts/drift_canary_full.py --dry-run --quiet
