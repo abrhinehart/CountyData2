@@ -6,13 +6,17 @@ municipality: null
 commission_type: planning_board
 
 scraping:
-  platform: manual
-  base_url: "https://www.mywaltonfl.gov/AgendaCenter"
+  platform: civicweb_icompass
+  base_url: "https://walton.civicweb.net/Portal/MeetingTypeList.aspx"
+  tenant_host: "walton.civicweb.net"
+  body_folder_id: 9106
+  body_label: "Planning Commission"
   document_formats: [pdf]
   has_duplicate_page_bug: false
 
 detection_patterns:
   header_keywords:
+    - "PLANNING COMMISSION"
     - "PLANNING"
   require_also:
     - "WALTON COUNTY"
@@ -21,3 +25,4 @@ detection_patterns:
 extraction_notes:
   - "Planning/advisory board — recommendations only, not final authority on legislative items."
   - "Generic Florida county. Flag sparse items for review."
+  - "iCompass CivicWeb (Diligent brand) — agenda PDFs crawled via Document Center /filepro/documents/<body_folder_id>/<year_id> tree; body_folder_id=9106 is the Planning Commission Agendas root."
