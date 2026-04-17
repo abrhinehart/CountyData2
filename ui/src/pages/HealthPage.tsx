@@ -13,6 +13,7 @@ import type {
 } from "../types";
 import CollapsibleSection from "../components/CollapsibleSection";
 import StatusMatrix from "../components/StatusMatrix";
+import CitiesMatrix from "../components/CitiesMatrix";
 
 type SortKey = "county" | "total" | "with_geom" | "pct" | "parcel_total" | "parcel_pct";
 type SortDir = "asc" | "desc";
@@ -114,6 +115,15 @@ export default function HealthPage() {
         defaultOpen={true}
       >
         <StatusMatrix />
+      </CollapsibleSection>
+
+      {/* ── Cities matrix ──────────────────────────────────────────── */}
+      <CollapsibleSection
+        id="cities-matrix"
+        title="Cities"
+        defaultOpen={true}
+      >
+        <CitiesMatrix />
       </CollapsibleSection>
 
       {/* ── Geometry coverage (subdivisions + parcels) ─────────────── */}
