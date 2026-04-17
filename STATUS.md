@@ -1,17 +1,17 @@
 # CountyData2 — STATUS
 
-_Generated: 2026-04-16T22:05:58Z_ — regenerate via `python scripts/status.py --write`.
+_Generated: 2026-04-17T03:05:34Z_ — regenerate via `python scripts/status.py --write`.
 
 ## HEAD
-- commit: 73e29be994cd0a7aed18916bfab5201ffd1b16e5
-- short: 73e29be
-- date: 2026-04-16 16:21:52 -0400
-- subject: docs: Session G paper trail + LDC module plan + drift canary
-- tag: v2.0.0-unified-validated-91-g73e29be
-- working tree: 1 modified / 7 untracked
+- commit: 30b6746269febe4b41c03a28438d8d4c5b1f864b
+- short: 30b6746
+- date: 2026-04-16 23:04:05 -0400
+- subject: ops: audit_api_maps recognizes eScribe + iCompass (CivicWeb) maps
+- tag: v2.0.0-unified-validated-98-g30b6746
+- working tree: 0 modified / 0 untracked
 
 ## Test baseline
-- pytest collected: 576
+- pytest collected: 580
 - last known passing: 573 + 23 subtests (updated on --write if pytest cache shows a green run)
 - known warnings: SQLAlchemy legacy Query.get at modules/commission/routers/roster.py:164
 
@@ -30,5 +30,5 @@ _Generated: 2026-04-16T22:05:58Z_ — regenerate via `python scripts/status.py -
 - last status: DRY-RUN
 
 ## TODO
-- open items: 42
+- open items: 34
 - see [TODO.md](TODO.md)
