@@ -6,9 +6,11 @@ municipality: "Pembroke Pines"
 commission_type: city_commission
 
 scraping:
-  platform: civicplus
-  base_url: "https://fl-pembrokepines.civicplus.com/AgendaCenter"
-  category_id: 2
+  platform: legistar
+  base_url: "https://ppines.legistar.com"
+  legistar_client: "ppines"
+  body_names:
+    - "City Commission"
   document_formats: [pdf]
   has_duplicate_page_bug: false
 
@@ -46,4 +48,6 @@ detection_patterns:
   header_zone: wide
 
 extraction_notes:
+  - "Re-platformed 2026-04-16 from CivicPlus AgendaCenter (cat 2) to Legistar. ppines.civicplus.com/AgendaCenter hosts advisory boards only; CC agendas live at ppines.legistar.com per ppines.com 'Agendas & Minutes' reference."
+  - "Body name in Legistar calendar is bare 'City Commission' (not 'Pembroke Pines City Commission')."
   - "Generic Florida jurisdiction. Flag sparse items for review."

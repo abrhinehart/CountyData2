@@ -6,10 +6,9 @@ municipality: "North Miami Beach"
 commission_type: city_commission
 
 scraping:
-  platform: civicplus
-  base_url: "https://www.citynmb.com/AgendaCenter"
-  category_id: 3
-  document_formats: [pdf]
+  platform: novusagenda
+  base_url: "https://nmb.novusagenda.com/agendapublic"
+  document_formats: [html]
   has_duplicate_page_bug: false
 
 keywords:
@@ -46,4 +45,5 @@ detection_patterns:
   header_zone: wide
 
 extraction_notes:
+  - "Re-platformed 2026-04-16 from CivicPlus AgendaCenter (cat 3) to NovusAgenda. The AgendaCenter at citynmb.com hosts only advisory boards; CC agendas live at nmb.novusagenda.com per citynmb.com/539/Agendas-Minutes."
   - "Generic Florida jurisdiction. Flag sparse items for review."

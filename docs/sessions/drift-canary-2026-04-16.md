@@ -4,8 +4,8 @@ Status: DRY-RUN
 
 ## Summary
 - CR configs exercised: 79
-- PT adapters exercised: 16
-- PASS: 0, PARTIAL: 0, FAIL: 0, SKIPPED: 3
+- PT adapters exercised: 0
+- PASS: 0, PARTIAL: 0, FAIL: 0, SKIPPED: 0
 
 ## Commission Radar
 | slug | platform | status | note |
@@ -59,7 +59,7 @@ Status: DRY-RUN
 | nassau-county-bcc | manual | DRY-RUN | factory=OK, constructor=OK (ManualScraper) |
 | nassau-county-pz | manual | DRY-RUN | factory=OK, constructor=OK (ManualScraper) |
 | niceville-cc | civicplus | DRY-RUN | factory=OK, constructor=OK (CivicPlusScraper) |
-| north-miami-beach-cc | civicplus | DRY-RUN | factory=OK, constructor=OK (CivicPlusScraper) |
+| north-miami-beach-cc | novusagenda | DRY-RUN | factory=OK, constructor=OK (NovusAgendaScraper) |
 | okaloosa-county-bcc | granicus | DRY-RUN | factory=OK, constructor=OK (GranicusScraper) |
 | okaloosa-county-pz | granicus | DRY-RUN | factory=OK, constructor=OK (GranicusScraper) |
 | okeechobee-county-bcc | granicus | DRY-RUN | factory=OK, constructor=OK (GranicusScraper) |
@@ -71,7 +71,7 @@ Status: DRY-RUN
 | panama-city-planning-board | civicplus | DRY-RUN | factory=OK, constructor=OK (CivicPlusScraper) |
 | pasco-county-bcc | civicclerk | DRY-RUN | factory=OK, constructor=OK (CivicClerkScraper) |
 | pasco-county-pz | civicclerk | DRY-RUN | factory=OK, constructor=OK (CivicClerkScraper) |
-| pembroke-pines-cc | civicplus | DRY-RUN | factory=OK, constructor=OK (CivicPlusScraper) |
+| pembroke-pines-cc | legistar | DRY-RUN | factory=OK, constructor=OK (LegistarScraper) |
 | pinellas-county-bcc | legistar | DRY-RUN | factory=OK, constructor=OK (LegistarScraper) |
 | polk-county-bcc | legistar | DRY-RUN | factory=OK, constructor=OK (LegistarScraper) |
 | polk-county-pz | legistar | DRY-RUN | factory=OK, constructor=OK (LegistarScraper) |
@@ -86,26 +86,10 @@ Status: DRY-RUN
 | wakulla-county-pz | manual | DRY-RUN | factory=OK, constructor=OK (ManualScraper) |
 | walton-county-bcc | civicweb_icompass | DRY-RUN | factory=OK, constructor=OK (CivicWebIcompassScraper) |
 | walton-county-pz | civicweb_icompass | DRY-RUN | factory=OK, constructor=OK (CivicWebIcompassScraper) |
-| winter-garden-cc | civicplus | DRY-RUN | factory=OK, constructor=OK (CivicPlusScraper) |
+| winter-garden-cc | civicclerk | DRY-RUN | factory=OK, constructor=OK (CivicClerkScraper) |
 | winter-haven-cc | granicus_viewpublisher | DRY-RUN | factory=OK, constructor=OK (ViewPublisherScraper) |
 | winter-haven-pc | granicus_viewpublisher | DRY-RUN | factory=OK, constructor=OK (ViewPublisherScraper) |
 
 ## Permit Tracker
 | adapter_slug | portal_type | status | note |
 |---|---|---|---|
-| bay-county | cityview | DRY-RUN | factory=OK, constructor=OK (BayCountyAdapter) |
-| panama-city | cloudpermit | DRY-RUN | factory=OK, constructor=OK (PanamaCityAdapter) |
-| panama-city-beach | iworq | DRY-RUN | factory=OK, constructor=OK (PanamaCityBeachAdapter) |
-| polk-county | accela | DRY-RUN | factory=OK, constructor=OK (PolkCountyAdapter) |
-| okeechobee | tyler-energov | DRY-RUN | factory=OK, constructor=OK (OkeechobeeAdapter) |
-| hernando-county | tyler-energov | DRY-RUN | factory=OK, constructor=OK (HernandoCountyAdapter) |
-| marion-county | tyler-energov | DRY-RUN | factory=OK, constructor=OK (MarionCountyAdapter) |
-| walton-county | tyler-energov | DRY-RUN | factory=OK, constructor=OK (WaltonCountyAdapter) |
-| desoto-county-ms | tyler-energov | DRY-RUN | factory=OK, constructor=OK (DeSotoCountyMsAdapter) |
-| citrus-county | accela | DRY-RUN | factory=OK, constructor=OK (CitrusCountyAdapter) |
-| madison-county-al | cityview | SKIPPED | scrape_mode=fixture |
-| winter-haven | accela | SKIPPED | scrape_mode=fixture |
-| lake-alfred | accela | DRY-RUN | factory=OK, constructor=OK (LakeAlfredAdapter) |
-| haines-city | iworq | DRY-RUN | factory=OK, constructor=OK (HainesCityAdapter) |
-| davenport | iworq | DRY-RUN | factory=OK, constructor=OK (DavenportAdapter) |
-| lake-hamilton | iworq | SKIPPED | scrape_mode=fixture |

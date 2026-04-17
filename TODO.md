@@ -6,35 +6,35 @@
 
 ## Commission Radar (CR)
 
-- [ ] santa-rosa-county-bcc & santa-rosa-county-zb: base_url points at santarosafl.gov (no DNS); correct domain is santarosa.fl.gov
+- [x] santa-rosa-county-bcc & santa-rosa-county-zb: base_url points at santarosafl.gov (no DNS); correct domain is santarosa.fl.gov
   - source: docs/sessions/2026-04-14-cr-yaml-audit.md
   - tags: [cr, santa-rosa, yaml]
-  - status: open
+  - status: done by commit:c0ab4ed — both YAMLs deleted (AgendaCenter lacks BCC category even on corrected domain; ZB is dual LPA+BOA with no data); re-platform follow-up spawned separately
 
-- [ ] collier-county-boa: Collier civicclerk has no dedicated Board of Adjustment category; cat 32 is Hearing Examiner. Decide remove vs re-point vs different portal
-  - source: docs/sessions/2026-04-14-cr-yaml-audit.md
+- [x] collier-county-boa: Collier civicclerk has no dedicated Board of Adjustment category; cat 32 is Hearing Examiner. Decide remove vs re-point vs different portal
+  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
   - tags: [cr, collier, yaml, boa]
-  - status: open
+  - status: done 2026-04-16 — YAML deleted per feedback_skip_boa_zba.md (BOA not tracked)
 
-- [ ] north-miami-beach-cc: NMB AgendaCenter has no City Commission category; CC agendas live on a different platform — identify correct portal
-  - source: docs/sessions/2026-04-14-cr-yaml-audit.md
+- [x] north-miami-beach-cc: NMB AgendaCenter has no City Commission category; CC agendas live on a different platform — identify correct portal
+  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
   - tags: [cr, north-miami-beach, yaml, platform-discovery]
-  - status: open
+  - status: done 2026-04-16 — re-platformed to novusagenda at nmb.novusagenda.com/agendapublic
 
-- [ ] pembroke-pines-cc: AgendaCenter hosts advisory boards only, no City Commission category — same situation as NMB, identify correct platform
-  - source: docs/sessions/2026-04-14-cr-yaml-audit.md
+- [x] pembroke-pines-cc: AgendaCenter hosts advisory boards only, no City Commission category — same situation as NMB, identify correct platform
+  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
   - tags: [cr, pembroke-pines, yaml, platform-discovery]
-  - status: open
+  - status: done 2026-04-16 — re-platformed to legistar at ppines.legistar.com, body "City Commission"
 
-- [ ] winter-garden-cc: category_id fixed to 6 but no new CC agendas since March 2025; confirm whether Winter Garden migrated to granicus/iQM2 or similar
-  - source: docs/sessions/2026-04-14-cr-yaml-audit.md
+- [x] winter-garden-cc: category_id fixed to 6 but no new CC agendas since March 2025; confirm whether Winter Garden migrated to granicus/iQM2 or similar
+  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
   - tags: [cr, winter-garden, yaml, platform-migration]
-  - status: open
+  - status: done 2026-04-16 — re-platformed to civicclerk at wintergardenfl.portal.civicclerk.com, category_id 26
 
-- [ ] lake-county-pz: adapter returns 0 listings despite civicclerk Events API having published events — scraper date/visibility filter bug
+- [x] lake-county-pz: adapter returns 0 listings despite civicclerk Events API having published events — scraper date/visibility filter bug
   - source: docs/sessions/2026-04-14-cr-yaml-audit.md
   - tags: [cr, lake-county, civicclerk, adapter-bug]
-  - status: open
+  - status: done by commit:c0ab4ed — not a scraper bug; county maintains calendar entries but never publishes agendas/packets through API (agendaIsPublish=false). Scraper correctly returns 0 listings. YAML extraction_notes updated to prevent re-flag.
 
 - [ ] HEAD/GET asymmetry detection pattern: build reusable portal-health utility (e.g. shared/portal_health.py) that GETs and sniffs body, then wire into CR uptime checks (Bay NovusAgenda trigger)
   - source: docs/sessions/2026-04-14-project-reload.md

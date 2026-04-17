@@ -6,9 +6,10 @@ municipality: "Winter Garden"
 commission_type: city_commission
 
 scraping:
-  platform: civicplus
-  base_url: "https://www.cwgdn.com/AgendaCenter"
-  category_id: 6  # City Commission (portal panel id 6; id 2 was Architectural Review & Historic Preservation Board)
+  platform: civicclerk
+  base_url: "https://wintergardenfl.portal.civicclerk.com"
+  civicclerk_subdomain: "wintergardenfl"
+  category_id: 26  # City Commission (confirmed via EventCategories API 2026-04-16)
   document_formats: [pdf]
   has_duplicate_page_bug: false
 
@@ -46,4 +47,5 @@ detection_patterns:
   header_zone: wide
 
 extraction_notes:
+  - "Re-platformed 2026-04-16 from CivicPlus AgendaCenter (cat 6) to CivicClerk. AgendaCenter cat 6 stopped publishing after March 27 2025; Winter Garden migrated to wintergardenfl.portal.civicclerk.com. Current agendas attached to events via CivicClerk file container pattern."
   - "Generic Florida jurisdiction. Flag sparse items for review."
