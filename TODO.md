@@ -209,15 +209,15 @@
   - tags: [platform, cr, tech-debt]
   - status: open
 
-- [ ] Drift canary manual test-fire verification still pending: confirm no DRIFT_CANARY_FAILED_* marker from the 2026-04-15 test run before May 1 auto-fire
+- [x] Drift canary manual test-fire verification still pending: confirm no DRIFT_CANARY_FAILED_* marker from the 2026-04-15 test run before May 1 auto-fire
   - source: docs/sessions/2026-04-15-accela-p1-wrapup.md
   - tags: [platform, canary]
-  - status: open
+  - status: done 2026-04-16 — no failure marker at repo root; drift-canary-2026-04-15.md Status: PASS
 
-- [ ] Audit tool run against the 10 new counties that landed on remote (Hernando, Marion, Pasco, Volusia, Duval, Seminole + 4 AL counties) — catch same class of drift we caught on Polk/Citrus/Charlotte before building more scrapers
-  - source: docs/sessions/2026-04-15-polk-accela-hardening.md
+- [x] Audit tool run against the 10 new counties that landed on remote (Hernando, Marion, Pasco, Volusia, Duval, Seminole + 4 AL counties) — catch same class of drift we caught on Polk/Citrus/Charlotte before building more scrapers
+  - source: docs/sessions/2026-04-16-10-county-audit-sweep.md
   - tags: [platform, audit, api-maps]
-  - status: open
+  - status: done — 0 drift / 0 suspicious / 0 info across 21 scanned maps
 
 - [ ] API-map authoring discipline: write maps code-referenced (with commit SHAs + line numbers) or auto-generate "Extracted? YES/NO" via audit_api_maps.py — portal-first second-pass drift has been the recurring root cause
   - source: docs/sessions/2026-04-15-polk-accela-hardening.md
