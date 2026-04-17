@@ -509,6 +509,59 @@ export interface GeometryCoverageRow {
   total: number;
   with_geom: number;
   without_geom: number;
+  parcel_total: number;
+  parcel_with_geom: number;
+  parcel_without_geom: number;
+}
+
+// ---------------------------------------------------------------------------
+// Status Matrix — jurisdiction × status dashboard
+// ---------------------------------------------------------------------------
+
+export type ModuleState = "green" | "yellow" | "red" | "na";
+export type RosterState = "yes" | "no" | "na";
+
+export interface MapCell {
+  filename: string;
+  age_days: number;
+}
+
+export interface StatusMatrixRow {
+  id: number;
+  name: string;
+  type: string | null;
+  slug: string;
+  is_county_row: boolean;
+  doc: boolean;
+  cd2: ModuleState;
+  bi: ModuleState;
+  pt: ModuleState;
+  cr: ModuleState;
+  cd2_map: MapCell | null;
+  bi_map: MapCell | null;
+  pt_map: MapCell | null;
+  cr_map: MapCell | null;
+  sub_pct: number | null;
+  parcel_pct: number | null;
+  roster: RosterState;
+  last_run_days: number | null;
+}
+
+export interface StatusMatrixCounty {
+  county: string;
+  row: StatusMatrixRow;
+  jurisdictions: StatusMatrixRow[];
+  cities: StatusMatrixRow[];
+}
+
+export interface StatusMatrixState {
+  state: string;
+  counties: StatusMatrixCounty[];
+}
+
+export interface StatusMatrixResponse {
+  states: StatusMatrixState[];
+  generated_at: string;
 }
 
 // ---------------------------------------------------------------------------

@@ -29,6 +29,7 @@ import type {
   BiSnapshotHealthRow,
   PtScrapeHealthRow,
   CrDocumentHealthRow,
+  StatusMatrixResponse,
 } from "./types";
 
 const BASE = "/api";
@@ -376,4 +377,8 @@ export async function getPtScrapeHealth(): Promise<{ rows: PtScrapeHealthRow[] }
 
 export async function getCrDocumentHealth(): Promise<{ rows: CrDocumentHealthRow[] }> {
   return checked(await fetch(`${BASE}/platform/cr-document-health`));
+}
+
+export async function getStatusMatrix(): Promise<StatusMatrixResponse> {
+  return checked(await fetch(`${BASE}/platform/status-matrix`));
 }

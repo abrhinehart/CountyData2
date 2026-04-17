@@ -1,1 +1,57 @@
 @import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Site-wide dark theme
+   Remaps common Tailwind light-palette utility classes to dark-friendly
+   values. Classes already chosen for dark backgrounds (bg-gray-800/900) are
+   intentionally left untouched so StatusMatrix and similar dark-native
+   components keep their explicit darkest shades.
+   ────────────────────────────────────────────────────────────────────────── */
+
+html, body {
+  background-color: var(--color-gray-950, #030712);
+  color: var(--color-gray-100);
+}
+
+/* Surfaces */
+.bg-white            { background-color: var(--color-gray-900) !important; }
+.bg-gray-50          { background-color: var(--color-gray-950, #030712) !important; }
+.bg-gray-100         { background-color: var(--color-gray-800) !important; }
+
+/* Text */
+.text-gray-900       { color: var(--color-gray-100) !important; }
+.text-gray-800       { color: var(--color-gray-100) !important; }
+.text-gray-700       { color: var(--color-gray-200) !important; }
+.text-gray-600       { color: var(--color-gray-300) !important; }
+.text-gray-500       { color: var(--color-gray-400) !important; }
+.text-gray-400       { color: var(--color-gray-500) !important; }
+
+/* Borders */
+.border-gray-100     { border-color: var(--color-gray-800) !important; }
+.border-gray-200     { border-color: var(--color-gray-700) !important; }
+.border-gray-300     { border-color: var(--color-gray-600) !important; }
+
+/* Dividers */
+.divide-gray-100 > :not([hidden]) ~ :not([hidden]) { border-color: var(--color-gray-800) !important; }
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) { border-color: var(--color-gray-700) !important; }
+
+/* Hover states on light surfaces */
+.hover\:bg-gray-50:hover  { background-color: var(--color-gray-800) !important; }
+.hover\:bg-gray-100:hover { background-color: var(--color-gray-800) !important; }
+
+/* Soft accent tints — tone down on dark */
+.bg-blue-100         { background-color: color-mix(in oklab, var(--color-blue-500) 30%, var(--color-gray-900)) !important; }
+.text-blue-700       { color: var(--color-blue-300) !important; }
+.bg-green-100        { background-color: color-mix(in oklab, var(--color-emerald-500) 25%, var(--color-gray-900)) !important; }
+.text-green-700      { color: var(--color-emerald-300) !important; }
+.text-green-600      { color: var(--color-emerald-400) !important; }
+.text-red-600        { color: var(--color-rose-400) !important; }
+.text-blue-600       { color: var(--color-blue-400) !important; }
+
+/* Form inputs */
+input, select, textarea {
+  background-color: var(--color-gray-800);
+  color: var(--color-gray-100);
+  border-color: var(--color-gray-700);
+}
+input::placeholder, textarea::placeholder { color: var(--color-gray-500); }

@@ -7,13 +7,14 @@ import {
   getCrDocumentHealth,
 } from "../api";
 import type {
-  GeometryCoverageRow,
   BiSnapshotHealthRow,
   PtScrapeHealthRow,
   CrDocumentHealthRow,
 } from "../types";
+import CollapsibleSection from "../components/CollapsibleSection";
+import StatusMatrix from "../components/StatusMatrix";
 
-type SortKey = "county" | "total" | "with_geom" | "without_geom" | "pct";
+type SortKey = "county" | "total" | "with_geom" | "pct" | "parcel_total" | "parcel_pct";
 type SortDir = "asc" | "desc";
 
 export default function HealthPage() {
@@ -64,13 +65,18 @@ export default function HealthPage() {
         case "with_geom":
           cmp = a.with_geom - b.with_geom;
           break;
-        case "without_geom":
-          cmp = a.without_geom - b.without_geom;
-          break;
         case "pct":
           cmp =
             (a.total ? a.with_geom / a.total : 0) -
             (b.total ? b.with_geom / b.total : 0);
+          break;
+        case "parcel_total":
+          cmp = a.parcel_total - b.parcel_total;
+          break;
+        case "parcel_pct":
+          cmp =
+            (a.parcel_total ? a.parcel_with_geom / a.parcel_total : 0) -
+            (b.parcel_total ? b.parcel_with_geom / b.parcel_total : 0);
           break;
       }
       return cmp * dir;
@@ -78,14 +84,16 @@ export default function HealthPage() {
   }, [data, sortBy, sortDir]);
 
   const totals = useMemo(() => {
-    if (!rows.length) return { total: 0, with_geom: 0, without_geom: 0 };
+    if (!rows.length)
+      return { total: 0, with_geom: 0, parcel_total: 0, parcel_with_geom: 0 };
     return rows.reduce(
       (acc, r) => ({
         total: acc.total + r.total,
         with_geom: acc.with_geom + r.with_geom,
-        without_geom: acc.without_geom + r.without_geom,
+        parcel_total: acc.parcel_total + r.parcel_total,
+        parcel_with_geom: acc.parcel_with_geom + r.parcel_with_geom,
       }),
-      { total: 0, with_geom: 0, without_geom: 0 },
+      { total: 0, with_geom: 0, parcel_total: 0, parcel_with_geom: 0 },
     );
   }, [rows]);
 
@@ -96,19 +104,23 @@ export default function HealthPage() {
     d ? `${((n / d) * 100).toFixed(1)}%` : "\u2014";
 
   return (
-    <div className="space-y-6 max-w-4xl">
+    <div className="space-y-6">
       <h1 className="text-2xl font-semibold text-gray-800">Platform Health</h1>
 
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Subdivision Geometry Coverage
-        </h2>
+      {/* ── Status matrix (top of page) ────────────────────────────── */}
+      <CollapsibleSection
+        id="status-matrix"
+        title="Status Matrix"
+        defaultOpen={true}
+      >
+        <StatusMatrix />
+      </CollapsibleSection>
 
+      {/* ── Geometry coverage (subdivisions + parcels) ─────────────── */}
+      <CollapsibleSection id="geom-coverage" title="Geometry Coverage">
         {isLoading && <p className="text-sm text-gray-500">Loading...</p>}
         {error && (
-          <p className="text-sm text-red-600">
-            Failed to load geometry coverage.
-          </p>
+          <p className="text-sm text-red-600">Failed to load geometry coverage.</p>
         )}
 
         {rows.length > 0 && (
@@ -116,67 +128,71 @@ export default function HealthPage() {
             <table className="min-w-full text-sm">
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
-                  {([
-                    ["county", "County"],
-                    ["total", "Total"],
-                    ["with_geom", "With Geom"],
-                    ["without_geom", "Without Geom"],
-                    ["pct", "Coverage"],
-                  ] as [SortKey, string][]).map(([key, label]) => (
-                    <th
-                      key={key}
-                      onClick={() => toggleSort(key)}
-                      className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900"
-                    >
-                      {label}
-                      {arrow(key)}
-                    </th>
-                  ))}
+                  <th rowSpan={2} className="px-4 py-2 text-left font-medium text-gray-600 align-bottom cursor-pointer select-none hover:text-gray-900" onClick={() => toggleSort("county")}>
+                    County{arrow("county")}
+                  </th>
+                  <th colSpan={3} className="px-4 py-1 text-center font-semibold text-xs uppercase tracking-wide text-violet-700 bg-violet-50 border-l border-gray-200">
+                    Subdivisions
+                  </th>
+                  <th colSpan={3} className="px-4 py-1 text-center font-semibold text-xs uppercase tracking-wide text-sky-700 bg-sky-50 border-l border-gray-200">
+                    Parcels
+                  </th>
+                </tr>
+                <tr>
+                  <th onClick={() => toggleSort("total")} className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900 border-l border-gray-200">
+                    Total{arrow("total")}
+                  </th>
+                  <th onClick={() => toggleSort("with_geom")} className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900">
+                    With Geom{arrow("with_geom")}
+                  </th>
+                  <th onClick={() => toggleSort("pct")} className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900">
+                    Coverage{arrow("pct")}
+                  </th>
+                  <th onClick={() => toggleSort("parcel_total")} className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900 border-l border-gray-200">
+                    Total{arrow("parcel_total")}
+                  </th>
+                  <th className="px-4 py-2 text-left font-medium text-gray-600">
+                    With Geom
+                  </th>
+                  <th onClick={() => toggleSort("parcel_pct")} className="px-4 py-2 text-left font-medium text-gray-600 cursor-pointer select-none hover:text-gray-900">
+                    Coverage{arrow("parcel_pct")}
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {rows.map((r) => (
                   <tr key={r.county} className="hover:bg-gray-50">
-                    <td className="px-4 py-2 font-medium text-gray-800">
-                      {r.county}
-                    </td>
-                    <td className="px-4 py-2 text-gray-700">{r.total}</td>
+                    <td className="px-4 py-2 font-medium text-gray-800">{r.county}</td>
+                    <td className="px-4 py-2 text-gray-700 border-l border-gray-200">{r.total}</td>
                     <td className="px-4 py-2 text-gray-700">{r.with_geom}</td>
-                    <td className="px-4 py-2 text-gray-700">
-                      {r.without_geom}
-                    </td>
-                    <td className="px-4 py-2 text-gray-700">
-                      {pct(r.with_geom, r.total)}
-                    </td>
+                    <td className="px-4 py-2 text-gray-700">{pct(r.with_geom, r.total)}</td>
+                    <td className="px-4 py-2 text-gray-700 border-l border-gray-200">{r.parcel_total}</td>
+                    <td className="px-4 py-2 text-gray-700">{r.parcel_with_geom}</td>
+                    <td className="px-4 py-2 text-gray-700">{pct(r.parcel_with_geom, r.parcel_total)}</td>
                   </tr>
                 ))}
               </tbody>
               <tfoot className="bg-gray-50 border-t border-gray-200 font-medium">
                 <tr>
                   <td className="px-4 py-2 text-gray-800">Total</td>
-                  <td className="px-4 py-2 text-gray-700">{totals.total}</td>
-                  <td className="px-4 py-2 text-gray-700">
-                    {totals.with_geom}
-                  </td>
-                  <td className="px-4 py-2 text-gray-700">
-                    {totals.without_geom}
-                  </td>
-                  <td className="px-4 py-2 text-gray-700">
-                    {pct(totals.with_geom, totals.total)}
-                  </td>
+                  <td className="px-4 py-2 text-gray-700 border-l border-gray-200">{totals.total}</td>
+                  <td className="px-4 py-2 text-gray-700">{totals.with_geom}</td>
+                  <td className="px-4 py-2 text-gray-700">{pct(totals.with_geom, totals.total)}</td>
+                  <td className="px-4 py-2 text-gray-700 border-l border-gray-200">{totals.parcel_total}</td>
+                  <td className="px-4 py-2 text-gray-700">{totals.parcel_with_geom}</td>
+                  <td className="px-4 py-2 text-gray-700">{pct(totals.parcel_with_geom, totals.parcel_total)}</td>
                 </tr>
               </tfoot>
             </table>
           </div>
         )}
-      </section>
+      </CollapsibleSection>
 
       {/* ── BI Snapshot Health ─────────────────────────────────────── */}
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Builder Inventory — Latest Snapshots
-        </h2>
-
+      <CollapsibleSection
+        id="bi-snapshots"
+        title="Builder Inventory — Latest Snapshots"
+      >
         {biHealth.isLoading && <p className="text-sm text-gray-500">Loading...</p>}
         {biHealth.error && (
           <p className="text-sm text-red-600">Failed to load BI snapshot health.</p>
@@ -230,14 +246,13 @@ export default function HealthPage() {
             </table>
           </div>
         )}
-      </section>
+      </CollapsibleSection>
 
       {/* ── PT Scrape Health ───────────────────────────────────────── */}
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Permit Tracker — Recent Scrape Jobs
-        </h2>
-
+      <CollapsibleSection
+        id="pt-scrape"
+        title="Permit Tracker — Recent Scrape Jobs"
+      >
         {ptHealth.isLoading && <p className="text-sm text-gray-500">Loading...</p>}
         {ptHealth.error && (
           <p className="text-sm text-red-600">Failed to load PT scrape health.</p>
@@ -299,14 +314,13 @@ export default function HealthPage() {
             </table>
           </div>
         )}
-      </section>
+      </CollapsibleSection>
 
       {/* ── CR Document Health ─────────────────────────────────────── */}
-      <section className="space-y-3">
-        <h2 className="text-lg font-medium text-gray-700">
-          Commission Radar — Document Extraction
-        </h2>
-
+      <CollapsibleSection
+        id="cr-docs"
+        title="Commission Radar — Document Extraction"
+      >
         {crHealth.isLoading && <p className="text-sm text-gray-500">Loading...</p>}
         {crHealth.error && (
           <p className="text-sm text-red-600">Failed to load CR document health.</p>
@@ -342,7 +356,7 @@ export default function HealthPage() {
             </table>
           </div>
         )}
-      </section>
+      </CollapsibleSection>
     </div>
   );
 }
