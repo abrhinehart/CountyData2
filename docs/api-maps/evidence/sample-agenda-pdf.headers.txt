@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Cache-Control: must-revalidate,max-age=7200
+Content-Length: 210985
+Content-Type: application/pdf
+Last-Modified: Fri, 02 Jan 2026 14:42:27 GMT
+Accept-Ranges: bytes
+ETag: "5e4f314f67bdc1:0"
+x-wt: 0
+Strict-Transport-Security: max-age=360;
+w: 6a
+Date: Fri, 17 Apr 2026 06:17:15 GMT
+

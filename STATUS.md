@@ -1,14 +1,14 @@
 # CountyData2 — STATUS
 
-_Generated: 2026-04-17T03:05:34Z_ — regenerate via `python scripts/status.py --write`.
+_Generated: 2026-04-17T14:50:45Z_ — regenerate via `python scripts/status.py --write`.
 
 ## HEAD
-- commit: 30b6746269febe4b41c03a28438d8d4c5b1f864b
-- short: 30b6746
-- date: 2026-04-16 23:04:05 -0400
-- subject: ops: audit_api_maps recognizes eScribe + iCompass (CivicWeb) maps
-- tag: v2.0.0-unified-validated-98-g30b6746
-- working tree: 0 modified / 0 untracked
+- commit: 6fb1b0a108a9f7da3bed35b00e99666e6dd5323b
+- short: 6fb1b0a
+- date: 2026-04-16 23:05:39 -0400
+- subject: ops: regen STATUS.md at session end (HEAD 30b6746)
+- tag: v2.0.0-unified-validated-99-g6fb1b0a
+- working tree: 103 modified / 5 untracked
 
 ## Test baseline
 - pytest collected: 580

@@ -1,0 +1,77 @@
+2026-04-17T06:14:26Z
+# Davenport CR mapping request log
+06:15:25 GET https://www.mydavenport.org/sitemap.xml
+06:15:42 GET https://www.mydavenport.org// 200
+06:15:43 GET https://www.mydavenport.org/commissionagendas 200
+06:15:45 GET https://www.mydavenport.org/commissionminutes 200
+06:15:46 GET https://www.mydavenport.org/commissionmeetings 200
+06:15:48 GET https://www.mydavenport.org/agendasminutes 200
+06:15:50 GET https://www.mydavenport.org/planningcommission 200
+06:15:51 GET https://www.mydavenport.org/ordinances 200
+06:15:53 GET https://www.mydavenport.org/resolutions 200
+06:15:54 GET https://www.mydavenport.org/boardscommittees 200
+06:15:56 GET https://www.mydavenport.org/government 200
+06:15:57 GET https://www.mydavenport.org/departments 200
+06:15:59 GET https://www.mydavenport.org/charter 200
+06:16:00 GET https://www.mydavenport.org/cityclerk 200
+06:16:02 GET https://www.mydavenport.org/news 200
+06:16:50 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=EF3D4D07-6249-43FC-BBED-A5025E6D4757
+06:16:51 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=B1AD9ADD-7A53-4D60-A6FF-CB94FE1043EF
+06:17:16 HEAD https://www.mydavenport.org/vertical/sites/%7B96FA7459-A704-43EF-A44D-7BFA732F5D2E%7D/uploads/January_5_2026_-_Regular_Meeting.pdf
+06:17:17 GET https://www.mydavenport.org/feed.asp 404
+06:17:18 GET https://www.mydavenport.org/rss.asp 404
+06:17:20 GET https://www.mydavenport.org/atom.asp 404
+06:17:21 GET https://www.mydavenport.org/calendar.asp 404
+06:17:23 GET https://www.mydavenport.org/events.asp 404
+06:17:24 GET https://www.mydavenport.org/download.asp 404
+06:17:25 GET https://www.mydavenport.org/search.asp 404
+06:17:27 GET https://www.mydavenport.org/api.asp 404
+06:17:28 GET https://www.mydavenport.org/rss 404
+06:17:30 GET https://www.mydavenport.org/feed 404
+06:17:31 GET https://www.mydavenport.org/atom 404
+06:17:32 GET https://www.mydavenport.org/api 404
+06:17:34 GET https://www.mydavenport.org/sitemap.xml.gz 404
+06:17:44 GET https://www.mydavenport.org/vertical/sites/%7B96FA7459-A704-43EF-A44D-7BFA732F5D2E%7D/uploads/January_5_2026_-_Regular_Meeting.pdf
+06:17:58 GET https://www.mydavenport.org/index.asp?SEC=BCAF1EB6-5004-4D0F-AB11-1F99DC500749&DE=7481432E-3365-491C-88D1-7E158D7AD015
+06:17:59 GET https://www.mydavenport.org/index.asp?SEC=BCAF1EB6-5004-4D0F-AB11-1F99DC500749&DE=FB740DEC-236E-416D-B862-CD23E9864EB7
+06:18:48 GET https://www.mydavenport.org/vertical/sites/%7B96FA7459-A704-43EF-A44D-7BFA732F5D2E%7D/ 403
+06:18:50 GET https://www.mydavenport.org/vertical/sites/%7B96FA7459-A704-43EF-A44D-7BFA732F5D2E%7D/uploads/ 403
+06:18:51 GET https://www.mydavenport.org/app/feed/rss.asp 404
+06:18:53 GET https://www.mydavenport.org/rssfeed.asp 404
+06:18:54 GET https://www.mydavenport.org/calendar/calendar.asp 200
+06:18:56 GET https://www.mydavenport.org/forms/ 404
+06:18:57 GET https://www.mydavenport.org/Archive.asp 404
+06:18:59 GET https://www.mydavenport.org/Archive/ 404
+06:19:00 GET https://www.mydavenport.org/ArchiveCenter/ 404
+06:19:01 GET https://www.mydavenport.org/api/ 404
+06:19:03 GET https://www.mydavenport.org/Modules/ 404
+06:19:04 GET https://www.mydavenport.org/Webapp/ 404
+06:19:06 GET https://www.mydavenport.org/news 200
+06:19:07 GET https://www.mydavenport.org/newsletter 200
+06:19:09 GET https://www.mydavenport.org/calendar 200
+06:19:10 GET https://www.mydavenport.org/events 200
+06:19:12 GET https://www.mydavenport.org/jobs 200
+06:19:23 GET https://www.mydavenport.org/calendar/calendar.asp
+06:19:24 GET https://www.mydavenport.org/events
+06:19:57 GET https://www.mydavenport.org/index.asp?SEC=search&q=ordinance
+06:20:08 GET https://www.mydavenport.org/index.asp?SEC=B5D05054-086E-438B-96FF-253DCDE7535A&keyword=
+06:20:13 GET https://www.mydavenport.org/index.asp?SEC=B5D05054-086E-438B-96FF-253DCDE7535A&keyword=ordinance
+06:20:21 GET https://www.mydavenport.org/index.asp?SEC=B5D05054-086E-438B-96FF-253DCDE7535A&keyword=planning
+06:20:47 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=24685B32-E129-41C4-A580-A4139AD11DDA
+06:20:48 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=AA8C75B0-4E22-495A-BCD7-1048697E14A4
+06:20:49 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=A839513B-1D32-416D-81F5-B014622E2AF4
+06:20:51 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=7D0E0725-1FDD-48D6-A5E0-C700BC8C3C4C
+06:20:52 GET https://www.mydavenport.org/index.asp?SEC=9B0AFDD2-5297-4ED5-B887-F5F96A697CC7&DE=04670147-A780-412D-958F-031A6F74B191
+06:21:24 GET https://www.municode.com/library/fl/davenport/codes/code_of_ordinances
+06:21:26 GET https://api.municode.com/Jurisdictions/OfType?jurisdictionTypes=Municipality&stateName=Florida&query=davenport
+06:21:34 GET https://api.municode.com/Jurisdictions/OfType/ 404
+06:21:35 GET https://api.municode.com/Jurisdictions/State/FL 404
+06:21:37 GET https://api.municode.com/Jurisdictions/State/Florida 404
+06:21:38 GET https://api.municode.com/client/Jurisdictions 404
+06:21:39 GET https://api.municode.com/codes/davenport 404
+06:22:01 GET https://library.municode.com/api/Jurisdictions/Client?clientName=davenport&stateAbbr=FL
+06:22:03 GET https://library.municode.com/api/codes/Davenport
+06:22:04 GET https://api.municode.com/Jurisdictions/OfType?jurisdictionTypes=Municipality&stateName=Florida
+06:22:12 GET https://library.municode.com/api/Jurisdictions/OfType?jurisdictionTypes=Municipality&stateName=Florida&query=Davenport 401
+06:22:14 GET https://library.municode.com/api/Jurisdictions 401
+06:22:28 GET https://library.municode.com/fl/davenport/codes/code_of_ordinances

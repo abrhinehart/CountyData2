@@ -1,0 +1,20 @@
+Seed URL: https://www.mydavenport.org/
+Target: Commission Radar (CR) for Davenport, Polk County, FL
+Date: 2026-04-16
+
+Official city website (confirmed via web search):
+- https://www.mydavenport.org/         (primary)
+- https://mydavenport.org/              (alias)
+- https://www.mydavenport.org/commissionagendas (CR seed)
+- https://www.mydavenport.org/agendasminutes
+- https://www.mydavenport.org/commissionmeetings
+
+URL structure clue from search results:
+  /index.asp?DE=<GUID>&SEC=<GUID>
+Suggests a classic ASP CMS, likely Civica CMS or similar vendor
+(could be CivicPlus, CivicEngage, or `_cms`-style older product).
+
+Non-matching domains:
+- davenportfl.gov / davenportflorida.gov — NXDOMAIN
+- www.davenportfl.com — different site (not city hall)
+- cityofdavenport.com — redirect, not city hall

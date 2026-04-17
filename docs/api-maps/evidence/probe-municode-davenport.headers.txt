@@ -1,0 +1,24 @@
+HTTP/1.1 302 Found
+date: Fri, 17 Apr 2026 06:21:24 GMT
+location: https://library.municode.com/fl/davenport/codes/code_of_ordinances
+content-length: 250
+content-type: text/html; charset=iso-8859-1
+x-cache-original-ttl: 1209600s
+age: 0
+expires: Fri, 17 Apr 2026 06:21:24 GMT
+x-cache: uncached
+cache-control: private, no-cache
+x-full-url: www.municode.com/library/fl/davenport/codes/code_of_ordinances
+x-rpid: RP3E1D600
+cacheid: 3
+set-cookie: HAPersist=d-ssle1a1-pa1-rpe1d1; path=/
+connection: close
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Fri, 17 Apr 2026 06:21:24 GMT
+Server: Microsoft-IIS/10.0
+Transfer-Encoding: chunked
+Strict-Transport-Security: max-age=2592000
+X-Powered-By: ASP.NET
+
