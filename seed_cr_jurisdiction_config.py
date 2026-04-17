@@ -8,10 +8,16 @@ and upserts:
 
 Idempotent: uses ON CONFLICT.
 
+Reconciles DB state with disk state: any cr_jurisdiction_config row whose
+jurisdiction is no longer represented by a YAML on disk is set to
+is_active=False (pass --no-deactivate-missing to suppress). Without this,
+YAML deletions silently leave stale-active rows behind on the dashboard.
+
 Usage:
-    python seed_cr_jurisdiction_config.py
+    python seed_cr_jurisdiction_config.py [--no-deactivate-missing]
 """
 
+import argparse
 import json
 from pathlib import Path
 
@@ -28,12 +34,14 @@ def load_yaml(path: Path) -> dict:
         return yaml.safe_load(f) or {}
 
 
-def seed():
+def seed(deactivate_missing: bool = True):
     conn = psycopg2.connect(DATABASE_URL)
     jurisdictions_upserted = 0
     configs_upserted = 0
     skipped = 0
     counties_created = 0
+    seeded_jurisdiction_ids: set[int] = set()
+    deactivated = 0
 
     try:
         with conn.cursor() as cur:
@@ -97,6 +105,7 @@ def seed():
                     )
                     jurisdiction_id = cur.fetchone()[0]
                     jurisdictions_upserted += 1
+                    seeded_jurisdiction_ids.add(jurisdiction_id)
 
                     # Build config_json from non-trivial fields
                     config_blob = {
@@ -137,6 +146,18 @@ def seed():
                     )
                     configs_upserted += 1
 
+            if deactivate_missing and seeded_jurisdiction_ids:
+                cur.execute(
+                    """
+                    UPDATE cr_jurisdiction_config
+                    SET is_active = FALSE, updated_at = NOW()
+                    WHERE is_active = TRUE
+                      AND jurisdiction_id <> ALL(%s)
+                    """,
+                    (list(seeded_jurisdiction_ids),),
+                )
+                deactivated = cur.rowcount
+
         conn.commit()
     finally:
         conn.close()
@@ -146,8 +167,19 @@ def seed():
     print(f"CR configs upserted:    {configs_upserted}")
     print(f"Counties created:       {counties_created}")
     print(f"Skipped:                {skipped}")
+    if deactivate_missing:
+        print(f"Stale configs deactivated: {deactivated}")
     print("Done.")
 
 
 if __name__ == "__main__":
-    seed()
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--no-deactivate-missing",
+        dest="deactivate_missing",
+        action="store_false",
+        help="Skip the end-of-run pass that sets is_active=FALSE on "
+             "cr_jurisdiction_config rows whose YAML was deleted.",
+    )
+    args = parser.parse_args()
+    seed(deactivate_missing=args.deactivate_missing)
