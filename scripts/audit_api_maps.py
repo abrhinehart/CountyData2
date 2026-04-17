@@ -103,6 +103,10 @@ PLATFORM_TOKENS = {
     "citizenserve": "citizenserve",
     "custom-cr": "custom-cr",
     "improvement-report": "improvement-report",
+    # Filename suffix "civicweb" maps to the civicweb_icompass adapter token
+    # used in modules/commission/scrapers/base.py; "escribe" is 1:1.
+    "civicweb": "civicweb_icompass",
+    "escribe": "escribe",
 }
 
 # Files that LOOK like api-maps by extension but are triad outputs or other
@@ -122,7 +126,7 @@ BI_PLATFORMS = {"arcgis"}
 # Platform keys that correspond to CR (commission).
 CR_PLATFORMS = {"legistar", "civicclerk", "civicplus", "granicus",
                 "novusagenda", "acclaimweb", "custom-cr", "mgo-connect",
-                "landmark"}
+                "landmark", "civicweb_icompass", "escribe"}
 
 # Accela topics that get the "does NOT visit/call/parse" treatment in maps.
 # Each maps to the corresponding _parse_* method we grep for.
@@ -400,6 +404,8 @@ def resolve_artefacts(
             "civicplus": "civicplus.py",
             "granicus": "granicus.py",
             "novusagenda": "novusagenda.py",
+            "civicweb_icompass": "civicweb_icompass.py",
+            "escribe": "escribe.py",
         }
         s = platform_scraper_map.get(platform)
         if s:
