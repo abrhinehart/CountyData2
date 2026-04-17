@@ -1,0 +1,44 @@
+HTTP/1.1 302 Found
+Date: Fri, 17 Apr 2026 22:00:51 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+X-Download-Options: noopen
+X-Permitted-Cross-Domain-Policies: none
+Referrer-Policy: strict-origin-when-cross-origin
+Location: https://engage.zencity.io/winter-haven-fl/en
+Cache-Control: no-cache
+Content-Security-Policy: 
+Set-Cookie: admin-zencity-us_civil_space_session=0k7fmtUQPBFJP329nWzWzpKA2oMmW0nTCXNBli1Wi6u8YhIviyzVKE8pwkdIk%2FwxCRCOIP%2Bk968femCzVhhB79qhdrUM%2FWzjewCSJz1yXxhGaRQCgtA%3D--rGxNpboqGxs%2B2kDn--qvtoEq76B31QBQbLDnji5A%3D%3D; domain=civilspace.io; path=/; secure; HttpOnly; SameSite=None
+X-Request-Id: 49aa2e618a496a74d3ca9fe3518910a4
+X-Runtime: 0.021533
+Strict-Transport-Security: max-age=31536000
+Vary: Origin
+
+HTTP/1.1 307 Temporary Redirect
+Transfer-Encoding: chunked
+Connection: keep-alive
+Date: Fri, 17 Apr 2026 22:00:52 GMT
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Location: https://engage.zencity.io/winter-haven-fl/en-US
+X-Cache: Miss from cloudfront
+Via: 1.1 91b8c8cb96cfad3d68cea34b9f14d8ec.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: MIA3-P6
+X-Amz-Cf-Id: dcYOvGJJB3AkvzUNzYqSSqLx8NxABsfkZwGARuZ0oXWQ7EQC8mbyEg==
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 113357
+Connection: keep-alive
+Date: Fri, 17 Apr 2026 22:00:53 GMT
+Cache-Control: public, max-age=0, s-maxage=86400
+X-Powered-By: Next.js
+ETag: "sezbw205du2f0x"
+Vary: Accept-Encoding
+X-Cache: Miss from cloudfront
+Via: 1.1 91b8c8cb96cfad3d68cea34b9f14d8ec.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: MIA3-P6
+X-Amz-Cf-Id: eTthTrsH3GFm4bdGzT0AEXGwWz58IcoHjGSgaCj_23pOXmylvLMeXw==
+

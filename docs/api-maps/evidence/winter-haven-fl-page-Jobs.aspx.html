@@ -1,0 +1,3312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+<!-- Google Tag Manager for GA4 -->
+				<script>(function(w,d,s,l,i){w.GAMeasurementID='G-1P7T3SW15Q';w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','cpDataLayerGA4','GTM-K73C5PS');</script>
+				<!-- End Google Tag Manager for GA4 -->
+				<script type='text/javascript'>
+					var enableTelemetry = 'false'
+					var aiConfig = {
+					instrumentationKey: '1cde048e-3185-4906-aa46-c92a7312b60f'						
+					}
+					var appInsights = window.appInsights || function (a) { function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement('script'); b.src = a.url || 'https://js.monitor.azure.com/scripts/a/ai.0.js', d.getElementsByTagName('script')[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ['Event', 'Exception', 'Metric', 'PageView', 'Trace', 'Dependency']; f.length;)b('track' + f.pop()); if (b('setAuthenticatedUserContext'), b('clearAuthenticatedUserContext'), b('startTrackEvent'), b('stopTrackEvent'), b('startTrackPage'), b('stopTrackPage'), b('flush'), !a.disableExceptionTracking) { f = 'onerror', b('_' + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c['_' + f](a, b, d, e, h), i } } return c }(aiConfig);
+					window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length;
+					// Add telemetry initializer
+					appInsights.queue.push(function() {
+						appInsights.context.addTelemetryInitializer(function(envelope) {
+							var telemetryItem = envelope.data.baseData;
+							// To check the telemetry item’s type:
+							if (!false)
+							{
+								//If the telemetry is not enabled, we still want to capture Google map custom event, so only allow that
+								if (envelope.name.indexOf('.Event') == -1)
+									return false;
+							}
+						});
+					});						
+					appInsights.trackPageView();
+				</script>
+	<script>
+		function populateAntiForgery(token) {
+			var input = document.createElement("input");
+			input.name = "__RequestVerificationToken";
+			input.type = "hidden";
+			input.value = token;
+			var absPat = /^https?:\/\/|^\/\//i;
+			var forms = document.getElementsByTagName("form");
+			for (var i = 0; i < forms.length; i++) {
+				if (forms[i].method == "post" &&
+					!forms[i].querySelector('[name="__RequestVerificationToken"]') &&
+					!absPat.test(forms[i].getAttribute("action"))) {
+					forms[i].appendChild(input.cloneNode());
+				}
+			}
+		}
+
+		function getAntiForgeryToken(callback, error) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "/antiforgery");
+			xhr.addEventListener("load", function() {
+				try {
+					if (this.status !== 200) {
+						throw Error("Invalid status. Could not retrieve antiforgery token.");
+		}
+					var obj = JSON.parse(this.responseText);
+					callback(obj.token);
+				} catch (e) {
+					typeof error === "function" && error(e);
+				}
+			});
+			xhr.send();
+		}
+
+		getAntiForgeryToken(function(token) {
+			if (document.readyState === "complete"
+				|| document.readyState === "loaded" 
+				|| document.readyState === "interactive") {
+				populateAntiForgery(token);
+				return;
+			}
+			document.addEventListener("DOMContentLoaded", function() {
+				populateAntiForgery(token);
+			}, false);
+		}, console.error);
+			</script>
+			
+
+	<script type="text/javascript">
+		window.departmentHeader = {};
+		window.pageSectionTracker = {};
+		window.isResponsiveEnabled = true;
+		window.isRemoveSetHeights= false;
+		if (window.isRemoveSetHeights) {
+			document.documentElement.className += ' removeSetHeights';
+		}
+		window.mainMenuMediaQuery = 'screen and (max-width: 40em)';
+		window.isMobileBrowserIncludingTablets = false;
+		window.fixedResponsiveMenu = false;
+		window.fullWidthResponsiveMenu = true;
+		window.responsiveMenuHeight = '';
+		window.responsiveMenuFontSize = '';
+		window.isContentAdvisor = false;
+		(function () {
+			window.setSizeCookie = function () {
+				document.cookie = "dpi=" + window.devicePixelRatio + "; path=/";
+				document.cookie = "viewportWidth=" + window.innerWidth + "; path=/";
+				document.cookie = "viewportHeight=" + window.innerHeight + "; path=/";
+				if (screen && screen.width && screen.height) {
+					document.cookie = "screenWidth=" + screen.width + "; path=/";
+					document.cookie = "screenHeight=" + screen.height + "; path=/";
+				}
+				document.cookie = "responsiveGhost=1; path=/";
+			};
+
+			setSizeCookie();
+		}());
+	</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script async src="https://docaccess.com/docbox.js"></script>
+	<!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=AW-10967859894"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'AW-10967859894'); </script>
+
+	
+	
+	<meta name="theme-color" content="rgb(25, 55, 99)">
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		<title>Jobs • Winter Haven, FL • CivicEngage</title>
+
+			<script src="/Assets/Scripts/jQuery/jquery-3.7.1.min.js"></script>
+	<script src="/Assets/Scripts/jQuery/jquery-migrate-3.5.2.min.js" type="text/javascript"></script>
+	
+
+	<!--[if IE 6]><script language="JavaScript" type="text/javascript"> var isie6 = true; </script><![endif]-->
+	<!--[if IE 7]><script language="JavaScript" type="text/javascript"> var isie7 = true; </script><![endif]-->
+	<!--[if IE 8]><script language="JavaScript" type="text/javascript"> var isie8 = true; </script><![endif]-->
+	<!--[if IE 9]><script language="JavaScript" type="text/javascript"> var isie8 = true; </script><![endif]-->
+	<script type="text/javascript"><!--
+	var intCountryCode = 840;
+	var externalSiteDialogHeight = '390px';
+	var order = '';
+//--></script>
+	
+	<link href="/-1465647691.css" rel="stylesheet" type="text/css" />	<link href="/7123629.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" type="text/css" href="/Assets/Styles/Print.css" media="print">
+	<script type="text/javascript">
+		window.Pages = window.Pages || {};
+		// FrontEnd RWD initialization
+		window.Pages.rwdReady = $.Deferred();
+		window.Pages.toolBarDeferred = $.Deferred();
+		window.Pages.rwdSetupComplete = $.Deferred();
+		window.Pages.megaMenuLoaded = $.Deferred();
+		window.Pages.angularToolbarComplete = $.Deferred();
+		window.Pages.frontEndToolbarComplete = $.Deferred();
+	</script>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+	<meta property="og:description" content="Use the jobs module to search employment opportunities. You may also subscribe to job posting notifications." />
+	<link rel="stylesheet" href="/App_Themes/CP/nmenu.css" type="text/css">
+
+    
+	<!-- Dynamic Header Scripts -->
+	
+	<!--Reference Stylesheet-->
+	
+    
+		<!--Dynamic Header Styles-->
+	<style type="text/css">
+			a.ModNavText:visited {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+		a.ModNavText:link {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+		a.ModNavText:active {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+		font.ModNavText {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+
+	</style>
+	
+	
+	
+
+<script src="/-314292262.js" type="text/javascript"></script>
+
+	<script src="/739942322.js" type="text/javascript"></script>
+	
+	
+
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/App_Themes/ie8.css"><![endif]-->
+	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/App_Themes/ie7.css"><![endif]-->
+	<!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="/App_Themes/ie6.css"><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="/Scripts/html5.js"></script><![endif]-->
+
+	<script type="text/javascript">
+		setEditorVariables(false, 840);
+		function getPrintPreviewType() { return 0; } function printPreview() {pPreview(getPrintPreviewType()); }
+	</script>
+	<script src="/Assets/Scripts/AlpineJS/3.14.1/alpine.min.js" type="text/javascript" defer="defer"></script>
+</head>
+<body class="wide " >
+
+    <script>jQuery(document).click(function (event) {
+	var target = jQuery(event.target);
+	if (target.attr('src') && target.parents('.image').length && target.parents('.widget').length) {
+		var text = target.attr('title');
+		
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Image',
+				eventAction: 'Image - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.is('button') || target.hasClass('button') || target.parents().hasClass('button')) {
+		var text = "";
+		if (target.parents('.button')[0]) {
+			text = target.parents('.button').first().text();
+		} else if (target.text().length) {
+			text = target.text();
+		} else if (target.attr('title').length) {
+			text = target.attr('title');
+		}
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Button',
+				eventAction: 'Button - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.widgetCustomHtml').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Custom Html',
+				eventAction: 'Custom Html Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.editor').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Editor',
+				eventAction: 'Editor Link Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.GraphicLinks').length) {
+		var text = "";
+		var targetGraphicLink = target;
+		if (target.hasClass('widgetGraphicLinksLink')) {
+			targetGraphicLink = jQuery(target.children()[0]);
+		}
+		if (targetGraphicLink.hasClass('text')) {
+			text = targetGraphicLink.text();
+		} else if (targetGraphicLink.attr('src').length) {
+			if (targetGraphicLink.attr('alt').length) {
+				text = targetGraphicLink.attr('alt');
+			} else {
+				text = targetGraphicLink.attr('src');
+			}
+		} else {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Graphic Links',
+				eventAction: 'Graphic Link - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.InfoAdvanced').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Info Advanced',
+				eventAction: 'Info Advanced Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.list').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'List',
+				eventAction: 'List Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.megaMenuItem').length || target.parents('.topMenuItem').length) {
+		var megaMenuText = jQuery('.topMenuItem.mouseover').find('span').text();
+		var breadCrumbs = [];
+		jQuery('.breadCrumbs > li').each(function () {
+			 breadCrumbs.push(this.textContent);
+		});
+		var pageTitle = breadCrumbs.join('>');
+		var subTitleText = target.parents('.megaMenuItem').children('.widgetTitle').children().text();
+		var text = "";
+		if (pageTitle) {
+			text += pageTitle + " | ";
+		} else {
+			text += document.title + ' - ';
+		}
+		if (target.text() == "" && megaMenuText == "") {
+			text += "N/A";
+		} else if (target.text().length && megaMenuText.length) {
+			if (megaMenuText == target.text()) {
+				text += megaMenuText;
+			} else {
+				text += megaMenuText + " - " + subTitleText + " - " + target.text();
+			}
+		} else if (target.text() == "") {
+			text += megaMenuText;
+		} else {
+			text += target.text();
+		}
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Mega Menu',
+				eventAction: 'Mega Menu : ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.widgetNewsFlash').length && target.parents('.widgetItem').length) {
+		var text = jQuery(target.parents('.widgetItem')[0]).find('.widgetTitle').children().text();
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'News Flash',
+				eventAction: 'News Flash - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.hasClass('widgetQuickLinksLink') || target.find('.widgetQuickLinksLink').length) {
+		var text = target.text();
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Quick Links',
+				eventAction: 'Quick Links - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.attr('src') && target.parents('.cpSlideshow').length) {
+		var text = target.attr('title');
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Slideshow',
+				eventAction: 'Slideshow - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.widgetText').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Text',
+				eventAction: 'Text Link Clicked',
+				eventLabel: window.location.href
+			});
+	}
+});</script>
+	<div id="popoverModal" class="cp-PopOver cp-PopOver--modal cp-AdminWrap" style="position: fixed; display: none;">
+	<div class="cp-PopOver-header">
+		<h3 class="cp-PopOver-title"></h3>
+		<button class="cp-Btn cp-PopOver-close" onclick="closePopOverModal(event)">
+			<svg class="cp-Icon--close" alt="close" title="close">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#iconClose"></use>
+			</svg>
+		</button>
+	</div>
+	<div id="cpPopOverBody" class="cp-PopOver-body">
+		<form id="cpPopOverForm" name="cpPopOverForm" novalidate></form>
+	</div>
+	<div id="cpPopOverFooter" class="cp-PopOver-footer">
+		<div class="cp-BtnGroup" id="actionButtons">
+			<!-- Action buttons will be dynamically added here -->
+		</div>
+	</div>
+</div>
+    <div id="fb-root"></div>
+<div id=skipToContentLinks>
+<a href="#contentarea" target="_self" class="skipToContentLink">Skip to Main Content</a>
+</div>
+    <form id="frmReferenceFormForTelerikEditorDialogs"></form>
+
+        <input type="hidden" id="GoogleMapsKey" value="AIzaSyDWUuE-ifkbhxblF920N8MjpBdTg1Wt784" />
+
+
+
+    <input type="hidden" id="cpcDomain" value="https://cp-civicplusuniversity2.civicplus.com">
+    <input type="hidden" id="hdnStructureID" value="1" />
+    <input type="hidden" id="hdnContentCollectionID" value="7b91879e-d792-488a-87ce-061e176210a3" />
+    <input type="hidden" id="hdnWorkingCopyID" value="00000000-0000-0000-0000-000000000000" />
+    <input type="hidden" id="hdnThemeID" value="46" />
+    <input type="hidden" id="pageIsFrontEnd" value="true" />
+    <input type="hidden" id="pageModuleID" value="66" />
+    <input type="hidden" id="pagePageID" />
+
+        <input type="hidden" id="hdnModuleID" value="66" />
+            <img id="imgLogoPrintPreview" src="/ImageRepository/Document?documentID=27" alt="Winter Haven, FL" />
+<div id="stickyPlaceholder"></div>
+    <div id="outer-wrap" class="outer-wrap">
+        <div id="inner-wrap" class="inner-wrap">
+                <div id="divToolbars" class="cpToolbars newCP mui-fixed" style="">
+                    
+
+
+
+<!-- Begin Signed Out Bar -->
+<div class="cpToolbar user public">
+    <div class="inner selfClear">
+        <p class="dropdown"><a href="/MyAccount/ProfileCreate" role="link" class="myConnections" id="signedOutToolbarCreateProfileButton">Create a Website Account</a> <span class="welcomeMessage">- Manage notification subscriptions, save form progress and more. &nbsp;&nbsp;</span></p>
+        <ul class="nav secondary">
+	        <li><a href="/MyAccount" role="link" class="button" id="loggedOutToolbarSignInButton"><span>Website Sign In</span></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#signedOutToolbarCreateProfileButton').keypress(function (e) { if (e.which === 0) return; $(this).click(); });
+        $('#signedOutToolbarCreateProfileButton').click(function (event) {
+        	event.preventDefault();
+        	window.location.href = '/MyAccount/ProfileCreate?from=url&url=/&dn=' + window.location.origin;
+        });
+
+			
+				$('#loggedOutToolbarSignInButton').click(function (event) {
+					event.preventDefault();
+					window.location.href = '/MyAccount/?from=url&url=' + encodeURIComponent(window.location.href.replace(window.location.origin, '')) + '&dn=' + window.location.host;
+				});
+			
+
+		if ('False' == 'True') {
+            $('#loggedOutToolbarSignInButton').hide();
+		}
+    })
+</script>
+<!-- End Signed Out Bar -->
+
+                </div>
+            <div id="bodyWrapper">
+                <div id="mainNavHolderMobile" class="mainNavHolderMobile"></div>
+                
+<div data-cpRole="structuralContainer" id="bodyContainerTS">
+<!-- Banner --><div data-cpRole="structuralContainer" id="bannerContainerTS" class="noOverflowTS">
+<div data-cpRole="banner" id="banner1"><div data-cpRole="structuralContainer" id="bannerSizingTS">
+<!-- Header Container --><header data-cpRole="structuralContainer" id="headerContainerTS">
+<div class="siteWrap3"><div data-cpRole="structuralContainer" id="bannerLogoContainerTS">
+<div data-cpRole="banner" id="bannerLogoTS" class="bannerLogoTS empty">
+
+
+
+
+				<a id="bannerLogoTS-655" style="			display: block; text-align: center;
+" class="bannerObject" href="/" target="_self"><img alt="Winter Haven FL Homepage" class="bannerObject" height="200" src="/ImageRepository/Document?documentID=80" width="835" /></a>
+</div>
+</div><nav data-cpRole="nav" id="mainNav" class="siteNav mainNav" role="navigation">
+<ol id="mainNavMenu" data-parent="1" class="rootNavMenu" role="menu"><!--
+--><li id="MainItem27" class="topMenuItem" role="none" data-pageid="27" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavGovernment" class="navMainItem mainNavItem mainNavItem1 " href="/27/Government" target = "_self" >   Government  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem101" class="topMenuItem" role="none" data-pageid="101" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavDepartments" class="navMainItem mainNavItem mainNavItem2 " href="/101/Departments" target = "_self" >   Departments  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem31" class="topMenuItem" role="none" data-pageid="31" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavResidents" class="navMainItem mainNavItem mainNavItem3 " href="/31/Residents" target = "_self" >   Residents  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem35" class="topMenuItem" role="none" data-pageid="35" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavBusiness" class="navMainItem mainNavItem mainNavItem4 " href="/35/Business" target = "_self" >   Business  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem9" class="topMenuItem" role="none" data-pageid="9" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavHowDoI" class="navMainItem mainNavItem mainNavItem5 " href="/9/How-Do-I" target = "_self" >   How Do I...  </a>			<!--
+			--><!--
+			--></li><!---->
+</ol>
+
+
+	<script type="text/javascript">
+		(function () {
+			function setupMenu() {
+				const menuID = 'mainNavMenu';
+				const menuType = MAIN_MENU;
+
+				//setup menu manager properties for main menu
+				if (!menuManager.mobileMainNav && true)
+					menuManager.adjustMainItemsWidth('#' + menuID);
+				menuManager.isMainMenuEditable = false;
+				menuManager.mainMenuMaxSubMenuLevels = 4;
+				menuManager.setMOMMode(2, menuType);
+
+				//Init main menu
+				const setupDraggable = menuManager.isMainMenuEditable;
+				const urlToGetHiddenMenus = '/Pages/MenuMain/HiddenMainSubMenus?pageID=1&moduleID=66&themeID=46&menuContainerID=mainNav';
+
+				menuManager.setupMenu(menuID, 'mainNav', menuType, setupDraggable, urlToGetHiddenMenus);
+				menuManager.mainMenuInit = true;
+				menuManager.mainMenuTextResizer = false;
+				if (1.00 > 0)
+					menuManager.mainMenuTextResizerRatio = 1.00;
+				if (window.isResponsiveEnabled)
+					menuManager.mainMenuReady.resolve();
+
+			}
+
+			if (document.readyState === "complete"
+				|| document.readyState === "loaded"
+				|| document.readyState === "interactive") {
+				setupMenu();
+				return;
+			}
+
+			document.addEventListener("DOMContentLoaded", setupMenu);
+		})();
+	</script>
+
+
+<aside data-cpRole="megaMenu" id="megaMenu" class="megaMenu" style="display: none;"><input type="hidden" id="megaMenuPopupDirection" value="0"><input type="hidden" id="megaMenuWidthReference" value="0"><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu27" class="contentTop mainNavMegaMenu megaMenuContainer pageID_27 hidden" data-orientation="horizontal">	<div id="cc6b2d1d2b-8e5b-4bdc-ac65-c94f032165b0" data-containerid="6b2d1d2b-8e5b-4bdc-ac65-c94f032165b0" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu101" class="contentTop mainNavMegaMenu megaMenuContainer pageID_101 hidden" data-orientation="horizontal">	<div id="cc554ba045-6bac-4cbf-aeb4-d31cb9fdeda8" data-containerid="554ba045-6bac-4cbf-aeb4-d31cb9fdeda8" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu31" class="contentTop mainNavMegaMenu megaMenuContainer pageID_31 hidden" data-orientation="horizontal">	<div id="cc939995f6-6597-49dd-8fe0-89e11701351c" data-containerid="939995f6-6597-49dd-8fe0-89e11701351c" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu35" class="contentTop mainNavMegaMenu megaMenuContainer pageID_35 hidden" data-orientation="horizontal">	<div id="cca7c50c31-e17e-4548-88a9-acf4b3617e86" data-containerid="a7c50c31-e17e-4548-88a9-acf4b3617e86" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu9" class="contentTop mainNavMegaMenu megaMenuContainer pageID_9 hidden" data-orientation="horizontal">	<div id="ccc7d22c3c-6da7-4b1d-a3da-c5c63dd9983b" data-containerid="c7d22c3c-6da7-4b1d-a3da-c5c63dd9983b" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside></aside></nav></div>
+</header><div class="siteWrap"><div data-cpRole="structuralContainer" id="bannerContentTS">
+<div data-cpRole="contentContainer" id="searchTS">	<div id="ccd7b018de-6b04-4fbb-a376-252e905d874f" data-containerid="d7b018de-6b04-4fbb-a376-252e905d874f" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="277dd79b-b065-4474-8c48-58e333fcbe26">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id7a3a5f3f-0663-43bf-81af-21b6dc62ae02" style="" data-widgetcontainerid="7a3a5f3f-0663-43bf-81af-21b6dc62ae02">	
+<div data-widget-id="290ecce0-88fc-4896-acd3-b31eb304099e" data-widget-controller-path="/Layout/WidgetSearch">
+	
+	<script defer type="text/javascript" src="/Common/Controls/jquery-ui-1.14.1/jquery-ui.min.js"></script>
+	<script defer src="/Areas/Layout/Assets/Scripts/Search.js" type="text/javascript"></script>
+	<script defer type="text/javascript">
+
+		$(document).ready(function () {
+			try {
+				$(".widgetSearchButton.widgetSearchButton290ecce0-88fc-4896-acd3-b31eb304099e").click(function (e) {
+				e.preventDefault();
+					if (false||$("#ysnSearchOnlyDept290ecce0-88fc-4896-acd3-b31eb304099e").is(':checked'))
+					{
+						doWidgetSearch($(this).siblings(".widgetSearchBox").val(), Number(0));
+					}
+					else {
+						doWidgetSearch($(this).siblings(".widgetSearchBox").val(), 0);
+					}
+			});
+			$("#searchField290ecce0-88fc-4896-acd3-b31eb304099e").keypress(function (e) {
+				if (window.clipboardData) {
+					if (e.keyCode === 13) {
+						if ($("#ysnSearchOnlyDept290ecce0-88fc-4896-acd3-b31eb304099e").is(':checked') || false) {
+								doWidgetSearch($(this).val(), Number(0));
+							} else {
+								doWidgetSearch($(this).val(), 0);
+							}
+						return false;
+					}
+				} else {
+					if (e.which === 13) {
+						if ($("#ysnSearchOnlyDept290ecce0-88fc-4896-acd3-b31eb304099e").is(':checked') || false) {
+								doWidgetSearch($(this).val(), Number(0));
+							} else {
+								doWidgetSearch($(this).val(), 0);
+							}
+						return false;
+					}
+				}
+				return true;
+			});
+
+				if (true) {
+					var currentRequest = null;
+					var $searchField = $("#searchField290ecce0-88fc-4896-acd3-b31eb304099e").autocomplete({
+						source: function (request, response) {
+							currentRequest = $.ajax({
+								url: '/Search/AutoComplete' + ($("#ysnSearchOnlyDept290ecce0-88fc-4896-acd3-b31eb304099e").is(':checked') || false? '?departmentId=0' : ''),
+								dataType: "json",
+								timeout: 10000,
+								beforeSend: function () {
+									if (currentRequest != null) {
+										currentRequest.abort();
+									}
+								},
+								data:
+								{
+									term: request.term,
+								},
+								success: function (data) {
+									response(data);
+									$('.autoCompleteError').remove();
+								},
+								error: function (xmlhttprequest, textstatus, message) {
+									if (textstatus === "timeout") {
+										if ($("#searchField290ecce0-88fc-4896-acd3-b31eb304099e").siblings('.autoCompleteError').length == 0)
+											$('<span class="autoCompleteError"><p class="alert error">Search autocomplete is currently not responding. Please try again later.</p></span>').insertAfter($("#searchField290ecce0-88fc-4896-acd3-b31eb304099e"));
+									}
+								}
+							});
+						},
+						html: true,
+						delay: 500,
+						select: function (event, ui) {
+							$(this).val(ui.item.value);
+							$(this).next().click();
+						}
+					});
+
+					$searchField.data("ui-autocomplete")._renderItem = function (ul, item) {
+						return $("<li class=\"itemList\"></li>")
+							.data("ui-autocomplete-item", item)
+							.append("<a>" + item.label + "</a>")
+							.appendTo(ul);
+					};
+}
+}
+			catch(e) {} //we're going to eat this error. Autocomplete won't work but we dont wan't to break anything else on the page.
+		});
+	</script>
+
+	<section id="widgetPreviewSearch" class="widget widgetSearch skin43 widgetOptionSet15" style="display: block;" aria-label="Search">
+				<!-- For the button right and inside -->
+		<div class="widgetBody buttonRightInside">
+			<input class="widgetSearchBox widgetSearchBox290ecce0-88fc-4896-acd3-b31eb304099e" cp5ph="true" id="searchField290ecce0-88fc-4896-acd3-b31eb304099e" name="searchField" onchange="searchBtnApplyQuery();" placeholder="How Can We Help You?" type="text" value="" />
+						<a href="/Search/Results" id="btnSearchIcon" class="widgetSearchButton widgetSearchButton290ecce0-88fc-4896-acd3-b31eb304099e" role="button"><img alt="Search" class="imageHover" data-hover="/ImageRepository/Document?documentID=70" data-image="/ImageRepository/Document?documentID=71" src="/ImageRepository/Document?documentID=71" /></a>
+
+			<label class="searchLabel" aria-hidden="true" for="searchField290ecce0-88fc-4896-acd3-b31eb304099e">Search</label>
+		</div>
+
+	</section>
+
+
+<style scoped>
+	  
+		.widgetSearch ::-webkit-input-placeholder {
+		color: #0B3B43;
+	  }
+		.widgetSearch :-moz-placeholder { /* Firefox 18- */
+	   color: #0B3B43;
+	}
+		.widgetSearch ::-moz-placeholder {  /* Firefox 19+ */
+	   color: #0B3B43;
+	}
+	.widgetSearch :-ms-input-placeholder {
+	   color: #0B3B43;
+	}
+	
+
+	.widgetSearch .widgetBody .widgetSearchBox290ecce0-88fc-4896-acd3-b31eb304099e
+	{
+		color: #0B3B43;
+		font-family: Source Sans Pro;
+font-size: 1.1em;
+height: 65px;
+border: none;
+background: #FCF4E4e6;
+border-radius: 100px;
+box-shadow: 0 2px 10px #0000004d;
+padding: 0 80px 0 24px;
+	}
+	.widgetSearch .widgetBody .widgetSearchButton290ecce0-88fc-4896-acd3-b31eb304099e
+	{
+		margin: 10px;
+width: 45px;
+	}
+	.widgetSearch .widgetSearch-onlyDept290ecce0-88fc-4896-acd3-b31eb304099e
+	{
+		display: inline-block;
+		color: #333;
+		
+		
+		 padding-top: 10px;
+	}
+	#ysnSearchOnlyDept290ecce0-88fc-4896-acd3-b31eb304099e
+	{
+		position: relative;
+		top: .125em;
+	}
+
+</style>
+
+<link rel="stylesheet" href="/Common/Controls/jquery-ui-1.14.1/jquery-ui.min.css">
+<link rel="stylesheet" href="/Common/Controls/jquery-ui-1.14.1/jquery-ui.theme.min.css">
+
+
+
+<script type="text/javascript">
+	//Updates search icons href to have the correct queryString
+	function searchBtnApplyQuery() {
+		document.getElementById("btnSearchIcon").href = "/Search?searchPhrase=" + document.getElementById("searchField290ecce0-88fc-4896-acd3-b31eb304099e").value;
+	}
+	</script>
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</div>
+</div></div>
+</div>
+
+
+
+
+		<div id="bannerImagesJSON665" class="hidden"></div>
+		<div id="bannerSlideshowControls_banner1" class="bannerSlideshowControlsNew none " style="display:none">
+			<a id="arrowPrev_banner1" tabindex="0" class="arrowNew prev" aria-label="Banner Arrow Previous"><svg style=" " class=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#iconSlideshowArrowLeft"></use></svg></a>
+			<a id="arrowNext_banner1" tabindex="0" class="arrowNew next" aria-label="Banner Arrow Next"><svg style=" " class=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#iconSlideshowArrowRight"></use></svg></a>
+		</div>
+			<script type="text/javascript">
+				$(window).on("load", function () {
+					$.when(window.Pages.rwdSetupComplete)
+						.done(function () {
+							renderExternalBannerSlideshow('banner1',
+								{"BannerOptionID":665,"ThemeID":46,"SlotName":"banner1","Name":"Default - Human Resources","IsDefault":false,"BannerMode":2,"SlideShowSlideTiming":null,"SlideshowTransition":0,"SlideShowTransitionTiming":null,"ImageScale":true,"ImageAlignment":1,"ImageScroll":true,"MuteSound":true,"VideoType":0,"Status":40,"SlideshowControlsPosition":0,"SlideshowControlsAlignment":0,"SlideshowBannerControlsColorScheme":0,"DisplayVideoPauseButton":false,"VideoPauseButtonAlignment":1,"VideoPauseButtonControlsAlignment":0,"VideoPauseButtonStyle":"#FFFFFF","VideoPauseButtonBackgroundStyle":"#000000","VideoPauseButtonAlignmentClass":"alignRight viewport","DisplaySlideshowPauseButton":true,"SlideshowControlsColor":"#FFFFFF","SlideshowControlsBackgroundColor":"#000000","SlideshowPauseButtonClass":"isHidden","BannerImages":[{"BannerImageID":789,"BannerOptionID":665,"FileName":"/ImageRepository/Document?documentID=896","Height":400,"Width":2200,"StartingOn":null,"StoppingOn":null,"IsLink":false,"LinkAddress":null,"Sequence":1,"RecordStatus":0,"ModifiedBy":0,"ModifiedOn":"\/Date(-62135575200000)\/","AltText":""}],"BannerVideos":[],"RecordStatus":0,"ModifiedBy":0,"ModifiedOn":"\/Date(-62135575200000)\/"},
+								'/App_Themes/Interior/Images/',
+								'Rotating');
+						});
+				});
+			</script>
+
+</div>
+</div><!-- Content container --><div data-cpRole="structuralContainer" id="mainContainerTS">
+<div class="siteWrap"><div data-cpRole="structuralContainer" id="mainWrapTS" class="mainWrap" role="main">
+<div data-cpRole="structuralContainer" id="outerContentWrapTS" class="outerContentWrap">
+<div data-cpRole="structuralContainer" id="contentWrapTS" class="contentWrap">
+<div data-cpRole="breadCrumbs" id="breadCrumbs" class="breadCrumbContainer">		<ol class="semanticList breadCrumbs">
+			<li><a class="breadCrumb" href="/">Home</a></li><li>Jobs</li>
+		</ol>
+
+	   
+    
+</div>
+<div data-cpRole="mainContentContainer" id="moduleContent">
+
+<div id="ctl00_ctl00_MainContent_BodyWrapper">
+	
+	<script type="text/javascript"><!--
+	var isie6 = false, isie7 = false, isie6or7 = false;
+	var intCountryCode = 840;
+
+	function setUrlLength(editor) {
+		//Toggle Image Context Menu Items
+		setMenuItems(editor);
+		//setContentBackgroundColor(editor);
+		removeIEParagraphs(editor);
+	}
+	function setUrlLengthAndToolToggle(editor) {
+		var minToolsGroups = 2; // Number of MinimumSetOfTools tools groups.
+		
+		// Hide the MinimumSetOfTools on load.
+		var toolbar = editor.get_toolContainer(); // Get toolbar container.
+		var toolgroups = toolbar.getElementsByTagName("UL"); // Get all toolgroups containers.
+		
+		for (var i = toolgroups.length - 1; i >= minToolsGroups; i--)			toolgroups[i].style.display = "none";
+		
+		if (editor.isIE) {
+			var elem = editor.get_element();
+			elem.style.height = "430px";
+ 			elem.style.minHeight = "430px";
+		}
+		
+		// Toggle Image Context Menu Items.
+		setMenuItems(editor);
+		//setContentBackgroundColor(editor);
+		removeIEParagraphs(editor);
+	}
+//--></script><!--[if IE 6]><script type="text/javascript">isie6 = true; isie6or7 = true;</script><![endif]-->
+<!--[if IE 7]><script type="text/javascript">isie7 = true; isie6or7 = true;</script><![endif]-->
+
+	
+
+	<form name="aspnetForm" method="post" action="./Jobs.aspx" id="aspnetForm" style="display:inline;" onsubmit="return headerValidationCallback();" enctype="multipart/form-data" autocomplete="off">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=NIbab2j9N3nQ9D8PtLXZL6i9tEa18H64pQ_twRc4MN4Cs6ICLZgAXr3AI2o3sJLjDmOvdccaxyQkOP8j0_PphDBz3FpPHSNqkRXzTKgm9DkQzb1yVbJaaMusVFEHJu2O5UKo-TFZ6hU7aW7xkkiEwrpCS00jk5sX0LmNJ-ok9GT7WPkE62onOHH9fGGaGpVbNrwr0xWjAVwT9qot3mbmWD9CwZLUwYgzi5_BDr0w50W9HG4HKnMeNUhPeDSyro_OOvQExbDEAEwPZk-tGTT7N1W9T_m2W5tIrQPt_WfsvoPm72sztgRj5NdpBmk0xPaV5k4rbTW2XcAcVULF80K2ziuFsDlANdbvyLx4EqwMTDFNjHewAiImwEjfpYF5w5kTA_os4GjT-jVYhPm-mM5ElT8eYUj7QPNj_AOdEENuc6Ccy6FJ0ej3WLrHvrWh_m67u1nZbA_F_icNy-qdLr7mzfIhRH42Li_1b57YgDlsGo0WPTU-qmQyAE_a2EG1Nv6-dd75QDKgs8ZMxLgAWYEmnce3mzR9YlFma2Pgy6SCKnformXwbZCkb23cUxS2Dleo9dPTKQyPOo6GeYCKGkgcv1msfD7Tp08C0tHtMVSQ-ghZ8Rv6UMd1bvwh09-YVlcs0RJFjT6Z4r_-ZQ23ft6Wbb5vehbOE-TuE2-6LYfComh_ihO7aYZ_-eAU8rn6AxPxnOsMhzVqT02vQgTLSMfUzsUmfkRBEjvEor91BdNJaie3nhNxVcogdI_9Xxfyf_3-F-0PZOfdAG92tklLmKhO7xkuoA37ocfWi_pD86GVXNYnMpvisPaF_Waph3LfXS2Uhc1DOKdnoQrDmir0m7yjFB586WzFc--mFVq3bza9JGo1" type="text/javascript"></script>
+<script src="Common/Admin/Jobs2/JobsQuickActions.asmx/js" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CB8B973B" />
+		<!--for archiving purpose-->
+		<input name="ysnNotifyMe" type="hidden">
+		<input name="strPage" type="hidden">
+		<input name="intArchMainCatID" type="hidden">
+		<input name="intArchMainItemID" type="hidden">
+		 
+		<script type="text/javascript">
+			Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginRequest);
+			Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(pageLoaded);
+		</script>
+		
+		<div id="modulecontent" name="modulecontent.aspx" style="padding-top: 0px;">
+<div id="contentarea" ></div>
+
+<script src="/common/GlobalJSFunctionsDetail.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	function AnimationFade(isFadeIn, duration) {
+		if (isFadeIn)
+			$("#divAddEditJobs").fadeTo(duration, 1.0);
+		else
+			$("#divAddEditJobs").fadeTo(duration, 0.3);
+	}
+</script>
+<script src="/Assets/Scripts/RssBehavior.js" type="text/javascript"></script>
+<script type="text/javascript">
+	// This code performs the same functions as the code in SocialShare.js. However, SocialShare.js cannot
+	// be used from the Jobs module b/c Jobs is a WebForms module, and the JavaScript within the SocialShare.cshtml
+	// file does not get executed correctly on page load.
+
+	$(document).ready(function () {
+		$.ajaxSetup({ cache: false });
+
+        $(document).on('click', '#shareViaEmailButton', function (e) {
+            e.preventDefault();
+            var emailSubject = $(this).attr('data-email-subject');
+            var shareUrl = $(this).attr('data-share-url');
+            $(window).scrollTop(0);
+            openShareEmailPageModalWithReferrel(emailSubject, shareUrl);
+        });
+	});
+</script>
+
+
+
+
+<link href="/common/modules/Jobs2/JobsSiteCustom.css" rel="stylesheet" type="text/css" />
+
+
+<input type="hidden" id="hdnSaveItem" name="hdnSaveItem" value="0">
+
+<div id="JobContent" class="newCP moduleContentNew">
+	
+
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader" name="divHeader" class="header">
+		<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_headerUpdatePanel">
+	
+				
+				<div class="text" id="divText">
+					      <h1>Current Job Postings      </h1>All positions currently accepting applications are listed below. Applications can be completed online or in person at our Human Resources Office at 500 Third Street NW. Should you have any questions, please feel free to contact the Human Resources Team at 863-291-5650 or humanresources@mywinterhaven.com.
+<br><br>
+Would you like to be notified when we post new jobs? Click the Notify Me button to choose which jobs you&#8217;d like to receive notifications for and how you&#8217;d like to be notified. 
+				</div>
+
+			
+</div>
+
+		<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_searchUpdatePanel">
+	
+				<div class="nav">
+					<ul class="misc"><li><a class="notifyMe" href="/Jobs.aspx?CommunityJobs=False&Mode=Subscribe">Notify Me®</a></li><li><a class="RSS" href="/Rss.aspx#cityJobs">RSS</a></li></ul>
+					<section aria-label="Jobs Module Search">
+						<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divSearch" class="search">
+							<h4>Search Jobs by:</h4>
+								<div class="searchControls">
+      <label for="searchTerms" class="visuallyHidden">Enter Search Terms</label>		<input type="text" id="searchTerms" name="searchTerms" placeholder="Word or Phrase" value="" onmousedown="this.onkeydown();" onkeydown="if (event.keyCode == 13) jobSearch('');">
+<a href="#" id="hrefCategoryButton" class="button" data-cp-toggle="dropdown" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-controls="divCategoryMegaMenu"><span>Select a Category</span></a>
+<div id="divCategoryMegaMenu" style="display:none;" class="megaMenu" tabindex="-1">
+<div>	
+<fieldset>	
+<legend class="visuallyhidden">Filter by category</legend>	
+<ol>
+	<li>
+		<input type="checkbox" onclick="checkAllCategories(this.checked);" id="allCategories">
+		<label for="allCategories">All Categories</label>
+	</li>
+	<li>
+<input type="checkbox" id="chk_98" onclick="boxChanged(this.checked);" name="CID" title="Category"  value="98">
+<label for="chk_98"> Full Time (8) </label>
+</li>
+	<li>
+<input type="checkbox" id="chk_102" onclick="boxChanged(this.checked);" name="CID" title="Category"  value="102">
+<label for="chk_102"> Internal-Only Opportunities (0) </label>
+</li>
+</ol>
+<ol>
+	<li>
+<input type="checkbox" id="chk_101" onclick="boxChanged(this.checked);" name="CID" title="Category"  value="101">
+<label for="chk_101"> Internships (0) </label>
+</li>
+	<li>
+<input type="checkbox" id="chk_99" onclick="boxChanged(this.checked);" name="CID" title="Category"  value="99">
+<label for="chk_99"> Part-Time (2) </label>
+</li>
+</ol>
+<ol>
+	<li>
+<input type="checkbox" id="chk_100" onclick="boxChanged(this.checked);" name="CID" title="Category"  value="100">
+<label for="chk_100"> Summer  (2) </label>
+</li>
+</ol>
+<script type="text/javascript">	numCheckable = 5;	numChecked = 0;	document.getElementById('allCategories').checked = (numChecked == numCheckable);</script></fieldset>
+</div>
+</div>
+<label for="btnSearch" class="visuallyHidden">Search</label><input type="image" class="searchButton" title="Jobs Search" alt="Search" onClick="jobSearch(); return false;" id="btnSearch" src="/Common/images/SearchButton.png">
+<ul class="dropDowns">
+    <li class="dropDown view"></li>    <li class="dropDown">
+    <span>Sorted by <a aria-label="Sorted by Job Title " data-cp-toggle="dropdown" aria-controls="sortToggle" aria-haspopup="true" aria-expanded="false" role="button"  class="action sort" style="cursor:pointer;text-decoration:underline;"  href="#"  class="action sort">Job Title </a></span>            <div class="dropContainer" style="display:none;" name="sortToggle" onblur="this.onmouseout();" onmouseout="hideToggle('sort',this,event);" id="sortToggle"  >                <div class="dropContainerInner">                    <ul>                                <li><a style="cursor:pointer" href="javascript:void(0);" onclick="jobsSortingViewing('false','Title','sort','False');">Job Title</a></li>                        <li><a style="cursor:pointer" href="javascript:void(0);" onclick="jobsSortingViewing('false','StartDate','sort','False');">Post Date</a></li>                        <li><a style="cursor:pointer" href="javascript:void(0);" onclick="jobsSortingViewing('false','EndDate','sort','False');">Closing Date</a></li>                    </ul>                </div>            </div></li></ul></div>
+
+						</div>
+					</section>
+				</div>
+				
+			
+</div>
+
+	</div>
+	
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divJobContent" class="contentMain selfClear myListings">
+		<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel">
+	
+				<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_updatePnlRegisteration">
+		
+						
+					
+	</div>
+				<div id="divAddEditJobs" style="zoom: 1;">
+					<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_updatePnlEditJob">
+		
+							<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divEditJob" style="display:none;">
+								
+
+<script type="text/javascript" src="/Assets/Scripts/DateTimePicker/helper.js"></script>
+
+<div class="contentMain selfClear jobWizard">
+	<div class="wizardNav">
+		<h3>Steps</h3>
+		<ol>
+			<li id="li_listingInformation" class="current">
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step1" class="step" style="display:inline">1.</span>
+				<a href="#anchor_listingInformation" onkeypress="this.onclick();" onclick="nextStep('listingInformation','nextStep'); return false;">Listing Information</a>
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation" style="display:none" class="complete">This section is complete</span>
+			</li>
+			<li id="li_jobDetails">
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step2" class="step" style="display:inline">2.</span>
+				<a href="#anchor_jobDetails" onkeypress="this.onclick();" onclick="nextStep('jobDetails','nextStep'); return false;">Job Details</a>
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails" style="display:none" class="complete">This section is complete</span>
+			</li>
+			<li id="li_previewSubmit">
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step3" class="step" style="display:inline">3.</span>
+				<a onclick="return nextStep(&#39;previewSubmit&#39;,&#39;nextStep&#39;);" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lnkPreviewSubmit" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$lnkPreviewSubmit&#39;,&#39;&#39;)">Preview and Submit</a>
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_previewSubmit" style="display:none" class="complete">This section is complete</span>
+			</li>
+		</ol>
+	</div>
+
+	<div class="onTop wizard">
+		<div class="section selfClear" id="div_listingInformation" name="div_listingInformation">
+			<h2>Listing Information</h2>
+			<div id="listingInformation">
+                <div class="formline selfClear category" role="group">
+                    <fieldset>
+                        <legend>
+                            <label for="categories" class="full">Category<span class="req">*</span></label>
+                        </legend>
+                        <div id="categories">
+                            <ul class="top5">
+                                <li>
+<label for="rbtnCategoryList_1" class="check">
+<input type="radio" value="76" name="rbtnCategoryList" id="rbtnCategoryList_1" ><span>Advertising and PR Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_2" class="check">
+<input type="radio" value="77" name="rbtnCategoryList" id="rbtnCategoryList_2" ><span>Aerospace and Defense</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_3" class="check">
+<input type="radio" value="78" name="rbtnCategoryList" id="rbtnCategoryList_3" ><span>Banking Business Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_4" class="check">
+<input type="radio" value="79" name="rbtnCategoryList" id="rbtnCategoryList_4" ><span>Computer/IT Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_5" class="check">
+<input type="radio" value="80" name="rbtnCategoryList" id="rbtnCategoryList_5" ><span>Construction</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_6" class="check">
+<input type="radio" value="81" name="rbtnCategoryList" id="rbtnCategoryList_6" ><span>Education</span>
+</label>
+</li>
+
+                            </ul>
+                        </div>
+                        <div id="divRemainingCategories" style="display: none;">
+                            <ul class="hidden selfClear">
+                                <li>
+<label for="rbtnCategoryList_7" class="check">
+<input type="radio" value="82" name="rbtnCategoryList" id="rbtnCategoryList_7" ><span>Engineering Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_8" class="check">
+<input type="radio" value="83" name="rbtnCategoryList" id="rbtnCategoryList_8" ><span>Financial Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_9" class="check">
+<input type="radio" value="84" name="rbtnCategoryList" id="rbtnCategoryList_9" ><span>Government and Military</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_10" class="check">
+<input type="radio" value="85" name="rbtnCategoryList" id="rbtnCategoryList_10" ><span>Healthcare Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_11" class="check">
+<input type="radio" value="86" name="rbtnCategoryList" id="rbtnCategoryList_11" ><span>Insurance</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_12" class="check">
+<input type="radio" value="87" name="rbtnCategoryList" id="rbtnCategoryList_12" ><span>Internet Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_13" class="check">
+<input type="radio" value="88" name="rbtnCategoryList" id="rbtnCategoryList_13" ><span>Nonprofit</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_14" class="check">
+<input type="radio" value="89" name="rbtnCategoryList" id="rbtnCategoryList_14" ><span>Other/Not Classified</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_15" class="check">
+<input type="radio" value="90" name="rbtnCategoryList" id="rbtnCategoryList_15" ><span>Printing and Publishing</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_16" class="check">
+<input type="radio" value="91" name="rbtnCategoryList" id="rbtnCategoryList_16" ><span>Real Estate</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_17" class="check">
+<input type="radio" value="92" name="rbtnCategoryList" id="rbtnCategoryList_17" ><span>Restaurant/Food Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_18" class="check">
+<input type="radio" value="93" name="rbtnCategoryList" id="rbtnCategoryList_18" ><span>Retail</span>
+</label>
+</li>
+
+                            </ul>
+                        </div>
+                    </fieldset>
+                    <a id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnCategoryList" class="button" onkeypress="this.onclick();" onclick="displayFullCategoryList();"><span>Choose from Full List</span></a>
+                </div>
+
+				<!-- The "Status" option is only displayed for NOT NEW listings -->
+				
+<div class="formline multiple selfClear display">
+					<h3>Display<span class="req">*</span></h3>
+					<div>
+						<div class="date" id="jobStartDateAddAmsul">
+							<label for="txtJobStartDateAmsul">Display Starts:</label><br />
+							<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobStartDateAmsul" type="text" value="4/17/2026" maxlength="10" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobStartDateAmsul" name="txtJobStartDateAmsul" title="Start Date" data-cp-datetimepicker="{&quot;wrapInsideDiv&quot;: true}" />							
+						</div>
+						<label for="ddlDurationAmsul">
+							Display For:<br />
+							<select name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$ddlDurationAmsul" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_ddlDurationAmsul" onchange="updateFeaturedRate();">
+			<option selected="selected" value="1">1 week - Free </option>
+			<option value="2">1 month - Free </option>
+			<option value="3">3 months - Free </option>
+			<option value="4">1 year - Free </option>
+
+		</select>
+						</label>
+					</div>
+				</div>
+				<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_divFeatured" class="formline highlight">
+					<div style="position: relative">
+						<label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_chkIsFeatured" class="check"><input id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_chkIsFeatured" type="checkbox" name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$chkIsFeatured" /><span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblChkBoxIsFeatured">Feature this listing for <span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_spanFeaturedRate">free</span></span></label>
+						
+						<a href="javascript:void(0);" onkeypress="this.onclick();" onclick="displayFeatureDetails();" style="font-size: 9pt; position: absolute; top: 0; right: 0;">What's this?</a>
+						<div id="explain" style="margin: 15px 0 0 20px; overflow: hidden; display: none">
+							<img src="/Common/images/jobs/jobsExplain.png" alt="" style="float: left; margin: 0 10px 10px 0;" />
+							<p>
+								Featured job listings display on the top of all job listings and are designed to stand out from the others.
+							</p>
+						</div>
+
+					</div>
+				</div>
+				<div class="formline noLabel selfClear">
+					<div>
+						<a href="#anchor_jobDetails" class="button nextAction" onkeypress="this.onclick();" onclick="nextStep('jobDetails', 'nextStep');"><span>Continue</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section selfClear" id="div_jobDetails" name="div_jobDetails" style="display: none">
+			<h2>Job Details</h2>
+			<div id="jobDetails">
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobTitle" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblJobTitle">Job Title<span class="req">*</span>
+                        <input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobTitle" type="text" maxlength="100" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobTitle" onfocus="this.select();" /></label>
+                </div>
+				<div class="formline selfClear">
+					<label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobID" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblJobID">Job ID
+						<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobID" type="text" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobID" size="20" onfocus="this.select();" /></label>
+				</div>
+				<div class="formline selfClear">
+					<label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobDescription" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblJobDescription">Description
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobDescription" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobDescription">
+</textarea></label>
+				</div>
+				<div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblSalary">Salary
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtSalary" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary">
+</textarea></label>
+                </div>
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtQualifications" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblQualifications">Qualifications
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtQualifications" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtQualifications">
+</textarea></label>
+                </div>
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSpecialRequirements" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblSpecialRequirements">Special Requirements
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtSpecialRequirements" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSpecialRequirements">
+</textarea></label>
+                </div>
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtMiscellaneous" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblMiscellaneous">Miscellaneous
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtMiscellaneous" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtMiscellaneous">
+</textarea></label>
+                </div>
+                <div class="formline noLabel selfClear">
+                    <div>
+                        <a onclick="return validateJobDetails(&#39;PreviewSubmit&#39;);" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lnkContinuePreview" class="button nextAction" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$lnkContinuePreview&#39;,&#39;&#39;)"><span>Continue</span></a>
+                        <span class="goBack">|<a href="#anchor_listingInformation" onkeypress="this.onclick();" onclick="nextStep('listingInformation', 'prevStep');">Go Back</a></span>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div class="section selfClear" id="div_previewSubmit" name="div_previewSubmit" style="display: none">
+			<h2 id="anchor_previewSubmit">Preview and Submit</h2>
+			<div class="job">
+				
+			</div>
+			<div class="summary jobSummary">
+				<div class="row">
+					<span>
+						
+							job listing from
+						
+							to
+						
+					</span>
+					<span class="price">
+						
+					</span>
+				</div>
+
+				<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_trFeatured" class="row">
+					<span>Featured</span>
+					<span class="price">
+						
+					</span>
+				</div>
+				<div class="row total">
+					<span>Total</span>
+					<span class="price">
+						
+					</span>
+				</div>
+			</div>
+
+			<p id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_detailText" class="opacity60">After completing all the steps, click Preview to open a preview of your listing in a new window or click Proceed to Checkout where you can purchase the listing for the duration you specified.</p>
+			<div class="formline noLabel selfClear">
+				<div>
+					<a id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnPreview" class="button" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$btnPreview&#39;,&#39;&#39;)"><span>Preview</span></a>
+					<a onclick="return validateJobDetails();" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnProceedEpayFE" class="button" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$btnProceedEpayFE&#39;,&#39;&#39;)"><span>Proceed to Checkout</span></a>
+					<a onclick="return validateJobDetails();" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnSaveNewJob" class="button" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$btnSaveNewJob&#39;,&#39;&#39;)"><span>Pay Later</span></a>
+					
+					<a href="javascript:jobContentLoad('2','','','','');" class="cancel">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$pageType" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_pageType" />
+<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$hdnFeaturedRate" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_hdnFeaturedRate" value="free" />
+<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$hdnStatus" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_hdnStatus" value="0" />
+
+<script type="text/javascript"> <!--
+	function displayFeatureDetails() {
+		if (document.getElementById('explain').style.display == "none") {
+			document.getElementById('explain').style.display = "block";
+		}
+		else {
+			document.getElementById('explain').style.display = "none";
+		}
+	}
+
+	function nextStep(id, step) {
+		window.scrollTo(0, 0);
+		var validate = true;
+		if (step == 'nextStep')
+			validate = validateJobDetails(id);
+		if (validate) {
+			document.getElementById('div_listingInformation').style.display = 'none';
+			document.getElementById('div_jobDetails').style.display = 'none';
+			document.getElementById('div_previewSubmit').style.display = 'none';
+
+			document.getElementById('li_listingInformation').className = '';
+			document.getElementById('li_jobDetails').className = '';
+			document.getElementById('li_previewSubmit').className = '';
+
+			document.getElementById('div_' + id).style.display = 'block';
+			document.getElementById('li_' + id).className = 'current';
+
+			if (id == 'previewSubmit')
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step3').style.visibility = 'hidden';
+		}
+		else
+			return false;
+	}
+
+	function validateJobDetails(id) {
+		var errString = '';
+		var alertMsg = '';
+		var doSubmit = true;
+
+		// Listing info validation
+		if (document.getElementById('li_listingInformation').className == 'current') {
+
+			if (!validateCategory()) {
+				doSubmit = false;
+				alertMsg += "Please select a Job Category.\n";
+			}
+            var startDateControl = $get('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobStartDateAmsul');
+            var isDisabled = $('#ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobStartDateAmsul').is(':disabled');
+
+			if (startDateControl.value == '') {
+				alertMsg += "Display Starts cannot be blank.\n";
+				doSubmit = false;
+			}
+			else if (!isDisabled) { //only when it is new or renew validate this (control enable)
+				var curDate = new Date('04/17/2026');
+				var objDateValidator = new dateValidator();
+				var startDate = new Date(objDateValidator.getStandardDate(startDateControl.value));
+				if (startDate.getFullYear() < curDate.getFullYear()) {
+					doSubmit = false;
+					alertMsg += "Start Date cannot be in the past.\n";
+				}
+				else if (curDate.getFullYear() == startDate.getFullYear() && startDate.getMonth() < curDate.getMonth()) {
+					doSubmit = false;
+					alertMsg += "Start Date cannot be in the past.\n";
+				}
+				else if (curDate.getFullYear() == startDate.getFullYear() && curDate.getMonth() == startDate.getMonth() && startDate.getDate() < curDate.getDate()) {
+					doSubmit = false;
+					alertMsg += "Start Date cannot be in the past.\n";
+				}
+			}
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').style.display = '';
+			if (!doSubmit) {
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').className = 'incomplete';
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').innerHTML = 'This section is incomplete';
+			}
+			else
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').className = 'complete';
+
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step1').style.visibility = 'hidden';
+		}
+
+		// Job Details
+		var doSubmit2 = true;
+		if (document.getElementById('li_jobDetails').className == 'current' || id == 'previewSubmit') {
+			if (FieldIsEmpty(document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobTitle').value)) {
+				doSubmit2 = false;
+				alertMsg += "Please enter a Job Title.\n";
+			}
+			if (document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary').value != "" && document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary').value.lenght > 5000) {
+				doSubmit2 = false;
+				alertMsg += "Salary cannot exceed 5000 Characters\n";
+			}
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').style.display = '';
+			if (!doSubmit2) {
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').className = 'incomplete';
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').innerHTML = 'This section is incomplete';
+			}
+			else
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').className = 'complete';
+
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step2').style.visibility = 'hidden';
+		}
+		document.getElementById('__EVENTARGUMENT').value = document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_pageType').value + '';
+
+		if (alertMsg.length > 0) {
+			errString += alertMsg;
+			errString += "\n";
+			//errString += "Please correct them and re-submit.";
+			alert(errString);
+		}
+		if (doSubmit && doSubmit2) {
+			hdnSaveItem.value = "1";
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	function validateCategory() {
+		var count = 0;
+		var catLength = document.getElementsByName('rbtnCategoryList').length;
+
+		for (x = 0; x < catLength; x++) {
+			if (document.getElementsByName('rbtnCategoryList').item(x).checked == true) {
+				count++
+			}
+		}
+		if (count < 1)
+			return false;
+		else
+			return true;
+	}
+	function keepSectionIntact() {
+		window.scrollTo(0, 0);
+		document.getElementById('div_listingInformation').style.display = 'none';
+		document.getElementById('div_jobDetails').style.display = 'none';
+		document.getElementById('div_previewSubmit').style.display = '';
+
+		document.getElementById('li_listingInformation').className = '';
+		document.getElementById('li_jobDetails').className = '';
+		document.getElementById('li_previewSubmit').className = 'current';
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').style.display = 'block';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').style.display = 'block';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_previewSubmit').style.display = 'block';
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step1').style.visibility = 'hidden';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step2').style.visibility = 'hidden';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step3').style.visibility = 'hidden';
+	}
+
+	function updateFeaturedRate() {
+		var dropdownText = document.getElementById("ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_ddlDurationAmsul").options[document.getElementById("ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_ddlDurationAmsul").selectedIndex].text;
+
+		var amount = dropdownText.split(' ');
+		amount = (amount.length > 0 ? amount[amount.length - 1] : '0').replace(/\,|\$/g, '');
+
+		var amt = parseFloat(amount);
+
+		if (isNaN(amt))
+			amt = 0;
+
+		amt = Math.round(parseFloat(amount) * 100) / 100;
+		if (dropdownText.indexOf('Free') != -1)
+			amt = 0;
+		if (amt == 0)
+			amount = 'free';
+		else {
+			if (amt.toString().indexOf('.') != -1 && amt.toString().substring(amt.toString().indexOf(".")).length != 3)
+				amt += "0";
+
+			amount = 'an additional $' + amt;
+		}
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_spanFeaturedRate').innerHTML = amount;
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_hdnFeaturedRate').value = '$' + (amt == 0 ? '0.00' : amt);
+	}
+
+	function displayFullCategoryList() {
+		$('#' + 'ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnCategoryList').hide();
+		$('#divRemainingCategories').show();
+		$('#divRemainingCategories > ul').removeClass('hidden');
+
+	}	
+//--></script>
+							</div>
+						
+	</div>
+				</div>
+
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnJobId" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnTabNo" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnCategoryID" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCategoryID" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnSearch" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSearch" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnMyJobPosting" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobPosting" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnEditProfile" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditProfile" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnAddJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnAddJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnEditJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnRepostJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnRepostJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnIsAdmin" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAdmin" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnCloseJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCloseJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnReopenJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnReopenJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnPagination" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnPagination" value="1" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnMyJobsSearch" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobsSearch" value="0" />
+				<input type="hidden" id="hdnContinuePay" name="hdnContinuePay" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnSortBy" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortBy" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnSortCategory" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortCategory" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnShowAllJobs" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnShowAllJobs" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnIsAddEditJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAddEditJob" value="false" />
+
+
+				
+
+				<div class="jobsListingContent">
+					<div id="divJobContentListingDetails" class="contentMain selfClear">
+						<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_detailUpdatePanel" class="detailPanel">
+			<div id="cat98" class="listing listingLink">
+			<input type='hidden' id="RssBehaviorAddItems.98" name="RssBehaviorAddItems.98" value='1' />
+			<h2 class="active" data-cp-toggle="collapse" tabindex="0" role="button" aria-expanded="true" aria-controls="98">
+Full Time		</h2>
+<div id="98">			<input type='hidden' id="CategoryID.379"  name="CategoryID.379" value='98' />
+ <div class="job first">
+<h3><a id="jobTitle_379" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Administrative-Systems-Coordinator-Custo-379">Administrative Systems Coordinator (Customer Service Division)</a></h3>
+<span id="jobStartDate_379" style="display:none;">4/16/2026 2:50:00 PM</span>
+<span>Posted April 16, 2026 2:50 PM |  Closes April 30, 2026 5:00 PM</span><p>Are you a data-driven problem solver with a passion for public service? Join a team committed to technical excellence where your expertise will drive system improvements,...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Administrative-Systems-Coordinator-Custo-379">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.404"  name="CategoryID.404" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_404" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Crew-Leader-I-Water-Department-404">Crew Leader I - Water Department</a></h3>
+<span id="jobStartDate_404" style="display:none;">4/16/2026 2:30:00 PM</span>
+<span>Posted April 16, 2026 2:30 PM |  Closes April 30, 2026 5:00 PM</span><p>The City is seeking an ambitious Utility Services Crew Leader l.  This position leads and works alongside a small to medium sized utility crew in the maintenance and repair of...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Crew-Leader-I-Water-Department-404">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.406"  name="CategoryID.406" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_406" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Firefighter-I-EMT-406">Firefighter I / EMT</a></h3>
+<span id="jobStartDate_406" style="display:none;">4/16/2026 3:00:00 PM</span>
+<span>Posted April 16, 2026 3:00 PM |  Closes May 16, 2026 5:00 PM</span><p>Job Title:   FIREFIGHTER I / EMT   Category:  Full-Time   Application Closing Date:  May 16, 2026   Application:   APPLY NOW       SALARY &amp; BENEFITS   $19.64 Per Hour...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Firefighter-I-EMT-406">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.399"  name="CategoryID.399" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_399" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Librarian-I-399">Librarian I</a></h3>
+<span id="jobStartDate_399" style="display:none;">4/8/2026 4:35:00 PM</span>
+<span>Posted April 8, 2026 4:35 PM |  Closes April 22, 2026 5:00 PM</span><p>The City of Winter Haven is seeking a motivated and organized individual to join our library team as a Librarian I. This position plays a crucial role in supporting the daily...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Librarian-I-399">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.400"  name="CategoryID.400" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_400" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Maintenance-Operator-I-Activity-Fields-400">Maintenance Operator I - Activity Fields</a></h3>
+<span id="jobStartDate_400" style="display:none;">4/8/2026 4:35:00 PM</span>
+<span>Posted April 8, 2026 4:35 PM |  Closes May 16, 2026 5:00 PM</span><p>Do you take pride in keeping outdoor spaces in top shape?  We’re looking for a dedicated Maintenance Operator I – Activity Fields to help maintain safe,  beautiful, and...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Maintenance-Operator-I-Activity-Fields-400">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.401"  name="CategoryID.401" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_401" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Mechanic-I-Fleet-Maintenance-401">Mechanic I - Fleet Maintenance</a></h3>
+<span id="jobStartDate_401" style="display:none;">4/8/2026 4:35:00 PM</span>
+<span>Posted April 8, 2026 4:35 PM |  Closes April 22, 2026 5:00 PM</span><p>Are you passionate about turning wrenches, solving mechanical puzzles, and keeping things running smoothly? Join the City of Winter Haven as a Fleet Mechanic I and help...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Mechanic-I-Fleet-Maintenance-401">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.405"  name="CategoryID.405" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_405" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Police-Officer-2000-Signing-Bonus-Or-500-405">Police Officer – $2,000 Signing Bonus* (Or $5,000 for Experienced FLA Certified)**</a></h3>
+<span id="jobStartDate_405" style="display:none;">4/16/2026 2:30:00 PM</span>
+<span>Posted April 16, 2026 2:30 PM |  Closes May 16, 2026 5:00 PM</span><p>Job Title:   Police Officer &ndash; $2,000 Signing Bonus* (Or $5,000 for Experienced FLA Certified)**   Category:  Full-Time   Application Closing Date:  May 16, 2026, 5:00 PM...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Police-Officer-2000-Signing-Bonus-Or-500-405">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.398"  name="CategoryID.398" value='98' />
+ <div class="job">
+<h3><a id="jobTitle_398" href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Utility-Inspector-398">Utility Inspector</a></h3>
+<span id="jobStartDate_398" style="display:none;">4/8/2026 4:35:00 PM</span>
+<span>Posted April 8, 2026 4:35 PM |  Closes April 22, 2026 5:00 PM</span><p>Are you someone who enjoys being out in the field, ensuring critical infrastructure is functioning properly? Do you have an eye for detail and a strong sense of...&nbsp;<a href="/Jobs.aspx?UniqueId=98&From=All&CommunityJobs=False&JobID=Utility-Inspector-398">Full&nbsp;Description</a></p>
+	</div>	</div></div>	<div id="cat99" class="listing">
+			<input type='hidden' id="RssBehaviorAddItems.99" name="RssBehaviorAddItems.99" value='1' />
+			<h2 class="active" data-cp-toggle="collapse" tabindex="0" role="button" aria-expanded="true" aria-controls="99">
+Part-Time		</h2>
+<div id="99">			<input type='hidden' id="CategoryID.376"  name="CategoryID.376" value='99' />
+ <div class="job first">
+<h3><a id="jobTitle_376" href="/Jobs.aspx?UniqueId=99&From=All&CommunityJobs=False&JobID=Lifeguard-PartTime-Limited-Duration-Spri-376">Lifeguard (Part-Time Limited Duration – Spring Break And Summer Only)</a></h3>
+<span id="jobStartDate_376" style="display:none;">2/13/2026 3:44:00 PM</span>
+<span>Posted February 13, 2026 3:44 PM |  Open Until Filled</span><p>As a part-time spring break and summer lifeguard, you will play a crucial role in ensuring the safety and well-being of children and other visitors at our swimming pools...&nbsp;<a href="/Jobs.aspx?UniqueId=99&From=All&CommunityJobs=False&JobID=Lifeguard-PartTime-Limited-Duration-Spri-376">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.402"  name="CategoryID.402" value='99' />
+ <div class="job">
+<h3><a id="jobTitle_402" href="/Jobs.aspx?UniqueId=99&From=All&CommunityJobs=False&JobID=Utility-Electrician-PartTime-402">Utility Electrician (Part-Time)</a></h3>
+<span id="jobStartDate_402" style="display:none;">4/8/2026 4:35:00 PM</span>
+<span>Posted April 8, 2026 4:35 PM |  Closes April 22, 2026 5:00 PM</span><p>Join the Winter Haven Water Department and power the future of one of the nation&apos;s fastest-growing communities! We are seeking a top-tier Utility Electrician ready to...&nbsp;<a href="/Jobs.aspx?UniqueId=99&From=All&CommunityJobs=False&JobID=Utility-Electrician-PartTime-402">Full&nbsp;Description</a></p>
+	</div>	</div></div>	<div id="cat100" class="listing">
+			<input type='hidden' id="RssBehaviorAddItems.100" name="RssBehaviorAddItems.100" value='0' />
+			<h2 class="active" data-cp-toggle="collapse" tabindex="0" role="button" aria-expanded="true" aria-controls="100">
+Summer 		</h2>
+<div id="100">			<input type='hidden' id="CategoryID.345"  name="CategoryID.345" value='100' />
+ <div class="job first">
+<h3><a id="jobTitle_345" href="/Jobs.aspx?UniqueId=100&From=All&CommunityJobs=False&JobID=Recreation-Leader-Part-Time-Limited-Dura-345">Recreation Leader- Part Time (Limited Duration - Summer Only)</a></h3>
+<span id="jobStartDate_345" style="display:none;">12/5/2025 9:45:00 AM</span>
+<span>Posted December 5, 2025 9:45 AM |  Open Until Filled</span><p>As a Part-Time Summer Recreation Leader, you will be responsible for planning, organizing, and leading recreational activities for children during the summer season. You will...&nbsp;<a href="/Jobs.aspx?UniqueId=100&From=All&CommunityJobs=False&JobID=Recreation-Leader-Part-Time-Limited-Dura-345">Full&nbsp;Description</a></p>
+	</div>			<input type='hidden' id="CategoryID.346"  name="CategoryID.346" value='100' />
+ <div class="job">
+<h3><a id="jobTitle_346" href="/Jobs.aspx?UniqueId=100&From=All&CommunityJobs=False&JobID=Summer-Recreation-Attendants-Limited-Dur-346">Summer Recreation Attendants (Limited Duration – Summer Only)</a></h3>
+<span id="jobStartDate_346" style="display:none;">12/5/2025 9:45:00 AM</span>
+<span>Posted December 5, 2025 9:45 AM |  Open Until Filled</span><p>As a Part-Time Summer Recreation Attendant, you will play a vital role in ensuring a safe and enjoyable experience for children at our summer recreational facilities.  You...&nbsp;<a href="/Jobs.aspx?UniqueId=100&From=All&CommunityJobs=False&JobID=Summer-Recreation-Attendants-Limited-Dur-346">Full&nbsp;Description</a></p>
+	</div>	</div></div>
+	</div>
+					</div>
+					<div id="divSideBar" class="sidebar">
+						
+						<section id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divCategoryList" aria-labelledby="categoriesHeader" class="section categories">
+							<h3  id="categoriesHeader">
+								<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_lblDefaultCategoryHeader">Categories</span></h3>
+							<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divCityJobSideBar">
+								<ol>
+											<li class="all">
+			<a href="jobs.aspx?CommunityJobs=False">All Categories</a>
+		</li>
+		<li>
+			<a href="jobs.aspx?CommunityJobs=False&CatID=Full-Time-98">Full Time</a>
+		</li>
+		<li>
+			<a href="jobs.aspx?CommunityJobs=False&CatID=PartTime-99">Part-Time</a>
+		</li>
+		<li>
+			<a href="jobs.aspx?CommunityJobs=False&CatID=Summer-100">Summer </a>
+		</li>
+
+								</ol>
+							</div>
+							
+						</section>
+
+						
+						
+						
+
+					</div>
+				</div>
+			
+</div>
+	</div>
+
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_archiveUpdatePanel">
+	
+			
+			
+		
+</div>
+
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_upnlEpayRedirect">
+	
+			
+		
+</div>
+	
+</div>
+<!-- BEGIN Notify Me Fields -->
+<input type="hidden" name="ysnSave">
+<input type="hidden" name="ysnSend" value="0">
+<input type="hidden" name="ysnSendAtStart" value="0">
+<input type="hidden" name="ysnSendBeforeDays" value="0">
+<input type="hidden" name="intSendBeforeDays" value="-1">
+<input type="hidden" name="txtComments" value="">
+<input type="hidden" name="txtSMSComments" value="">
+<input type="hidden" id="dtiCurDate" name="dtiCurDate" value="04/17/2026">
+<!-- END Notify Me Fields -->
+
+<script type="text/javascript">
+	var JobsQuickActions = CivicPlus.CMS.Common.Admin.Jobs2.JobsQuickActions;
+	var hdnSaveItem = document.getElementById('hdnSaveItem');
+</script>
+
+<script type="text/javascript">
+	var popupWindowID = 'ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow';
+	var mainUpdatePanelID = 'ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel';
+	var contentUpdatePanelID = 'ctl00_ctl00_MainContent_ModuleContent_ctl00_detailUpdatePanel';
+	var LiveEditModal = 'ctl00_LiveEditModalTitle';
+	/* Government Tab: action = 1
+	   Employer Tab: action = 2
+	   Edit Profile: action = 3
+	   Add/Edit Job: action = 4
+	   Repost Job: action = 5 */
+	function jobContentLoad(action, catID, jobID, admin, pagination, continuePay, anchor) {
+		if (anchor != null && $(anchor).parent().hasClass('active')) return;
+		onAjaxPostBackStart();
+		if (hdnSaveItem != null)
+			hdnSaveItem.value = "0";
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobPosting').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditProfile').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAdmin').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnAddJob').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditJob').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnRepostJob').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAddEditJob').value = "false";
+
+		if (action != '2' && action != '3')
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header";
+		else if (jobID != '')
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header";
+		else
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header myListings";
+
+		if (action != '0') {
+			if (document.getElementById('tblmodNavBar') != null)
+				document.getElementById('tblmodNavBar').style.display = "none";
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value = action;
+		}
+		else {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value = '0';
+			if (document.getElementById('tblmodNavBar') != null)
+				document.getElementById('tblmodNavBar').style.display = "";
+		}
+
+		if (action == '2') {
+			if (pagination != '' && pagination != null) {
+				onAjaxPostBackStart();
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnPagination').value = pagination;
+			}
+			if (admin == 1)
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAdmin').value = '1';
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobPosting').value = '1';
+		}
+
+		if (action == '3') {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditProfile').value = '1';
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header myListings";
+		}
+
+		if (action == '4') {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header myListings";
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAddEditJob').value = "true";
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divEditJob').style.display = 'block';
+			if (jobID != '') {
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditJob').value = '1';
+				document.getElementById('hdnContinuePay').value = continuePay;
+			}
+			else
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnAddJob').value = '1';
+		}
+		if (action == '5') {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divEditJob').style.display = 'block';
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnRepostJob').value = '1';
+		}
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSearch').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobsSearch').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCategoryID').value = catID;
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId').value = jobID;
+		onAjaxPostBackEnd();
+		Sys.WebForms.PageRequestManager.getInstance().add_endRequest(afterLoadingContent);
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+	function afterLoadingContent() {
+		$get('__EVENTTARGET').value = $get('__EVENTARGUMENT').value = '';
+
+		Sys.WebForms.PageRequestManager.getInstance().remove_endRequest(afterLoadingContent);
+		window.initDateTimePickers(document.querySelectorAll('input[data-cp-datetimepicker]'));
+	}
+
+	function jobsSortingViewing(ysnShowAllJobs, sortBy, action, isEmployer) {
+		//document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortCategory').value = document.aspnetForm.SelectedCatID.value;
+		if (action == 'sort')
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortBy').value = sortBy;
+		else if (action == 'view') {
+			if (sortBy == "open")
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnShowAllJobs').value = "";
+			else if (ysnShowAllJobs == 'true' && sortBy == 'AllJobs')
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnShowAllJobs').value = "true";
+		}
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value = isEmployer;
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+
+	function openAddJobWindow(jobAction, jobId) {
+		if (jobAction == "Edit" || jobAction == "Repost")
+			document.getElementById('ctl00_LiveEditModalTitle').innerHTML = ' Jobs - ' + jobAction + ' Job';
+		else
+			document.getElementById('ctl00_LiveEditModalTitle').innerHTML = ' Create Job Posting';
+
+
+		behavior = $find('editItemBehavior');
+		if (behavior) {
+			var ifr = document.getElementById('liveEditDialog');
+			var liveEditPopupWindow = document.getElementById('ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow');
+
+			if (jobAction == "Edit")
+				ifr.style.height = '485px';
+			else
+				ifr.style.height = '473px';
+
+			ifr.style.width = '842px';
+			liveEditPopupWindow.style.width = '860px';
+
+			var url = '/common/modules/Jobs2/EmployerJobPosting.aspx?updatePanelID=ctl00$ctl00$MainContent$ModuleContent$ctl00$upnlEpayRedirect&jobId=' + jobId + '&action=' + jobAction;
+			ifr.src = url;
+			ifr.style.display = 'block';
+			behavior.show();
+		}
+	}
+	function openHelpWindow() {
+		document.getElementById('ctl00_LiveEditModalTitle').innerHTML = 'Job Posting Help';
+		var behaviorID = $find('editItemBehavior');
+		if (behaviorID) {
+			var ifr = document.getElementById('liveEditDialog');
+			setModalClassFE('help', behaviorID);
+			ifr.src = '/common/modules/Jobs2/JobPostingHelp.aspx';
+			ifr.style.display = 'block';
+			behaviorID.show();
+		}
+	}
+
+	function openRenewJobWindow(jobAction, jobId, endDate) {
+		document.getElementById('ctl00_LiveEditModalTitle').innerHTML = 'Job Posting Renewal';
+		behavior = $find('editItemBehavior');
+		if (behavior) {
+			var ifr = document.getElementById('liveEditDialog');
+
+			var liveEditPopupWindow = document.getElementById('ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow');
+			ifr.style.height = '130px';
+
+			ifr.style.width = '452px';
+			liveEditPopupWindow.style.width = '470px';
+
+			var url = '/common/modules/Jobs2/EmployerJobPostingRenew.aspx?updatePanelID=ctl00$ctl00$MainContent$ModuleContent$ctl00$upnlEpayRedirect&jobId=' + jobId + '&action=' + jobAction;
+
+			ifr.src = url;
+			ifr.style.display = 'block';
+			behavior.show();
+		}
+	}
+
+	function closeJob(jobID) {
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCloseJob').value = '1';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId').value = jobID;
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+	function reopenJob(jobID) {
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnReopenJob').value = '1';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId').value = jobID;
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+	function jobSearch(searchType) {
+		var frm = document.aspnetForm;
+		var searchTerm = frm.searchTerms.value;
+		var CatID = '';
+
+		var arrCheckboxes = document.getElementsByName("CID");
+		for (var cv = 0; cv < arrCheckboxes.length; cv++) {
+			if (arrCheckboxes[cv].checked)
+				CatID = CatID + arrCheckboxes[cv].value + ",";
+		}
+		CatID = CatID.substring(0, CatID.length - 1);
+		var tabNo = document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value;
+
+		if (searchTerm == "") {
+			if (searchType == 'myJobsPosting') {
+				frm.action = '/Jobs.aspx?action=profile&CatID=' + CatID + '&MySearch=True';
+			} else {
+				frm.action = '/Jobs.aspx?CatID=' + CatID + '&Search=True';
+			}
+		}
+		else {
+			frm.action = '/Jobs.aspx?Keywords=' + encodeURIComponent(searchTerm) + '&CatID=' + CatID;
+			if (searchType == 'myJobsPosting') {
+				frm.action += '&MySearch=True&action=profile';
+			} else {
+				frm.action += '&Search=True';
+			}
+		}
+
+		if (tabNo == 1) {
+			frm.action = frm.action + '&CommunityJobs=True';
+		}
+
+		frm.submit();
+	}
+
+	function jobSearchAfter() {
+		Sys.WebForms.PageRequestManager.getInstance().remove_endRequest(jobSearchAfter);
+	}
+</script>
+<script type="text/javascript">
+	function validateRegistration(isEdit) {
+		var alertMsg = "";
+		var errString = 'The form cannot be submitted due to the following error(s):\n';
+		errString += "-----------------------------------------------------------------------\n\n";
+		var doSubmit = true;
+
+		if (document.querySelector('[id$=txtCompanyName]').value == '') {
+			if (doSubmit == true)
+				document.querySelector('[id$=txtCompanyName]').focus();
+			doSubmit = false;
+			alertMsg += "Your company name cannot be blank.\n";
+		}
+
+		if (document.querySelector('[id$=txtHrContactEmail]').value != '' && !emailValidate(document.querySelector('[id$=txtHrContactEmail]').value)) {
+			if (doSubmit == true)
+				document.querySelector('[id$=txtHrContactEmail]').focus();
+
+			doSubmit = false;
+			alertMsg += "Please enter a valid email address.\n";
+		}
+		if ((document.querySelector('[id$=txtAddress1]').value != 'Address' && document.querySelector('[id$=txtAddress1]').value != '') ||
+			(document.querySelector('[id$=txtAddress2]').value != 'Address' && document.querySelector('[id$=txtAddress2]').value != '') ||
+			(document.querySelector('[id$=txtCity]').value != 'City' && document.querySelector('[id$=txtCity]').value != '') ||
+			(document.querySelector('[id$=txtState]').value != 'ST' && document.querySelector('[id$=txtState]').value != '') ||
+			(document.querySelector('[id$=txtZip]').value != 'Zip' && document.querySelector('[id$=txtZip]').value != '')) {
+
+			if (document.querySelector('[id$=txtAddress1]').value == '' || document.querySelector('[id$=txtAddress1]').value == 'Address') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid address.\n";
+			}
+			if (document.querySelector('[id$=txtCity]').value == '' || document.querySelector('[id$=txtCity]').value == 'City') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid City.\n";
+			}
+			if (document.querySelector('[id$=txtState]').value == '' || document.querySelector('[id$=txtState]').value == 'ST') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid State.\n";
+			}
+			else if (!RegExValidate('^[A-Z]{2}$', document.querySelector('[id$=txtState]').value, 'i') || !RegExValidate('^[a-z]{2}$', document.querySelector('[id$=txtState]').value, 'i')) {
+				doSubmit = false;
+				alertMsg += "Please enter a valid State.\n";
+			}
+			if (document.querySelector('[id$=txtZip]').value == '' || document.querySelector('[id$=txtZip]').value == 'Zip') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid " + getZipCodeName(intCountryCode) + " code.\n";
+			}
+			else if (!isZipCode(document.querySelector('[id$=txtZip]').value, intCountryCode)) {
+				doSubmit = false;
+				alertMsg += "Please enter a valid " + getZipCodeName(intCountryCode) + " code.\n";
+			}
+		}
+		if (isEdit == 0) {
+			if (!document.getElementById('chkAcceptTOS').checked) {
+				if (doSubmit == true)
+					document.getElementById('chkAcceptTOS').focus();
+				doSubmit = false;
+				alertMsg += "Please agree to the Terms of Services to proceed.\n";
+			}
+		}
+		if (alertMsg.length > 0) {
+			errString += alertMsg;
+			errString += "\n-----------------------------------------------------------------------\n";
+			errString += "Please correct them and re-submit.";
+			alert(errString);
+		}
+		if (doSubmit) {
+			return true;
+		}
+		else
+			return false;
+	}
+</script>
+
+</div>
+<script type="text/javascript">order+='ModuleContent\n'</script>
+
+		<div id="ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow" class="modalContainer modalContainerCP" style="display: none;">
+	<div id="ctl00_liveEditTitleBar" class="modalTitleLeft"><h3 id="ctl00_LiveEditModalTitle" class="modalTitle">Live Edit</h3><a id="ctl00_LiveEditCloseButton" class="modalClose" aria-label="Close this modal" href="/" title="Close this window"><svg viewBox='0 0 25 25' id='modalIconClose'><polygon style='fill:currentcolor' points='18.806,6.98 18.075,6.248 12.532,11.792 6.989,6.248 6.257,6.98 11.786,12.508 6.212,18.084 6.943,18.815 12.532,13.224 18.12,18.815 18.851,18.084 13.277,12.508'></polygon></svg></a></div><div id="ctl00_liveEditContentLeft" class="modalContentLeft"><div id="ctl00_liveEditContentRight" class="modalContentRight"><div id="ctl00_liveEditContent" class="modalContent"><iframe style="display: none; border: none;" src="about:blank" id="liveEditDialog" title="Live Edit Dialog" name="liveEditDialog"></iframe></div></div></div><div id="ctl00_liveEditFooter" class="modalBottomLeft"><div id="ctl00_liveEditfooterbar" class="modalBottomRight"><div id="ctl00_liveEditfooterbar1" class="modalBottom"></div></div></div>
+</div><input type="submit" name="ctl00$ctl00$MainContent$ctl00_liveEditSpawnWindow" value="" id="ctl00_ctl00_MainContent_ctl00_liveEditSpawnWindow" disabled="disabled" aria-hidden="true" style="display: none;" />
+	
+
+<script src="/ScriptResource.axd?d=13QrD5OKmpS4KylkEx0THO8-725M_B-NuLKpT2HXibC3wL69v6Nuku5_Hl3mN6XV7FaXSRpKnSTN_ymQVsSSE1a0e1N5DTkJkW58Gw0X2sJK4yl-4v99Y2I0xrCuS0glMLHBeQQY831A1o86iCGmPKuP_Du21RmXLOCCLluMylmGypIeICRBasHYyW_s9XfbQYHrkASMA3qCzbslMAUUi2IK9bcapH2R3W31atrSyi6tmtShIqbb5kDKwsgN5DZnqW4_c738ONSuGmcyLv9n0Yt5MiRL5eBThSz30_Za_maU-Rb6vbXUa-V06m70p_mw0" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.add_init(function() {
+    $create(AjaxControlToolkit.ModalPopupBehavior, {"BackgroundCssClass":"modalBackground","CancelControlID":"ctl00_LiveEditCloseButton","PopupControlID":"ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow","PopupDragHandleControlID":"ctl00_liveEditTitleBar","dynamicServicePath":"/Jobs.aspx","id":"editItemBehavior"}, null, null, $get("ctl00_ctl00_MainContent_ctl00_liveEditSpawnWindow"));
+});
+//]]>
+</script>
+</form>
+	<form id="aspnetSearchForm" name="aspnetSearchForm" style="display:none;" action="/Search.aspx" method="get">
+		<input name="SearchString" type = "hidden" value ="" />
+	</form>
+	
+	<form name="frmJobSearch" defaultbutton="btnSearch" method="GET"><input type="hidden" name="searchTerms"><input type="hidden" name="CID"><input type="hidden" name="isEmployer" value="False"></form>
+
+	
+	</div>
+	 
+</div>	
+
+</div><aside data-cpRole="contentContainer" id="featureColumn" class="secondaryContent">	<div id="ccd6923f64-2522-4bce-8783-61ad1b416b69" data-containerid="d6923f64-2522-4bce-8783-61ad1b416b69" class="pageContent cpGrid cpGrid24 showInMobile" data-contentcontainerbreakpoint="40">
+				                
+
+
+
+	</div>
+</aside>
+</div><div data-cpRole="structuralContainer" id="siteSidebarTS" class="siteSidebar">
+<aside data-cpRole="contentContainer" id="sidebarContainer1TS">	<div id="ccd53d2da3-e00b-4afe-8249-ba1cc969b095" data-containerid="d53d2da3-e00b-4afe-8249-ba1cc969b095" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><nav data-cpRole="nav" id="secondaryNav" class="siteNav secondaryNav">
+
+
+
+
+
+	<ol role="menu" id="secondaryMenusecondaryNav" data-parent="191" class="rootNavMenu accordionNav">
+	<li class="topMenuItem sideNavLi hasAccordionChildren" id="SideItem407" data-pageid="407">
+		<div class="accordionNavItem">
+			<a href="/407/Careers-at-the-City-of-Winter-Haven" target="_self" class="navMainItem secondaryNavItem cpComponent" data-type="SecondaryMainItem">Careers at the City of Winter Haven</a>
+		</div>
+			</li>
+	<li class="topMenuItem sideNavLi hasAccordionChildren" id="SideItem443" data-pageid="443">
+		<div class="accordionNavItem">
+			<a href="/jobs.aspx" target="_self" class="navMainItem secondaryNavItem cpComponent" data-type="SecondaryMainItem">Current Job Openings</a>
+		</div>
+			</li>
+	<li class="topMenuItem sideNavLi hasAccordionChildren" id="SideItem458" data-pageid="458">
+		<div class="accordionNavItem">
+			<a href="https://mywinterhaven.formstack.com/forms/general_employee_application" target="_blank" class="navMainItem secondaryNavItem cpComponent" data-type="SecondaryMainItem">General Application</a>
+		</div>
+			</li>
+	<li class="topMenuItem sideNavLi hasAccordionChildren" id="SideItem459" data-pageid="459">
+		<div class="accordionNavItem">
+			<a href="/458/General-Application" target="_blank" class="navMainItem secondaryNavItem cpComponent" data-type="SecondaryMainItem">Firefighter Application</a>
+		</div>
+			</li>
+	<li class="topMenuItem sideNavLi hasAccordionChildren" id="SideItem460" data-pageid="460">
+		<div class="accordionNavItem">
+			<a href="/DocumentCenter/View/665/Police-Department-Job-Application-PDF" target="_blank" class="navMainItem secondaryNavItem cpComponent" data-type="SecondaryMainItem">Police Department Application</a>
+		</div>
+			</li>
+
+	</ol>
+
+
+	<script type="text/javascript">
+		window.addEventListener('load', function () {
+			//setup menu manager properties for secondary menu
+			menuManager.isSideMenuEditable = false;
+			menuManager.sideMenuMaxSubMenuLevels = 4;
+			menuManager.sideMenuHasCustomLinks = false;
+		});
+	</script>
+
+	<script type="text/javascript">
+		window.addEventListener('load', function () {
+			$('*[id^="SideItem"]').each(function () {
+				var ids = $('[id="' + this.id + '"]');
+				if (ids.length > 1)
+					$.each(ids, function (index, value) {
+						value.id = value.id + '_' + index;
+					});
+			});
+
+			$('.hasAccordionChildren .openAccordionNav').click(function (e) {
+				e.preventDefault();
+				showHideAccordionMenuForSecondaryNav($(this));
+			});
+
+			$("#secondaryNav .grippy").each(function () {
+				menuManager.setupDraggableElement($(this), SIDE_MENU, '#secondaryNav');
+			});
+
+			$("#secondaryNav li").each(function () {
+				menuManager.setupDroppableAccordionElement($(this), SIDE_MENU);
+			});
+		});
+	</script>
+
+
+
+</nav><aside data-cpRole="contentContainer" id="sidebarContainer2TS">	<div id="cc2097bc30-37df-44ff-b0ef-47532fcae1bb" data-containerid="2097bc30-37df-44ff-b0ef-47532fcae1bb" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 10%" data-widgetcontainerid="25ec84a9-a74b-49ed-be47-c09a687a8bd5">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last idb1941960-a9f9-4526-a7ae-6e2599446a00" style="" data-widgetcontainerid="b1941960-a9f9-4526-a7ae-6e2599446a00">	
+
+<div class="widget widgetSpacer" id="c2214e65-2407-4ace-898e-f41b6edc3985"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 10%" data-widgetcontainerid="252ed000-ff4e-4eef-b3d6-c5126ccd07d3">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id827b804b-138d-4d9b-829f-59e1ab199d71" style="" data-widgetcontainerid="827b804b-138d-4d9b-829f-59e1ab199d71">	
+
+<div class="widget widgetSpacer" id="15e3130c-e4ba-4f2e-b3d2-346178944121"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 10%" data-widgetcontainerid="5bac0fe0-b63d-4456-8e19-b5d87c296a61">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id55e34134-a8f8-4a53-882f-e1982a128d64" style="" data-widgetcontainerid="55e34134-a8f8-4a53-882f-e1982a128d64">	
+
+<div class="widget widgetSpacer" id="26dfd68d-3cae-47b2-8fe6-f8c6c12fc847"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 10%" data-widgetcontainerid="f1e29642-8638-432c-be05-7bb5ec1a1e4e">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id2d1ea1e6-234a-4976-8037-bc339fb028cc" style="" data-widgetcontainerid="2d1ea1e6-234a-4976-8037-bc339fb028cc">	
+
+<div class="widget widgetSpacer" id="4e6bc409-9d9e-4503-b45e-13fe11d4fbd9"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 10%" data-widgetcontainerid="0649e067-493d-4b2d-b8ff-0f774311402d">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last idd5697f05-fc30-4c03-8c2e-6445e370042d" style="" data-widgetcontainerid="d5697f05-fc30-4c03-8c2e-6445e370042d">	
+
+<div class="widget widgetSpacer" id="0133618f-b69b-460b-bc69-fab4cdaaf90c"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 85%" data-widgetcontainerid="669a0966-e4c7-4df0-912a-ceefdb0743e5">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id35f51e09-48ba-496d-b7b3-872800be558e" style="" data-widgetcontainerid="35f51e09-48ba-496d-b7b3-872800be558e">	
+
+<div class="widget image pageStyles" id="divImageOuter76a78dc9-7e05-4ffb-a956-9011cc5f803a" data-widget-id="76a78dc9-7e05-4ffb-a956-9011cc5f803a">
+    
+	<div class="widgetBody " id="divImage76a78dc9-7e05-4ffb-a956-9011cc5f803a">				<a href="/191/Human-Resources" target="_self"><img src="/ImageRepository/Document?documentID=1536" alt="" title=""/></a>
+	</div></div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="width: 10%" data-widgetcontainerid="d08d7bef-d68f-49da-a2f0-eb3a502d1c1d">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last idd79e0b66-77fe-469c-abdc-a45b52ea2d4b" style="" data-widgetcontainerid="d79e0b66-77fe-469c-abdc-a45b52ea2d4b">	
+
+<div class="widget widgetSpacer" id="3fda18cf-a141-42ac-a371-7357e4ef89c5"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="dc5d5fe2-d17f-4326-b71c-67c833fa1846">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last idf3719c75-f72f-437a-a459-86354e999b0e" style="" data-widgetcontainerid="f3719c75-f72f-437a-a459-86354e999b0e">	
+
+
+
+
+
+
+
+
+<div data-widget-id="43b91131-15d3-4395-9f75-35dc3404fbd6" data-moduleWidgetType="cityDirectory" data-widget-controller-path="/CityDirectory/Widget">
+	<div id="cityDirectoryWidget43b91131-15d3-4395-9f75-35dc3404fbd6" class="widget widgetStaffDirectory skin67 narrow" >
+			<div class="widgetHeader">
+							</div>
+						<ol class="semanticList">
+		<li class="widgetItem h-card">
+
+
+
+
+				<div class="field h-adr">
+					<strong>Physical Address</strong>
+					<br />
+					<span class="p-street-address">500 Third Street NW</span><br />
+					<span class="locality">Winter Haven</span>, <span class="p-region">FL</span> <span class="p-postal-code">33881</span>
+
+				</div>
+				<br />
+
+
+
+				<div class="field p-tel">Phone: <a href="tel:8632915650">863-291-5650</a></div>
+													<br />
+
+
+
+		</li>
+									</ol>
+	</div>
+</div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside>
+</div>
+</div></div>
+</div><!-- QLs --><div data-cpRole="structuralContainer" id="qlsContainerTS">
+<div class="siteWrap"><div data-cpRole="contentContainer" id="qlsTS">	<div id="cc7299ce33-590e-4451-8751-43e6b4103ac3" data-containerid="7299ce33-590e-4451-8751-43e6b4103ac3" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="55">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col6 first" style="" data-widgetcontainerid="d6b312f6-c95d-410a-b998-48f29b9e4462">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col6 first last id67f756af-2c62-4e0c-b24a-dd876a293a88" style="" data-widgetcontainerid="67f756af-2c62-4e0c-b24a-dd876a293a88">	
+    <div data-widget-id="9a02d5a1-b4b9-476e-91f0-8bd4b730eb90" data-widget-controller-path="/InfoAdvanced/Widget">
+
+
+
+
+
+	<section id="divInfoAdv9a02d5a1-b4b9-476e-91f0-8bd4b730eb90" class="widget widgetInfoAdvanced skin56 widgetOptionSet5 wide" data-modulewidgettype="infoAdv" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-label="Info Advanced">
+			<header class="widgetHeader" id="header9a02d5a1-b4b9-476e-91f0-8bd4b730eb90">
+		<div class="">
+								</div>
+	</header>
+	<div class="widgetBody  cpGrid cpGrid1 ">
+		<div class="row  wide">
+					<div class="col col1 first last">
+						<ol class="pageStyles semanticList">
+
+<li class="InfoAdvanced widgetItem fr-view">
+	<p>Quickly Find What You Are Looking For</p>
+</li>
+<li class="InfoAdvanced widgetItem fr-view">
+	<h1 class="headline">Popular Links</h1>
+</li>						</ol>
+					</div>
+		</div>
+	</div>
+	<div class="widgetFooter">
+
+	</div>
+
+	</section>
+
+
+
+<script type="text/javascript">
+	//Render slideshow if info advacned items contain one.
+	$(document).ready(function (e) {
+		$('#divInfoAdv9a02d5a1-b4b9-476e-91f0-8bd4b730eb90 .InfoAdvanced.widgetItem').each(function () {
+			renderSlideshowIfApplicable($(this));		
+		});
+	});
+</script></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col1" style="" data-widgetcontainerid="5a65d75d-934e-41cb-a424-92bc41f1b21a">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col1 first last id80616697-81b6-40df-bd76-39682e58370f" style="" data-widgetcontainerid="80616697-81b6-40df-bd76-39682e58370f">	
+
+<div class="widget widgetSpacer" id="0aa7203c-f636-45d0-9a5e-9fc2bcc1c2f6"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col17 last" style="" data-widgetcontainerid="a9ba05d6-4742-415a-863b-ffb7062784ca">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col17 first last id3edf49e1-3c61-476e-bd36-bb2e5000b4b0" style="" data-widgetcontainerid="3edf49e1-3c61-476e-bd36-bb2e5000b4b0">	
+	<div data-widget-id="f85fa69a-d839-423a-8e0f-b7799702ef34" data-widget-controller-path="/QuickLinks/Widget">
+
+
+
+
+
+ 
+
+
+	<section id="widgetQuicklinkf85fa69a-d839-423a-8e0f-b7799702ef34" class="widget widgetQuickLinks skin57 widgetOptionSet36 narrow" data-modulewidgettype="quickLinks" data-elementqueryclasses='{"wide-narrow":"min-width:40em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-label="Quick Links">
+			<header class="widgetHeader" id="quickLinksHeaderf85fa69a-d839-423a-8e0f-b7799702ef34">
+		<div class="">
+						</div>
+	</header>
+	<div class="widgetBody cpGrid cpGrid4 ">
+        <div class="row  narrow">
+				<div class="col col1 first ">
+					<ol class="semanticList">
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/jobs.aspx" target="_self" >Job Openings</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="https://seeclickfix.com/web_portal/SdLPekA3hqCyR5wYB2xDUDHd/report/category" target="_self" >Report an Issue</a>
+        <div class="widgetMeta"></div>
+    </li>
+					</ol>
+				</div>
+				<div class="col col1  ">
+					<ol class="semanticList">
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/364/Start-Stop-Move-Services" target="_self" >Start/Stop Water</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="https://cityofwinterhaven.column.us/search" target="_blank"  aria-label="Public Notices  opens in new window">Public Notices </a>
+        <div class="widgetMeta"></div>
+    </li>
+					</ol>
+				</div>
+				<div class="col col1  ">
+					<ol class="semanticList">
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/365/Winter-Haven-Water-Customer-Service-Paym" target="_self" >Pay Utility Bill</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/190/Public-Records" target="_self" >Public Records Request</a>
+        <div class="widgetMeta"></div>
+    </li>
+					</ol>
+				</div>
+				<div class="col col1  last">
+					<ol class="semanticList">
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/200/Solid-Waste-Recycling" target="_self" >Solid Waste Information</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/342/Building-Permits-Licenses" target="_self" >Building Permits</a>
+        <div class="widgetMeta"></div>
+    </li>
+					</ol>
+				</div>
+		</div>
+        
+	</div>
+	<div class="widgetFooter">
+	</div>
+	<div class="addItemModal hidden">
+		<div class="url hidden">/QuickLinks.aspx</div>
+	</div>
+
+	</section>
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</div></div>
+</div><!-- Calendar/Carousel --><!-- <div data-cpRole="structuralContainer" id="homeContainer1">
+    <div class="siteWrap">
+      <div data-cpRole="contentContainer" id="homeContent1a"></div>
+    </div>
+  </div> --><!-- Footer --><footer data-cpRole="structuralContainer" id="footerContainerTS"><div class="inner">
+<div class="siteWrap"><div data-cpRole="contentContainer" id="footerTSa">	<div id="cc21a6146f-6249-4b9b-8fa7-a9e3e0801026" data-containerid="21a6146f-6249-4b9b-8fa7-a9e3e0801026" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="4e9e15d2-0c09-486b-ae98-3b3de341f382">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last idb14de9be-feb0-4801-8d99-f6d985c905ab" style="" data-widgetcontainerid="b14de9be-feb0-4801-8d99-f6d985c905ab">	
+    <div data-widget-id="8f964480-916c-4bfe-8e1a-fc0fd646cbbc" data-widget-controller-path="/InfoAdvanced/Widget">
+
+
+
+
+
+	<section id="divInfoAdv8f964480-916c-4bfe-8e1a-fc0fd646cbbc" class="widget widgetInfoAdvanced skin58 widgetOptionSet5 wide" data-modulewidgettype="infoAdv" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-label="Info Advanced">
+			<header class="widgetHeader" id="header8f964480-916c-4bfe-8e1a-fc0fd646cbbc">
+		<div class="">
+								</div>
+	</header>
+	<div class="widgetBody  cpGrid cpGrid1 ">
+		<div class="row  wide">
+					<div class="col col1 first last">
+						<ol class="pageStyles semanticList">
+
+<li class="InfoAdvanced widgetItem fr-view">
+	<h1 class="headline" style="text-align: center;">Exceptionally Local</h1>
+</li>						</ol>
+					</div>
+		</div>
+	</div>
+	<div class="widgetFooter">
+
+	</div>
+
+	</section>
+
+
+
+<script type="text/javascript">
+	//Render slideshow if info advacned items contain one.
+	$(document).ready(function (e) {
+		$('#divInfoAdv8f964480-916c-4bfe-8e1a-fc0fd646cbbc .InfoAdvanced.widgetItem').each(function () {
+			renderSlideshowIfApplicable($(this));		
+		});
+	});
+</script></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</div><div data-cpRole="contentContainer" id="footerTSb">	<div id="cc2928d774-2a7b-406d-8609-90ef23972d60" data-containerid="2928d774-2a7b-406d-8609-90ef23972d60" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="55">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col4 first" style="" data-widgetcontainerid="5e913049-6000-497f-abbf-5d7fcde79110">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col4 first last idab7b4d04-08bc-4ad8-9c69-85bb760e36eb" style="" data-widgetcontainerid="ab7b4d04-08bc-4ad8-9c69-85bb760e36eb">	
+    <div data-widget-id="e9f6b879-7b31-41cb-a87d-ce3a72543a41" data-widget-controller-path="/InfoAdvanced/Widget">
+
+
+
+
+
+	<section id="divInfoAdve9f6b879-7b31-41cb-a87d-ce3a72543a41" class="widget widgetInfoAdvanced skin49 widgetOptionSet5 wide" data-modulewidgettype="infoAdv" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-label="Info Advanced">
+			<header class="widgetHeader" id="headere9f6b879-7b31-41cb-a87d-ce3a72543a41">
+		<div class="">
+								</div>
+	</header>
+	<div class="widgetBody  cpGrid cpGrid1 ">
+		<div class="row  wide">
+					<div class="col col1 first last">
+						<ol class="pageStyles semanticList">
+
+<li class="InfoAdvanced widgetItem fr-view">
+	<p><a href="/"><img src="/ImageRepository/Document?documentId=83" class="fr-dib" alt="Winter Haven FL Homepage"></a></p>
+</li>						</ol>
+					</div>
+		</div>
+	</div>
+	<div class="widgetFooter">
+
+	</div>
+
+	</section>
+
+
+
+<script type="text/javascript">
+	//Render slideshow if info advacned items contain one.
+	$(document).ready(function (e) {
+		$('#divInfoAdve9f6b879-7b31-41cb-a87d-ce3a72543a41 .InfoAdvanced.widgetItem').each(function () {
+			renderSlideshowIfApplicable($(this));		
+		});
+	});
+</script></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col3" style="" data-widgetcontainerid="5a8beedc-b8da-4ef6-bc91-364dec89571a">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col3 first last id2ae76bc4-9196-446d-bc4e-02a2aebe5ddb" style="" data-widgetcontainerid="2ae76bc4-9196-446d-bc4e-02a2aebe5ddb">	
+
+<div class="widget widgetSpacer" id="f091811a-ac1d-4bbf-aca3-e28c09a6e429"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col5" style="" data-widgetcontainerid="e697a975-2e2e-4234-862e-e6fa032e332b">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col5 first last id18ba6768-12cb-4541-b42e-f386a70a3443" style="" data-widgetcontainerid="18ba6768-12cb-4541-b42e-f386a70a3443">	
+    <div data-widget-id="29512fd3-d3db-48c3-a646-dcaaf7aa73e5" data-widget-controller-path="/InfoAdvanced/Widget">
+
+
+
+
+
+	<section id="divInfoAdv29512fd3-d3db-48c3-a646-dcaaf7aa73e5" class="widget widgetInfoAdvanced skin37 widgetOptionSet5 wide" data-modulewidgettype="infoAdv" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-labelledby="header29512fd3-d3db-48c3-a646-dcaaf7aa73e5">
+			<header class="widgetHeader" id="header29512fd3-d3db-48c3-a646-dcaaf7aa73e5">
+		<div class="">
+					<h3 >Contact Us</h3>
+								</div>
+	</header>
+	<div class="widgetBody  cpGrid cpGrid1 ">
+		<div class="row  wide">
+					<div class="col col1 first last">
+						<ol class="pageStyles semanticList">
+
+<li class="InfoAdvanced widgetItem fr-view">
+	<p>Winter Haven City Hall<br>451 Third Street NW<br>Winter Haven, FL 33881<br>Phone: <a href="tel:8632915600">863-291-5600</a></p><p><a href="/RequestTracker.aspx">Report a Concern</a><br><a href="/directory">Staff Directory</a></p>
+</li>						</ol>
+					</div>
+		</div>
+	</div>
+	<div class="widgetFooter">
+
+	</div>
+
+	</section>
+
+
+
+<script type="text/javascript">
+	//Render slideshow if info advacned items contain one.
+	$(document).ready(function (e) {
+		$('#divInfoAdv29512fd3-d3db-48c3-a646-dcaaf7aa73e5 .InfoAdvanced.widgetItem').each(function () {
+			renderSlideshowIfApplicable($(this));		
+		});
+	});
+</script></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col1" style="" data-widgetcontainerid="cc56dde0-8fec-4ae7-9567-dbfb05547393">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col1 first last id77de8ef3-4327-46b5-ac44-98dcc4f5e0f9" style="" data-widgetcontainerid="77de8ef3-4327-46b5-ac44-98dcc4f5e0f9">	
+
+<div class="widget widgetSpacer" id="fa78d6d2-33ad-43ea-a461-ae7b4154633d"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col5" style="" data-widgetcontainerid="7e26f56b-7d02-42e5-aa1e-117ee0f797ec">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col5 first last ided63f803-c804-4dd2-8f2c-570ec12300ff" style="" data-widgetcontainerid="ed63f803-c804-4dd2-8f2c-570ec12300ff">	
+	<div data-widget-id="dc570d4f-c0dc-4709-baab-59f9b06ffacf" data-widget-controller-path="/QuickLinks/Widget">
+
+
+
+
+
+ 
+
+
+	<section id="widgetQuicklinkdc570d4f-c0dc-4709-baab-59f9b06ffacf" class="widget widgetQuickLinks skin37 widgetOptionSet36 narrow" data-modulewidgettype="quickLinks" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-labelledby="quickLinksHeaderdc570d4f-c0dc-4709-baab-59f9b06ffacf">
+			<header class="widgetHeader" id="quickLinksHeaderdc570d4f-c0dc-4709-baab-59f9b06ffacf">
+		<div class="">
+					<h3><a  style="" href="/QuickLinks.aspx?CID=15" >Quick Links</a></h3>
+						</div>
+	</header>
+	<div class="widgetBody cpGrid cpGrid1 ">
+        <div class="row  narrow">
+				<div class="col col1 first last">
+					<ol class="semanticList">
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="https://procurement.opengov.com/portal/winterhavenfl" target="_blank"  aria-label="Bid Postings opens in new window">Bid Postings</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/jobs.aspx" target="_self" >Job Openings</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="https://my.corebook.io/COWH" target="_blank"  aria-label="Brand Guidelines opens in new window">Brand Guidelines</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/Calendar.aspx" target="_self" >Events</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/blog.aspx" target="_self" >News</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/FAQ.aspx" target="_self" >FAQs</a>
+        <div class="widgetMeta"></div>
+    </li>
+					</ol>
+				</div>
+		</div>
+        
+	</div>
+	<div class="widgetFooter">
+	</div>
+	<div class="addItemModal hidden">
+		<div class="url hidden">/QuickLinks.aspx</div>
+	</div>
+
+	</section>
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col1" style="" data-widgetcontainerid="00e18689-5bb2-4b49-abc7-40f6baf7153a">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col1 first last id11ee8aac-9bfa-4051-a77e-e46945f20a44" style="" data-widgetcontainerid="11ee8aac-9bfa-4051-a77e-e46945f20a44">	
+
+<div class="widget widgetSpacer" id="66c0e7a1-eaeb-4b19-80be-975bfa3805a2"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col5 last" style="" data-widgetcontainerid="fee70101-5bc5-4bb2-a2d9-94e5a59622f4">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col5 first last id039306f3-9060-4742-a3e4-12255a4e3f36" style="" data-widgetcontainerid="039306f3-9060-4742-a3e4-12255a4e3f36">	
+	<div data-widget-id="5a3ab4fc-c026-4996-81c0-e9dc9b356f66" data-widget-controller-path="/QuickLinks/Widget">
+
+
+
+
+
+ 
+
+
+	<section id="widgetQuicklink5a3ab4fc-c026-4996-81c0-e9dc9b356f66" class="widget widgetQuickLinks skin37 widgetOptionSet36 narrow" data-modulewidgettype="quickLinks" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-labelledby="quickLinksHeader5a3ab4fc-c026-4996-81c0-e9dc9b356f66">
+			<header class="widgetHeader" id="quickLinksHeader5a3ab4fc-c026-4996-81c0-e9dc9b356f66">
+		<div class="">
+					<h3><a  style="" href="/QuickLinks.aspx?CID=16" >Site Links</a></h3>
+						</div>
+	</header>
+	<div class="widgetBody cpGrid cpGrid1 ">
+        <div class="row  narrow">
+				<div class="col col1 first last">
+					<ol class="semanticList">
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/" target="_self" >Home</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/sitemap" target="_self" >Site Map</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/directory.aspx" target="_self" >Contact Us</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/accessibility" target="_self" >Accessibility</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/copyright" target="_self" >Copyright Notices</a>
+        <div class="widgetMeta"></div>
+    </li>
+
+    <li style="position:relative" class="widgetItem QuickLinks">
+        <a class="widgetDesc widgetQuickLinksLink" href="/privacy" target="_self" >Privacy Policy</a>
+        <div class="widgetMeta"></div>
+    </li>
+					</ol>
+				</div>
+		</div>
+        
+	</div>
+	<div class="widgetFooter">
+	</div>
+	<div class="addItemModal hidden">
+		<div class="url hidden">/QuickLinks.aspx</div>
+	</div>
+
+	</section>
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</div><div data-cpRole="contentContainer" id="poweredByTS">	<div id="cc3d5559b6-f08c-432e-acd5-c0a0fd15e998" data-containerid="3d5559b6-f08c-432e-acd5-c0a0fd15e998" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="40">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col6 first" style="" data-widgetcontainerid="f1d1cfc9-e7da-49f5-a0ae-16e6b406be91">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col6 first last id20dc704a-31d7-45d7-97af-1e3217264fd4" style="" data-widgetcontainerid="20dc704a-31d7-45d7-97af-1e3217264fd4">	
+ 
+	<div data-widget-id='1d041509-68b2-4bfb-a23b-b29610a94b57' data-moduleName="customHtml" id='widgetCustomHtml1d041509-68b2-4bfb-a23b-b29610a94b57' class="widget widgetCustomHtml skin43 narrow" >
+	<div class="widgetBody pageStyles" id="widgetBody1d041509-68b2-4bfb-a23b-b29610a94b57">
+		<div id="customHtml1d041509-68b2-4bfb-a23b-b29610a94b57"><div><!-- ===== Winter Haven • Footer Translate (top-left on dark background) ===== -->
+<section class="wh-translate wh-translate--footer" aria-label="Translate this page">
+  <div class="wh-translate__inner">
+    <div class="wh-translate__label">
+      <svg class="wh-translate__icon" viewbox="0 0 24 24" width="18" height="18" aria-hidden="true">
+        <path d="M12 2a10 10 0 1 0 .001 20.001A10 10 0 0 0 12 2Zm0 2c1.73 0 3.33.55 4.63 1.48-.33.43-.69.86-1.09 1.26A10.9 10.9 0 0 0 13 6.2V8h-2V6.2a9 9 0 0 1-2.54.64c-.4-.4-.76-.83-1.09-1.26A7.98 7.98 0 0 1 12 4Zm-7.74 8c.12-1.27.54-2.45 1.2-3.48.53.63 1.14 1.2 1.82 1.7A10.93 10.93 0 0 0 6.1 12H4.26ZM9 12c.1-.7.27-1.38.5-2H14.5c.23.62.4 1.3.5 2H9Zm8.9 0c-.16.96-.49 1.87-.92 2.72.68.5 1.29 1.06 1.82 1.7.66-1.03 1.08-2.2 1.2-3.48H17.9ZM7.3 16.2c.77.98 1.72 1.78 2.79 2.33V20a8 8 0 0 1-5.83-2.64c.33-.43.69-.86 1.09-1.26.33.04.65.07.98.1l.97.01ZM12 18c.86-.4 1.64-1.07 2.3-2h2.15c-.97 1.3-2.23 2.28-3.7 2.82V18h-.75ZM11 20v-1.48a9.9 9.9 0 0 1-3.44-2.52 25.4 25.4 0 0 1-2.48-.02A8 8 0 0 0 11 20Z"></path>
+      </svg>
+      <span id="wh-translate-label">Translate</span>
+    </div>
+
+    <div id="google_translate_element" aria-labelledby="wh-translate-label"></div>
+
+    <button type="button" class="wh-translate__reset" aria-label="Reset translation" title="Reset to English">
+      Reset
+    </button>
+  </div>
+</section>
+
+<style>
+  /* --- Brand tokens for dark footer --- */
+  :root{
+    --wh-font: "Source Sans Pro", "Source Sans 3", Calibri, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    --wh-text-light: #f8fafc;         /* footer text on dark */
+    --wh-muted: #cbd5e1;              /* secondary text on dark */
+    --wh-primary: #7cc0ff;            /* accent for icon/focus */
+    --wh-btn: #1363df;                /* brand blue for Reset */
+    --wh-btn-text: #ffffff;
+    --wh-border-light: rgba(255,255,255,.25);
+    --wh-radius: 10px;
+  }
+
+  /* Container (inherits the footer's dark bg) */
+  .wh-translate--footer{ padding:12px 16px; }
+  .wh-translate__inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start; /* TOP-LEFT ALIGNMENT */
+    flex-wrap: wrap;
+    text-align: left;
+  }
+
+  .wh-translate__label{
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--wh-font);
+    font-weight: 600; font-size: 14px; letter-spacing: .2px;
+    color: var(--wh-text-light);
+    white-space: nowrap;
+  }
+  .wh-translate__icon{ fill: var(--wh-primary); }
+
+  /* Google dropdown — light control for contrast on dark footer */
+  #google_translate_element .goog-te-gadget{ font-size: 0; } /* hides duplicate "Translate" text */
+  #google_translate_element .goog-te-gadget select,
+  .goog-te-combo{
+    font-family: var(--wh-font) !important;
+    font-size: 14px !important;
+    padding: 6px 10px !important;
+    border: 1px solid var(--wh-border-light) !important;
+    border-radius: var(--wh-radius) !important;
+    background: #ffffff !important;
+    color: #0f172a !important;
+    line-height: 1.2 !important;
+    height: 34px !important;
+    display: inline-block !important;
+    opacity: 1 !important; visibility: visible !important; pointer-events: auto !important;
+  }
+
+  .wh-translate__reset{
+    font-family: var(--wh-font); font-size: 13px; font-weight: 700;
+    padding: 6px 12px; border-radius: var(--wh-radius);
+    border: 1px solid var(--wh-btn);
+    background: var(--wh-btn); color: var(--wh-btn-text);
+    cursor: pointer; transition: transform .04s ease, opacity .15s ease;
+  }
+  .wh-translate__reset:hover{ opacity: .95; }
+  .wh-translate__reset:active{ transform: translateY(1px); }
+
+  /* Make Google’s language menu open above everything */
+  .goog-te-menu-frame{ z-index: 2147483647 !important; }
+  .goog-te-menu2{ max-height: 70vh !important; overflow: auto !important; }
+
+  /* Prevent Google top banner from shifting layout */
+  body .goog-te-banner-frame{ display: none !important; }
+  body{ top: 0 !important; }
+
+  /* A11y focus */
+  .goog-te-combo:focus,
+  .wh-translate__reset:focus{
+    outline: 2px solid var(--wh-primary);
+    outline-offset: 2px;
+  }
+
+  @media (max-width:520px){
+    #google_translate_element .goog-te-gadget select{ width: 100%; }
+  }
+</style>
+
+<script>
+  // Initialize Google Translate
+  function googleTranslateElementInit(){
+    new google.translate.TranslateElement({
+      pageLanguage: 'en',
+      includedLanguages: 'en,es,ht,fr,pt,vi,ru,zh-CN',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+
+  // Reset to English across the site (clears the cookie and reloads)
+  function whResetTranslate(){
+    try{
+      var domain = location.hostname.replace(/^www\./,'');
+      document.cookie = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=.' + domain;
+      document.cookie = 'googtrans=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/';
+      location.reload();
+    }catch(e){ location.reload(); }
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var btn = document.querySelector('.wh-translate__reset');
+    if(btn) btn.addEventListener('click', whResetTranslate);
+  });
+
+  // Load Google Translate script over HTTPS (safe if already present)
+  (function loadGT(){
+    if(window.google && window.google.translate){ googleTranslateElementInit(); return; }
+    var s = document.createElement('script');
+    s.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    s.async = true; document.head.appendChild(s);
+  })();
+</script>
+
+<noscript>
+  <div style="color:#e5e7eb;">
+    <a href="https://translate.google.com/translate?hl=en&u=" rel="nofollow" style="color:#93c5fd;">
+      View this page with Google Translate
+    </a>
+  </div>
+</noscript>
+</div></div>
+	</div>
+	</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col6" style="" data-widgetcontainerid="b36977b2-a63c-415b-9fd2-b904723bce0a">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col6 first last id04873da9-b4c4-4a77-9874-53ab4bf58466" style="" data-widgetcontainerid="04873da9-b4c4-4a77-9874-53ab4bf58466">	
+<div data-widget-id="f8222e10-e602-4100-aa24-4024960c2921" data-widget-controller-path="/GraphicLinks/Widget">
+
+
+
+
+<div id="graphicLinkWidgetf8222e10-e602-4100-aa24-4024960c2921" class="widget widgetGraphicLinks skin55 widgetOptionSet4 wide" data-elementqueryclasses='{"wide-narrow":"min-width:1em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' data-modulewidgettype="graphicLinks">
+	<div class="widgetHeader">
+		<div class="">
+				</div>
+	</div>
+	<div class="widgetBody cpGrid cpGrid6 "> 	
+				<nav class="widgetGraphicLinksNav" aria-label="Graphic links">
+					<div class="row   wide"><!--
+--><div class="col col1 first "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks"><a class="widgetDesc widgetGraphicLinksLink" href="https://www.facebook.com/winterhavenflorida/" target="_blank"  aria-label=" Facebook logo graphic opens in new window"><img src="/ImageRepository/Document?documentID=48" 
+     class="graphicButtonLink" alt=" Facebook logo" 
+     onmouseover="this.src='/ImageRepository/Document?documentID=48'" 
+	onmouseout="this.src='/ImageRepository/Document?documentID=48'"
+     onfocus="this.src='/ImageRepository/Document?documentID=48'" 
+	onblur="this.src='/ImageRepository/Document?documentID=48'"> </a></li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks"><a class="widgetDesc widgetGraphicLinksLink" href="https://twitter.com/mywinterhaven" target="_blank"  aria-label="X Logo graphic opens in new window"><img src="/ImageRepository/Document?documentID=84" 
+     class="graphicButtonLink" alt="X Logo" 
+     onmouseover="this.src='/ImageRepository/Document?documentID=84'" 
+	onmouseout="this.src='/ImageRepository/Document?documentID=84'"
+     onfocus="this.src='/ImageRepository/Document?documentID=84'" 
+	onblur="this.src='/ImageRepository/Document?documentID=84'"> </a></li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks"><a class="widgetDesc widgetGraphicLinksLink" href="https://www.instagram.com/cityofwinterhaven/" target="_blank"  aria-label=" Instagram logo graphic opens in new window"><img src="/ImageRepository/Document?documentID=49" 
+     class="graphicButtonLink" alt=" Instagram logo" 
+     onmouseover="this.src='/ImageRepository/Document?documentID=49'" 
+	onmouseout="this.src='/ImageRepository/Document?documentID=49'"
+     onfocus="this.src='/ImageRepository/Document?documentID=49'" 
+	onblur="this.src='/ImageRepository/Document?documentID=49'"> </a></li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks"><a class="widgetDesc widgetGraphicLinksLink" href="https://www.youtube.com/channel/UCIPu40sAH9fKusJ2Hi4LDmQ" target="_blank"  aria-label=" YouTube logo graphic opens in new window"><img src="/ImageRepository/Document?documentID=51" 
+     class="graphicButtonLink" alt=" YouTube logo" 
+     onmouseover="this.src='/ImageRepository/Document?documentID=51'" 
+	onmouseout="this.src='/ImageRepository/Document?documentID=51'"
+     onfocus="this.src='/ImageRepository/Document?documentID=51'" 
+	onblur="this.src='/ImageRepository/Document?documentID=51'"> </a></li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks"><a class="widgetDesc widgetGraphicLinksLink" href="https://nextdoor.com/city/winter-haven--fl/" target="_blank"  aria-label="Nextdoor logo  graphic opens in new window"><img src="/ImageRepository/Document?documentID=62" 
+     class="graphicButtonLink" alt="Nextdoor logo " 
+     onmouseover="this.src='/ImageRepository/Document?documentID=62'" 
+	onmouseout="this.src='/ImageRepository/Document?documentID=62'"
+     onfocus="this.src='/ImageRepository/Document?documentID=62'" 
+	onblur="this.src='/ImageRepository/Document?documentID=62'"> </a></li><!--
+--></ul></div><!----><div class="col col1  last"><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks"><a class="widgetDesc widgetGraphicLinksLink" href="https://www.linkedin.com/company/city-of-winter-haven" target="_blank"  aria-label="Linkedin logo  graphic opens in new window"><img src="/ImageRepository/Document?documentID=52" 
+     class="graphicButtonLink" alt="Linkedin logo " 
+     onmouseover="this.src='/ImageRepository/Document?documentID=52'" 
+	onmouseout="this.src='/ImageRepository/Document?documentID=52'"
+     onfocus="this.src='/ImageRepository/Document?documentID=52'" 
+	onblur="this.src='/ImageRepository/Document?documentID=52'"> </a></li><!--
+--></ul></div><!--					--></div>
+				</nav>
+	</div>
+	<div class="widgetFooter">
+			</div>
+</div>
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col6" style="" data-widgetcontainerid="b0e47aef-e009-4947-b250-08b38d735895">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col6 first last idd5024f6c-e73b-42fc-b945-2f6cfa2ef73a" style="" data-widgetcontainerid="d5024f6c-e73b-42fc-b945-2f6cfa2ef73a">	
+
+<div class="widget widgetSpacer" id="a41bea32-8b92-4f71-a886-03f2f4d069e3"></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col6 last" style="" data-widgetcontainerid="29d8c55e-6ea0-4003-8569-269ade529dcc">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col6 first last idef1b4cd4-8ff9-420c-8348-ef247aee3fb1" style="" data-widgetcontainerid="ef1b4cd4-8ff9-420c-8348-ef247aee3fb1">	
+ 
+	<div data-widget-id='26e46f56-f3b1-48b5-a08f-e5d720a26263' data-moduleName="customHtml" id='widgetCustomHtml26e46f56-f3b1-48b5-a08f-e5d720a26263' class="widget widgetCustomHtml skin37 narrow" >
+	<div class="widgetBody pageStyles" id="widgetBody26e46f56-f3b1-48b5-a08f-e5d720a26263">
+		<div id="customHtml26e46f56-f3b1-48b5-a08f-e5d720a26263"><div><!-- CP BAR -->
+
+    <style>
+    /* CP icon */
+    .cpBylineIconTS {
+        color: #fff;
+    }
+    /* CP Text */
+    .cpBylineTextTS,
+    .cpBylineTextTS a:link {
+        color: #fff;
+    }
+
+    .cpBylineTS {
+        text-align: right;
+    }
+    
+    .cpBylineIconTS {
+        fill: currentColor;
+        width: 39px;
+        height: 26px;
+        display: inline;
+        vertical-align: middle;
+    }
+    </style>
+
+    <div class="widgetItem cpBylineTS">
+    <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100" class="cpBylineIconTS">
+        <path class="c" d="M73.4,23.2h-19v16.7h19c2.8,0,5,2.2,5,5c0,2.8-2.2,5-5,5h-19v28.4h5.5l11.3-11.7h2.2c11.9,0,21.6-9.7,21.6-21.6C95,33,85.3,23.2,73.4,23.2"></path>
+        <path class="p" d="M45.8,66.5H26.6C14.7,66.5,5,56.8,5,44.9C5,33,14.7,23.2,26.6,23.2h19.1v16.7H26.6c-2.8,0-5,2.2-5,5c0,2.8,2.2,5,5,5h19.1V66.5z"></path>
+    </svg>
+    <span class="cpBylineTextTS">Government Websites by <a href="https://connect.civicplus.com/referral">CivicPlus&reg;</a></span>
+    </div></div></div>
+	</div>
+	</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</div></div></div>
+</footer>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+
+<link href="/745732998.css" rel="stylesheet" type="text/css" />
+
+<div id="SplashMessageWrapper" class="cp-Splash-wrapper">
+	<div role="dialog" aria-labelledby="cp-Splash-title" aria-describedby="editorContentDesc" aria-modal="true" tabindex="-1" id="SplashMessage" class="hidden cp-Splash cp-Splash--modal is-open">
+		<div class="cp-Splash-header">
+			<h2 class="cp-Splash-title" id="cp-Splash-title">Loading</h2>
+			<button class="cp-Splash-Btn cp-Splash-close" aria-label="Close this modal" title="Close this window">
+				<svg id="iconClose" viewBox="0 0 25 25">
+					<polygon style="fill:currentcolor"
+							 points="18.806,6.98 18.075,6.248 12.532,11.792 6.989,6.248 6.257,6.98 11.786,12.508 6.212,18.084 6.943,18.815 12.532,13.224 18.12,18.815 18.851,18.084 13.277,12.508"></polygon>
+				</svg>
+			</button>
+		</div>
+		<div class="cp-Splash-body">
+			<div class="cp-Splash-Prose editorContent fr-view" id="editorContentDesc">
+				<!-- Content from the Froala Editor will go here. -->
+				Loading
+			</div>
+		</div>
+		<div class="cp-Splash-footer">
+			<button class="cp-Splash-Btn cp-Splash-Btn--NoShow">Do Not Show Again</button>
+			<button class="cp-Splash-Btn cp-Splash-Btn--Close">Close</button>
+		</div>
+	</div>
+</div>
+
+<script src="/Assets/Scripts/APIClient.js"></script>
+<script src="/Assets/Mystique/Shared/Scripts/Moment/Moment.min.js"></script>
+<script src="/Assets/Scripts/SplashModal/SplashModalRender.js"></script>
+<script>
+
+		$(document).ready(function () {
+			var filter = {
+				targetId: '',
+				targetType: 0
+			}
+
+			new SplashModalRender().triggerRender(filter);
+		});
+</script>
+
+	
+	
+
+
+
+
+
+
+    <script src="/-978663714.js" type="text/javascript"></script>
+    <!-- Fixed Nav Adjustment -->
+<script>
+  function getValueTS(elem, attr) {
+    var val = elem.css(attr);
+    if (val === undefined) return undefined;
+    var num = parseInt(val, 10);
+    if (num === NaN) return undefined;
+    return num;
+  }
+
+  function clampTS(number, min, max) {
+    return Math.min(Math.max(number, min), max);
+  }
+
+  function isPageEditingTS() {
+    return (
+      $("#doneEditing").length > 0 || // In live edit
+      typeof DesignCenter !== "undefined" // In theme manager
+    );
+  }
+
+  var bgColorRegexTS = new RegExp("rgba\((\d+), (\d+), (\d+), (\d*\.?\d*)\)");
+  function isTransparentTS(elem) {
+    var bg = elem.css('background-color');
+    if (typeof bg !== "string") return false;
+    if (bg === "transparent") return true;
+    if (!bg.startsWith('rgba(')) return false;
+    var matchState = bg.match(bgColorRegexTS);
+    if (!matchState || matchState.length !== 5) return false;
+    var alpha = parseFloat(matchState[4], 10);
+    if (!(alpha >= 0 && alpha < 1)) return false;
+    return true;
+  }
+
+  function iterateLeftpads(cb) {
+    var containersTS = $("[class^='siteWrap'],[class*=' siteWrap']");
+    for (var i = 0; i < containersTS.length; i++) {
+      var containerTS = containersTS[i];
+      // Skip the body container and anything with data-skip-leftpad
+      if (
+        containerTS.id !== "bodyContainerTS" &&
+        containerTS.getAttribute('data-skip-leftpad') === null
+      ) {
+        cb(containerTS);
+      }
+    }
+  }
+
+  function iterateRightpads(cb) {
+    var containersTS = $("[class^='siteWrap'],[class*=' siteWrap']");
+    for (var i = 0; i < containersTS.length; i++) {
+      var containerTS = containersTS[i];
+      // Skip the body container and anything with data-skip-rightpad
+      if (
+        containerTS.id !== "bodyContainerTS" &&
+        containerTS.getAttribute('data-skip-rightpad') === null
+      ) {
+        cb(containerTS);
+      }
+    }
+  }
+
+  var anchor = $("#divToolbars");
+  var bodyContainerTS = $("#bodyContainerTS");
+
+  // Outer banner padding (push banner down)
+  var outerSizingTS = $("#bannerContainerTS");
+  // Inner banner padding (push banner content down) - Transparent header OR on attaching headers
+  var innerSizingTS = $("#bannerSizingTS");
+
+  var forceUnfixClassTS = "forceUnfixTS";
+
+  var fixedTopTS = $(".fixedTopTS");
+  var fixedBottomTS = $(".fixedBottomTS");
+  var fixedLeftTS = $(".fixedLeftTS");
+  var fixedRightTS = $(".fixedRightTS");
+
+  var initialTopTS;
+  var topAttachTS;
+  if (fixedTopTS && fixedTopTS.length === 1) {
+    initialTopTS = getValueTS(fixedTopTS, 'top');
+    var attachment = fixedTopTS.attr('data-attach');
+    if (attachment) topAttachTS = $("#" + attachment);
+    if (!topAttachTS || topAttachTS.length !== 1) topAttachTS = undefined;
+  }
+
+  function resizeAdjustmentTS() {
+    var editing = isPageEditingTS();
+
+    // Fixed top script
+    (function () {
+      if (!fixedTopTS || fixedTopTS.length !== 1 || initialTopTS === undefined) return;
+
+      if (editing) {
+        fixedTopTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedTopTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      var topPosition = fixedTopTS.css('position');
+      if (topPosition === 'fixed') {
+        if (topAttachTS) {
+          scrollAdjustmentTS();
+        } else {
+          var anchorHeight = anchor.outerHeight() - 1;
+          fixedTopTS.css('top', anchorHeight + initialTopTS);
+        }
+      } else {
+        fixedTopTS.css('top', initialTopTS);
+      }
+
+      if (topPosition === 'fixed' || topPosition === 'absolute') {
+        // Bump the banner content down
+        if (isTransparentTS(fixedTopTS)) {
+          innerSizingTS.css('padding-top', initialTopTS + fixedTopTS.outerHeight());
+          outerSizingTS.css('padding-top', '');
+
+          try {
+            window.Pages.onResizeHandlersExecute();
+          } catch (e) { }
+        } else {
+          outerSizingTS.css('padding-top', fixedTopTS.outerHeight() - 1);
+          innerSizingTS.css('padding-top', '');
+        }
+      } else {
+        innerSizingTS.css('padding-top', '');
+        outerSizingTS.css('padding-top', '');
+      }
+    })();
+
+    // Fixed bottom script
+    (function () {
+      if (!fixedBottomTS || fixedBottomTS.length === 0) return;
+
+      // If the widget has gone narrow, force unfix
+      if (editing || fixedBottomTS.outerHeight() > 200) {
+        fixedBottomTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedBottomTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      if (fixedBottomTS.css('position') === 'fixed') {
+        bodyContainerTS.css('padding-bottom', fixedBottomTS.outerHeight());
+      } else {
+        bodyContainerTS.css('padding-bottom', '');
+      }
+    })();
+
+    // Fixed left script
+    (function () {
+      if (!fixedLeftTS || fixedLeftTS.length === 0) return;
+
+      if (editing) {
+        fixedLeftTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedLeftTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      if (fixedLeftTS.css('position') === 'fixed') {
+        var anchorHeight = anchor.outerHeight() - 1;
+        fixedLeftTS.css('top', anchorHeight);
+        var leftBoundingTS = fixedLeftTS[0].getBoundingClientRect();
+        iterateLeftpads(function (containerTS) {
+          var containerBoundingTS = containerTS.getBoundingClientRect();
+          if (containerBoundingTS.left <= leftBoundingTS.right) {
+            $(containerTS).css('padding-left', leftBoundingTS.width + 16);
+          } else {
+            $(containerTS).css('padding-left', '');
+          }
+        });
+      } else {
+        fixedLeftTS.css('top', '');
+        iterateLeftpads(function (containerTS) {
+          $(containerTS).css('padding-left', '');
+        });
+      }
+    })();
+
+    // Fixed right script
+    (function () {
+      if (!fixedRightTS || fixedRightTS.length === 0) return;
+
+      if (editing) {
+        fixedRightTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedRightTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      if (fixedRightTS.css('position') === 'fixed') {
+        var anchorHeight = anchor.outerHeight() - 1;
+        fixedRightTS.css('top', anchorHeight);
+        var rightBoundingTS = fixedRightTS[0].getBoundingClientRect();
+        iterateRightpads(function (containerTS) {
+          var containerBoundingTS = containerTS.getBoundingClientRect();
+          if (containerBoundingTS.right >= rightBoundingTS.left) {
+            $(containerTS).css('padding-right', rightBoundingTS.width + 16);
+          }
+        });
+      } else {
+        fixedRightTS.css('top', '');
+        iterateRightpads(function (containerTS) {
+          $(containerTS).css('padding-right', '');
+        });
+      }
+    })();
+  }
+
+  function scrollAdjustmentTS() {
+    if (!fixedTopTS || fixedTopTS.length !== 1 || !topAttachTS || topAttachTS.length !== 1) return;
+    var topPosition = fixedTopTS.css('position');
+    if (topPosition === 'fixed' || topPosition === 'absolute') {
+      var anchorBounding = anchor[0].getBoundingClientRect();
+      var attachBounding = topAttachTS[0].getBoundingClientRect();
+      var scrollTop = $(window).scrollTop();
+
+      fixedTopTS.css('top', Math.max(anchorBounding.bottom - 1, attachBounding.bottom));
+    } else {
+      fixedTopTS.css('top', initialTopTS);
+    }
+  }
+
+  $(window).load(function () {
+    setTimeout(function () {
+      try {
+        resizeAdjustmentTS();
+      } catch (e) {
+        console.error(e);
+      }
+    }, 350);
+
+    $(window).scroll(function () {
+      try {
+        scrollAdjustmentTS();
+      } catch (e) {
+        console.error(e);
+      }
+    });
+
+    var adjustTimeoutTS;
+    $(window).resize(function () {
+      clearTimeout(adjustTimeoutTS);
+      adjustTimeoutTS = setTimeout(function () {
+        try {
+          resizeAdjustmentTS();
+        } catch (e) {
+          console.error(e);
+        }
+      }, 350);
+    });
+
+    $.when(window.Pages.angularToolbarComplete).done(function () {
+      try {
+        resizeAdjustmentTS();
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  });
+</script>
+<!-- End Fixed Nav Adjustment -->
+
+<script id="citibot-chatscript" type="text/javascript" src="https://webchat-ui.citibot.net/script.js?account_id=67ae51c88727ab099601e0a4"></script>
+
+<script type="text/javascript">!function(){var b=function(){window.__AudioEyeSiteHash = "fb82b197e2d4c7d7c2e8a5f6015f4f0f"; var a=document.createElement("script");a.src="https://wsmcdn.audioeye.com/aem.js";a.type="text/javascript";a.setAttribute("async","");document.getElementsByTagName("body")[0].appendChild(a)};"complete"!==document.readyState?window.addEventListener?window.addEventListener("load",b):window.attachEvent&&window.attachEvent("onload",b):b()}();</script>
+
+<!-- Begin Constant Contact Active Forms -->
+
+<script> var _ctct_m = "8dfe13c96e0934e9b57e13158088be85"; </script>
+
+<script id="signupScript" src="//static.ctctcdn.com/js/signup-form-widget/current/signup-form-widget.min.js" async defer></script>
+
+<!-- End Constant Contact Active Forms -->
+
+
+    <script type="text/javascript">
+        $(function () {
+            document.cookie = "responsiveGhost=0; path=/";
+        });
+        $(window).on("load", function () {
+            $('body').addClass('doneLoading').removeClass('hideContent');
+
+            if ($('#404Content').length > 0)
+                $('div#bodyWrapper').css('padding', '0px');
+        });
+    </script>
+
+    <noscript>
+        <style>
+            body.hideContent {
+                opacity: 1 !important;
+            }
+        </style>
+    </noscript>
+
+        
+<div style="display: none;">
+	<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+
+		<symbol id="iconArrow--left" viewbox="0 0 25 25">
+			<title>Arrow Left</title>
+			<polygon style="fill:currentcolor" points="18.044,25 19.498,23.545 8.409,12.454 19.408,1.455 17.954,0 5.502,12.452"></polygon>
+		</symbol>
+
+		<symbol id="iconArrow--right" viewbox="0 0 25 25">
+			<title>Arrow Right</title>
+			<polygon style="fill:currentcolor" points="6.957,0 5.502,1.455 16.591,12.546 5.592,23.545 7.047,25 19.498,12.548"></polygon>
+		</symbol>
+
+	</svg>
+</div>
+    <script type="text/javascript">loadCSS('//fonts.googleapis.com/css?family=Source+Sans+3:200,500,600,700,800,900,italic,regular|Source+Serif+4:200,200italic,300,300italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic,italic,regular|');</script>
+    
+
+    <div class="hidden activeWidgetSkinComponentsOnPageJson">[]</div>
+        <div style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="iconSlideshowArrowLeft" viewBox="0 0 22.68 40">
+                    <title>Slideshow Left Arrow</title>
+                    <g>
+                        <path style="fill:currentcolor;" d="M20,40a2.67,2.67,0,0,1-1.9-.79L.79,21.9a2.68,2.68,0,0,1,0-3.79L18.1.79a2.68,2.68,0,1,1,3.79,3.79L6.47,20,21.89,35.42A2.68,2.68,0,0,1,20,40Z"></path>
+                    </g>
+                </symbol>
+                <symbol id="iconSlideshowArrowRight" viewBox="0 0 22.68 40">
+                    <title>Slideshow Right Arrow</title>
+                    <g>
+                        <path style="fill:currentcolor;" d="M2.68,0a2.67,2.67,0,0,1,1.9.79L21.89,18.1a2.68,2.68,0,0,1,0,3.79L4.58,39.21A2.68,2.68,0,0,1,.79,35.42L16.21,20,.79,4.58A2.68,2.68,0,0,1,2.68,0Z"></path>
+                    </g>
+                </symbol>
+            </svg>
+        </div>
+    
+	
+
+    <div id="root-picker-outlet"></div>
+</body>
+</html>

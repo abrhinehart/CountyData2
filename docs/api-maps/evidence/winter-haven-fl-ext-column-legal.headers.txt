@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Fri, 17 Apr 2026 22:00:59 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+CF-Ray: 9edeb4a3bcced9c1-MIA
+CF-Cache-Status: DYNAMIC
+Age: 1
+Cache-Control: private,no-cache,no-store,max-age=0,must-revalidate
+x-powered-by: Next.js
+x-nf-request-id: 01KPEQC8SRVGVBF342HNDSXQTP
+Server: cloudflare
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Vary: Accept-Encoding
+cache-status: "Netlify Durable"; fwd=bypass
+cache-status: "Netlify Edge"; fwd=miss
+netlify-vary: cookie=__next_preview_data:presence|__prerender_bypass:presence,query
+x-nf-render-mode: ssr
+ETag: W/"1930-gWbz19nHpyFEv59EiTYjSBcdiyk-df"
+

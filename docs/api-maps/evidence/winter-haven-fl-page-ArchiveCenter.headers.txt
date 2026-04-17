@@ -1,0 +1,25 @@
+HTTP/1.1 302 Found
+Cache-Control: private, s-maxage=600,no-transform
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+Location: /Archive.aspx
+p3p: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: ASP.NET_SessionId=y1zsemk1lcnd1wu4hfrvxtzk; path=/; secure; HttpOnly; SameSite=None
+X-Content-Type-Options: nosniff
+Content-Security-Policy: frame-ancestors 'self' https://*.granicus.com https://platform.civicplus.com https://account.civicplus.com https://analytics.civicplus.com; img-src * data: blob:; worker-src * data: blob: 'unsafe-eval' 'unsafe-inline'; script-src * about: 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; media-src * blob:; font-src * data:; default-src *
+Date: Fri, 17 Apr 2026 21:59:55 GMT
+
+HTTP/1.1 200 OK
+Cache-Control: private, s-maxage=600,no-transform
+Content-Type: text/html; charset=utf-8
+p3p: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: ASP.NET_SessionId=m3gg41nlfboc3zc1griigon0; path=/; secure; HttpOnly; SameSite=None
+X-Content-Type-Options: nosniff
+Content-Security-Policy: frame-ancestors 'self' https://*.granicus.com https://platform.civicplus.com https://account.civicplus.com https://analytics.civicplus.com; img-src * data: blob:; worker-src * data: blob: 'unsafe-eval' 'unsafe-inline'; script-src * about: 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; media-src * blob:; font-src * data:; default-src *
+Date: Fri, 17 Apr 2026 21:59:55 GMT
+Content-Length: 102827
+

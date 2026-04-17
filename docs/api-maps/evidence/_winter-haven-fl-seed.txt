@@ -1,0 +1,36 @@
+Winter Haven, FL — seed & discovered vendor hostnames
+Crawl started: 2026-04-17
+
+Chosen seed (verified 200):
+- https://www.mywinterhaven.com/
+
+Candidates that did NOT resolve (per planner):
+- winterhavenfl.gov
+- ca.winterhaven-fl.gov
+
+Discovered vendor hostnames (all reached 2xx or expected auth gate):
+- www.mywinterhaven.com         CivicPlus CivicEngage (city website)
+- fl-winterhaven.civicplus.com  CivicPlus alt-domain mirror
+- winterhaven-fl.granicus.com   Granicus ViewPublisher (City Commission + Planning Commission)
+- aca-prod.accela.com/COWH      Accela Citizen Access (agency code COWH)  — ACCELA-16 tenant
+- myinspections.mywinterhaven.com/eSuite.Permits/   Tyler New World eSuite (Permits/Inspections)
+- eplans.mywinterhaven.com/     Avolve ProjectDox (ePlans plan review portal)
+- events.mywinterhaven.com/winterhavenfl   Events calendar (Yii2/third-party platform)
+- library.municode.com/fl/winter_haven     Municode Library (Code of Ordinances)
+- cityofwinterhaven.column.us              Column (public legal notices)
+- procurement.opengov.com/portal/winterhavenfl  OpenGov Procurement (403 anon)
+- stories.opengov.com/winterhavenfl            OpenGov Stories (404 on base — likely deep-link only)
+- winter-haven-fl.civilspace.io             Civilspace (community engagement)
+- my.corebook.io/COWH                       Corebook (brand assets)
+- seeclickfix.com/web_portal/SdLPekA3hqCyR5wYB2xDUDHd  SeeClickFix (311)
+- platform.civicplus.com, analytics.civicplus.com, account.civicplus.com  (CP platform CSP frame-ancestors)
+- webchat-ui.citibot.net    Citibot chat widget
+- form.jotform.com          Jotform (one-off forms)
+- www.egovlink.com/public_documents300/winterhaven  eGovLink (legacy document archive)
+
+Notes:
+- Site is CivicPlus CivicEngage (classic numeric-ID URL pattern /{id}/{slug}, ASP.NET_SessionId + CP_IsMobile cookies, title "... • CivicEngage").
+- CivicPlus CSP explicitly allows Granicus + CivicPlus platform subdomains as frame-ancestors.
+- Accela COWH: agency code confirmed via aca-prod.accela.com/COWH 301 redirect.
+- Tyler New World eSuite: NewWorld.eSuite namespace in CSS paths.
+- ProjectDox: <title>ProjectDox Login</title>; served via redirect.pizza edge (X-Powered-By header).

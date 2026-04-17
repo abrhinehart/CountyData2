@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/2.3.2/css/bootstrap.min.css">
+  <script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/2.3.2/js/bootstrap.min.js"></script>
+</head>
+<body style="padding-top:160px">
+  <div class="container">
+    <div class="row">
+      <div class="span6 offset3">
+        <div class="alert alert-error alert-block">
+          <h4>Permission Denied.</h4>
+          <p>
+            Please contact your System Administrator to obtain additional permissions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

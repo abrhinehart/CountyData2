@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Fri, 17 Apr 2026 22:03:10 GMT
+Server: Apache
+Vary: Accept-Encoding
+X-Granicus-Server: 10.3.33.173
+Content-Security-Policy-Report-Only: default-src https: 'unsafe-inline' 'unsafe-eval'; media-src https: blob:; img-src https: blob: data:; worker-src https: blob:; connect-src https: wss:; report-uri /api/metrics/cspreport
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=utf-8
+

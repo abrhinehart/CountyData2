@@ -1,0 +1,28 @@
+HTTP/1.1 302 Found
+Content-Type: text/html; charset=utf-8
+Location: /eSuite.Permits/Errors/Error.aspx?aspxerrorpath=/eSuite.Permits/Search.aspx
+Server: Microsoft-IIS/10.0
+X-UA-Compatible: IE=Edge
+Content-Security-Policy: default-src 'self' *.walkme.com *.duosecurity.com; font-src 'self' data:; style-src 'self' 'unsafe-inline' *.duosecurity.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com *.walkme.com  *.duosecurity.com;
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000
+X-Frame-Options: SAMEORIGIN
+Referrer-Policy: strict-origin
+Date: Fri, 17 Apr 2026 22:01:21 GMT
+Content-Length: 192
+
+HTTP/1.1 200 OK
+Cache-Control: private, no-cache, no-store, must-revalidate
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/10.0
+Set-Cookie: esuite-session=rg0xzck5ymt5gartmbuzgn55; path=/; secure; HttpOnly; SameSite=None
+X-AspNet-Version: 4.0.30319
+X-UA-Compatible: IE=Edge
+Content-Security-Policy: default-src 'self' *.walkme.com *.duosecurity.com; font-src 'self' data:; style-src 'self' 'unsafe-inline' *.duosecurity.com; img-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com *.walkme.com  *.duosecurity.com;
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000
+X-Frame-Options: SAMEORIGIN
+Referrer-Policy: strict-origin
+Date: Fri, 17 Apr 2026 22:01:21 GMT
+Content-Length: 4585
+

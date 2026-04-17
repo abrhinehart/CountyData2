@@ -1,0 +1,318 @@
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en">
+<head>
+    
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+
+    <title>ProjectDox Login</title>
+
+    <link rel="shortcut icon" href="https://winterhaven-fl-us.avolvecloud.com/Media/img/favicon.png?v=9.4.9.943" type="image/png" />
+    <link rel="icon" href="https://winterhaven-fl-us.avolvecloud.com/Media/img/favicon.png?v=9.4.9.943" type="image/png" />
+
+    
+    
+    <link href="https://winterhaven-fl-us.avolvecloud.com/media/css/bundles" rel="stylesheet" />
+
+
+    
+    <script type="text/javascript">
+          window.Globals = {
+  PortalWebUiUrl: 'https://winterhaven-fl-us.avolvecloud.com',
+  PortalWebApiUrl: 'https://winterhaven-fl-us-portalwebapi.avolvecloud.com',
+  SessionTimeout: 240
+  };
+
+    </script>
+
+    
+    
+    <script src="https://winterhaven-fl-us.avolvecloud.com/bundles/external?v=9.4.9.943"></script>
+    <script src="https://winterhaven-fl-us.avolvecloud.com/bundles/externalcommon?v=9.4.9.943"></script>
+    <script src="https://winterhaven-fl-us.avolvecloud.com/bundles/infragistics?v=9.4.9.943"></script>
+
+    
+    <script src="https://winterhaven-fl-us.avolvecloud.com/bundles/jqueryval?v=9.4.9.943"></script>
+    
+
+
+    <script type="text/javascript">
+        // disable backspace to move back in history
+        $(document).keydown(function (e) {
+            if (e.keyCode == 8 && e.target.tagName != 'INPUT' && e.target.tagName != 'TEXTAREA') {
+                e.preventDefault();
+            }
+        });
+        // load infragistic components
+        $.ig.loader({
+            scriptPath: Globals.PortalWebUiUrl + "/Infragistics/js/",
+            cssPath: Globals.PortalWebUiUrl + "/Infragistics/css/",
+            resources: "igDialog, igGrid, igGrid.*",
+            theme: "infragistics"
+        });
+    </script>
+
+    
+    <script src="/Scripts/jquery-mb-browser/jquery.mb.browser.min.js?v=9.4.9.943"></script>
+
+
+<script type="text/javascript">
+        var isRecaptchaForLoginRequired = false;
+        var canSelectServiceScreen = true;
+        var isAzureSSO = false;
+
+        // page allows anonimous access - disable the session check
+        SessionState = new SessionStateClass({ sessionRequired: false });
+
+        // recaptcha is not defined if site key does not exists.
+        var captchaExpired = function (response) {
+            if (isRecaptchaForLoginRequired)
+            {
+                // make sure captcha was loaded
+                if (typeof grecaptcha != 'undefined')
+                    grecaptcha.reset();
+            }
+        };
+
+        var submitLoginForm = function (){
+            $('#login-form [name="RecaptchaResponse"]').val($('#login-form').find("[name='g-recaptcha-response']").val());
+            // check if form is valid and if so then save form
+            if ($("#login-form").valid()) {
+
+                // Standard MVC checkboxes do a hidden form field so make sure to exclude checkboxes from the form elements being collected
+                var data = $('#login-form').find("input,radio,select,textarea").serialize();
+
+                AjaxHelper.StartBlock();
+
+                $.ajax({
+                    type: "POST",
+                    url: Globals.PortalWebApiUrl + '/User/Login',
+                    data: data,
+                    xhrFields: {
+                        withCredentials: true
+                    }
+                })
+               .always(function () {
+                   // remove block just on error.
+                   // if login was successfull, user will be redirected to home page
+                   // and block removing is not needed
+                   //AjaxHelper.EndBlock();
+               })
+               .error(function (xhr, status, error) {
+                   AjaxHelper.EndBlock();
+                   ErrorManager.ErrorHandler(xhr, status, error, this.url);
+                   // captchaExpired reloads the page and should go after ErrorManager.ErrorHandler
+                   captchaExpired();
+               })
+               .success(function (data, textStatus, jqXHR) {
+                   onSuccess(data, textStatus, jqXHR);
+               });
+            }
+        }
+
+        $(function () {
+
+
+            $('#login-button').click(function (evt) {
+                evt.preventDefault();
+
+                submitLoginForm();
+                //var url = '/User/Login';
+                //FormsHelper.SaveForm("login-form", url, onSuccess, false, true);
+            });
+
+            DetectBrowser();
+        });
+
+        function DetectBrowser() {
+            console.log('jQuery.browser', jQuery.browser)
+
+            //var is32Bit = false;
+            //if (navigator.userAgent.indexOf("WOW64") != -1 ||
+            //    navigator.userAgent.indexOf("Win64") != -1 ){
+            //    is32Bit = false;
+            //} else {
+            //   is32Bit = true;
+            //}
+
+            // opera is not oficially supported
+            // IE or Edge in IE mode is not supported
+            if ((jQuery.browser.msie) ||
+                // edge is detected as chrome
+                (jQuery.browser.chrome && jQuery.browser.version < 87) ||
+                // safari is supported starting from 13.1
+                (jQuery.browser.safari && jQuery.browser.version < 13) ||
+                // Firefox is not supported
+                (jQuery.browser.mozilla) ||
+                (jQuery.browser.webkit && jQuery.browser.version < 13) ||
+                (!jQuery.browser.chrome && !jQuery.browser.safari && !jQuery.browser.webkit))
+            {
+                // should be removed so user will not display the form by himself;
+                $(".login-page").remove();
+                $("#browserSupportMessage").show();
+            }
+            else {
+                $(".login-page").show();
+            }
+        }
+
+    function onSuccess(result) {
+            //alert(JSON.stringify(result));
+
+            if (!result.IsConfirmed) {
+                UIUtility.alertWarning('You must confirm your account before log in.');
+                location.href = 'https://winterhaven-fl-us.avolvecloud.com/Login/RequestCode/Winter-Haven-FL?email=' + encodeURIComponent($('#Email').val());
+            }
+            else if (result.SessionID.length > 0) {
+
+                // set cookie and transfer to dashboard
+                CookieManager.SetCookie('SessionIDPortal', result.SessionID);
+
+                // set permanent cookie with user jurisdiction
+                var currentDate = new Date();
+
+                // set cookie with default email
+                CookieManager.SetCookie('EmailCookie_1', result.SecureEmail, new Date(currentDate.getUTCFullYear() + 20, 1, 1, 0, 0, 0, 0));
+
+                CookieManager.SetCookie('PortalJurisdiction', 'Winter-Haven-FL', new Date(currentDate.getUTCFullYear() + 100, 1, 1, 0, 0, 0, 0));
+
+                if (canSelectServiceScreen)
+                    location.href = 'https://winterhaven-fl-us.avolvecloud.com' + '/Home/ServiceScreen' + '?t=3eda37a8-f720-43e4-a23f-1604e23a1733';
+                else
+                    location.href = 'https://winterhaven-fl-us.avolvecloud.com' + '/Home/Index' + '?t=3eda37a8-f720-43e4-a23f-1604e23a1733';
+            }
+            else {
+                UIUtility.alertWarning('Login failed for unknown reason');
+                AjaxHelper.EndBlock();
+                captchaExpired();
+            }
+        }
+</script>
+
+
+</head>
+<body id="body" class="
+    no-header-body
+">
+    <div class="header">
+        <div class="header-logo">
+            <a href="/Login/Index/Winter-Haven-FL" class='logo logo-common' style="background: url(https://whflsaavolveprod.blob.core.windows.net/oas/Uploads/1/bg_logo_header_common.png?sv=2019-07-07&amp;sr=b&amp;sig=iMBWu171ZNYuh6l2BkNply7qnlQhY5uicfrIdWzHa4A%3D&amp;st=2026-04-17T21%3A55%3A44Z&amp;se=2026-04-17T23%3A00%3A44Z&amp;sp=r&amp;t=305649741f2147a8b76012b3147e01da) 0 0 no-repeat;"></a>
+        </div>
+    </div>
+    <div class="details-header">
+        <div class="container">
+            <div class="details">
+                <div class="details-left ">
+                    
+    <h1>Welcome to the City of Winter Haven Portal</h1>
+
+                </div>
+                <div class="details-right">
+                    <span id="date-container" class="txt-sm">
+                        April 17, 2026
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="content-pane content-margin floating-pane">
+                
+
+
+
+
+<div class="column-left login-page" style="display:none;">
+    <div class="pane-box-form">
+        <div class="box-form-content">
+            <h2 class="txt-primary">
+                    Login
+            </h2>
+
+            
+            <form action="javascript:submitLoginForm()" id="login-form" method="post" novalidate="novalidate" class="mg-lrg-top" autocomplete="off">
+                <input name="__RequestVerificationToken" type="hidden" value="FUxX1NPamtgeZnrCtkgfP0KT3r1PeokzZs98aYytFK68mz9L7sNCq24PH7Fd4IFV5cCFUHqU0atVhd4oSsr3CfgrwCk1" />
+
+                <input type="hidden" id="DefaultJurisdictionID" name="DefaultJurisdictionID" value="1">
+
+                <div class="form-row">
+                    <div class="form-item-title"><label for="Email">E-mail:</label></div>
+                    <div class="form-item-content">
+                        <input class="form-item item-med" data-val="true" data-val-length="The field Email must be a string with a maximum length of 150." data-val-length-max="150" data-val-regex="Please enter a valid email address" data-val-regex-pattern="^[^\s@\+]+@[^\s@]+\.[^\s@]+$" data-val-required="The Email field is required." id="Email" name="Email" required="" type="email" value="" />
+                        <br />
+                        <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-item-title"><label for="Password">Password:</label></div>
+                    <div class="form-item-content">
+                        <input class="form-item item-med" data-val="true" data-val-length="The field Password must be a string with a maximum length of 250." data-val-length-max="250" data-val-required="The Password field is required." id="Password" name="Password" required="" type="password" />
+                        <br />
+                        <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
+                    </div>
+                </div>
+                <div class="form-row form-actions">
+                    <div class="form-item-content">
+                        <input type="submit" id="login-button" class="btn-custom btn-sm" value="Login" />
+                    </div>
+                    <div class="form-item-content mg-sm-top"><a href="/Login/ForgotPassword/Winter-Haven-FL" class="">Forgot password?</a></div>
+                </div>
+            </form>
+        </div>
+        <div class="box-form-content">
+            <p><p>You need an account to access your projects. Contact the Jurisdiction if you don't have an account login.</p></p>
+                <div class="mg-lrg-top txt-center">
+                    <a class="btn-custom btn-sm" href="/Profile/Add/Winter-Haven-FL">Create Account</a>
+                </div>
+        </div>
+    </div>
+</div>
+<div class="column-right login-page" style="display:none;">
+    <div class="pane-info">
+        <div><p><span style="font-family: Verdana; font-size: large; font-weight: 700; color: red;">Welcome to ePlans / projectDox&nbsp;</span></p><p><span style="font-family: Verdana;">For Information on using the site access our "Watch Now" video links within the site and the videos below for information.</span></p><!--<p><strong style="font-family: Verdana;">VIDEO SERIES</strong><br></p><p></p><span style="font-family: Verdana;">
+
+<a href="https://player.vimeo.com/video/845963248" target="_blank">GETTING STARTED</a><a>||</a><a href="https://player.vimeo.com/video/841928435" target="_blank">ACCEPTING A TASK</a><a>||</a><a href="https://player.vimeo.com/video/841928631" target="_blank">DOWNLOADING APPROVED PLANS</a><a> <br><br></a></span><a> -->
+
+<span style="font-family: Verdana; font-size: large; font-weight: 700; background-color: rgb(255, 255, 255);">&nbsp;</span><br>
+<br><span style="font-weight: bold;"><br></span><div>IMPORTANT - PLEASE READ CAREFULLY THE TERMS OF USE BELOW. BY USING YOUR E-MAIL ADDRESS AND PASSWORD TO ACCESS PROJECTDOX INFORMATION EXCHANGE SITE, YOU INDICATE YOUR ACCEPTANCE OF THE TERMS AND CONDITIONS OF THIS AGREEMENT.<p></p><p>&nbsp;</p><p>These Project Information Exchange Terms of Use ("Agreement") constitutes a legal and binding agreement between The City of Project Dox ("City") and the person or legal entity ("User") who has requested access to City's Project Information Exchange ProjectDox Site ("Site") to facilitate certain aspects of City's permitting and regulatory process for a specific project ("Project").</p><p>&nbsp;</p><p>By selecting the "Login" button below, or by accessing or using the Site, User and User's employees, consultants, contractors, and other parties who access the Site using User's password agrees to enter into this Agreement and to be bound by and comply with all of the terms and conditions set forth herein. If you do not agree to all of the terms and conditions of this Agreement, (A) do not use or access the Site, and (B) select the "I REJECT" button below.</p><p>&nbsp;</p><p>1.&nbsp; &nbsp; &nbsp; Grant of License.</p><p>&nbsp;</p><p>City grants User a non-exclusive, non-transferable royalty-free license to use the Site solely for purposes relating to the City's permitting of the Project.&nbsp; As a condition of the license grant, User agrees that it shall not copy, reverse engineer, modify, create derivative works of, publicly display, publicly perform, compile, run or execute, demonstrate, disclose, distribute, or otherwise use the Site, except in connection with the specific purpose set forth in this Paragraph 1.</p><p>&nbsp;</p><p>2.&nbsp; &nbsp; &nbsp; Termination.</p><p>&nbsp;</p><p>This license shall terminate (a) upon the completion by User of its application submitted for the permitting of the Project or (b) the sooner termination of any agreement between User and any person or entity who may have employed the User with respect to the Project ("Owner"), or (c) upon the giving of notice by City that this license is terminated. Such notice of termination may be given at any time in the event that (d) the application for the construction of the Project is withdrawn or otherwise terminated, (e) the City receives notice that the authorization for User to access the Site for purposes related to the Project has been terminated or suspended, (f) User fails to pay any applicable fees in connection with accessing the Site, or (g) if User violates the terms of this Agreement. After termination, User will be denied access to the Site. Notice to the User shall not be required prior to termination. City may also terminate User's right to use the Site in conjunction with enforcement efforts related to other aspect of the Project, or any part of the lot or parcel where the Project is located including, without limitation, aspects of the Project which are not directly related to the purposes set forth in Paragraph 1.</p><p>&nbsp;</p><p>&nbsp;</p><p>3.&nbsp; &nbsp; &nbsp; Suspension.</p><p>&nbsp;</p><p>City may suspend User's right to use the Site at any time when it has the right to terminate this Agreement as provided in the preceding paragraph and when permitted under Paragraph 7.A of this Agreement or when City has reason to believe that an event of termination has occurred. Notice to User shall not be required prior to suspension. City may also suspend User's right to use the Site in conjunction with enforcement efforts related to other aspects of the Project or any part of the lot or parcel where the Project is located, including, without limitation, aspects of the Project which are not directly related to the purposes set forth in Paragraph 1.</p><p>&nbsp;</p><p>4.&nbsp; &nbsp; &nbsp; Retained Rights of City.</p><p>&nbsp;</p><p>Other than the license granted hereby, City retains all right, title and interest in and to the Site. User may not transfer or sub-license the Site to any other person, except that User may permit the use of the Site by its employees who have a need to utilize the same in order to perform services for the Project. User will require its employees to maintain the confidentiality of the Site, and to abide by the terms of this Agreement.</p><p>&nbsp;</p><p>5.&nbsp; &nbsp; &nbsp; Confidentiality Obligations.</p><p>&nbsp;</p><p>The Site is proprietary to City and confidential subject to Florida law. User shall hold the Site and all access thereto in strict confidence, and shall protect the Site and access thereto using the same degree of care that User employs for its own confidential information, but not less than a reasonable degree of care. Except as expressly permitted by this Agreement, User shall not disclose the Site or any part thereof or its access rights thereto, to a third party. User agrees that any use of the Site not strictly in conformity with this Agreement will cause irreparable harm to City that cannot be remedied by an award of damages or other legal remedy. Accordingly, User agrees that in the event of any infringement or threatened infringement of City's rights under this Agreement, City will be entitled to injunctive relief in addition to damages.</p><p>&nbsp;</p><p>6.&nbsp; &nbsp; &nbsp; Disclaimer of Warranties.</p><p>&nbsp;</p><p>THE SITE IS PROVIDED "AS IS" AND CITY, INCLUDING, WITHOUT LIMITATION, ITS</p><p>ELECTED AND APPOINTED OFFICIALS, OFFICERS, EMPLOYEES, AND ATTORNEYS, AND ITS CONSULTANTS MAKE NO EXPRESS OR IMPLIED REPRESENTATIONS OR WARRANTIES OF ANY KIND WHATSOEVER, INCLUDING WITHOUT LIMITATION, (I) REGARDING THE USABILITY, SUITABILITY, CONDITION, OPERATION OR ACCURACY OF THE SITE, (II) THAT ACCESS TO OR USE OF THE CONTENT OF SITE WILL BE AVAILABLE, TIMELY, UNINTERRUPTED OR ERROR-FREE, OR (III) THAT THE CONTENT AND SITE WILL BE FREE OF VIRUSES, WORMS, TROJAN HORSES OR OTHER CODES THAT MANIFEST CONTAMINATING OR DESTRUCTIVE PROPERTIES. CITY, INCLUDING, WITHOUT LIMITATION, ITS ELECTED AND APPOINTED OFFICIALS, OFFICERS, EMPLOYEES, AND ATTORNEYS,&nbsp; AND ITS CONSULTANTS SPECIFICALLY DISCLAIM ALL WARRANTIES WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, WITHOUT LIMITATION, ALL WARRANTIES OF MERCHANTABILITY, TITLE, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, COMPATIBILITY, SECURITY OR ACCURACY AND USERS' USE OF THE SITE IS AT ITS OWN RISK. USER ASSUMES FULL RESPONSIBILITY AND RISK OF LOSS RESULTING FROM USE OR INABILITY TO USE THE SITE OR ITS CONTENT.</p><p>&nbsp;</p><p>7.&nbsp; &nbsp; &nbsp; Infringement; Limitation of Liability; Indemnification</p><p>&nbsp;</p><p>A.&nbsp; &nbsp; &nbsp; If any portion of, or functionality implemented by the Site becomes the subject of a claim or threatened claim of infringement ("Affected Materials"), City may, in its unrestricted discretion, suspend User's rights hereunder to the Affected Materials. Such suspension of rights will be effective immediately upon City's giving of notice of suspension. Such notice may be given at the time that User seeks to access the Affected Materials and no individual notice to the User is required.</p><p>&nbsp;</p><p>B.&nbsp; &nbsp; &nbsp; IN NO EVENT WILL CITY, INCLUDING, WITHOUT LIMITATION, ITS ELECTED</p><p>AND APPOINTED OFFICIALS, OFFICERS EMPLOYEES, AND ATTORNEYS, OR ITS CONSULTANTS BE LIABLE FOR ANY DIRECT, INDIRECT, PUNITIVE, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES IN CONNECTION WITH OR ARISING OUT OF THIS LICENSE (INCLUDING, WITHOUT LIMITATION, LOSS OF PROFITS, USE, DATA, OR ECONOMIC ADVANTAGE OF ANY SORT), HOWEVER IT ARISES AND ON ANY THEORY OF LIABILITY (INCLUDING NEGLIGENCE), WHETHER OR NOT CITY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. USER AGREES THAT LIABILITY UNDER THIS SECTION SHALL BE SO LIMITED AND EXCLUDED, NOTWITHSTANDING FAILURE OF THE ESSENTIAL PURPOSE OF ANY REMEDY. ANY REMEDY TO WHICH USER MAY BE ENTITLED OUTSIDE OF THE LIMITATION OF LIABILITY STATED HEREIN UNDER ANY THEORY OF LAW OR EQUITY IS SPECIFICALLY WAIVED.</p><p>&nbsp;</p><p>C.&nbsp; &nbsp; &nbsp; USER AGREES TO DEFEND, INDEMNIFY AND HOLD CITY, INCLUDING, WITHOUT LIMITATION, ITS ELECTED AND APPOINTED OFFICIALS, OFFICERS EMPLOYEES, ATTORNEYS CONSULTANTS AND AGENTS HARMLESS FROM AND AGAINST ALL COSTS, CLAIMS, LOSSES, TAXES, LIABILITY AND EXPENSES, INCLUDING ATTORNEYS' FEES (COLLECTIVELY, "CLAIMS"), ARISING OUT OF THE USE OF THE SITE. THIS OBLIGATION INCLUDES, WITHOUT LIMITATION, ANY CLAIMS ARISING OUT OF OR CONNECTED WITH THE USE OF THE SITE OTHERWISE THAN AS PERMITTED BY THE TERMS OF THIS AGREEMENT.</p><p><br></p><p>D.<span style="white-space: pre;">	</span>NOTHING HEREIN IS DEEMED TO BE A WAIVER OF THE CITY?S SOVEREIGN IMMUNITY AND/OR THE LIMITS OF LIABILITY SET FORTH IN ?768.28 OF THE FLORIDA STATUTES REGARDLESS OF WHETHER ANY SUCH OLBIGATIONS ARE BASED IN TORT, CONTRACT, STATUTE, STRICT LIABILITY, AND NEGLIGENCE, PRODUCT LIABILITY OR OTHERWISE.</p><p><br></p><p>&nbsp;</p><p>8.&nbsp; &nbsp; &nbsp; Miscellaneous.</p><p>&nbsp;</p><p>A.&nbsp; &nbsp; &nbsp; User acknowledges and agrees a) that the use of the Site is not a substitute for professional judgment; b) that the use of the Site does not relieve the User from applying the appropriate standard of care and skill relevant to the use of the Site and its contents; c) that the&nbsp; Site is only to be used as a tool to assist the User in connection with the Project; and d) that the User is solely responsible for verifying the accuracy of all results created with the use of the Site. No approval of any type which is granted to the User with respect to the Project, which is in any way connected with the use of this Site, shall be construed to allow the violation of any City or county ordinance, state or federal law, or administrative regulation of any governmental agency. No waiver, modification, variance or any other type of change however described, to any City or county ordinance, state or federal law, administrative regulation of any governmental agency can be applied for, requested or granted through the Use of this Site.</p><p><br></p><p>B.&nbsp; &nbsp; &nbsp; Governing Law.&nbsp; This Agreement is governed by the laws of the United States and the State of Florida without giving effect to Florida's choice of law rules. In no event shall this License be construed against the drafter.</p><p>C.&nbsp; &nbsp; &nbsp; No Assignment.&nbsp; User may not assign or otherwise transfer this Agreement or any rights hereunder.</p><p>D.&nbsp; &nbsp; &nbsp; Export Control.&nbsp; User agrees to comply with the U.S. export controls and trade laws of other countries that apply to the Site.</p><p>E.&nbsp; &nbsp; &nbsp; Severability.&nbsp; If any provision of this Agreement is held unenforceable; such provision shall be reformed to the extent necessary to make it enforceable unless to do so would defeat the intent of the parties in which case, this Agreement shall terminate.</p><p>F.&nbsp; &nbsp; &nbsp; This Agreement represents the entire agreement of the parties concerning User's use of the Site and supersedes all other prior or contemporaneous communications, representations, discussions or negotiations whether written or oral concerning use of the Site. No City elected official, officer, employee, attorney, agent or consultant is authorized to make changes to the terms of this Agreement.</p><p>G.&nbsp; &nbsp; &nbsp; City shall have the right to perform weekly maintenance on the Site every Sunday, 6 am to 10 am Central Time, without prior notification to User.</p><p>H.<span style="white-space: pre;">	</span>Venue.&nbsp; Venue for any actions arising out of this Agreement shall be exclusively in the State Courts in and for Polk County, Florida.</p><p><br></p><p><br></p><p><br></p></div></div>
+    </div>
+</div>
+
+<div id="browserSupportMessage" style="display:none;">
+    <p>Only the following Browsers are supported: latest versions of Chrome, Edge, and Safari. If you are using a browser other than these listed, you will need to upgrade your browser to a supported version to access and use this site.<br></p>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="container">
+            
+
+            
+            <a href="#" class="logo"></a>
+        </div>
+    </div>
+    <div id="hintMessage">
+        <span class="hint-message-content">
+            <span id="hintText"></span>
+        </span>
+    </div>
+    <div class="modal-block"></div>
+
+    <div id="dialogMessageRemote" style="display:none">
+        <iframe id="dialogRemote" src="https://winterhaven-fl-us.avolvecloud.com/blank.htm" frameborder="0"></iframe>
+    </div>
+
+    
+</body>
+</html>

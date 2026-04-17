@@ -1,0 +1,6 @@
+<div class="header-image fit-image center mobile-hide" role="img" aria-label="Cover image" style="background-image: url(&#039;/static-icons/with-cover.png&#039;);"></div><div class="header-image fit-image mobile-show" style="background-image: url(&#039;/static-icons/with-cover.png&#039;);"></div><section class="section-page-main">
+    <div class="">
+        <img width="100%" src="/static-icons/cover404.png" alt="Page not found" />
+        <h1 style="text-align: center;"> Page not found</h1>
+    </div>
+</section>
