@@ -19,8 +19,15 @@ logger = logging.getLogger("commission_radar.scrapers.novusagenda")
 USER_AGENT = "CommissionRadar/1.0"
 REQUEST_DELAY = 1.0
 
-# Pattern to extract MeetingID from links
-MEETING_LINK_RE = re.compile(r"MeetingView\.aspx\?MeetingID=(\d+)", re.IGNORECASE)
+# Pattern to extract MeetingID from links. Tenants vary: some (e.g. Bay County)
+# link meetings via MeetingView.aspx; others (e.g. North Miami Beach) anchor
+# directly to DisplayAgendaPDF.ashx. Both expose MeetingID and both tenants
+# accept the MeetingView.aspx URL the scraper builds for download, so we
+# match either href pattern here.
+MEETING_LINK_RE = re.compile(
+    r"(?:MeetingView\.aspx|DisplayAgendaPDF\.ashx)\?MeetingID=(\d+)",
+    re.IGNORECASE,
+)
 
 
 class NovusAgendaScraper(PlatformScraper):
