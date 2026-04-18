@@ -1,0 +1,1 @@
+{"code":"rest_invalid_param","message":"Invalid parameter(s): per_page","data":{"status":400,"params":{"per_page":"per_page must be between 1 (inclusive) and 100 (inclusive)"},"details":{"per_page":{"code":"rest_out_of_bounds","message":"per_page must be between 1 (inclusive) and 100 (inclusive)","data":null}}}}

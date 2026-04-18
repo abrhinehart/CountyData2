@@ -1,0 +1,21 @@
+{
+  "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/tags/",
+  "total": 1,
+  "total_pages": 1,
+  "tags": [
+    {
+      "id": 28,
+      "count": 1,
+      "description": "",
+      "name": "Office Closed",
+      "slug": "office-closed",
+      "taxonomy": "post_tag",
+      "meta": [],
+      "url": "https://townofdundee.com/tag/office-closed/",
+      "urls": {
+        "self": "https://townofdundee.com/wp-json/tribe/events/v1/tags/28",
+        "collection": "https://townofdundee.com/wp-json/tribe/events/v1/tags"
+      }
+    }
+  ]
+}

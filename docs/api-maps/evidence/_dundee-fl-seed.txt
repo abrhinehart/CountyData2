@@ -1,0 +1,2 @@
+seed: https://townofdundee.com/
+known vendors from Planner: WordPress (wp-json exposed), The Events Calendar (Tribe), Apache, PHP 7.4.33, Municode Meetings (external), Municode Library clientId=12506 (external)

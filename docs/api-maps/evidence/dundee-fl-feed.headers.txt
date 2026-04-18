@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 04:15:24 GMT
+Server: Apache
+X-Powered-By: PHP/7.4.33
+X-UA-Compatible: IE=edge
+P3P: CP="ALL DSP NID CURa ADMa DEVa HISa OTPa OUR NOR NAV DEM"
+Link: <https://townofdundee.com/wp-json/>; rel="https://api.w.org/"
+X-TEC-API-VERSION: v1
+X-TEC-API-ROOT: https://townofdundee.com/wp-json/tribe/events/v1/
+X-TEC-API-ORIGIN: https://townofdundee.com
+Last-Modified: Thu, 16 Apr 2026 16:54:00 GMT
+ETag: "a98f69c5176d1c655041ac779f630661"
+Transfer-Encoding: chunked
+Content-Type: application/rss+xml; charset=UTF-8
+

@@ -1,0 +1,66 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Town of Dundee, Florida - ECPv6.12.0.1//NONSGML v1.0//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Town of Dundee, Florida
+X-ORIGINAL-URL:https://townofdundee.com
+X-WR-CALDESC:Events for Town of Dundee, Florida
+REFRESH-INTERVAL;VALUE=DURATION:PT1H
+X-Robots-Tag:noindex
+X-PUBLISHED-TTL:PT1H
+BEGIN:VTIMEZONE
+TZID:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:20260308T070000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:20261101T060000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20260418T090000
+DTEND;TZID=America/New_York:20260418T120000
+DTSTAMP:20260418T001506
+CREATED:20260303T164439Z
+LAST-MODIFIED:20260303T164439Z
+UID:10484-1776502800-1776513600@townofdundee.com
+SUMMARY:Town Wide Clean-Up
+DESCRIPTION:We’re looking for awesome volunteers (families welcome!) to help with garbage collection routes during our upcoming Town Wide Cleanup Day. Let’s work together to keep our town shining! \nVolunteers will assist with designated cleanup routes throughout town. It’s a fun\, family-friendly way to give back and make a visible difference in our community. \nTo volunteer\, please contact:Melissa Glogowski (863) 438-8330 ext. 271 MGlogowski@townofdundee.com \nFree Disposal Available\nDumpsters will be available at select locations around town for residents to bring household garbage and large items for free disposal. \nWe hope to see you there! \n \nTown Wide Clean-Up
+URL:https://townofdundee.com/event/town-wide-clean-up/
+LOCATION:FL
+CATEGORIES:Festivals/Celebrations
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20260421T183000
+DTEND;TZID=America/New_York:20260421T183000
+DTSTAMP:20260418T001506
+CREATED:20251120T133813Z
+LAST-MODIFIED:20260312T185849Z
+UID:10086-1776796200-1776796200@townofdundee.com
+SUMMARY:Town Commission Meeting
+DESCRIPTION:The Town of Dundee has a Commission-Manager Form of government.  The Commission-Manager form of government combines the political leadership of elected officials in the form of a Town Commission with the managerial experience of an appointed local government manager.  The Town Commission appoints the Town Manager\, who in turn appoints and manages all other Town department staff. \nThe qualified voters of the Town of Dundee elect the Mayor and Town Commissioners at-large\, meaning they represent all of the citizens in Dundee.  The Mayor and Town Commissioners hold office for four-year terms. \nThe Dundee Town Commission meets the second First Tuesday of each month at 6:30 p.m. at the Town Hall Commission Chambers\, located at 202 East Main Street\, Dundee\, Florida. \nMeeting times\, dates\, and agendas are subject to change.  For current meeting information\, please check the website calendar or contact the Town Clerk at 863-438-8330 ext. 258.
+URL:https://townofdundee.com/event/town-commission-meeting-77/
+LOCATION:Town Hall Commission Chambers\, 202 East Main Street\, Dundee\, FL\, 33838\, United States
+CATEGORIES:Government Meeting
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20260428T130000
+DTEND;TZID=America/New_York:20260428T130000
+DTSTAMP:20260418T001506
+CREATED:20260109T184928Z
+LAST-MODIFIED:20260109T184928Z
+UID:10226-1777381200-1777381200@townofdundee.com
+SUMMARY:Special Magistrate Hearing for Code Enforcement
+DESCRIPTION:
+URL:https://townofdundee.com/event/special-magistrate-hearing-for-code-enforcement-38/
+LOCATION:Town Hall Commission Chambers\, 202 East Main Street\, Dundee\, FL\, 33838\, United States
+CATEGORIES:Government Meeting
+END:VEVENT
+END:VCALENDAR

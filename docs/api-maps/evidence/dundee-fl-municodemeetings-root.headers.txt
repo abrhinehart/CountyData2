@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+date: Sat, 18 Apr 2026 04:15:49 GMT
+x-frame-options: SAMEORIGIN
+strict-transport-security: max-age=600
+content-language: en
+x-content-type-options: nosniff
+cache-control: public, max-age=86400
+vary: Cookie,Accept-Encoding
+last-modified: Sat, 18 Apr 2026 04:15:49 GMT
+x-sid: AS3E1D301
+content-type: text/html; charset=utf-8
+x-cache-original-ttl: 86400s
+etag: W/"1776485749-1"
+x-backend-age: 0
+age: 0
+expires: Sat, 18 Apr 2026 04:35:50 GMT
+x-cache: uncached
+x-full-url: dundee-fl.municodemeetings.com/
+x-rpid: RP3E1D600
+accept-ranges: bytes
+transfer-encoding: chunked
+cacheid: 4
+set-cookie: HAPersist=d-ssle1a1-pa2-rpe1d1; path=/
+cache-control: private
+connection: close
+

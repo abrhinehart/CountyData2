@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 04:12:14 GMT
+Server: Apache
+X-Powered-By: PHP/7.4.33
+X-UA-Compatible: IE=edge
+X-Robots-Tag: noindex
+X-Content-Type-Options: nosniff
+Access-Control-Expose-Headers: X-WP-Total, X-WP-TotalPages, Link
+Access-Control-Allow-Headers: Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type
+X-WP-Total: 49
+X-WP-TotalPages: 10
+Link: <https://townofdundee.com/wp-json/wp/v2/tribe_venue?per_page=5&page=2>; rel="next"
+Allow: GET
+Vary: Origin
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+

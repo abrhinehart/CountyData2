@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 04:11:00 GMT
+Server: Apache
+X-Powered-By: PHP/7.4.33
+X-UA-Compatible: IE=edge
+P3P: CP="ALL DSP NID CURa ADMa DEVa HISa OTPa OUR NOR NAV DEM"
+Transfer-Encoding: chunked
+Content-Type: application/xml; charset=UTF-8
+

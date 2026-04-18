@@ -1,0 +1,578 @@
+{
+  "events": [
+    {
+      "id": 10484,
+      "global_id": "townofdundee.com?id=10484",
+      "global_id_lineage": [
+        "townofdundee.com?id=10484"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2026-03-03 11:44:39",
+      "date_utc": "2026-03-03 16:44:39",
+      "modified": "2026-03-03 11:44:39",
+      "modified_utc": "2026-03-03 16:44:39",
+      "url": "https://townofdundee.com/event/town-wide-clean-up/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10484",
+      "title": "Town Wide Clean-Up",
+      "description": "<p data-start=\"112\" data-end=\"300\">We\u2019re looking for awesome volunteers (families welcome!) to help with garbage collection routes during our upcoming <strong data-start=\"228\" data-end=\"253\">Town Wide Cleanup Day</strong>. Let\u2019s work together to keep our town shining!</p>\n<p data-start=\"302\" data-end=\"465\">Volunteers will assist with designated cleanup routes throughout town. It\u2019s a fun, family-friendly way to give back and make a visible difference in our community.</p>\n<p data-start=\"467\" data-end=\"584\"><strong data-start=\"467\" data-end=\"500\">To volunteer, please contact:</strong><br data-start=\"500\" data-end=\"503\" />Melissa Glogowski<br data-start=\"520\" data-end=\"523\" /> (863) 438-8330 ext. 271<br data-start=\"549\" data-end=\"552\" /> <a class=\"decorated-link cursor-pointer\" rel=\"noopener\" data-start=\"555\" data-end=\"582\">MGlogowski@townofdundee.com</a></p>\n<h3 data-start=\"586\" data-end=\"615\">Free Disposal Available</h3>\n<p data-start=\"616\" data-end=\"751\">Dumpsters will be available at select locations around town for residents to bring household garbage and large items for free disposal.</p>\n<p data-start=\"753\" data-end=\"778\" data-is-last-node=\"\" data-is-only-node=\"\">We hope to see you there!</p>\n<p style=\"text-align: center;\"><a href=\"https://townofdundee.com/event/town-wide-clean-up/arbor-day-flyer-4-18-2026-3/\" rel=\"attachment wp-att-10485\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone  wp-image-10485\" src=\"https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1-232x300.jpg\" alt=\"Flyer for the Dundee Tree Board\u2019s \u201cCelebrate Arbor Day! Town-Wide Cleanup  &amp; Dumpster Day\u201d event. The flyer features green and brown text with a tree graphic in the center and a green dumpster image on the right. It lists the event details as Saturday, April 18, 2026, from 9:00 a.m. to 12:00 p.m. Join the Cleanup Crew! We\u2019re looking for awesome volunteers (families welcome!) to help with garbage collection routes during our Town Wide Cleanup Day. Let\u2019s work together to keep our town shining! To Volunteer contact Melissa at (863) 438-8330 ext. 271 or MGlogowski@townofdundee.com\nDumpster locations include: \u2022 Henderson Park \u2013 413 Martin Luther King Street (Misc. Trash/Bulk) \u2022 Lake Marie \u2013 Scenic Hwy (between the walking trail and Church on the Hill) (Misc. Trash/Bulk &amp; Tires) \u2022 Town Hall \u2013 202 E. Main Street, back parking lot (Misc. Trash/Bulk &amp; Electronics) \u2022 Public Works Barn \u2013 1500 Race Road (Appliances) Accepted items include construction materials, appliances (with freon and doors removed), air conditioners (freon removed), miscellaneous household garbage (no food), tires (rims removed), electronics (batteries removed), and garage items. Refused items include paints, concrete, household chemicals, batteries, vehicle fluids, shingles, asbestos, and car parts. Sponsors listed at the bottom are Keep Polk County Beautiful, the Town of Dundee Tree Board, and Trash Taxi.\n\" width=\"264\" height=\"341\" srcset=\"https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1-232x300.jpg 232w, https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1-791x1024.jpg 791w, https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1-768x994.jpg 768w, https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1-1187x1536.jpg 1187w, https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1-1583x2048.jpg 1583w, https://townofdundee.com/wp-content/uploads/Arbor-Day-Flyer-4.18.2026-1.jpg 1700w\" sizes=\"auto, (max-width: 264px) 100vw, 264px\" /></a></p>\n<p><a href=\"https://townofdundee.com/centennial-events/arbor-day-flyer-4-18-2026-2/\">Town Wide Clean-Up </a></p>",
+      "excerpt": "",
+      "slug": "town-wide-clean-up",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-04-18 09:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "09",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-04-18 12:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "12",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-04-18 13:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "13",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-04-18 16:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "16",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Festivals/Celebrations",
+          "slug": "festivals-celebrations",
+          "term_group": 0,
+          "term_taxonomy_id": 27,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 85,
+          "filter": "raw",
+          "id": 27,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/27",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": [],
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10086,
+      "global_id": "townofdundee.com?id=10086",
+      "global_id_lineage": [
+        "townofdundee.com?id=10086"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2025-11-20 08:38:13",
+      "date_utc": "2025-11-20 13:38:13",
+      "modified": "2026-03-12 14:58:49",
+      "modified_utc": "2026-03-12 18:58:49",
+      "url": "https://townofdundee.com/event/town-commission-meeting-77/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10086",
+      "title": "Town Commission Meeting",
+      "description": "<p>The Town of Dundee has a Commission-Manager Form of government.\u00a0 The Commission-Manager form of government combines the political leadership of elected officials in the form of a Town Commission with the managerial experience of an appointed local government manager. \u00a0The Town Commission appoints the Town Manager, who in turn appoints and manages all other Town department staff.</p>\n<p>The qualified voters of the Town of Dundee elect the Mayor and Town Commissioners at-large, meaning they represent all of the citizens in Dundee.\u00a0 The Mayor and Town Commissioners hold office for four-year terms.</p>\n<p>The Dundee Town Commission meets the second First Tuesday of each month at 6:30 p.m. at the Town Hall Commission Chambers, located at 202 East Main Street, Dundee, Florida.</p>\n<p>Meeting times, dates, and agendas are subject to change. \u00a0For current meeting information, please check the website calendar or contact the Town Clerk at 863-438-8330 ext. 258.</p>",
+      "excerpt": "",
+      "slug": "town-commission-meeting-77",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-04-21 18:30:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "21",
+        "hour": "18",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "end_date": "2026-04-21 18:30:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "21",
+        "hour": "18",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-04-21 22:30:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "21",
+        "hour": "22",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-04-21 22:30:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "21",
+        "hour": "22",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Government Meeting",
+          "slug": "government-meeting",
+          "term_group": 0,
+          "term_taxonomy_id": 25,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 420,
+          "filter": "raw",
+          "id": 25,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/25",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10226,
+      "global_id": "townofdundee.com?id=10226",
+      "global_id_lineage": [
+        "townofdundee.com?id=10226"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2026-01-09 13:49:28",
+      "date_utc": "2026-01-09 18:49:28",
+      "modified": "2026-01-09 13:49:28",
+      "modified_utc": "2026-01-09 18:49:28",
+      "url": "https://townofdundee.com/event/special-magistrate-hearing-for-code-enforcement-38/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10226",
+      "title": "Special Magistrate Hearing for Code Enforcement",
+      "description": "",
+      "excerpt": "",
+      "slug": "special-magistrate-hearing-for-code-enforcement-38",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-04-28 13:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "28",
+        "hour": "13",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-04-28 13:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "28",
+        "hour": "13",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-04-28 17:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "28",
+        "hour": "17",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-04-28 17:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "28",
+        "hour": "17",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Government Meeting",
+          "slug": "government-meeting",
+          "term_group": 0,
+          "term_taxonomy_id": 25,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 420,
+          "filter": "raw",
+          "id": 25,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/25",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10088,
+      "global_id": "townofdundee.com?id=10088",
+      "global_id_lineage": [
+        "townofdundee.com?id=10088"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2025-11-20 08:38:50",
+      "date_utc": "2025-11-20 13:38:50",
+      "modified": "2026-03-12 15:08:43",
+      "modified_utc": "2026-03-12 19:08:43",
+      "url": "https://townofdundee.com/event/town-commission-meeting-78/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10088",
+      "title": "Town Commission Meeting",
+      "description": "<p>The Town of Dundee has a Commission-Manager Form of government.\u00a0 The Commission-Manager form of government combines the political leadership of elected officials in the form of a Town Commission with the managerial experience of an appointed local government manager. \u00a0The Town Commission appoints the Town Manager, who in turn appoints and manages all other Town department staff.</p>\n<p>The qualified voters of the Town of Dundee elect the Mayor and Town Commissioners at-large, meaning they represent all of the citizens in Dundee.\u00a0 The Mayor and Town Commissioners hold office for four-year terms.</p>\n<p>The Dundee Town Commission meets the first Tuesday of each month at 6:30 p.m. at the Town Hall Commission Chambers, located at 202 East Main Street, Dundee, Florida.</p>\n<p>Meeting times, dates, and agendas are subject to change. \u00a0For current meeting information, please check the website calendar or contact the Town Clerk at 863-438-8330 ext. 258.</p>",
+      "excerpt": "",
+      "slug": "town-commission-meeting-78",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-05-05 18:30:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "05",
+        "hour": "18",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "end_date": "2026-05-05 18:30:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "05",
+        "hour": "18",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-05-05 22:30:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "05",
+        "hour": "22",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-05-05 22:30:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "05",
+        "hour": "22",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Government Meeting",
+          "slug": "government-meeting",
+          "term_group": 0,
+          "term_taxonomy_id": 25,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 420,
+          "filter": "raw",
+          "id": 25,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/25",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10179,
+      "global_id": "townofdundee.com?id=10179",
+      "global_id_lineage": [
+        "townofdundee.com?id=10179"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2026-01-06 10:18:02",
+      "date_utc": "2026-01-06 15:18:02",
+      "modified": "2026-01-06 11:05:03",
+      "modified_utc": "2026-01-06 16:05:03",
+      "url": "https://townofdundee.com/event/planning-zoning-board-meeting-39/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10179",
+      "title": "Planning &#038; Zoning Board Meeting",
+      "description": "<p data-uw-styling-context=\"true\">The Planning and Zoning Board serves as the Local Planning Agency for the Town of Dundee pursuant to the Local Government Comprehensive Planning and Land Development Regulation Act, Ch. 163, Part II, Florida Statutes, and perform all functions and duties prescribed in the statute.\u00a0 As the Local Planning Agency, the Planning and Zoning Board coordinates the comprehensive planning program and prepares the comprehensive plan, elements, or portion thereof for the Town of Dundee and recommends amendments to the Comprehensive Plan to the Town Commission for adoption as needed.</p>\n<p data-uw-styling-context=\"true\">In addition to this role, the Planning and Zoning Board advises and makes recommendations to the Town Commission regarding applications for amendments to the Official Zoning Map, requests for Special Exceptions or other special designations on property within the Town, and approval or denial of various development applications.</p>\n<p data-uw-styling-context=\"true\">The Planning and Zoning Board is responsible for obtaining and maintaining information on population, property values, the land economy, land use, and other information necessary to assess the amount, direction, and type of development anticipated in the Town. \u00a0At the request of the Development Director, the Planning and Zoning Board interprets and determines the intent of provisions of the Code that are unclear or in conflict with other regulations and considers the need for revision or addition of regulations in the Unified Land Development Code, including the Land Development Regulations, and recommend changes to the Town Commission.</p>\n<h2 data-uw-styling-context=\"true\">Meetings</h2>\n<p data-uw-styling-context=\"true\">The Planning and Zoning Board meets on the third Thursday of every month at 5:30p.m. However, the Chairman of the Planning and Zoning Board may set or cancel a meeting.\u00a0 Please check the Community Calendar for the most recent scheduling status of an upcoming meeting.</p>",
+      "excerpt": "",
+      "slug": "planning-zoning-board-meeting-39",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-05-21 17:30:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "21",
+        "hour": "17",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "end_date": "2026-05-21 17:30:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "21",
+        "hour": "17",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-05-21 21:30:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "21",
+        "hour": "21",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-05-21 21:30:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "21",
+        "hour": "21",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Government Meeting",
+          "slug": "government-meeting",
+          "term_group": 0,
+          "term_taxonomy_id": 25,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 420,
+          "filter": "raw",
+          "id": 25,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/25",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    }
+  ],
+  "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/?page=1&per_page=5&start_date=2026-04-17 00:00:00&end_date=2028-04-18 23:59:59&status=publish",
+  "next_rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/?per_page=5&start_date=2026-04-17+00%3A00%3A00&end_date=2028-04-18+23%3A59%3A59&status=publish&page=2",
+  "total": 39,
+  "total_pages": 8
+}

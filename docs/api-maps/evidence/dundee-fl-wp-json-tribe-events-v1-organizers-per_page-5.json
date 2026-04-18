@@ -1,0 +1,93 @@
+{
+  "organizers": [
+    {
+      "id": 8188,
+      "author": "17",
+      "status": "publish",
+      "date": "2024-05-31 10:57:58",
+      "date_utc": "2024-05-31 14:57:58",
+      "modified": "2024-05-31 10:57:58",
+      "modified_utc": "2024-05-31 14:57:58",
+      "url": "https://townofdundee.com/organizer/brooks-bridge-bus-2/",
+      "organizer": "Brooks Bridge Bus",
+      "slug": "brooks-bridge-bus-2",
+      "global_id": "townofdundee.com?id=8188",
+      "global_id_lineage": [
+        "townofdundee.com?id=8188"
+      ]
+    },
+    {
+      "id": 8186,
+      "author": "17",
+      "status": "publish",
+      "date": "2024-05-31 10:57:58",
+      "date_utc": "2024-05-31 14:57:58",
+      "modified": "2024-05-31 10:57:58",
+      "modified_utc": "2024-05-31 14:57:58",
+      "url": "https://townofdundee.com/organizer/brooks-bridge-bus/",
+      "organizer": "Brooks Bridge Bus",
+      "slug": "brooks-bridge-bus",
+      "global_id": "townofdundee.com?id=8186",
+      "global_id_lineage": [
+        "townofdundee.com?id=8186"
+      ]
+    },
+    {
+      "id": 6837,
+      "author": "17",
+      "status": "publish",
+      "date": "2023-01-12 13:25:19",
+      "date_utc": "2023-01-12 18:25:19",
+      "modified": "2023-01-12 13:26:27",
+      "modified_utc": "2023-01-12 18:26:27",
+      "url": "https://townofdundee.com/organizer/catholic-charities-of-central-florida-2/",
+      "organizer": "Catholic Charities of Central Florida",
+      "slug": "catholic-charities-of-central-florida-2",
+      "phone":"[REDACTED]",
+      "website": "www.cflcc.org",
+      "global_id": "townofdundee.com?id=6837",
+      "global_id_lineage": [
+        "townofdundee.com?id=6837"
+      ]
+    },
+    {
+      "id": 5857,
+      "author": "17",
+      "status": "publish",
+      "date": "2022-01-06 18:32:52",
+      "date_utc": "2022-01-06 23:32:52",
+      "modified": "2022-01-06 18:32:52",
+      "modified_utc": "2022-01-06 23:32:52",
+      "url": "https://townofdundee.com/organizer/committed-citizens-of-dundee-inc/",
+      "organizer": "Committed Citizens of Dundee, Inc.",
+      "slug": "committed-citizens-of-dundee-inc",
+      "phone":"[REDACTED]",
+      "email":"[REDACTED]",
+      "global_id": "townofdundee.com?id=5857",
+      "global_id_lineage": [
+        "townofdundee.com?id=5857"
+      ]
+    },
+    {
+      "id": 5321,
+      "author": "17",
+      "status": "publish",
+      "date": "2021-04-26 14:24:03",
+      "date_utc": "2021-04-26 18:24:03",
+      "modified": "2021-04-26 14:24:03",
+      "modified_utc": "2021-04-26 18:24:03",
+      "url": "https://townofdundee.com/organizer/central-florida-healthcare/",
+      "organizer": "Central Florida Healthcare",
+      "slug": "central-florida-healthcare",
+      "phone":"[REDACTED]",
+      "website": "cfhconline.org",
+      "global_id": "townofdundee.com?id=5321",
+      "global_id_lineage": [
+        "townofdundee.com?id=5321"
+      ]
+    }
+  ],
+  "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/organizers/?page=1&per_page=5&status=publish",
+  "total": 5,
+  "total_pages": 1
+}

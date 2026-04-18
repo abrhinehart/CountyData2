@@ -1,0 +1,536 @@
+{
+  "events": [
+    {
+      "id": 9156,
+      "global_id": "townofdundee.com?id=9156",
+      "global_id_lineage": [
+        "townofdundee.com?id=9156"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2025-01-06 13:51:55",
+      "date_utc": "2025-01-06 18:51:55",
+      "modified": "2025-12-29 13:18:45",
+      "modified_utc": "2025-12-29 18:18:45",
+      "url": "https://townofdundee.com/event/new-years-dundee-offices-library-closed/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/9156",
+      "title": "New Years &#8211; Dundee Offices &#038; Library CLOSED on January 1st and 2nd 2026",
+      "description": "<h3>Dundee offices and Library will be closed in observance of New Years Day and Friday, January 2, 2026.</h3>",
+      "excerpt": "",
+      "slug": "new-years-dundee-offices-library-closed",
+      "image": false,
+      "all_day": true,
+      "start_date": "2026-01-01 00:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "01",
+        "hour": "00",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-01-01 23:59:59",
+      "end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "01",
+        "hour": "23",
+        "minutes": "59",
+        "seconds": "59"
+      },
+      "utc_start_date": "2026-01-01 05:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "01",
+        "hour": "05",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-01-02 04:59:59",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "02",
+        "hour": "04",
+        "minutes": "59",
+        "seconds": "59"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Offices Closed",
+          "slug": "offices-closed",
+          "term_group": 0,
+          "term_taxonomy_id": 26,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 69,
+          "filter": "raw",
+          "id": 26,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/26",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": [],
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10153,
+      "global_id": "townofdundee.com?id=10153",
+      "global_id_lineage": [
+        "townofdundee.com?id=10153"
+      ],
+      "author": "22",
+      "status": "publish",
+      "date": "2025-12-29 10:11:47",
+      "date_utc": "2025-12-29 15:11:47",
+      "modified": "2025-12-29 10:11:47",
+      "modified_utc": "2025-12-29 15:11:47",
+      "url": "https://townofdundee.com/event/coffee-with-town-manager-cassel/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10153",
+      "title": "Coffee with Town Manager Cassel",
+      "description": "",
+      "excerpt": "",
+      "slug": "coffee-with-town-manager-cassel",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-01-06 18:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "06",
+        "hour": "18",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-01-06 19:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "06",
+        "hour": "19",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-01-06 23:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "06",
+        "hour": "23",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-01-07 00:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "00",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10127,
+      "global_id": "townofdundee.com?id=10127",
+      "global_id_lineage": [
+        "townofdundee.com?id=10127"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2025-12-10 08:32:44",
+      "date_utc": "2025-12-10 13:32:44",
+      "modified": "2025-12-10 08:32:44",
+      "modified_utc": "2025-12-10 13:32:44",
+      "url": "https://townofdundee.com/event/rfp-25-05-mandatory-pre-bid-meeting/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10127",
+      "title": "RFP 25-05 Mandatory Pre-Bid Meeting",
+      "description": "<p><strong>RFP #25-05</strong></p>\n<p>Sealed proposals will be received by the Town of Dundee until <strong>4:00 P.M. on Wednesday, January 21, 2026,</strong>\u00a0at the Office of the Town Clerk located at 202 E. Main Street, for Road paving of Camp Endeavor Blvd. &amp; Lincoln Ave.</p>\n<p><strong>RFP 25-05 &#8211; </strong><strong>ROAD PAVING OF CAMP ENDEAVOR BLVD &amp; LINCOLN AVE</strong></p>\n<p>All questions regarding this solicitation must be received in writing no later than Wednesday, January 14, 2026, at 4:00 P.M. A Mandatory Pre-Bid meeting is scheduled for 9:00 A.M. Wednesday, January 7, 2026.\u00a0A Mandatory Site Visit is scheduled for 10:00 A.M. Wednesday, January 7, 2026. A Proposal Opening and Review is scheduled for Thursday, January 22, 2026, at 10:00 A.M.</p>\n<p>Copies of the RFP are available from the Town Clerk at Dundee Town Hall, 202 Main Street, Dundee, FL 33838 and at <a href=\"http://www.TownofDundee.com\">www.TownofDundee.com</a>.</p>",
+      "excerpt": "",
+      "slug": "rfp-25-05-mandatory-pre-bid-meeting",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-01-07 09:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "09",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-01-07 09:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "09",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-01-07 14:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "14",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-01-07 14:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "14",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Purchasing &amp; Procurement",
+          "slug": "purchasing-procurement",
+          "term_group": 0,
+          "term_taxonomy_id": 34,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 148,
+          "filter": "raw",
+          "id": 34,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/34",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10129,
+      "global_id": "townofdundee.com?id=10129",
+      "global_id_lineage": [
+        "townofdundee.com?id=10129"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2025-12-10 08:34:48",
+      "date_utc": "2025-12-10 13:34:48",
+      "modified": "2025-12-10 08:34:48",
+      "modified_utc": "2025-12-10 13:34:48",
+      "url": "https://townofdundee.com/event/rfp-25-05-mandatory-site-visit/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10129",
+      "title": "RFP 25-05 Mandatory Site Visit",
+      "description": "<p><strong>RFP #25-05</strong></p>\n<p>Sealed proposals will be received by the Town of Dundee until <strong>4:00 P.M. on Wednesday, January 21, 2026,</strong>\u00a0at the Office of the Town Clerk located at 202 E. Main Street, for Road paving of Camp Endeavor Blvd. &amp; Lincoln Ave.</p>\n<p><strong>RFP 25-05 &#8211; </strong><strong>ROAD PAVING OF CAMP ENDEAVOR BLVD &amp; LINCOLN AVE</strong></p>\n<p>All questions regarding this solicitation must be received in writing no later than Wednesday, January 14, 2026, at 4:00 P.M. A Mandatory Pre-Bid meeting is scheduled for 9:00 A.M. Wednesday, January 7, 2026.\u00a0A Mandatory Site Visit is scheduled for 10:00 A.M. Wednesday, January 7, 2026. A Proposal Opening and Review is scheduled for Thursday, January 22, 2026, at 10:00 A.M.</p>\n<p>Copies of the RFP are available from the Town Clerk at Dundee Town Hall, 202 Main Street, Dundee, FL 33838 and at <a href=\"http://www.TownofDundee.com\">www.TownofDundee.com</a>.</p>",
+      "excerpt": "",
+      "slug": "rfp-25-05-mandatory-site-visit",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-01-07 10:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "10",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-01-07 10:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "10",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-01-07 15:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "15",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-01-07 15:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "07",
+        "hour": "15",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Purchasing &amp; Procurement",
+          "slug": "purchasing-procurement",
+          "term_group": 0,
+          "term_taxonomy_id": 34,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 148,
+          "filter": "raw",
+          "id": 34,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/34",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": [],
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 10169,
+      "global_id": "townofdundee.com?id=10169",
+      "global_id_lineage": [
+        "townofdundee.com?id=10169"
+      ],
+      "author": "17",
+      "status": "publish",
+      "date": "2026-01-06 10:14:36",
+      "date_utc": "2026-01-06 15:14:36",
+      "modified": "2026-01-06 11:03:23",
+      "modified_utc": "2026-01-06 16:03:23",
+      "url": "https://townofdundee.com/event/planning-zoning-board-special-meeting/",
+      "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/10169",
+      "title": "Planning &#038; Zoning Board Special Meeting",
+      "description": "<p data-uw-styling-context=\"true\">The Planning and Zoning Board serves as the Local Planning Agency for the Town of Dundee pursuant to the Local Government Comprehensive Planning and Land Development Regulation Act, Ch. 163, Part II, Florida Statutes, and perform all functions and duties prescribed in the statute.\u00a0 As the Local Planning Agency, the Planning and Zoning Board coordinates the comprehensive planning program and prepares the comprehensive plan, elements, or portion thereof for the Town of Dundee and recommends amendments to the Comprehensive Plan to the Town Commission for adoption as needed.</p>\n<p data-uw-styling-context=\"true\">In addition to this role, the Planning and Zoning Board advises and makes recommendations to the Town Commission regarding applications for amendments to the Official Zoning Map, requests for Special Exceptions or other special designations on property within the Town, and approval or denial of various development applications.</p>\n<p data-uw-styling-context=\"true\">The Planning and Zoning Board is responsible for obtaining and maintaining information on population, property values, the land economy, land use, and other information necessary to assess the amount, direction, and type of development anticipated in the Town. \u00a0At the request of the Development Director, the Planning and Zoning Board interprets and determines the intent of provisions of the Code that are unclear or in conflict with other regulations and considers the need for revision or addition of regulations in the Unified Land Development Code, including the Land Development Regulations, and recommend changes to the Town Commission.</p>\n<h2 data-uw-styling-context=\"true\">Meetings</h2>\n<p data-uw-styling-context=\"true\">The Planning and Zoning Board meets on the third Thursday of every month at 5:30p.m. However, the Chairman of the Planning and Zoning Board may set or cancel a meeting.\u00a0 Please check the Community Calendar for the most recent scheduling status of an upcoming meeting.</p>",
+      "excerpt": "",
+      "slug": "planning-zoning-board-special-meeting",
+      "image": false,
+      "all_day": false,
+      "start_date": "2026-01-08 17:30:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "08",
+        "hour": "17",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "end_date": "2026-01-08 17:30:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "08",
+        "hour": "17",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-01-08 22:30:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "08",
+        "hour": "22",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-01-08 22:30:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "01",
+        "day": "08",
+        "hour": "22",
+        "minutes": "30",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Government Meeting",
+          "slug": "government-meeting",
+          "term_group": 0,
+          "term_taxonomy_id": 25,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 420,
+          "filter": "raw",
+          "id": 25,
+          "urls": {
+            "self": "https://townofdundee.com/wp-json/tribe/events/v1/categories/25",
+            "collection": "https://townofdundee.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 6064,
+        "author": "17",
+        "status": "publish",
+        "date": "2022-03-28 09:41:03",
+        "date_utc": "2022-03-28 13:41:03",
+        "modified": "2022-03-28 09:41:03",
+        "modified_utc": "2022-03-28 13:41:03",
+        "url": "https://townofdundee.com/venue/town-hall-commission-chambers/",
+        "venue": "Town Hall Commission Chambers",
+        "slug": "town-hall-commission-chambers",
+        "address": "202 East Main Street",
+        "city": "Dundee",
+        "country": "United States",
+        "province": "Florida",
+        "state": "FL",
+        "zip": "33838",
+        "phone": "8634388330",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "townofdundee.com?id=6064",
+        "global_id_lineage": [
+          "townofdundee.com?id=6064"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    }
+  ],
+  "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/?page=1&per_page=5&start_date=2026-01-01 00:00:00&end_date=2026-12-31 23:59:59&status=publish",
+  "next_rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/events/?per_page=5&start_date=2026-01-01+00%3A00%3A00&end_date=2026-12-31+23%3A59%3A59&status=publish&page=2",
+  "total": 70,
+  "total_pages": 14
+}

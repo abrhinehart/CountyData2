@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 04:11:55 GMT
+Server: Apache
+X-Powered-By: PHP/7.4.33
+X-UA-Compatible: IE=edge
+X-Robots-Tag: noindex
+Link: <https://townofdundee.com/wp-json/>; rel="https://api.w.org/"
+X-Content-Type-Options: nosniff
+Access-Control-Expose-Headers: X-WP-Total, X-WP-TotalPages, Link
+Access-Control-Allow-Headers: Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type
+Allow: GET
+Vary: Origin
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+

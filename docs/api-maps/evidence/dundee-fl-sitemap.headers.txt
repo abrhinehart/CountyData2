@@ -1,0 +1,13 @@
+HTTP/1.1 301 Moved Permanently
+Date: Sat, 18 Apr 2026 04:10:59 GMT
+Server: Apache
+X-Powered-By: PHP/7.4.33
+X-UA-Compatible: IE=edge
+P3P: CP="ALL DSP NID CURa ADMa DEVa HISa OTPa OUR NOR NAV DEM"
+Expires: Sat, 18 Apr 2026 05:10:59 GMT
+Cache-Control: max-age=3600
+X-Redirect-By: WordPress
+Location: https://townofdundee.com/wp-sitemap.xml
+Transfer-Encoding: chunked
+Content-Type: text/html; charset=UTF-8
+

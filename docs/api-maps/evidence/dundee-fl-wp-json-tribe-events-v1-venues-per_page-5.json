@@ -1,0 +1,124 @@
+{
+  "venues": [
+    {
+      "id": 10508,
+      "author": "17",
+      "status": "publish",
+      "date": "2026-03-11 10:32:42",
+      "date_utc": "2026-03-11 14:32:42",
+      "modified": "2026-03-11 10:36:37",
+      "modified_utc": "2026-03-11 14:36:37",
+      "url": "https://townofdundee.com/venue/highland-park/",
+      "venue": "Highland Avenue Splash Pad",
+      "slug": "highland-park",
+      "address": "501 4th Street South",
+      "city": "Dundee",
+      "country": "United States",
+      "state": "FL",
+      "zip": "33838",
+      "stateprovince": "FL",
+      "show_map": true,
+      "show_map_link": true,
+      "global_id": "townofdundee.com?id=10508",
+      "global_id_lineage": [
+        "townofdundee.com?id=10508"
+      ]
+    },
+    {
+      "id": 8784,
+      "author": "17",
+      "status": "publish",
+      "date": "2024-10-30 16:03:24",
+      "date_utc": "2024-10-30 20:03:24",
+      "modified": "2024-10-30 16:03:24",
+      "modified_utc": "2024-10-30 20:03:24",
+      "url": "https://townofdundee.com/venue/economy-inn-lift-station/",
+      "venue": "Economy Inn Lift Station",
+      "slug": "economy-inn-lift-station",
+      "address": "28550 US Hwy 27 S",
+      "city": "Dundee",
+      "province": "Florida",
+      "zip": "33881",
+      "stateprovince": "Florida",
+      "show_map": true,
+      "show_map_link": true,
+      "global_id": "townofdundee.com?id=8784",
+      "global_id_lineage": [
+        "townofdundee.com?id=8784"
+      ]
+    },
+    {
+      "id": 8746,
+      "author": "17",
+      "status": "publish",
+      "date": "2024-10-23 10:54:50",
+      "date_utc": "2024-10-23 14:54:50",
+      "modified": "2024-10-23 10:54:50",
+      "modified_utc": "2024-10-23 14:54:50",
+      "url": "https://townofdundee.com/venue/1300-camp-endeavor-blvd/",
+      "venue": "1300 Camp Endeavor Blvd",
+      "slug": "1300-camp-endeavor-blvd",
+      "address": "1300 Camp Endeavor Blvd",
+      "city": "Dundee",
+      "country": "United States",
+      "state": "FL",
+      "zip": "33838",
+      "stateprovince": "FL",
+      "show_map": true,
+      "show_map_link": true,
+      "global_id": "townofdundee.com?id=8746",
+      "global_id_lineage": [
+        "townofdundee.com?id=8746"
+      ]
+    },
+    {
+      "id": 8486,
+      "author": "19",
+      "status": "publish",
+      "date": "2024-07-26 16:49:55",
+      "date_utc": "2024-07-26 20:49:55",
+      "modified": "2024-07-26 16:49:55",
+      "modified_utc": "2024-07-26 20:49:55",
+      "url": "https://townofdundee.com/venue/east-central-park/",
+      "venue": "East Central Park",
+      "slug": "east-central-park",
+      "address": "5555 Lake Trask Rd, Dundee, FL 33833",
+      "city": "Dundee",
+      "province": "Florida",
+      "stateprovince": "Florida",
+      "show_map": true,
+      "show_map_link": true,
+      "global_id": "townofdundee.com?id=8486",
+      "global_id_lineage": [
+        "townofdundee.com?id=8486"
+      ]
+    },
+    {
+      "id": 8291,
+      "author": "19",
+      "status": "publish",
+      "date": "2024-06-12 08:51:53",
+      "date_utc": "2024-06-12 12:51:53",
+      "modified": "2024-06-12 08:51:53",
+      "modified_utc": "2024-06-12 12:51:53",
+      "url": "https://townofdundee.com/venue/dundee-depot/",
+      "venue": "Dundee Depot",
+      "slug": "dundee-depot",
+      "address": "103 W Main St",
+      "city": "Dundee",
+      "country": "United States",
+      "state": "FL",
+      "stateprovince": "FL",
+      "show_map": true,
+      "show_map_link": true,
+      "global_id": "townofdundee.com?id=8291",
+      "global_id_lineage": [
+        "townofdundee.com?id=8291"
+      ]
+    }
+  ],
+  "rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/venues/?page=1&per_page=5&status=publish",
+  "next_rest_url": "https://townofdundee.com/wp-json/tribe/events/v1/venues/?per_page=5&status=publish&page=2",
+  "total": 49,
+  "total_pages": 10
+}

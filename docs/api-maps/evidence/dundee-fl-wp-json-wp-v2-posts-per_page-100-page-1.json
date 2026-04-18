@@ -1,0 +1,596 @@
+[
+  {
+    "id": 9839,
+    "date": "2025-09-09T16:32:36",
+    "date_gmt": "2025-09-09T20:32:36",
+    "guid": {
+      "rendered": "https://townofdundee.com/?p=9839"
+    },
+    "modified": "2025-09-09T16:32:36",
+    "modified_gmt": "2025-09-09T20:32:36",
+    "slug": "town-of-dundee-agenda",
+    "status": "publish",
+    "type": "post",
+    "link": "https://townofdundee.com/town-of-dundee-agenda/",
+    "title": {
+      "rendered": "Town Of Dundee Agenda"
+    },
+    "content": {
+      "rendered": "<p><a href=\"https://townofdundee.com/wp-content/uploads/TOD-Agenda-20250910-1.docx\">TOD Agenda 20250910</a></p>\n<p><strong>\u00a0</strong></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>TOD Agenda 20250910 \u00a0</p>\n",
+      "protected": false
+    },
+    "author": 21,
+    "featured_media": 0,
+    "comment_status": "closed",
+    "ping_status": "closed",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "footnotes": ""
+    },
+    "categories": [
+      21
+    ],
+    "tags": [],
+    "class_list": [
+      "post-9839",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-announcement"
+    ],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9839",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/users/21"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/comments?post=9839"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 1,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9839/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9842,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9839/revisions/9842"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/media?parent=9839"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/categories?post=9839"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/tags?post=9839"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 9833,
+    "date": "2025-09-09T14:32:09",
+    "date_gmt": "2025-09-09T18:32:09",
+    "guid": {
+      "rendered": "https://townofdundee.com/?p=9833"
+    },
+    "modified": "2025-09-09T14:39:16",
+    "modified_gmt": "2025-09-09T18:39:16",
+    "slug": "2026-town-of-dundee-tentative-budget",
+    "status": "publish",
+    "type": "post",
+    "link": "https://townofdundee.com/2026-town-of-dundee-tentative-budget/",
+    "title": {
+      "rendered": "2026 Town of Dundee Tentative Budget"
+    },
+    "content": {
+      "rendered": "<p><a href=\"https://townofdundee.com/wp-content/uploads/TOD-Tentative-2026-budget.xlsx\">TOD Tentative 2026 budget</a></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>TOD Tentative 2026 budget</p>\n",
+      "protected": false
+    },
+    "author": 21,
+    "featured_media": 0,
+    "comment_status": "closed",
+    "ping_status": "closed",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "footnotes": ""
+    },
+    "categories": [
+      21
+    ],
+    "tags": [],
+    "class_list": [
+      "post-9833",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-announcement"
+    ],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9833",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/users/21"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/comments?post=9833"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9833/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9838,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9833/revisions/9838"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/media?parent=9833"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/categories?post=9833"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/tags?post=9833"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 9389,
+    "date": "2025-03-12T14:14:58",
+    "date_gmt": "2025-03-12T18:14:58",
+    "guid": {
+      "rendered": "https://townofdundee.com/?p=9389"
+    },
+    "modified": "2025-03-12T14:19:31",
+    "modified_gmt": "2025-03-12T18:19:31",
+    "slug": "9389-2",
+    "status": "publish",
+    "type": "post",
+    "link": "https://townofdundee.com/9389-2/",
+    "title": {
+      "rendered": "Notice of Polling Location Change April 1, 2025, Municipal Election"
+    },
+    "content": {
+      "rendered": "<p><a href=\"https://townofdundee.com/wp-content/uploads/2025-TOD-Precinct-Change-Public-Notice.pdf\">2025 TOD Precinct Change Public Notice</a></p>\n<p style=\"text-align: center;\"><strong>TOWN OF DUNDEE</strong></p>\n<p style=\"text-align: center;\"><strong>NOTICE OF POLLING LOCATION CHANGES</strong></p>\n<p style=\"text-align: left;\">This notice is provided to you in accordance with Section 101.71 Florida Statutes.</p>\n<p style=\"text-align: left;\">Your polling place may have changed for the Town of Dundee Municipal Election on Tuesday, April 1, 2025. The polling place will be open from 7:00 a.m. to 7:00 p.m. The polling place for the 2025 Municipal Election is hereby designated as:</p>\n<p style=\"text-align: left;\">All precincts will vote at the Town of Dundee Community Center, 603 Lake Marie Drive, Dundee, FL 33838</p>\n<p style=\"text-align: left;\">For additional information regarding voting precincts or election records, please contact Erica Anderson, Town Clerk, located at Town Hall, 202 East Main Street, Dundee, FL 33838 or by phone at 863-438-8330 ext.258. Office hours are Monday through Friday, 8:00am to 5:00pm.</p>\n<p>&nbsp;</p>\n<p style=\"text-align: center;\"><strong>PUEBLO DE DUNDEE</strong></p>\n<p style=\"text-align: center;\"><strong>AVISO SOBRE CAMBIO DEL CENTRO DE VOTACI\u00d3N</strong></p>\n<p>De conformidad con la Secci\u00f3n 101.71 de los Estatutos del Estado de la Florida, se proporciona el siguiente aviso.</p>\n<p>Es posible que su centro de votaci\u00f3n haya cambiado para la Elecci\u00f3n Municipal del Pueblo de Dundee, para el puesto o asiento de los parlamentarios que se llevar\u00e1 a cabo el martes 1 de abril de 2025; el centro de votaci\u00f3n permanecer\u00e1 abierto desde las 7:00 de la ma\u00f1ana hasta las 7:00 de la noche.\u00a0 El centro de votaci\u00f3n designado para la Elecci\u00f3n Municipal del 2025 es el siguiente:</p>\n<p>Todos los distritos electorales votar\u00e1n en el Centro Comunitario del Pueblo de Dundee, en 603 Lake Marie Drive, Dundee, FL 33838.</p>\n<p>Para obtener informaci\u00f3n adicional sobre los distritos o los registros electorales, debe comunicarse con Erica Anderson, secretaria Municipal, ubicada en Town Hall, 202 East Main Street, Dundee, FL 33838 o por tel\u00e9fono al 863-438-833 ext.258. Las horas de oficina son de lunes a viernes, desde las 8:00 de la ma\u00f1ana hasta las 5:00 de la tarde.</p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>2025 TOD Precinct Change Public Notice TOWN OF DUNDEE NOTICE OF POLLING LOCATION CHANGES This notice is provided to you in accordance with Section 101.71 Florida Statutes. Your polling place [&hellip;]</p>\n",
+      "protected": false
+    },
+    "author": 22,
+    "featured_media": 0,
+    "comment_status": "closed",
+    "ping_status": "closed",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "footnotes": ""
+    },
+    "categories": [
+      21
+    ],
+    "tags": [],
+    "class_list": [
+      "post-9389",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-announcement"
+    ],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9389",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/users/22"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/comments?post=9389"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 5,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9389/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 9395,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/9389/revisions/9395"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/media?parent=9389"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/categories?post=9389"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/tags?post=9389"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 8828,
+    "date": "2024-11-04T10:53:30",
+    "date_gmt": "2024-11-04T15:53:30",
+    "guid": {
+      "rendered": "https://townofdundee.com/?p=8828"
+    },
+    "modified": "2024-11-04T10:53:30",
+    "modified_gmt": "2024-11-04T15:53:30",
+    "slug": "christmas-parade-application-due-11-27",
+    "status": "publish",
+    "type": "post",
+    "link": "https://townofdundee.com/christmas-parade-application-due-11-27/",
+    "title": {
+      "rendered": "Christmas Parade Application Due 11/27"
+    },
+    "content": {
+      "rendered": "<h2>Click <a href=\"https://townofdundee.com/wp-content/uploads/Dundee-Parade-App-and-Rules-APPROVED.pdf\" target=\"_blank\" rel=\"noopener\">HERE</a> for the Christmas Parade Application and Rules. We hope you participate in this fun family event!<a href=\"https://townofdundee.com/wp-content/uploads/Dundee-Parade-App-and-Rules-APPROVED.pdf\"><img loading=\"lazy\" decoding=\"async\" class=\"wp-image-8831 alignleft\" src=\"https://townofdundee.com/wp-content/uploads/Christmas-Parade-Art-e1730735513661-240x300.png\" alt=\"\" width=\"327\" height=\"409\" srcset=\"https://townofdundee.com/wp-content/uploads/Christmas-Parade-Art-e1730735513661-240x300.png 240w, https://townofdundee.com/wp-content/uploads/Christmas-Parade-Art-e1730735513661.png 733w\" sizes=\"auto, (max-width: 327px) 100vw, 327px\" /></a></h2>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "<p>Click HERE for the Christmas Parade Application and Rules. We hope you participate in this fun family event!</p>\n",
+      "protected": false
+    },
+    "author": 17,
+    "featured_media": 0,
+    "comment_status": "closed",
+    "ping_status": "closed",
+    "sticky": false,
+    "template": "",
+    "format": "gallery",
+    "meta": {
+      "footnotes": ""
+    },
+    "categories": [
+      21
+    ],
+    "tags": [],
+    "class_list": [
+      "post-8828",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-gallery",
+      "hentry",
+      "category-announcement",
+      "post_format-post-format-gallery"
+    ],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/8828",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/users/17"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/comments?post=8828"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/8828/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 8833,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/8828/revisions/8833"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/media?parent=8828"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/categories?post=8828"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/tags?post=8828"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 8551,
+    "date": "2024-08-21T09:09:11",
+    "date_gmt": "2024-08-21T13:09:11",
+    "guid": {
+      "rendered": "https://townofdundee.com/?p=8551"
+    },
+    "modified": "2024-08-21T09:09:11",
+    "modified_gmt": "2024-08-21T13:09:11",
+    "slug": "special-town-commission-workshop-meeting-moratorium",
+    "status": "publish",
+    "type": "post",
+    "link": "https://townofdundee.com/special-town-commission-workshop-meeting-moratorium/",
+    "title": {
+      "rendered": "Special Town Commission Workshop/Meeting &#8211; Moratorium"
+    },
+    "content": {
+      "rendered": "<p style=\"text-align: center;\"><a href=\"https://townofdundee.com/special-town-commission-workshop-meeting-moratorium/vision-committee-special-meeting/\" rel=\"attachment wp-att-8552\"><img loading=\"lazy\" decoding=\"async\" class=\"alignnone size-medium wp-image-8552\" src=\"https://townofdundee.com/wp-content/uploads/Vision-Committee-Special-meeting-300x232.jpg\" alt=\"Special Town Commission Workshop &amp; Meeting\" width=\"300\" height=\"232\" srcset=\"https://townofdundee.com/wp-content/uploads/Vision-Committee-Special-meeting-300x232.jpg 300w, https://townofdundee.com/wp-content/uploads/Vision-Committee-Special-meeting-1024x791.jpg 1024w, https://townofdundee.com/wp-content/uploads/Vision-Committee-Special-meeting-768x593.jpg 768w, https://townofdundee.com/wp-content/uploads/Vision-Committee-Special-meeting-1536x1186.jpg 1536w, https://townofdundee.com/wp-content/uploads/Vision-Committee-Special-meeting-2048x1582.jpg 2048w\" sizes=\"auto, (max-width: 300px) 100vw, 300px\" /></a></p>\n",
+      "protected": false
+    },
+    "excerpt": {
+      "rendered": "",
+      "protected": false
+    },
+    "author": 17,
+    "featured_media": 0,
+    "comment_status": "closed",
+    "ping_status": "closed",
+    "sticky": false,
+    "template": "",
+    "format": "standard",
+    "meta": {
+      "footnotes": ""
+    },
+    "categories": [
+      21
+    ],
+    "tags": [],
+    "class_list": [
+      "post-8551",
+      "post",
+      "type-post",
+      "status-publish",
+      "format-standard",
+      "hentry",
+      "category-announcement"
+    ],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/8551",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/types/post"
+        }
+      ],
+      "author": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/users/17"
+        }
+      ],
+      "replies": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/comments?post=8551"
+        }
+      ],
+      "version-history": [
+        {
+          "count": 2,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/8551/revisions"
+        }
+      ],
+      "predecessor-version": [
+        {
+          "id": 8554,
+          "href": "https://townofdundee.com/wp-json/wp/v2/posts/8551/revisions/8554"
+        }
+      ],
+      "wp:attachment": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/media?parent=8551"
+        }
+      ],
+      "wp:term": [
+        {
+          "taxonomy": "category",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/categories?post=8551"
+        },
+        {
+          "taxonomy": "post_tag",
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/tags?post=8551"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "_truncated": "array truncated to first 5 items"
+  }
+]

@@ -1,0 +1,251 @@
+[
+  {
+    "id": 32,
+    "count": 7,
+    "description": "",
+    "link": "https://townofdundee.com/events/category/advisory-notice/",
+    "name": "ADVISORY NOTICE",
+    "slug": "advisory-notice",
+    "taxonomy": "tribe_events_cat",
+    "parent": 0,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat/32",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/taxonomies/tribe_events_cat"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events?tribe_events_cat=32"
+        },
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tec_calendar_embed?tribe_events_cat=32"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 36,
+    "count": 29,
+    "description": "Celebration Lineup of Events.\r\nEmbracing our Past, Celebrating the Present, Building a Future for the next generation. \r\n",
+    "link": "https://townofdundee.com/events/category/festivals-celebrations/centennial-celebration/",
+    "name": "Centennial Celebration",
+    "slug": "centennial-celebration",
+    "taxonomy": "tribe_events_cat",
+    "parent": 27,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat/36",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/taxonomies/tribe_events_cat"
+        }
+      ],
+      "up": [
+        {
+          "embeddable": true,
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat/27"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events?tribe_events_cat=36"
+        },
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tec_calendar_embed?tribe_events_cat=36"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 31,
+    "count": 15,
+    "description": "",
+    "link": "https://townofdundee.com/events/category/covid/",
+    "name": "COVID",
+    "slug": "covid",
+    "taxonomy": "tribe_events_cat",
+    "parent": 0,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat/31",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/taxonomies/tribe_events_cat"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events?tribe_events_cat=31"
+        },
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tec_calendar_embed?tribe_events_cat=31"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 37,
+    "count": 3,
+    "description": "",
+    "link": "https://townofdundee.com/events/category/election/",
+    "name": "Election",
+    "slug": "election",
+    "taxonomy": "tribe_events_cat",
+    "parent": 0,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat/37",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/taxonomies/tribe_events_cat"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events?tribe_events_cat=37"
+        },
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tec_calendar_embed?tribe_events_cat=37"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "id": 27,
+    "count": 85,
+    "description": "",
+    "link": "https://townofdundee.com/events/category/festivals-celebrations/",
+    "name": "Festivals/Celebrations",
+    "slug": "festivals-celebrations",
+    "taxonomy": "tribe_events_cat",
+    "parent": 0,
+    "meta": [],
+    "_links": {
+      "self": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat/27",
+          "targetHints": {
+            "allow": [
+              "GET"
+            ]
+          }
+        }
+      ],
+      "collection": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events_cat"
+        }
+      ],
+      "about": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/taxonomies/tribe_events_cat"
+        }
+      ],
+      "wp:post_type": [
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tribe_events?tribe_events_cat=27"
+        },
+        {
+          "href": "https://townofdundee.com/wp-json/wp/v2/tec_calendar_embed?tribe_events_cat=27"
+        }
+      ],
+      "curies": [
+        {
+          "name": "wp",
+          "href": "https://api.w.org/{rel}",
+          "templated": true
+        }
+      ]
+    }
+  },
+  {
+    "_truncated": "array truncated to first 5 items"
+  }
+]

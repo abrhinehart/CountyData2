@@ -1,0 +1,21 @@
+HTTP/1.1 301 Moved Permanently
+Content-Length: 0
+Date: Sat, 18 Apr 2026 04:15:51 GMT
+Location: https://library.municode.com/index.aspx?clientId=12506
+
+HTTP/1.1 301 Moved Permanently
+Content-Length: 0
+Date: Sat, 18 Apr 2026 04:15:51 GMT
+Server: Microsoft-IIS/10.0
+Location: /fl/dundee/codes/code_of_ordinances
+Strict-Transport-Security: max-age=2592000
+X-Powered-By: ASP.NET
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Date: Sat, 18 Apr 2026 04:15:51 GMT
+Server: Microsoft-IIS/10.0
+Transfer-Encoding: chunked
+Strict-Transport-Security: max-age=2592000
+X-Powered-By: ASP.NET
+

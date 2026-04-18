@@ -1,0 +1,62 @@
+2026-04-18 00:10:52 start run
+00:10:58 GET https://townofdundee.com/robots.txt
+00:10:59 GET https://townofdundee.com/sitemap.xml
+00:11:00 GET https://townofdundee.com/wp-sitemap.xml
+00:11:10 GET wp-sitemap-posts-post-1.xml
+00:11:12 GET wp-sitemap-posts-page-1.xml
+00:11:15 GET wp-sitemap-posts-tribe_events-1.xml
+00:11:17 GET wp-sitemap-taxonomies-category-1.xml
+00:11:19 GET wp-sitemap-taxonomies-post_tag-1.xml
+00:11:22 GET wp-sitemap-taxonomies-tribe_events_cat-1.xml
+00:11:24 GET wp-sitemap-users-1.xml
+00:11:26 GET https://townofdundee.com/ (home)
+00:11:29 GET /wp-json/ root
+00:11:55 GET wp-json/wp/v2/types
+00:11:57 GET wp-json/wp/v2/taxonomies
+00:11:59 GET wp-json/wp/v2/pages?per_page=1
+00:12:02 GET wp-json/wp/v2/posts?per_page=1
+00:12:04 GET wp-json/wp/v2/categories?per_page=5
+00:12:06 GET wp-json/wp/v2/users?per_page=5
+00:12:08 GET wp-json/wp/v2/media?per_page=1
+00:12:11 GET wp-json/wp/v2/tribe_events?per_page=1
+00:12:13 GET wp-json/wp/v2/tribe_venue?per_page=5
+00:12:16 GET wp-json/wp/v2/tribe_organizer?per_page=5
+00:12:18 GET wp-json/wp/v2/tags?per_page=5
+00:12:21 GET wp-json/wp/v2/tribe_events_cat
+00:12:23 GET wp-json/wp/v2/search?search=permit
+00:12:49 GET wp-json/tribe/events/v1/events?per_page=5
+00:12:52 GET wp-json/tribe/events/v1/venues?per_page=5
+00:12:54 GET wp-json/tribe/events/v1/categories
+00:12:57 GET wp-json/tribe/events/v1/organizers?per_page=5
+00:12:59 GET wp-json/tribe/events/v1/tags
+00:13:01 GET wp-json/tribe/events/v1/events?start_date=2026-01-01&end_date=2026-12-31&per_page=5
+00:13:04 GET wp-json/wp/v2/pages?per_page=100
+00:13:07 GET wp-json/wp/v2/pages?per_page=1000
+00:13:09 GET wp-json/wp/v2/posts?per_page=100&page=1
+00:13:53 GET departments/building-services/
+00:13:56 GET departments/building-services/open-a-business/
+00:13:58 GET departments/building-services/property-lien-assessment-search-request/
+00:14:02 GET departments/code-enforcement/
+00:14:05 GET departments/code-enforcement/reportissue/
+00:14:07 GET departments/planning-department/
+00:14:10 GET departments/planning-department/comprehensive-plan/
+00:14:13 GET departments/planning-department/core-improvement-area/
+00:14:15 GET departments/planning-department/zoning-and-land-development-regulations/
+00:14:18 GET government/agendas-minutes/
+00:14:21 GET government/town-commission-boards/planning-and-zoning-board/
+00:14:23 GET government/town-commission-boards/board-of-adjustments/
+00:14:26 GET government/town-commission-boards/town-commissioners/
+00:14:28 GET departments/town-clerk/
+00:14:31 GET contact-us/
+00:14:34 GET events/
+00:14:37 GET feed/
+00:15:04 GET events/?ical=1
+00:15:08 GET comments/feed/
+00:15:10 GET xmlrpc.php
+00:15:24 GET /feed/ (main RSS)
+00:15:32 GET departments/code-enforcement/feed/
+00:15:34 GET wp-json/tribe/events/v1/events/by-slug/town-commission-meeting-77
+00:15:37 GET wp-json/wp/v2/pages/117
+00:15:39 GET wp-json/wp/v2/tribe_events?_fields=id,slug,date,title,link&per_page=2
+00:15:49 GET https://dundee-fl.municodemeetings.com/
+00:15:51 GET library.municode.com clientId=12506

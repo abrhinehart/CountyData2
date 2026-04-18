@@ -1,0 +1,9 @@
+HTTP/1.1 405 Method Not Allowed
+Date: Sat, 18 Apr 2026 04:15:10 GMT
+Server: Apache
+X-Powered-By: PHP/7.4.33
+X-UA-Compatible: IE=edge
+Allow: POST
+Transfer-Encoding: chunked
+Content-Type: text/plain;charset=UTF-8
+
