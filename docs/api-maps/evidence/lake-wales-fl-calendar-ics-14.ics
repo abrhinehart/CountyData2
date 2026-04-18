@@ -1,0 +1,1797 @@
+BEGIN:VCALENDAR
+PRODID:iCalendar-Ruby
+VERSION:2.0
+X-WR-TIMEZONE:America/New_York
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:STANDARD
+DTSTART:20241103T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20250309T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8709
+DTEND;TZID=America/New_York:20280725T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280725T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8709
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8708
+DTEND;TZID=America/New_York:20280627T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280627T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8708
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8707
+DTEND;TZID=America/New_York:20280523T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280523T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8707
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8706
+DTEND;TZID=America/New_York:20280425T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280425T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8706
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8705
+DTEND;TZID=America/New_York:20280328T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280328T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8705
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8704
+DTEND;TZID=America/New_York:20280222T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280222T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8704
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8703
+DTEND;TZID=America/New_York:20280125T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20280125T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8703
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8702
+DTEND;TZID=America/New_York:20271228T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20271228T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8702
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8701
+DTEND;TZID=America/New_York:20271123T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20271123T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8701
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8700
+DTEND;TZID=America/New_York:20271026T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20271026T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8700
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8699
+DTEND;TZID=America/New_York:20270928T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270928T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8699
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8698
+DTEND;TZID=America/New_York:20270824T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270824T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8698
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8697
+DTEND;TZID=America/New_York:20270727T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270727T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8697
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8696
+DTEND;TZID=America/New_York:20270622T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270622T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8696
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8695
+DTEND;TZID=America/New_York:20270525T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270525T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8695
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8694
+DTEND;TZID=America/New_York:20270427T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270427T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8694
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7463
+DTEND;TZID=America/New_York:20270412T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20270412T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7463
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8693
+DTEND;TZID=America/New_York:20270323T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270323T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8693
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7462
+DTEND;TZID=America/New_York:20270308T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20270308T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7462
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11647
+DTEND;TZID=America/New_York:20270304T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20270304T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11647
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8692
+DTEND;TZID=America/New_York:20270223T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270223T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8692
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11660
+DTEND;TZID=America/New_York:20270218T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20270218T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11660
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7461
+DTEND;TZID=America/New_York:20270208T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20270208T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7461
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11646
+DTEND;TZID=America/New_York:20270204T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20270204T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11646
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8691
+DTEND;TZID=America/New_York:20270126T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20270126T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8691
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11659
+DTEND;TZID=America/New_York:20270121T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20270121T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11659
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7460
+DTEND;TZID=America/New_York:20270111T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20270111T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7460
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11645
+DTEND;TZID=America/New_York:20270107T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20270107T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11645
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11437
+DTEND;TZID=America/New_York:20261226T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20261226T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11437
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8690
+DTEND;TZID=America/New_York:20261222T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20261222T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8690
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11569
+DTEND;TZID=America/New_York:20261221T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20261221T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11569
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11658
+DTEND;TZID=America/New_York:20261217T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20261217T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11658
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7459
+DTEND;TZID=America/New_York:20261214T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20261214T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7459
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11621
+DTEND;TZID=America/New_York:20261214T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20261214T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11621
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11425
+DTEND;TZID=America/New_York:20261212T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20261212T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11425
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11644
+DTEND;TZID=America/New_York:20261203T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20261203T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11644
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11409
+DTEND;TZID=America/New_York:20261201T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20261201T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11409
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11436
+DTEND;TZID=America/New_York:20261128T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20261128T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11436
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8689
+DTEND;TZID=America/New_York:20261124T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20261124T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8689
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11657
+DTEND;TZID=America/New_York:20261119T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20261119T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11657
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11568
+DTEND;TZID=America/New_York:20261116T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20261116T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11568
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11424
+DTEND;TZID=America/New_York:20261114T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20261114T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11424
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10922
+DTEND;TZID=America/New_York:20261110T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20261110T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10922
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7458
+DTEND;TZID=America/New_York:20261109T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20261109T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7458
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11620
+DTEND;TZID=America/New_York:20261109T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20261109T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11620
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11643
+DTEND;TZID=America/New_York:20261105T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20261105T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11643
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11408
+DTEND;TZID=America/New_York:20261103T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20261103T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11408
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8688
+DTEND;TZID=America/New_York:20261027T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20261027T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8688
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11552
+DTEND;TZID=America/New_York:20261026T150000
+DTSTAMP;TZID=America/New_York:20260120T155351
+DTSTART;TZID=America/New_York:20261026T130000
+LAST-MODIFIED;TZID=America/New_York:20260120T155351
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11552
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11435
+DTEND;TZID=America/New_York:20261024T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20261024T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11435
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11567
+DTEND;TZID=America/New_York:20261019T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20261019T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11567
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11656
+DTEND;TZID=America/New_York:20261015T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20261015T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11656
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10921
+DTEND;TZID=America/New_York:20261013T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20261013T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10921
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7457
+DTEND;TZID=America/New_York:20261012T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20261012T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7457
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11619
+DTEND;TZID=America/New_York:20261012T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20261012T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11619
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11423
+DTEND;TZID=America/New_York:20261010T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20261010T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11423
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11440
+DTEND;TZID=America/New_York:20261007T120000
+DTSTAMP;TZID=America/New_York:20260109T133835
+DTSTART;TZID=America/New_York:20261007T110000
+LAST-MODIFIED;TZID=America/New_York:20260109T133835
+LOCATION:<p>City Administration Building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:Tree Advisory Board Meeting
+UID:11440
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11407
+DTEND;TZID=America/New_York:20261006T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20261006T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11407
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10902
+DTEND;TZID=America/New_York:20261005T130000
+DTSTAMP;TZID=America/New_York:20260406T163336
+DTSTART;TZID=America/New_York:20261005T120000
+LAST-MODIFIED;TZID=America/New_York:20260406T163336
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Airport Authority Meeting
+UID:10902
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11642
+DTEND;TZID=America/New_York:20261001T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20261001T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11642
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11551
+DTEND;TZID=America/New_York:20260928T150000
+DTSTAMP;TZID=America/New_York:20260120T155351
+DTSTART;TZID=America/New_York:20260928T130000
+LAST-MODIFIED;TZID=America/New_York:20260120T155351
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11551
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11434
+DTEND;TZID=America/New_York:20260926T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20260926T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11434
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8687
+DTEND;TZID=America/New_York:20260922T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20260922T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8687
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11566
+DTEND;TZID=America/New_York:20260921T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20260921T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11566
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11655
+DTEND;TZID=America/New_York:20260917T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20260917T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11655
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7456
+DTEND;TZID=America/New_York:20260914T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20260914T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7456
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11618
+DTEND;TZID=America/New_York:20260914T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20260914T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11618
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11422
+DTEND;TZID=America/New_York:20260912T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20260912T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11422
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10920
+DTEND;TZID=America/New_York:20260908T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20260908T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10920
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11795
+DTEND;TZID=America/New_York:20260907T140000
+DTSTAMP;TZID=America/New_York:20260410T112238
+DTSTART;TZID=America/New_York:20260907T110000
+LAST-MODIFIED;TZID=America/New_York:20260410T112238
+LOCATION:<p>At the front of the City Administration Building&nbsp\;</p> -  
+  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Clamor Florida 2026
+UID:11795
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11641
+DTEND;TZID=America/New_York:20260903T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20260903T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11641
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11406
+DTEND;TZID=America/New_York:20260901T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20260901T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11406
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11550
+DTEND;TZID=America/New_York:20260831T150000
+DTSTAMP;TZID=America/New_York:20260120T155351
+DTSTART;TZID=America/New_York:20260831T130000
+LAST-MODIFIED;TZID=America/New_York:20260120T155351
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11550
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8686
+DTEND;TZID=America/New_York:20260825T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20260825T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8686
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11433
+DTEND;TZID=America/New_York:20260822T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20260822T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11433
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11654
+DTEND;TZID=America/New_York:20260820T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20260820T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11654
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11565
+DTEND;TZID=America/New_York:20260817T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20260817T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11565
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10919
+DTEND;TZID=America/New_York:20260811T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20260811T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10919
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7455
+DTEND;TZID=America/New_York:20260810T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20260810T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7455
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11617
+DTEND;TZID=America/New_York:20260810T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20260810T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11617
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11421
+DTEND;TZID=America/New_York:20260808T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20260808T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11421
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11640
+DTEND;TZID=America/New_York:20260806T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20260806T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11640
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11405
+DTEND;TZID=America/New_York:20260804T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20260804T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11405
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10901
+DTEND;TZID=America/New_York:20260803T130000
+DTSTAMP;TZID=America/New_York:20260406T163336
+DTSTART;TZID=America/New_York:20260803T120000
+LAST-MODIFIED;TZID=America/New_York:20260406T163336
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Airport Authority Meeting
+UID:10901
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8685
+DTEND;TZID=America/New_York:20260728T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20260728T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8685
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11549
+DTEND;TZID=America/New_York:20260727T150000
+DTSTAMP;TZID=America/New_York:20260120T155351
+DTSTART;TZID=America/New_York:20260727T130000
+LAST-MODIFIED;TZID=America/New_York:20260120T155351
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11549
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11432
+DTEND;TZID=America/New_York:20260725T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20260725T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11432
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11564
+DTEND;TZID=America/New_York:20260720T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20260720T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11564
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11653
+DTEND;TZID=America/New_York:20260716T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20260716T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11653
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10918
+DTEND;TZID=America/New_York:20260714T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20260714T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10918
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7454
+DTEND;TZID=America/New_York:20260713T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20260713T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7454
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11616
+DTEND;TZID=America/New_York:20260713T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20260713T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11616
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11420
+DTEND;TZID=America/New_York:20260711T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20260711T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11420
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11404
+DTEND;TZID=America/New_York:20260707T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20260707T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11404
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11639
+DTEND;TZID=America/New_York:20260702T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20260702T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11639
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11439
+DTEND;TZID=America/New_York:20260701T120000
+DTSTAMP;TZID=America/New_York:20260109T133835
+DTSTART;TZID=America/New_York:20260701T110000
+LAST-MODIFIED;TZID=America/New_York:20260109T133835
+LOCATION:<p>City Administration Building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:Tree Advisory Board Meeting
+UID:11439
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11548
+DTEND;TZID=America/New_York:20260629T150000
+DTSTAMP;TZID=America/New_York:20260120T155351
+DTSTART;TZID=America/New_York:20260629T130000
+LAST-MODIFIED;TZID=America/New_York:20260120T155351
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11548
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11431
+DTEND;TZID=America/New_York:20260627T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20260627T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11431
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8684
+DTEND;TZID=America/New_York:20260623T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20260623T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8684
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11661
+DTEND;TZID=America/New_York:20260620T210000
+DTSTAMP;TZID=America/New_York:20260209T144045
+DTSTART;TZID=America/New_York:20260620T150000
+LAST-MODIFIED;TZID=America/New_York:20260209T144045
+LOCATION:<p>Northwest Business District</p> -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Juneteenth Street Fair
+UID:11661
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11712
+DTEND;TZID=America/New_York:20260619T210000
+DTSTAMP;TZID=America/New_York:20260218T083033
+DTSTART;TZID=America/New_York:20260619T174500
+LAST-MODIFIED;TZID=America/New_York:20260218T083033
+LOCATION:Lake Wales Family Recreation Center - 1001 Burns Ave.  Lake Wales 
+ FL 33853
+SEQUENCE:0
+SUMMARY:Freedom Fest Juneteenth Jazz and R&B Concert
+UID:11712
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11652
+DTEND;TZID=America/New_York:20260618T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20260618T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11652
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=9633
+DTEND;TZID=America/New_York:20260616T200000
+DTSTAMP;TZID=America/New_York:20241219T162626
+DTSTART;TZID=America/New_York:20260616T180000
+LAST-MODIFIED;TZID=America/New_York:20241219T162626
+LOCATION:<p>City Administration Building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:9633
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11563
+DTEND;TZID=America/New_York:20260615T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20260615T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11563
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11060
+DTEND;TZID=America/New_York:20260613T193000
+DTSTAMP;TZID=America/New_York:20251120T083346
+DTSTART;TZID=America/New_York:20260613T160000
+LAST-MODIFIED;TZID=America/New_York:20251120T083346
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Light and Local Market
+UID:11060
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11419
+DTEND;TZID=America/New_York:20260613T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20260613T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11419
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11790
+DTEND;TZID=America/New_York:20260610T160000
+DTSTAMP;TZID=America/New_York:20260331T164331
+DTSTART;TZID=America/New_York:20260610T140000
+LAST-MODIFIED;TZID=America/New_York:20260331T164331
+LOCATION:<p>City Administration building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Work Session
+UID:11790
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10917
+DTEND;TZID=America/New_York:20260609T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20260609T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10917
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7453
+DTEND;TZID=America/New_York:20260608T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20260608T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7453
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11615
+DTEND;TZID=America/New_York:20260608T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20260608T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11615
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11638
+DTEND;TZID=America/New_York:20260604T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20260604T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11638
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11403
+DTEND;TZID=America/New_York:20260602T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20260602T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11403
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10900
+DTEND;TZID=America/New_York:20260601T130000
+DTSTAMP;TZID=America/New_York:20260406T163336
+DTSTART;TZID=America/New_York:20260601T120000
+LAST-MODIFIED;TZID=America/New_York:20260406T163336
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Airport Authority Meeting
+UID:10900
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11789
+DTEND;TZID=America/New_York:20260527T160000
+DTSTAMP;TZID=America/New_York:20260331T164331
+DTSTART;TZID=America/New_York:20260527T140000
+LAST-MODIFIED;TZID=America/New_York:20260331T164331
+LOCATION:<p>City Administration building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Work Session
+UID:11789
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8683
+DTEND;TZID=America/New_York:20260526T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20260526T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8683
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11547
+DTEND;TZID=America/New_York:20260525T150000
+DTSTAMP;TZID=America/New_York:20260120T155351
+DTSTART;TZID=America/New_York:20260525T130000
+LAST-MODIFIED;TZID=America/New_York:20260120T155351
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11547
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11430
+DTEND;TZID=America/New_York:20260523T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20260523T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11430
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10927
+DTEND;TZID=America/New_York:20260521T103000
+DTSTAMP;TZID=America/New_York:20251017T153657
+DTSTART;TZID=America/New_York:20260521T083000
+LAST-MODIFIED;TZID=America/New_York:20251017T153657
+LOCATION:<p>City administration building-city manager conference room</p> -
+  201 central avenue w  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:General Employees' Pension Board Meeting
+UID:10927
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11651
+DTEND;TZID=America/New_York:20260521T123000
+DTSTAMP;TZID=America/New_York:20260209T143748
+DTSTART;TZID=America/New_York:20260521T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143748
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11651
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=9632
+DTEND;TZID=America/New_York:20260519T200000
+DTSTAMP;TZID=America/New_York:20241219T162626
+DTSTART;TZID=America/New_York:20260519T180000
+LAST-MODIFIED;TZID=America/New_York:20241219T162626
+LOCATION:<p>City Administration Building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:9632
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11562
+DTEND;TZID=America/New_York:20260518T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20260518T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11562
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11788
+DTEND;TZID=America/New_York:20260513T160000
+DTSTAMP;TZID=America/New_York:20260331T164331
+DTSTART;TZID=America/New_York:20260513T140000
+LAST-MODIFIED;TZID=America/New_York:20260331T164331
+LOCATION:<p>City Administration building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Work Session
+UID:11788
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=10916
+DTEND;TZID=America/New_York:20260512T160000
+DTSTAMP;TZID=America/New_York:20251010T175357
+DTSTART;TZID=America/New_York:20260512T140000
+LAST-MODIFIED;TZID=America/New_York:20251010T175357
+LOCATION:<p>Municipal Administration building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency (CRA) Meeting 
+UID:10916
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=7452
+DTEND;TZID=America/New_York:20260511T200000
+DTSTAMP;TZID=America/New_York:20230118T111809
+DTSTART;TZID=America/New_York:20260511T173000
+LAST-MODIFIED;TZID=America/New_York:20230118T111809
+LOCATION: - 201 W CENTRAL AVE  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Code Enforcement Board Meeting
+UID:7452
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11614
+DTEND;TZID=America/New_York:20260511T140000
+DTSTAMP;TZID=America/New_York:20260209T124232
+DTSTART;TZID=America/New_York:20260511T083000
+LAST-MODIFIED;TZID=America/New_York:20260209T124232
+LOCATION:Crystal Lake Park - 205 N 5th Street  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Shower Down Explosion
+UID:11614
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11059
+DTEND;TZID=America/New_York:20260509T193000
+DTSTAMP;TZID=America/New_York:20251120T083247
+DTSTART;TZID=America/New_York:20260509T160000
+LAST-MODIFIED;TZID=America/New_York:20251120T083247
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Light and Local Market
+UID:11059
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11418
+DTEND;TZID=America/New_York:20260509T130000
+DTSTAMP;TZID=America/New_York:20260108T160856
+DTSTART;TZID=America/New_York:20260509T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T160856
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11418
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11796
+DTEND;TZID=America/New_York:20260507T130000
+DTSTAMP;TZID=America/New_York:20260414T162831
+DTSTART;TZID=America/New_York:20260507T120000
+LAST-MODIFIED;TZID=America/New_York:20260414T162831
+LOCATION:<p>City Hall</p> - 201 W Central Avenue  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:National Day of Prayer
+UID:11796
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11637
+DTEND;TZID=America/New_York:20260507T123000
+DTSTAMP;TZID=America/New_York:20260209T143259
+DTSTART;TZID=America/New_York:20260507T070000
+LAST-MODIFIED;TZID=America/New_York:20260209T143259
+LOCATION:<p>James P Austin Community Center</p> - 315 Dr Martin Luther King
+  Jr Boulevard  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Central Florida Health Care Food Distribution
+UID:11637
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11402
+DTEND;TZID=America/New_York:20260505T200000
+DTSTAMP;TZID=America/New_York:20260102T151639
+DTSTART;TZID=America/New_York:20260505T180000
+LAST-MODIFIED;TZID=America/New_York:20260102T151639
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:11402
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11556
+DTEND;TZID=America/New_York:20260501T203000
+DTSTAMP;TZID=America/New_York:20260123T084723
+DTSTART;TZID=America/New_York:20260501T163000
+LAST-MODIFIED;TZID=America/New_York:20260123T084723
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Cinco de Mayo Pre-Party: Spring Friday Series presented by The City
+  of Lake Wales 
+UID:11556
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11787
+DTEND;TZID=America/New_York:20260429T160000
+DTSTAMP;TZID=America/New_York:20260331T164331
+DTSTART;TZID=America/New_York:20260429T140000
+LAST-MODIFIED;TZID=America/New_York:20260331T164331
+LOCATION:<p>City Administration building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Work Session
+UID:11787
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=8682
+DTEND;TZID=America/New_York:20260428T203000
+DTSTAMP;TZID=America/New_York:20240409T143827
+DTSTART;TZID=America/New_York:20260428T173000
+LAST-MODIFIED;TZID=America/New_York:20240409T143827
+LOCATION: -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting
+UID:8682
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11546
+DTEND;TZID=America/New_York:20260427T150000
+DTSTAMP;TZID=America/New_York:20260417T165414
+DTSTART;TZID=America/New_York:20260427T130000
+LAST-MODIFIED;TZID=America/New_York:20260417T165414
+LOCATION:<p>Lake Wales Fire Department</p> - 253 W. Central Ave  Lake Wales
+  FL 33853
+SEQUENCE:0
+SUMMARY:Police Pension Board 
+UID:11546
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11429
+DTEND;TZID=America/New_York:20260425T130000
+DTSTAMP;TZID=America/New_York:20260108T161201
+DTSTART;TZID=America/New_York:20260425T090000
+LAST-MODIFIED;TZID=America/New_York:20260108T161201
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Lake Wales Main Street Farmers Market
+UID:11429
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11735
+DTEND;TZID=America/New_York:20260424T220000
+DTSTAMP;TZID=America/New_York:20260224T154743
+DTSTART;TZID=America/New_York:20260424T200000
+LAST-MODIFIED;TZID=America/New_York:20260224T154743
+LOCATION:<p>Oakley Park-Cypress Gardens Lane</p> -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:City Nature Challenge- Moth Moments: A Night in Nature!
+UID:11735
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11555
+DTEND;TZID=America/New_York:20260424T203000
+DTSTAMP;TZID=America/New_York:20260123T084524
+DTSTART;TZID=America/New_York:20260424T163000
+LAST-MODIFIED;TZID=America/New_York:20260123T084524
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Mad Hatter Tea Party: Spring Friday Series presented by The City of
+  Lake Wales 
+UID:11555
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11709
+DTEND;TZID=America/New_York:20260424T170000
+DTSTAMP;TZID=America/New_York:20260220T141328
+DTSTART;TZID=America/New_York:20260424T130000
+LAST-MODIFIED;TZID=America/New_York:20260220T141328
+LOCATION:<p>Library&apos\;s West Parking Lot</p> -   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Blood Drive at the Library - 1 PM
+UID:11709
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11801
+DTEND;TZID=America/New_York:20260423T103000
+DTSTAMP;TZID=America/New_York:20260417T162841
+DTSTART;TZID=America/New_York:20260423T083000
+LAST-MODIFIED;TZID=America/New_York:20260417T162841
+LOCATION:<p>City Administration Building-City Manager&apos\;s Conference Ro
+ om</p> - 201 central ave w  Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:General Employees' Pension Board Meeting
+UID:11801
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=9631
+DTEND;TZID=America/New_York:20260421T200000
+DTSTAMP;TZID=America/New_York:20241219T162626
+DTSTART;TZID=America/New_York:20260421T180000
+LAST-MODIFIED;TZID=America/New_York:20241219T162626
+LOCATION:<p>City Administration Building</p> - 201 W. Central Ave  Lake Wal
+ es FL 33853
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:9631
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11561
+DTEND;TZID=America/New_York:20260420T130000
+DTSTAMP;TZID=America/New_York:20260123T173538
+DTSTART;TZID=America/New_York:20260420T120000
+LAST-MODIFIED;TZID=America/New_York:20260123T173538
+LOCATION:<p>Municipal Administration Building</p> - 201 W. Central Ave  Lak
+ e Wales FL 33853
+SEQUENCE:0
+SUMMARY:Recreation Commission
+UID:11561
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.lakewalesfl.gov/calendar.aspx?EID=11058
+DTEND;TZID=America/New_York:20260418T193000
+DTSTAMP;TZID=America/New_York:20251120T083213
+DTSTART;TZID=America/New_York:20260418T160000
+LAST-MODIFIED;TZID=America/New_York:20251120T083213
+LOCATION:Downtown Market Place - 20 N. Market Place   Lake Wales FL 33853
+SEQUENCE:0
+SUMMARY:Light and Local Market
+UID:11058
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+END:VCALENDAR

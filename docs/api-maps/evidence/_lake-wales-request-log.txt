@@ -1,0 +1,125 @@
+2026-04-18T14:25:04Z 200 https://www.lakewalesfl.gov/robots.txt -> lake-wales-fl-www-lakewalesfl-gov-robots-txt
+2026-04-18T14:25:07Z 200 https://www.lakewalesfl.gov/sitemap.xml -> lake-wales-fl-www-lakewalesfl-gov-sitemap-xml
+2026-04-18T14:25:08Z 404 https://secure.lakewalesfl.gov/robots.txt -> lake-wales-fl-secure-lakewalesfl-gov-robots-txt
+2026-04-18T14:25:10Z 404 https://secure.lakewalesfl.gov/sitemap.xml -> lake-wales-fl-secure-lakewalesfl-gov-sitemap-xml
+2026-04-18T14:25:11Z 404 https://lakewalesfl.legistar.com/robots.txt -> lake-wales-fl-lakewalesfl-legistar-com-robots-txt
+2026-04-18T14:25:13Z 404 https://lakewalesfl.legistar.com/sitemap.xml -> lake-wales-fl-lakewalesfl-legistar-com-sitemap-xml
+2026-04-18T14:25:14Z 404 https://lakewalesfl.novusagenda.com/robots.txt -> lake-wales-fl-lakewalesfl-novusagenda-com-robots-txt
+2026-04-18T14:25:16Z 404 https://lakewalesfl.novusagenda.com/sitemap.xml -> lake-wales-fl-lakewalesfl-novusagenda-com-sitemap-xml
+2026-04-18T14:25:17Z 200 https://lakewales.granicus.com/robots.txt -> lake-wales-fl-lakewales-granicus-com-robots-txt
+2026-04-18T14:25:19Z 404 https://lakewales.granicus.com/sitemap.xml -> lake-wales-fl-lakewales-granicus-com-sitemap-xml
+2026-04-18T14:25:20Z 200 https://cityoflakewales.column.us/robots.txt -> lake-wales-fl-cityoflakewales-column-us-robots-txt
+2026-04-18T14:25:22Z 200 https://cityoflakewales.column.us/sitemap.xml -> lake-wales-fl-cityoflakewales-column-us-sitemap-xml
+final_url=https://lakewalesfl.novusagenda.com/agendaweb/Error.html?aspxerrorpath=/AgendaWeb
+http_code=500
+num_redirects=2
+2026-04-18T14:25:31Z 000 https://lakewales.iworq.net/ size=
+2026-04-18T14:25:33Z 302 https://lakewales.portal.iworq.net/ size=466
+2026-04-18T14:25:34Z 302 https://cityoflakewales.portal.iworq.net/ size=514
+000
+200 https://lakewalesfl.govbuilt.com/ sz=31617
+200 https://cityoflakewales.govbuilt.com/ sz=31625
+200 https://lakewales.govbuilt.com/ sz=31613
+200 https://mylakewales.govbuilt.com/ sz=31617
+lakewalesfl title=<title>GOVBUILT PLATFORM - Tomorrow's Government Built Today</title> api=404 api_sz=8110
+cityoflakewales title=<title>GOVBUILT PLATFORM - Tomorrow's Government Built Today</title> api=404 api_sz=8110
+lakewales title=<title>GOVBUILT PLATFORM - Tomorrow's Government Built Today</title> api=404 api_sz=8110
+mylakewales title=<title>GOVBUILT PLATFORM - Tomorrow's Government Built Today</title> api=404 api_sz=8110
+200 search
+200 root
+200 legistar/
+200 legistar/Calendar.aspx
+200 legistar/Departments.aspx
+200 legistar/People.aspx
+200 legistar/Legislation.aspx
+500 odata/Bodies sz=4830
+500 odata/Events sz=4830
+404 odata/EventItems sz=3297
+500 odata/Matters sz=4832
+500 odata/Persons sz=4832
+500 odata/OfficeRecords sz=4844
+200 antiforgery sz=120
+200 AgendaCenter sz=374530
+200 AgendaCenter/Search sz=97197
+404 AgendaCenter/UpdateCategoryList sz=90603
+200 DocumentCenter sz=96100
+302 ArchiveCenter sz=130
+200 FormCenter sz=110188
+200 rss.aspx sz=111507
+200 Calendar.aspx sz=176775
+302 FAQ.aspx sz=0
+302 CivicAlerts.aspx sz=0
+Archive.aspx 200
+Search AJAX 411
+DocumentCenter/Index/433 200
+FormCenter 200
+200 api sz=7055
+200 api/v1/notices sz=7055
+200 api/notices sz=7055
+404 api/search sz=2845
+404 _next/data sz=2845
+200 graphql sz=7055
+200 api/public/notices sz=7055
+200 www/api/notices/jurisdiction/lakewales
+200 www/api/searchpublicnotices
+200 www/api/public/search
+200 909/Contractor-Online-Portal
+200 241/Building-Division
+200 252/Forms-Checklists
+200 AgendaCenter/Search
+200 https://secure.lakewalesfl.gov/permits/ permits
+200 https://secure.lakewalesfl.gov/permits/ permits/
+404 https://secure.lakewalesfl.gov/permits/login permits/login
+404 https://secure.lakewalesfl.gov/permits/public permits/public
+404 https://secure.lakewalesfl.gov/permits/search permits/search
+200 https://secure.lakewalesfl.gov/ubs1/ ubs1/
+200 https://secure.lakewalesfl.gov/custubs/ custubs/
+404 https://secure.lakewalesfl.gov/api api
+404 https://secure.lakewalesfl.gov/robots.txt robots.txt
+301 adg sz=147
+301 adg/citizenlink sz=159
+404 permits/adg/citizenlink sz=1245
+404 permits/citizenlink sz=1245
+404 permits/publicSearch sz=1245
+404 permits/public-view sz=1245
+404 permits/search/permit sz=1245
+404 permits/publicpermitsearch sz=1245
+404 adg/publicpermitsearch sz=1245
+  permitsmu -> 200 https://secure.lakewalesfl.gov/permitsmu/
+
+  permitsmu/ -> 200 https://secure.lakewalesfl.gov/permitsmu/
+
+  permits/index.php -> 200 https://secure.lakewalesfl.gov/permits/index.php
+
+  permits/publicSearch.php -> 404 https://secure.lakewalesfl.gov/permits/publicSearch.php
+
+  permits/permitsearch -> 404 https://secure.lakewalesfl.gov/permits/permitsearch
+
+  permits/searchpermits -> 404 https://secure.lakewalesfl.gov/permits/searchpermits
+
+  permits/bps/public -> 404 https://secure.lakewalesfl.gov/permits/bps/public
+
+  bps/publicSearch -> 404 https://secure.lakewalesfl.gov/bps/publicSearch
+
+  adg/citizenlink/permits -> 404 https://secure.lakewalesfl.gov/adg/citizenlink/permits
+
+200 mod1 sz=5725
+200 mod51 sz=324
+200 mod53 sz=52853
+200 mod58 sz=36651
+200 mod63 sz=336
+200 mod64 sz=348
+200 mod65 sz=11521
+200 mod76 sz=14339
+200 mod92 sz=330
+200 antiforgery
+200 iCalendar
+200 ViewFile
+302 AgendaViewer
+200 granicus/JSON.php sz=2
+404 granicus/rss sz=6609
+404 granicus/rss/ sz=6609
+404 granicus/api/ViewPublisher sz=6609
+200 granicus/player/camera/3 sz=73841
+404 granicus/FeedChannel.php sz=6609
+200 ViewPublisherRSS

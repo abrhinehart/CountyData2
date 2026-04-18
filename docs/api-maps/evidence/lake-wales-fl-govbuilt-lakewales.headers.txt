@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 14:25:59 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=CpQ53jidZDjJ5ErZWM7H6bF442iAkxDGCnBtt%2BVjK8j%2FS3JFrdkfDv90tjRxXAYzZCiuQDj8laHiKRmQQzDOIT2WEeIxbwdelASP8TLdrvCj1JtHZ5Y7yEPPvXYTaB1tCzIhHNbks%2B8%3D"}]}
+pragma: no-cache
+Set-Cookie: __orchantiforgery_4md2n4pzm9rac7h5ry5nhzfm4b=CfDJ8Gi7AVxiBLZHj6WfjX2HCbIChkbRsC1OY6MlWnLt5fLgnTHeXTPcHQPiHrKN-yeAuDQuxPtYSDhlPQb3jh7gpy0Iigq7nfH49FW-QtaNKfMfCDMoxjrVqvqziKOMbObamWoaKWteqiRdK9zJ3DpHID4; path=/; secure; samesite=strict; httponly
+Set-Cookie: ARRAffinity=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;Secure;Domain=lakewales.govbuilt.com
+Set-Cookie: ARRAffinitySameSite=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;SameSite=None;Secure;Domain=lakewales.govbuilt.com
+vary: Accept-Encoding
+request-context: appId=cid-v1:e7dce90d-3764-43cb-bd0b-fe7f4f798daa
+x-content-type-options: nosniff
+referrer-policy: no-referrer
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: 9ee45786a92e4adf-MIA
+

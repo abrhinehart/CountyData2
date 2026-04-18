@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 14:30:12 GMT
+Server: Apache
+Cache-Control: no-store, no-cache, must-revalidate,post-check=0, pre-check=0
+Pragma: no-cache
+Content-Type: text/html; charset=UTF-8
+Expires: Sat, 26 Jul 1997 05:00:00 GMT
+Last-Modified: Sat, 18 Apr 2026 14:30:12 GMT
+X-Powered-By: PHP/8.3.25
+Access-Control-Allow-Origin: *
+Content-Security-Policy: frame-ancestors 'self'; default-src 'self'; object-src 'none'; frame-src * data:; font-src 'self' *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com cdnsrc.asp.net; media-src 'self'; style-src 'self' *.mapbox.com unpkg.com 'unsafe-inline' *.gstatic.com *.googleapis.com fonts.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com code.jquery.com cdnsrc.asp.net tvtcloud.app; img-src 'self' data: *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com code.jquery.com cdnsrc.asp.net tvtcloud.app; script-src 'self' 'unsafe-inline' blob: 'unsafe-eval' *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com cdn.jsdelivr.net *.google.com code.jquery.com 'unsafe-inline' 'unsafe-inline'; script-src-attr 'unsafe-inline'; connect-src 'self' *.mapbox.com unpkg.com code.jquery.com
+Content-Length: 2398
+Set-Cookie: PHPSESSID=gamp7hht8ja4rulaqcavhnaq32; path=/
+Vary: Accept-Encoding
+Set-Cookie: HASH_PHPSESSID=40baf97f5aa7dfb5dd52ca290a7769a2a3ba5a95; path=/
+

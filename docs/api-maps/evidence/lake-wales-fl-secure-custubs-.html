@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>UBS Customer Billing Inquiry</title>
+<div id='overDiv' style='position:absolute; visibility:hidden; z-index:1000;'></div>
+<script type='text/javascript' src='/adg/supporting/jscript/overlib.js'><!-- overLIB (c) Erik Bosrup --></script>
+<script type='text/javascript' src='/adg/supporting/jscript/overlib_hideform.js'></script>
+<script type='text/javascript' src='/adg/supporting/jscript/overlib_centerpopup.js'></script>
+	<script type=text/javascript>
+	/**
+	 * activated by onLoad, sees if there are any values in the errors
+	 * value, and shows an alert box with them
+	 */
+	function doLegacyErrors() {
+		if (!document.getElementById('errors'))
+			return 0;
+
+		var em = document.getElementById('errors').value;
+		if (em=='') 
+			return 0;
+		alert(em);
+		return 1;
+	}
+
+	if (document.images){
+      preload_image = new Image(32,32); 
+      preload_image.src="/adg/supporting/images/ajax-loader.gif"; 
+    }
+	function pleaseWait(message){
+		text = '<div style="width:390px;height:390px;background:white;text-align:center;vertical-align:middle;border:1px solid black;">';
+		text = text + '<div style="height:150px;border:0px solid silver;padding-top:100px;padding-left:10px;padding-right:10px;font-weight:bold;">' + message + '</div>';
+		text = text + '<div><img src="/adg/supporting/images/ajax-loader.gif"></img><div>';
+		text = text + '<div style="font-weight:bold;color:#ff0000;padding:10px;"><font color=red>Do not attempt to interrupt this process</font><div>';
+		text = text + '</div>'; 
+		return overlib(text, BGCOLOR,'WHITE', FGCOLOR, 'WHITE', HEIGHT,400,WIDTH,400,CENTERPOPUP,STICKY);
+	}
+	function closePleaseWait(){}
+	</script>
+	<STYLE>
+	/* Styles for areas inside the data_area that use fieldwriter */
+
+	#inner_data_area table {
+		margin-top:10px;
+		border:0px;
+		border-collapse:collapse;
+	}
+	#inner_data_area td {
+		border:0px;
+	}
+
+	#inner_data_area .label {
+		text-align:right;
+		font-weight:bold;
+		border:0px;
+	}
+	#inner_data_area .div_sectionheader_bg {
+		font-weight:bold;
+	}
+	</STYLE>
+	</head>
+System intrusion detected - You must login using a valid Userid/Password

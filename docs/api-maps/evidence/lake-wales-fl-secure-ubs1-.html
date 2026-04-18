@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><HTML lang="EN">
+<head>
+<title>City Of Lake Wales, Florida - Utilities and Online Payments</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="No-Cache">
+<meta http-equiv="Pragma"        content="No-Cache">
+<meta http-equiv="Expires"       content="Wed, 26 Feb 1997 08:21:57 GMT">
+
+<link rel='stylesheet' href='/ubs1/style.css' type='text/css'>
+</head>
+<body id="BODY">
+<div id='pageBanner'>
+<div id='pageTop'></div>
+<div id='pageBannerLogo'><img id='pageBannerImage' src='/ubs1/lw-logo.png'/></div>
+<div id='pageBannerText'>Utilities Inquiry & Online Bill Pay</div>
+</div>
+<div id='outerContainer'>
+<div id='container' style='height:600px'>
+
+<div id='loginScreen'>
+
+<!-- Standard login help text -->
+To login and view your account or to pay your bill, you will need to use your PayID and address number. Your PayID can be found on your utilities bill. <b>Your default password is your mailing address number.</b>
+<p>
+If you have never logged in before, the following examples provide guidance:
+<div id='loginExample'>
+<table>
+<tr><th>Account Name</th><th>Mailing Address</th><th>PayID</th><th>Account</th><th>Log in with</th></tr>
+<tr><td>Joe Smith</td><td><b>6789</b> Plaza Drive<br/>Lake Wales, FL 33853</td><td>N1X</td><td>12345</td><td>PayID N1X or Account Number 12345, Password - 6789</td></tr>
+<tr><td>Smith Services Inc</td><td><b>PO</b> Box 11021<br/>Lake Wales, FL 33853</td><td>Z4A</td><td>98765</td><td>PayID Z4A or Account Number 98765, Password - PO</td></tr>
+</table>
+</div>
+<p>
+<!-- end of standard login help text -->
+
+<form name='form1' method='POST' ACTION='/custubs/main.php' AUTOCOMPLETE='off'>
+
+<table style='width:50%;margin-left:auto;margin-right:auto;'>
+<tr>
+<td class='label'><ABBR title='The Pay-ID that appeared on your last utility bill'>PayID or Account Number:</ABBR></td>
+<td class='data'><input type='text' name='a_no' id='a_no' size='12' value='' autocomplete='off'></td>
+</tr>
+<tr>
+<td class='label'><ABBR title='Your Account Password'>Password:</ABBR></td>
+<td class='data'><input type='password' name='a_pass' id='a_pass' size='12'  autocomplete='off'></td>
+</tr>
+<tr>
+<td colspan='2' style='border:0px;text-align:center;'>
+<input class='clButton' type='submit' value='Login'>
+<input type='hidden' id='a_org' name='a_org' value='1'>
+</form>
+</td>
+</tr>
+<!-- the standard lost password add-in -->
+<tr><td colspan=2 align='center' style='padding-top:10px;border:0px;'>
+<form id='lost_password_form' action='/custubs/recoverpass.php' method=POST>
+<input type=hidden id=a_org name=a_org value=1>
+<a class='lostPassword' href=javascript:void(0) onClick="document.getElementById('lost_password_form').submit();">Lost Your Password?</a>
+</form>
+</td></tr>
+<!-- end of the standard lost password add-in -->
+</table>
+</div>
+</div>
+</body>
+<script type='text/javascript'>
+document.getElementById('a_no').focus();
+</script>
+</html>

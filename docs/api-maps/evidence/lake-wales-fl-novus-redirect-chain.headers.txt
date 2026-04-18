@@ -1,0 +1,32 @@
+HTTP/1.1 302 Found
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Location: /AgendaWeb
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+GranicusServer: gasmp-novweb2
+Date: Sat, 18 Apr 2026 14:25:30 GMT
+Content-Length: 127
+Set-Cookie: BIGipServerSTAR.novusagenda.com_443=874775306.47873.0000; path=/; Httponly; Secure
+
+HTTP/1.1 302 Found
+Content-Type: text/html; charset=utf-8
+Location: /agendaweb/Error.html?aspxerrorpath=/AgendaWeb
+Server: Microsoft-IIS/10.0
+X-Powered-By: ASP.NET
+GranicusServer: gasmp-novweb2
+Strict-Transport-Security: max-age=31536000
+Date: Sat, 18 Apr 2026 14:25:30 GMT
+Content-Length: 163
+
+HTTP/1.1 500 Internal Server Error
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/10.0
+X-Powered-By: ASP.NET
+GranicusServer: gasmp-novweb2
+Strict-Transport-Security: max-age=31536000
+Date: Sat, 18 Apr 2026 14:25:30 GMT
+Content-Length: 1798
+

@@ -1,0 +1,53 @@
+Lake Wales, FL — API map seed inventory
+Generated: 2026-04-18 (Executor pass)
+
+# Primary seed
+https://www.lakewalesfl.gov/ — CivicPlus CivicEngage CMS (200)
+
+# Vendor hostnames observed
+www.lakewalesfl.gov        — CivicPlus CivicEngage (primary CMS; numeric-ID URLs; /AgendaCenter live; /DocumentCenter; /FormCenter; /Archive.aspx; RSS; iCalendar)
+secure.lakewalesfl.gov     — self-hosted ADG (American Data Group):
+                               /ubs1/ → ADG UBS utilities billing (login-only; a_no/a_pass → /custubs/main.php)
+                               /permits → ADG Building Department Portal (citizenlink SPA; /permitsmu/ mobile; /adg/citizenlink 403 anon)
+lakewalesfl.legistar.com   — Legistar tenant provisioned but **not configured** — OData returns 500 "LegistarConnectionString setting is not set up in InSite for client: lakewalesfl"; UI pages return "Invalid parameters!". DEAD TENANT.
+lakewalesfl.novusagenda.com — NovusAgenda tenant **broken** — /AgendaWeb throws ASP.NET Runtime Error. Likely orphan from prior platform era; no usable data surface.
+lakewales.granicus.com     — Granicus ViewPublisher (legacy video archive for CC meetings; live but AgendaViewer redirects to CivicPlus AgendaCenter — video/stream surface is Granicus, agenda/packet surface is CivicPlus)
+cityoflakewales.column.us  — Column PBC (public legal notices; Firebase-backed; Next.js/CRA SPA; firebase project "enotice-production")
+www.column.us              — (external canonical Column marketing site; out-of-scope)
+library.municode.com/fl/lake_wales — Municode Library (code ordinances; cross-ref only)
+
+# Cloudflare / browser-challenge cases
+None encountered — all probed hosts responded directly with the CountyDataMapper UA.
+GovBuilt probes: all 4 slugs (lakewalesfl, cityoflakewales, lakewales, mylakewales) return the generic placeholder
+  — title "GOVBUILT PLATFORM - Tomorrow's Government Built Today"
+  — ~31.6 KB body (placeholder signature matches per _platforms.md detection discipline)
+  — /PublicReport/GetAllContentToolModels returns 404 + 8110-byte error page (placeholder signature)
+  → PLACEHOLDER (no real GovBuilt tenant for Lake Wales)
+
+# Negative results (no tenant)
+lakewales.iworq.net               — DNS resolves but curl returned code 000 (likely no HTTP on bare apex)
+lakewales.portal.iworq.net        — 302 → /portalhome/lakewales → Laravel "Page Can Not Be Found" (3210 bytes). No active permit tenant.
+cityoflakewales.portal.iworq.net  — 302 → /portalhome/cityoflakewales → Laravel "Page Can Not Be Found" (3216 bytes). No active permit tenant.
+Accela (LAKEWALES/COLW/CITYLAKEWALES) — 404 per Planner (confirmed prior recon; no re-probe)
+SmartGov — 103-byte placeholders per Planner (no tenant; no re-probe)
+Laserfiche — no obvious weblink.lakewalesfl.* subdomain; not re-probed this pass
+CityView — no *.cityview.* links found in CMS (no tenant)
+
+# Meeting-vendor disambiguation
+Authoritative for current CR data: **CivicPlus AgendaCenter** (lake-wales-cc.yaml platform: civicplus, category_id: 4).
+Legistar + NovusAgenda tenants both exist but are BROKEN/UNCONFIGURED shells (likely migration residue).
+Granicus hosts video archive only; its AgendaViewer.php redirects to CivicPlus AgendaCenter.
+
+# robots.txt stance (per hostname)
+www.lakewalesfl.gov    — 200; standard CivicPlus disallows /admin /OJA /Search* /Map* /RSS.aspx; /RSSFeed.aspx allowed; Sitemap: /sitemap.xml (339 URLs)
+secure.lakewalesfl.gov — 404 (no robots served)
+lakewales.granicus.com — 200; "User-agent: * / Disallow: /" — operational-risk signal, pace conservatively
+lakewalesfl.legistar.com, lakewalesfl.novusagenda.com — 404 (no robots)
+cityoflakewales.column.us — 200, but body is the SPA HTML (not a plain-text robots); Column.us app effectively serves the SPA for all unknown paths
+
+# New platforms to add to _platforms.md (evaluated)
+Column PBC (public legal notices) — YES, has scrapable data surface (Firebase-backed Next.js SPA at <tenant>.column.us); add row.
+ADG Building Department Portal (permits) — YES, adjunct to existing ADG UBS row; expand ADG row with permits sub-product OR add new row.
+
+# Total requests this pass
+~95 (well under 2000 cap). No 429s. No captchas encountered.

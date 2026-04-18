@@ -1,0 +1,158 @@
+
+		<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN'
+	    'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+		<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+		<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<title>Building Department Portal</title>
+		
+			<script type="text/javascript" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b">
+			ADG_BASE_URL="/adg";
+			ADG_CITIZENLINK_URL="/adg/citizenlink";
+			SESSION="u0h57k937od30oas1d9h7c6poi";
+			APPCODE="ADG";
+			</script><script type="text/javascript" src="/adg/supporting/jquery/jquery-3.7.1/jquery-3.7.1.min.js?c9a1b0aa0167c8a4df724d18d06814a8" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/ui-1.13.3/jquery-ui.min.css?8eafe54438803ae6a8915c2cd906c860' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/ui-1.13.3/jquery-ui.min.js?d67a4d0bddf71ab21fcd71a66d962e17" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/ui-1.13.3/jquery-ui.structure.min.css?ca324ae1a9ddaaa185301d09c78bb502' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/ui-1.13.3/jquery-ui.theme.min.css?d995aabfba2a47550021cb305f7dd43a' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/adg/adg-tooltips.css?a26d0ffe99e6e5504ea51ffa8961fe23' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/adg/htmlDatePicker.jquery.js?859d49e802e4c84bb8a08c1df8829292" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/adg/htmlText.js?6f8e779c6dd87fcc87387abd3664e97a" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/adg/htmlTimeText.jquery.js?9309613d58bde2ea98fa04d54ef60fbe" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/adg/mainOnReady.js?e3fc2c97082212efe149a76071379df3" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/awesome-4.7.0/css/font-awesome.min.css?269550530cc127b6aa5a35925a7de6ce' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/jqwidgets-19.2.0/jqx-all.js?95fa91fe9ae1e63a8062c1a3fbc840da" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/jqwidgets-19.2.0/jqx.base.css?84e81ae8fa3a0d5aaa77a3c8e2158a1a' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/jqwidgets-19.2.0/jqx.darkblue.css?2ea9699f2e41ed05efe9269a5071d67e' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/jqwidgets-19.2.0/jqx.metrodark.css?72a5b55315f3e8a38b68bb6ef299ccfc' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/jqwidgets-19.2.0/jqx.mobile.css?e15066a3fadace91e93cf77de06427c6' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/jqwidgets-19.2.0/onReady.js?3a6920e6d92fa96bb53425ea408ec437" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/inputmask-3.3.0/jquery.inputmask.bundle.min.js?4142f569528873c9ae8b677013f5918b" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/inputmask-3.3.0/z-adg.js?60d251ccb189ba23e0466ddd71785e4a" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/datatables-1.10.21/js/datatables.min.js?e45a40e59232a6d05b88617ab4c4a569" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/datatables-1.10.21/css/datatables.min.css?f26e8a14cbba1058e7549d2853618924' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/datatables-1.10.21/JSZip-2.5.0/jszip.js?b2b9eb4084c03189e0c32bac39f9f44b" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/datatables-1.10.21/JSZip-2.5.0/jszip.min.js?88731e24340ce38647f6d595f0e464cb" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/datatables-1.10.21/pdfmake-0.1.36/pdfmake.js?2e2f0419e2df56d7dbb4e12faf917719" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/datatables-1.10.21/pdfmake-0.1.36/pdfmake.min.js?ffa9a02736fe4a19a3a08179ceb35a3f" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/datatables-1.10.21/pdfmake-0.1.36/vfs_fonts.js?795e143b8f4eeb5089b2638cdeca7006" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/ajaxq/ajaxq.js?26d983837a0d730e5ac74a379173cbab" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/moment-2.29.4/moment.min.js?8ff6d164e6f8a810eeff48cda040f1fa" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/payments/jquery.payment.min.js?77f8c3b6798113f347f6fdf49b7817f2" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="//d79i1fxsrar4t.cloudfront.net/jquery.liveaddress/5.1/jquery.liveaddress.min.js" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/uploader-10.32.0/js/jquery.fileupload.js?9cabed4eb1e5ffe4ba9af328f6e4c3cd" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/uploader-10.32.0/js/jquery.iframe-transport.js?c57c2fda224f8c9c95f348d4f15ea34c" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uploader-10.32.0/css/jquery.fileupload-noscript.css?77b97d2b03652874f0b4838f9092bbb2' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uploader-10.32.0/css/jquery.fileupload-ui-noscript.css?f95c01176c6a8e075aebd07ee2e84689' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uploader-10.32.0/css/jquery.fileupload-ui.css?f876f983c4978d2cb1798d89b51f0d04' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uploader-10.32.0/css/jquery.fileupload.css?e22bc663785f83772a4498b55da9528a' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/blockui/jquery.blockUI.js?af35ad613109bdb74d92fef451599847" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/filedownload-1.4.6/jquery.fileDownload.js?a539437e73e5f988c97603e4f13ebd45" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/showdown-2.1.0/showdown.min.js?4d99629395d1bee366b2d4b406b84454" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/plyr-3.5.4/plyr.css?8836d02722eeaf1da75174631a5456ab' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/plyr-3.5.4/plyr.js?d7a861119682f9c9e442222709bc81a6" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/plyr-3.5.4/plyr.min.js?6037f6fc064ccf9b1fe8c45b4a33967c" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/plyr-3.5.4/plyr.polyfilled.js?625871195b4204de2ada517f5414197d" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/plyr-3.5.4/plyr.polyfilled.min.js?35e44a07e410037bc858de22b42c9915" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/easytimer-4.3.4/easytimer.min.js?90639b0141240a68f5575f2a33c40e32" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/lobibox-1.2.7/js/lobibox.min.js?7dafeb161ce5c8b0f8d0716c22fcecbd" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/lobibox-1.2.7/js/messageboxes.min.js?bb4120925638cbd4e18a17718ae6f793" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jquery/lobibox-1.2.7/js/notifications.min.js?37380344fb1ad93edb53b97b637a012b" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/lobibox-1.2.7/css/lobibox.css?b6d03feb25903bf205d47c3d2cffac17' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/qtip2-3.0.3/jquery.qtip.min.css?ca447ae8bb217a89fb895449985336ac' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/qtip2-3.0.3/jquery.qtip.min.js?baa0dbb86e85ab74aa151eb8ca9d36eb" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/qtip2-3.0.3/z-adg.css?6608038394a7ee7a4c98a3a888c11523' type='text/css'>
+<script type="text/javascript" src="/adg/supporting/jquery/select2-4.0.13/js/select2.full.min.js?fcd7500d8e13d2b2aae5d3956dc3e21d" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/select2-4.0.13/css/select2.min.css?9f54e6414f87e0d14b9e966f19a174f9' type='text/css'>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/mobile-detect@1.4.4/mobile-detect.min.js" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uitheme-1.13.0/south-street/jquery-ui.css?af7135542142d17b80d279cf868fa57d' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uitheme-1.13.0/south-street/jquery-ui.min.css?11e05832340edd33a4f0413612c121ad' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/jquery/uitheme-1.13.0/south-street/theme.css?31af0a2c894b4cc7a802b27f7f916c4f' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/style/autoload/citizenlink/common/desktop/style.css?21346b3ed43a6c2ce38d87318e12429d' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/style/autoload/citizenlink/common/desktop/workflow.css?aeca2d68f318e47f3943916ed3beb39e' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/style/autoload/citizenlink/bps/desktop/common.css?5aa8a67eb5254b7e1d52494ab2b228f9' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/style/autoload/citizenlink/workflow/desktop/style.css?7be781d9a9b68a028dfafd499fc6a556' type='text/css'>
+<link   rel='stylesheet' href='/adg/supporting/style/autoload/citizenlink/fms/desktop/style.css?f552cf9a50f4a13e0bf0413ed0dba485' type='text/css'>
+
+<style type='text/css' media='all'>
+@import '/adg-custom-site/permits/customer-desktop.css'
+</style><script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/common/breadcrumbs.js?583914b9957fe2b163c09db336cc8bb2" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/common/common.js?ec3dd0b6d85edbeff4c76fd6e9cccdcb" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/common/showdown.min.js?9cf9f0f6587c09ba40dfe706d867d4e5" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/desktop/breadcrumbs.js?725e623180f437b5e942fe3a6e07fb7d" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/desktop/common.js?b3a30f0cf95997c9557ccd1d68c43fb5" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/desktop/mobile-tablet-check.js?0ff3ba6df25e604e9833645c979e9a35" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/desktop/modernizr.js?fdcf07c60b981940b6ff1bb5932b4a68" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/common/desktop/workflow.js?3d909bb375481429605a6843210524cb" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/bps/common/common.js?f2dbe324a44ad44e872f1da98ec310c4" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/bps/desktop/common.js?211d908c5e80e500a27ef702b07436a7" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/fms/common/common.js?d3c7d370a6e9e3630bb89f599bd32eed" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/fms/common/pfpro.js?888a4773ebdfee3183585e223afd0002" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/fms/common/smartbill.js?cc274d0ea4b23d3a5570af77444d6c44" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/fms/desktop/common.js?f268fab73f21a44721349e3458bc8570" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload//citizenlink/fms/desktop/smartbill.js?7e50d641461086bc658402db0888a4fd" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/base64Methods.js?1450a950a6f120fd91d0ddb8c20b82f0" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/phpFunctions.js?93be0a233fcf507f9679864869eabc76" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/jqWidget.js?819b0111732c6b2bb29cb3a98863e463" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/standardAddressController.js?1f2d619eed149faca4ce1c844c31a5e3" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/jqxCustomSlider.js?9044fe1df3da19c2d23753686f1bad22" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/popout/popoutDocument.js?4ae1ad439e4c8886fdc89d777fd9fe2b" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<script type="text/javascript" src="/adg/supporting/jscript/autoload/geo/common.js?7d07a517475223e55c5407d2eae537b2" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script>
+<link   rel='stylesheet' href='/adg/supporting/style/autoload/geo/style.css?6b422b7dd61f8139c8451d72c5510cf5' type='text/css'>
+
+		</head>
+		
+        <input type="hidden" id="SITENAME" value="PERMITS">
+        <input type="hidden" id="timeout" value="60">
+        <input type="hidden" id="webUrlMatch" value="/permits">
+        <input type="hidden" id="common-object" value="eyJTSVRFTkFNRSI6IlBFUk1JVFMiLCJVU0VSQ0QiOiJCUFNVU0VSIiwiT1JHQ09ERSI6MSwid2ViVGl0bGUiOiJCdWlsZGluZyBEZXBhcnRtZW50IFBvcnRhbCIsImN1c3RvbUNzc0ZpbGVuYW1lIjpudWxsLCJ3ZWJVcmxNYXRjaCI6InBlcm1pdHMiLCJqcXVlcnlUaGVtZSI6InNvdXRoLXN0cmVldCIsIndlYlRpbWVvdXQiOjYwLCJ3ZWJQYWdlSGVhZGVyIjpudWxsLCJ3ZWJQYWdlRm9vdGVyIjpudWxsLCJyZWRpcmVjdG9yIjoiXC9wZXJtaXRzbXVcLyIsImZyYW1lV29yayI6IkpRVUVSWVVJIiwiZ2VvIjp7ImRldmljZUxhdGl0dWRlIjowLCJkZXZpY2VMb25naXR1ZGUiOjAsImhhc0dlb0xvY2F0aW9uIjpudWxsLCJuZWVkc0dlb0xvY2F0aW9uIjowLCJoYXNSZXF1ZXN0ZWRHZW9Mb2NhdGlvbiI6bnVsbCwiaGFzQWxsb3dlZEdlb0xvY2F0aW9uIjpudWxsLCJnZW9TdWNjZXNzIjpmYWxzZSwiYXBpS2V5IjpudWxsLCJjdXJyZW50UG9zaXRpb24iOnsibGF0aXR1ZGUiOjAsImxvbmdpdHVkZSI6MCwiZGVzY3JpcHRpb24iOiIiLCJhZGRyZXNzIjoiIiwicGxhY2VJZCI6IiIsInByaW1hcnkiOjAsInRhcmdldFBvc2l0aW9uT2JqZWN0Ijp7ImxhdCI6MCwibG5nIjowfX19LCJzY3JhdGNocGFkIjp7InFyZGF0YSI6IiJ9LCJsb2NrSWNvbkRpc3BsYXlNZXRob2QiOjAsIndlbGNvbWVTY3JlZW5GbGFnIjoxLCJ0ZXJtc0FjY2VwdGVkIjowLCJhY2NvdW50U3dpdGNoT3B0aW9uIjowLCJkZXZpY2VTZXNzaW9uUGluIjpudWxsLCJwYXltZW50Q2FydEZlYXR1cmUiOjAsIm1peGVkQ2FydEZlYXR1cmUiOjAsIml0ZW1zSW5DYXJ0IjowfQ=="<body>
+
+        <div id='outerContainer'>
+        <div id="headerContainer">
+<div id="headerLogo">
+</div>
+<div id="headerTextOuter">
+<div id="headerText" style="float:right;">Development Services</div>
+<div id="headerSubText" style="float:right;">Online Portal</div>
+</div>
+</div>
+
+        <div id='content-container'>
+        
+        <div id='breadcrumbs-outer'>
+        <div id='breadcrumbs-home'></div>
+        <div id='breadcrumbs-history-filler'></div>
+        <div id='persistent-breadcrumbs-holder'></div>
+        <div id='breadcrumbs'></div><div id="breadcrumbs-lock"><button id='login-button-3' tabindex='3' class='login-button ' title='Login As A Contractor'>Login</button>
+        </div>
+        </div>
+        
+        <div id='top-horizontal'></div>
+        
+        <div id='data-display-block' class='group-invisible'>
+        <div id='center-block-title'></div><div id='center-block-header'></div><div id='center-block-body'></div>
+        <div id='center-block-footer'></div></div>
+            <div id='widget-display-block' class='group-visible'>
+            <div id='flex-set-group'>
+            <div id='left-vertical'></div>
+            <div id='center-block'>
+            <div class='grid-stack' id='button-flex-box'></div><div id='public-front-page'></div>
+            </div>
+            <div id='right-vertical'></div>
+            </div>
+            <div id='bottom-horizontal'></div>
+            </div>
+            
+        </div>
+        </div>
+
+        <div id='dialog-login'></div>
+        <div id='dialog-container'></div>
+        <div id='dialog-error'></div>
+        <div id='provider-panel'></div>
+        <div id='infopacket-panel'></div>
+        <div id='tc-dialog-panel'></div>
+        <input type='hidden' name='mu-redirect' id='mu-redirect' value=''>
+        <input type='hidden' id='obsolete-ajax-receiver'>
+        <script type="text/javascript" nonce="f9d09bdc2d9d36e18c0ab85c58d5650b"></script></body></html>

@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 14:26:34 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+CF-Ray: 9ee458639aa1c8e0-MIA
+CF-Cache-Status: DYNAMIC
+x-served-by: cache-mia-kfll1870069-MIA
+Cache-Control: no-cache, no-store, must-revalidate
+x-timer: S1776522394.372571,VS0,VE36
+x-cache-hits: 0
+Last-Modified: Fri, 17 Apr 2026 21:00:40 GMT
+Server: cloudflare
+Strict-Transport-Security: max-age=31556926; includeSubDomains; preload
+Vary: x-fh-requested-host, accept-encoding
+x-cache: MISS
+ETag: W/"96a2344543b0ed24fb2af5897a70e6aaf7c6d543a6147c7a63a171bd9efb2c28-br"
+

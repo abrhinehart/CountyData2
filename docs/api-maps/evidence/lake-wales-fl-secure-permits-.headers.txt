@@ -1,0 +1,16 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 14:30:05 GMT
+Server: Apache
+Cache-Control: no-cache, must-revalidate
+Pragma: no-cache
+Content-Type: text/html; charset=utf-8
+Expires: Sat, 26 Jul 1997 05:00:00 GMT
+X-Powered-By: PHP/8.3.25
+Content-Security-Policy: frame-ancestors 'self'; default-src 'self'; object-src 'none'; frame-src * data:; font-src 'self' *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com cdnsrc.asp.net; media-src 'self'; style-src 'self' *.mapbox.com unpkg.com 'unsafe-inline' *.gstatic.com *.googleapis.com fonts.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com code.jquery.com cdnsrc.asp.net tvtcloud.app; img-src 'self' data: *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com code.jquery.com cdnsrc.asp.net tvtcloud.app; script-src 'self' 'unsafe-inline' blob: 'unsafe-eval' *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com cdn.jsdelivr.net *.google.com code.jquery.com; script-src-attr 'unsafe-inline'; connect-src 'self' *.mapbox.com unpkg.com code.jquery.com
+Content-Length: 18451
+Set-Cookie: PHPSESSID=htpq4cb94usgkdappdgso18n8k; path=/
+Set-Cookie: PERMITS=htpq4cb94usgkdappdgso18n8k; expires=Sat, 18 Apr 2026 15:30:05 GMT; Max-Age=3600; path=/; domain=4.21.201.26; secure; HttpOnly; SameSite=None
+Vary: Accept-Encoding
+Set-Cookie: HASH_PHPSESSID=6499a1a12f9e431b9fc195fe6607b05e833bf486; path=/
+Set-Cookie: HASH_PERMITS=62e3e328be77faa5bedebc7c0abaa751bec5abbe; expires=Sat, 18 Apr 2026 15:30:05 GMT; Max-Age=3600; path=/; domain=4.21.201.26; secure; HttpOnly; HASH_SameSite=6d38d2df684abe3041009bf83f0af5159fc114bb
+
