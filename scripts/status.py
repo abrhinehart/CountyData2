@@ -256,17 +256,37 @@ def collect_canary() -> dict:
 
 _TODO_UNCHECKED_RE = re.compile(r"^\s*-\s*\[\s\]", re.MULTILINE)
 _TODO_CANARY_HEADER_RE = re.compile(r"^##\s+Drift canary regressions", re.MULTILINE)
+_SUBSECTION_HEADER_RE = re.compile(r"^###\s+(Open|Risks|Done)\s*$", re.MULTILINE)
+
+
+def _count_by_subsection(scan: str) -> tuple[int, int]:
+    """Return (open_items, live_risks) by tracking which ### subsection each
+    `[ ]` bullet falls under. Lines under ### Done are ignored (they're shipped)."""
+    open_items = 0
+    live_risks = 0
+    current = None
+    for line in scan.splitlines():
+        m = _SUBSECTION_HEADER_RE.match(line)
+        if m:
+            current = m.group(1)
+            continue
+        if line.lstrip().startswith("- [ ]"):
+            if current == "Open":
+                open_items += 1
+            elif current == "Risks":
+                live_risks += 1
+    return open_items, live_risks
 
 
 def collect_todo() -> dict:
     if not TODO_PATH.exists():
-        return {"open_count": 0, "present": False}
+        return {"open_items": 0, "live_risks": 0, "present": False}
     body = TODO_PATH.read_text(encoding="utf-8", errors="replace")
     # Split off the Drift canary regressions section (if present) before counting.
     m = _TODO_CANARY_HEADER_RE.search(body)
     scan = body[: m.start()] if m else body
-    open_count = len(_TODO_UNCHECKED_RE.findall(scan))
-    return {"open_count": open_count, "present": True}
+    open_items, live_risks = _count_by_subsection(scan)
+    return {"open_items": open_items, "live_risks": live_risks, "present": True}
 
 
 # ---------- render ----------
@@ -328,7 +348,8 @@ def render(git: dict, cr: dict, pt: dict, tests: dict, canary: dict, todo: dict)
     lines.append(f"- last status: {canary.get('status') or '(unknown)'}")
     lines.append("")
     lines.append("## TODO")
-    lines.append(f"- open items: {todo['open_count']}")
+    lines.append(f"- open items: {todo['open_items']}")
+    lines.append(f"- live risks: {todo['live_risks']}")
     lines.append("- see [TODO.md](TODO.md)")
     lines.append("")
     return "\n".join(lines)

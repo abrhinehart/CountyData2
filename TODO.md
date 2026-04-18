@@ -1,45 +1,41 @@
 # TODO — Open Work Backlog
 
-<!-- Generated initially from session journals on 2026-04-16. Hand-edit freely.
-     The tests/test_journal_discipline.py test only enforces that every new session
-     journal with a pending-work section has at least one matching entry here. -->
+<!-- Structural contract (enforced by tests/test_journal_discipline.py):
+
+     Five canonical module sections: CR, PT, BI, Sales/CD2, Platform/Infra.
+     Each module has three subsections:
+
+       ### Open   — work to ship. Counted as "open items" in STATUS.md.
+       ### Risks  — monitor-only. Action only when trigger fires. Counted
+                    separately as "live risks" in STATUS.md.
+       ### Done   — shipped work, staged for the next archive sweep. When
+                    this subsection fills up or on quarterly cadence, move
+                    entries to docs/todo-archive/TODO-YYYY-QN.md.
+
+     Every `- [ ]` / `- [x]` entry must carry indented sub-bullets within
+     5 lines:
+       - source: <path-to-journal-or-commit-ref>
+       - tags: [...]
+       - status: open | risk | done [— free-text trailer allowed after done]
+
+     Placement invariant: `[x]` only under `### Done`, `[ ]` only under
+     `### Open` or `### Risks`.
+
+     Every session journal under docs/sessions/ that has a pending-work
+     section must be referenced by name in TODO.md OR in any file under
+     docs/todo-archive/. Moving a done entry to the archive preserves
+     the link. -->
 
 ## Commission Radar (CR)
 
-- [x] santa-rosa-county-bcc & santa-rosa-county-zb: base_url points at santarosafl.gov (no DNS); correct domain is santarosa.fl.gov
-  - source: docs/sessions/2026-04-14-cr-yaml-audit.md
-  - tags: [cr, santa-rosa, yaml]
-  - status: done by commit:c0ab4ed — both YAMLs deleted (AgendaCenter lacks BCC category even on corrected domain; ZB is dual LPA+BOA with no data); re-platform follow-up spawned separately
-
-- [x] collier-county-boa: Collier civicclerk has no dedicated Board of Adjustment category; cat 32 is Hearing Examiner. Decide remove vs re-point vs different portal
-  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
-  - tags: [cr, collier, yaml, boa]
-  - status: done 2026-04-16 — YAML deleted per feedback_skip_boa_zba.md (BOA not tracked)
-
-- [x] north-miami-beach-cc: NMB AgendaCenter has no City Commission category; CC agendas live on a different platform — identify correct portal
-  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
-  - tags: [cr, north-miami-beach, yaml, platform-discovery]
-  - status: done 2026-04-16 — re-platformed to novusagenda at nmb.novusagenda.com/agendapublic
-
-- [x] pembroke-pines-cc: AgendaCenter hosts advisory boards only, no City Commission category — same situation as NMB, identify correct platform
-  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
-  - tags: [cr, pembroke-pines, yaml, platform-discovery]
-  - status: done 2026-04-16 — re-platformed to legistar at ppines.legistar.com, body "City Commission"
-
-- [x] winter-garden-cc: category_id fixed to 6 but no new CC agendas since March 2025; confirm whether Winter Garden migrated to granicus/iQM2 or similar
-  - source: docs/sessions/2026-04-16-cr-yaml-six-pack.md
-  - tags: [cr, winter-garden, yaml, platform-migration]
-  - status: done 2026-04-16 — re-platformed to civicclerk at wintergardenfl.portal.civicclerk.com, category_id 26
-
-- [x] lake-county-pz: adapter returns 0 listings despite civicclerk Events API having published events — scraper date/visibility filter bug
-  - source: docs/sessions/2026-04-14-cr-yaml-audit.md
-  - tags: [cr, lake-county, civicclerk, adapter-bug]
-  - status: done by commit:c0ab4ed — not a scraper bug; county maintains calendar entries but never publishes agendas/packets through API (agendaIsPublish=false). Scraper correctly returns 0 listings. YAML extraction_notes updated to prevent re-flag.
+### Open
 
 - [ ] HEAD/GET asymmetry detection pattern: build reusable portal-health utility (e.g. shared/portal_health.py) that GETs and sniffs body, then wire into CR uptime checks (Bay NovusAgenda trigger)
   - source: docs/sessions/2026-04-14-project-reload.md
   - tags: [cr, platform, uptime]
   - status: open
+
+### Risks
 
 - [ ] eScribe JSON endpoint shape drift risk: integration may silently fail if MeetingsCalendarView envelope changes — monitor on quarterly releases
   - source: docs/sessions/2026-04-16-session-g-haines-city-escribe-plan.md
@@ -91,7 +87,13 @@
   - tags: [cr, escribe, haines-city, product-decision]
   - status: risk
 
+### Done
+
+<!-- Entries land here on ship; sweep to docs/todo-archive/TODO-YYYY-QN.md quarterly. -->
+
 ## Permit Tracker (PT)
+
+### Open
 
 - [ ] Haines City iWorQ production throttling: adapter fires detail-page GET per row (no permit-type column); scales poorly, needs scheduler-level or adapter-level rate limiting
   - source: docs/sessions/2026-04-14-project-reload.md
@@ -153,7 +155,17 @@
   - tags: [cd2, okaloosa, sales]
   - status: open
 
+### Risks
+
+<!-- none tracked -->
+
+### Done
+
+<!-- Entries land here on ship; sweep to docs/todo-archive/TODO-YYYY-QN.md quarterly. -->
+
 ## Builder Inventory (BI)
+
+### Open
 
 - [ ] One-off UPDATE parcels SET geom = ST_MakeValid(geom) WHERE NOT ST_IsValid(geom) to backfill pre-existing Bay FL invalid parcel 07384-109-000
   - source: docs/sessions/2026-04-14-project-reload.md
@@ -165,7 +177,17 @@
   - tags: [bi, cadastral]
   - status: open
 
+### Risks
+
+<!-- none tracked -->
+
+### Done
+
+<!-- Entries land here on ship; sweep to docs/todo-archive/TODO-YYYY-QN.md quarterly. -->
+
 ## Sales / CD2
+
+### Open
 
 - [ ] Transactions.geom population: PostGIS ready but column still NULL across all rows
   - source: docs/sessions/2026-04-14-project-reload.md
@@ -177,7 +199,17 @@
   - tags: [sales, raw-land, extraction]
   - status: open
 
+### Risks
+
+<!-- none tracked -->
+
+### Done
+
+<!-- Entries land here on ship; sweep to docs/todo-archive/TODO-YYYY-QN.md quarterly. -->
+
 ## Platform / Infra
+
+### Open
 
 - [ ] SQLAlchemy legacy Query.get warning at modules/commission/routers/roster.py:164 — migrate to Session.get (2.0 API)
   - source: docs/sessions/2026-04-14-project-reload.md
@@ -209,20 +241,18 @@
   - tags: [platform, cr, tech-debt]
   - status: open
 
-- [x] Drift canary manual test-fire verification still pending: confirm no DRIFT_CANARY_FAILED_* marker from the 2026-04-15 test run before May 1 auto-fire
-  - source: docs/sessions/2026-04-15-accela-p1-wrapup.md
-  - tags: [platform, canary]
-  - status: done 2026-04-16 — no failure marker at repo root; drift-canary-2026-04-15.md Status: PASS
-
-- [x] Audit tool run against the 10 new counties that landed on remote (Hernando, Marion, Pasco, Volusia, Duval, Seminole + 4 AL counties) — catch same class of drift we caught on Polk/Citrus/Charlotte before building more scrapers
-  - source: docs/sessions/2026-04-16-10-county-audit-sweep.md
-  - tags: [platform, audit, api-maps]
-  - status: done — 0 drift / 0 suspicious / 0 info across 21 scanned maps
-
 - [ ] API-map authoring discipline: write maps code-referenced (with commit SHAs + line numbers) or auto-generate "Extracted? YES/NO" via audit_api_maps.py — portal-first second-pass drift has been the recurring root cause
   - source: docs/sessions/2026-04-15-polk-accela-hardening.md
   - tags: [platform, docs, process]
   - status: open
+
+### Risks
+
+<!-- none tracked -->
+
+### Done
+
+<!-- Entries land here on ship; sweep to docs/todo-archive/TODO-YYYY-QN.md quarterly. -->
 
 ## Drift canary regressions
 <!-- Managed by scripts/drift_canary_full.py --append-regressions. Do NOT hand-edit. -->
