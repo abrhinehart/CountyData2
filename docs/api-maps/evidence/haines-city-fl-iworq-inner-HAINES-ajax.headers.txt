@@ -1,0 +1,9 @@
+HTTP/1.1 404 Not Found
+URL: https://haines.portal.iworq.net/HAINES/ajax
+Server: nginx/1.18.0 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+date: Sat, 18 Apr 2026 03:27:00 GMT
+Content-Encoding: gzip

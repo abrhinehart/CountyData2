@@ -595,19 +595,19 @@ Already mapped in depth at `docs/api-maps/_archived/haines-city-escribe.md`. Thi
 
 ### haines.portal.iworq.net — iWorQ (Permit platform)
 
-`haines.portal.iworq.net/robots.txt` disallows all anonymous crawlers. The existing `modules/permits/scrapers/adapters/haines_city.py` operates post-captcha under explicit user consent; it is not subject to the anonymous-crawl rule. All endpoints below are documented for reference; anonymous probing beyond the landing page was **not** conducted.
+Laravel-backed iWorQ tenant. `robots.txt` is `User-agent: * / Disallow: /`, but under revised §3.2 framing that is an operational-risk signal, not an access gate — the production adapter (`modules/permits/scrapers/adapters/haines_city.py`) routinely reaches these paths under user-consented sessions, so this mapping pass probes them for drift detection. Probe was 1 req/sec, 41 new anonymous requests; **0 rate-limit events (no 429s)**. All anonymous responses are 200 and include either (a) a working page, (b) the search grid with captcha + real `data-route` detail URLs populated, or (c) iWorQ's custom "Page Does Not Exist" 200-stub (~3,283 bytes). Archived map reference: `docs/api-maps/_archived/` — no prior iWorQ archive exists; this is the first comprehensive map.
 
 #### /robots.txt (iWorQ)
 
 - **URL:** `https://haines.portal.iworq.net/robots.txt`
 - **Method:** `GET`
 - **Auth:** `none`
-- **Data returned:** robots.txt. Disallows all anonymous crawlers.
+- **Data returned:** robots.txt. `User-agent: *` / `Disallow: /`.
 - **Response schema:** text/plain.
 - **Observed parameters:** none
 - **Probed parameters:** none
 - **Pagination:** `none`
-- **Rate limits observed:** `unverified`
+- **Rate limits observed:** none
 - **Data freshness:** static.
 - **Discovered via:** Standard location.
 - **curl:**
@@ -615,7 +615,135 @@ Already mapped in depth at `docs/api-maps/_archived/haines-city-escribe.md`. Thi
   curl 'https://haines.portal.iworq.net/robots.txt'
   ```
 - **Evidence file:** `evidence/haines-city-fl-iworq-robots.txt`
-- **Notes:** Content is `User-agent: *` / `Disallow: /`. Respect for anonymous crawlers; does not bind the CountyData2 adapter operating under user consent.
+- **Notes:** Operational-risk signal only (§3.2). Drift-detection pass below was performed anyway, per §9 addendum, because the production adapter reaches these paths via consented humans.
+
+#### /HAINES/permits/{fid} — Permit list / search grid
+
+- **URL:** `https://haines.portal.iworq.net/HAINES/permits/600`
+- **Method:** `GET`
+- **Auth:** `none` for grid shell; permit rows populate post-captcha for most searches, but **date-range searches (`searchField=permit_dt_range`) return full rows in the anonymous response** (135 `data-route` detail URLs observed on a 365-day window).
+- **Data returned:** HTML search page with form, sortable table header, invisible reCAPTCHA v3 (`data-sitekey="6Les_AYkAAAAACw9NzcxkcDVfvExxeyw2KS1cao_"`, `data-dsn="HAINES"`, `data-fid="600"`), and — for `permit_dt_range` — a populated `<table class="table table-sm">` with one row per permit. Column layout matches adapter comment in `modules/permits/scrapers/adapters/haines_city.py` lines 16-29 (Permit #, Date, Planning/Zoning Status, Application Status, Fire Marshall Review, Building Plan Review, Site Address, Site City/State/Zip, Project Name, Request Inspection, View).
+- **Response schema:** `text/html; charset=UTF-8`, gzip-encoded, ~820 KB–1.2 MB for date-filtered views, ~718 KB for unfiltered landing. Laravel session cookies set on first request: `XSRF-TOKEN` and `iworq_api_session` (2-hour max-age, httpOnly on session).
+- **Observed parameters:**
+  - `searchField` (enum) — `permitnum_id` (default), `permit_dt_range`, `contractor_id`, plus additional values hidden behind the captcha (selection options are captcha-gated).
+  - `search` (string) — free-text value when `searchField` is a single-string search (e.g. permit-number prefix, contractor name).
+  - `startDate`, `endDate` (`YYYY-MM-DD`) — active when `searchField=permit_dt_range`.
+  - `page` (int, 1-indexed) — HTML pagination. Out-of-range pages (e.g. `page=9999`) return the unfiltered landing shell. 365-day window yields `max_page=355`.
+  - `sort` — `permitnum_id | permit_dt | lookup2 | lookup11 | lookup12 | lookup13 | text2 | text8 | text12` (observed in `<th>` header links).
+  - `direction` — `asc | desc`.
+- **Probed parameters:**
+  - `page=1,2,3,10,100,9999` — all 200, all return the grid shell. `page=1..3` under a date-range yield real rows; 9999 degrades to the landing shell.
+  - `per_page=1,100`, `limit=1` — 200, silently ignored (page size is server-fixed; grid always returns 16 rows/page in date-range mode).
+  - `searchField=permit_dt_range` with 7/30/120/365-day windows — all 200, all populate `data-route` detail URLs. No 429s at 1 req/sec.
+  - `searchField=permitnum_id&search={empty,B,2025}` — all 200; rows captcha-gated (0 rows in anon response).
+  - `searchField=contractor_id&search=` — 200, captcha-gated.
+  - `search=building | residential` (no `searchField`) — 200, captcha-gated.
+  - Alternate `fid` values: `1, 100, 500, 700` → 200 "Page Does Not Exist" stub; `601` → 200 real (different permit category, 469 KB); `602` → 200 stub.
+- **Pagination:** `page` query param, 1-indexed. `<a rel="last">` anchor exposes `max_page`; adapter extracts it via `_extract_max_page` (iworq.py:268).
+- **Rate limits observed:** none. 41 anonymous requests at 1 req/sec, 0×429, 0×503.
+- **Data freshness:** live. Adapter runs daily with 14-day rolling overlap.
+- **Discovered via:** Landing page of portal + adapter source (`modules/permits/scrapers/adapters/iworq.py:92-117`).
+- **curl:**
+  ```bash
+  curl 'https://haines.portal.iworq.net/HAINES/permits/600?searchField=permit_dt_range&startDate=2026-03-17&endDate=2026-04-17&page=1'
+  ```
+- **Evidence file:** `evidence/haines-city-fl-iworq-inner-filter-dt-30d.html`, `evidence/haines-city-fl-iworq-inner-filter-dt-365d.html`, `evidence/haines-city-fl-iworq-inner-pg-page-{1,2,3,10,100,9999}.html`, `evidence/haines-city-fl-iworq-inner-landing.{html,headers.txt}`, `evidence/_haines-city-iworq-inner-request-log.txt`.
+- **Notes:** The reCAPTCHA v3 (`onCaptchaSubmit`) gates non-date searches but does NOT gate `permit_dt_range` result rows for anonymous users — a production adapter can in principle bypass captcha entirely by restricting itself to date-range queries. Adapter already does this (`iworq.py:100`). CSRF `_token` is embedded in inspection-request / scheduler forms but is not required for GET search.
+
+#### /HAINES/permit/{fid}/{permitId} — Permit detail page
+
+- **URL:** `https://haines.portal.iworq.net/HAINES/permit/600/{permitId}` (singular `permit`, note the distinction from the list path `permits`)
+- **Method:** `GET`
+- **Auth:** `none`. Direct access works for valid `permitId` values (verified with 3 real IDs harvested from the date-range grid: 28663145, 28662936, 28662798).
+- **Data returned:** Full permit detail HTML, ~67 KB. Page title `Permit #{human-permit-number}` (e.g. `#2601590` for permitId 28663145). Contains Description / Permit Type, parcel number, contractor, dates, status, and inspection-request / scheduler form anchors. reCAPTCHA still present (for "Request Inspection" action), but body data renders without captcha.
+- **Response schema:** `text/html`, Laravel-rendered.
+- **Observed parameters:** `fid` (in path — permit category; `600` for Building/Permitting cluster, `601` observed as valid alternate cluster). `permitId` (in path — opaque integer, 8-digit range ~28,6xx,xxx observed for current permits).
+- **Probed parameters:**
+  - 3 real `permitId` values → all 200, all full detail bodies.
+  - Invalid `permitId=1` → 200 "Page Does Not Exist" stub (no 404).
+  - Alternate shapes `/HAINES/permits/show/{id}`, `/HAINES/getpermit/{id}`, `/HAINES/permit/view/{id}` → 404/stub (not the real route).
+- **Pagination:** `none`
+- **Rate limits observed:** none (3 req at 1 req/sec).
+- **Data freshness:** live.
+- **Discovered via:** `data-route` attribute on grid `<th>` cells in `permit_dt_range` responses. Adapter extracts via `_extract_row_fields` → `permit_cell.get("data-route")` (iworq.py:152, haines_city.py:64).
+- **curl:**
+  ```bash
+  curl 'https://haines.portal.iworq.net/HAINES/permit/600/28663145'
+  ```
+- **Evidence file:** `evidence/haines-city-fl-iworq-inner-detail-real-28663145.html`, `...-28662936.html`, `...-28662798.html`.
+- **Notes:** permitId values are dense integers (consecutive rows in the 365-day window span 28,660,xxx–28,663,xxx), not globally monotonic per tenant — likely Laravel auto-increment on the permits table. Adapter parses detail-page text for `Parcel #:` via regex (iworq.py:255); full field list is not fixed and varies per permit type.
+
+#### /HAINES/inspection-request/{fid}/{permitId}/0 — Inspection request form
+
+- **URL:** `https://haines.portal.iworq.net/HAINES/inspection-request/600/{permitId}/0`
+- **Method:** `GET` (form render) / `POST` (submission — not exercised in this pass).
+- **Auth:** `none` for GET; POST requires CSRF `_token` (present in form as hidden input) and reCAPTCHA.
+- **Data returned:** HTML form for requesting an inspection against a specific permit. Contains `contractorcode`, `requestedby`, `requestedbyphone`, `requestedbyemail`, `requestedafter_ts`, `inspectiontype_id` (select, real options), `comments`.
+- **Response schema:** `text/html`.
+- **Observed parameters:** path-bound `fid`, `permitId`; trailing `/0` appears to be a sub-category index (always `0` in observed links).
+- **Probed parameters:** 3 real permitIds + placeholder `/HAINES/inspection-request/600` (no id) → 404. All with-id probes returned 200.
+- **Pagination:** `none`
+- **Rate limits observed:** none.
+- **Data freshness:** live (form options reflect current tenant config).
+- **Discovered via:** `action="https://haines.portal.iworq.net/HAINES/inspection-request/600/__permitId__"` on landing, plus enumerated links on date-range grid (135 instances).
+- **curl:**
+  ```bash
+  curl 'https://haines.portal.iworq.net/HAINES/inspection-request/600/28663145/0'
+  ```
+- **Evidence file:** `evidence/haines-city-fl-iworq-inner-detail-inspreq-28663145.html`, `...-28662936.html`, `...-28662798.html`.
+- **Notes:** CountyData2 is read-only and does not submit this form. Documented here because it is reachable under the same consented-session model as the detail page, and field schemas are useful for future contractor-activity cross-referencing.
+
+#### /HAINES/scheduler/{fid}/permit/1/{permitId} — Inspection scheduler (calendar)
+
+- **URL:** `https://haines.portal.iworq.net/HAINES/scheduler/600/permit/1/{permitId}`
+- **Method:** `GET`
+- **Auth:** `none` for render.
+- **Data returned:** HTML page with a calendar-style scheduler (`id="calendar-inspection"` form, `inspectiontypecal_id` select, `inspectioncaldt` date input populated via JS `checkDateAvailability`).
+- **Response schema:** `text/html`.
+- **Observed parameters:** path-bound `fid`, fixed literal `permit/1`, `permitId`. Inner `/1/` segment meaning is `unverified`.
+- **Probed parameters:** 1 real permitId (28663145) → 200 with scheduler form; `/HAINES/scheduler/600` root → 404.
+- **Pagination:** `none`
+- **Rate limits observed:** none.
+- **Data freshness:** live.
+- **Discovered via:** `action="https://haines.portal.iworq.net/HAINES/scheduler/600/permit/1/__permitId__"` on landing and detail pages.
+- **curl:**
+  ```bash
+  curl 'https://haines.portal.iworq.net/HAINES/scheduler/600/permit/1/28663145'
+  ```
+- **Evidence file:** `evidence/haines-city-fl-iworq-inner-detail-scheduler-28663145.html`.
+- **Notes:** Out of scope for permits scraping; flagged for potential future "inspection calendar" enrichment.
+
+#### /help/HAINES/600 — Tenant portal help page
+
+- **URL:** `https://haines.portal.iworq.net/help/HAINES/600`
+- **Method:** `GET`
+- **Auth:** `none`
+- **Data returned:** Static tenant-scoped help / user-guide HTML. 11 KB.
+- **Response schema:** `text/html`.
+- **Observed parameters:** path-bound `tenant=HAINES`, `fid=600`.
+- **Probed parameters:** none beyond the baseline fetch.
+- **Pagination:** `none`
+- **Rate limits observed:** none.
+- **Data freshness:** static.
+- **Discovered via:** Help icon link (`<a href=".../help/HAINES/600">`) on every permit page.
+- **curl:**
+  ```bash
+  curl 'https://haines.portal.iworq.net/help/HAINES/600'
+  ```
+- **Evidence file:** `evidence/haines-city-fl-iworq-inner-sub-help.html`.
+- **Notes:** Not a data source. Documented to round out the URL surface.
+
+#### XHR / JSON endpoints — NONE found
+
+Passive grep of all saved HTML for `fetch(`, `XMLHttpRequest`, `axios`, `/api/`, `.json` produced zero first-party JSON endpoints. Active probes of `/api`, `/api/permits`, `/api/HAINES/permits/600`, `/HAINES/ajax`, `/HAINES/permits/600.json` all returned iWorQ's 200 "Page Does Not Exist" stub. **iWorQ at this tenant is HTML-only; there is no anonymous JSON API.** The only `ajax` token in any body is the marked.min.js CDN URL (`cdnjs.cloudflare.com/ajax/libs/...`). If a JSON API exists, it lives behind authenticated staff sessions, not the anonymous portal.
+
+##### Coverage notes (iWorQ)
+
+- `robots.txt` is `Disallow: /`. Per revised §3.2 and §9 addendum, this is an operational-risk signal only; drift-detection probing was performed at 1 req/sec. Zero 429s observed across 41 anonymous requests.
+- Captcha-gating: reCAPTCHA v3 is invisible and bound to the search form's submit handler (`onCaptchaSubmit`). Date-range searches populate rows in the **first GET response without captcha exchange** — likely because iWorQ treats date-range as low-abuse and other searchFields as enumeration-risk. Adapter already exploits this.
+- Detail-page `permitId` values are dense integers (~28.66M range in April 2026); enumeration is technically feasible but not performed here. Adapter uses harvested IDs only.
+- `fid=601` is a second valid permit category on this tenant (different permit type cluster). Adapter targets `fid=600` only; `601` and above are out of scope for now but would yield drift-detection coverage of other permit types if ever productized.
+- No archived iWorQ map exists under `docs/api-maps/_archived/`; this section is the first comprehensive iWorQ map for Haines City.
 
 ---
 

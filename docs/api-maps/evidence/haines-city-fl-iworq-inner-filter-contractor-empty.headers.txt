@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+URL: https://haines.portal.iworq.net/HAINES/permits/600?searchField=contractor_id&search=
+Server: nginx/1.18.0 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Date: Sat, 18 Apr 2026 03:26:32 GMT
+Set-Cookie: [redacted-values] names=XSRF-TOKEN;18-Apr-2026 05:26:32 GMT; Max-Age;iworq_api_session;18-Apr-2026 05:26:32 GMT; Max-Age
+Strict-Transport-Security: max-age=63072000;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Encoding: gzip

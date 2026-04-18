@@ -1,0 +1,49 @@
+# Haines City iWorQ inner probe log — 2026-04-18T03:26:19.830627Z
+# base=https://haines.portal.iworq.net  ua=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)  delay=1.0s  total=34
+
+[001] 200 1183210B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permit_dt_range&startDate=2026-04-10&endDate=2026-04-17  -> filter-dt-7d.html
+[002] 200 1184469B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permit_dt_range&startDate=2026-03-18&endDate=2026-04-17  -> filter-dt-30d.html
+[003] 200 1184475B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permit_dt_range&startDate=2025-12-18&endDate=2026-04-17  -> filter-dt-120d.html
+[004] 200 1184475B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permit_dt_range&startDate=2025-04-17&endDate=2026-04-17  -> filter-dt-365d.html
+[005] 200 1184614B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permit_dt_range&startDate=2026-03-18&endDate=2026-04-17&page=2  -> filter-dt-30d-p2.html
+[006] 200  825445B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permitnum_id&search=  -> filter-permitnum-empty.html
+[007] 200  825566B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permitnum_id&search=B  -> filter-permitnum-B.html
+[008] 200  825569B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=permitnum_id&search=2025  -> filter-permitnum-2025.html
+[009] 200  825389B  GET https://haines.portal.iworq.net/HAINES/permits/600?searchField=contractor_id&search=  -> filter-contractor-empty.html
+[010] 200  825216B  GET https://haines.portal.iworq.net/HAINES/permits/600?search=building  -> filter-search-building.html
+[011] 200  825225B  GET https://haines.portal.iworq.net/HAINES/permits/600?search=residential  -> filter-search-residential.html
+[012] 200    3204B  GET https://haines.portal.iworq.net/HAINES/permits/1  -> fid-1.html
+[013] 200    3204B  GET https://haines.portal.iworq.net/HAINES/permits/100  -> fid-100.html
+[014] 200    3204B  GET https://haines.portal.iworq.net/HAINES/permits/500  -> fid-500.html
+[015] 200  468073B  GET https://haines.portal.iworq.net/HAINES/permits/601  -> fid-601.html
+[016] 200  562562B  GET https://haines.portal.iworq.net/HAINES/permits/602  -> fid-602.html
+[017] 200    3224B  GET https://haines.portal.iworq.net/HAINES/permits/700  -> fid-700.html
+[018] 404    6609B  GET https://haines.portal.iworq.net/HAINES/permit/1  -> detail-pattern-id-1.html
+[019] 404    6609B  GET https://haines.portal.iworq.net/HAINES/permits/600/1  -> detail-pattern-id-600-1.html
+[020] 200    3204B  GET https://haines.portal.iworq.net/HAINES/permit/view/1  -> detail-pattern-view-1.html
+[021] 404    6609B  GET https://haines.portal.iworq.net/HAINES/getpermit/1  -> detail-pattern-getpermit-1.html
+[022] 404    6609B  GET https://haines.portal.iworq.net/HAINES/permits/show/1  -> detail-pattern-show-1.html
+[023] 404    6609B  GET https://haines.portal.iworq.net/HAINES/permit-detail/600/1  -> detail-slash-route.html
+[024] 404    6609B  GET https://haines.portal.iworq.net/HAINES/inspections/600  -> sub-inspections-list.html
+[025] 404    6609B  GET https://haines.portal.iworq.net/HAINES/inspection-request/600  -> sub-inspection-request.html
+[026] 404    6609B  GET https://haines.portal.iworq.net/HAINES/scheduler/600  -> sub-scheduler-root.html
+[027] 200   10969B  GET https://haines.portal.iworq.net/help/HAINES/600  -> sub-help.html
+[028] 404    6609B  GET https://haines.portal.iworq.net/HAINES/parcels/600  -> sub-parcels.html
+[029] 404    6609B  GET https://haines.portal.iworq.net/HAINES/search  -> sub-search.html
+[030] 404    6609B  GET https://haines.portal.iworq.net/api  -> api-root.html
+[031] 200    3204B  GET https://haines.portal.iworq.net/api/permits  -> api-permits.html
+[032] 404    6609B  GET https://haines.portal.iworq.net/api/HAINES/permits/600  -> api-HAINES-permits-600.html
+[033] 404    6609B  GET https://haines.portal.iworq.net/HAINES/ajax  -> HAINES-ajax.html
+[034] 200    3204B  GET https://haines.portal.iworq.net/HAINES/permits/600.json  -> HAINES-permits-600-json.html
+
+# status distribution: {200: 21, 404: 13}   errors: 0
+
+# Round 2 — 2026-04-18T03:28:03.258937+00:00 — real-ID detail probes
+[r2-01] 200   66686B  GET https://haines.portal.iworq.net/HAINES/permit/600/28663145  -> detail-real-28663145.html
+[r2-02] 200    3204B  GET https://haines.portal.iworq.net/HAINES/inspection-request/600/28663145/0  -> detail-inspreq-28663145.html
+[r2-03] 200   62064B  GET https://haines.portal.iworq.net/HAINES/permit/600/28662936  -> detail-real-28662936.html
+[r2-04] 200    3204B  GET https://haines.portal.iworq.net/HAINES/inspection-request/600/28662936/0  -> detail-inspreq-28662936.html
+[r2-05] 200   52082B  GET https://haines.portal.iworq.net/HAINES/permit/600/28662798  -> detail-real-28662798.html
+[r2-06] 200    3204B  GET https://haines.portal.iworq.net/HAINES/inspection-request/600/28662798/0  -> detail-inspreq-28662798.html
+[r2-07] 200    3575B  GET https://haines.portal.iworq.net/HAINES/scheduler/600/permit/1/28663145  -> detail-scheduler-28663145.html
+# round-2 status: {200: 7}

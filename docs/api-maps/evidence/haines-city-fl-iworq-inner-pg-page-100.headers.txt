@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+URL: https://haines.portal.iworq.net/HAINES/permits/600?page=100
+Server: nginx/1.18.0 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Date: Sat, 18 Apr 2026 03:23:04 GMT
+Set-Cookie: XSRF-TOKEN=eyJpdiI6ImU4ZlpidDRXc3RodG5DWW14dFBvdlE9PSIsInZhbHVlIjoiSlpuQnV0dGlRdDZYSnU3Tmk0c05EeEVSSGE4dDQ4VjF3cWYvSzFmVXl6SEtrYTE4ODVNcmFQN1VKVFdYdFlKMHZCQWRia1dSRlNNTFIzRDhCNE1YTnFlcDhKc2swWVluTXcxMmNKV3BBODVnN2kxWTVDNkhldUJGSXpkOEZMYlIiLCJtYWMiOiJkOTc5MTc4YjQwZjdlODNkNGYwYjc2NDczYjZlYzI2ZDY1MTJhZDZkNTBjZGNhNjY0NmZmMjU0YTI4NmRlNTgwIiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 05:23:04 GMT; Max-Age=7200; path=/, iworq_api_session=eyJpdiI6IkowWDhaUXNndlVwQmxpbUxVTEZJclE9PSIsInZhbHVlIjoiUGcySzNiK3F2VEI5VUE5Nm9BMGdLUTc0K2plWmVnb1pJWVEzanh4VUFNWUpRdWQxbXRob2t5RlNBNWhsN0N1K2RaK3F4TzNJeW5JSHR0eTJpN2IybVB1OXA4dXE0YWFQRnRSYlVDNXBOWElsWVhqKzNGQlFMTHJVamF0OVpFS1YiLCJtYWMiOiIwYzg3NGI2NzRjZTM4NmNhMzlkYmM2ZTY4MDc3MGI5OTFlNzU1MDAwYjhlNmRkMTUyYmVmNDhiYmIwNmFiYjI4IiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 05:23:04 GMT; Max-Age=7200; path=/; httponly
+Strict-Transport-Security: max-age=63072000;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Content-Encoding: gzip
