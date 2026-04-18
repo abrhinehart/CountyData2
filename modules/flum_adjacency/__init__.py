@@ -1,0 +1,1 @@
+"""FLUM Adjacency module package."""
