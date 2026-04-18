@@ -1,0 +1,46 @@
+# Bartow, FL — seed + vendor pre-recon
+
+Seed URL: https://www.cityofbartow.net/
+CivicPlus tenant host: fl-bartow.civicplus.com (same content as seed; robots Disallow: /)
+
+## Vendor hostnames probed this run
+
+Live + data-surface:
+- www.cityofbartow.net          — CivicPlus CivicEngage CMS (authoritative)
+- fl-bartow.civicplus.com        — CivicPlus tenant canonical mirror (same content; robots Disallow: /)
+- boxcast.tv + api.boxcast.com   — BoxCast video streaming (ACCOUNT kpcnkyfgetmxappqpclx; channel v97dttfeoqpr2vkmzmfo City Commission Meetings; real public JSON surface)
+- www.governmentjobs.com/careers/bartow — NEOGOV GovernmentJobs (external; linked from every page)
+- library.municode.com/fl/bartow — Municode Library Angular SPA (external; code library)
+
+DNS still fails (Planner flagged):
+- bartowfl.gov
+- secure.bartowfl.gov
+- utility.bartowfl.gov
+- permits.bartowfl.gov
+
+Dead / empty / placeholder tenants (documented as negative evidence):
+- bartow.legistar.com            — "Invalid parameters!" (19B); OData returns 500 "LegistarConnectionString setting is not set up in InSite for client: bartow" — DEAD PROVISIONED SHELL (same pattern as Lake Wales)
+- bartowfl.legistar.com          — same "Invalid parameters!" shell
+- bartow.granicus.com            — 302 → /core/error/NotFound.aspx (no tenant)
+- bartowfl.novusagenda.com       — 302 → /AgendaWeb → /agendaweb/Error.html (dead tenant)
+- bartowfl.govbuilt.com          — 31,611 byte generic GovBuilt placeholder title ("GOVBUILT PLATFORM - Tomorrow's Government Built Today") — placeholder wildcard DNS
+- cityofbartow.govbuilt.com      — 31,619 byte generic placeholder — placeholder wildcard DNS
+- bartow.portal.iworq.net        — 3,207 byte Laravel "Page Can Not Be Found" shell — empty tenant
+- cityofbartow.portal.iworq.net  — 3,213 byte Laravel 404 — empty tenant
+- ci-bartow-fl.smartgovcommunity.com — 404 "resource removed/renamed" — no tenant
+
+External platform (linked, not deep-probed):
+- public.coderedweb.com/CNE/en-US/BF6E3000010E — Crisis24 CodeRed emergency alerts (TIMEOUT from this network — low-value, outbound)
+
+## Negative-evidence method
+
+- Legistar/NovusAgenda: DNS + HTTP probe to tenant; body byte-size and error content confirm empty/dead shell.
+- GovBuilt: placeholder detection per _platforms.md (31,611-byte generic title + `/PublicReport/GetAllContentToolModels` 404).
+- iWorQ: Laravel 404 shell on /portalhome/<slug>.
+- SmartGov: direct /Public/Home path 404s → no tenant provisioned on either standard or .validation. subdomain.
+- Accela: Planner ruled out all 4 slugs (BARTOW/COBA/CITYBARTOW/BARTOWFL) 404.
+- Granicus: tenant subdomain 302s to error.
+
+## Repo adapter sanity
+
+No stale bartow/* adapter files. CR YAMLs at modules/commission/config/jurisdictions/FL/bartow-cc.yaml + bartow-pz.yaml both point to CivicPlus AgendaCenter on www.cityofbartow.net — authoritative.

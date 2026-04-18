@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:13:03 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=3lKHYWpHL0pHG5BonVZhhFyeu5wbND1brh3wRcjIzUxVm3aULiX%2FGBTUHDn2Ycq4q3%2BpvshTkH4rH1YRyDA5%2BLfVostxJptTrB1g%2BhwjwMLl3t%2FAn2dzDZh5tOPa8PH%2F7BPpd3FP1A%3D%3D"}]}
+pragma: no-cache
+Set-Cookie: __orchantiforgery_4md2n4pzm9rac7h5ry5nhzfm4b=CfDJ8Gi7AVxiBLZHj6WfjX2HCbL3c5Au-DVH7w3xgmUmfKQ_D8gOKJfw8QXkY6TPWjk9AbrOXDorfk6IR9_PzpKTVCF3PULRboQBTyJN61dtiWhZO9eNG7ZvYwXNbUDxMel79TOQf660YBnyexl6jHBfWzE; path=/; secure; samesite=strict; httponly
+Set-Cookie: ARRAffinity=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;Secure;Domain=bartowfl.govbuilt.com
+Set-Cookie: ARRAffinitySameSite=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;SameSite=None;Secure;Domain=bartowfl.govbuilt.com
+vary: Accept-Encoding
+request-context: appId=cid-v1:e7dce90d-3764-43cb-bd0b-fe7f4f798daa
+x-content-type-options: nosniff
+referrer-policy: no-referrer
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: 9ee49c78f9b40861-MIA
+

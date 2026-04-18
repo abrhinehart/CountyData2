@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Date: Sat, 18 Apr 2026 15:11:09 GMT
+Cache-Control: max-age=10
+X-Cache: Miss from cloudfront
+Via: 1.1 b2d81f0349dd7259d5dfb1b35b379c6c.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: MIA3-P3
+X-Amz-Cf-Id: tC_8Aj6ab0VHToW8tN7WY5e9kl0jxwlpvUzQaM0frx2Uj4iTBwGhug==
+

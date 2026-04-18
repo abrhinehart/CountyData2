@@ -1,0 +1,10 @@
+HTTP/1.1 302 Found
+Date: Sat, 18 Apr 2026 15:13:01 GMT
+Server: Apache
+Location: /core/error/NotFound.aspx?Url=%2FViewPublisher.php%3Fview_id%3D1
+Connection: close
+X-Granicus-Server: 10.3.33.177
+Content-Security-Policy-Report-Only: default-src https: 'unsafe-inline' 'unsafe-eval'; media-src https: blob:; img-src https: blob: data:; worker-src https: blob:; connect-src https: wss:; report-uri /api/metrics/cspreport
+Content-Length: 0
+Content-Type: text/html; charset=utf-8
+

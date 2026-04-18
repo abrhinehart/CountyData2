@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:12:34 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: nginx
+x-content-type-options: nosniff
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+vary: Accept, Origin
+boxcast-requester-address: 47.195.59.20
+etag: W/"c28b2438edd4bacf08e5d8074545d047"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: f7fa6124-5d75-4d8f-bf39-a6ecb24f8dd9
+x-runtime: 0.011747
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+

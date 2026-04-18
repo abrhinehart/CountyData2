@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:13:04 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=YL1x5cYzE%2B8jfcw18ze%2FXsUYVSMlzHRPkDm6aygHXdrlnQPb5fcSmjYrDTskbtZqDW0G5ImXHdgSBNfr6c55fj3NJ8L8hDJlWmNtz1LKYg%2BPxepEu6BCMkofJeooCRio3%2Ff7Hd0zTTg%2BBks%3D"}]}
+pragma: no-cache
+Set-Cookie: __orchantiforgery_4md2n4pzm9rac7h5ry5nhzfm4b=CfDJ8Gi7AVxiBLZHj6WfjX2HCbKb_YkqHI2t-EnHrtxZNhGqLY7AUH9vHmrupIsjHu27QtLBpc3oGyqpGZMIayr3cIoWxMt0OAz4SavT1ARyVAHP8MyHXALNAo-qv0cKh31LnALXyrYb_Ch1yzO03VZ0m8A; path=/; secure; samesite=strict; httponly
+Set-Cookie: ARRAffinity=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;Secure;Domain=cityofbartow.govbuilt.com
+Set-Cookie: ARRAffinitySameSite=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;SameSite=None;Secure;Domain=cityofbartow.govbuilt.com
+vary: Accept-Encoding
+request-context: appId=cid-v1:e7dce90d-3764-43cb-bd0b-fe7f4f798daa
+x-content-type-options: nosniff
+referrer-policy: no-referrer
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: 9ee49c83594fa536-MIA
+

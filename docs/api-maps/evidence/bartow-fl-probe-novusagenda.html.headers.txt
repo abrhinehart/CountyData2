@@ -1,0 +1,12 @@
+HTTP/1.1 302 Found
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Location: /AgendaWeb
+Server: Microsoft-IIS/10.0
+X-AspNet-Version: 4.0.30319
+X-Powered-By: ASP.NET
+GranicusServer: gasmp-novweb1
+Date: Sat, 18 Apr 2026 15:13:33 GMT
+Content-Length: 127
+Set-Cookie: BIGipServerSTAR.novusagenda.com_443=857998090.47873.0000; path=/; Httponly; Secure
+

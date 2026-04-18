@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 23
+Connection: keep-alive
+Last-Modified: Tue, 10 Mar 2026 14:38:27 GMT
+x-amz-server-side-encryption: AES256
+Accept-Ranges: bytes
+Server: AmazonS3
+Date: Sat, 18 Apr 2026 15:11:12 GMT
+ETag: "50d8a018e8ae96732c8a2ba663c61d4e"
+X-Cache: RefreshHit from cloudfront
+Via: 1.1 6f465d6843245b7f6bd6183eaa220c08.cloudfront.net (CloudFront)
+X-Amz-Cf-Pop: MIA3-P3
+X-Amz-Cf-Id: HFZD9yqAirrVuKZRIqNUQBh1nQiyXGrnEN2sVUnuHnFlu5K6U6TCLg==
+

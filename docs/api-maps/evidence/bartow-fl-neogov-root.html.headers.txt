@@ -1,0 +1,17 @@
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Set-Cookie: ASP.NET_SessionId=wfk4mnfur2lud5lukt1nsw1q; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: ADRUM_BTa=R:0|g:0f142097-028b-4447-8c55-07d984735d5f|n:neogov_698146b0-2502-4182-8f0e-5f1fccb51173; expires=Sat, 18-Apr-2026 15:14:07 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: SameSite=None; expires=Sat, 18-Apr-2026 15:14:07 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: ADRUM_BT1=R:0|i:672525|e:26|t:1776525217881; expires=Sat, 18-Apr-2026 15:14:07 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: ADRUM_BTg=R:0|g:11b52d56-3332-424d-bc49-1cf7ea713280; expires=Sat, 18-Apr-2026 15:14:07 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: ADRUM_BTn=R:0|n:neogov_698146b0-2502-4182-8f0e-5f1fccb51173; expires=Sat, 18-Apr-2026 15:14:07 GMT; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: __RequestVerificationToken=2y_gyQrVwoLLTgQUlASuI0sjaTfetgLmOxjHbVTYdfiqRZcg4iQJKaM_reE1-TQoxNiCO5Ale6xd8bdfMCejaKxtazM1; path=/; secure; HttpOnly; SameSite=None
+Date: Sat, 18 Apr 2026 15:13:37 GMT
+Content-Length: 192448
+Content-Security-Policy: object-src 'none';frame-ancestors https://*.neogov.com https://*.neogov.net https://*.neoed.com https://*.neogov.ca https://*.neoed.net https://*.powerdms.com https://*.agency360.com https://*.schooljobs.com https://*.governmentjobs.com
+Strict-Transport-Security: max-age=157680000; includeSubDomains; preload
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+

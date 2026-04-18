@@ -1,0 +1,175 @@
+BEGIN:VCALENDAR
+PRODID:iCalendar-Ruby
+VERSION:2.0
+X-WR-TIMEZONE:America/New_York
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:STANDARD
+DTSTART:20241103T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20250309T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=633
+DTEND;VALUE=DATE:20280101
+DTSTAMP;TZID=America/New_York:20230509T073132
+DTSTART;VALUE=DATE:20280101
+LAST-MODIFIED;TZID=America/New_York:20230509T073132
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:New Year's Day
+UID:633
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=638
+DTEND;VALUE=DATE:20271225
+DTSTAMP;TZID=America/New_York:20230509T073220
+DTSTART;VALUE=DATE:20271225
+LAST-MODIFIED;TZID=America/New_York:20230509T073220
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Christmas Day
+UID:638
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=628
+DTEND;VALUE=DATE:20270704
+DTSTAMP;TZID=America/New_York:20230509T073039
+DTSTART;VALUE=DATE:20270704
+LAST-MODIFIED;TZID=America/New_York:20230509T073039
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Independence Day
+UID:628
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=632
+DTEND;TZID=America/New_York:20270101T170000
+DTSTAMP;TZID=America/New_York:20260323T153808
+DTSTART;TZID=America/New_York:20270101T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T153808
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:New Year's Day holiday
+UID:632
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=637
+DTEND;TZID=America/New_York:20261225T170000
+DTSTAMP;TZID=America/New_York:20260323T154358
+DTSTART;TZID=America/New_York:20261224T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154358
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Christmas holiday
+UID:637
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3151
+DTEND;TZID=America/New_York:20261111T170000
+DTSTAMP;TZID=America/New_York:20260323T154335
+DTSTART;TZID=America/New_York:20261111T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154335
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Veterans Day holiday
+UID:3151
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3150
+DTEND;TZID=America/New_York:20261027T170000
+DTSTAMP;TZID=America/New_York:20260323T154314
+DTSTART;TZID=America/New_York:20261026T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154314
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Thanksgiving holiday
+UID:3150
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3149
+DTEND;TZID=America/New_York:20260907T170000
+DTSTAMP;TZID=America/New_York:20260323T154257
+DTSTART;TZID=America/New_York:20260907T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154257
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Labor Day holiday
+UID:3149
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=627
+DTEND;VALUE=DATE:20260704
+DTSTAMP;TZID=America/New_York:20230509T073039
+DTSTART;VALUE=DATE:20260704
+LAST-MODIFIED;TZID=America/New_York:20230509T073039
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Independence Day
+UID:627
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3146
+DTEND;TZID=America/New_York:20260703T170000
+DTSTAMP;TZID=America/New_York:20260323T154240
+DTSTART;TZID=America/New_York:20260703T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154240
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Independence Day Holiday
+UID:3146
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3147
+DTEND;TZID=America/New_York:20260625T170000
+DTSTAMP;TZID=America/New_York:20260323T154139
+DTSTART;TZID=America/New_York:20260625T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154139
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Memorial Day holiday
+UID:3147
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3148
+DTEND;TZID=America/New_York:20260619T170000
+DTSTAMP;TZID=America/New_York:20260323T153445
+DTSTART;TZID=America/New_York:20260619T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T153445
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Juneteenth holiday
+UID:3148
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+END:VCALENDAR

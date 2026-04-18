@@ -1,0 +1,4 @@
+User-agent: Screaming Frog SEO Spider bde2423e-3cc7-42a6-96a8-d2d5bc7d2a2a
+Allow: /
+User-agent: *
+Disallow: /

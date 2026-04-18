@@ -1,0 +1,1049 @@
+BEGIN:VCALENDAR
+PRODID:iCalendar-Ruby
+VERSION:2.0
+X-WR-TIMEZONE:America/New_York
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:STANDARD
+DTSTART:20241103T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20250309T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3256
+DTEND;TZID=America/New_York:20270419T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20270419T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3256
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3265
+DTEND;TZID=America/New_York:20270419T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20270419T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3265
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3277
+DTEND;TZID=America/New_York:20270419T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20270419T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3277
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3242
+DTEND;TZID=America/New_York:20270331T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20270331T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3242
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3250
+DTEND;TZID=America/New_York:20270315T235959
+DTSTAMP;TZID=America/New_York:20260326T101337
+DTSTART;TZID=America/New_York:20270315T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101337
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3250
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3267
+DTEND;TZID=America/New_York:20270315T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20270315T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3267
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3279
+DTEND;TZID=America/New_York:20270315T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20270315T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3279
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3241
+DTEND;TZID=America/New_York:20270224T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20270224T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3241
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3252
+DTEND;TZID=America/New_York:20270215T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20270215T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3252
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3260
+DTEND;TZID=America/New_York:20270215T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20270215T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3260
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3278
+DTEND;TZID=America/New_York:20270215T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20270215T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3278
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3076
+DTEND;TZID=America/New_York:20270127T183000
+DTSTAMP;TZID=America/New_York:20251231T164649
+DTSTART;TZID=America/New_York:20270127T173000
+LAST-MODIFIED;TZID=America/New_York:20251231T164649
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Beautification Advisory Board Meeting
+UID:3076
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3292
+DTEND;TZID=America/New_York:20270127T235959
+DTSTAMP;TZID=America/New_York:20260402T085018
+DTSTART;TZID=America/New_York:20270127T173000
+LAST-MODIFIED;TZID=America/New_York:20260402T085018
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Joint Beautification Advisory Board and City Commission Meeting
+UID:3292
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3245
+DTEND;TZID=America/New_York:20270127T235959
+DTSTAMP;TZID=America/New_York:20260326T083507
+DTSTART;TZID=America/New_York:20270127T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083507
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3245
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3248
+DTEND;TZID=America/New_York:20270118T235959
+DTSTAMP;TZID=America/New_York:20260326T101337
+DTSTART;TZID=America/New_York:20270118T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101337
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3248
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3270
+DTEND;TZID=America/New_York:20270118T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20270118T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3270
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3274
+DTEND;TZID=America/New_York:20270118T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20270118T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3274
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3065
+DTEND;TZID=America/New_York:20261230T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20261230T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3065
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3244
+DTEND;TZID=America/New_York:20261230T235959
+DTSTAMP;TZID=America/New_York:20260326T083507
+DTSTART;TZID=America/New_York:20261230T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083507
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3244
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=637
+DTEND;TZID=America/New_York:20261225T170000
+DTSTAMP;TZID=America/New_York:20260323T154358
+DTSTART;TZID=America/New_York:20261224T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154358
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Christmas holiday
+UID:637
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3258
+DTEND;TZID=America/New_York:20261221T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20261221T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3258
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3269
+DTEND;TZID=America/New_York:20261221T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20261221T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3269
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3276
+DTEND;TZID=America/New_York:20261221T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20261221T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3276
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3059
+DTEND;TZID=America/New_York:20261125T093000
+DTSTAMP;TZID=America/New_York:20251230T081749
+DTSTART;TZID=America/New_York:20261125T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081749
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3059
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3236
+DTEND;TZID=America/New_York:20261125T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20261125T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3236
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3255
+DTEND;TZID=America/New_York:20261116T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20261116T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3255
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3266
+DTEND;TZID=America/New_York:20261116T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20261116T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3266
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3282
+DTEND;TZID=America/New_York:20261116T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20261116T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3282
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3151
+DTEND;TZID=America/New_York:20261111T170000
+DTSTAMP;TZID=America/New_York:20260323T154335
+DTSTART;TZID=America/New_York:20261111T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154335
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Veterans Day holiday
+UID:3151
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3072
+DTEND;TZID=America/New_York:20261028T183000
+DTSTAMP;TZID=America/New_York:20251231T164649
+DTSTART;TZID=America/New_York:20261028T173000
+LAST-MODIFIED;TZID=America/New_York:20251231T164649
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Beautification Advisory Board Meeting
+UID:3072
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3294
+DTEND;TZID=America/New_York:20261028T235959
+DTSTAMP;TZID=America/New_York:20260402T085019
+DTSTART;TZID=America/New_York:20261028T173000
+LAST-MODIFIED;TZID=America/New_York:20260402T085019
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Joint Beautification Advisory Board and City Commission Meeting
+UID:3294
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3061
+DTEND;TZID=America/New_York:20261028T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20261028T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3061
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3237
+DTEND;TZID=America/New_York:20261028T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20261028T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3237
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3150
+DTEND;TZID=America/New_York:20261027T170000
+DTSTAMP;TZID=America/New_York:20260323T154314
+DTSTART;TZID=America/New_York:20261026T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154314
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Thanksgiving holiday
+UID:3150
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3251
+DTEND;TZID=America/New_York:20261019T235959
+DTSTAMP;TZID=America/New_York:20260326T101337
+DTSTART;TZID=America/New_York:20261019T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101337
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3251
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3264
+DTEND;TZID=America/New_York:20261019T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20261019T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3264
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3280
+DTEND;TZID=America/New_York:20261019T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20261019T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3280
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3060
+DTEND;TZID=America/New_York:20260930T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20260930T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3060
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3243
+DTEND;TZID=America/New_York:20260930T235959
+DTSTAMP;TZID=America/New_York:20260326T083507
+DTSTART;TZID=America/New_York:20260930T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083507
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3243
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2891
+DTEND;TZID=America/New_York:20260924T183000
+DTSTAMP;TZID=America/New_York:20251105T164454
+DTSTART;TZID=America/New_York:20260924T173000
+LAST-MODIFIED;TZID=America/New_York:20251105T164454
+LOCATION: - 450 N. Wilson Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Zoning Board of Adjustment Meeting
+UID:2891
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3254
+DTEND;TZID=America/New_York:20260921T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20260921T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3254
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3263
+DTEND;TZID=America/New_York:20260921T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20260921T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3263
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3273
+DTEND;TZID=America/New_York:20260921T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20260921T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3273
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3149
+DTEND;TZID=America/New_York:20260907T170000
+DTSTAMP;TZID=America/New_York:20260323T154257
+DTSTART;TZID=America/New_York:20260907T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154257
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Labor Day holiday
+UID:3149
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3063
+DTEND;TZID=America/New_York:20260826T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20260826T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3063
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3238
+DTEND;TZID=America/New_York:20260826T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20260826T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3238
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2749
+DTEND;TZID=America/New_York:20260824T183000
+DTSTAMP;TZID=America/New_York:20251014T101613
+DTSTART;TZID=America/New_York:20260824T173000
+LAST-MODIFIED;TZID=America/New_York:20251014T101613
+LOCATION: - 2250 S. Floral Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Planning & Zoning Commission Meeting
+UID:2749
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2464
+DTEND;TZID=America/New_York:20260817T190000
+DTSTAMP;TZID=America/New_York:20250806T105815
+DTSTART;TZID=America/New_York:20260817T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T105815
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2464
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3257
+DTEND;TZID=America/New_York:20260817T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20260817T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3257
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3268
+DTEND;TZID=America/New_York:20260817T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20260817T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3268
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3281
+DTEND;TZID=America/New_York:20260817T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20260817T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3281
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2466
+DTEND;TZID=America/New_York:20260803T190000
+DTSTAMP;TZID=America/New_York:20250806T110557
+DTSTART;TZID=America/New_York:20260803T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T110557
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2466
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3066
+DTEND;TZID=America/New_York:20260729T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20260729T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3066
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3246
+DTEND;TZID=America/New_York:20260729T235959
+DTSTAMP;TZID=America/New_York:20260326T083507
+DTSTART;TZID=America/New_York:20260729T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083507
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3246
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2888
+DTEND;TZID=America/New_York:20260723T183000
+DTSTAMP;TZID=America/New_York:20251105T164453
+DTSTART;TZID=America/New_York:20260723T173000
+LAST-MODIFIED;TZID=America/New_York:20251105T164453
+LOCATION: - 450 N. Wilson Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Zoning Board of Adjustment Meeting
+UID:2888
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3075
+DTEND;TZID=America/New_York:20260722T183000
+DTSTAMP;TZID=America/New_York:20251231T164649
+DTSTART;TZID=America/New_York:20260722T173000
+LAST-MODIFIED;TZID=America/New_York:20251231T164649
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Beautification Advisory Board Meeting
+UID:3075
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3293
+DTEND;TZID=America/New_York:20260722T235959
+DTSTAMP;TZID=America/New_York:20260402T085019
+DTSTART;TZID=America/New_York:20260722T173000
+LAST-MODIFIED;TZID=America/New_York:20260402T085019
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Joint Beautification Advisory Board and City Commission Meeting
+UID:3293
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2458
+DTEND;TZID=America/New_York:20260720T190000
+DTSTAMP;TZID=America/New_York:20250806T105815
+DTSTART;TZID=America/New_York:20260720T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T105815
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2458
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3247
+DTEND;TZID=America/New_York:20260720T235959
+DTSTAMP;TZID=America/New_York:20260326T101337
+DTSTART;TZID=America/New_York:20260720T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101337
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3247
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3259
+DTEND;TZID=America/New_York:20260720T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20260720T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3259
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3275
+DTEND;TZID=America/New_York:20260720T235959
+DTSTAMP;TZID=America/New_York:20260326T101910
+DTSTART;TZID=America/New_York:20260720T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101910
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3275
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2468
+DTEND;TZID=America/New_York:20260706T190000
+DTSTAMP;TZID=America/New_York:20250806T110557
+DTSTART;TZID=America/New_York:20260706T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T110557
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2468
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3146
+DTEND;TZID=America/New_York:20260703T170000
+DTSTAMP;TZID=America/New_York:20260323T154240
+DTSTART;TZID=America/New_York:20260703T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154240
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Independence Day Holiday
+UID:3146
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2895
+DTEND;TZID=America/New_York:20260625T183000
+DTSTAMP;TZID=America/New_York:20251105T164454
+DTSTART;TZID=America/New_York:20260625T173000
+LAST-MODIFIED;TZID=America/New_York:20251105T164454
+LOCATION: - 450 N. Wilson Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Zoning Board of Adjustment Meeting
+UID:2895
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:City offices closed. https://www.cityofbartow.net/calendar.aspx
+ ?EID=3147
+DTEND;TZID=America/New_York:20260625T170000
+DTSTAMP;TZID=America/New_York:20260323T154139
+DTSTART;TZID=America/New_York:20260625T080000
+LAST-MODIFIED;TZID=America/New_York:20260323T154139
+LOCATION: -   Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Memorial Day holiday
+UID:3147
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3058
+DTEND;TZID=America/New_York:20260624T093000
+DTSTAMP;TZID=America/New_York:20251230T081749
+DTSTART;TZID=America/New_York:20260624T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081749
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3058
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3235
+DTEND;TZID=America/New_York:20260624T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20260624T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3235
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2738
+DTEND;TZID=America/New_York:20260622T183000
+DTSTAMP;TZID=America/New_York:20251014T101613
+DTSTART;TZID=America/New_York:20260622T173000
+LAST-MODIFIED;TZID=America/New_York:20251014T101613
+LOCATION: - 2250 S. Floral Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Planning & Zoning Commission Meeting
+UID:2738
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2461
+DTEND;TZID=America/New_York:20260615T190000
+DTSTAMP;TZID=America/New_York:20250806T105815
+DTSTART;TZID=America/New_York:20260615T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T105815
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2461
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3253
+DTEND;TZID=America/New_York:20260615T235959
+DTSTAMP;TZID=America/New_York:20260326T101338
+DTSTART;TZID=America/New_York:20260615T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101338
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3253
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3262
+DTEND;TZID=America/New_York:20260615T235959
+DTSTAMP;TZID=America/New_York:20260326T101714
+DTSTART;TZID=America/New_York:20260615T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101714
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3262
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3272
+DTEND;TZID=America/New_York:20260615T235959
+DTSTAMP;TZID=America/New_York:20260326T101909
+DTSTART;TZID=America/New_York:20260615T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101909
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3272
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2467
+DTEND;TZID=America/New_York:20260601T190000
+DTSTAMP;TZID=America/New_York:20250806T110557
+DTSTART;TZID=America/New_York:20260601T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T110557
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2467
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2893
+DTEND;TZID=America/New_York:20260528T183000
+DTSTAMP;TZID=America/New_York:20251105T164454
+DTSTART;TZID=America/New_York:20260528T173000
+LAST-MODIFIED;TZID=America/New_York:20251105T164454
+LOCATION: - 450 N. Wilson Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Zoning Board of Adjustment Meeting
+UID:2893
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3064
+DTEND;TZID=America/New_York:20260527T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20260527T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3064
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3240
+DTEND;TZID=America/New_York:20260527T235959
+DTSTAMP;TZID=America/New_York:20260326T083506
+DTSTART;TZID=America/New_York:20260527T083000
+LAST-MODIFIED;TZID=America/New_York:20260326T083506
+LOCATION: -     
+SEQUENCE:0
+SUMMARY:Special Meeting
+UID:3240
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2740
+DTEND;TZID=America/New_York:20260525T183000
+DTSTAMP;TZID=America/New_York:20251014T101613
+DTSTART;TZID=America/New_York:20260525T173000
+LAST-MODIFIED;TZID=America/New_York:20251014T101613
+LOCATION: - 2250 S. Floral Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Planning & Zoning Commission Meeting
+UID:2740
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2459
+DTEND;TZID=America/New_York:20260518T190000
+DTSTAMP;TZID=America/New_York:20250806T105815
+DTSTART;TZID=America/New_York:20260518T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T105815
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2459
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2469
+DTEND;TZID=America/New_York:20260504T190000
+DTSTAMP;TZID=America/New_York:20250806T110558
+DTSTART;TZID=America/New_York:20260504T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T110558
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2469
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3271
+DTEND;TZID=America/New_York:20260518T195959
+DTSTAMP;TZID=America/New_York:20260326T101948
+DTSTART;TZID=America/New_York:20260504T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T101948
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - PRWC Update
+UID:3271
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3283
+DTEND;TZID=America/New_York:20260504T235959
+DTSTAMP;TZID=America/New_York:20260326T102947
+DTSTART;TZID=America/New_York:20260504T170000
+LAST-MODIFIED;TZID=America/New_York:20260326T102947
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Workshop - TPO Update
+UID:3283
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3062
+DTEND;TZID=America/New_York:20260429T093000
+DTSTAMP;TZID=America/New_York:20251230T081750
+DTSTART;TZID=America/New_York:20260429T083000
+LAST-MODIFIED;TZID=America/New_York:20251230T081750
+LOCATION: - 2150 S. Broadway Avenue  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency Meeting
+UID:3062
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2887
+DTEND;TZID=America/New_York:20260423T183000
+DTSTAMP;TZID=America/New_York:20251105T164453
+DTSTART;TZID=America/New_York:20260423T173000
+LAST-MODIFIED;TZID=America/New_York:20251105T164453
+LOCATION: - 450 N. Wilson Ave.  Bartow FL 33830
+SEQUENCE:0
+SUMMARY:Zoning Board of Adjustment Meeting
+UID:2887
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=3291
+DTEND;TZID=America/New_York:20260422T235959
+DTSTAMP;TZID=America/New_York:20260402T085018
+DTSTART;TZID=America/New_York:20260422T173000
+LAST-MODIFIED;TZID=America/New_York:20260402T085018
+LOCATION: - 450 N Wilson Ave 450 N Wilson Ave Bartow Fl 33830
+SEQUENCE:0
+SUMMARY:Joint Beautification Advisory Board and City Commission Meeting
+UID:3291
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.cityofbartow.net/calendar.aspx?EID=2454
+DTEND;TZID=America/New_York:20260420T190000
+DTSTAMP;TZID=America/New_York:20250806T105815
+DTSTART;TZID=America/New_York:20260420T180000
+LAST-MODIFIED;TZID=America/New_York:20250806T105815
+LOCATION: - City Hall Commission Chambers 450 N. Wilson Ave Bartow FL 33830
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:2454
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=23
+END:VEVENT
+END:VCALENDAR

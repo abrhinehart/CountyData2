@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Cache-Control: private
+Content-Type: text/html; charset=utf-8
+Server: Microsoft-IIS/10.0
+p3p: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+Set-Cookie: ASP.NET_SessionId=1q41sck2b3azm1shcworgyyc; path=/; secure; HttpOnly; SameSite=None
+X-Powered-By: ASP.NET
+GranicusServer: gasmp-insweb3
+Date: Sat, 18 Apr 2026 15:12:55 GMT
+Content-Length: 19
+Set-Cookie: BIGipServerinsite.legistar.com_443=941753098.47873.0000; path=/; Httponly; Secure
+

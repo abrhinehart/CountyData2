@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:12:41 GMT
+Content-Type: application/json; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: nginx
+x-content-type-options: nosniff
+x-download-options: noopen
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+x-pagination: {"total":135,"next":1,"last":13}
+link: <https://api.boxcast.com/channels/pzo8uo3hgxrf0pmwalhj/broadcasts?q=&s=-starts_at&l=10&p=135>; rel="total", <https://api.boxcast.com/channels/pzo8uo3hgxrf0pmwalhj/broadcasts?q=&s=-starts_at&l=10&p=1>; rel="next", <https://api.boxcast.com/channels/pzo8uo3hgxrf0pmwalhj/broadcasts?q=&s=-starts_at&l=10&p=13>; rel="last"
+vary: Accept, Origin
+boxcast-requester-address: 47.195.59.20
+etag: W/"b36d91d07a2b9392a42afddb58245147"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: 9dca045f-9df6-4e7d-aa9b-96076ed39711
+x-runtime: 2.868169
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
