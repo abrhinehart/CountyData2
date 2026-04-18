@@ -1,0 +1,31 @@
+Lake Alfred, FL — API mapping seed
+Survey date: 2026-04-17
+Seed URL: https://www.mylakealfred.com/  (CivicPlus CivicEngage; HTTP 200)
+Scope: City of Lake Alfred only — Polk County BCC is mapped separately in polk-county-fl.md.
+
+Verified vendor hostnames:
+- www.mylakealfred.com                  CivicPlus CivicEngage CMS
+- aca-prod.accela.com/COLA              Accela Citizen Access (tenant COLA)
+- services3.arcgis.com/VaAx8WnigGGWjIPd ArcGIS Online hosted FeatureServers (City of Lake Alfred)
+- point-pay.mylakealfred.com:8443       Utility payment portal (outbound only)
+- user.govoutreach.com/lakealfredcityfl GovOutreach / Gov2Go support shell (outbound)
+- app.polimorphic.com/react/organizations/lake_alfred_fl  Polimorphic chat widget (outbound)
+- docaccess.com/docbox.js               DocAccess document accessibility widget (JS shim, not data)
+
+CRITICAL SEED-SCRIPT BUG:
+- seed_pt_jurisdiction_config.py claims Lake Alfred = iWorQ. That is wrong.
+- modules/permits/scrapers/adapters/lake_alfred.py extends AccelaCitizenAccessAdapter with
+  agency_code=COLA, module_name=Building, target_record_type=Building/Residential/New/NA.
+- Building Permits page at https://www.mylakealfred.com/166/Building-Permits links out to
+  https://aca-prod.accela.com/COLA/Default.aspx — confirmed Accela at survey.
+- Lake Alfred is mapped as Accela below. Seed script fix is a separate spawned task.
+
+Commission platform (confirmed via modules/commission/config/jurisdictions/FL/lake-alfred-cc.yaml):
+- CivicPlus AgendaCenter at https://www.mylakealfred.com/AgendaCenter  (category_id=2).
+- No external CR platform (no Legistar, eScribe, Granicus ViewPublisher, Municode Meetings).
+
+Crawl mode: degraded (curl-only). www.mylakealfred.com is server-rendered ASP.NET/CivicPlus
+with the same hydration profile as Haines City, Winter Haven, Lake Hamilton (no __NEXT_DATA__,
+no data-reactroot). Accela tenant is Angular (ng-app="appAca") but the Default.aspx + CapHome
+ribbon is server-rendered and curl-observable; record search requires VIEWSTATE postbacks that
+are deferred to a future browser pass.

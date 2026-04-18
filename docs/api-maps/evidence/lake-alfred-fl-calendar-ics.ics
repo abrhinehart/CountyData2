@@ -1,0 +1,4378 @@
+BEGIN:VCALENDAR
+PRODID:iCalendar-Ruby
+VERSION:2.0
+X-WR-TIMEZONE:America/New_York
+BEGIN:VTIMEZONE
+TZID:America/New_York
+X-LIC-LOCATION:America/New_York
+BEGIN:STANDARD
+DTSTART:20241103T020000
+RRULE:FREQ=YEARLY;BYDAY=1SU;BYMONTH=11
+TZNAME:EST
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:20250309T020000
+RRULE:FREQ=YEARLY;BYDAY=2SU;BYMONTH=3
+TZNAME:EDT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2100
+DTEND;TZID=America/New_York:20300101T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20300101T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2100
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1527
+DTEND;TZID=America/New_York:20291218T180000
+DTSTAMP;TZID=America/New_York:20241212T130128
+DTSTART;TZID=America/New_York:20291218T163000
+LAST-MODIFIED;TZID=America/New_York:20241212T130128
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1527
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1525
+DTEND;TZID=America/New_York:20291218T163000
+DTSTAMP;TZID=America/New_York:20241212T130056
+DTSTART;TZID=America/New_York:20291218T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130056
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1525
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2099
+DTEND;TZID=America/New_York:20291204T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20291204T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2099
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2098
+DTEND;TZID=America/New_York:20291106T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20291106T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2098
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2097
+DTEND;TZID=America/New_York:20291002T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20291002T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2097
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2096
+DTEND;TZID=America/New_York:20290904T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290904T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2096
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2095
+DTEND;TZID=America/New_York:20290807T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290807T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2095
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2094
+DTEND;TZID=America/New_York:20290703T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290703T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2094
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2093
+DTEND;TZID=America/New_York:20290605T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290605T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2093
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2092
+DTEND;TZID=America/New_York:20290501T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290501T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2092
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1771
+DTEND;TZID=America/New_York:20290426T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20290426T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1771
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2091
+DTEND;TZID=America/New_York:20290403T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290403T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2091
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1770
+DTEND;TZID=America/New_York:20290322T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20290322T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1770
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2090
+DTEND;TZID=America/New_York:20290306T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290306T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2090
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1769
+DTEND;TZID=America/New_York:20290222T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20290222T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1769
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2089
+DTEND;TZID=America/New_York:20290206T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290206T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2089
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1768
+DTEND;TZID=America/New_York:20290125T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20290125T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1768
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1635
+DTEND;TZID=America/New_York:20290108T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20290108T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1635
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2088
+DTEND;TZID=America/New_York:20290102T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20290102T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2088
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1767
+DTEND;TZID=America/New_York:20281228T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20281228T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1767
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1599
+DTEND;TZID=America/New_York:20281221T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20281221T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1599
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1526
+DTEND;TZID=America/New_York:20281219T180000
+DTSTAMP;TZID=America/New_York:20241212T130128
+DTSTART;TZID=America/New_York:20281219T163000
+LAST-MODIFIED;TZID=America/New_York:20241212T130128
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1526
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1524
+DTEND;TZID=America/New_York:20281219T163000
+DTSTAMP;TZID=America/New_York:20241212T130056
+DTSTART;TZID=America/New_York:20281219T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130056
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1524
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2087
+DTEND;TZID=America/New_York:20281205T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20281205T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2087
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1766
+DTEND;TZID=America/New_York:20281123T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20281123T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1766
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1598
+DTEND;TZID=America/New_York:20281116T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20281116T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1598
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1634
+DTEND;TZID=America/New_York:20281113T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20281113T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1634
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2086
+DTEND;TZID=America/New_York:20281107T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20281107T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2086
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1765
+DTEND;TZID=America/New_York:20281026T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20281026T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1765
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1597
+DTEND;TZID=America/New_York:20281019T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20281019T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1597
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2085
+DTEND;TZID=America/New_York:20281003T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20281003T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2085
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1764
+DTEND;TZID=America/New_York:20280928T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280928T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1764
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1596
+DTEND;TZID=America/New_York:20280921T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280921T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1596
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1633
+DTEND;TZID=America/New_York:20280911T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20280911T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1633
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2084
+DTEND;TZID=America/New_York:20280905T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280905T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2084
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1763
+DTEND;TZID=America/New_York:20280824T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280824T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1763
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1595
+DTEND;TZID=America/New_York:20280817T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280817T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1595
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2083
+DTEND;TZID=America/New_York:20280801T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280801T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2083
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1762
+DTEND;TZID=America/New_York:20280727T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280727T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1762
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1594
+DTEND;TZID=America/New_York:20280720T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280720T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1594
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1632
+DTEND;TZID=America/New_York:20280710T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20280710T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1632
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2082
+DTEND;TZID=America/New_York:20280704T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280704T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2082
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1761
+DTEND;TZID=America/New_York:20280622T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280622T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1761
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1593
+DTEND;TZID=America/New_York:20280615T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280615T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1593
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2081
+DTEND;TZID=America/New_York:20280606T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280606T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2081
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1523
+DTEND;TZID=America/New_York:20280605T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20280605T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1523
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1760
+DTEND;TZID=America/New_York:20280525T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280525T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1760
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1592
+DTEND;TZID=America/New_York:20280518T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280518T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1592
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1631
+DTEND;TZID=America/New_York:20280508T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20280508T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1631
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2080
+DTEND;TZID=America/New_York:20280502T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280502T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2080
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1522
+DTEND;TZID=America/New_York:20280501T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20280501T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1522
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1759
+DTEND;TZID=America/New_York:20280427T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280427T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1759
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1591
+DTEND;TZID=America/New_York:20280420T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280420T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1591
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2079
+DTEND;TZID=America/New_York:20280404T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280404T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2079
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1521
+DTEND;TZID=America/New_York:20280403T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20280403T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1521
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1758
+DTEND;TZID=America/New_York:20280323T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280323T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1758
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1551
+DTEND;TZID=America/New_York:20280316T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20280316T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1551
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1590
+DTEND;TZID=America/New_York:20280316T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280316T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1590
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1630
+DTEND;TZID=America/New_York:20280313T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20280313T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1630
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2078
+DTEND;TZID=America/New_York:20280307T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280307T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2078
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1520
+DTEND;TZID=America/New_York:20280306T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20280306T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1520
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1757
+DTEND;TZID=America/New_York:20280224T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280224T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1757
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1550
+DTEND;TZID=America/New_York:20280217T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20280217T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1550
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1589
+DTEND;TZID=America/New_York:20280217T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280217T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1589
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1519
+DTEND;TZID=America/New_York:20280207T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20280207T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1519
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2077
+DTEND;TZID=America/New_York:20280201T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280201T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2077
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1756
+DTEND;TZID=America/New_York:20280127T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20280127T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1756
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1549
+DTEND;TZID=America/New_York:20280120T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20280120T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1549
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1588
+DTEND;TZID=America/New_York:20280120T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20280120T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1588
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1629
+DTEND;TZID=America/New_York:20280110T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20280110T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1629
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2076
+DTEND;TZID=America/New_York:20280104T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20280104T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2076
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1518
+DTEND;TZID=America/New_York:20280103T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20280103T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1518
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1755
+DTEND;TZID=America/New_York:20271223T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20271223T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1755
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1245
+DTEND;TZID=America/New_York:20271221T180000
+DTSTAMP;TZID=America/New_York:20241212T130128
+DTSTART;TZID=America/New_York:20271221T163000
+LAST-MODIFIED;TZID=America/New_York:20241212T130128
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1245
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1240
+DTEND;TZID=America/New_York:20271221T163000
+DTSTAMP;TZID=America/New_York:20241212T130056
+DTSTART;TZID=America/New_York:20271221T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130056
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1240
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1548
+DTEND;TZID=America/New_York:20271216T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20271216T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1548
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1587
+DTEND;TZID=America/New_York:20271216T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20271216T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1587
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2075
+DTEND;TZID=America/New_York:20271207T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20271207T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2075
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1517
+DTEND;TZID=America/New_York:20271206T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20271206T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1517
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1754
+DTEND;TZID=America/New_York:20271125T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20271125T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1754
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1547
+DTEND;TZID=America/New_York:20271118T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20271118T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1547
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1586
+DTEND;TZID=America/New_York:20271118T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20271118T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1586
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1628
+DTEND;TZID=America/New_York:20271108T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20271108T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1628
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2074
+DTEND;TZID=America/New_York:20271102T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20271102T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2074
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1516
+DTEND;TZID=America/New_York:20271101T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20271101T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1516
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1753
+DTEND;TZID=America/New_York:20271028T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20271028T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1753
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1546
+DTEND;TZID=America/New_York:20271021T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20271021T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1546
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1585
+DTEND;TZID=America/New_York:20271021T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20271021T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1585
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2073
+DTEND;TZID=America/New_York:20271005T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20271005T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2073
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1515
+DTEND;TZID=America/New_York:20271004T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20271004T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1515
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1752
+DTEND;TZID=America/New_York:20270923T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270923T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1752
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1235
+DTEND;TZID=America/New_York:20270921T180000
+DTSTAMP;TZID=America/New_York:20231031T115302
+DTSTART;TZID=America/New_York:20270921T163000
+LAST-MODIFIED;TZID=America/New_York:20231031T115302
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1235
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1231
+DTEND;TZID=America/New_York:20270921T163000
+DTSTAMP;TZID=America/New_York:20231031T115046
+DTSTART;TZID=America/New_York:20270921T150000
+LAST-MODIFIED;TZID=America/New_York:20231031T115046
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1231
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1545
+DTEND;TZID=America/New_York:20270916T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270916T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1545
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1584
+DTEND;TZID=America/New_York:20270916T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270916T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1584
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1627
+DTEND;TZID=America/New_York:20270913T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20270913T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1627
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2072
+DTEND;TZID=America/New_York:20270907T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270907T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2072
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1514
+DTEND;TZID=America/New_York:20270906T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270906T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1514
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1751
+DTEND;TZID=America/New_York:20270826T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270826T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1751
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1544
+DTEND;TZID=America/New_York:20270819T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270819T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1544
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1583
+DTEND;TZID=America/New_York:20270819T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270819T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1583
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2071
+DTEND;TZID=America/New_York:20270803T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270803T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2071
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1513
+DTEND;TZID=America/New_York:20270802T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270802T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1513
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1750
+DTEND;TZID=America/New_York:20270722T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270722T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1750
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1543
+DTEND;TZID=America/New_York:20270715T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270715T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1543
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1582
+DTEND;TZID=America/New_York:20270715T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270715T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1582
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1626
+DTEND;TZID=America/New_York:20270712T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20270712T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1626
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2070
+DTEND;TZID=America/New_York:20270706T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270706T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2070
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1512
+DTEND;TZID=America/New_York:20270705T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270705T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1512
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1749
+DTEND;TZID=America/New_York:20270624T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270624T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1749
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1542
+DTEND;TZID=America/New_York:20270617T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270617T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1542
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1581
+DTEND;TZID=America/New_York:20270617T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270617T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1581
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1227
+DTEND;TZID=America/New_York:20270615T180000
+DTSTAMP;TZID=America/New_York:20231031T114923
+DTSTART;TZID=America/New_York:20270615T163000
+LAST-MODIFIED;TZID=America/New_York:20231031T114923
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1227
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1223
+DTEND;TZID=America/New_York:20270615T163000
+DTSTAMP;TZID=America/New_York:20231031T114815
+DTSTART;TZID=America/New_York:20270615T150000
+LAST-MODIFIED;TZID=America/New_York:20231031T114815
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1223
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1511
+DTEND;TZID=America/New_York:20270607T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270607T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1511
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2069
+DTEND;TZID=America/New_York:20270601T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270601T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2069
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1748
+DTEND;TZID=America/New_York:20270527T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270527T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1748
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1541
+DTEND;TZID=America/New_York:20270520T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270520T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1541
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1580
+DTEND;TZID=America/New_York:20270520T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270520T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1580
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1625
+DTEND;TZID=America/New_York:20270510T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20270510T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1625
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2068
+DTEND;TZID=America/New_York:20270504T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270504T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2068
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1510
+DTEND;TZID=America/New_York:20270503T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270503T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1510
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1747
+DTEND;TZID=America/New_York:20270422T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270422T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1747
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1540
+DTEND;TZID=America/New_York:20270415T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270415T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1540
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1579
+DTEND;TZID=America/New_York:20270415T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270415T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1579
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2067
+DTEND;TZID=America/New_York:20270406T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270406T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2067
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1509
+DTEND;TZID=America/New_York:20270405T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270405T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1509
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1746
+DTEND;TZID=America/New_York:20270325T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270325T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1746
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1539
+DTEND;TZID=America/New_York:20270318T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270318T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1539
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1578
+DTEND;TZID=America/New_York:20270318T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270318T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1578
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1219
+DTEND;TZID=America/New_York:20270316T180000
+DTSTAMP;TZID=America/New_York:20231031T114603
+DTSTART;TZID=America/New_York:20270316T163000
+LAST-MODIFIED;TZID=America/New_York:20231031T114603
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1219
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1215
+DTEND;TZID=America/New_York:20270316T163000
+DTSTAMP;TZID=America/New_York:20231031T114641
+DTSTART;TZID=America/New_York:20270316T150000
+LAST-MODIFIED;TZID=America/New_York:20231031T114641
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1215
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1624
+DTEND;TZID=America/New_York:20270308T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20270308T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1624
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2066
+DTEND;TZID=America/New_York:20270302T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270302T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2066
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1508
+DTEND;TZID=America/New_York:20270301T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270301T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1508
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1745
+DTEND;TZID=America/New_York:20270225T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270225T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1745
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1538
+DTEND;TZID=America/New_York:20270218T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270218T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1538
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1577
+DTEND;TZID=America/New_York:20270218T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270218T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1577
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2065
+DTEND;TZID=America/New_York:20270202T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270202T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2065
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1507
+DTEND;TZID=America/New_York:20270201T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270201T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1507
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1744
+DTEND;TZID=America/New_York:20270128T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20270128T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1744
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1537
+DTEND;TZID=America/New_York:20270121T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20270121T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1537
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1576
+DTEND;TZID=America/New_York:20270121T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20270121T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1576
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1623
+DTEND;TZID=America/New_York:20270111T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20270111T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1623
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2064
+DTEND;TZID=America/New_York:20270105T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20270105T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2064
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1506
+DTEND;TZID=America/New_York:20270104T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20270104T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1506
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2148
+DTEND;TZID=America/New_York:20270104T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20270104T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2148
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2147
+DTEND;TZID=America/New_York:20261228T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261228T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2147
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2019
+DTEND;TZID=America/New_York:20261224T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261224T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2019
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1856
+DTEND;VALUE=DATE:20261225
+DTSTAMP;TZID=America/New_York:20251003T093625
+DTSTART;VALUE=DATE:20261223
+LAST-MODIFIED;TZID=America/New_York:20251003T093625
+LOCATION:<p>City Offices will be closed on Wednesday\, December 23\, 2026\;
+  Thursday\, December 24\, 2026\; and Friday\, December 25\, 2026\, and wil
+ l reopen on Monday\, December 28\, 2026.</p> -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Offices Closed - Christmas Holiday
+UID:1856
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2146
+DTEND;TZID=America/New_York:20261221T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261221T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2146
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1536
+DTEND;TZID=America/New_York:20261217T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20261217T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1536
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1575
+DTEND;TZID=America/New_York:20261217T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20261217T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1575
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2018
+DTEND;TZID=America/New_York:20261217T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261217T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2018
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1244
+DTEND;TZID=America/New_York:20261215T180000
+DTSTAMP;TZID=America/New_York:20241212T130128
+DTSTART;TZID=America/New_York:20261215T163000
+LAST-MODIFIED;TZID=America/New_York:20241212T130128
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1244
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1239
+DTEND;TZID=America/New_York:20261215T163000
+DTSTAMP;TZID=America/New_York:20241212T130056
+DTSTART;TZID=America/New_York:20261215T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130056
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1239
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1743
+DTEND;TZID=America/New_York:20261214T200000
+DTSTAMP;TZID=America/New_York:20251208T111358
+DTSTART;TZID=America/New_York:20261214T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T111358
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1743
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2145
+DTEND;TZID=America/New_York:20261214T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261214T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2145
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2017
+DTEND;TZID=America/New_York:20261210T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261210T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2017
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1505
+DTEND;TZID=America/New_York:20261207T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20261207T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1505
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2144
+DTEND;TZID=America/New_York:20261207T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261207T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2144
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2016
+DTEND;TZID=America/New_York:20261203T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261203T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2016
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2063
+DTEND;TZID=America/New_York:20261201T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20261201T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2063
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2143
+DTEND;TZID=America/New_York:20261130T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261130T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2143
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2015
+DTEND;TZID=America/New_York:20261126T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261126T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2015
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1855
+DTEND;VALUE=DATE:20261127
+DTSTAMP;TZID=America/New_York:20251003T093423
+DTSTART;VALUE=DATE:20261126
+LAST-MODIFIED;TZID=America/New_York:20251003T093423
+LOCATION:<p>City Offices will be closed on Thursday\, November 26\, 2026\, 
+ and Friday\, November 27\, 2026\, and will reopen on Monday\, November 30\
+ , 2026.</p> -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Offices Closed - Thanksgiving Holiday
+UID:1855
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1742
+DTEND;TZID=America/New_York:20261123T200000
+DTSTAMP;TZID=America/New_York:20251208T111227
+DTSTART;TZID=America/New_York:20261123T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T111227
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1742
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2142
+DTEND;TZID=America/New_York:20261123T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261123T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2142
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1535
+DTEND;TZID=America/New_York:20261119T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20261119T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1535
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1574
+DTEND;TZID=America/New_York:20261119T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20261119T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1574
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2014
+DTEND;TZID=America/New_York:20261119T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261119T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2014
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1935
+DTEND;TZID=America/New_York:20261116T220000
+DTSTAMP;TZID=America/New_York:20251208T112247
+DTSTART;TZID=America/New_York:20261116T190000
+LAST-MODIFIED;TZID=America/New_York:20251208T112247
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1935
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2141
+DTEND;TZID=America/New_York:20261116T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261116T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2141
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2013
+DTEND;TZID=America/New_York:20261112T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261112T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2013
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2047
+DTEND;TZID=America/New_York:20261111T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20261111T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2047
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1854
+DTEND;VALUE=DATE:20261111
+DTSTAMP;TZID=America/New_York:20251003T093254
+DTSTART;VALUE=DATE:20261111
+LAST-MODIFIED;TZID=America/New_York:20251003T093254
+LOCATION:<p>City Offices will be closed on Wednesday\, November 11\, 2026\,
+  and will reopen on Thursday\, November 12\, 2026.</p> -   Lake Alfred FL 
+ 33850
+SEQUENCE:0
+SUMMARY:City Offices Closed - Veterans Day
+UID:1854
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1622
+DTEND;TZID=America/New_York:20261109T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20261109T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1622
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2140
+DTEND;TZID=America/New_York:20261109T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261109T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2140
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2012
+DTEND;TZID=America/New_York:20261105T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261105T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2012
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2046
+DTEND;TZID=America/New_York:20261104T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20261104T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2046
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2062
+DTEND;TZID=America/New_York:20261103T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20261103T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2062
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1504
+DTEND;TZID=America/New_York:20261102T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20261102T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1504
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1934
+DTEND;TZID=America/New_York:20261102T220000
+DTSTAMP;TZID=America/New_York:20251208T112124
+DTSTART;TZID=America/New_York:20261102T190000
+LAST-MODIFIED;TZID=America/New_York:20251208T112124
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency
+UID:1934
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2139
+DTEND;TZID=America/New_York:20261102T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261102T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2139
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2011
+DTEND;TZID=America/New_York:20261029T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261029T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2011
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2045
+DTEND;TZID=America/New_York:20261028T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20261028T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2045
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2138
+DTEND;TZID=America/New_York:20261026T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261026T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2138
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2010
+DTEND;TZID=America/New_York:20261022T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261022T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2010
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2044
+DTEND;TZID=America/New_York:20261021T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20261021T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2044
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1933
+DTEND;TZID=America/New_York:20261019T220000
+DTSTAMP;TZID=America/New_York:20251208T112030
+DTSTART;TZID=America/New_York:20261019T190000
+LAST-MODIFIED;TZID=America/New_York:20251208T112030
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1933
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2137
+DTEND;TZID=America/New_York:20261019T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261019T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2137
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1741
+DTEND;TZID=America/New_York:20261015T200000
+DTSTAMP;TZID=America/New_York:20251208T111030
+DTSTART;TZID=America/New_York:20261015T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T111030
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1741
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1534
+DTEND;TZID=America/New_York:20261015T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20261015T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1534
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1573
+DTEND;TZID=America/New_York:20261015T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20261015T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1573
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2009
+DTEND;TZID=America/New_York:20261015T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261015T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2009
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2043
+DTEND;TZID=America/New_York:20261014T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20261014T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2043
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2136
+DTEND;TZID=America/New_York:20261012T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261012T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2136
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2008
+DTEND;TZID=America/New_York:20261008T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261008T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2008
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2042
+DTEND;TZID=America/New_York:20261007T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20261007T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2042
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2061
+DTEND;TZID=America/New_York:20261006T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20261006T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2061
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1503
+DTEND;TZID=America/New_York:20261005T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20261005T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1503
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2135
+DTEND;TZID=America/New_York:20261005T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20261005T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2135
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2007
+DTEND;TZID=America/New_York:20261001T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20261001T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2007
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2041
+DTEND;TZID=America/New_York:20260930T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260930T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2041
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2052
+DTEND;TZID=America/New_York:20260929T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260929T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:2052
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2134
+DTEND;TZID=America/New_York:20260928T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260928T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2134
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1740
+DTEND;TZID=America/New_York:20260924T200000
+DTSTAMP;TZID=America/New_York:20251003T101034
+DTSTART;TZID=America/New_York:20260924T180000
+LAST-MODIFIED;TZID=America/New_York:20251003T101034
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting - Tentative
+UID:1740
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2006
+DTEND;TZID=America/New_York:20260924T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260924T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2006
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2040
+DTEND;TZID=America/New_York:20260923T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260923T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2040
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2051
+DTEND;TZID=America/New_York:20260922T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260922T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:2051
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2133
+DTEND;TZID=America/New_York:20260921T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260921T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2133
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1932
+DTEND;TZID=America/New_York:20260917T200000
+DTSTAMP;TZID=America/New_York:20251208T111946
+DTSTART;TZID=America/New_York:20260917T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T111946
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1932
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1533
+DTEND;TZID=America/New_York:20260917T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20260917T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1533
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1572
+DTEND;TZID=America/New_York:20260917T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20260917T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1572
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2005
+DTEND;TZID=America/New_York:20260917T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260917T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2005
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2039
+DTEND;TZID=America/New_York:20260916T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260916T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2039
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1234
+DTEND;TZID=America/New_York:20260915T180000
+DTSTAMP;TZID=America/New_York:20231031T115302
+DTSTART;TZID=America/New_York:20260915T163000
+LAST-MODIFIED;TZID=America/New_York:20231031T115302
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1234
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2050
+DTEND;TZID=America/New_York:20260915T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260915T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:2050
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1230
+DTEND;TZID=America/New_York:20260915T163000
+DTSTAMP;TZID=America/New_York:20231031T115046
+DTSTART;TZID=America/New_York:20260915T150000
+LAST-MODIFIED;TZID=America/New_York:20231031T115046
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1230
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2132
+DTEND;TZID=America/New_York:20260914T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260914T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2132
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1502
+DTEND;TZID=America/New_York:20260910T235900
+DTSTAMP;TZID=America/New_York:20251003T101052
+DTSTART;TZID=America/New_York:20260910T190000
+LAST-MODIFIED;TZID=America/New_York:20251003T101052
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting - Tentative
+UID:1502
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1931
+DTEND;TZID=America/New_York:20260910T220000
+DTSTAMP;TZID=America/New_York:20251208T111902
+DTSTART;TZID=America/New_York:20260910T190000
+LAST-MODIFIED;TZID=America/New_York:20251208T111902
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Community Redevelopment Agency
+UID:1931
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2004
+DTEND;TZID=America/New_York:20260910T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260910T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2004
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2038
+DTEND;TZID=America/New_York:20260909T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260909T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2038
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2049
+DTEND;TZID=America/New_York:20260908T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260908T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:2049
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2131
+DTEND;TZID=America/New_York:20260907T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260907T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2131
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1853
+DTEND;VALUE=DATE:20260907
+DTSTAMP;TZID=America/New_York:20251003T093112
+DTSTART;VALUE=DATE:20260907
+LAST-MODIFIED;TZID=America/New_York:20251003T093112
+LOCATION:<p>City Offices will be closed Monday\, September 7\, 2026\, and w
+ ill reopen Tuesday\, September 8\, 2026.</p> -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Offices Closed - Labor Day
+UID:1853
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2003
+DTEND;TZID=America/New_York:20260903T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260903T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2003
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2037
+DTEND;TZID=America/New_York:20260902T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260902T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2037
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2060
+DTEND;TZID=America/New_York:20260901T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20260901T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2060
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2048
+DTEND;TZID=America/New_York:20260901T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260901T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:2048
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2130
+DTEND;TZID=America/New_York:20260831T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260831T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2130
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1739
+DTEND;TZID=America/New_York:20260827T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20260827T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1739
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2002
+DTEND;TZID=America/New_York:20260827T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260827T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2002
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2036
+DTEND;TZID=America/New_York:20260826T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260826T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2036
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1914
+DTEND;TZID=America/New_York:20260825T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260825T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1914
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2129
+DTEND;TZID=America/New_York:20260824T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260824T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2129
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1532
+DTEND;TZID=America/New_York:20260820T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20260820T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1532
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1571
+DTEND;TZID=America/New_York:20260820T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20260820T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1571
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2001
+DTEND;TZID=America/New_York:20260820T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260820T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2001
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2035
+DTEND;TZID=America/New_York:20260819T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260819T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2035
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1913
+DTEND;TZID=America/New_York:20260818T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260818T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1913
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1937
+DTEND;TZID=America/New_York:20260817T220000
+DTSTAMP;TZID=America/New_York:20251216T092744
+DTSTART;TZID=America/New_York:20260817T190000
+LAST-MODIFIED;TZID=America/New_York:20251216T092744
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1937
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2128
+DTEND;TZID=America/New_York:20260817T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260817T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2128
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2000
+DTEND;TZID=America/New_York:20260813T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260813T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:2000
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2034
+DTEND;TZID=America/New_York:20260812T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260812T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2034
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1912
+DTEND;TZID=America/New_York:20260811T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260811T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1912
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1926
+DTEND;TZID=America/New_York:20260810T235900
+DTSTAMP;TZID=America/New_York:20251208T110211
+DTSTART;TZID=America/New_York:20260810T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T110211
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting
+UID:1926
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2127
+DTEND;TZID=America/New_York:20260810T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260810T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2127
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1999
+DTEND;TZID=America/New_York:20260806T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260806T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1999
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2033
+DTEND;TZID=America/New_York:20260805T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260805T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2033
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2059
+DTEND;TZID=America/New_York:20260804T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20260804T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2059
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1911
+DTEND;TZID=America/New_York:20260804T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260804T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1911
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1501
+DTEND;TZID=America/New_York:20260803T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20260803T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1501
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2126
+DTEND;TZID=America/New_York:20260803T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260803T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2126
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1738
+DTEND;TZID=America/New_York:20260730T200000
+DTSTAMP;TZID=America/New_York:20251208T110059
+DTSTART;TZID=America/New_York:20260730T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T110059
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1738
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1998
+DTEND;TZID=America/New_York:20260730T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260730T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1998
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2032
+DTEND;TZID=America/New_York:20260729T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260729T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2032
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1910
+DTEND;TZID=America/New_York:20260728T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260728T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1910
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2125
+DTEND;TZID=America/New_York:20260727T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260727T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2125
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1997
+DTEND;TZID=America/New_York:20260723T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260723T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1997
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2031
+DTEND;TZID=America/New_York:20260722T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260722T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2031
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1909
+DTEND;TZID=America/New_York:20260721T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260721T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1909
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1500
+DTEND;TZID=America/New_York:20260720T220000
+DTSTAMP;TZID=America/New_York:20251208T110032
+DTSTART;TZID=America/New_York:20260720T190000
+LAST-MODIFIED;TZID=America/New_York:20251208T110032
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1500
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2124
+DTEND;TZID=America/New_York:20260720T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260720T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2124
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1531
+DTEND;TZID=America/New_York:20260716T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20260716T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1531
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1570
+DTEND;TZID=America/New_York:20260716T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20260716T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1570
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1996
+DTEND;TZID=America/New_York:20260716T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260716T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1996
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2030
+DTEND;TZID=America/New_York:20260715T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260715T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2030
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1908
+DTEND;TZID=America/New_York:20260714T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260714T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1908
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2123
+DTEND;TZID=America/New_York:20260713T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260713T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2123
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1995
+DTEND;TZID=America/New_York:20260709T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260709T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1995
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2029
+DTEND;TZID=America/New_York:20260708T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260708T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2029
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2058
+DTEND;TZID=America/New_York:20260707T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20260707T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2058
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1907
+DTEND;TZID=America/New_York:20260707T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260707T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1907
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2122
+DTEND;TZID=America/New_York:20260706T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260706T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2122
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1930
+DTEND;TZID=America/New_York:20260703T163000
+DTSTAMP;TZID=America/New_York:20251208T111809
+DTSTART;TZID=America/New_York:20260703T083000
+LAST-MODIFIED;TZID=America/New_York:20251208T111809
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Holiday - July 4th Observed - Offices Closed
+UID:1930
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1994
+DTEND;TZID=America/New_York:20260702T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260702T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1994
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2028
+DTEND;TZID=America/New_York:20260701T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260701T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2028
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Looking for a place to geek out and meet new friends?  Come joi
+ n other teens that enjoy Anime\, K-Pop\, Video Games\, Pokémon\, or whate
+ ver niche fandom you are obsessed with! This is your space to laugh\, chat
+ \, share favorites\, and build connections. https://www.mylakealfred.com/c
+ alendar.aspx?EID=1950
+DTEND;TZID=America/New_York:20260630T173000
+DTSTAMP;TZID=America/New_York:20251229T110744
+DTSTART;TZID=America/New_York:20260630T170000
+LAST-MODIFIED;TZID=America/New_York:20251229T110744
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Fandom and Fun for Teens
+UID:1950
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1906
+DTEND;TZID=America/New_York:20260630T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260630T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1906
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2121
+DTEND;TZID=America/New_York:20260629T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260629T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2121
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1737
+DTEND;TZID=America/New_York:20260625T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20260625T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1737
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1993
+DTEND;TZID=America/New_York:20260625T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260625T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1993
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2027
+DTEND;TZID=America/New_York:20260624T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260624T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2027
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1905
+DTEND;TZID=America/New_York:20260623T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260623T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1905
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2120
+DTEND;TZID=America/New_York:20260622T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260622T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2120
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1851
+DTEND;VALUE=DATE:20260619
+DTSTAMP;TZID=America/New_York:20251003T092800
+DTSTART;VALUE=DATE:20260619
+LAST-MODIFIED;TZID=America/New_York:20251003T092800
+LOCATION:<p>City Offices will be closed Friday\, June 19\, 2026\, and will 
+ reopen on Monday\, June 22\, 2026.</p> -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Offices Closed - Juneteenth
+UID:1851
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1530
+DTEND;TZID=America/New_York:20260618T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20260618T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1530
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1569
+DTEND;TZID=America/New_York:20260618T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20260618T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1569
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1992
+DTEND;TZID=America/New_York:20260618T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260618T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1992
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2026
+DTEND;TZID=America/New_York:20260617T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260617T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2026
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1226
+DTEND;TZID=America/New_York:20260616T180000
+DTSTAMP;TZID=America/New_York:20231031T114923
+DTSTART;TZID=America/New_York:20260616T163000
+LAST-MODIFIED;TZID=America/New_York:20231031T114923
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:Police and Fire Retirement Board
+UID:1226
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1904
+DTEND;TZID=America/New_York:20260616T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260616T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1904
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1222
+DTEND;TZID=America/New_York:20260616T163000
+DTSTAMP;TZID=America/New_York:20231031T114815
+DTSTART;TZID=America/New_York:20260616T150000
+LAST-MODIFIED;TZID=America/New_York:20231031T114815
+LOCATION:Public Works Training Facility - 515 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:General Employee Retirement Board
+UID:1222
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1925
+DTEND;TZID=America/New_York:20260615T220000
+DTSTAMP;TZID=America/New_York:20260413T162119
+DTSTART;TZID=America/New_York:20260615T190000
+LAST-MODIFIED;TZID=America/New_York:20260413T162119
+LOCATION:Public Works Training Facility - 485 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1925
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2119
+DTEND;TZID=America/New_York:20260615T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260615T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2119
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1991
+DTEND;TZID=America/New_York:20260611T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260611T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1991
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2025
+DTEND;TZID=America/New_York:20260610T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260610T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2025
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1903
+DTEND;TZID=America/New_York:20260609T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260609T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1903
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2118
+DTEND;TZID=America/New_York:20260608T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260608T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2118
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1990
+DTEND;TZID=America/New_York:20260604T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260604T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1990
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2024
+DTEND;TZID=America/New_York:20260603T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260603T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2024
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2057
+DTEND;TZID=America/New_York:20260602T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20260602T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2057
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1902
+DTEND;TZID=America/New_York:20260602T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260602T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1902
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2117
+DTEND;TZID=America/New_York:20260601T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260601T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2117
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Time subject to change https://www.mylakealfred.com/calendar.as
+ px?EID=2162
+DTEND;TZID=America/New_York:20260529T235900
+DTSTAMP;TZID=America/New_York:20260413T162021
+DTSTART;TZID=America/New_York:20260529T140000
+LAST-MODIFIED;TZID=America/New_York:20260413T162021
+LOCATION:Public Works Training Facility - 485 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:RFQ 2026-05 - Ranking and Evaluation Meeting
+UID:2162
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1736
+DTEND;TZID=America/New_York:20260528T200000
+DTSTAMP;TZID=America/New_York:20250317T171148
+DTSTART;TZID=America/New_York:20260528T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T171148
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1736
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1989
+DTEND;TZID=America/New_York:20260528T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260528T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1989
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2023
+DTEND;TZID=America/New_York:20260527T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260527T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2023
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Looking for a place to geek out and meet new friends?  Come joi
+ n other teens that enjoy Anime\, K-Pop\, Video Games\, Pokémon\, or whate
+ ver niche fandom you are obsessed with! This is your space to laugh\, chat
+ \, share favorites\, and build connections. https://www.mylakealfred.com/c
+ alendar.aspx?EID=1949
+DTEND;TZID=America/New_York:20260526T173000
+DTSTAMP;TZID=America/New_York:20251229T110744
+DTSTART;TZID=America/New_York:20260526T170000
+LAST-MODIFIED;TZID=America/New_York:20251229T110744
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Fandom and Fun for Teens
+UID:1949
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1901
+DTEND;TZID=America/New_York:20260526T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260526T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1901
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2116
+DTEND;TZID=America/New_York:20260525T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260525T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2116
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1850
+DTEND;VALUE=DATE:20260525
+DTSTAMP;TZID=America/New_York:20251003T092652
+DTSTART;VALUE=DATE:20260525
+LAST-MODIFIED;TZID=America/New_York:20251003T092652
+LOCATION:<p>City Offices will be closed Monday\, May 25\, 2026\, and will r
+ eopen Tuesday\, May 26\, 2026.</p> -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Offices Closed - Memorial Day
+UID:1850
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1529
+DTEND;TZID=America/New_York:20260521T163000
+DTSTAMP;TZID=America/New_York:20241212T130155
+DTSTART;TZID=America/New_York:20260521T150000
+LAST-MODIFIED;TZID=America/New_York:20241212T130155
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Code Enforcement Special Magistrate Meeting
+UID:1529
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2161
+DTEND;TZID=America/New_York:20260521T235900
+DTSTAMP;TZID=America/New_York:20260413T161546
+DTSTART;TZID=America/New_York:20260521T140000
+LAST-MODIFIED;TZID=America/New_York:20260413T161546
+LOCATION: - 155 E. Pomelo Street  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:RFQ 2026-05 Statement of Qualifications Due 
+UID:2161
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1568
+DTEND;TZID=America/New_York:20260521T150000
+DTSTAMP;TZID=America/New_York:20260202T155319
+DTSTART;TZID=America/New_York:20260521T133000
+LAST-MODIFIED;TZID=America/New_York:20260202T155319
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:School Zone Speed Enforcement Special Magistrate
+UID:1568
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1988
+DTEND;TZID=America/New_York:20260521T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260521T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1988
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2022
+DTEND;TZID=America/New_York:20260520T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260520T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:2022
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1900
+DTEND;TZID=America/New_York:20260519T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260519T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1900
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1929
+DTEND;TZID=America/New_York:20260518T220000
+DTSTAMP;TZID=America/New_York:20260413T162053
+DTSTART;TZID=America/New_York:20260518T190000
+LAST-MODIFIED;TZID=America/New_York:20260413T162053
+LOCATION:Public Works Training Facility - 485 W Haines Blvd.  Lake Alfred F
+ L 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1929
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2115
+DTEND;TZID=America/New_York:20260518T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260518T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2115
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1987
+DTEND;TZID=America/New_York:20260514T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260514T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1987
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1968
+DTEND;TZID=America/New_York:20260513T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260513T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:1968
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1899
+DTEND;TZID=America/New_York:20260512T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260512T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1899
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1619
+DTEND;TZID=America/New_York:20260511T235900
+DTSTAMP;TZID=America/New_York:20250317T170733
+DTSTART;TZID=America/New_York:20260511T180000
+LAST-MODIFIED;TZID=America/New_York:20250317T170733
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Parks and Recreation Board Meeting 
+UID:1619
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2114
+DTEND;TZID=America/New_York:20260511T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260511T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2114
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2160
+DTEND;TZID=America/New_York:20260507T235900
+DTSTAMP;TZID=America/New_York:20260413T161407
+DTSTART;TZID=America/New_York:20260507T160000
+LAST-MODIFIED;TZID=America/New_York:20260413T161407
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:National Day of Prayer - First Baptist Church of Lake Alfred
+UID:2160
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1986
+DTEND;TZID=America/New_York:20260507T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260507T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1986
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1967
+DTEND;TZID=America/New_York:20260506T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260506T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:1967
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Explore storytelling\, poetry\, character-building and more in 
+ a relaxed supportive space. Try new prompts\, share your work (if you want
+ ) and develop your unique voice! No experience needed. https://www.mylakea
+ lfred.com/calendar.aspx?EID=2056
+DTEND;TZID=America/New_York:20260505T173000
+DTSTAMP;TZID=America/New_York:20260128T123018
+DTSTART;TZID=America/New_York:20260505T170000
+LAST-MODIFIED;TZID=America/New_York:20260128T123018
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Creative Writing for Teens
+UID:2056
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1898
+DTEND;TZID=America/New_York:20260505T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260505T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1898
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1139
+DTEND;TZID=America/New_York:20260504T235900
+DTSTAMP;TZID=America/New_York:20241212T130018
+DTSTART;TZID=America/New_York:20260504T190000
+LAST-MODIFIED;TZID=America/New_York:20241212T130018
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1139
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2113
+DTEND;TZID=America/New_York:20260504T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260504T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2113
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1735
+DTEND;TZID=America/New_York:20260430T200000
+DTSTAMP;TZID=America/New_York:20251208T094619
+DTSTART;TZID=America/New_York:20260430T180000
+LAST-MODIFIED;TZID=America/New_York:20251208T094619
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Planning and Zoning Board Meeting 
+UID:1735
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1985
+DTEND;TZID=America/New_York:20260430T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260430T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1985
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1966
+DTEND;TZID=America/New_York:20260429T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260429T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:1966
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION:Looking for a place to geek out and meet new friends?  Come joi
+ n other teens that enjoy Anime\, K-Pop\, Video Games\, Pokémon\, or whate
+ ver niche fandom you are obsessed with! This is your space to laugh\, chat
+ \, share favorites\, and build connections. https://www.mylakealfred.com/c
+ alendar.aspx?EID=1948
+DTEND;TZID=America/New_York:20260428T173000
+DTSTAMP;TZID=America/New_York:20251229T110744
+DTSTART;TZID=America/New_York:20260428T170000
+LAST-MODIFIED;TZID=America/New_York:20251229T110744
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Fandom and Fun for Teens
+UID:1948
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1897
+DTEND;TZID=America/New_York:20260428T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260428T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1897
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2112
+DTEND;TZID=America/New_York:20260427T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260427T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2112
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2154
+DTEND;VALUE=DATE:20260425
+DTSTAMP;TZID=America/New_York:20260401T090556
+DTSTART;VALUE=DATE:20260425
+LAST-MODIFIED;TZID=America/New_York:20260401T090556
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Community Clean Up - Meet at City Hall 9:30 AM - 11:30 AM
+UID:2154
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1984
+DTEND;TZID=America/New_York:20260423T130000
+DTSTAMP;TZID=America/New_York:20260128T122837
+DTSTART;TZID=America/New_York:20260423T103000
+LAST-MODIFIED;TZID=America/New_York:20260128T122837
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Crafts and Chats [Adults]
+UID:1984
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2159
+DTEND;TZID=America/New_York:20260423T235900
+DTSTAMP;TZID=America/New_York:20260413T161318
+DTSTART;TZID=America/New_York:20260423T100000
+LAST-MODIFIED;TZID=America/New_York:20260413T161318
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:RFQ 2026-05 - Mandatory Site Visit 312 N. Buena Vista Drive (Former
+  Growers Fertilizer)
+UID:2159
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1965
+DTEND;TZID=America/New_York:20260422T153000
+DTSTAMP;TZID=America/New_York:20260128T122818
+DTSTART;TZID=America/New_York:20260422T133000
+LAST-MODIFIED;TZID=America/New_York:20260128T122818
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY: Hong Kong Mahjong at the Library
+UID:1965
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1896
+DTEND;TZID=America/New_York:20260421T163000
+DTSTAMP;TZID=America/New_York:20260128T122949
+DTSTART;TZID=America/New_York:20260421T160000
+LAST-MODIFIED;TZID=America/New_York:20260128T122949
+LOCATION: -   Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Afternoon Craft at the Library [ ages 5+]
+UID:1896
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=1163
+DTEND;TZID=America/New_York:20260420T220000
+DTSTAMP;TZID=America/New_York:20231031T114035
+DTSTART;TZID=America/New_York:20260420T190000
+LAST-MODIFIED;TZID=America/New_York:20231031T114035
+LOCATION:City Hall - 120 E POMELO STREET  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:City Commission Meeting
+UID:1163
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+BEGIN:VEVENT
+DESCRIPTION: https://www.mylakealfred.com/calendar.aspx?EID=2111
+DTEND;TZID=America/New_York:20260420T110000
+DTSTAMP;TZID=America/New_York:20260302T130926
+DTSTART;TZID=America/New_York:20260420T103000
+LAST-MODIFIED;TZID=America/New_York:20260302T130926
+LOCATION: Lake Alfred Library - 245 N Seminole Avenue  Lake Alfred FL 33850
+SEQUENCE:0
+SUMMARY:Honeybee Storytime at the Library [Ages 0-4]
+UID:2111
+URL:/common/modules/iCalendar/iCalendar.aspx?feed=calendar&catID=14
+END:VEVENT
+END:VCALENDAR

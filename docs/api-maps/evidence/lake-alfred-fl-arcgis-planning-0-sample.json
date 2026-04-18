@@ -1,0 +1,334 @@
+{
+  "objectIdFieldName": "FID",
+  "uniqueIdField": {
+    "name": "FID",
+    "isSystemMaintained": true
+  },
+  "globalIdFieldName": "",
+  "geometryProperties": {
+    "shapeAreaFieldName": "Shape__Area",
+    "shapeLengthFieldName": "Shape__Length",
+    "units": "esriMeters"
+  },
+  "geometryType": "esriGeometryPolygon",
+  "spatialReference": {
+    "wkid": 102100,
+    "latestWkid": 3857
+  },
+  "fields": [
+    {
+      "name": "FID",
+      "type": "esriFieldTypeOID",
+      "alias": "FID",
+      "sqlType": "sqlTypeOther",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "PUD",
+      "type": "esriFieldTypeString",
+      "alias": "PUD",
+      "sqlType": "sqlTypeOther",
+      "length": 10,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "Parcel_Id",
+      "type": "esriFieldTypeString",
+      "alias": "Parcel_Id",
+      "sqlType": "sqlTypeOther",
+      "length": 50,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "ANNEX_ORD",
+      "type": "esriFieldTypeString",
+      "alias": "ANNEX_ORD",
+      "sqlType": "sqlTypeOther",
+      "length": 20,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "COMMENTS",
+      "type": "esriFieldTypeString",
+      "alias": "COMMENTS",
+      "sqlType": "sqlTypeOther",
+      "length": 100,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "FLU_ORD",
+      "type": "esriFieldTypeString",
+      "alias": "FLU_ORD",
+      "sqlType": "sqlTypeOther",
+      "length": 10,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "ZON_ORD",
+      "type": "esriFieldTypeString",
+      "alias": "ZON_ORD",
+      "sqlType": "sqlTypeOther",
+      "length": 10,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "Zon_Distri",
+      "type": "esriFieldTypeString",
+      "alias": "Zon_Distri",
+      "sqlType": "sqlTypeOther",
+      "length": 8,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "Green_Swam",
+      "type": "esriFieldTypeString",
+      "alias": "Green_Swam",
+      "sqlType": "sqlTypeOther",
+      "length": 6,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "FLU_20",
+      "type": "esriFieldTypeString",
+      "alias": "FLU_20",
+      "sqlType": "sqlTypeOther",
+      "length": 50,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "ZON_20",
+      "type": "esriFieldTypeString",
+      "alias": "ZON_20",
+      "sqlType": "sqlTypeOther",
+      "length": 50,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "F2021_Comm",
+      "type": "esriFieldTypeString",
+      "alias": "F2021_Comm",
+      "sqlType": "sqlTypeOther",
+      "length": 50,
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "Shape__Area",
+      "type": "esriFieldTypeDouble",
+      "alias": "Shape__Area",
+      "sqlType": "sqlTypeDouble",
+      "domain": null,
+      "defaultValue": null
+    },
+    {
+      "name": "Shape__Length",
+      "type": "esriFieldTypeDouble",
+      "alias": "Shape__Length",
+      "sqlType": "sqlTypeDouble",
+      "domain": null,
+      "defaultValue": null
+    }
+  ],
+  "exceededTransferLimit": true,
+  "features": [
+    {
+      "attributes": {
+        "FID": 1,
+        "PUD": " ",
+        "Parcel_Id": "252736000000022020",
+        "ANNEX_ORD": "933-99",
+        "COMMENTS": " ",
+        "FLU_ORD": "946-00",
+        "ZON_ORD": "955-00",
+        "Zon_Distri": " ",
+        "Green_Swam": " ",
+        "FLU_20": "RES",
+        "ZON_20": "VRN",
+        "F2021_Comm": "ULDC rewrite Ord. 1439, 1440, 1443, and 1444",
+        "Shape__Area": 5576.783203125,
+        "Shape__Length": 322.9250369653565
+      },
+      "geometry": {
+        "rings": [
+          [
+            [
+              -9101100.44005623,
+              3259979.81994504
+            ],
+            [
+              -9101100.34578859,
+              3259969.41602087
+            ],
+            [
+              -9101150.40962336,
+              3259969.5589533
+            ],
+            [
+              -9101150.50414425,
+              3259979.96868505
+            ],
+            [
+              -9101150.59855197,
+              3259990.37842444
+            ],
+            [
+              -9101150.69307281,
+              3260000.78828581
+            ],
+            [
+              -9101150.78775154,
+              3260011.23277043
+            ],
+            [
+              -9101151.41743154,
+              3260080.63650198
+            ],
+            [
+              -9101101.35838079,
+              3260081.12883764
+            ],
+            [
+              -9101100.72929529,
+              3260011.72533148
+            ],
+            [
+              -9101100.62870504,
+              3260000.6278172
+            ],
+            [
+              -9101100.53432396,
+              3259990.22387708
+            ],
+            [
+              -9101100.44005623,
+              3259979.81994504
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "FID": 2,
+        "PUD": " ",
+        "Parcel_Id": "252736305500000010",
+        "ANNEX_ORD": "916-99",
+        "COMMENTS": "Past Ordinances: 953-00",
+        "FLU_ORD": "944-00",
+        "ZON_ORD": "1153-06",
+        "Zon_Distri": " ",
+        "Green_Swam": " ",
+        "FLU_20": "RES",
+        "ZON_20": "VRN",
+        "F2021_Comm": "ULDC rewrite Ord. 1439, 1440, 1443, and 1444",
+        "Shape__Area": 50363.806640625,
+        "Shape__Length": 898.1200572857583
+      },
+      "geometry": {
+        "rings": [
+          [
+            [
+              -9100866.92221193,
+              3259928.07559315
+            ],
+            [
+              -9100866.66365968,
+              3259899.38303061
+            ],
+            [
+              -9100865.63110133,
+              3259784.75366179
+            ],
+            [
+              -9101088.29734658,
+              3259782.92398047
+            ],
+            [
+              -9101089.33485248,
+              3259897.37513874
+            ],
+            [
+              -9101090.372256,
+              3260011.82713476
+            ],
+            [
+              -9100875.7593702,
+              3260013.93417144
+            ],
+            [
+              -9100876.0363469,
+              3259982.98172403
+            ],
+            [
+              -9100875.03520543,
+              3259948.28845883
+            ],
+            [
+              -9100869.7338638,
+              3259929.06554113
+            ],
+            [
+              -9100866.92221193,
+              3259928.07559315
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "attributes": {
+        "FID": 3,
+        "PUD": " ",
+        "Parcel_Id": "252736305500000032",
+        "ANNEX_ORD": "???",
+        "COMMENTS": " ",
+        "FLU_ORD": "882-99",
+        "ZON_ORD": "1153-06",
+        "Zon_Distri": " ",
+        "Green_Swam": " ",
+        "FLU_20": "RES",
+        "ZON_20": "VRN",
+        "F2021_Comm": "ULDC rewrite Ord. 1439, 1440, 1443, and 1444",
+        "Shape__Area": 10200.90625,
+        "Shape__Length": 536.967489362229
+      },
+      "geometry": {
+        "rings": [
+          [
+            [
+              -9100865.21854017,
+              3259738.94426632
+            ],
+            [
+              -9101087.8822241,
+              3259737.11458893
+            ],
+            [
+              -9101088.29734658,
+              3259782.92398047
+            ],
+            [
+              -9100865.63110133,
+              3259784.75366179
+            ],
+            [
+              -9100865.21854017,
+              3259738.94426632
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
