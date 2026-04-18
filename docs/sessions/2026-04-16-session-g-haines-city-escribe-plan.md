@@ -1,7 +1,7 @@
 # Session G — Haines City eScribe Adapter Plan
 
 **Date:** 2026-04-16
-**Status:** Plan (Planner output). Supersedes `2026-04-16-session-g-haines-city-civicplus-calendar-plan.md` — that premise was falsified; Haines City publishes agendas via eScribe, not CivicPlus Calendar.
+**Status:** SHIPPED 2026-04-16 in commit 76a7d7c (adapter + YAMLs + tests + verify script) and follow-up 30b6746 (audit_api_maps eScribe recognition). Originally Planner output; supersedes `2026-04-16-session-g-haines-city-civicplus-calendar-plan.md` — that premise was falsified; Haines City publishes agendas via eScribe, not CivicPlus Calendar.
 **Working directory:** `C:\Users\abrhi\Code\CountyData2`
 **Scope:** one new platform adapter (`escribe`), one new jurisdiction YAML (`haines-city-cc.yaml`), one new test module, factory registration, one live-validation script.
 
