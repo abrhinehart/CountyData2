@@ -1,0 +1,29 @@
+HTTP/1.1 302 Found
+Server: nginx/1.18.0 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Date: Sat, 18 Apr 2026 04:43:08 GMT
+Location: https://townoflakehamilton.portal.iworq.net/portalhome/townoflakehamilton
+Set-Cookie: XSRF-TOKEN=eyJpdiI6ImxKY2JzTnV6a1NYY0U1K295ekpSbkE9PSIsInZhbHVlIjoiclpJQ1E1NnVhTFlKY2QyMEJ5ZWVCbUVOMG5QSlExODY2VXhwa0lJR1A0L24wNnhFWkd5UjEzSWtjdVZiZitheGwxR3ZWdVB5T0ZTL0s1elZaZklvRGdNUjhSSlZlU3ZKbXdrRDNtMkZBTE5iaHhVekgwaUxYVmJtOTZMeTNDZVoiLCJtYWMiOiIxMDMxMjNhNmQwNmIxODA5MDkzMmY2OGQ5ZGFiYjE5MWE0YmM3NmEzMWY5MWQwZDZiN2FhNTc3MWIxMDlmMTcwIiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 06:43:08 GMT; Max-Age=7200; path=/
+Set-Cookie: iworq_api_session=eyJpdiI6Im90L3poL3dsd0dRMHZhcWZkelNQRGc9PSIsInZhbHVlIjoiZGtDckNYRVBhZkc5T1ZuMTRNcUJOZGVLbHZid0d2NmpaTU1YVXJTRk02L01MZHEwaTlSSlRSUmZjRTdoYmR0RXg5TVNmTUpyN0ZlcnNkcXRXSEZ0YW94SWd1Ky9NNUV0T2NxZjJjUVF2enRpdjZsTWpQM25GNWdtSXV3d0xQUlQiLCJtYWMiOiIwYjZjNzU3Y2NhY2YzOGRiNWEyMDNiODdiN2UyY2FmMGU0N2ZkYWVlMTI0MzM0Y2Q4NDY4ZDg2MjNlNTQ0Njk1IiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 06:43:08 GMT; Max-Age=7200; path=/; httponly
+Strict-Transport-Security: max-age=63072000;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Date: Sat, 18 Apr 2026 04:43:08 GMT
+Set-Cookie: XSRF-TOKEN=eyJpdiI6Imd0QlZCRFVNMUc2NUZTaUtBM2VQbmc9PSIsInZhbHVlIjoiMkdYV1M4RE9BQUNhMEFoditobFl3M2wyNnhnWE9BZTNwNkpCOVE5cWlTanJFd202MnZLQkI5MW5QKzJpd2kwTXk4SUVQeWRnSURwM1hqZldFSUR3UWh1MHMvRlkwNFR2OVBmNFNncHd5MzZ3d3FnUTlKYmMxUmN3b1VlSlRSZE4iLCJtYWMiOiI4MmE4ODhlNjJkYWM1NTVhY2JkOTI1MGY3M2E1NDM2MDM4YTE2Zjg2ZGE2YTcxOWJiODNjMmFmYWFhZDA5YmM4IiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 06:43:08 GMT; Max-Age=7200; path=/
+Set-Cookie: iworq_api_session=eyJpdiI6IkZnSmp4R3RDeXVnUWdrOG5Ha3VVdlE9PSIsInZhbHVlIjoidkVlQmxsSThYQWZVcGp6VGRmYXIrSWkxZ1JDU3Z3b29xWHhyMy9MRGd1RTBnRzZMcWpZWXlpeXVEOG5xNEwzYjZYRjZFMW5Cd2FFOGVHNGhDU1BMSlU3R3JkTG96VytNYXV5dzI5QzRPWUdkM01FSjMzL2RzVDI5cTFQTWpVTGYiLCJtYWMiOiI5NzI4NWRkYjFhNjVlYWQwN2EwMjk0YjIwZDZmYzllMTcwODVhMjg0OTM5ZDFhNzYxYjM3MTM0Yzk3Y2ViZTYxIiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 06:43:08 GMT; Max-Age=7200; path=/; httponly
+Strict-Transport-Security: max-age=63072000;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+

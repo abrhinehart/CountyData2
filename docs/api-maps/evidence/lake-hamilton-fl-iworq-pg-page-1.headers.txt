@@ -1,0 +1,14 @@
+HTTP/1.1 200 OK
+Server: nginx/1.18.0 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, private
+Date: Sat, 18 Apr 2026 04:43:51 GMT
+Set-Cookie: XSRF-TOKEN=eyJpdiI6ImcxVzhNSXY4bVZsNVVHQUwzaHhOdXc9PSIsInZhbHVlIjoieGlaYTBuQmxoZjF5MzBZZjRNajlTQi9POXliTlBKRDA1cVBhRzM1K1QvNGM3Zlp4QUwzQWJsNUdNS050ZW16bzFhUUwycW8wd091Wkg1ejJndm0xdGorY3NHajNZRmRhd2g0T29QbUdmbEZMN3RTWmwzYVlYbjBBcHhKc1VlSXIiLCJtYWMiOiI4YmQ0NDU5NzEwNDgxM2Y5MTM3NjNmYzQ2NGU4N2YxNGE4Njk0YmU0OGRkMzEyMWU5ODQ2YWZhNzgwODRhMjM5IiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 06:43:51 GMT; Max-Age=7200; path=/
+Set-Cookie: iworq_api_session=eyJpdiI6ImNOemNhSTVMbjVVcFpjbkoyNmRJdHc9PSIsInZhbHVlIjoidTlVTTBZNU9Jd2ZZbStBc25zSUFrajZQTENsSnZxREZWazUyRjBqcnBwNXVaMnR3MHV3L1ZQREJEdWxaWGY3ZU9Bb3ZSWnNpSHlSRXc0dVY2RDJTZnRUZmRGazZJQ2pzRkhmOXVwY3BVSkdyMHV0V0pJMXRQYnUvaUFnVFFyTVoiLCJtYWMiOiJkYzVmZmUyOWYyNDQ4OTFlYzk3ZmY1ODliMmJiZTg2YWI1NDE4YThjZjI5NWE5MDQ5Mjg2NTkxYWQzN2I3MTNlIiwidGFnIjoiIn0%3D; expires=Sat, 18-Apr-2026 06:43:51 GMT; Max-Age=7200; path=/; httponly
+Strict-Transport-Security: max-age=63072000;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+

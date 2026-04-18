@@ -1,0 +1,6 @@
+Seed: https://www.townoflakehamilton.com/
+Vendor hostnames:
+  - www.townoflakehamilton.com (CivicPlus CMS, ASP.NET backend — CivicEngage)
+  - townoflakehamilton.portal.iworq.net (iWorQ PT, fixture-stage)
+Date: 2026-04-17
+Operator: Executor (triad)
