@@ -1,0 +1,16 @@
+haines-city-fl api mapping run — 2026-04-17
+seed: https://www.hainescity.com/ (CivicPlus CivicEngage, ASP.NET, server-rendered)
+alias check: https://www.myhainescity.com/ (to verify)
+
+vendor hostnames mapped this run:
+  www.hainescity.com            — CivicPlus CivicEngage (city CMS)
+  pub-hainescity.escribemeetings.com — eScribe (commission meetings); archived map exists
+  haines.portal.iworq.net       — iWorQ permits (/HAINES/permits/600); existing adapter
+  utility.hainescity.com        — utility billing (probe once)
+
+mode: degraded (curl-only). home page has ONLY the standard CivicPlus /antiforgery XMLHttpRequest bootstrap, no SPA markers.
+pacing: ~1 req/sec; cap 2000; reserve ~200 for §5 fingerprinting
+robots.txt restrictions (respect): /activedit, /admin, /common/admin, /OJA, /support, /Support,
+  /currenteventsview.asp, /search.asp, /currenteventsview.aspx, /search.aspx, /currentevents.aspx,
+  /CurrentEventsView.asp, /Search.asp, /CurrentEventsView.aspx, /Search.aspx, /Search,
+  /CurrentEvents.aspx, /Currentevents.aspx, /map.asp, /map.aspx, /Map.asp, /Map.aspx, /RSS.aspx

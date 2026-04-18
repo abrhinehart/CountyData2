@@ -1,0 +1,18 @@
+HTTP/1.1 200 OK
+Cache-Control: public, no-store, max-age=0, s-maxage=600,no-transform
+Content-Type: application/json; charset=utf-8
+Expires: Sat, 18 Apr 2026 02:55:51 GMT
+Last-Modified: Sat, 18 Apr 2026 02:55:51 GMT
+Vary: *
+p3p: CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: ASP.NET_SessionId=5qepcyt4cpvqgpcuvybnqoa3; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: CP_IsMobile=false; path=/
+Set-Cookie: ASP.NET_SessionId=5qepcyt4cpvqgpcuvybnqoa3; path=/; secure; HttpOnly; SameSite=None
+Set-Cookie: __RequestVerificationToken=Odu6A9dnt7x-TQYDlaM-1QcpjuqPnjSap7irqBD9-61pncqhhYf6eEUoJ_eCcDKt4Y-lsA6wobbt4nvJu5319bhLI59_UDFKkRbxikbRJ0o1; path=/; HttpOnly
+X-Content-Type-Options: nosniff
+Content-Security-Policy: frame-ancestors 'self' https://*.granicus.com https://platform.civicplus.com https://account.civicplus.com https://analytics.civicplus.com; img-src * data: blob:; worker-src * data: blob: 'unsafe-eval' 'unsafe-inline'; script-src * about: 'unsafe-inline' 'unsafe-eval'; style-src * 'unsafe-inline'; media-src * blob:; font-src * data:; default-src *
+Date: Sat, 18 Apr 2026 02:55:51 GMT
+Content-Length: 120
+

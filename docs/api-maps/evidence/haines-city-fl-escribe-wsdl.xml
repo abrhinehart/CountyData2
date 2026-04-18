@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetSearchMeetingData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterbyMeetingTypeIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterbyMeetingTypeNames" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByMeetingDocumentTypes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByExtensions" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByLanguage" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="includeConflicts" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="includeComments" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSearchMeetingDataResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetConflictsData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="searchText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterbyMeetingTypeIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByConflictMemberIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterbyMeetingTypeNames" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetConflictsDataResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="AgendaItemHistoryListView">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="filterbyMeetingTypeIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterbyMeetingTypeNames" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByStage" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByStatus" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="filterByDepartmentNames" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AgendaItemHistoryListViewResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLegislationData">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetLegislationDataResponse">
+        <s:complexType />
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSearchMeetingDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSearchMeetingData" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchMeetingDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSearchMeetingDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetConflictsDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetConflictsData" />
+  </wsdl:message>
+  <wsdl:message name="GetConflictsDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetConflictsDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="AgendaItemHistoryListViewSoapIn">
+    <wsdl:part name="parameters" element="tns:AgendaItemHistoryListView" />
+  </wsdl:message>
+  <wsdl:message name="AgendaItemHistoryListViewSoapOut">
+    <wsdl:part name="parameters" element="tns:AgendaItemHistoryListViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLegislationDataSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLegislationData" />
+  </wsdl:message>
+  <wsdl:message name="GetLegislationDataSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLegislationDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchMeetingDataHttpGetIn">
+    <wsdl:part name="searchText" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeIds" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeNames" type="s:string" />
+    <wsdl:part name="filterByDate" type="s:string" />
+    <wsdl:part name="filterByMeetingDocumentTypes" type="s:string" />
+    <wsdl:part name="filterByExtensions" type="s:string" />
+    <wsdl:part name="filterByLanguage" type="s:string" />
+    <wsdl:part name="includeConflicts" type="s:string" />
+    <wsdl:part name="includeComments" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchMeetingDataHttpGetOut" />
+  <wsdl:message name="GetConflictsDataHttpGetIn">
+    <wsdl:part name="searchText" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeIds" type="s:string" />
+    <wsdl:part name="filterByDate" type="s:string" />
+    <wsdl:part name="filterByConflictMemberIds" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeNames" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConflictsDataHttpGetOut" />
+  <wsdl:message name="AgendaItemHistoryListViewHttpGetIn">
+    <wsdl:part name="filterbyMeetingTypeIds" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeNames" type="s:string" />
+    <wsdl:part name="filterByDate" type="s:string" />
+    <wsdl:part name="filterByStage" type="s:string" />
+    <wsdl:part name="filterByStatus" type="s:string" />
+    <wsdl:part name="filterByDepartmentNames" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AgendaItemHistoryListViewHttpGetOut" />
+  <wsdl:message name="GetLegislationDataHttpGetIn" />
+  <wsdl:message name="GetLegislationDataHttpGetOut" />
+  <wsdl:message name="GetSearchMeetingDataHttpPostIn">
+    <wsdl:part name="searchText" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeIds" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeNames" type="s:string" />
+    <wsdl:part name="filterByDate" type="s:string" />
+    <wsdl:part name="filterByMeetingDocumentTypes" type="s:string" />
+    <wsdl:part name="filterByExtensions" type="s:string" />
+    <wsdl:part name="filterByLanguage" type="s:string" />
+    <wsdl:part name="includeConflicts" type="s:string" />
+    <wsdl:part name="includeComments" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetSearchMeetingDataHttpPostOut" />
+  <wsdl:message name="GetConflictsDataHttpPostIn">
+    <wsdl:part name="searchText" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeIds" type="s:string" />
+    <wsdl:part name="filterByDate" type="s:string" />
+    <wsdl:part name="filterByConflictMemberIds" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeNames" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetConflictsDataHttpPostOut" />
+  <wsdl:message name="AgendaItemHistoryListViewHttpPostIn">
+    <wsdl:part name="filterbyMeetingTypeIds" type="s:string" />
+    <wsdl:part name="filterbyMeetingTypeNames" type="s:string" />
+    <wsdl:part name="filterByDate" type="s:string" />
+    <wsdl:part name="filterByStage" type="s:string" />
+    <wsdl:part name="filterByStatus" type="s:string" />
+    <wsdl:part name="filterByDepartmentNames" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="AgendaItemHistoryListViewHttpPostOut" />
+  <wsdl:message name="GetLegislationDataHttpPostIn" />
+  <wsdl:message name="GetLegislationDataHttpPostOut" />
+  <wsdl:portType name="GetSearchDataSoap">
+    <wsdl:operation name="GetSearchMeetingData">
+      <wsdl:input message="tns:GetSearchMeetingDataSoapIn" />
+      <wsdl:output message="tns:GetSearchMeetingDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <wsdl:input message="tns:GetConflictsDataSoapIn" />
+      <wsdl:output message="tns:GetConflictsDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <wsdl:input message="tns:AgendaItemHistoryListViewSoapIn" />
+      <wsdl:output message="tns:AgendaItemHistoryListViewSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <wsdl:input message="tns:GetLegislationDataSoapIn" />
+      <wsdl:output message="tns:GetLegislationDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="GetSearchDataHttpGet">
+    <wsdl:operation name="GetSearchMeetingData">
+      <wsdl:input message="tns:GetSearchMeetingDataHttpGetIn" />
+      <wsdl:output message="tns:GetSearchMeetingDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <wsdl:input message="tns:GetConflictsDataHttpGetIn" />
+      <wsdl:output message="tns:GetConflictsDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <wsdl:input message="tns:AgendaItemHistoryListViewHttpGetIn" />
+      <wsdl:output message="tns:AgendaItemHistoryListViewHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <wsdl:input message="tns:GetLegislationDataHttpGetIn" />
+      <wsdl:output message="tns:GetLegislationDataHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="GetSearchDataHttpPost">
+    <wsdl:operation name="GetSearchMeetingData">
+      <wsdl:input message="tns:GetSearchMeetingDataHttpPostIn" />
+      <wsdl:output message="tns:GetSearchMeetingDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <wsdl:input message="tns:GetConflictsDataHttpPostIn" />
+      <wsdl:output message="tns:GetConflictsDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <wsdl:input message="tns:AgendaItemHistoryListViewHttpPostIn" />
+      <wsdl:output message="tns:AgendaItemHistoryListViewHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <wsdl:input message="tns:GetLegislationDataHttpPostIn" />
+      <wsdl:output message="tns:GetLegislationDataHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetSearchDataSoap" type="tns:GetSearchDataSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSearchMeetingData">
+      <soap:operation soapAction="http://tempuri.org/GetSearchMeetingData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <soap:operation soapAction="http://tempuri.org/GetConflictsData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <soap:operation soapAction="http://tempuri.org/AgendaItemHistoryListView" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <soap:operation soapAction="http://tempuri.org/GetLegislationData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GetSearchDataSoap12" type="tns:GetSearchDataSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSearchMeetingData">
+      <soap12:operation soapAction="http://tempuri.org/GetSearchMeetingData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <soap12:operation soapAction="http://tempuri.org/GetConflictsData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <soap12:operation soapAction="http://tempuri.org/AgendaItemHistoryListView" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <soap12:operation soapAction="http://tempuri.org/GetLegislationData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GetSearchDataHttpGet" type="tns:GetSearchDataHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="GetSearchMeetingData">
+      <http:operation location="/GetSearchMeetingData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <http:operation location="/GetConflictsData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <http:operation location="/AgendaItemHistoryListView" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <http:operation location="/GetLegislationData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GetSearchDataHttpPost" type="tns:GetSearchDataHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="GetSearchMeetingData">
+      <http:operation location="/GetSearchMeetingData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetConflictsData">
+      <http:operation location="/GetConflictsData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="AgendaItemHistoryListView">
+      <http:operation location="/AgendaItemHistoryListView" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+    <wsdl:operation name="GetLegislationData">
+      <http:operation location="/GetLegislationData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output />
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetSearchData">
+    <wsdl:port name="GetSearchDataSoap" binding="tns:GetSearchDataSoap">
+      <soap:address location="https://pub-hainescity.escribemeetings.com/GetSearchData.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GetSearchDataSoap12" binding="tns:GetSearchDataSoap12">
+      <soap12:address location="https://pub-hainescity.escribemeetings.com/GetSearchData.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GetSearchDataHttpGet" binding="tns:GetSearchDataHttpGet">
+      <http:address location="https://pub-hainescity.escribemeetings.com/GetSearchData.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GetSearchDataHttpPost" binding="tns:GetSearchDataHttpPost">
+      <http:address location="https://pub-hainescity.escribemeetings.com/GetSearchData.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,3029 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+<!-- Google Tag Manager for GA4 -->
+				<script>(function(w,d,s,l,i){w.GAMeasurementID='G-0QN4L5S3L2';w[l]=w[l]||[];w[l].push({'gtm.start':
+				new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+				j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+				'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+				})(window,document,'script','cpDataLayerGA4','GTM-K73C5PS');</script>
+				<!-- End Google Tag Manager for GA4 -->
+				<script type='text/javascript'>
+					var enableTelemetry = 'false'
+					var aiConfig = {
+					instrumentationKey: '1cde048e-3185-4906-aa46-c92a7312b60f'						
+					}
+					var appInsights = window.appInsights || function (a) { function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement('script'); b.src = a.url || 'https://js.monitor.azure.com/scripts/a/ai.0.js', d.getElementsByTagName('script')[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ['Event', 'Exception', 'Metric', 'PageView', 'Trace', 'Dependency']; f.length;)b('track' + f.pop()); if (b('setAuthenticatedUserContext'), b('clearAuthenticatedUserContext'), b('startTrackEvent'), b('stopTrackEvent'), b('startTrackPage'), b('stopTrackPage'), b('flush'), !a.disableExceptionTracking) { f = 'onerror', b('_' + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c['_' + f](a, b, d, e, h), i } } return c }(aiConfig);
+					window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length;
+					// Add telemetry initializer
+					appInsights.queue.push(function() {
+						appInsights.context.addTelemetryInitializer(function(envelope) {
+							var telemetryItem = envelope.data.baseData;
+							// To check the telemetry item’s type:
+							if (!false)
+							{
+								//If the telemetry is not enabled, we still want to capture Google map custom event, so only allow that
+								if (envelope.name.indexOf('.Event') == -1)
+									return false;
+							}
+						});
+					});						
+					appInsights.trackPageView();
+				</script>
+	<script>
+		function populateAntiForgery(token) {
+			var input = document.createElement("input");
+			input.name = "__RequestVerificationToken";
+			input.type = "hidden";
+			input.value = token;
+			var absPat = /^https?:\/\/|^\/\//i;
+			var forms = document.getElementsByTagName("form");
+			for (var i = 0; i < forms.length; i++) {
+				if (forms[i].method == "post" &&
+					!forms[i].querySelector('[name="__RequestVerificationToken"]') &&
+					!absPat.test(forms[i].getAttribute("action"))) {
+					forms[i].appendChild(input.cloneNode());
+				}
+			}
+		}
+
+		function getAntiForgeryToken(callback, error) {
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "/antiforgery");
+			xhr.addEventListener("load", function() {
+				try {
+					if (this.status !== 200) {
+						throw Error("Invalid status. Could not retrieve antiforgery token.");
+		}
+					var obj = JSON.parse(this.responseText);
+					callback(obj.token);
+				} catch (e) {
+					typeof error === "function" && error(e);
+				}
+			});
+			xhr.send();
+		}
+
+		getAntiForgeryToken(function(token) {
+			if (document.readyState === "complete"
+				|| document.readyState === "loaded" 
+				|| document.readyState === "interactive") {
+				populateAntiForgery(token);
+				return;
+			}
+			document.addEventListener("DOMContentLoaded", function() {
+				populateAntiForgery(token);
+			}, false);
+		}, console.error);
+			</script>
+			
+
+	<script type="text/javascript">
+		window.departmentHeader = {};
+		window.pageSectionTracker = {};
+		window.isResponsiveEnabled = true;
+		window.isRemoveSetHeights= true;
+		if (window.isRemoveSetHeights) {
+			document.documentElement.className += ' removeSetHeights';
+		}
+		window.mainMenuMediaQuery = 'screen and (max-width: 40em)';
+		window.isMobileBrowserIncludingTablets = false;
+		window.fixedResponsiveMenu = false;
+		window.fullWidthResponsiveMenu = false;
+		window.responsiveMenuHeight = '';
+		window.responsiveMenuFontSize = '';
+		window.isContentAdvisor = false;
+		(function () {
+			window.setSizeCookie = function () {
+				document.cookie = "dpi=" + window.devicePixelRatio + "; path=/";
+				document.cookie = "viewportWidth=" + window.innerWidth + "; path=/";
+				document.cookie = "viewportHeight=" + window.innerHeight + "; path=/";
+				if (screen && screen.width && screen.height) {
+					document.cookie = "screenWidth=" + screen.width + "; path=/";
+					document.cookie = "screenHeight=" + screen.height + "; path=/";
+				}
+				document.cookie = "responsiveGhost=1; path=/";
+			};
+
+			setSizeCookie();
+		}());
+	</script>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<script async src="https://docaccess.com/docbox.js"></script>
+	
+	
+	
+	<meta name="theme-color" content="#235786">
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+		<title>Jobs • Haines City, FL • CivicEngage</title>
+
+			<script src="/Assets/Scripts/jQuery/jquery-3.7.1.min.js"></script>
+	<script src="/Assets/Scripts/jQuery/jquery-migrate-3.5.2.min.js" type="text/javascript"></script>
+	
+
+	<!--[if IE 6]><script language="JavaScript" type="text/javascript"> var isie6 = true; </script><![endif]-->
+	<!--[if IE 7]><script language="JavaScript" type="text/javascript"> var isie7 = true; </script><![endif]-->
+	<!--[if IE 8]><script language="JavaScript" type="text/javascript"> var isie8 = true; </script><![endif]-->
+	<!--[if IE 9]><script language="JavaScript" type="text/javascript"> var isie8 = true; </script><![endif]-->
+	<script type="text/javascript"><!--
+	var intCountryCode = 840;
+	var externalSiteDialogHeight = '390px';
+	var order = '';
+//--></script>
+	
+<link href="/-681783051.css" rel="stylesheet" type="text/css" />	<link href="/-1465647691.css" rel="stylesheet" type="text/css" />	<link href="/-773467756.css" rel="stylesheet" type="text/css" />
+
+	<link rel="stylesheet" type="text/css" href="/Assets/Styles/Print.css" media="print">
+	<script type="text/javascript">
+		window.Pages = window.Pages || {};
+		// FrontEnd RWD initialization
+		window.Pages.rwdReady = $.Deferred();
+		window.Pages.toolBarDeferred = $.Deferred();
+		window.Pages.rwdSetupComplete = $.Deferred();
+		window.Pages.megaMenuLoaded = $.Deferred();
+		window.Pages.angularToolbarComplete = $.Deferred();
+		window.Pages.frontEndToolbarComplete = $.Deferred();
+	</script>
+	
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+	<meta property="og:description" content="Use the jobs module to search employment opportunities. You may also subscribe to job posting notifications." />
+	<link rel="stylesheet" href="/App_Themes/CP/nmenu.css" type="text/css">
+
+    
+	<!-- Dynamic Header Scripts -->
+	
+	<!--Reference Stylesheet-->
+	
+    
+		<!--Dynamic Header Styles-->
+	<style type="text/css">
+			a.ModNavText:visited {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+		a.ModNavText:link {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+		a.ModNavText:active {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+		font.ModNavText {font-weight:bold;font-style:normal;text-decoration:none;font-family:Arial;font-size:8pt;color:black}
+
+	</style>
+	
+	
+	
+
+<script src="/-314292262.js" type="text/javascript"></script>
+
+	<script src="/739942322.js" type="text/javascript"></script>
+	
+	
+
+	<!--[if lte IE 8]><link rel="stylesheet" type="text/css" href="/App_Themes/ie8.css"><![endif]-->
+	<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="/App_Themes/ie7.css"><![endif]-->
+	<!--[if lte IE 6]><link rel="stylesheet" type="text/css" href="/App_Themes/ie6.css"><![endif]-->
+	<!--[if lt IE 9]><script type="text/javascript" src="/Scripts/html5.js"></script><![endif]-->
+
+	<script type="text/javascript">
+		setEditorVariables(false, 840);
+		function getPrintPreviewType() { return 0; } function printPreview() {pPreview(getPrintPreviewType()); }
+	</script>
+	<script src="/Assets/Scripts/AlpineJS/3.14.1/alpine.min.js" type="text/javascript" defer="defer"></script>
+</head>
+<body class="wide " >
+
+    <script>jQuery(document).click(function (event) {
+	var target = jQuery(event.target);
+	if (target.attr('src') && target.parents('.image').length && target.parents('.widget').length) {
+		var text = target.attr('title');
+		
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Image',
+				eventAction: 'Image - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.is('button') || target.hasClass('button') || target.parents().hasClass('button')) {
+		var text = "";
+		if (target.parents('.button')[0]) {
+			text = target.parents('.button').first().text();
+		} else if (target.text().length) {
+			text = target.text();
+		} else if (target.attr('title').length) {
+			text = target.attr('title');
+		}
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Button',
+				eventAction: 'Button - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.widgetCustomHtml').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Custom Html',
+				eventAction: 'Custom Html Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.editor').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Editor',
+				eventAction: 'Editor Link Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.GraphicLinks').length) {
+		var text = "";
+		var targetGraphicLink = target;
+		if (target.hasClass('widgetGraphicLinksLink')) {
+			targetGraphicLink = jQuery(target.children()[0]);
+		}
+		if (targetGraphicLink.hasClass('text')) {
+			text = targetGraphicLink.text();
+		} else if (targetGraphicLink.attr('src').length) {
+			if (targetGraphicLink.attr('alt').length) {
+				text = targetGraphicLink.attr('alt');
+			} else {
+				text = targetGraphicLink.attr('src');
+			}
+		} else {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Graphic Links',
+				eventAction: 'Graphic Link - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.InfoAdvanced').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Info Advanced',
+				eventAction: 'Info Advanced Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.list').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'List',
+				eventAction: 'List Clicked',
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.megaMenuItem').length || target.parents('.topMenuItem').length) {
+		var megaMenuText = jQuery('.topMenuItem.mouseover').find('span').text();
+		var breadCrumbs = [];
+		jQuery('.breadCrumbs > li').each(function () {
+			 breadCrumbs.push(this.textContent);
+		});
+		var pageTitle = breadCrumbs.join('>');
+		var subTitleText = target.parents('.megaMenuItem').children('.widgetTitle').children().text();
+		var text = "";
+		if (pageTitle) {
+			text += pageTitle + " | ";
+		} else {
+			text += document.title + ' - ';
+		}
+		if (target.text() == "" && megaMenuText == "") {
+			text += "N/A";
+		} else if (target.text().length && megaMenuText.length) {
+			if (megaMenuText == target.text()) {
+				text += megaMenuText;
+			} else {
+				text += megaMenuText + " - " + subTitleText + " - " + target.text();
+			}
+		} else if (target.text() == "") {
+			text += megaMenuText;
+		} else {
+			text += target.text();
+		}
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Mega Menu',
+				eventAction: 'Mega Menu : ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.widgetNewsFlash').length && target.parents('.widgetItem').length) {
+		var text = jQuery(target.parents('.widgetItem')[0]).find('.widgetTitle').children().text();
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'News Flash',
+				eventAction: 'News Flash - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.hasClass('widgetQuickLinksLink') || target.find('.widgetQuickLinksLink').length) {
+		var text = target.text();
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Quick Links',
+				eventAction: 'Quick Links - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.attr('src') && target.parents('.cpSlideshow').length) {
+		var text = target.attr('title');
+		if (!text.length) {
+			text = "N/A";
+		}
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Slideshow',
+				eventAction: 'Slideshow - ' + text,
+				eventLabel: window.location.href
+			});
+	}
+	if (target.parents('.widgetText').length) {
+		ga('send',
+			{
+				hitType: 'event',
+				eventCategory: 'Text',
+				eventAction: 'Text Link Clicked',
+				eventLabel: window.location.href
+			});
+	}
+});</script>
+	<div id="popoverModal" class="cp-PopOver cp-PopOver--modal cp-AdminWrap" style="position: fixed; display: none;">
+	<div class="cp-PopOver-header">
+		<h3 class="cp-PopOver-title"></h3>
+		<button class="cp-Btn cp-PopOver-close" onclick="closePopOverModal(event)">
+			<svg class="cp-Icon--close" alt="close" title="close">
+				<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#iconClose"></use>
+			</svg>
+		</button>
+	</div>
+	<div id="cpPopOverBody" class="cp-PopOver-body">
+		<form id="cpPopOverForm" name="cpPopOverForm" novalidate></form>
+	</div>
+	<div id="cpPopOverFooter" class="cp-PopOver-footer">
+		<div class="cp-BtnGroup" id="actionButtons">
+			<!-- Action buttons will be dynamically added here -->
+		</div>
+	</div>
+</div>
+    <div id="fb-root"></div>
+<div id=skipToContentLinks>
+<a href="#contentarea" target="_self" class="skipToContentLink">Skip to Main Content</a>
+</div>
+    <form id="frmReferenceFormForTelerikEditorDialogs"></form>
+
+        <input type="hidden" id="GoogleMapsKey" value="AIzaSyDWUuE-ifkbhxblF920N8MjpBdTg1Wt784" />
+
+
+
+    <input type="hidden" id="cpcDomain" value="https://cp-civicplusuniversity2.civicplus.com">
+    <input type="hidden" id="hdnStructureID" value="1" />
+    <input type="hidden" id="hdnContentCollectionID" value="7b91879e-d792-488a-87ce-061e176210a3" />
+    <input type="hidden" id="hdnWorkingCopyID" value="00000000-0000-0000-0000-000000000000" />
+    <input type="hidden" id="hdnThemeID" value="1" />
+    <input type="hidden" id="pageIsFrontEnd" value="true" />
+    <input type="hidden" id="pageModuleID" value="66" />
+    <input type="hidden" id="pagePageID" />
+
+        <input type="hidden" id="hdnModuleID" value="66" />
+            <img id="imgLogoPrintPreview" src="/ImageRepository/Document?documentID=27" alt="Haines City, FL" />
+<div id="stickyPlaceholder"></div>
+    <div id="outer-wrap" class="outer-wrap">
+        <div id="inner-wrap" class="inner-wrap">
+                <div id="divToolbars" class="cpToolbars newCP mui-fixed" style="">
+                    
+
+
+
+<!-- Begin Signed Out Bar -->
+<div class="cpToolbar user public">
+    <div class="inner selfClear">
+        <p class="dropdown"><a href="/MyAccount/ProfileCreate" role="link" class="myConnections" id="signedOutToolbarCreateProfileButton">Create a Website Account</a> <span class="welcomeMessage">- Manage notification subscriptions, save form progress and more. &nbsp;&nbsp;</span></p>
+        <ul class="nav secondary">
+	        <li><a href="/MyAccount" role="link" class="button" id="loggedOutToolbarSignInButton"><span>Website Sign In</span></a></li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#signedOutToolbarCreateProfileButton').keypress(function (e) { if (e.which === 0) return; $(this).click(); });
+        $('#signedOutToolbarCreateProfileButton').click(function (event) {
+        	event.preventDefault();
+        	window.location.href = '/MyAccount/ProfileCreate?from=url&url=/&dn=' + window.location.origin;
+        });
+
+			
+				$('#loggedOutToolbarSignInButton').click(function (event) {
+					event.preventDefault();
+					window.location.href = '/MyAccount/?from=url&url=' + encodeURIComponent(window.location.href.replace(window.location.origin, '')) + '&dn=' + window.location.host;
+				});
+			
+
+		if ('False' == 'True') {
+            $('#loggedOutToolbarSignInButton').hide();
+		}
+    })
+</script>
+<!-- End Signed Out Bar -->
+
+                </div>
+            <div id="bodyWrapper">
+                <div id="mainNavHolderMobile" class="mainNavHolderMobile"></div>
+                
+<div data-cpRole="structuralContainer" id="structuralContainer1">
+<div data-cpRole="stickyStructuralContainer" id="stickyStructuralContainer"><div id="stickyStructuralContainer_2b5a6c74-b2c6-4196-97ae-6eb4e57795f4" class="stickyInnerDiv   ">
+<header class="siteHeader"><div data-cpRole="structuralContainer" id="structuralContainer2">
+<div class="siteWrap"><div class="logo" data-cpRole="structuralContainer" id="structuralContainer3">
+<h1 data-cpRole="banner" id="banner2" class="imageBig empty">
+
+
+
+
+				<a id="banner2-9" style="			display: block; text-align: center;
+" class="bannerObject" href="/" target="_self"><img alt="Click to home" class="bannerObject" height="168" src="/ImageRepository/Document?documentID=121" width="166" /></a>
+</h1>
+</div><nav data-cpRole="nav" id="mainNav" class="siteNav mainNav" role="navigation">
+<ol id="mainNavMenu" data-parent="1" class="rootNavMenu" role="menu"><!--
+--><li id="MainItem27" class="topMenuItem" role="none" data-pageid="27" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavGovernment" class="navMainItem mainNavItem mainNavItem1 " href="/27/Government" target = "_self" >   Government  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem101" class="topMenuItem" role="none" data-pageid="101" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavDepartments" class="navMainItem mainNavItem mainNavItem2 " href="/101/Departments" target = "_self" >   Departments  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem31" class="topMenuItem" role="none" data-pageid="31" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavLivingVisiting" class="navMainItem mainNavItem mainNavItem3 " href="/31/Living-Visiting" target = "_self" >   Living &amp; Visiting  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem35" class="topMenuItem" role="none" data-pageid="35" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavDoingBusiness" class="navMainItem mainNavItem mainNavItem4 " href="/35/Doing-Business" target = "_self" >   Doing Business  </a>			<!--
+			--><!--
+			--></li><!----><li id="MainItem9" class="topMenuItem" role="none" data-pageid="9" data-displaymegamenu="True"><!--
+			--><!--
+			--> <a role = "menuitem" aria-haspopup=true aria-expanded='false' id = "mainNavHowDoI" class="navMainItem mainNavItem mainNavItem5 " href="/9/How-Do-I" target = "_self" >   How Do I...  </a>			<!--
+			--><!--
+			--></li><!---->
+</ol>
+
+
+	<script type="text/javascript">
+		(function () {
+			function setupMenu() {
+				const menuID = 'mainNavMenu';
+				const menuType = MAIN_MENU;
+
+				//setup menu manager properties for main menu
+				if (!menuManager.mobileMainNav && true)
+					menuManager.adjustMainItemsWidth('#' + menuID);
+				menuManager.isMainMenuEditable = false;
+				menuManager.mainMenuMaxSubMenuLevels = 4;
+				menuManager.setMOMMode(2, menuType);
+
+				//Init main menu
+				const setupDraggable = menuManager.isMainMenuEditable;
+				const urlToGetHiddenMenus = '/Pages/MenuMain/HiddenMainSubMenus?pageID=1&moduleID=66&themeID=1&menuContainerID=mainNav';
+
+				menuManager.setupMenu(menuID, 'mainNav', menuType, setupDraggable, urlToGetHiddenMenus);
+				menuManager.mainMenuInit = true;
+				menuManager.mainMenuTextResizer = true;
+				if (0.99 > 0)
+					menuManager.mainMenuTextResizerRatio = 0.99;
+				if (window.isResponsiveEnabled)
+					menuManager.mainMenuReady.resolve();
+
+			}
+
+			if (document.readyState === "complete"
+				|| document.readyState === "loaded"
+				|| document.readyState === "interactive") {
+				setupMenu();
+				return;
+			}
+
+			document.addEventListener("DOMContentLoaded", setupMenu);
+		})();
+	</script>
+
+
+<aside data-cpRole="megaMenu" id="megaMenu" class="megaMenu" style="display: none;"><input type="hidden" id="megaMenuPopupDirection" value="0"><input type="hidden" id="megaMenuWidthReference" value="1"><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu27" class="contentTop mainNavMegaMenu megaMenuContainer pageID_27 hidden" data-orientation="horizontal">	<div id="cc20c34559-7605-4e78-b04b-65f5b2c8ed2e" data-containerid="20c34559-7605-4e78-b04b-65f5b2c8ed2e" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu101" class="contentTop mainNavMegaMenu megaMenuContainer pageID_101 hidden" data-orientation="horizontal">	<div id="cccef27ac0-0781-4802-bbeb-be657db711b7" data-containerid="cef27ac0-0781-4802-bbeb-be657db711b7" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu31" class="contentTop mainNavMegaMenu megaMenuContainer pageID_31 hidden" data-orientation="horizontal">	<div id="cca2c647d2-d0df-4b8d-9e0a-df093d9c9389" data-containerid="a2c647d2-d0df-4b8d-9e0a-df093d9c9389" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu35" class="contentTop mainNavMegaMenu megaMenuContainer pageID_35 hidden" data-orientation="horizontal">	<div id="cc58754467-dd16-4ccc-8f44-b351ab187830" data-containerid="58754467-dd16-4ccc-8f44-b351ab187830" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside><aside role="menu" data-cpRole="contentContainer" id="mainNavMegaMenu9" class="contentTop mainNavMegaMenu megaMenuContainer pageID_9 hidden" data-orientation="horizontal">	<div id="cc3e5ba870-97ae-4fbb-833f-8fe80218787f" data-containerid="3e5ba870-97ae-4fbb-833f-8fe80218787f" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside></aside></nav></div>
+</div></header></div>
+</div><div data-cpRole="banner" id="banner1"><div data-cpRole="structuralContainer" id="structuralContainer14">
+<div class="siteWrap"><aside data-cpRole="contentContainer" id="contentContainer8">	<div id="cc7cb989b5-b297-4616-9f3b-120350cac03d" data-containerid="7cb989b5-b297-4616-9f3b-120350cac03d" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="25">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="f94c79cd-8273-409a-ab35-714feea25ac6">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id49332f50-6ee9-42df-96d4-7d29ef65f417" style="" data-widgetcontainerid="49332f50-6ee9-42df-96d4-7d29ef65f417">	
+<div data-widget-id="002fe9a0-dbdb-40d8-a928-d97a4c04009e" data-widget-controller-path="/GraphicLinks/Widget">
+
+
+
+
+<div id="graphicLinkWidget002fe9a0-dbdb-40d8-a928-d97a4c04009e" class="widget widgetGraphicLinks skin43 widgetOptionSet24 wide" data-elementqueryclasses='{"wide-narrow":"min-width:1em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' data-modulewidgettype="graphicLinks">
+	<div class="widgetHeader">
+		<div class="">
+				</div>
+	</div>
+	<div class="widgetBody cpGrid cpGrid5 "> 	
+				<nav class="widgetGraphicLinksNav" aria-label="Graphic links">
+					<div class="row autoWidths right wide"><!--
+--><div class="col col1 first "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="/Facebook" target="_self" class="fancyButton fancyButton45 " >
+		<span>
+			<span><span class="text">Facebook</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton45.fancyButton:link,.fancyButton45.fancyButton:visited, .fancyButton45div.fancyButton{
+	height: 34px;
+	width: 34px;
+	background-image: url('/ImageRepository/Document?documentID=135');
+	background-repeat: no-repeat;
+	background-position: left center;
+float:none;
+margin: 0 auto;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton45.fancyButton:hover,.fancyButton45.fancyButton:focus,.fancyButton45.fancyButton:active,.fancyButton45.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=136');
+	background-repeat: no-repeat;
+	background-position: left center;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton45.fancyButton:link > span,.fancyButton45.fancyButton:visited > span, .fancyButton45div.fancyButton > span{
+}
+.fancyButton45.fancyButton:hover > span,.fancyButton45.fancyButton:focus > span,.fancyButton45.fancyButton:active > span,.fancyButton45.fancyButton.hover > span{
+}
+.fancyButton45.fancyButton .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+opacity:0.0;}
+.fancyButton45.fancyButton:hover .text,.fancyButton45.fancyButton:focus .text,.fancyButton45.fancyButton:active .text,.fancyButton45.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="/Twitter" target="_self" class="fancyButton fancyButton46 " >
+		<span>
+			<span><span class="text">Twitter</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton46.fancyButton:link,.fancyButton46.fancyButton:visited, .fancyButton46div.fancyButton{
+	height: 34px;
+	width: 34px;
+	background-image: url('/ImageRepository/Document?documentID=139');
+	background-repeat: no-repeat;
+	background-position: left center;
+float:none;
+margin: 0 auto;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton46.fancyButton:hover,.fancyButton46.fancyButton:focus,.fancyButton46.fancyButton:active,.fancyButton46.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=140');
+	background-repeat: no-repeat;
+	background-position: left center;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton46.fancyButton:link > span,.fancyButton46.fancyButton:visited > span, .fancyButton46div.fancyButton > span{
+}
+.fancyButton46.fancyButton:hover > span,.fancyButton46.fancyButton:focus > span,.fancyButton46.fancyButton:active > span,.fancyButton46.fancyButton.hover > span{
+}
+.fancyButton46.fancyButton .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+opacity:0.0;}
+.fancyButton46.fancyButton:hover .text,.fancyButton46.fancyButton:focus .text,.fancyButton46.fancyButton:active .text,.fancyButton46.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="https://www.instagram.com/hainescitygov" target="_self" class="fancyButton fancyButton48 " >
+		<span>
+			<span><span class="text">Instagram</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton48.fancyButton:link,.fancyButton48.fancyButton:visited, .fancyButton48div.fancyButton{
+	height: 34px;
+	width: 34px;
+	background-image: url('/ImageRepository/Document?documentID=137');
+	background-repeat: no-repeat;
+	background-position: left center;
+float:none;
+margin: 0 auto;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton48.fancyButton:hover,.fancyButton48.fancyButton:focus,.fancyButton48.fancyButton:active,.fancyButton48.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=138');
+	background-repeat: no-repeat;
+	background-position: left center;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton48.fancyButton:link > span,.fancyButton48.fancyButton:visited > span, .fancyButton48div.fancyButton > span{
+}
+.fancyButton48.fancyButton:hover > span,.fancyButton48.fancyButton:focus > span,.fancyButton48.fancyButton:active > span,.fancyButton48.fancyButton.hover > span{
+}
+.fancyButton48.fancyButton .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+opacity:0.0;}
+.fancyButton48.fancyButton:hover .text,.fancyButton48.fancyButton:focus .text,.fancyButton48.fancyButton:active .text,.fancyButton48.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="https://nextdoor.com/agency-detail/fl/haines-city/city-of-haines-city-1/" target="_blank" class="fancyButton fancyButton272 "  aria-label="Instagram Opens in new window">
+		<span>
+			<span><span class="text">Instagram</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton272.fancyButton:link,.fancyButton272.fancyButton:visited, .fancyButton272div.fancyButton{
+	height: 34px;
+	width: 34px;
+	background-image: url('/ImageRepository/Document?documentID=2542');
+	background-repeat: no-repeat;
+	background-position: left center;
+float:none;
+margin: 0 auto;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton272.fancyButton:hover,.fancyButton272.fancyButton:focus,.fancyButton272.fancyButton:active,.fancyButton272.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=2541');
+	background-repeat: no-repeat;
+	background-position: left center;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton272.fancyButton:link > span,.fancyButton272.fancyButton:visited > span, .fancyButton272div.fancyButton > span{
+}
+.fancyButton272.fancyButton:hover > span,.fancyButton272.fancyButton:focus > span,.fancyButton272.fancyButton:active > span,.fancyButton272.fancyButton.hover > span{
+}
+.fancyButton272.fancyButton .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+opacity:0.0;}
+.fancyButton272.fancyButton:hover .text,.fancyButton272.fancyButton:focus .text,.fancyButton272.fancyButton:active .text,.fancyButton272.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  last"><ul class="semanticList"><!--
+--></ul></div><!--					--></div>
+				</nav>
+	</div>
+	<div class="widgetFooter">
+			</div>
+</div>
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside></div>
+</div><div data-cpRole="structuralContainer" id="structuralContainer4">
+<div class="siteWrap"><aside data-cpRole="contentContainer" id="contentContainer1" class="searchCWK">	<div id="cc4f1ce383-10fc-453f-8f8c-79e71a956b20" data-containerid="4f1ce383-10fc-453f-8f8c-79e71a956b20" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="40">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="095795d0-161a-418a-9606-acd9c32530ce">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id765c05a5-5d6e-47e8-9bcc-837a1c4ea002" style="" data-widgetcontainerid="765c05a5-5d6e-47e8-9bcc-837a1c4ea002">	
+<div data-widget-id="39c14a49-67de-4479-afdb-4c85c8c40d4d" data-widget-controller-path="/Layout/WidgetSearch">
+	
+	<script defer type="text/javascript" src="/Common/Controls/jquery-ui-1.14.1/jquery-ui.min.js"></script>
+	<script defer src="/Areas/Layout/Assets/Scripts/Search.js" type="text/javascript"></script>
+	<script defer type="text/javascript">
+
+		$(document).ready(function () {
+			try {
+				$(".widgetSearchButton.widgetSearchButton39c14a49-67de-4479-afdb-4c85c8c40d4d").click(function (e) {
+				e.preventDefault();
+					if (false||$("#ysnSearchOnlyDept39c14a49-67de-4479-afdb-4c85c8c40d4d").is(':checked'))
+					{
+						doWidgetSearch($(this).siblings(".widgetSearchBox").val(), Number(0));
+					}
+					else {
+						doWidgetSearch($(this).siblings(".widgetSearchBox").val(), 0);
+					}
+			});
+			$("#searchField39c14a49-67de-4479-afdb-4c85c8c40d4d").keypress(function (e) {
+				if (window.clipboardData) {
+					if (e.keyCode === 13) {
+						if ($("#ysnSearchOnlyDept39c14a49-67de-4479-afdb-4c85c8c40d4d").is(':checked') || false) {
+								doWidgetSearch($(this).val(), Number(0));
+							} else {
+								doWidgetSearch($(this).val(), 0);
+							}
+						return false;
+					}
+				} else {
+					if (e.which === 13) {
+						if ($("#ysnSearchOnlyDept39c14a49-67de-4479-afdb-4c85c8c40d4d").is(':checked') || false) {
+								doWidgetSearch($(this).val(), Number(0));
+							} else {
+								doWidgetSearch($(this).val(), 0);
+							}
+						return false;
+					}
+				}
+				return true;
+			});
+
+				if (true) {
+					var currentRequest = null;
+					var $searchField = $("#searchField39c14a49-67de-4479-afdb-4c85c8c40d4d").autocomplete({
+						source: function (request, response) {
+							currentRequest = $.ajax({
+								url: '/Search/AutoComplete' + ($("#ysnSearchOnlyDept39c14a49-67de-4479-afdb-4c85c8c40d4d").is(':checked') || false? '?departmentId=0' : ''),
+								dataType: "json",
+								timeout: 10000,
+								beforeSend: function () {
+									if (currentRequest != null) {
+										currentRequest.abort();
+									}
+								},
+								data:
+								{
+									term: request.term,
+								},
+								success: function (data) {
+									response(data);
+									$('.autoCompleteError').remove();
+								},
+								error: function (xmlhttprequest, textstatus, message) {
+									if (textstatus === "timeout") {
+										if ($("#searchField39c14a49-67de-4479-afdb-4c85c8c40d4d").siblings('.autoCompleteError').length == 0)
+											$('<span class="autoCompleteError"><p class="alert error">Search autocomplete is currently not responding. Please try again later.</p></span>').insertAfter($("#searchField39c14a49-67de-4479-afdb-4c85c8c40d4d"));
+									}
+								}
+							});
+						},
+						html: true,
+						delay: 500,
+						select: function (event, ui) {
+							$(this).val(ui.item.value);
+							$(this).next().click();
+						}
+					});
+
+					$searchField.data("ui-autocomplete")._renderItem = function (ul, item) {
+						return $("<li class=\"itemList\"></li>")
+							.data("ui-autocomplete-item", item)
+							.append("<a>" + item.label + "</a>")
+							.appendTo(ul);
+					};
+}
+}
+			catch(e) {} //we're going to eat this error. Autocomplete won't work but we dont wan't to break anything else on the page.
+		});
+	</script>
+
+	<section id="widgetPreviewSearch" class="widget widgetSearch skin43 widgetOptionSet15" style="display: block;" aria-label="Search">
+				<!-- For the button on the right -->
+		<div class="widgetBody buttonRight">
+			<input class="widgetSearchBox widgetSearchBox39c14a49-67de-4479-afdb-4c85c8c40d4d" cp5ph="true" id="searchField39c14a49-67de-4479-afdb-4c85c8c40d4d" name="searchField" onchange="searchBtnApplyQuery();" placeholder="Search our site..." type="text" value="" />
+						<a href="/Search/Results" id="btnSearchIcon" class="widgetSearchButton widgetSearchButton39c14a49-67de-4479-afdb-4c85c8c40d4d" role="button"><img alt="Search" class="imageHover" data-hover="/ImageRepository/Document?documentID=316" data-image="/ImageRepository/Document?documentID=142" src="/ImageRepository/Document?documentID=142" /></a>
+
+			<label class="searchLabel" aria-hidden="true" for="searchField39c14a49-67de-4479-afdb-4c85c8c40d4d">Search</label>
+		</div>
+
+	</section>
+
+
+<style scoped>
+	  
+		.widgetSearch ::-webkit-input-placeholder {
+		color: #545451;
+	  }
+		.widgetSearch :-moz-placeholder { /* Firefox 18- */
+	   color: #545451;
+	}
+		.widgetSearch ::-moz-placeholder {  /* Firefox 19+ */
+	   color: #545451;
+	}
+	.widgetSearch :-ms-input-placeholder {
+	   color: #545451;
+	}
+	
+
+	.widgetSearch .widgetBody .widgetSearchBox39c14a49-67de-4479-afdb-4c85c8c40d4d
+	{
+		color: #545451;
+		border-radius: 2px;
+  background-color: rgb(242, 242, 242);box-shadow: 0px 0px 24px 0px rgba(0, 0, 0, 0.1);height: 59px; padding: 5px 40px 5px 10px;  border: none;
+	}
+	.widgetSearch .widgetBody .widgetSearchButton39c14a49-67de-4479-afdb-4c85c8c40d4d
+	{
+		
+	}
+	.widgetSearch .widgetSearch-onlyDept39c14a49-67de-4479-afdb-4c85c8c40d4d
+	{
+		display: inline-block;
+		color: #333;
+		
+		
+		 padding-top: 10px;
+	}
+	#ysnSearchOnlyDept39c14a49-67de-4479-afdb-4c85c8c40d4d
+	{
+		position: relative;
+		top: .125em;
+	}
+
+</style>
+
+<link rel="stylesheet" href="/Common/Controls/jquery-ui-1.14.1/jquery-ui.min.css">
+<link rel="stylesheet" href="/Common/Controls/jquery-ui-1.14.1/jquery-ui.theme.min.css">
+
+
+
+<script type="text/javascript">
+	//Updates search icons href to have the correct queryString
+	function searchBtnApplyQuery() {
+		document.getElementById("btnSearchIcon").href = "/Search?searchPhrase=" + document.getElementById("searchField39c14a49-67de-4479-afdb-4c85c8c40d4d").value;
+	}
+	</script>
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside></div>
+</div><div data-cpRole="structuralContainer" id="structuralContainer5">
+<div class="siteWrap"><div data-cpRole="structuralContainer" id="structuralContainer6" class="mainWrap" role="main">
+<div data-cpRole="structuralContainer" id="structuralContainer7" class="outerContentWrap">
+<div data-cpRole="structuralContainer" id="structuralContainer8" class="contentWrap">
+<div data-cpRole="breadCrumbs" class="breadCrumbContainer" id="breadCrumbs">		<ol class="semanticList breadCrumbs">
+			<li><a class="breadCrumb" href="/">Home</a></li><li>Jobs</li>
+		</ol>
+
+	   
+    
+</div>
+<div data-cpRole="mainContentContainer" id="moduleContent">
+
+<div id="ctl00_ctl00_MainContent_BodyWrapper">
+	
+	<script type="text/javascript"><!--
+	var isie6 = false, isie7 = false, isie6or7 = false;
+	var intCountryCode = 840;
+
+	function setUrlLength(editor) {
+		//Toggle Image Context Menu Items
+		setMenuItems(editor);
+		//setContentBackgroundColor(editor);
+		removeIEParagraphs(editor);
+	}
+	function setUrlLengthAndToolToggle(editor) {
+		var minToolsGroups = 2; // Number of MinimumSetOfTools tools groups.
+		
+		// Hide the MinimumSetOfTools on load.
+		var toolbar = editor.get_toolContainer(); // Get toolbar container.
+		var toolgroups = toolbar.getElementsByTagName("UL"); // Get all toolgroups containers.
+		
+		for (var i = toolgroups.length - 1; i >= minToolsGroups; i--)			toolgroups[i].style.display = "none";
+		
+		if (editor.isIE) {
+			var elem = editor.get_element();
+			elem.style.height = "430px";
+ 			elem.style.minHeight = "430px";
+		}
+		
+		// Toggle Image Context Menu Items.
+		setMenuItems(editor);
+		//setContentBackgroundColor(editor);
+		removeIEParagraphs(editor);
+	}
+//--></script><!--[if IE 6]><script type="text/javascript">isie6 = true; isie6or7 = true;</script><![endif]-->
+<!--[if IE 7]><script type="text/javascript">isie7 = true; isie6or7 = true;</script><![endif]-->
+
+	
+
+	<form name="aspnetForm" method="post" action="./Jobs.aspx" id="aspnetForm" style="display:inline;" onsubmit="return headerValidationCallback();" enctype="multipart/form-data" autocomplete="off">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/ScriptResource.axd?d=NIbab2j9N3nQ9D8PtLXZL6i9tEa18H64pQ_twRc4MN4Cs6ICLZgAXr3AI2o3sJLjDmOvdccaxyQkOP8j0_PphDBz3FpPHSNqkRXzTKgm9DkQzb1yVbJaaMusVFEHJu2O5UKo-TFZ6hU7aW7xkkiEwrpCS00jk5sX0LmNJ-ok9GT7WPkE62onOHH9fGGaGpVbNrwr0xWjAVwT9qot3mbmWD9CwZLUwYgzi5_BDr0w50W9HG4HKnMeNUhPeDSyro_OOvQExbDEAEwPZk-tGTT7N1W9T_m2W5tIrQPt_WfsvoPm72sztgRj5NdpBmk0xPaV5k4rbTW2XcAcVULF80K2ziuFsDlANdbvyLx4EqwMTDFNjHewAiImwEjfpYF5w5kTA_os4GjT-jVYhPm-mM5ElT8eYUj7QPNj_AOdEENuc6Ccy6FJ0ej3WLrHvrWh_m67u1nZbA_F_icNy-qdLr7mzfIhRH42Li_1b57YgDlsGo0WPTU-qmQyAE_a2EG1Nv6-dd75QDKgs8ZMxLgAWYEmnce3mzR9YlFma2Pgy6SCKnformXwbZCkb23cUxS2Dleo9dPTKQyPOo6GeYCKGkgcv1msfD7Tp08C0tHtMVSQ-ghZ8Rv6UMd1bvwh09-YVlcs0RJFjT6Z4r_-ZQ23ft6Wbb5vehbOE-TuE2-6LYfComh_ihO7aYZ_-eAU8rn6AxPxnOsMhzVqT02vQgTLSMfUzsUmfkRBEjvEor91BdNJaie3nhNxVcogdI_9Xxfyf_3-F-0PZOfdAG92tklLmKhO7xkuoA37ocfWi_pD86GVXNYnMpvisPaF_Waph3LfXS2Uhc1DOKdnoQrDmir0m7yjFB586WzFc--mFVq3bza9JGo1" type="text/javascript"></script>
+<script src="Common/Admin/Jobs2/JobsQuickActions.asmx/js" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CB8B973B" />
+		<!--for archiving purpose-->
+		<input name="ysnNotifyMe" type="hidden">
+		<input name="strPage" type="hidden">
+		<input name="intArchMainCatID" type="hidden">
+		<input name="intArchMainItemID" type="hidden">
+		 
+		<script type="text/javascript">
+			Sys.WebForms.PageRequestManager.getInstance().add_beginRequest(beginRequest);
+			Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(pageLoaded);
+		</script>
+		
+		<div id="modulecontent" name="modulecontent.aspx" style="padding-top: 0px;">
+<div id="contentarea" ></div>
+
+<script src="/common/GlobalJSFunctionsDetail.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	function AnimationFade(isFadeIn, duration) {
+		if (isFadeIn)
+			$("#divAddEditJobs").fadeTo(duration, 1.0);
+		else
+			$("#divAddEditJobs").fadeTo(duration, 0.3);
+	}
+</script>
+<script src="/Assets/Scripts/RssBehavior.js" type="text/javascript"></script>
+<script type="text/javascript">
+	// This code performs the same functions as the code in SocialShare.js. However, SocialShare.js cannot
+	// be used from the Jobs module b/c Jobs is a WebForms module, and the JavaScript within the SocialShare.cshtml
+	// file does not get executed correctly on page load.
+
+	$(document).ready(function () {
+		$.ajaxSetup({ cache: false });
+
+        $(document).on('click', '#shareViaEmailButton', function (e) {
+            e.preventDefault();
+            var emailSubject = $(this).attr('data-email-subject');
+            var shareUrl = $(this).attr('data-share-url');
+            $(window).scrollTop(0);
+            openShareEmailPageModalWithReferrel(emailSubject, shareUrl);
+        });
+	});
+</script>
+
+
+
+
+<link href="/common/modules/Jobs2/JobsSiteCustom.css" rel="stylesheet" type="text/css" />
+
+
+<input type="hidden" id="hdnSaveItem" name="hdnSaveItem" value="0">
+
+<div id="JobContent" class="newCP moduleContentNew">
+	
+
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader" name="divHeader" class="header">
+		<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_headerUpdatePanel">
+	
+				
+				<div class="text" id="divText">
+					      <h1>Job Opportunities      </h1>Use the Government Jobs tab to search through your municipality's employment opportunities. Subscribe to job posting notifications to be automatically alerted of the latest career opportunities by clicking on the Notify Me&reg; button.
+				</div>
+
+			
+</div>
+
+		<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_searchUpdatePanel">
+	
+				<div class="nav">
+					<ul class="misc noJobs"><li><a class="RSS" href="/Rss.aspx#cityJobs">RSS</a></li></ul>
+					<section aria-label="Jobs Module Search">
+						
+					</section>
+				</div>
+				
+			
+</div>
+
+	</div>
+	
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divJobContent" class="contentMain selfClear myListings">
+		<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel">
+	
+				<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_updatePnlRegisteration">
+		
+						
+					
+	</div>
+				<div id="divAddEditJobs" style="zoom: 1;">
+					<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_updatePnlEditJob">
+		
+							<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divEditJob" style="display:none;">
+								
+
+<script type="text/javascript" src="/Assets/Scripts/DateTimePicker/helper.js"></script>
+
+<div class="contentMain selfClear jobWizard">
+	<div class="wizardNav">
+		<h3>Steps</h3>
+		<ol>
+			<li id="li_listingInformation" class="current">
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step1" class="step" style="display:inline">1.</span>
+				<a href="#anchor_listingInformation" onkeypress="this.onclick();" onclick="nextStep('listingInformation','nextStep'); return false;">Listing Information</a>
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation" style="display:none" class="complete">This section is complete</span>
+			</li>
+			<li id="li_jobDetails">
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step2" class="step" style="display:inline">2.</span>
+				<a href="#anchor_jobDetails" onkeypress="this.onclick();" onclick="nextStep('jobDetails','nextStep'); return false;">Job Details</a>
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails" style="display:none" class="complete">This section is complete</span>
+			</li>
+			<li id="li_previewSubmit">
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step3" class="step" style="display:inline">3.</span>
+				<a onclick="return nextStep(&#39;previewSubmit&#39;,&#39;nextStep&#39;);" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lnkPreviewSubmit" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$lnkPreviewSubmit&#39;,&#39;&#39;)">Preview and Submit</a>
+				<span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_previewSubmit" style="display:none" class="complete">This section is complete</span>
+			</li>
+		</ol>
+	</div>
+
+	<div class="onTop wizard">
+		<div class="section selfClear" id="div_listingInformation" name="div_listingInformation">
+			<h2>Listing Information</h2>
+			<div id="listingInformation">
+                <div class="formline selfClear category" role="group">
+                    <fieldset>
+                        <legend>
+                            <label for="categories" class="full">Category<span class="req">*</span></label>
+                        </legend>
+                        <div id="categories">
+                            <ul class="top5">
+                                <li>
+<label for="rbtnCategoryList_1" class="check">
+<input type="radio" value="76" name="rbtnCategoryList" id="rbtnCategoryList_1" ><span>Advertising and PR Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_2" class="check">
+<input type="radio" value="77" name="rbtnCategoryList" id="rbtnCategoryList_2" ><span>Aerospace and Defense</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_3" class="check">
+<input type="radio" value="78" name="rbtnCategoryList" id="rbtnCategoryList_3" ><span>Banking Business Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_4" class="check">
+<input type="radio" value="79" name="rbtnCategoryList" id="rbtnCategoryList_4" ><span>Computer/IT Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_5" class="check">
+<input type="radio" value="80" name="rbtnCategoryList" id="rbtnCategoryList_5" ><span>Construction</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_6" class="check">
+<input type="radio" value="81" name="rbtnCategoryList" id="rbtnCategoryList_6" ><span>Education</span>
+</label>
+</li>
+
+                            </ul>
+                        </div>
+                        <div id="divRemainingCategories" style="display: none;">
+                            <ul class="hidden selfClear">
+                                <li>
+<label for="rbtnCategoryList_7" class="check">
+<input type="radio" value="82" name="rbtnCategoryList" id="rbtnCategoryList_7" ><span>Engineering Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_8" class="check">
+<input type="radio" value="83" name="rbtnCategoryList" id="rbtnCategoryList_8" ><span>Financial Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_9" class="check">
+<input type="radio" value="84" name="rbtnCategoryList" id="rbtnCategoryList_9" ><span>Government and Military</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_10" class="check">
+<input type="radio" value="85" name="rbtnCategoryList" id="rbtnCategoryList_10" ><span>Healthcare Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_11" class="check">
+<input type="radio" value="86" name="rbtnCategoryList" id="rbtnCategoryList_11" ><span>Insurance</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_12" class="check">
+<input type="radio" value="87" name="rbtnCategoryList" id="rbtnCategoryList_12" ><span>Internet Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_13" class="check">
+<input type="radio" value="88" name="rbtnCategoryList" id="rbtnCategoryList_13" ><span>Nonprofit</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_14" class="check">
+<input type="radio" value="89" name="rbtnCategoryList" id="rbtnCategoryList_14" ><span>Other/Not Classified</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_15" class="check">
+<input type="radio" value="90" name="rbtnCategoryList" id="rbtnCategoryList_15" ><span>Printing and Publishing</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_16" class="check">
+<input type="radio" value="91" name="rbtnCategoryList" id="rbtnCategoryList_16" ><span>Real Estate</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_17" class="check">
+<input type="radio" value="92" name="rbtnCategoryList" id="rbtnCategoryList_17" ><span>Restaurant/Food Services</span>
+</label>
+</li>
+<li>
+<label for="rbtnCategoryList_18" class="check">
+<input type="radio" value="93" name="rbtnCategoryList" id="rbtnCategoryList_18" ><span>Retail</span>
+</label>
+</li>
+
+                            </ul>
+                        </div>
+                    </fieldset>
+                    <a id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnCategoryList" class="button" onkeypress="this.onclick();" onclick="displayFullCategoryList();"><span>Choose from Full List</span></a>
+                </div>
+
+				<!-- The "Status" option is only displayed for NOT NEW listings -->
+				
+<div class="formline multiple selfClear display">
+					<h3>Display<span class="req">*</span></h3>
+					<div>
+						<div class="date" id="jobStartDateAddAmsul">
+							<label for="txtJobStartDateAmsul">Display Starts:</label><br />
+							<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobStartDateAmsul" type="text" value="4/17/2026" maxlength="10" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobStartDateAmsul" name="txtJobStartDateAmsul" title="Start Date" data-cp-datetimepicker="{&quot;wrapInsideDiv&quot;: true}" />							
+						</div>
+						<label for="ddlDurationAmsul">
+							Display For:<br />
+							<select name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$ddlDurationAmsul" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_ddlDurationAmsul" onchange="updateFeaturedRate();">
+			<option selected="selected" value="1">1 week - Free </option>
+			<option value="2">1 month - Free </option>
+			<option value="3">3 months - Free </option>
+			<option value="4">1 year - Free </option>
+
+		</select>
+						</label>
+					</div>
+				</div>
+				<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_divFeatured" class="formline highlight">
+					<div style="position: relative">
+						<label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_chkIsFeatured" class="check"><input id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_chkIsFeatured" type="checkbox" name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$chkIsFeatured" /><span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblChkBoxIsFeatured">Feature this listing for <span id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_spanFeaturedRate">free</span></span></label>
+						
+						<a href="javascript:void(0);" onkeypress="this.onclick();" onclick="displayFeatureDetails();" style="font-size: 9pt; position: absolute; top: 0; right: 0;">What's this?</a>
+						<div id="explain" style="margin: 15px 0 0 20px; overflow: hidden; display: none">
+							<img src="/Common/images/jobs/jobsExplain.png" alt="" style="float: left; margin: 0 10px 10px 0;" />
+							<p>
+								Featured job listings display on the top of all job listings and are designed to stand out from the others.
+							</p>
+						</div>
+
+					</div>
+				</div>
+				<div class="formline noLabel selfClear">
+					<div>
+						<a href="#anchor_jobDetails" class="button nextAction" onkeypress="this.onclick();" onclick="nextStep('jobDetails', 'nextStep');"><span>Continue</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="section selfClear" id="div_jobDetails" name="div_jobDetails" style="display: none">
+			<h2>Job Details</h2>
+			<div id="jobDetails">
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobTitle" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblJobTitle">Job Title<span class="req">*</span>
+                        <input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobTitle" type="text" maxlength="100" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobTitle" onfocus="this.select();" /></label>
+                </div>
+				<div class="formline selfClear">
+					<label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobID" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblJobID">Job ID
+						<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobID" type="text" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobID" size="20" onfocus="this.select();" /></label>
+				</div>
+				<div class="formline selfClear">
+					<label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobDescription" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblJobDescription">Description
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtJobDescription" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobDescription">
+</textarea></label>
+				</div>
+				<div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblSalary">Salary
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtSalary" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary">
+</textarea></label>
+                </div>
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtQualifications" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblQualifications">Qualifications
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtQualifications" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtQualifications">
+</textarea></label>
+                </div>
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSpecialRequirements" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblSpecialRequirements">Special Requirements
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtSpecialRequirements" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSpecialRequirements">
+</textarea></label>
+                </div>
+                <div class="formline selfClear">
+                    <label for="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtMiscellaneous" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lblMiscellaneous">Miscellaneous
+						<textarea name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$txtMiscellaneous" rows="4" cols="38" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtMiscellaneous">
+</textarea></label>
+                </div>
+                <div class="formline noLabel selfClear">
+                    <div>
+                        <a onclick="return validateJobDetails(&#39;PreviewSubmit&#39;);" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_lnkContinuePreview" class="button nextAction" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$lnkContinuePreview&#39;,&#39;&#39;)"><span>Continue</span></a>
+                        <span class="goBack">|<a href="#anchor_listingInformation" onkeypress="this.onclick();" onclick="nextStep('listingInformation', 'prevStep');">Go Back</a></span>
+                    </div>
+                </div>
+            </div>
+		</div>
+		<div class="section selfClear" id="div_previewSubmit" name="div_previewSubmit" style="display: none">
+			<h2 id="anchor_previewSubmit">Preview and Submit</h2>
+			<div class="job">
+				
+			</div>
+			<div class="summary jobSummary">
+				<div class="row">
+					<span>
+						
+							job listing from
+						
+							to
+						
+					</span>
+					<span class="price">
+						
+					</span>
+				</div>
+
+				<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_trFeatured" class="row">
+					<span>Featured</span>
+					<span class="price">
+						
+					</span>
+				</div>
+				<div class="row total">
+					<span>Total</span>
+					<span class="price">
+						
+					</span>
+				</div>
+			</div>
+
+			<p id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_detailText" class="opacity60">After completing all the steps, click Preview to open a preview of your listing in a new window or click Proceed to Checkout where you can purchase the listing for the duration you specified.</p>
+			<div class="formline noLabel selfClear">
+				<div>
+					<a id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnPreview" class="button" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$btnPreview&#39;,&#39;&#39;)"><span>Preview</span></a>
+					<a onclick="return validateJobDetails();" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnProceedEpayFE" class="button" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$btnProceedEpayFE&#39;,&#39;&#39;)"><span>Proceed to Checkout</span></a>
+					<a onclick="return validateJobDetails();" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnSaveNewJob" class="button" onkeypress="this.onclick();" href="javascript:__doPostBack(&#39;ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$btnSaveNewJob&#39;,&#39;&#39;)"><span>Pay Later</span></a>
+					
+					<a href="javascript:jobContentLoad('2','','','','');" class="cancel">Cancel</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$pageType" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_pageType" />
+<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$hdnFeaturedRate" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_hdnFeaturedRate" value="free" />
+<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$editJobControl$hdnStatus" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_hdnStatus" value="0" />
+
+<script type="text/javascript"> <!--
+	function displayFeatureDetails() {
+		if (document.getElementById('explain').style.display == "none") {
+			document.getElementById('explain').style.display = "block";
+		}
+		else {
+			document.getElementById('explain').style.display = "none";
+		}
+	}
+
+	function nextStep(id, step) {
+		window.scrollTo(0, 0);
+		var validate = true;
+		if (step == 'nextStep')
+			validate = validateJobDetails(id);
+		if (validate) {
+			document.getElementById('div_listingInformation').style.display = 'none';
+			document.getElementById('div_jobDetails').style.display = 'none';
+			document.getElementById('div_previewSubmit').style.display = 'none';
+
+			document.getElementById('li_listingInformation').className = '';
+			document.getElementById('li_jobDetails').className = '';
+			document.getElementById('li_previewSubmit').className = '';
+
+			document.getElementById('div_' + id).style.display = 'block';
+			document.getElementById('li_' + id).className = 'current';
+
+			if (id == 'previewSubmit')
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step3').style.visibility = 'hidden';
+		}
+		else
+			return false;
+	}
+
+	function validateJobDetails(id) {
+		var errString = '';
+		var alertMsg = '';
+		var doSubmit = true;
+
+		// Listing info validation
+		if (document.getElementById('li_listingInformation').className == 'current') {
+
+			if (!validateCategory()) {
+				doSubmit = false;
+				alertMsg += "Please select a Job Category.\n";
+			}
+            var startDateControl = $get('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobStartDateAmsul');
+            var isDisabled = $('#ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobStartDateAmsul').is(':disabled');
+
+			if (startDateControl.value == '') {
+				alertMsg += "Display Starts cannot be blank.\n";
+				doSubmit = false;
+			}
+			else if (!isDisabled) { //only when it is new or renew validate this (control enable)
+				var curDate = new Date('04/17/2026');
+				var objDateValidator = new dateValidator();
+				var startDate = new Date(objDateValidator.getStandardDate(startDateControl.value));
+				if (startDate.getFullYear() < curDate.getFullYear()) {
+					doSubmit = false;
+					alertMsg += "Start Date cannot be in the past.\n";
+				}
+				else if (curDate.getFullYear() == startDate.getFullYear() && startDate.getMonth() < curDate.getMonth()) {
+					doSubmit = false;
+					alertMsg += "Start Date cannot be in the past.\n";
+				}
+				else if (curDate.getFullYear() == startDate.getFullYear() && curDate.getMonth() == startDate.getMonth() && startDate.getDate() < curDate.getDate()) {
+					doSubmit = false;
+					alertMsg += "Start Date cannot be in the past.\n";
+				}
+			}
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').style.display = '';
+			if (!doSubmit) {
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').className = 'incomplete';
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').innerHTML = 'This section is incomplete';
+			}
+			else
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').className = 'complete';
+
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step1').style.visibility = 'hidden';
+		}
+
+		// Job Details
+		var doSubmit2 = true;
+		if (document.getElementById('li_jobDetails').className == 'current' || id == 'previewSubmit') {
+			if (FieldIsEmpty(document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtJobTitle').value)) {
+				doSubmit2 = false;
+				alertMsg += "Please enter a Job Title.\n";
+			}
+			if (document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary').value != "" && document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_txtSalary').value.lenght > 5000) {
+				doSubmit2 = false;
+				alertMsg += "Salary cannot exceed 5000 Characters\n";
+			}
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').style.display = '';
+			if (!doSubmit2) {
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').className = 'incomplete';
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').innerHTML = 'This section is incomplete';
+			}
+			else
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').className = 'complete';
+
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step2').style.visibility = 'hidden';
+		}
+		document.getElementById('__EVENTARGUMENT').value = document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_pageType').value + '';
+
+		if (alertMsg.length > 0) {
+			errString += alertMsg;
+			errString += "\n";
+			//errString += "Please correct them and re-submit.";
+			alert(errString);
+		}
+		if (doSubmit && doSubmit2) {
+			hdnSaveItem.value = "1";
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	function validateCategory() {
+		var count = 0;
+		var catLength = document.getElementsByName('rbtnCategoryList').length;
+
+		for (x = 0; x < catLength; x++) {
+			if (document.getElementsByName('rbtnCategoryList').item(x).checked == true) {
+				count++
+			}
+		}
+		if (count < 1)
+			return false;
+		else
+			return true;
+	}
+	function keepSectionIntact() {
+		window.scrollTo(0, 0);
+		document.getElementById('div_listingInformation').style.display = 'none';
+		document.getElementById('div_jobDetails').style.display = 'none';
+		document.getElementById('div_previewSubmit').style.display = '';
+
+		document.getElementById('li_listingInformation').className = '';
+		document.getElementById('li_jobDetails').className = '';
+		document.getElementById('li_previewSubmit').className = 'current';
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_listingInformation').style.display = 'block';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_jobDetails').style.display = 'block';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_previewSubmit').style.display = 'block';
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step1').style.visibility = 'hidden';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step2').style.visibility = 'hidden';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_span_step3').style.visibility = 'hidden';
+	}
+
+	function updateFeaturedRate() {
+		var dropdownText = document.getElementById("ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_ddlDurationAmsul").options[document.getElementById("ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_ddlDurationAmsul").selectedIndex].text;
+
+		var amount = dropdownText.split(' ');
+		amount = (amount.length > 0 ? amount[amount.length - 1] : '0').replace(/\,|\$/g, '');
+
+		var amt = parseFloat(amount);
+
+		if (isNaN(amt))
+			amt = 0;
+
+		amt = Math.round(parseFloat(amount) * 100) / 100;
+		if (dropdownText.indexOf('Free') != -1)
+			amt = 0;
+		if (amt == 0)
+			amount = 'free';
+		else {
+			if (amt.toString().indexOf('.') != -1 && amt.toString().substring(amt.toString().indexOf(".")).length != 3)
+				amt += "0";
+
+			amount = 'an additional $' + amt;
+		}
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_spanFeaturedRate').innerHTML = amount;
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_hdnFeaturedRate').value = '$' + (amt == 0 ? '0.00' : amt);
+	}
+
+	function displayFullCategoryList() {
+		$('#' + 'ctl00_ctl00_MainContent_ModuleContent_ctl00_editJobControl_btnCategoryList').hide();
+		$('#divRemainingCategories').show();
+		$('#divRemainingCategories > ul').removeClass('hidden');
+
+	}	
+//--></script>
+							</div>
+						
+	</div>
+				</div>
+
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnJobId" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnTabNo" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnCategoryID" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCategoryID" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnSearch" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSearch" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnMyJobPosting" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobPosting" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnEditProfile" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditProfile" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnAddJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnAddJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnEditJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnRepostJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnRepostJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnIsAdmin" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAdmin" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnCloseJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCloseJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnReopenJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnReopenJob" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnPagination" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnPagination" value="1" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnMyJobsSearch" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobsSearch" value="0" />
+				<input type="hidden" id="hdnContinuePay" name="hdnContinuePay" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnSortBy" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortBy" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnSortCategory" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortCategory" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnShowAllJobs" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnShowAllJobs" value="0" />
+				<input name="ctl00$ctl00$MainContent$ModuleContent$ctl00$hdnIsAddEditJob" type="hidden" id="ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAddEditJob" value="false" />
+
+
+				
+
+				<div class="jobsListingContent">
+					<div id="divJobContentListingDetails" class="contentMain selfClear">
+						<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_detailUpdatePanel" class="detailPanel">
+
+	</div>
+					</div>
+					<div id="divSideBar" class="sidebar">
+						<section id="ctl00_ctl00_MainContent_ModuleContent_ctl00_divSideBarTools" aria-labelledby="toolsHeader" class="section tools">
+							<h3 id="toolsHeader">Tools</h3>
+							<ul>
+								<li><a class="downloadApplication" target="_blank" href="http://cp-stcity.civicplus.com/support/application.pdf">Download Application</a></li><li><a class="applyOnline" href="/application.aspx">Apply Online</a></li><li><a class="emailResume"  href="mailto: none@civicplus.com?subject=You have a response to your job posting on www.hainescity.com">Email Resume</a></li><li><a class="jobProfile" href="/application.aspx">Job Profiles</a></li>
+							</ul>
+						</section>
+						
+
+						
+						
+						
+
+					</div>
+				</div>
+			
+</div>
+	</div>
+
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_archiveUpdatePanel">
+	
+			
+			
+		
+</div>
+
+	<div id="ctl00_ctl00_MainContent_ModuleContent_ctl00_upnlEpayRedirect">
+	
+			
+		
+</div>
+	
+</div>
+<!-- BEGIN Notify Me Fields -->
+<input type="hidden" name="ysnSave">
+<input type="hidden" name="ysnSend" value="0">
+<input type="hidden" name="ysnSendAtStart" value="0">
+<input type="hidden" name="ysnSendBeforeDays" value="0">
+<input type="hidden" name="intSendBeforeDays" value="-1">
+<input type="hidden" name="txtComments" value="">
+<input type="hidden" name="txtSMSComments" value="">
+<input type="hidden" id="dtiCurDate" name="dtiCurDate" value="04/17/2026">
+<!-- END Notify Me Fields -->
+
+<script type="text/javascript">
+	var JobsQuickActions = CivicPlus.CMS.Common.Admin.Jobs2.JobsQuickActions;
+	var hdnSaveItem = document.getElementById('hdnSaveItem');
+</script>
+
+<script type="text/javascript">
+	var popupWindowID = 'ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow';
+	var mainUpdatePanelID = 'ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel';
+	var contentUpdatePanelID = 'ctl00_ctl00_MainContent_ModuleContent_ctl00_detailUpdatePanel';
+	var LiveEditModal = 'ctl00_LiveEditModalTitle';
+	/* Government Tab: action = 1
+	   Employer Tab: action = 2
+	   Edit Profile: action = 3
+	   Add/Edit Job: action = 4
+	   Repost Job: action = 5 */
+	function jobContentLoad(action, catID, jobID, admin, pagination, continuePay, anchor) {
+		if (anchor != null && $(anchor).parent().hasClass('active')) return;
+		onAjaxPostBackStart();
+		if (hdnSaveItem != null)
+			hdnSaveItem.value = "0";
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobPosting').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditProfile').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAdmin').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnAddJob').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditJob').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnRepostJob').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAddEditJob').value = "false";
+
+		if (action != '2' && action != '3')
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header";
+		else if (jobID != '')
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header";
+		else
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header myListings";
+
+		if (action != '0') {
+			if (document.getElementById('tblmodNavBar') != null)
+				document.getElementById('tblmodNavBar').style.display = "none";
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value = action;
+		}
+		else {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value = '0';
+			if (document.getElementById('tblmodNavBar') != null)
+				document.getElementById('tblmodNavBar').style.display = "";
+		}
+
+		if (action == '2') {
+			if (pagination != '' && pagination != null) {
+				onAjaxPostBackStart();
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnPagination').value = pagination;
+			}
+			if (admin == 1)
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAdmin').value = '1';
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobPosting').value = '1';
+		}
+
+		if (action == '3') {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditProfile').value = '1';
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header myListings";
+		}
+
+		if (action == '4') {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divHeader').className = "header myListings";
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnIsAddEditJob').value = "true";
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divEditJob').style.display = 'block';
+			if (jobID != '') {
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnEditJob').value = '1';
+				document.getElementById('hdnContinuePay').value = continuePay;
+			}
+			else
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnAddJob').value = '1';
+		}
+		if (action == '5') {
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_divEditJob').style.display = 'block';
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnRepostJob').value = '1';
+		}
+
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSearch').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnMyJobsSearch').value = '0';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCategoryID').value = catID;
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId').value = jobID;
+		onAjaxPostBackEnd();
+		Sys.WebForms.PageRequestManager.getInstance().add_endRequest(afterLoadingContent);
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+	function afterLoadingContent() {
+		$get('__EVENTTARGET').value = $get('__EVENTARGUMENT').value = '';
+
+		Sys.WebForms.PageRequestManager.getInstance().remove_endRequest(afterLoadingContent);
+		window.initDateTimePickers(document.querySelectorAll('input[data-cp-datetimepicker]'));
+	}
+
+	function jobsSortingViewing(ysnShowAllJobs, sortBy, action, isEmployer) {
+		//document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortCategory').value = document.aspnetForm.SelectedCatID.value;
+		if (action == 'sort')
+			document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnSortBy').value = sortBy;
+		else if (action == 'view') {
+			if (sortBy == "open")
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnShowAllJobs').value = "";
+			else if (ysnShowAllJobs == 'true' && sortBy == 'AllJobs')
+				document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnShowAllJobs').value = "true";
+		}
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value = isEmployer;
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+
+	function openAddJobWindow(jobAction, jobId) {
+		if (jobAction == "Edit" || jobAction == "Repost")
+			document.getElementById('ctl00_LiveEditModalTitle').innerHTML = ' Jobs - ' + jobAction + ' Job';
+		else
+			document.getElementById('ctl00_LiveEditModalTitle').innerHTML = ' Create Job Posting';
+
+
+		behavior = $find('editItemBehavior');
+		if (behavior) {
+			var ifr = document.getElementById('liveEditDialog');
+			var liveEditPopupWindow = document.getElementById('ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow');
+
+			if (jobAction == "Edit")
+				ifr.style.height = '485px';
+			else
+				ifr.style.height = '473px';
+
+			ifr.style.width = '842px';
+			liveEditPopupWindow.style.width = '860px';
+
+			var url = '/common/modules/Jobs2/EmployerJobPosting.aspx?updatePanelID=ctl00$ctl00$MainContent$ModuleContent$ctl00$upnlEpayRedirect&jobId=' + jobId + '&action=' + jobAction;
+			ifr.src = url;
+			ifr.style.display = 'block';
+			behavior.show();
+		}
+	}
+	function openHelpWindow() {
+		document.getElementById('ctl00_LiveEditModalTitle').innerHTML = 'Job Posting Help';
+		var behaviorID = $find('editItemBehavior');
+		if (behaviorID) {
+			var ifr = document.getElementById('liveEditDialog');
+			setModalClassFE('help', behaviorID);
+			ifr.src = '/common/modules/Jobs2/JobPostingHelp.aspx';
+			ifr.style.display = 'block';
+			behaviorID.show();
+		}
+	}
+
+	function openRenewJobWindow(jobAction, jobId, endDate) {
+		document.getElementById('ctl00_LiveEditModalTitle').innerHTML = 'Job Posting Renewal';
+		behavior = $find('editItemBehavior');
+		if (behavior) {
+			var ifr = document.getElementById('liveEditDialog');
+
+			var liveEditPopupWindow = document.getElementById('ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow');
+			ifr.style.height = '130px';
+
+			ifr.style.width = '452px';
+			liveEditPopupWindow.style.width = '470px';
+
+			var url = '/common/modules/Jobs2/EmployerJobPostingRenew.aspx?updatePanelID=ctl00$ctl00$MainContent$ModuleContent$ctl00$upnlEpayRedirect&jobId=' + jobId + '&action=' + jobAction;
+
+			ifr.src = url;
+			ifr.style.display = 'block';
+			behavior.show();
+		}
+	}
+
+	function closeJob(jobID) {
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnCloseJob').value = '1';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId').value = jobID;
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+	function reopenJob(jobID) {
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnReopenJob').value = '1';
+		document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnJobId').value = jobID;
+		__doPostBack('ctl00_ctl00_MainContent_ModuleContent_ctl00_contentUpdatePanel', '');
+	}
+	function jobSearch(searchType) {
+		var frm = document.aspnetForm;
+		var searchTerm = frm.searchTerms.value;
+		var CatID = '';
+
+		var arrCheckboxes = document.getElementsByName("CID");
+		for (var cv = 0; cv < arrCheckboxes.length; cv++) {
+			if (arrCheckboxes[cv].checked)
+				CatID = CatID + arrCheckboxes[cv].value + ",";
+		}
+		CatID = CatID.substring(0, CatID.length - 1);
+		var tabNo = document.getElementById('ctl00_ctl00_MainContent_ModuleContent_ctl00_hdnTabNo').value;
+
+		if (searchTerm == "") {
+			if (searchType == 'myJobsPosting') {
+				frm.action = '/Jobs.aspx?action=profile&CatID=' + CatID + '&MySearch=True';
+			} else {
+				frm.action = '/Jobs.aspx?CatID=' + CatID + '&Search=True';
+			}
+		}
+		else {
+			frm.action = '/Jobs.aspx?Keywords=' + encodeURIComponent(searchTerm) + '&CatID=' + CatID;
+			if (searchType == 'myJobsPosting') {
+				frm.action += '&MySearch=True&action=profile';
+			} else {
+				frm.action += '&Search=True';
+			}
+		}
+
+		if (tabNo == 1) {
+			frm.action = frm.action + '&CommunityJobs=True';
+		}
+
+		frm.submit();
+	}
+
+	function jobSearchAfter() {
+		Sys.WebForms.PageRequestManager.getInstance().remove_endRequest(jobSearchAfter);
+	}
+</script>
+<script type="text/javascript">
+	function validateRegistration(isEdit) {
+		var alertMsg = "";
+		var errString = 'The form cannot be submitted due to the following error(s):\n';
+		errString += "-----------------------------------------------------------------------\n\n";
+		var doSubmit = true;
+
+		if (document.querySelector('[id$=txtCompanyName]').value == '') {
+			if (doSubmit == true)
+				document.querySelector('[id$=txtCompanyName]').focus();
+			doSubmit = false;
+			alertMsg += "Your company name cannot be blank.\n";
+		}
+
+		if (document.querySelector('[id$=txtHrContactEmail]').value != '' && !emailValidate(document.querySelector('[id$=txtHrContactEmail]').value)) {
+			if (doSubmit == true)
+				document.querySelector('[id$=txtHrContactEmail]').focus();
+
+			doSubmit = false;
+			alertMsg += "Please enter a valid email address.\n";
+		}
+		if ((document.querySelector('[id$=txtAddress1]').value != 'Address' && document.querySelector('[id$=txtAddress1]').value != '') ||
+			(document.querySelector('[id$=txtAddress2]').value != 'Address' && document.querySelector('[id$=txtAddress2]').value != '') ||
+			(document.querySelector('[id$=txtCity]').value != 'City' && document.querySelector('[id$=txtCity]').value != '') ||
+			(document.querySelector('[id$=txtState]').value != 'ST' && document.querySelector('[id$=txtState]').value != '') ||
+			(document.querySelector('[id$=txtZip]').value != 'Zip' && document.querySelector('[id$=txtZip]').value != '')) {
+
+			if (document.querySelector('[id$=txtAddress1]').value == '' || document.querySelector('[id$=txtAddress1]').value == 'Address') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid address.\n";
+			}
+			if (document.querySelector('[id$=txtCity]').value == '' || document.querySelector('[id$=txtCity]').value == 'City') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid City.\n";
+			}
+			if (document.querySelector('[id$=txtState]').value == '' || document.querySelector('[id$=txtState]').value == 'ST') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid State.\n";
+			}
+			else if (!RegExValidate('^[A-Z]{2}$', document.querySelector('[id$=txtState]').value, 'i') || !RegExValidate('^[a-z]{2}$', document.querySelector('[id$=txtState]').value, 'i')) {
+				doSubmit = false;
+				alertMsg += "Please enter a valid State.\n";
+			}
+			if (document.querySelector('[id$=txtZip]').value == '' || document.querySelector('[id$=txtZip]').value == 'Zip') {
+				doSubmit = false;
+				alertMsg += "Please enter a valid " + getZipCodeName(intCountryCode) + " code.\n";
+			}
+			else if (!isZipCode(document.querySelector('[id$=txtZip]').value, intCountryCode)) {
+				doSubmit = false;
+				alertMsg += "Please enter a valid " + getZipCodeName(intCountryCode) + " code.\n";
+			}
+		}
+		if (isEdit == 0) {
+			if (!document.getElementById('chkAcceptTOS').checked) {
+				if (doSubmit == true)
+					document.getElementById('chkAcceptTOS').focus();
+				doSubmit = false;
+				alertMsg += "Please agree to the Terms of Services to proceed.\n";
+			}
+		}
+		if (alertMsg.length > 0) {
+			errString += alertMsg;
+			errString += "\n-----------------------------------------------------------------------\n";
+			errString += "Please correct them and re-submit.";
+			alert(errString);
+		}
+		if (doSubmit) {
+			return true;
+		}
+		else
+			return false;
+	}
+</script>
+
+</div>
+<script type="text/javascript">order+='ModuleContent\n'</script>
+
+		<div id="ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow" class="modalContainer modalContainerCP" style="display: none;">
+	<div id="ctl00_liveEditTitleBar" class="modalTitleLeft"><h3 id="ctl00_LiveEditModalTitle" class="modalTitle">Live Edit</h3><a id="ctl00_LiveEditCloseButton" class="modalClose" aria-label="Close this modal" href="/" title="Close this window"><svg viewBox='0 0 25 25' id='modalIconClose'><polygon style='fill:currentcolor' points='18.806,6.98 18.075,6.248 12.532,11.792 6.989,6.248 6.257,6.98 11.786,12.508 6.212,18.084 6.943,18.815 12.532,13.224 18.12,18.815 18.851,18.084 13.277,12.508'></polygon></svg></a></div><div id="ctl00_liveEditContentLeft" class="modalContentLeft"><div id="ctl00_liveEditContentRight" class="modalContentRight"><div id="ctl00_liveEditContent" class="modalContent"><iframe style="display: none; border: none;" src="about:blank" id="liveEditDialog" title="Live Edit Dialog" name="liveEditDialog"></iframe></div></div></div><div id="ctl00_liveEditFooter" class="modalBottomLeft"><div id="ctl00_liveEditfooterbar" class="modalBottomRight"><div id="ctl00_liveEditfooterbar1" class="modalBottom"></div></div></div>
+</div><input type="submit" name="ctl00$ctl00$MainContent$ctl00_liveEditSpawnWindow" value="" id="ctl00_ctl00_MainContent_ctl00_liveEditSpawnWindow" disabled="disabled" aria-hidden="true" style="display: none;" />
+	
+
+<script src="/ScriptResource.axd?d=13QrD5OKmpS4KylkEx0THO8-725M_B-NuLKpT2HXibC3wL69v6Nuku5_Hl3mN6XV7FaXSRpKnSTN_ymQVsSSE1a0e1N5DTkJkW58Gw0X2sJK4yl-4v99Y2I0xrCuS0glMLHBeQQY831A1o86iCGmPKuP_Du21RmXLOCCLluMylmGypIeICRBasHYyW_s9XfbQYHrkASMA3qCzbslMAUUi2IK9bcapH2R3W31atrSyi6tmtShIqbb5kDKwsgN5DZnqW4_c738ONSuGmcyLv9n0Yt5MiRL5eBThSz30_Za_maU-Rb6vbXUa-V06m70p_mw0" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+Sys.Application.add_init(function() {
+    $create(AjaxControlToolkit.ModalPopupBehavior, {"BackgroundCssClass":"modalBackground","CancelControlID":"ctl00_LiveEditCloseButton","PopupControlID":"ctl00_ctl00_MainContent_ctl00_liveEditPopupWindow","PopupDragHandleControlID":"ctl00_liveEditTitleBar","dynamicServicePath":"/Jobs.aspx","id":"editItemBehavior"}, null, null, $get("ctl00_ctl00_MainContent_ctl00_liveEditSpawnWindow"));
+});
+//]]>
+</script>
+</form>
+	<form id="aspnetSearchForm" name="aspnetSearchForm" style="display:none;" action="/Search.aspx" method="get">
+		<input name="SearchString" type = "hidden" value ="" />
+	</form>
+	
+	
+	
+	</div>
+	 
+</div>	
+
+</div><aside data-cpRole="contentContainer" id="featureColumn" class="secondaryContent">	<div id="ccd6923f64-2522-4bce-8783-61ad1b416b69" data-containerid="d6923f64-2522-4bce-8783-61ad1b416b69" class="pageContent cpGrid cpGrid24 showInMobile" data-contentcontainerbreakpoint="40">
+				                
+
+
+
+	</div>
+</aside>
+</div><div data-cpRole="structuralContainer" id="structuralContainer9" class="siteSidebar">
+<nav data-cpRole="nav" id="secondaryNav" class="siteNav secondaryNav">
+
+
+
+
+
+
+
+	<script type="text/javascript">
+		window.addEventListener('load', function () {
+			//setup menu manager properties for secondary menu
+			menuManager.isSideMenuEditable = false;
+			menuManager.sideMenuMaxSubMenuLevels = 4;
+			menuManager.sideMenuHasCustomLinks = true;
+		});
+	</script>
+	<script type="text/javascript">
+		window.addEventListener('load', function () {
+			//Init secondary menu
+			var setupDraggable = menuManager.isSideMenuEditable;
+			var urlToGetHiddenMenus = '/Pages/MenuSecondary/HiddenSecondarySubMenus?pageID=1&moduleID=66&themeID=1&menuContainerID=secondaryNav';
+			var menuID = 'secondaryMenusecondaryNav';
+			menuManager.setMOMMode(2, SIDE_MENU);
+			menuManager.setupMenu(menuID, 'secondaryNav', SIDE_MENU, setupDraggable, urlToGetHiddenMenus);
+		});
+	</script>
+
+
+
+
+</nav><aside data-cpRole="contentContainer" id="contentContainer2">	<div id="cc9d002162-a1a1-40d7-a28e-871f99b60b17" data-containerid="9d002162-a1a1-40d7-a28e-871f99b60b17" class="pageContent cpGrid cpGrid24 showInMobile">
+				                
+
+
+
+	</div>
+</aside>
+</div>
+</div></div>
+</div><div data-cpRole="structuralContainer" id="structuralContainer10">
+<div class="siteWrap"><aside data-cpRole="contentContainer" id="contentContainer20">	<div id="cc55d54bb8-4fb4-46f2-ba15-1d75f4fab04a" data-containerid="55d54bb8-4fb4-46f2-ba15-1d75f4fab04a" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="70">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="4bd24744-b04d-422f-be0d-3aef5aa3b8c8">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id8d45bc97-ca39-4278-a4df-14e1e14d0fb3" style="" data-widgetcontainerid="8d45bc97-ca39-4278-a4df-14e1e14d0fb3">	
+<div data-widget-id="9a14ad90-82cf-4bdc-8e4f-40ccbaf89b95" data-widget-controller-path="/GraphicLinks/Widget">
+
+
+
+
+<div id="graphicLinkWidget9a14ad90-82cf-4bdc-8e4f-40ccbaf89b95" class="widget widgetGraphicLinks skin45 widgetOptionSet29 wide" data-elementqueryclasses='{"wide-narrow":"min-width:50em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' data-modulewidgettype="graphicLinks">
+	<div class="widgetHeader">
+		<div class="">
+				</div>
+	</div>
+	<div class="widgetBody cpGrid cpGrid5 "> 	
+				<nav class="widgetGraphicLinksNav" aria-label="Graphic links">
+					<div class="row   wide"><!--
+--><div class="col col1 first "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="https://utility.hainescity.com/utility/" target="_self" class="fancyButton fancyButton40 " >
+		<span>
+			<span><span class="text">Pay Utility Bill<br></span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton40.fancyButton:link,.fancyButton40.fancyButton:visited, .fancyButton40div.fancyButton{
+	height: 60px;
+	background-image: url('/ImageRepository/Document?documentID=125');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton40.fancyButton:hover,.fancyButton40.fancyButton:focus,.fancyButton40.fancyButton:active,.fancyButton40.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=126');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton40.fancyButton:link > span,.fancyButton40.fancyButton:visited > span, .fancyButton40div.fancyButton > span{
+}
+.fancyButton40.fancyButton:hover > span,.fancyButton40.fancyButton:focus > span,.fancyButton40.fancyButton:active > span,.fancyButton40.fancyButton.hover > span{
+}
+.fancyButton40.fancyButton .text{
+	color: #fff;
+	font-size: 1.2em;
+	font-family: "Open Sans";
+	text-align: left;
+	padding-left: 3em;
+	font-style: normal;
+	text-decoration: none;
+	padding-left: 3em;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+height:60px;
+text-transform:uppercase;
+line-height: 120%;}
+.fancyButton40.fancyButton:hover .text,.fancyButton40.fancyButton:focus .text,.fancyButton40.fancyButton:active .text,.fancyButton40.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="/440/StartStopMove-Service" target="_blank" class="fancyButton fancyButton260 "  aria-label="START UTILITY SERVICES Opens in new window">
+		<span>
+			<span><span class="text">START UTILITY<br>SERVICES</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton260.fancyButton:link,.fancyButton260.fancyButton:visited, .fancyButton260div.fancyButton{
+	height: 60px;
+	background-image: url('/ImageRepository/Document?documentID=2360');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton260.fancyButton:hover,.fancyButton260.fancyButton:focus,.fancyButton260.fancyButton:active,.fancyButton260.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=2361');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton260.fancyButton:link > span,.fancyButton260.fancyButton:visited > span, .fancyButton260div.fancyButton > span{
+}
+.fancyButton260.fancyButton:hover > span,.fancyButton260.fancyButton:focus > span,.fancyButton260.fancyButton:active > span,.fancyButton260.fancyButton.hover > span{
+}
+.fancyButton260.fancyButton .text{
+	color: #fff;
+	font-size: 1.2em;
+	font-family: "Open Sans";
+	text-align: left;
+	padding-left: 3em;
+	font-style: normal;
+	text-decoration: none;
+	padding-left: 3em;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+height:60px;
+text-transform:uppercase;
+line-height: 120%;}
+.fancyButton260.fancyButton:hover .text,.fancyButton260.fancyButton:focus .text,.fancyButton260.fancyButton:active .text,.fancyButton260.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="/168/Employment-Opportunities" target="_self" class="fancyButton fancyButton41 " >
+		<span>
+			<span><span class="text">job<br>openings</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton41.fancyButton:link,.fancyButton41.fancyButton:visited, .fancyButton41div.fancyButton{
+	height: 60px;
+	background-image: url('/ImageRepository/Document?documentID=133');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton41.fancyButton:hover,.fancyButton41.fancyButton:focus,.fancyButton41.fancyButton:active,.fancyButton41.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=124');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton41.fancyButton:link > span,.fancyButton41.fancyButton:visited > span, .fancyButton41div.fancyButton > span{
+}
+.fancyButton41.fancyButton:hover > span,.fancyButton41.fancyButton:focus > span,.fancyButton41.fancyButton:active > span,.fancyButton41.fancyButton.hover > span{
+}
+.fancyButton41.fancyButton .text{
+	color: #fff;
+	font-size: 1.2em;
+	font-family: "Open Sans";
+	text-align: left;
+	padding-left: 3em;
+	font-style: normal;
+	text-decoration: none;
+	padding-left: 3em;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+height:60px;
+text-transform:uppercase;
+line-height: 120%;}
+.fancyButton41.fancyButton:hover .text,.fancyButton41.fancyButton:focus .text,.fancyButton41.fancyButton:active .text,.fancyButton41.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  "><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="/372/Issue" target="_self" class="fancyButton fancyButton42 " >
+		<span>
+			<span><span class="text">Report<br>An Issue</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton42.fancyButton:link,.fancyButton42.fancyButton:visited, .fancyButton42div.fancyButton{
+	height: 60px;
+	background-image: url('/ImageRepository/Document?documentID=131');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton42.fancyButton:hover,.fancyButton42.fancyButton:focus,.fancyButton42.fancyButton:active,.fancyButton42.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=132');
+	background-repeat: no-repeat;
+	background-position: left center;
+}
+.fancyButton42.fancyButton:link > span,.fancyButton42.fancyButton:visited > span, .fancyButton42div.fancyButton > span{
+}
+.fancyButton42.fancyButton:hover > span,.fancyButton42.fancyButton:focus > span,.fancyButton42.fancyButton:active > span,.fancyButton42.fancyButton.hover > span{
+}
+.fancyButton42.fancyButton .text{
+	color: #fff;
+	font-size: 1.2em;
+	font-family: "Open Sans";
+	text-align: left;
+	padding-left: 3em;
+	font-style: normal;
+	text-decoration: none;
+	padding-left: 3em;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+height:60px;
+text-transform:uppercase;
+line-height: 120%;}
+.fancyButton42.fancyButton:hover .text,.fancyButton42.fancyButton:focus .text,.fancyButton42.fancyButton:active .text,.fancyButton42.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!----><div class="col col1  last"><ul class="semanticList"><!--
+	    --><li class="widgetItem GraphicLinks">
+
+<div>
+	<a href="/194/Public-Records" target="_self" class="fancyButton fancyButton180 " >
+		<span>
+			<span><span class="text">Public<br>Records</span></span>
+		</span>
+	</a>
+</div>
+		<style scoped="scoped">.fancyButton180.fancyButton:link,.fancyButton180.fancyButton:visited, .fancyButton180div.fancyButton{
+	height: 60px;
+	background-image: url('/ImageRepository/Document?documentID=129');
+	background-repeat: no-repeat;
+	background-position: left center;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton180.fancyButton:hover,.fancyButton180.fancyButton:focus,.fancyButton180.fancyButton:active,.fancyButton180.fancyButton.hover{
+	background-image: url('/ImageRepository/Document?documentID=130');
+	background-repeat: no-repeat;
+	background-position: left center;
+opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;}
+.fancyButton180.fancyButton:link > span,.fancyButton180.fancyButton:visited > span, .fancyButton180div.fancyButton > span{
+}
+.fancyButton180.fancyButton:hover > span,.fancyButton180.fancyButton:focus > span,.fancyButton180.fancyButton:active > span,.fancyButton180.fancyButton.hover > span{
+}
+.fancyButton180.fancyButton .text{
+	color: #fff;
+	font-size: 1.2em;
+	font-family: "Open Sans";
+	text-align: left;
+	padding-left: 3em;
+	font-style: normal;
+	text-decoration: none;
+	padding-left: 3em;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+height:60px;
+text-transform:uppercase;
+line-height: 120%;}
+.fancyButton180.fancyButton:hover .text,.fancyButton180.fancyButton:focus .text,.fancyButton180.fancyButton:active .text,.fancyButton180.fancyButton.hover .text{
+	text-decoration: none;
+	background-repeat: no-repeat;
+	background-position: left top;
+
+
+}
+</style>
+
+ </li><!--
+--></ul></div><!--					--></div>
+				</nav>
+	</div>
+	<div class="widgetFooter">
+			</div>
+</div>
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside></div>
+</div><div data-cpRole="structuralContainer" id="structuralContainer11">
+<div class="siteWrap"><aside data-cpRole="contentContainer" id="contentContainer7">	<div id="cc44f356ce-51e0-4157-9a06-f1066c97886a" data-containerid="44f356ce-51e0-4157-9a06-f1066c97886a" class="pageContent cpGrid cpGrid24 showInMobile" data-contentcontainerbreakpoint="53">
+				                
+
+
+
+	</div>
+</aside></div>
+</div><div data-cpRole="structuralContainer" id="structuralContainer12">
+<div class="siteWrap"><aside data-cpRole="contentContainer" id="contentContainer5a">	<div id="cca1cc5518-b61d-49ac-9d0e-2c4edda231a7" data-containerid="a1cc5518-b61d-49ac-9d0e-2c4edda231a7" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="1">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col12 first" style="" data-widgetcontainerid="6c786f8d-158a-482a-917a-be336eba351c">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col12 first last id195459cb-bce1-4d71-922e-ce876b227e38" style="" data-widgetcontainerid="195459cb-bce1-4d71-922e-ce876b227e38">	
+<div data-widget-id="01b8c88a-4c0c-44b7-874e-de6320bec1c2" data-widget-controller-path="/Layout/WidgetShare">
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+				setWidgetServiceClicking($("#widgetShareHeader01b8c88a-4c0c-44b7-874e-de6320bec1c2"), true, function () {
+					var $widgetBody = $('#widgetShareBody01b8c88a-4c0c-44b7-874e-de6320bec1c2');
+
+					if ($widgetBody.is(':visible')) {
+						var menuItems = $('.widgetItem a', $widgetBody);
+
+						$(menuItems[0]).focus();
+
+						$('.widgetItem', $widgetBody).unbind("keydown").bind("keydown", function (e) {
+
+							if (e.which === 9) {
+								var index = menuItems.index(e.target);
+
+								if ((index === 0 && e.shiftKey) || (index === (menuItems.length - 1) && !e.shiftKey)) {
+									$("#widgetShareHeader01b8c88a-4c0c-44b7-874e-de6320bec1c2").trigger('click').focus();
+								}
+							}
+			});
+					} else {
+						$('.widgetItem', $widgetBody).unbind("keydown");
+					}
+				});
+			});
+		</script>
+
+	<section id="widgetShare01b8c88a-4c0c-44b7-874e-de6320bec1c2" class="widget widgetShare skin41 widgetOptionSet14 flyOutParent wide"  aria-label="Share">
+			<header id="widgetShareHeader01b8c88a-4c0c-44b7-874e-de6320bec1c2" class="widgetHeader" tabindex="0" role="button" aria-haspopup="true">
+				<h3><img alt="Share" class="imageHover" data-hover="/ImageRepository/Document?documentID=851" data-image="/ImageRepository/Document?documentID=144" src="/ImageRepository/Document?documentID=144" /></h3>
+	</header>
+    <div id="widgetShareBody01b8c88a-4c0c-44b7-874e-de6320bec1c2" class="widgetBody flyOut top leftEdge widget widgetShare skin41 cpGrid cpGrid1" style="display:none;">
+        <div class="row                   
+ wide">
+	<div class="col col1 first last">
+		<ol class="semanticList">
+                <li class="widgetItem" ><a tabindex="0" role="button" class="widgetShareFacebook shareService" onkeypress="if(event.which == 13) { this.onclick(); }" href="/Layout/WidgetShare/ShareLink/Facebook" target="_blank" aria-label="Share on Facebook opens in new window">Facebook</a></li>
+                <li class="widgetItem" ><a tabindex="0" role="button" class="widgetShareTwitter shareService" onkeypress="if(event.which == 13) { this.onclick(); }" href="/Layout/WidgetShare/ShareLink/Twitter" target="_blank" aria-label="Share on Twitter opens in new window">Twitter</a></li>
+                <li class="widgetItem" ><a tabindex="0" role="button" class="widgetSharePinterest shareService" onkeypress="if(event.which == 13) { this.onclick(); }" href="/Layout/WidgetShare/ShareLink/Pinterest" target="_blank" aria-label="Share on Pinterest opens in new window">Pinterest</a></li>
+                <li class="widgetItem" ><a tabindex="0" role="button" class="widgetShareDelicious shareService" onkeypress="if(event.which == 13) { this.onclick(); }" href="/Layout/WidgetShare/ShareLink/Delicious" target="_blank" aria-label="Share on Delicious opens in new window">Delicious</a></li>
+                <li class="widgetItem" ><a tabindex="0" role="button" class="widgetShareBlogger shareService" onkeypress="if(event.which == 13) { this.onclick(); }" href="/Layout/WidgetShare/ShareLink/Blogger" target="_blank" aria-label="Share on Blogger opens in new window">Blogger</a></li>
+                <li class="widgetItem" ><a tabindex="0" role="button" class="widgetShareLinkedIn shareService" onkeypress="if(event.which == 13) { this.onclick(); }" href="/Layout/WidgetShare/ShareLink/LinkedIn" target="_blank" aria-label="Share on LinkedIn opens in new window">LinkedIn</a></li>
+		</ol>
+	</div>
+
+        </div>
+    </div>
+
+	</section>
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!----><div class="outer col col12 last" style="" data-widgetcontainerid="6736f533-4dc9-4f5b-98f6-b08c9bb78a3f">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col12 first last idb08bc750-9a6d-4630-95cf-c1504de50000" style="" data-widgetcontainerid="b08bc750-9a6d-4630-95cf-c1504de50000">	
+<div data-widget-id="840d3052-743d-4c91-ab85-8d053cd5b97b" data-widget-controller-path="/Layout/WidgetSiteTools">
+
+		<script type="text/javascript">
+			$(document).ready(function () {
+				setWidgetServiceClicking($("#widgetSiteToolsHeader840d3052-743d-4c91-ab85-8d053cd5b97b"), true, function () {
+					var $widgetBody = $('#widgetSiteToolsBody840d3052-743d-4c91-ab85-8d053cd5b97b');
+
+					if ($widgetBody.is(':visible')) {
+						var menuItems = $('.widgetItem a', $widgetBody);
+
+						$(menuItems[0]).focus();
+
+						$('.widgetItem', $widgetBody).unbind("keydown").bind("keydown", function (e) {
+
+							if (e.which === 9) {
+								var index = menuItems.index(e.target);
+
+								if ((index === 0 && e.shiftKey) || (index === (menuItems.length - 1) && !e.shiftKey)) {
+									$("#widgetSiteToolsHeader840d3052-743d-4c91-ab85-8d053cd5b97b").trigger('click').focus();
+								}
+							}
+						});
+					} else {
+						$('.widgetItem', $widgetBody).unbind("keydown");
+					}
+				});
+			});
+		</script>
+
+	<section id="widgetSiteTools840d3052-743d-4c91-ab85-8d053cd5b97b" class="widget widgetSiteTools skin41 widgetOptionSet7 flyOutParent wide"  aria-label="Site Tools">
+				<header id="widgetSiteToolsHeader840d3052-743d-4c91-ab85-8d053cd5b97b" class="widgetHeader" tabindex="0" role="button" aria-haspopup="true">
+			<h3><img alt="Site Tools" class="imageHover" data-hover="/ImageRepository/Document?documentID=853" data-image="/ImageRepository/Document?documentID=146" src="/ImageRepository/Document?documentID=146" /></h3>
+		</header>
+	<div id="widgetSiteToolsBody840d3052-743d-4c91-ab85-8d053cd5b97b" class="widgetBody whiteIcons flyOut top leftEdge widget widgetSiteTools skin41 cpGrid cpGrid1" style="display:none;">
+         <div class="row                   
+ wide">
+	<div class="col col1 first last">
+		<ol class="semanticList">
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools Home" class="widgetSiteToolsHome siteToolsService" href="/">Home</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools My Account" class="widgetSiteToolsMyAccount siteToolsService" href="/MyAccount">My Account</a></li>
+					<li id="PrinterFriendly840d3052-743d-4c91-ab85-8d053cd5b97b" class="widgetItem"><a tabindex="0" aria-label="Site Tools Printer Friendly opens in new window" role="button" class="widgetSiteToolsPrinterFriendly siteToolsService" onkeypress="if (event.which == 13) { this.onclick(); }" onclick="Core.Layout.dynamicJavascript('printPreview();'); return false;" href="#PrinterFriendly840d3052-743d-4c91-ab85-8d053cd5b97b">Printer Friendly</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools Email Page" class="widgetSiteToolsEmailPage siteToolsService" href="/EmailPage">Email Page</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools Contact Us" class="widgetSiteToolsContactUs siteToolsService" href="/directory.aspx">Contact Us</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools RSS" class="widgetSiteToolsRSS siteToolsService" href="/rss.aspx">RSS</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools Site Map" class="widgetSiteToolsSiteMap siteToolsService" href="/SiteMap">Site Map</a></li>
+					<li id="TranslatePage840d3052-743d-4c91-ab85-8d053cd5b97b" class="widgetItem"><a tabindex="0" aria-label="Site Tools Translate Page opens in new window" role="button" class="widgetSiteToolsTranslatePage siteToolsService" onkeypress="if (event.which == 13) { this.onclick(); }" onclick="Core.Layout.dynamicJavascript('window.open(\&#39;https://translate.google.com/translate?js=n&amp;sl=auto&amp;tl=es&amp;u=\&#39; + document.location.href, \&quot;TranslateWindow\&quot;);'); return false;" href="#TranslatePage840d3052-743d-4c91-ab85-8d053cd5b97b">Translate Page</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools Notifications" class="widgetSiteToolsNotifications siteToolsService" href="/list.aspx">Notifications</a></li>
+					<li class="widgetItem"><a tabindex="0" role="button" aria-label="Site Tools Documents" class="widgetSiteToolsDocuments siteToolsService" href="/DocumentCenter">Documents</a></li>
+		</ol>
+	</div>
+
+		 </div>
+	</div>
+
+	</section>
+
+
+
+</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside><aside data-cpRole="contentContainer" id="contentContainer5b">	<div id="cc1d4baf66-3f86-4e1a-a4d3-400ab6895648" data-containerid="1d4baf66-3f86-4e1a-a4d3-400ab6895648" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile">
+				                
+
+		<div class="row outer wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="ec9284bb-4ec0-4451-b19e-070e1df38847">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id86d4f045-71fd-4fc4-8102-8112b2c0041f" style="" data-widgetcontainerid="86d4f045-71fd-4fc4-8102-8112b2c0041f">	
+    <div data-widget-id="e6c31f51-944d-4053-90b3-08e395843100" data-widget-controller-path="/InfoAdvanced/Widget">
+
+
+
+
+
+	<section id="divInfoAdve6c31f51-944d-4053-90b3-08e395843100" class="widget widgetInfoAdvanced skin37 widgetOptionSet5 wide" data-modulewidgettype="infoAdv" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-label="Info Advanced">
+			<header class="widgetHeader" id="headere6c31f51-944d-4053-90b3-08e395843100">
+		<div class="">
+								</div>
+	</header>
+	<div class="widgetBody  cpGrid cpGrid1 ">
+		<div class="row  wide">
+					<div class="col col1 first last">
+						<ol class="pageStyles semanticList">
+
+<li class="InfoAdvanced widgetItem fr-view">
+	<img src="/ImageRepository/Document?documentID=123" alt="CP Logo" title="CP Logo">&nbsp; &nbsp;Government Websites by <a href="https://www.civicplus.com/">CivicPlus&reg;</a>
+</li>						</ol>
+					</div>
+		</div>
+	</div>
+	<div class="widgetFooter">
+
+	</div>
+
+	</section>
+
+
+
+<script type="text/javascript">
+	//Render slideshow if info advacned items contain one.
+	$(document).ready(function (e) {
+		$('#divInfoAdve6c31f51-944d-4053-90b3-08e395843100 .InfoAdvanced.widgetItem').each(function () {
+			renderSlideshowIfApplicable($(this));		
+		});
+	});
+</script></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside></div>
+</div><div data-cpRole="structuralContainer" id="structuralContainer13">
+<div class="siteWrap"><aside data-cpRole="contentContainer" id="contentContainer6">	<div id="cc7e33c007-a92d-4e0b-a28a-4fca2d132de9" data-containerid="7e33c007-a92d-4e0b-a28a-4fca2d132de9" class="pageContent cpGrid cpGrid24 isLockedContainer showInMobile" data-contentcontainerbreakpoint="40">
+				                
+
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="4032a3ce-69c7-4bd5-a9ba-03eb6625a221">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last idc0fbd8c1-beb6-4781-b882-736bbf5447bd" style="" data-widgetcontainerid="c0fbd8c1-beb6-4781-b882-736bbf5447bd">	
+    <div data-widget-id="9ef7260f-52f4-4493-b46d-f604968df378" data-widget-controller-path="/InfoAdvanced/Widget">
+
+
+
+
+
+	<section id="divInfoAdv9ef7260f-52f4-4493-b46d-f604968df378" class="widget widgetInfoAdvanced skin43 widgetOptionSet5 wide" data-modulewidgettype="infoAdv" data-elementqueryclasses='{"wide-narrow":"min-width:25em"}' data-elementquerymatch='matchMultiColumn' data-elementqueryunmatch='unmatchMultiColumn' aria-label="Info Advanced">
+			<header class="widgetHeader" id="header9ef7260f-52f4-4493-b46d-f604968df378">
+		<div class="">
+								</div>
+	</header>
+	<div class="widgetBody  cpGrid cpGrid1 ">
+		<div class="row  wide">
+					<div class="col col1 first last">
+						<ol class="pageStyles semanticList">
+
+<li class="InfoAdvanced widgetItem fr-view">
+	<span style="font-size: 0.9em; font-family: &quot;open sans&quot;; color: rgb(255, 255, 255);">Under Florida law, email addresses are public records. If you do not want your email address released in response to a public records request, do not send electronic mail to this entity. Instead, contact this office by phone or in writing.</span>
+</li>						</ol>
+					</div>
+		</div>
+	</div>
+	<div class="widgetFooter">
+
+	</div>
+
+	</section>
+
+
+
+<script type="text/javascript">
+	//Render slideshow if info advacned items contain one.
+	$(document).ready(function (e) {
+		$('#divInfoAdv9ef7260f-52f4-4493-b46d-f604968df378 .InfoAdvanced.widgetItem').each(function () {
+			renderSlideshowIfApplicable($(this));		
+		});
+	});
+</script></div>	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+		<div class="row outer autoWidths center wide"><!--
+--><div class="outer col col24 first last" style="" data-widgetcontainerid="21970d51-be7d-4455-9833-7ca2d196432b">				
+	<div class="row nest first last wide">
+	
+	<div class="inner col col24 first last id50253d91-a057-4162-9a64-a9168952610b" style="" data-widgetcontainerid="50253d91-a057-4162-9a64-a9168952610b">	
+ 
+	<div data-widget-id='445e1705-ad3a-4916-8936-57b48531935c' data-moduleName="customHtml" id='widgetCustomHtml445e1705-ad3a-4916-8936-57b48531935c' class="widget widgetCustomHtml skin37 narrow" >
+	<div class="widgetBody pageStyles" id="widgetBody445e1705-ad3a-4916-8936-57b48531935c">
+		<div id="customHtml445e1705-ad3a-4916-8936-57b48531935c"><div><div id="google_translate_element" style="position: fixed; bottom: 0px; right: 20px; z-index: 5;"><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></div></div></div>
+	</div>
+	</div>
+	</div> <!-- inner column -->
+
+	</div> <!-- inner row -->
+
+			</div><!-- outer column --><!--		--></div> <!-- outer row -->
+
+
+	</div>
+</aside></div>
+</div>
+
+
+
+
+		<div id="banner1-2" style="display: none"></div>
+			<script type="text/javascript">
+				$(window).on("load", function () {
+					$.when(window.Pages.rwdSetupComplete)
+						.done(function () {
+							renderBanner('banner1-2',
+								'banner1',
+								{"BannerOptionID":2,"ThemeID":1,"SlotName":"banner1","Name":"Default","IsDefault":true,"BannerMode":1,"SlideShowSlideTiming":null,"SlideshowTransition":0,"SlideShowTransitionTiming":null,"ImageScale":false,"ImageAlignment":2,"ImageScroll":true,"MuteSound":true,"VideoType":0,"Status":40,"SlideshowControlsPosition":0,"SlideshowControlsAlignment":0,"SlideshowBannerControlsColorScheme":0,"DisplayVideoPauseButton":false,"VideoPauseButtonAlignment":1,"VideoPauseButtonControlsAlignment":0,"VideoPauseButtonStyle":"#FFFFFF","VideoPauseButtonBackgroundStyle":"#000000","VideoPauseButtonAlignmentClass":"alignRight viewport","DisplaySlideshowPauseButton":true,"SlideshowControlsColor":"#FFFFFF","SlideshowControlsBackgroundColor":"#000000","SlideshowPauseButtonClass":"isHidden","BannerImages":[{"BannerImageID":57,"BannerOptionID":2,"FileName":"/ImageRepository/Document?documentID=122","Height":727,"Width":2600,"StartingOn":null,"StoppingOn":null,"IsLink":false,"LinkAddress":null,"Sequence":1,"RecordStatus":0,"ModifiedBy":0,"ModifiedOn":"\/Date(-62135575200000)\/","AltText":null}],"BannerVideos":[],"RecordStatus":0,"ModifiedBy":0,"ModifiedOn":"\/Date(-62135575200000)\/"},
+								{"BannerImageID":57,"BannerOptionID":2,"FileName":"/ImageRepository/Document?documentID=122","Height":727,"Width":2600,"StartingOn":null,"StoppingOn":null,"IsLink":false,"LinkAddress":null,"Sequence":1,"RecordStatus":0,"ModifiedBy":0,"ModifiedOn":"\/Date(-62135575200000)\/","AltText":null},
+								'/App_Themes/Interior/Images/',
+								'<img alt="" class="bannerObject" src="/ImageRepository/Document?documentID=122" />');
+						});
+				});
+			</script>
+
+</div>
+</div>
+
+            </div>
+        </div>
+    </div>
+
+
+<link href="/745732998.css" rel="stylesheet" type="text/css" />
+
+<div id="SplashMessageWrapper" class="cp-Splash-wrapper">
+	<div role="dialog" aria-labelledby="cp-Splash-title" aria-describedby="editorContentDesc" aria-modal="true" tabindex="-1" id="SplashMessage" class="hidden cp-Splash cp-Splash--modal is-open">
+		<div class="cp-Splash-header">
+			<h2 class="cp-Splash-title" id="cp-Splash-title">Loading</h2>
+			<button class="cp-Splash-Btn cp-Splash-close" aria-label="Close this modal" title="Close this window">
+				<svg id="iconClose" viewBox="0 0 25 25">
+					<polygon style="fill:currentcolor"
+							 points="18.806,6.98 18.075,6.248 12.532,11.792 6.989,6.248 6.257,6.98 11.786,12.508 6.212,18.084 6.943,18.815 12.532,13.224 18.12,18.815 18.851,18.084 13.277,12.508"></polygon>
+				</svg>
+			</button>
+		</div>
+		<div class="cp-Splash-body">
+			<div class="cp-Splash-Prose editorContent fr-view" id="editorContentDesc">
+				<!-- Content from the Froala Editor will go here. -->
+				Loading
+			</div>
+		</div>
+		<div class="cp-Splash-footer">
+			<button class="cp-Splash-Btn cp-Splash-Btn--NoShow">Do Not Show Again</button>
+			<button class="cp-Splash-Btn cp-Splash-Btn--Close">Close</button>
+		</div>
+	</div>
+</div>
+
+<script src="/Assets/Scripts/APIClient.js"></script>
+<script src="/Assets/Mystique/Shared/Scripts/Moment/Moment.min.js"></script>
+<script src="/Assets/Scripts/SplashModal/SplashModalRender.js"></script>
+<script>
+
+		$(document).ready(function () {
+			var filter = {
+				targetId: '',
+				targetType: 0
+			}
+
+			new SplashModalRender().triggerRender(filter);
+		});
+</script>
+
+	
+	<script type="text/javascript">function dynamicStretchContainers () {Core.Layout.stretchContainers('#structuralContainer1');}</script>
+
+
+
+
+
+
+    <script src="/-978663714.js" type="text/javascript"></script>
+    <!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-GE3KRCK205"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GE3KRCK205'); </script>
+
+<!-- Fixed Nav Adjustment -->
+<script>
+  function getValueTS(elem, attr) {
+    const val = elem.css(attr);
+    if (val === undefined) return undefined;
+    const num = parseInt(val, 10);
+    if (num === NaN) return undefined;
+    return num;
+  }
+
+  function clampTS(number, min, max) {
+    return Math.min(Math.max(number, min), max);
+  }
+
+  function isPageEditingTS() {
+    return (
+      $("#doneEditing").length > 0 || // In live edit
+      typeof DesignCenter !== "undefined" // In theme manager
+    );
+  }
+
+  const bgColorRegexTS = /rgba\((\d+), (\d+), (\d+), (\d*\.?\d*)\)/;
+  function isTransparentTS(elem) {
+    const bg = elem.css('background-color');
+    if (typeof bg !== "string" || !bg.startsWith('rgba(')) return false;
+    const matchState = bg.match(bgColorRegexTS);
+    if (!matchState || matchState.length !== 5) return false;
+    const alpha = parseFloat(matchState[4], 10);
+    if (!(alpha >= 0 && alpha < 1)) return false;
+    return true;
+  }
+
+  function iterateLeftpads(cb) {
+    const containersTS = $("[class^='siteWrap'],[class*=' siteWrap']");
+    for (let i = 0; i < containersTS.length; i++) {
+      const containerTS = containersTS[i];
+      // Skip the body container and anything with data-skip-leftpad
+      if (
+        containerTS.id !== "bodyContainerTS" &&
+        containerTS.getAttribute('data-skip-leftpad') === null
+      ) {
+        cb(containerTS);
+      }
+    }
+  }
+
+  function iterateRightpads(cb) {
+    const containersTS = $("[class^='siteWrap'],[class*=' siteWrap']");
+    for (let i = 0; i < containersTS.length; i++) {
+      const containerTS = containersTS[i];
+      // Skip the body container and anything with data-skip-rightpad
+      if (
+        containerTS.id !== "bodyContainerTS" &&
+        containerTS.getAttribute('data-skip-rightpad') === null
+      ) {
+        cb(containerTS);
+      }
+    }
+  }
+
+  const anchor = $("#divToolbars");
+
+  // Outer banner padding (push banner down)
+  const outerSizingTS = $("#bannerContainerTS");
+  // Inner banner padding (push banner content down) - Transparent header OR on attaching headers
+  const innerSizingTS = $("#bannerSizingTS");
+  const bodyContainerTS = $("#bodyContainerTS");
+  const headerContainerTS = $("#headerContainerTS");
+  const forceUnfixClassTS = "forceUnfixTS";
+
+  const fixedTopTS = $(".fixedTopTS");
+  const fixedBottomTS = $(".fixedBottomTS");
+  const fixedLeftTS = $(".fixedLeftTS");
+  const fixedRightTS = $(".fixedRightTS");
+
+  var initialTopTS;
+  var topAttachTS;
+  if (fixedTopTS && fixedTopTS.length === 1) {
+    initialTopTS = getValueTS(fixedTopTS, 'top');
+    const attachment = fixedTopTS.attr('data-attach');
+    if (attachment) topAttachTS = $("#" + attachment);
+    if (!topAttachTS || topAttachTS.length !== 1) topAttachTS = undefined;
+  }
+
+  function resizeAdjustmentTS() {
+    const editing = isPageEditingTS();
+
+    // Fixed top script
+    (function () {
+      if (!fixedTopTS || fixedTopTS.length !== 1 || initialTopTS === undefined) return;
+
+      if (editing) {
+        fixedTopTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedTopTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      const topPosition = fixedTopTS.css('position');
+      if (topPosition === 'fixed') {
+        if (topAttachTS) {
+          scrollAdjustmentTS();
+        } else {
+          const anchorHeight = anchor.outerHeight() - 1;
+          fixedTopTS.css('top', anchorHeight + initialTopTS);
+        }
+      } else {
+        fixedTopTS.css('top', initialTopTS);
+      }
+
+      if (topPosition === 'fixed' || topPosition === 'absolute') {
+        // Bump the banner content down
+        if (isTransparentTS(fixedTopTS)) {
+          innerSizingTS.css('padding-top', initialTopTS + fixedTopTS.outerHeight() - 1);
+          outerSizingTS.css('padding-top', '');
+
+          try {
+            window.Pages.onResizeHandlersExecute();
+          } catch (e) { }
+        } else {
+          outerSizingTS.css('padding-top', fixedTopTS.outerHeight() - 1);
+          innerSizingTS.css('padding-top', '');
+        }
+      } else {
+        innerSizingTS.css('padding-top', '');
+        outerSizingTS.css('padding-top', '');
+      }
+    })();
+
+    // Fixed bottom script
+    (function () {
+      if (!fixedBottomTS || fixedBottomTS.length === 0) return;
+
+      // If the widget has gone narrow, force unfix
+      if (editing || fixedBottomTS.outerHeight() > 200) {
+        fixedBottomTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedBottomTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      if (fixedBottomTS.css('position') === 'fixed') {
+        bodyContainerTS.css('padding-bottom', fixedBottomTS.outerHeight());
+      } else {
+        bodyContainerTS.css('padding-bottom', '');
+      }
+    })();
+
+    // Fixed left script
+    (function () {
+      if (!fixedLeftTS || fixedLeftTS.length === 0) return;
+
+      if (editing) {
+        fixedLeftTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedLeftTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      if (fixedLeftTS.css('position') === 'fixed') {
+        const anchorHeight = anchor.outerHeight() - 1;
+        const headerHeight = headerContainerTS.outerHeight() - 1;
+        fixedLeftTS.css('top', anchorHeight + headerHeight + 100);
+        const leftBoundingTS = fixedLeftTS[0].getBoundingClientRect();
+        iterateLeftpads(function (containerTS) {
+          const containerBoundingTS = containerTS.getBoundingClientRect();
+          if (containerBoundingTS.left <= leftBoundingTS.right) {
+            $(containerTS).css('padding-left', leftBoundingTS.width + 16);
+          }
+        });
+      } else {
+        fixedLeftTS.css('top', '');
+        iterateLeftpads(function (containerTS) {
+          $(containerTS).css('padding-left', '');
+        });
+      }
+    })();
+
+    // Fixed right script
+    (function () {
+      if (!fixedRightTS || fixedRightTS.length === 0) return;
+
+      if (editing) {
+        fixedRightTS[0].classList.add(forceUnfixClassTS);
+      } else {
+        fixedRightTS[0].classList.remove(forceUnfixClassTS);
+      }
+
+      if (fixedRightTS.css('position') === 'fixed') {
+        const anchorHeight = anchor.outerHeight() - 1;
+        const headerHeight = headerContainerTS.outerHeight() - 1;
+        fixedRightTS.css('top', anchorHeight + headerHeight + 100);
+        const rightBoundingTS = fixedRightTS[0].getBoundingClientRect();
+        iterateRightpads(function (containerTS) {
+          const containerBoundingTS = containerTS.getBoundingClientRect();
+          if (containerBoundingTS.right >= rightBoundingTS.left) {
+            $(containerTS).css('padding-right', rightBoundingTS.width + 16);
+          }
+        });
+      } else {
+        fixedRightTS.css('top', '');
+        iterateRightpads(function (containerTS) {
+          $(containerTS).css('padding-right', '');
+        });
+      }
+    })();
+  }
+
+  function scrollAdjustmentTS() {
+    if (!fixedTopTS || fixedTopTS.length !== 1 || !topAttachTS || topAttachTS.length !== 1) return;
+    const topPosition = fixedTopTS.css('position');
+    if (topPosition === 'fixed' || topPosition === 'absolute') {
+      const anchorBounding = anchor[0].getBoundingClientRect();
+      const attachBounding = topAttachTS[0].getBoundingClientRect();
+      const scrollTop = $(window).scrollTop();
+
+      fixedTopTS.css('top', Math.max(anchorBounding.bottom - 1, attachBounding.bottom));
+    } else {
+      fixedTopTS.css('top', initialTopTS);
+    }
+  }
+
+  $(window).load(function () {
+    setTimeout(function () {
+      resizeAdjustmentTS();
+    }, 350);
+
+    $(window).scroll(function () {
+      scrollAdjustmentTS();
+    });
+
+    var adjustTimeoutTS;
+    $(window).resize(function () {
+      clearTimeout(adjustTimeoutTS);
+      adjustTimeoutTS = setTimeout(function () {
+        resizeAdjustmentTS();
+      }, 350);
+    });
+
+    $.when(window.Pages.angularToolbarComplete).done(function () {
+      resizeAdjustmentTS();
+    });
+  });
+</script>
+<!-- End Fixed Nav Adjustment -->
+
+<style>
+.row.wide .widgetSpacer {
+min-height: 16px;
+}
+</style>
+
+
+<!-- THIS SCRIPT WAS ESTABLISHED TO ALLOW FOR BACKGROUNDS TO RETAIN FIXED POSITIONING ON MOBILE  -->
+
+<!-- Moves the assigned banner to the outer wrap.  Make sure the selector below matches the selector specified in your site's XML files! -->
+
+<script>
+  function moveBannerToOuterWrap() {
+    if ($(".fixedBannerTS #bannerDivbanner2").length) {
+      $(".fixedBannerTS #bannerDivbanner2").appendTo("#outer-wrap");
+    } else {
+      setTimeout(function () {
+        moveBannerToOuterWrap();
+      }, 500);
+    }
+  }
+
+  moveBannerToOuterWrap();
+</script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            document.cookie = "responsiveGhost=0; path=/";
+        });
+        $(window).on("load", function () {
+            $('body').addClass('doneLoading').removeClass('hideContent');
+
+            if ($('#404Content').length > 0)
+                $('div#bodyWrapper').css('padding', '0px');
+        });
+    </script>
+
+    <noscript>
+        <style>
+            body.hideContent {
+                opacity: 1 !important;
+            }
+        </style>
+    </noscript>
+
+        
+<div style="display: none;">
+	<svg xmlns="http://www.w3.org/2000/svg" style="display:none;">
+
+		<symbol id="iconArrow--left" viewbox="0 0 25 25">
+			<title>Arrow Left</title>
+			<polygon style="fill:currentcolor" points="18.044,25 19.498,23.545 8.409,12.454 19.408,1.455 17.954,0 5.502,12.452"></polygon>
+		</symbol>
+
+		<symbol id="iconArrow--right" viewbox="0 0 25 25">
+			<title>Arrow Right</title>
+			<polygon style="fill:currentcolor" points="6.957,0 5.502,1.455 16.591,12.546 5.592,23.545 7.047,25 19.498,12.548"></polygon>
+		</symbol>
+
+	</svg>
+</div>
+    <script type="text/javascript">loadCSS('//fonts.googleapis.com/css?family=Cinzel:600,700|Lato:700,italic,regular|Lora:700,regular|Open+Sans:600,700,800,regular|');</script>
+    
+
+    <div class="hidden activeWidgetSkinComponentsOnPageJson">[]</div>
+        <div style="display: none;">
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="iconSlideshowArrowLeft" viewBox="0 0 22.68 40">
+                    <title>Slideshow Left Arrow</title>
+                    <g>
+                        <path style="fill:currentcolor;" d="M20,40a2.67,2.67,0,0,1-1.9-.79L.79,21.9a2.68,2.68,0,0,1,0-3.79L18.1.79a2.68,2.68,0,1,1,3.79,3.79L6.47,20,21.89,35.42A2.68,2.68,0,0,1,20,40Z"></path>
+                    </g>
+                </symbol>
+                <symbol id="iconSlideshowArrowRight" viewBox="0 0 22.68 40">
+                    <title>Slideshow Right Arrow</title>
+                    <g>
+                        <path style="fill:currentcolor;" d="M2.68,0a2.67,2.67,0,0,1,1.9.79L21.89,18.1a2.68,2.68,0,0,1,0,3.79L4.58,39.21A2.68,2.68,0,0,1,.79,35.42L16.21,20,.79,4.58A2.68,2.68,0,0,1,2.68,0Z"></path>
+                    </g>
+                </symbol>
+            </svg>
+        </div>
+    
+	
+
+    <div id="root-picker-outlet"></div>
+</body>
+</html>

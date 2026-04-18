@@ -1,0 +1,18 @@
+<?xml version="1.0"?><rss version="2.0" xmlns:calendarEvent="https://www.hainescity.com/Calendar.aspx"><channel>
+	<title>Haines City, FL - Calendar</title>
+	<link>https://www.hainescity.com/Calendar.aspx</link>
+	<lastBuildDate>Fri, 17 Apr 2026 22:56:10 -0500</lastBuildDate>
+	<description>Haines City, FL - Get the latest events</description>
+	<language>en-us</language>
+	<item>
+		<title>Mother &amp; Son Night Out</title>
+		<link>https://www.hainescity.com/Calendar.aspx?EID=6652</link>
+		<pubDate>Tue, 27 Jan 2026 16:49:01 -0500</pubDate>
+		<description>&lt;strong&gt;Event date:&lt;/strong&gt; May 1, 2026 &lt;br&gt;&lt;strong&gt;Event Time: &lt;/strong&gt;06:00 PM - 08:00 PM&lt;br&gt;&lt;strong&gt;Location:&lt;/strong&gt; &lt;br&gt;799 Johns Ave&lt;br&gt;Haines City, FL 33844</description>
+		<calendarEvent:EventDates> May 1, 2026 </calendarEvent:EventDates>
+		<calendarEvent:EventTimes>06:00 PM - 08:00 PM</calendarEvent:EventTimes>
+		<calendarEvent:Location>799 Johns AveHaines City, FL 33844</calendarEvent:Location>
+		
+		<guid isPermaLink="false">https://www.hainescity.com/Calendar.aspx?EID=6652/639051257410000000</guid>
+	</item>
+</channel></rss>

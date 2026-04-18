@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Cache-Control: no-cache, must-revalidate
+Pragma: no-cache
+Content-Type: text/html; charset=utf-8
+Expires: Mon, 26 Jul 1997 05:00:00 GMT
+Server: Microsoft-IIS/10.0
+X-Powered-By: PHP/8.3.25
+Set-Cookie: PHPSESSID=jc2d48f3akdjceekci3692f2cm; path=/
+Set-Cookie: UTILITY=jc2d48f3akdjceekci3692f2cm; expires=Sat, 18 Apr 2026 03:27:48 GMT; Max-Age=1800; path=/; domain=utility.hainescity.com; secure; HttpOnly; SameSite=None
+Content-Security-Policy: frame-ancestors 'self'; default-src 'self'; object-src 'none'; frame-src * data:; font-src 'self' *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com cdnsrc.asp.net; media-src 'self'; style-src 'self' *.mapbox.com unpkg.com 'unsafe-inline' *.gstatic.com *.googleapis.com fonts.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com code.jquery.com cdnsrc.asp.net tvtcloud.app; img-src 'self' data: *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com *.google.com cdnjs.cloudflare.com code.jquery.com cdnsrc.asp.net tvtcloud.app; script-src 'self' 'unsafe-inline' blob: 'unsafe-eval' *.mapbox.com unpkg.com *.gstatic.com *.googleapis.com *.cloudfront.net ajax.aspnetcdn.com cdn.jsdelivr.net *.google.com code.jquery.com; script-src-attr 'unsafe-inline'; connect-src 'self' *.mapbox.com unpkg.com code.jquery.com
+Date: Sat, 18 Apr 2026 02:57:48 GMT
+Content-Length: 18575
+

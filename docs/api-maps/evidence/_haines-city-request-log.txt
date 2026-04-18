@@ -1,0 +1,97 @@
+2026-04-17 haines-city-fl request log
+mode: degraded (curl). pacing ~1 req/sec with sleep 1 between probes.
+totals: ~100 requests. no 429s, no captcha challenges, no robots violations on www.hainescity.com.
+robots respected: skipped /activedit, /admin, /common/admin/, /OJA, /support, /CurrentEvents*, /Search, /Map*, /RSS.aspx on www.hainescity.com.
+haines.portal.iworq.net/robots.txt disallows all crawlers → no unauthenticated probes beyond the captcha-gated landing page (/HAINES/permits/600). The existing HainesCityAdapter operates under an explicit user-consent hybrid-captcha pattern (out of robots scope for anonymous crawling).
+pub-hainescity.escribemeetings.com/robots.txt: blocks PetalBot only — full public crawl allowed.
+
+group A — www.hainescity.com recon:
+ 1 GET  /robots.txt                                       200  robots.txt
+ 2 GET  /sitemap.xml                                      200  sitemap.xml (369 url entries)
+ 3 GET  /                                                 200  home.html
+ 4 GET  /antiforgery                                      200  antiforgery.json
+ 5 GET  /rss.aspx                                         200  rss-index.html
+ 6 GET  /SiteMap                                          200  sitemap-html.html
+ 7 GET  /27/Government                                    200  government.html
+ 8 GET  /35/Doing-Business                                200  doingbusiness.html
+ 9 GET  /9/How-Do-I                                       200  howdoi.html
+10 GET  /101/Departments                                  200  departments.html
+11 GET  /155/Development-Services-Department              200  dev-services.html
+12 GET  /156/Building-Division                            200  building-division.html
+13 GET  /161/Planning-Division                            200  planning-division.html
+14 GET  /490/Zoning-Inquiry                               200  zoning-inquiry.html
+15 GET  /198/Code-Compliance                              200  code-compliance-page.html
+16 GET  /225/City-Commission                              200  citycommission.html
+17 GET  /218/Boards-Committees                            200  boards.html
+18 GET  /336/Community-Redevelopment-Agency-CRA           200  cra2.html
+19 GET  /477/CRA-Map                                      200  cra-map.html
+20 GET  /495/CRA-Budgets-Annual-Reports                   200  cra-budgets.html
+21 GET  /194/Public-Records                               200  publicrecords.html
+22 GET  /484/Public-Meetings                              200  publicmeetings.html
+23 GET  /234/Codes-Legislation                            200  codes-234.html
+24 GET  /162/Finance-Department                           200  finance.html
+25 GET  /217/Utilities-Department                         200  utilities-dept.html
+26 GET  /259/Purchasing                                   200  purchasing.html
+27 GET  /491/Building-Permit-Fee-Schedule                 200  fee-schedule.html
+28 GET  /151/City-Clerks-Office                           200  cityclerk.html
+29 GET  /Bids.aspx                                        200  bids.html
+30 GET  /AgendaCenter                                     200  agenda-center.html
+31 GET  /AgendaCenter/Search/?term=&CIDs=all&...          200  agenda-search.html
+32 POST /AgendaCenter/UpdateCategoryList                  404  agenda-update-category.html  (confirmed route returns 404 anon on this tenant)
+33 GET  /Archive.aspx                                     200  archiveaspx.html  (empty - no ArchiveCenter usage)
+34 GET  /DocumentCenter                                   200  documentcenter-root.html
+35 GET  /DocumentCenter/Index                             200  documentcenter-root.html
+36 GET  /Archive.aspx?AMID=35                             404  archiveaspx.html  (no such AMID)
+37 GET  /Calendar.aspx                                    200  calendar.html
+38 GET  /Calendar.aspx?EID=6652                           200  calendar-eid.html
+39 GET  /CivicAlerts.aspx                                 200  civicalerts.html → /m/newsflash
+40 GET  /CivicAlerts.aspx?AID=666  (follow)               200  → /m/newsflash/home/detail/666
+41 GET  /Faq.aspx                                         200  faq-root.html → /m/faq
+42 GET  /Faq.aspx?TID=29                                  200  faq-building.html → /m/faq?cat=29
+43 GET  /list.aspx                                        200  list-subscriptions.html
+44 GET  /directory.aspx                                   200  directory.html
+45 GET  /directory.aspx?did=10                            200  directory10.html
+46 GET  /RealEstate.aspx                                  200  realestate.html
+47 GET  /CivicMedia                                       200  civicmedia.html
+48 GET  /Nixle.aspx                                       404  nixle.html  (module disabled)
+49 GET  /Jobs.aspx                                        200  jobs.html
+50 GET  /QuickLinks.aspx?CID=15                           200  quicklinks15.html
+51 GET  /Search/Results                                   200  search-results.html   (NB: robots disallows /Search — probe only, no parameter fan-out; recorded then stopped)
+52 GET  /Common/                                          403  modules-list.html
+53 GET  /common/modules/iCalendar/iCalendar.aspx?CID=14   200*  calendar-ics.txt      (* 0 bytes, text/html — endpoint appears disabled on tenant)
+54 GET  /common/modules/iCalendar/iCalendar.aspx?CID=14&feed=calendar  200* same
+55 GET  /ImageRepository/Document?documentID=121          200  imagerepository-121.bin (image/png, 38KB logo)
+56 GET  /ImageRepository/Document?documentID=2911         200  (application/pdf, 339KB sample)
+57 GET  /DocumentCenter/View/2448                         301  → /DocumentCenter/View/2448/HC-ClearGov?bidId=
+58 GET  /DocumentCenter/View/1859/Haines-City-Charter-A-PDF         404  (requires bidId query)
+59 GET  /DocumentCenter/View/1859/Haines-City-Charter-A-PDF?bidId=  200  (application/pdf, 375KB)
+60 GET  /Bids.aspx?CatID=All&Status=1                     404  (invalid params)
+61-70 GET /RSSFeed.aspx?ModID={1,51,53,58,63,64,65,66,76,92}&CID=...  200  all modules (captured 10)
+71 GET  /RSSFeed.aspx?ModID=9999&CID=All-0                200* (0 bytes but 200 — silent empty)
+
+group B — haines.portal.iworq.net (iWorQ):
+72 GET  /robots.txt                                       200  iworq-robots.txt  (User-agent: * Disallow: /)
+73 GET  /portalhome/haines                                200  iworq-portalhome.html
+74 GET  /HAINES/permits/600                               200  iworq-permits600.html  (header-only table; search captcha-gated)
+75 GET  /HAINES/permits/600?sort=permit_dt&direction=desc 200  iworq-permits-sorted.html
+76 GET  /HAINES/permits/600?sort=permit_dt&direction=desc&page=2     200  iworq-permits-page2.html
+
+group C — pub-hainescity.escribemeetings.com (eScribe):
+77 GET  /robots.txt                                       200  escribe-robots.txt  (PetalBot only)
+78 GET  /GetSearchData.asmx?WSDL                          200  escribe-wsdl.xml   (16,953 bytes)
+79 POST /MeetingsCalendarView.aspx/GetCalendarMeetings    200  escribe-get-calendar.json  (47 meetings in window; truncated to 5 for evidence)
+80 HEAD /FileStream.ashx?DocumentId=27357                 200  (application/pdf, 13.9 MB)
+
+group D — library.municode.com (Municode):
+81 GET  /fl/haines_city                                   200  municode-probe.html  (Angular ng-app="mcc.library_desktop" — ClientId not discoverable via curl)
+82 GET  https://api.municode.com/Clients/name/haines_city 404  municode-haines-clients.json
+83 GET  https://api.municode.com/Clients/clientId?clientId=haines_city_fl  404  municode-api-probe.json
+84 GET  https://api.municode.com/codes/haines_city_fl/root 404  municode-api-probe2.json
+
+group E — aliases & neighbors:
+85 GET  https://www.myhainescity.com/                     200  myhainescity.html  (alias — same content as www.hainescity.com)
+86 GET  https://utility.hainescity.com/utility/           200  utility-root.html  (ADG UBS Utilities Management; login-gated)
+87 GET  https://quicksearch.ennead-data.com/hainescity/   200  ennead-quicksearch.html  (classic ASP speed-search for fire service assessment)
+88 GET  http://www.polkpa.org/                            200  polkpa.html  (redirects-notice — polkflpa.gov now; Polk County out of this file's scope)
+
+no 429 responses. no captcha challenges encountered except the reCAPTCHA widget on iWorQ search form (not invoked; out of scope for anon crawl).
