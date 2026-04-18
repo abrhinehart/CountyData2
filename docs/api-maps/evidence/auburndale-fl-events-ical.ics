@@ -1,0 +1,79 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//City of Auburndale - ECPv6.15.20//NONSGML v1.0//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:City of Auburndale
+X-ORIGINAL-URL:https://auburndalefl.com
+X-WR-CALDESC:Events for City of Auburndale
+REFRESH-INTERVAL;VALUE=DURATION:PT1H
+X-Robots-Tag:noindex
+X-PUBLISHED-TTL:PT1H
+BEGIN:VTIMEZONE
+TZID:America/New_York
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:20250309T070000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:20251102T060000
+END:STANDARD
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:20260308T070000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:20261101T060000
+END:STANDARD
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+TZNAME:EDT
+DTSTART:20270314T070000
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+TZNAME:EST
+DTSTART:20271107T060000
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20260418T130000
+DTEND;TZID=America/New_York:20260418T150000
+DTSTAMP:20260418T021250
+CREATED:20230220T211341Z
+LAST-MODIFIED:20260319T191236Z
+UID:23367-1776517200-1776524400@auburndalefl.com
+SUMMARY:Spring Tea (CAPACITY REACHED)
+DESCRIPTION:UPDATE: REGISTRATION HAS REACHED CAPACITY.\n\nJoin us on Saturday\, April 18th\, for Spring Tea at the Baynard House from 1:00pm to 3:00pm. This is a free event. Donations appreciated. RSVP required. The Baynard House is located at 208 W. Lake Ave.\, Auburndale\, FL 33823.\n\n\n\nThere will be tea and desserts.\n\n\n\nFor more information or to RSVP\, please call Auburndale Parks and Recreation at (863) 965-5545.
+URL:https://auburndalefl.com/event/spring-tea-rsvp-required/
+LOCATION:Baynard House\, 208 W Lake Ave\, Auburndale\, FL\, 33823\, United States
+CATEGORIES:City Events
+ATTACH;FMTTYPE=image/png:https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea.png
+END:VEVENT
+BEGIN:VEVENT
+DTSTART;TZID=America/New_York:20260420T190000
+DTEND;TZID=America/New_York:20260420T210000
+DTSTAMP:20260418T021250
+CREATED:20190327T160334Z
+LAST-MODIFIED:20260319T191307Z
+UID:10814-1776711600-1776718800@auburndalefl.com
+SUMMARY:City Commission Meeting
+DESCRIPTION:A City Commission Meeting will be held on Monday\, April 20\, 2026. The meeting will be held at City Hall in the Commission Room starting at 7:00 PM. \nThe agenda will be posted 48 hours prior to this meeting on our Agendas & Minutes page. \nPublic Notices can be found on our Public Notices page. \nIn compliance with the Americans with Disabilities Act (ADA)\, anyone who needs a special accommodation for this Meeting should contact the City Clerk’s Office at (863) 968-5133 at least 48 hours in advance of this Meeting.
+URL:https://auburndalefl.com/event/commission-meeting/
+LOCATION:Auburndale City Hall\, 1 Bobby Green Plaza\, Auburndale\, FL 33823\, Auburndale\, FL\, 33823\, United States
+CATEGORIES:Public Meetings
+ATTACH;FMTTYPE=image/png:https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22.png
+END:VEVENT
+END:VCALENDAR

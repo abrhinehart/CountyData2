@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Content-Type: text/html; charset=UTF-8
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Server: Microsoft-IIS/10.0
+X-Powered-By: PHP/8.3.25
+Set-Cookie: PHPSESSID=t2ilfp5iup24t8njon79n5cf1j; path=/; secure
+X-Powered-By: ASP.NET
+X-XSS-Protection: 1; mode=block
+X-Content-Type-Options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+Date: Sat, 18 Apr 2026 06:09:55 GMT
+Content-Length: 4088
+

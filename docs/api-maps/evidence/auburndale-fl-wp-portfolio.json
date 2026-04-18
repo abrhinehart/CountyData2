@@ -1,0 +1,626 @@
+{
+  "_note": "truncated to 3 items; rendered content stripped",
+  "payload": [
+    {
+      "id": 26050,
+      "date": "2024-01-25T10:46:13",
+      "date_gmt": "2024-01-25T15:46:13",
+      "guid": {
+        "rendered": "https://auburndalefl.com/?post_type=portfolio&#038;p=26050"
+      },
+      "modified": "2024-01-25T10:49:07",
+      "modified_gmt": "2024-01-25T15:49:07",
+      "slug": "26050",
+      "status": "publish",
+      "type": "portfolio",
+      "link": "https://auburndalefl.com/portfolio-item/26050/",
+      "title": {
+        "rendered": "Gazebo"
+      },
+      "content": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "excerpt": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "featured_media": 26057,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "tags": [],
+      "portfolio_entries": [
+        14
+      ],
+      "class_list": [
+        "post-26050",
+        "portfolio",
+        "type-portfolio",
+        "status-publish",
+        "has-post-thumbnail",
+        "hentry",
+        "portfolio_entries-facilities"
+      ],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Gazebo - City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://auburndalefl.com/portfolio-item/26050/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Gazebo - City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://auburndalefl.com/portfolio-item/26050/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"article:modified_time\" content=\"2024-01-25T15:49:07+00:00\" />\n<meta property=\"og:image\" content=\"https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-1030x682.jpg\" />\n\t<meta property=\"og:image:width\" content=\"1030\" />\n\t<meta property=\"og:image:height\" content=\"682\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data1\" content=\"1 minute\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://auburndalefl.com/portfolio-item/26050/\",\"url\":\"https://auburndalefl.com/portfolio-item/26050/\",\"name\":\"Gazebo - City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"primaryImageOfPage\":{\"@id\":\"https://auburndalefl.com/portfolio-item/26050/#primaryimage\"},\"image\":{\"@id\":\"https://auburndalefl.com/portfolio-item/26050/#primaryimage\"},\"thumbnailUrl\":\"https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-scaled.jpg\",\"datePublished\":\"2024-01-25T15:46:13+00:00\",\"dateModified\":\"2024-01-25T15:49:07+00:00\",\"breadcrumb\":{\"@id\":\"https://auburndalefl.com/portfolio-item/26050/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://auburndalefl.com/portfolio-item/26050/\"]}]},{\"@type\":\"ImageObject\",\"inLanguage\":\"en-US\",\"@id\":\"https://auburndalefl.com/portfolio-item/26050/#primaryimage\",\"url\":\"https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-scaled.jpg\",\"contentUrl\":\"https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-scaled.jpg\",\"width\":2560,\"height\":1696},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://auburndalefl.com/portfolio-item/26050/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Gazebo\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Gazebo - City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://auburndalefl.com/portfolio-item/26050/",
+        "og_locale": "en_US",
+        "og_type": "article",
+        "og_title": "Gazebo - City of Auburndale",
+        "og_url": "https://auburndalefl.com/portfolio-item/26050/",
+        "og_site_name": "City of Auburndale",
+        "article_modified_time": "2024-01-25T15:49:07+00:00",
+        "og_image": [
+          {
+            "width": 1030,
+            "height": 682,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-1030x682.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "twitter_card": "summary_large_image",
+        "twitter_misc": {
+          "Est. reading time": "1 minute"
+        },
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://auburndalefl.com/portfolio-item/26050/",
+              "url": "https://auburndalefl.com/portfolio-item/26050/",
+              "name": "Gazebo - City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "primaryImageOfPage": {
+                "@id": "https://auburndalefl.com/portfolio-item/26050/#primaryimage"
+              },
+              "image": {
+                "@id": "https://auburndalefl.com/portfolio-item/26050/#primaryimage"
+              },
+              "thumbnailUrl": "https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-scaled.jpg",
+              "datePublished": "2024-01-25T15:46:13+00:00",
+              "dateModified": "2024-01-25T15:49:07+00:00",
+              "breadcrumb": {
+                "@id": "https://auburndalefl.com/portfolio-item/26050/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://auburndalefl.com/portfolio-item/26050/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "ImageObject",
+              "inLanguage": "en-US",
+              "@id": "https://auburndalefl.com/portfolio-item/26050/#primaryimage",
+              "url": "https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-scaled.jpg",
+              "contentUrl": "https://auburndalefl.com/wp-content/uploads/2024/01/gazebo-edit-1-2-scaled.jpg",
+              "width": 2560,
+              "height": 1696
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://auburndalefl.com/portfolio-item/26050/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Gazebo"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/26050",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/portfolio"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=26050"
+          }
+        ],
+        "version-history": [
+          {
+            "count": 5,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/26050/revisions"
+          }
+        ],
+        "predecessor-version": [
+          {
+            "id": 26058,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/26050/revisions/26058"
+          }
+        ],
+        "wp:featuredmedia": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media/26057"
+          }
+        ],
+        "wp:attachment": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media?parent=26050"
+          }
+        ],
+        "wp:term": [
+          {
+            "taxonomy": "post_tag",
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/tags?post=26050"
+          },
+          {
+            "taxonomy": "portfolio_entries",
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio_entries?post=26050"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 4395,
+      "date": "2016-02-03T16:12:50",
+      "date_gmt": "2016-02-03T21:12:50",
+      "guid": {
+        "rendered": "https://auburndalefl.com/?post_type=portfolio&#038;p=4395"
+      },
+      "modified": "2016-02-03T16:12:50",
+      "modified_gmt": "2016-02-03T21:12:50",
+      "slug": "ariana-avenue-resurface-reconfiguration",
+      "status": "publish",
+      "type": "portfolio",
+      "link": "https://auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/",
+      "title": {
+        "rendered": "Ariana Avenue Resurface &#038; Reconfiguration"
+      },
+      "content": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "excerpt": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "featured_media": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "tags": [
+        10
+      ],
+      "portfolio_entries": [
+        11
+      ],
+      "class_list": [
+        "post-4395",
+        "portfolio",
+        "type-portfolio",
+        "status-publish",
+        "hentry",
+        "tag-cra",
+        "portfolio_entries-cra"
+      ],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Ariana Avenue Resurface &amp; Reconfiguration - City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Ariana Avenue Resurface &amp; Reconfiguration - City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"og:image\" content=\"https://www.auburndalefl.com/wp-content/uploads/2016/02/IMG_0250.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2592\" />\n\t<meta property=\"og:image:height\" content=\"1944\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data1\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/\",\"url\":\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/\",\"name\":\"Ariana Avenue Resurface & Reconfiguration - City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"datePublished\":\"2016-02-03T21:12:50+00:00\",\"breadcrumb\":{\"@id\":\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Ariana Avenue Resurface &#038; Reconfiguration\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Ariana Avenue Resurface & Reconfiguration - City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/",
+        "og_locale": "en_US",
+        "og_type": "article",
+        "og_title": "Ariana Avenue Resurface & Reconfiguration - City of Auburndale",
+        "og_url": "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/",
+        "og_site_name": "City of Auburndale",
+        "og_image": [
+          {
+            "width": 2592,
+            "height": 1944,
+            "url": "https://www.auburndalefl.com/wp-content/uploads/2016/02/IMG_0250.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "twitter_card": "summary_large_image",
+        "twitter_misc": {
+          "Est. reading time": "3 minutes"
+        },
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/",
+              "url": "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/",
+              "name": "Ariana Avenue Resurface & Reconfiguration - City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "datePublished": "2016-02-03T21:12:50+00:00",
+              "breadcrumb": {
+                "@id": "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://www.auburndalefl.com/portfolio-item/ariana-avenue-resurface-reconfiguration/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Ariana Avenue Resurface &#038; Reconfiguration"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/4395",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/portfolio"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=4395"
+          }
+        ],
+        "version-history": [
+          {
+            "count": 0,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/4395/revisions"
+          }
+        ],
+        "wp:attachment": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media?parent=4395"
+          }
+        ],
+        "wp:term": [
+          {
+            "taxonomy": "post_tag",
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/tags?post=4395"
+          },
+          {
+            "taxonomy": "portfolio_entries",
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio_entries?post=4395"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 4385,
+      "date": "2016-02-03T15:13:49",
+      "date_gmt": "2016-02-03T20:13:49",
+      "guid": {
+        "rendered": "https://auburndalefl.com/?post_type=portfolio&#038;p=4385"
+      },
+      "modified": "2017-02-17T11:29:38",
+      "modified_gmt": "2017-02-17T16:29:38",
+      "slug": "historic-train-depot-depot-park-design",
+      "status": "publish",
+      "type": "portfolio",
+      "link": "https://auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/",
+      "title": {
+        "rendered": "Historic Train Depot &#038; Depot Park Design"
+      },
+      "content": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "excerpt": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "featured_media": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "tags": [
+        10
+      ],
+      "portfolio_entries": [
+        11
+      ],
+      "class_list": [
+        "post-4385",
+        "portfolio",
+        "type-portfolio",
+        "status-publish",
+        "hentry",
+        "tag-cra",
+        "portfolio_entries-cra"
+      ],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Historic Train Depot &amp; Depot Park Design - City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Historic Train Depot &amp; Depot Park Design - City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"article:modified_time\" content=\"2017-02-17T16:29:38+00:00\" />\n<meta property=\"og:image\" content=\"https://www.auburndalefl.com/wp-content/uploads/2016/02/IMG_0344.jpg\" />\n\t<meta property=\"og:image:width\" content=\"2592\" />\n\t<meta property=\"og:image:height\" content=\"1944\" />\n\t<meta property=\"og:image:type\" content=\"image/jpeg\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data1\" content=\"2 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/\",\"url\":\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/\",\"name\":\"Historic Train Depot & Depot Park Design - City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"datePublished\":\"2016-02-03T20:13:49+00:00\",\"dateModified\":\"2017-02-17T16:29:38+00:00\",\"breadcrumb\":{\"@id\":\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Historic Train Depot &#038; Depot Park Design\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Historic Train Depot & Depot Park Design - City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/",
+        "og_locale": "en_US",
+        "og_type": "article",
+        "og_title": "Historic Train Depot & Depot Park Design - City of Auburndale",
+        "og_url": "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/",
+        "og_site_name": "City of Auburndale",
+        "article_modified_time": "2017-02-17T16:29:38+00:00",
+        "og_image": [
+          {
+            "width": 2592,
+            "height": 1944,
+            "url": "https://www.auburndalefl.com/wp-content/uploads/2016/02/IMG_0344.jpg",
+            "type": "image/jpeg"
+          }
+        ],
+        "twitter_card": "summary_large_image",
+        "twitter_misc": {
+          "Est. reading time": "2 minutes"
+        },
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/",
+              "url": "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/",
+              "name": "Historic Train Depot & Depot Park Design - City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "datePublished": "2016-02-03T20:13:49+00:00",
+              "dateModified": "2017-02-17T16:29:38+00:00",
+              "breadcrumb": {
+                "@id": "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://www.auburndalefl.com/portfolio-item/historic-train-depot-depot-park-design/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Historic Train Depot &#038; Depot Park Design"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/4385",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/portfolio"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=4385"
+          }
+        ],
+        "version-history": [
+          {
+            "count": 0,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio/4385/revisions"
+          }
+        ],
+        "wp:attachment": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media?parent=4385"
+          }
+        ],
+        "wp:term": [
+          {
+            "taxonomy": "post_tag",
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/tags?post=4385"
+          },
+          {
+            "taxonomy": "portfolio_entries",
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/portfolio_entries?post=4385"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+=== Auburndale FL mapping — request log ===
+Mapped: 2026-04-17
+UA: Mozilla/5.0 (compatible; CountyDataMapper/1.0)
+Pace: ~1 req/sec with curl -sS sleep 1 between requests
+Evidence slug prefix: auburndale-fl-*
+
+Hosts probed:
+- auburndalefl.com (WordPress 6.9.4 + Enfold theme + TEC + TablePress, GoDaddy MWP, Cloudflare front)
+- utility.auburndalefl.com (American Data Group / ADG UBS — utility billing, login-gated)
+- weblink.auburndalefl.com (Laserfiche WebLink 10, Angular SPA, cookie-gated public portal)
+- auburndalefl.govbuilt.com (GovBuilt by MCC Innovations — permit + licensing SaaS; public JSON APIs)
+- ci-auburndale-fl.validation.smartgovcommunity.com (SmartGov by Granicus — alternate/parallel permit portal, .validation. staging subdomain)
+
+Total HTTP requests: ~60 (see headers files in evidence/)
+429s observed: 0
+CAPTCHAs observed: 0
+WAF blocks: 1 — POST xmlrpc.php returned HTTP 403 Cloudflare WAF block (documented, not circumvented)
+
+Key findings:
+- Online permit portal EXISTS: GovBuilt at auburndalefl.govbuilt.com — public JSON API returns 30,142 cases + 716 licenses with applicant names, addresses, phones.
+- Parallel SmartGov tenant (validation staging) linked from construction-services page but GovBuilt is the live primary portal.
+- Utility subdomain vendor: American Data Group (ADG) — /adg-custom-site/, /adg/supporting/ paths, copyright meta "American Data Group".
+- Laserfiche WebLink 10 cookie-gated SPA hosts meeting archives (Browse.aspx?startid=38271 agendas, startid=433 minutes).
+
+Platforms new to registry (scrapable data surface → direct-edit _platforms.md):
+- GovBuilt (MCC Innovations) — confirmed public JSON APIs under /PublicReport/
+- American Data Group UBS — deferred (login-gated, no public data surface)
+- Laserfiche WebLink 10 — deferred (already implied by existing maps elsewhere? verify)
+- SmartGov Public Portal (Granicus) — deferred (.validation. env, auth-gated search)
+
+robots.txt: auburndalefl.com `User-Agent: * \n Disallow:` (fully permissive)

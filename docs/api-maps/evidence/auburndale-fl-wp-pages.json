@@ -1,0 +1,578 @@
+{
+  "_note": "truncated to 3 items; rendered content stripped",
+  "payload": [
+    {
+      "id": 28971,
+      "date": "2025-08-21T13:25:32",
+      "date_gmt": "2025-08-21T17:25:32",
+      "guid": {
+        "rendered": "https://auburndalefl.com/?page_id=28971"
+      },
+      "modified": "2025-08-21T14:15:53",
+      "modified_gmt": "2025-08-21T18:15:53",
+      "slug": "vendor-applications",
+      "status": "publish",
+      "type": "page",
+      "link": "https://auburndalefl.com/vendor-applications/",
+      "title": {
+        "rendered": "Vendor Applications"
+      },
+      "content": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "excerpt": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "author": 30,
+      "featured_media": 0,
+      "parent": 0,
+      "menu_order": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "meta": {
+        "cybocfi_hide_featured_image": "",
+        "iawp_total_views": 581,
+        "footnotes": ""
+      },
+      "class_list": [
+        "post-28971",
+        "page",
+        "type-page",
+        "status-publish",
+        "hentry"
+      ],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Vendor Applications - City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://auburndalefl.com/vendor-applications/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Vendor Applications - City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://auburndalefl.com/vendor-applications/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"article:modified_time\" content=\"2025-08-21T18:15:53+00:00\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data1\" content=\"1 minute\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://auburndalefl.com/vendor-applications/\",\"url\":\"https://auburndalefl.com/vendor-applications/\",\"name\":\"Vendor Applications - City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"datePublished\":\"2025-08-21T17:25:32+00:00\",\"dateModified\":\"2025-08-21T18:15:53+00:00\",\"breadcrumb\":{\"@id\":\"https://auburndalefl.com/vendor-applications/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://auburndalefl.com/vendor-applications/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://auburndalefl.com/vendor-applications/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Vendor Applications\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Vendor Applications - City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://auburndalefl.com/vendor-applications/",
+        "og_locale": "en_US",
+        "og_type": "article",
+        "og_title": "Vendor Applications - City of Auburndale",
+        "og_url": "https://auburndalefl.com/vendor-applications/",
+        "og_site_name": "City of Auburndale",
+        "article_modified_time": "2025-08-21T18:15:53+00:00",
+        "twitter_card": "summary_large_image",
+        "twitter_misc": {
+          "Est. reading time": "1 minute"
+        },
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://auburndalefl.com/vendor-applications/",
+              "url": "https://auburndalefl.com/vendor-applications/",
+              "name": "Vendor Applications - City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "datePublished": "2025-08-21T17:25:32+00:00",
+              "dateModified": "2025-08-21T18:15:53+00:00",
+              "breadcrumb": {
+                "@id": "https://auburndalefl.com/vendor-applications/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://auburndalefl.com/vendor-applications/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://auburndalefl.com/vendor-applications/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Vendor Applications"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/28971",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/page"
+          }
+        ],
+        "author": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=28971"
+          }
+        ],
+        "version-history": [
+          {
+            "count": 22,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/28971/revisions"
+          }
+        ],
+        "predecessor-version": [
+          {
+            "id": 29008,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/28971/revisions/29008"
+          }
+        ],
+        "wp:attachment": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media?parent=28971"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 26538,
+      "date": "2024-04-09T08:46:13",
+      "date_gmt": "2024-04-09T12:46:13",
+      "guid": {
+        "rendered": "https://auburndalefl.com/?page_id=26538"
+      },
+      "modified": "2026-03-13T09:32:12",
+      "modified_gmt": "2026-03-13T13:32:12",
+      "slug": "lake-ariana-park-2",
+      "status": "publish",
+      "type": "page",
+      "link": "https://auburndalefl.com/lake-ariana-park-2/",
+      "title": {
+        "rendered": "Lake Ariana Park"
+      },
+      "content": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "excerpt": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "author": 30,
+      "featured_media": 0,
+      "parent": 0,
+      "menu_order": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "meta": {
+        "cybocfi_hide_featured_image": "",
+        "iawp_total_views": 20646,
+        "footnotes": ""
+      },
+      "class_list": [
+        "post-26538",
+        "page",
+        "type-page",
+        "status-publish",
+        "hentry"
+      ],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Lake Ariana Park - City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://auburndalefl.com/lake-ariana-park-2/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Lake Ariana Park - City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://auburndalefl.com/lake-ariana-park-2/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"article:modified_time\" content=\"2026-03-13T13:32:12+00:00\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data1\" content=\"3 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://auburndalefl.com/lake-ariana-park-2/\",\"url\":\"https://auburndalefl.com/lake-ariana-park-2/\",\"name\":\"Lake Ariana Park - City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"datePublished\":\"2024-04-09T12:46:13+00:00\",\"dateModified\":\"2026-03-13T13:32:12+00:00\",\"breadcrumb\":{\"@id\":\"https://auburndalefl.com/lake-ariana-park-2/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://auburndalefl.com/lake-ariana-park-2/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://auburndalefl.com/lake-ariana-park-2/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Lake Ariana Park\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Lake Ariana Park - City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://auburndalefl.com/lake-ariana-park-2/",
+        "og_locale": "en_US",
+        "og_type": "article",
+        "og_title": "Lake Ariana Park - City of Auburndale",
+        "og_url": "https://auburndalefl.com/lake-ariana-park-2/",
+        "og_site_name": "City of Auburndale",
+        "article_modified_time": "2026-03-13T13:32:12+00:00",
+        "twitter_card": "summary_large_image",
+        "twitter_misc": {
+          "Est. reading time": "3 minutes"
+        },
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://auburndalefl.com/lake-ariana-park-2/",
+              "url": "https://auburndalefl.com/lake-ariana-park-2/",
+              "name": "Lake Ariana Park - City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "datePublished": "2024-04-09T12:46:13+00:00",
+              "dateModified": "2026-03-13T13:32:12+00:00",
+              "breadcrumb": {
+                "@id": "https://auburndalefl.com/lake-ariana-park-2/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://auburndalefl.com/lake-ariana-park-2/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://auburndalefl.com/lake-ariana-park-2/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Lake Ariana Park"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/26538",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/page"
+          }
+        ],
+        "author": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=26538"
+          }
+        ],
+        "version-history": [
+          {
+            "count": 37,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/26538/revisions"
+          }
+        ],
+        "predecessor-version": [
+          {
+            "id": 30055,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/26538/revisions/30055"
+          }
+        ],
+        "wp:attachment": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media?parent=26538"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 26253,
+      "date": "2024-02-19T15:23:39",
+      "date_gmt": "2024-02-19T20:23:39",
+      "guid": {
+        "rendered": "https://auburndalefl.com/?page_id=26253"
+      },
+      "modified": "2026-04-01T15:07:17",
+      "modified_gmt": "2026-04-01T19:07:17",
+      "slug": "citizens-academy",
+      "status": "publish",
+      "type": "page",
+      "link": "https://auburndalefl.com/citizens-academy/",
+      "title": {
+        "rendered": "Citizens Academy"
+      },
+      "content": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "excerpt": {
+        "rendered": "[truncated]",
+        "protected": false
+      },
+      "author": 30,
+      "featured_media": 0,
+      "parent": 0,
+      "menu_order": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "meta": {
+        "cybocfi_hide_featured_image": "",
+        "iawp_total_views": 584,
+        "footnotes": ""
+      },
+      "class_list": [
+        "post-26253",
+        "page",
+        "type-page",
+        "status-publish",
+        "hentry"
+      ],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Citizens Academy - City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://auburndalefl.com/citizens-academy/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"article\" />\n<meta property=\"og:title\" content=\"Citizens Academy - City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://auburndalefl.com/citizens-academy/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"article:modified_time\" content=\"2026-04-01T19:07:17+00:00\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<meta name=\"twitter:label1\" content=\"Est. reading time\" />\n\t<meta name=\"twitter:data1\" content=\"2 minutes\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"WebPage\",\"@id\":\"https://auburndalefl.com/citizens-academy/\",\"url\":\"https://auburndalefl.com/citizens-academy/\",\"name\":\"Citizens Academy - City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"datePublished\":\"2024-02-19T20:23:39+00:00\",\"dateModified\":\"2026-04-01T19:07:17+00:00\",\"breadcrumb\":{\"@id\":\"https://auburndalefl.com/citizens-academy/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://auburndalefl.com/citizens-academy/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://auburndalefl.com/citizens-academy/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Citizens Academy\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Citizens Academy - City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://auburndalefl.com/citizens-academy/",
+        "og_locale": "en_US",
+        "og_type": "article",
+        "og_title": "Citizens Academy - City of Auburndale",
+        "og_url": "https://auburndalefl.com/citizens-academy/",
+        "og_site_name": "City of Auburndale",
+        "article_modified_time": "2026-04-01T19:07:17+00:00",
+        "twitter_card": "summary_large_image",
+        "twitter_misc": {
+          "Est. reading time": "2 minutes"
+        },
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "WebPage",
+              "@id": "https://auburndalefl.com/citizens-academy/",
+              "url": "https://auburndalefl.com/citizens-academy/",
+              "name": "Citizens Academy - City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "datePublished": "2024-02-19T20:23:39+00:00",
+              "dateModified": "2026-04-01T19:07:17+00:00",
+              "breadcrumb": {
+                "@id": "https://auburndalefl.com/citizens-academy/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://auburndalefl.com/citizens-academy/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://auburndalefl.com/citizens-academy/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Citizens Academy"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/26253",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/page"
+          }
+        ],
+        "author": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=26253"
+          }
+        ],
+        "version-history": [
+          {
+            "count": 17,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/26253/revisions"
+          }
+        ],
+        "predecessor-version": [
+          {
+            "id": 30129,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/26253/revisions/30129"
+          }
+        ],
+        "wp:attachment": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media?parent=26253"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="City of Auburndale">     
+    
+    
+    <meta name="msvalidate.01" content="FAE3A1DD3C085351180499A219D161CC" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "GovernmentOffice",
+  "name": "City of Auburndale",
+  "image": "https://auburndalefl.govbuilt.com/media/images/logobab.png",
+  "telephone": "+1-863-965-5530",
+  "email": "permits@auburndalefl.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1 Bobby Green Plaza",
+    "addressLocality": "Auburndale",
+    "addressRegion": "FL",
+    "addressCountry": "US",
+    "postalCode": "33823"
+  },
+  "url": "https://auburndalefl.govbuilt.com/"
+}
+</script>
+
+    <title>City of Auburndale - City of Auburndale</title>
+    
+    
+        
+    
+	<link rel="icon" href="/media/Favicon/favicons.ico?v=ujNk3jHqOjFMxnA-uyat9P6wQcnr6uVi_W0l9nZ5iNM" type="image/x-icon" sizes="16x16">
+    <!-- Bootstrap core CSS -->
+    
+
+    <!-- Custom fonts for this template -->
+  	<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:700,regular|Libre+Baskerville:700,italic,regular|Maven+Pro:700,regular|Montserrat:700,regular|Oswald:200,500,600,700,regular|" media="all">
+    
+     <!-- Froala Editor Css -->
+    <link href="/GovBuilt.FroalaEditor/vendors/froala-editor/css/froala_editor.pkgd.css" rel="stylesheet" type="text/css" />
+    <link href="/GovBuilt.FroalaEditor/vendors/froala-editor/css/plugins.pkgd.css" rel="stylesheet" type="text/css" />
+    <link href="/GovBuilt.FroalaEditor/vendors/tui-image-editor/tui-image-editor.min.css" rel="stylesheet" type="text/css" />
+    <link href="/GovBuilt.FroalaEditor/vendors/tui-color-picker/tui-color-picker.min.css" rel="stylesheet" type="text/css" />
+    <link href="/GovBuilt.FroalaEditor/vendors/froala-editor/css/third_party/image_tui.min.css" rel="stylesheet" type="text/css" />
+    <link href="/GovBuilt.FroalaEditor/css/orchard-core-froala-editor.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Bootstrap core JavaScript -->
+    
+    <script crossorigin="anonymous" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
+
+	 <!-- Custom styles for this template -->
+    
+    
+
+    <!-- Plugin JavaScript -->
+    
+    
+  <!-- FontAwesome Icons -->
+          
+          
+          <script src="https://kit.fontawesome.com/4346585e01.js" crossorigin="anonymous"></script> 
+    
+    <!-- Contact form JavaScript -->
+
+    <!-- Custom scripts for this template -->
+    
+    
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HV0NJE7HWT"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag() { dataLayer.push(arguments); }gtag('js', new Date());gtag('config', 'G-HV0NJE7HWT')</script>
+<!-- End Global site tag (gtag.js) - Google Analytics -->
+    
+    <link href="/GovBuilt.Resource/css/bootstrap/bootstrap.min.css?v=zAD6id8CmqJYICsAEIg7MsXScDl7J3Hv8xTRJcK-YDU" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" rel="stylesheet" type="text/css" />
+<link href="/PublicTheme/css/agency.css?v=fOg9TdmI6z-MvI1od0KPfAFqvWrF26ZoTP-BLw13cK0" rel="stylesheet" type="text/css" />
+<link href="/Common/css/bootstrap/bootstrap-grid-ext.min.css?v=6VpbIvxtlClyDAOydiuwCAsFpvqAWv7gxwdR3q8sHaw" rel="stylesheet" type="text/css" />
+<link href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+footer .row-gap {
+    gap: 15px 0;
+}
+footer span.copyright,
+footer ul.quicklinks {
+    line-height: 28px;
+}
+footer ul.quicklinks {
+    color: #fff;
+}
+    .navbar-brand {
+    justify-content: flex-start;
+}
+.alertbar-wrapper a, .alertbar-wrapper button {
+    color: #fff;
+}
+.alertbar-wrapper button {
+    font-size: 19px;
+}
+.widget-align-justify h1,
+.widget-align-justify h2,
+.widget-align-justify h3,
+.widget-align-justify h4,
+.widget-align-justify h5,
+.widget-align-justify h6 {
+    text-align: left;
+}
+@media (max-width: 768px) {
+    body #mainNav img {
+        width: auto !important;
+    }
+}
+</style>
+  <style>
+
+ #main {
+    margin: 140px auto 5em !important;
+}
+    button.navbar-toggler.navbar-toggler-right {
+    background: transparent !important;
+        font-size: 25px !important;
+}
+.navbar-toggler:focus {
+    outline: 0 !important;
+    border: 0 !important;
+    box-shadow: 0 0 0;
+}
+    div#loom-companion-mv3 {
+    display: none;
+}
+.alert.alertBar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+        border-radius: 0;
+            padding: 0.25em;
+}
+    li.dropdown.menu-dropdown:hover {
+    background: transparent !important;
+}
+.dropdown-style li a, .dropdown-style li button {
+    color: #000 !important;
+    display: block;
+}
+
+
+        #mainNav {
+    background-color: #0352ba !important;
+}
+    a[alt~="Submission"]{
+        color: #0352ba !important;
+    }
+    a[href~="/Register?returnurl=%2FProfile"] {
+        color: #0352ba !important;
+    }
+     a[href~="/Register"] {
+        color: #0352ba !important;
+    }
+     a[href~="https://ior.ad/7Bwq"] {
+        color:#0352ba !important;
+    }    
+      .form-link{
+          color: #0352ba !important;
+      }
+      
+      .navbar-nav .menu-dropdown .dropdown-menu li a {
+        padding: 0.3em !important;
+    }
+      .navbar-nav .menu-dropdown .dropdown-menu li button{
+        padding: 0.3em !important;
+        font-family: 'Oswald';
+        font-weight: 600;
+    }
+      #mainNav .navbar-nav .nav-item ul.dropdown-menu.show .nav-link {
+        padding: 0.4em !important;
+    }
+    .col-md-5{
+        color: #fdf2f2
+    }
+      .dropdown-toggle
+      {
+          padding: 0.5em 0.5em !important;
+      }
+     .panel-heading.bg-default.collapsed {
+        margin-bottom: -2px;
+    }
+
+     .menu-dropdown {
+        padding: 0px 0em !important;
+        font-family: Montserrat,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+      }
+    .navbar-brand{
+        padding: 0px;
+     }
+    #mainNav{
+        padding: 0px;
+        box-shadow: 0px 3px 13px -6px;
+    }
+    #mainNav .navbar-nav .nav-item .nav-link {
+        font-size: 91%;
+        font-weight: 400;
+        color:#000;
+    }
+    
+    .menu-dropdown a, .menu-dropdown a:hover {
+        font-size: 1em;
+        padding: 1.8em !important;
+        font-family: 'Oswald';
+        font-weight: 600;
+    }
+    #mainNav .navbar-nav .nav-item .nav-link {
+    color: #000;
+    padding: 1.8em !important;
+    font-family: 'Oswald';
+    font-weight: 600;
+    font-size: 1em;
+}
+    .dropdown-menu>.nav-item > .nav-link-custom{
+        color: #000 !important;
+        padding: 1.8em;
+    }
+    
+    #mainNav .navbar-nav .nav-item .nav-link:hover {
+        color: #000000;
+        background: #eeba2c;
+    }
+        #mainNav .navbar-nav .nav-item .nav-link:hover {
+    color: #006940 !important;
+    background: #fff !important;
+}
+    li.dropdown.menu-dropdown:hover
+    {
+        background:#eeba2c;
+        color: #000000;
+    }
+    li.dropdown.menu-dropdown a:hover
+    {
+        background:#eeba2c;
+        color: #000000 !important;
+    }
+li.dropdown.menu-dropdown a:hover {
+    background: #fff !important;
+    color: #006940 !important;
+}
+
+    .dropdown-style li a, .dropdown-style li a: hover{
+        background:#eeba2c;
+    }
+	button.logBtn {
+        border: 0;
+        border-radius: 0;
+        width: 100%;
+        text-align: left;
+	}
+	button.logBtn:hover {
+        color: #000000 !important;
+        text-decoration: none;
+       
+	}
+    .dropdown-style li a:hover {
+    	color: #fec503 !important;
+	}
+    .menu-dropdown {
+    	padding: 1.1em 1em;
+    }
+    
+    @media (min-width: 992px) {
+        #mainNav.navbar-shrink {
+            padding-top: 0;
+            padding-bottom: 0;            
+        }
+
+.container, .widget-container {
+    max-width: 1140px;
+}
+    }
+   @media (max-width: 1115px) {
+#mainNav .navbar-nav .nav-item .nav-link {
+    padding: 1.8em 1em !important;
+    }
+       }
+    @media (max-width: 991px) {
+
+        #mainNav .navbar-nav .nav-item .nav-link:hover , li.dropdown.menu-dropdown a.dropdown-toggle:hover{
+    background: transparent !important;
+     color:#fff !important;
+}
+#mainNav .navbar-nav .nav-item ul.dropdown-menu .nav-link:hover{
+        color: #006940 !important;
+}
+        #mainNav .navbar-nav .nav-item .nav-link {
+    color: #ffffff;
+    padding: 9px !important;
+}
+          a.nav-link.dropdown-toggle {
+        padding: 10px 0 !important;
+        }
+    .menu-dropdown {
+     padding: 9px 14px !important;
+        }
+    .menu-dropdown a, .menu-dropdown a:hover {
+        padding: 0 !important;
+        }
+    }
+    @media (max-width: 768px) {
+  	#mainNav .navbar-nav .nav-item .nav-link {
+    	color: #000;
+	}
+   .menu-dropdown>a, .menu-dropdown>a:hover {
+    	color: #fff;
+	    }
+    }
+	#main{margin-top:100px;}    
+	.profileRow{margin-top:50px;}
+    section {
+    	padding: 10px 0 0 0 !important;
+	}
+    @media (max-width: 768px) {
+        .nav-link-custom .fa-shopping-cart{
+            color : #fff !important;
+        }
+        #mainNav img{
+            width: 200px !important;
+        }
+    }
+   @media (max-width: 575px) {
+    nav#mainNav .container {
+    padding: 0;
+}
+#main .col-lg-12.text-center a {
+    float: none !important;
+}
+    .salineadvance-panel .panel-body .col-md-12 button{
+            margin-top: .5rem!important;
+    }
+       .salineadvance-panel .panel-body .col-md-12 button{
+            margin-left: 0rem!important;
+             margin-right: .5rem!important;
+    }
+    nav#mainNav {
+    padding: 3px 10px !important;
+}
+#mainNav img{
+    padding:0 !important;
+}
+ }
+    #main{margin-top:100px;}   
+    #main {
+    	padding-top: 0px !important;
+	}
+    .menu-dropdown a, .menu-dropdown a:hover {
+        color: #fec503;
+        text-decoration: none;       
+    }
+    .text-primary {
+    	color: #0352ba !important;
+	}
+    i.fa.fa-circle.fa-stack-2x.text-primary {
+        color: #0352ba !important;
+    }    
+    .btn-primary {
+    	background-color: #0352ba !important;
+    	border-color: #0352ba !important;
+        color: #fff !important;
+	}
+    .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+        background-color: #0352ba !important;
+        border-color: #0352ba !important;
+        color: white;
+        box-shadow: 0 0 0 0.2rem rgb(245 245 244 / 50%) !important;
+	}
+    .yellow-head {    
+    	background: #0352ba !important;
+    }
+    .panel-heading {    
+    	border-bottom: 2px solid #0352ba !important;
+        color: #fff  !important;
+    }
+    .panel-default > .panel-heading, .card-header,.navbar-toggler {    
+    	background-color: #0352ba !important;
+    }
+
+    a {
+      	color: #0352ba;
+      	text-decoration: none;
+	}
+
+    footer a:hover{
+        color: #fec503 !important;
+    }
+    footer a{
+	    color: #fdf2f2 !important;
+    }
+    .form_content,.navbar-toggler {
+   		border :0 !important;
+    }
+   button.navbar-toggler.navbar-toggler-right:focus-visible
+    {
+    	border :0 !important;
+    }
+    button:focus {
+    	outline: 0px auto -webkit-focus-ring-color;
+	}
+    
+    .panel h4 {
+   		 margin: 0;
+	}
+     .panel h4 a {
+   		 display: flex;
+    	justify-content: space-between;
+    	align-items: center;
+	}
+    a:hover {
+    	color: #fec503;
+	}
+    .panel-heading h4 a i {
+    	margin-top: 0.3em;
+	}    
+    ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
+   		color:#fec503 !important;
+	}
+    .dropdown-menu {
+    	min-width: 15rem;
+    }
+    .cartCountBadge{
+    font-family: 'Oswald';
+    font-size: 0.625em !important;
+    }
+    .panel-default > .panel-heading {
+    color: #fff !important;
+}
+ 
+</style>
+</head>
+
+    
+<body id="page-top" dir="ltr" class="fr-view">
+    
+     
+    
+    
+        
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="margin-top:0px" id="mainNav">
+  <div class="container">
+            
+      
+	  
+	  
+      
+    <a class="navbar-brand js-scroll-trigger" href="/">
+      <img src="/media/images/logoab.png" alt="Site logo"/>
+    </a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" href="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+     
+      <i class="fas fa-bars"></i>
+    </button>
+    <style>
+	#mainNav {
+	background-color: #212529
+	}
+
+	#mainNav .navbar-nav .nav-item .nav-link {
+	color: #ffffff;
+	}
+
+	.menu-dropdown a, .menu-dropdown a:hover {
+	color: #ffffff;
+	}
+
+	.dropdown-menu {
+	background-color: #ffffff;
+	color: #000000;
+	}
+
+	.dropdown-style li a:hover {
+	color: #fed136 !important;
+	}
+
+	.logBtn {
+		color: #000 !important;
+		background: transparent !important;
+		border: none !important;
+	}
+	.logBtn:hover {
+	color: #fed136 !important;
+	text-decoration: none;
+	}
+</style>
+<div class="collapse navbar-collapse justify-content-end" id="navbarResponsive">
+	<ul class="navbar-nav text-uppercase ml-auto">
+		
+		
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="https://auburndalefl.com/"  target="_blank" rel="noreferrer" >Main City Site</a>
+
+
+
+    
+</li>
+		
+		
+<li class="nav-item dropdown">
+    
+    
+     
+
+
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >User Guides<b class="caret"></b></a>
+
+
+
+    
+        <ul class="dropdown-menu">
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/resident-how-to" >Resident</a>
+
+
+
+    
+</li>
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/contractor-how-to" >Contractor</a>
+
+
+
+    
+</li>
+            
+        </ul>
+    
+</li>
+		
+		
+<li class="nav-item dropdown">
+    
+    
+     
+
+
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" >Resources<b class="caret"></b></a>
+
+
+
+    
+        <ul class="dropdown-menu">
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/activitysearchtool" >Activity Search Tool</a>
+
+
+
+    
+</li>
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/advancedforms" >All Permit Applications</a>
+
+
+
+    
+</li>
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/AdvancedForms/business-tax-receipt-application" >Business Tax Receipt Application</a>
+
+
+
+    
+</li>
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/downloadableforms" >Downloadable Forms</a>
+
+
+
+    
+</li>
+            
+                
+<li class="nav-item ">
+    
+    
+     
+
+
+    <a class="nav-link nav-link-custom" href="/licensed-entities" >Licensed Contractors</a>
+
+
+
+    
+</li>
+            
+        </ul>
+    
+</li>
+		
+		
+<li class="nav-item ">
+    
+    
+     
+
+
+<style>
+.cartCountBadge{
+    position: relative;
+    top: -13px;
+    border-radius: 50%;
+    background-color: #EB0000;
+    color:  #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 4px 7px;
+    left: -6px;
+}
+</style>
+   <a class="nav-link nav-link-custom" href="/Cart"><i class="fas fa-shopping-cart"></i>
+   <span class="cartCountBadge">0</span></a>
+   
+
+
+
+    
+</li>
+		
+		
+		<li class="nav-item">
+			<a href="/Profile" class="nav-link js-scroll-trigger">
+				My Profile
+			</a>
+		</li>
+		
+		
+	</ul>
+</div>
+  </div>
+</nav>
+  
+    <div class="container" id="main">
+    <div class="container py-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <p><i class="fa fa-exclamation-triangle fa-5x"></i><br />Status Code: 404</p>
+            <h3>Not Found...</h3>
+            <p>This item does not exist. It may have been moved or no longer exists.</p>
+            <a id="goBackBtn" class="btn btn-danger">Go Back</a>
+        </div>
+    </div>
+</div>
+
+
+
+    <style>
+         #mainNav {
+    background-color: #0352ba !important;
+}  
+a:hover {
+    	color: #fec503 !important;
+	    }
+</style>
+    
+      
+    
+    
+    
+
+      
+    </div><br/><br/>
+	<div class="container-fluid divFooter" style="background: #212529 !important;bottom: 0;position: relative;">
+        
+<footer>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <a href="https://mccinnovations.com/solution/government-websites" target="_blank" style="font-size: 14px">
+                    <span class="copyright footer-link" style="padding: 10px">
+Powered by MCCi Government Websites
+</span>
+                </a>
+            </div>
+            <div class="col-md-5">
+                <ul class="list-inline social-buttons">
+                    <li class="list-inline-item  footer-link">
+                        <a href="https://twitter.com/auburndalegov" target="_blank">
+                           <i class="fa-brands fa-x-twitter"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item  footer-link">
+                        <a href="https://www.facebook.com/auburndalegov" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                    </li>
+                    <li class="list-inline-item  footer-link">
+                        <a href="https://www.linkedin.com/company/city-of-auburndale" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <ul class="list-inline quicklinks">
+                    <li class="list-inline-item  footer-link mb-0" style="font-size: 14px">
+                        <a href="admin">Staff Portal</a>
+                    </li>
+                    <li class="list-inline-item  footer-link">
+                        <a href="privacypolicy">Privacy Policy</a>
+                    </li>
+                    <li class="list-inline-item  footer-link">
+                        <a href="termsofuse">Terms of Use</a>
+                    </li>
+                </ul>
+            </div>
+ <div class="col-md-5" style="font-size: 14px">
+                <ul class="list-inline quicklinks mb-0">
+                    <li class="list-inline-item  footer-link">
+                        1 Bobby Green Plaza, Auburndale FL 33823
+                    </li>
+                    <li class="list-inline-item">
+                        863-965-5530
+                    </li>
+                
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.userway.org/widget.js" data-account="ix4IWuxUx3"></script>
+	</div>
+    <script src="/GovBuilt.Resource/Scripts/bootstrap/bootstrap.bundle.min.js?v=VqBpD8l-a7VTmnJxAhSOGCBrUBAXwpLJaWo5yCfQU80"></script>
+<script src="/PublicTheme/vendor/jquery-easing/jquery.easing.min.js?v=H3cjtrm_ztDeuhCN9I4yh4iN2Ybx_y1RM7rMmAesA0k"></script>
+<script src="/PublicTheme/js/agency.min.js?v=55aboQCdHVu25I5UeK_7MG5Kmwm5hcIwF7bLgDMamlI"></script>
+<script src="/GovBuilt.Resource/js/FECommon.min.js?v=BBOumJEKZYxR96WiPBwdPakzWrMXypwNzBLzyxJXUXE"></script>
+<script>
+    $('#goBackBtn').on('click', function (event) {
+        history.length == 1 ? window.close() : history.back();
+    });
+</script>
+<script>
+        $.ajax({
+            url: "https://auburndalefl.govbuilt.com//GetCartItemCount",
+            async: true,
+            method: 'GET',
+            success: function (data) {
+                $(".cartCountBadge").text(data);
+            },
+            error: function (error) {
+                $(".cartCountBadge").text(0);
+            }
+        });
+    </script>
+    
+<input type="hidden" id="AdvFormTags" value='[]' />
+
+<script> 
+// to hide header and footer for moblie app 
+    var HideHeaderAndFooter = "false"; 
+    $(document).ready(function () { 
+        var url = new URL(window.location.href); 
+        HideHeaderAndFooter = url.searchParams.get("HideHeaderAndFooter"); 
+        if (HideHeaderAndFooter && HideHeaderAndFooter.toString().toLowerCase() == "true") { 
+            $('.btnGoToProfile').hide(); 
+            $('.alertBar').hide(); 
+            $('#mainNav').hide(); 
+            $('.divFooter').hide(); 
+        } 
+    }); 
+
+</script> 
+
+</body>
+<script>
+    function SearchResult() {
+        var searchStr = $(".search-input").val();
+        $("#myInputautocomplete-list").remove();
+        if (searchStr != "" && searchStr.length > 2) {
+            $.ajax({
+                url: "https://auburndalefl.govbuilt.com/SearchRecommendations?Terms=" + searchStr,
+                async: true,
+                method: "GET",
+                success: function (data) {
+                    if (data != undefined && data != null && data.statusCode != undefined && data.statusCode != null && data.statusCode == 200 && data.searchResult.length > 0) {
+                        $('<div id="myInputautocomplete-list" class="autocomplete-items" ></div>').insertAfter(".search-input");
+                        $.each(data.searchResult, function () {
+                            $("#myInputautocomplete-list").append("<div>" + this + "</div>");
+                        });
+                    }
+                },
+                error: function (error) {},
+            });
+        }
+    }
+    $(document).ready(function () {
+        $(".search-input").keyup(
+            delay(function (e) {
+                SearchResult();
+            }, 800)
+        );
+    });
+    function delay(callback, ms) {
+        var timer = 0;
+        return function () {
+            var context = this,
+                args = arguments;
+            clearTimeout(timer);
+            timer = setTimeout(function () {
+                callback.apply(context, args);
+            }, ms || 0);
+        };
+    }
+     $('input').attr('autocomplete', 'off');
+
+$(document).ready(function () {
+    $('.alertbar-close-wrapper').click(function () {
+        $('.alertbar-wrapper').remove();
+        $('#mainNav').css('margin', '0'); 
+    });
+});
+</script>    
+
+</html>

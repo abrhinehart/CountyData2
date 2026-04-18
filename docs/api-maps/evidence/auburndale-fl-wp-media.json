@@ -1,0 +1,497 @@
+{
+  "_note": "truncated to 3 items; rendered content stripped",
+  "payload": [
+    {
+      "id": 30229,
+      "date": "2026-04-17T16:41:20",
+      "date_gmt": "2026-04-17T20:41:20",
+      "guid": {
+        "rendered": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait.jpg"
+      },
+      "modified": "2026-04-17T16:41:20",
+      "modified_gmt": "2026-04-17T20:41:20",
+      "slug": "auburndale-city-manager-jeff-brown-2026-portrait",
+      "status": "inherit",
+      "type": "attachment",
+      "link": "https://auburndalefl.com/cmo/auburndale-city-manager-jeff-brown-2026-portrait/",
+      "title": {
+        "rendered": "Auburndale City Manager Jeff Brown 2026 Portrait"
+      },
+      "author": 30,
+      "featured_media": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "meta": {
+        "cybocfi_hide_featured_image": ""
+      },
+      "class_list": [
+        "post-30229",
+        "attachment",
+        "type-attachment",
+        "status-inherit",
+        "hentry"
+      ],
+      "description": {
+        "rendered": "<p class=\"attachment\"><a href='https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-scaled.jpg'><img loading=\"lazy\" decoding=\"async\" width=\"240\" height=\"300\" src=\"https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-240x300.jpg\" class=\"attachment-medium size-medium\" alt=\"\" srcset=\"https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-240x300.jpg 240w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-824x1030.jpg 824w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-64x80.jpg 64w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-768x960.jpg 768w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1229x1536.jpg 1229w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1638x2048.jpg 1638w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1200x1500.jpg 1200w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-564x705.jpg 564w, https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-scaled.jpg 2048w\" sizes=\"auto, (max-width: 240px) 100vw, 240px\" /></a></p>\n"
+      },
+      "caption": {
+        "rendered": ""
+      },
+      "alt_text": "",
+      "media_type": "image",
+      "mime_type": "image/jpeg",
+      "media_details": {
+        "width": 2048,
+        "height": 2560,
+        "file": "2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-scaled.jpg",
+        "filesize": 3599437,
+        "sizes": {
+          "medium": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-240x300.jpg",
+            "width": 240,
+            "height": 300,
+            "filesize": 101755,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-240x300.jpg"
+          },
+          "large": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-824x1030.jpg",
+            "width": 824,
+            "height": 1030,
+            "filesize": 746418,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-824x1030.jpg"
+          },
+          "thumbnail": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-64x80.jpg",
+            "width": 64,
+            "height": 80,
+            "filesize": 27714,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-64x80.jpg"
+          },
+          "medium_large": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-768x960.jpg",
+            "width": 768,
+            "height": 960,
+            "filesize": 661518,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-768x960.jpg"
+          },
+          "1536x1536": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1229x1536.jpg",
+            "width": 1229,
+            "height": 1536,
+            "filesize": 1509625,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1229x1536.jpg"
+          },
+          "2048x2048": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1638x2048.jpg",
+            "width": 1638,
+            "height": 2048,
+            "filesize": 2476415,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1638x2048.jpg"
+          },
+          "widget": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-36x36.jpg",
+            "width": 36,
+            "height": 36,
+            "filesize": 22579,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-36x36.jpg"
+          },
+          "square": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-180x180.jpg",
+            "width": 180,
+            "height": 180,
+            "filesize": 61724,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-180x180.jpg"
+          },
+          "featured": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1500x430.jpg",
+            "width": 1500,
+            "height": 430,
+            "filesize": 524396,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1500x430.jpg"
+          },
+          "featured_large": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1500x630.jpg",
+            "width": 1500,
+            "height": 630,
+            "filesize": 765437,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1500x630.jpg"
+          },
+          "extra_large": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1200x1500.jpg",
+            "width": 1200,
+            "height": 1500,
+            "filesize": 1424012,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1200x1500.jpg"
+          },
+          "portfolio": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-495x400.jpg",
+            "width": 495,
+            "height": 400,
+            "filesize": 220773,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-495x400.jpg"
+          },
+          "portfolio_small": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-260x185.jpg",
+            "width": 260,
+            "height": 185,
+            "filesize": 78555,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-260x185.jpg"
+          },
+          "gallery": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-845x684.jpg",
+            "width": 845,
+            "height": 684,
+            "filesize": 539637,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-845x684.jpg"
+          },
+          "magazine": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-710x375.jpg",
+            "width": 710,
+            "height": 375,
+            "filesize": 273204,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-710x375.jpg"
+          },
+          "masonry": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-564x705.jpg",
+            "width": 564,
+            "height": 705,
+            "filesize": 390442,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-564x705.jpg"
+          },
+          "entry_with_sidebar": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-845x321.jpg",
+            "width": 845,
+            "height": 321,
+            "filesize": 267524,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-845x321.jpg"
+          },
+          "entry_without_sidebar": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1210x423.jpg",
+            "width": 1210,
+            "height": 423,
+            "filesize": 445412,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-1210x423.jpg"
+          },
+          "full": {
+            "file": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait-scaled.jpg",
+            "width": 2048,
+            "height": 2560,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-scaled.jpg"
+          }
+        },
+        "image_meta": {
+          "aperture": "13",
+          "credit": "",
+          "camera": "NIKON D700",
+          "caption": "",
+          "created_timestamp": "1776154718",
+          "copyright": "",
+          "focal_length": "110",
+          "iso": "200",
+          "shutter_speed": "0.008",
+          "title": "",
+          "orientation": "1",
+          "keywords": []
+        },
+        "original_image": "Auburndale-City-Manager-Jeff-Brown-2026-Portrait.jpg"
+      },
+      "post": 2779,
+      "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/Auburndale-City-Manager-Jeff-Brown-2026-Portrait-scaled.jpg",
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media/30229",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/attachment"
+          }
+        ],
+        "author": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=30229"
+          }
+        ],
+        "wp:attached-to": [
+          {
+            "embeddable": true,
+            "post_type": "page",
+            "id": 2779,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/pages/2779"
+          }
+        ],
+        "curies": [
+          {
+            "name": "wp",
+            "href": "https://api.w.org/{rel}",
+            "templated": true
+          }
+        ]
+      }
+    },
+    {
+      "id": 30227,
+      "date": "2026-04-17T16:40:54",
+      "date_gmt": "2026-04-17T20:40:54",
+      "guid": {
+        "rendered": "https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026.pdf"
+      },
+      "modified": "2026-04-17T16:40:54",
+      "modified_gmt": "2026-04-17T20:40:54",
+      "slug": "acc-monthly-calendar-may2026",
+      "status": "inherit",
+      "type": "attachment",
+      "link": "https://auburndalefl.com/acc-monthly-calendar-may2026/",
+      "title": {
+        "rendered": "ACC Monthly Calendar &#8211; may2026"
+      },
+      "author": 30,
+      "featured_media": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "meta": {
+        "cybocfi_hide_featured_image": ""
+      },
+      "class_list": [
+        "post-30227",
+        "attachment",
+        "type-attachment",
+        "status-inherit",
+        "hentry"
+      ],
+      "description": {
+        "rendered": "<p class=\"attachment\"><a href='https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026.pdf'><img loading=\"lazy\" decoding=\"async\" width=\"232\" height=\"300\" src=\"https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026-pdf-232x300.jpg\" class=\"attachment-medium size-medium\" alt=\"\" /></a></p>\n"
+      },
+      "caption": {
+        "rendered": ""
+      },
+      "alt_text": "",
+      "media_type": "file",
+      "mime_type": "application/pdf",
+      "media_details": {
+        "sizes": {
+          "full": {
+            "file": "ACC-Monthly-Calendar-may2026-pdf.jpg",
+            "width": 1088,
+            "height": 1408,
+            "mime_type": "application/pdf",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026-pdf.jpg"
+          },
+          "medium": {
+            "file": "ACC-Monthly-Calendar-may2026-pdf-232x300.jpg",
+            "width": 232,
+            "height": 300,
+            "filesize": 107074,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026-pdf-232x300.jpg"
+          },
+          "large": {
+            "file": "ACC-Monthly-Calendar-may2026-pdf-796x1030.jpg",
+            "width": 796,
+            "height": 1030,
+            "filesize": 717810,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026-pdf-796x1030.jpg"
+          },
+          "thumbnail": {
+            "file": "ACC-Monthly-Calendar-may2026-pdf-62x80.jpg",
+            "width": 62,
+            "height": 80,
+            "filesize": 15775,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026-pdf-62x80.jpg"
+          }
+        },
+        "filesize": 610151
+      },
+      "post": null,
+      "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/ACC-Monthly-Calendar-may2026.pdf",
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media/30227",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/attachment"
+          }
+        ],
+        "author": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=30227"
+          }
+        ]
+      }
+    },
+    {
+      "id": 30221,
+      "date": "2026-04-16T14:02:06",
+      "date_gmt": "2026-04-16T18:02:06",
+      "guid": {
+        "rendered": "https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026.pdf"
+      },
+      "modified": "2026-04-16T14:02:06",
+      "modified_gmt": "2026-04-16T18:02:06",
+      "slug": "city-of-auburndale-city-commission-meeting-agenda-4-20-2026",
+      "status": "inherit",
+      "type": "attachment",
+      "link": "https://auburndalefl.com/city-of-auburndale-city-commission-meeting-agenda-4-20-2026/",
+      "title": {
+        "rendered": "City of Auburndale City Commission Meeting Agenda 4-20-2026"
+      },
+      "author": 30,
+      "featured_media": 0,
+      "comment_status": "closed",
+      "ping_status": "closed",
+      "template": "",
+      "meta": {
+        "cybocfi_hide_featured_image": ""
+      },
+      "class_list": [
+        "post-30221",
+        "attachment",
+        "type-attachment",
+        "status-inherit",
+        "hentry"
+      ],
+      "description": {
+        "rendered": "<p class=\"attachment\"><a href='https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026.pdf'><img loading=\"lazy\" decoding=\"async\" width=\"232\" height=\"300\" src=\"https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-232x300.jpg\" class=\"attachment-medium size-medium\" alt=\"\" /></a></p>\n"
+      },
+      "caption": {
+        "rendered": ""
+      },
+      "alt_text": "",
+      "media_type": "file",
+      "mime_type": "application/pdf",
+      "media_details": {
+        "sizes": {
+          "full": {
+            "file": "City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf.jpg",
+            "width": 1088,
+            "height": 1408,
+            "mime_type": "application/pdf",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf.jpg"
+          },
+          "medium": {
+            "file": "City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-232x300.jpg",
+            "width": 232,
+            "height": 300,
+            "filesize": 35682,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-232x300.jpg"
+          },
+          "large": {
+            "file": "City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-796x1030.jpg",
+            "width": 796,
+            "height": 1030,
+            "filesize": 283658,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-796x1030.jpg"
+          },
+          "thumbnail": {
+            "file": "City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-62x80.jpg",
+            "width": 62,
+            "height": 80,
+            "filesize": 7138,
+            "mime_type": "image/jpeg",
+            "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026-pdf-62x80.jpg"
+          }
+        },
+        "filesize": 920237
+      },
+      "post": null,
+      "source_url": "https://auburndalefl.com/wp-content/uploads/2026/04/City-of-Auburndale-City-Commission-Meeting-Agenda-4-20-2026.pdf",
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media/30221",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/media"
+          }
+        ],
+        "about": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/types/attachment"
+          }
+        ],
+        "author": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30"
+          }
+        ],
+        "replies": [
+          {
+            "embeddable": true,
+            "href": "https://auburndalefl.com/wp-json/wp/v2/comments?post=30221"
+          }
+        ]
+      }
+    }
+  ]
+}

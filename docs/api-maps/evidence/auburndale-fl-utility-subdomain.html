@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"><HTML lang="EN">
+<head>
+<title>City Of Auburndale, Florida - Utilities Inquiries & Online Bill Pay</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-Control" content="No-Cache">
+<meta http-equiv="Pragma"        content="No-Cache">
+<meta http-equiv="Expires"       content="Wed, 26 Feb 1997 08:21:57 GMT">
+<meta name="author" content="Mark Newnham (kmn@adginc.net)">
+<meta name="copyright" content="(c)2016 American Data Group">
+
+<link rel='stylesheet' href='/adg-custom-site/ubs/1/style.css' type='text/css'>
+<link rel='stylesheet' href='/adg-custom-site/ubs/1/initial.css' type='text/css'>
+<script type='text/javascript' src='//code.jquery.com/jquery-1.12.3.min.js'></script>
+
+<link   rel='stylesheet' href='//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' type='text/css'>
+<script type='text/javascript' src="//code.jquery.com/ui/1.11.4/jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw=" crossorigin="anonymous"></script>
+
+<link   rel='stylesheet' href='//code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css' type='text/css'>
+
+<script type='text/javascript' src='/adg/supporting/jquery/inputmask-3.3.0/jquery.inputmask.bundle.min.js'></script>
+<link  class='msgbox-style' rel='stylesheet' href='/adg/supporting/jquery/msgbox/jquery-msgbox.css' type='text/css'>
+<script type='text/javascript' src='/adg/supporting/jquery/msgbox/jquery.msgbox.js'></script>
+<script type='text/javascript' src='/adg/supporting/jquery/flexslider-2.6.1/jquery.flexslider-min.js'></script>
+<link rel='stylesheet' href='/adg/supporting/jquery/flexslider-2.6.1/flexslider.css'></link>
+
+<!-- after we have loaded the jquery libraries -->
+<script type='text/javascript' src='/adg/supporting/jscript/autoload/ubs/citizenlink/desktop/initial.js'></script>
+<script type='text/javascript' src='/adg/supporting/jscript/autoload/base64Methods.js'></script>
+<script type='text/javascript' src='/adg/supporting/jscript/ajax.js'></script>
+</head>
+<body id="BODY">
+
+<div style='width:100%;text-align:center;padding:0px;'>
+
+<div id=container>
+<div id='headerContainer'>
+<div id='headerLogo'><img src='/adg-custom-site/ubs/1/auburndale-new-seal.jpg'></div>
+<div id='headerTextOuter'>
+<div id='headerText' style='float:right;'>City Of Auburndale</div>
+<div id='headerSubText' style='float:right;'>Utilities Inquiry & Online Bill Pay</div>
+</div>
+</div>
+
+
+<input type='hidden' id='ajax-receiver'>
+
+<div id='login-screen-container'>
+<div id='top-horizontal'></div>
+<div id='left-vertical'></div>
+<div id='center-block'>
+
+
+<p>To login and view your account or to pay your bill, you will need to use your account number. Your account number can be found on your water bill.
+<p>
+If you have never logged in before or have forgotten your password, you will need to click on "Reset Password":
+<div id='login-inputs'>
+
+<form name='login-form' id='login-form' method=POST AUTOCOMPLETE='off'>
+<input type=hidden id=a_org name=a_org value=1>
+<table>
+<tr>
+<td class='label'><ABBR title='The account number that appeared on your last utility bill'>Account Number:</ABBR></td>
+<td class='data'>
+<input type=text name=a_no id=a_no size=12 value=''  AUTOCOMPLETE=off></td>
+</tr>
+
+<tr>
+<td class='label'><ABBR title='Your Account Password'>Password:</ABBR></td>
+<td class='data'><input type='password' name='a_pass' id='a_pass' size=12  AUTOCOMPLETE=off></td>
+</tr>
+</table>
+</form>
+
+<div class='login-buttons'>
+<button id='login'>Login</button>
+</div>
+<div class='login-buttons'>
+<button id='lost-password'>Reset Password</button>
+</div>
+<!-- the standard lost password add-in -->
+<form id='lost_password_form' action='recoverpass.php' method=POST>
+<input type=hidden id=a_org name=a_org value=1>
+<input type=hidden id='mu-redirect' name='mu-redirect'>
+
+</form>
+</div>
+</div>
+<div id='right-vertical'></div>
+<div id='bottom-horizontal'></div>
+</div>
+</div>
+</div>
+</body></html>

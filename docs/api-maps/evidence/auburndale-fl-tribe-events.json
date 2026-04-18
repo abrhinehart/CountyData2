@@ -1,0 +1,670 @@
+{
+  "events": [
+    {
+      "id": 23367,
+      "global_id": "auburndalefl.com?id=23367",
+      "global_id_lineage": [
+        "auburndalefl.com?id=23367"
+      ],
+      "author": "27",
+      "status": "publish",
+      "date": "2023-02-20 16:13:41",
+      "date_utc": "2023-02-20 21:13:41",
+      "modified": "2026-03-19 15:12:36",
+      "modified_utc": "2026-03-19 19:12:36",
+      "url": "https://auburndalefl.com/event/spring-tea-rsvp-required/",
+      "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/23367",
+      "title": "Spring Tea (CAPACITY REACHED)",
+      "description": "[truncated]",
+      "excerpt": "",
+      "slug": "spring-tea-rsvp-required",
+      "image": {
+        "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea.png",
+        "id": 30053,
+        "extension": "png",
+        "width": 1080,
+        "height": 1080,
+        "filesize": 1828033,
+        "sizes": {
+          "medium": {
+            "width": 300,
+            "height": 300,
+            "mime-type": "image/png",
+            "filesize": 128596,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-300x300.png"
+          },
+          "large": {
+            "width": 1030,
+            "height": 1030,
+            "mime-type": "image/png",
+            "filesize": 1027661,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-1030x1030.png"
+          },
+          "thumbnail": {
+            "width": 80,
+            "height": 80,
+            "mime-type": "image/png",
+            "filesize": 12446,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-80x80.png"
+          },
+          "medium_large": {
+            "width": 768,
+            "height": 768,
+            "mime-type": "image/png",
+            "filesize": 627856,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-768x768.png"
+          },
+          "widget": {
+            "width": 36,
+            "height": 36,
+            "mime-type": "image/png",
+            "filesize": 3044,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-36x36.png"
+          },
+          "square": {
+            "width": 180,
+            "height": 180,
+            "mime-type": "image/png",
+            "filesize": 53193,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-180x180.png"
+          },
+          "featured": {
+            "width": 1080,
+            "height": 430,
+            "mime-type": "image/png",
+            "filesize": 381799,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-1080x430.png"
+          },
+          "featured_large": {
+            "width": 1080,
+            "height": 630,
+            "mime-type": "image/png",
+            "filesize": 605464,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-1080x630.png"
+          },
+          "portfolio": {
+            "width": 495,
+            "height": 400,
+            "mime-type": "image/png",
+            "filesize": 242042,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-495x400.png"
+          },
+          "portfolio_small": {
+            "width": 260,
+            "height": 185,
+            "mime-type": "image/png",
+            "filesize": 71633,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-260x185.png"
+          },
+          "gallery": {
+            "width": 845,
+            "height": 684,
+            "mime-type": "image/png",
+            "filesize": 584965,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-845x684.png"
+          },
+          "magazine": {
+            "width": 710,
+            "height": 375,
+            "mime-type": "image/png",
+            "filesize": 258822,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-710x375.png"
+          },
+          "masonry": {
+            "width": 705,
+            "height": 705,
+            "mime-type": "image/png",
+            "filesize": 543132,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-705x705.png"
+          },
+          "entry_with_sidebar": {
+            "width": 845,
+            "height": 321,
+            "mime-type": "image/png",
+            "filesize": 232531,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-845x321.png"
+          },
+          "entry_without_sidebar": {
+            "width": 1080,
+            "height": 423,
+            "mime-type": "image/png",
+            "filesize": 374530,
+            "url": "https://auburndalefl.com/wp-content/uploads/2023/02/Spring-Tea-1080x423.png"
+          }
+        }
+      },
+      "all_day": false,
+      "start_date": "2026-04-18 13:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "13",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-04-18 15:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "15",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-04-18 17:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "17",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-04-18 19:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "18",
+        "hour": "19",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "Free",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": [
+          "0"
+        ]
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "City Events",
+          "slug": "city-events",
+          "term_group": 0,
+          "term_taxonomy_id": 35,
+          "taxonomy": "tribe_events_cat",
+          "description": "Events by the Parks &amp; Recreation Department and City Hall",
+          "parent": 0,
+          "count": 28,
+          "filter": "raw",
+          "id": 35,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/35",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 9596,
+        "author": "27",
+        "status": "publish",
+        "date": "2018-12-21 16:31:32",
+        "date_utc": "2018-12-21 21:31:32",
+        "modified": "2020-02-26 14:08:47",
+        "modified_utc": "2020-02-26 19:08:47",
+        "url": "https://auburndalefl.com/venue/baynard-house/",
+        "venue": "Baynard House",
+        "slug": "baynard-house",
+        "address": "208 W Lake Ave",
+        "city": "Auburndale",
+        "country": "United States",
+        "state": "FL",
+        "zip": "33823",
+        "phone": "863-965-5545",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "auburndalefl.com?id=9596",
+        "global_id_lineage": [
+          "auburndalefl.com?id=9596"
+        ]
+      },
+      "organizer": [
+        {
+          "id": 11784,
+          "author": "27",
+          "status": "publish",
+          "date": "2019-06-05 14:17:23",
+          "date_utc": "2019-06-05 18:17:23",
+          "modified": "2022-03-11 10:30:44",
+          "modified_utc": "2022-03-11 15:30:44",
+          "url": "https://auburndalefl.com/organizer/parks-recreation/",
+          "organizer": "Parks &#038; Recreation",
+          "description": "<p>Main Office</p>",
+          "slug": "parks-recreation",
+          "phone": "863-965-5545",
+          "website": "https://auburndalefl.com/parks-recreation/",
+          "global_id": "auburndalefl.com?id=11784",
+          "global_id_lineage": [
+            "auburndalefl.com?id=11784"
+          ]
+        }
+      ],
+      "custom_fields": []
+    },
+    {
+      "id": 10814,
+      "global_id": "auburndalefl.com?id=10814",
+      "global_id_lineage": [
+        "auburndalefl.com?id=10814"
+      ],
+      "author": "27",
+      "status": "publish",
+      "date": "2019-03-27 12:03:34",
+      "date_utc": "2019-03-27 16:03:34",
+      "modified": "2026-03-19 15:13:07",
+      "modified_utc": "2026-03-19 19:13:07",
+      "url": "https://auburndalefl.com/event/commission-meeting/",
+      "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/10814",
+      "title": "City Commission Meeting",
+      "description": "[truncated]",
+      "excerpt": "",
+      "slug": "commission-meeting",
+      "image": {
+        "url": "https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22.png",
+        "id": 21680,
+        "extension": "png",
+        "width": 308,
+        "height": 312,
+        "filesize": 76825,
+        "sizes": {
+          "medium": {
+            "width": 296,
+            "height": 300,
+            "mime-type": "image/png",
+            "filesize": 91043,
+            "url": "https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22-296x300.png"
+          },
+          "thumbnail": {
+            "width": 80,
+            "height": 80,
+            "mime-type": "image/png",
+            "filesize": 13327,
+            "url": "https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22-80x80.png"
+          },
+          "widget": {
+            "width": 36,
+            "height": 36,
+            "mime-type": "image/png",
+            "filesize": 3542,
+            "url": "https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22-36x36.png"
+          },
+          "square": {
+            "width": 180,
+            "height": 180,
+            "mime-type": "image/png",
+            "filesize": 46597,
+            "url": "https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22-180x180.png"
+          },
+          "portfolio_small": {
+            "width": 260,
+            "height": 185,
+            "mime-type": "image/png",
+            "filesize": 59102,
+            "url": "https://auburndalefl.com/wp-content/uploads/2022/08/City-Seal-Website-7-22-260x185.png"
+          }
+        }
+      },
+      "all_day": false,
+      "start_date": "2026-04-20 19:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "20",
+        "hour": "19",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-04-20 21:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "20",
+        "hour": "21",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-04-20 23:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "20",
+        "hour": "23",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-04-21 01:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "04",
+        "day": "21",
+        "hour": "01",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD\t\t\t\t\t\t\tclass=\t\t\t\t\t\t\tclass=\t\t\t\t\t\t\tclass=",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": false,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Public Meetings",
+          "slug": "public-meetings",
+          "term_group": 0,
+          "term_taxonomy_id": 36,
+          "taxonomy": "tribe_events_cat",
+          "description": "City Commission meetings, Planning Commission meetings, CRA meetings, public hearings, etc.",
+          "parent": 0,
+          "count": 3,
+          "filter": "raw",
+          "id": 36,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/36",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 10869,
+        "author": "27",
+        "status": "publish",
+        "date": "2019-03-29 14:25:09",
+        "date_utc": "2019-03-29 18:25:09",
+        "modified": "2020-02-26 14:08:27",
+        "modified_utc": "2020-02-26 19:08:27",
+        "url": "https://auburndalefl.com/venue/auburndale-city-hall/",
+        "venue": "Auburndale City Hall",
+        "slug": "auburndale-city-hall",
+        "address": "1 Bobby Green Plaza, Auburndale, FL 33823",
+        "city": "Auburndale",
+        "country": "United States",
+        "state": "FL",
+        "zip": "33823",
+        "phone": "863-965-5530",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "auburndalefl.com?id=10869",
+        "global_id_lineage": [
+          "auburndalefl.com?id=10869"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 26371,
+      "global_id": "auburndalefl.com?id=26371",
+      "global_id_lineage": [
+        "auburndalefl.com?id=26371"
+      ],
+      "author": "30",
+      "status": "publish",
+      "date": "2024-03-04 08:51:45",
+      "date_utc": "2024-03-04 13:51:45",
+      "modified": "2026-04-01 09:46:46",
+      "modified_utc": "2026-04-01 13:46:46",
+      "url": "https://auburndalefl.com/event/mother-son-dance/",
+      "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/26371",
+      "title": "Mother-Son Dance",
+      "description": "[truncated]",
+      "excerpt": "",
+      "slug": "mother-son-dance",
+      "image": {
+        "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent.png",
+        "id": 26005,
+        "extension": "png",
+        "width": 6250,
+        "height": 6319,
+        "filesize": 2018856,
+        "sizes": {
+          "medium": {
+            "width": 297,
+            "height": 300,
+            "mime-type": "image/png",
+            "filesize": 76958,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-297x300.png"
+          },
+          "large": {
+            "width": 1019,
+            "height": 1030,
+            "mime-type": "image/png",
+            "filesize": 317218,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-1019x1030.png"
+          },
+          "thumbnail": {
+            "width": 80,
+            "height": 80,
+            "mime-type": "image/png",
+            "filesize": 12136,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-80x80.png"
+          },
+          "medium_large": {
+            "width": 768,
+            "height": 776,
+            "mime-type": "image/png",
+            "filesize": 231317,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-768x776.png"
+          },
+          "1536x1536": {
+            "width": 1519,
+            "height": 1536,
+            "mime-type": "image/png",
+            "filesize": 500385,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-1519x1536.png"
+          },
+          "2048x2048": {
+            "width": 2026,
+            "height": 2048,
+            "mime-type": "image/png",
+            "filesize": 694216,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-2026x2048.png"
+          },
+          "widget": {
+            "width": 36,
+            "height": 36,
+            "mime-type": "image/png",
+            "filesize": 3311,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-36x36.png"
+          },
+          "square": {
+            "width": 180,
+            "height": 180,
+            "mime-type": "image/png",
+            "filesize": 40821,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-180x180.png"
+          },
+          "featured": {
+            "width": 1500,
+            "height": 430,
+            "mime-type": "image/png",
+            "filesize": 144031,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-1500x430.png"
+          },
+          "featured_large": {
+            "width": 1500,
+            "height": 630,
+            "mime-type": "image/png",
+            "filesize": 222547,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-1500x630.png"
+          },
+          "extra_large": {
+            "width": 1484,
+            "height": 1500,
+            "mime-type": "image/png",
+            "filesize": 487474,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-1484x1500.png"
+          },
+          "portfolio": {
+            "width": 495,
+            "height": 400,
+            "mime-type": "image/png",
+            "filesize": 124689,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-495x400.png"
+          },
+          "portfolio_small": {
+            "width": 260,
+            "height": 185,
+            "mime-type": "image/png",
+            "filesize": 50817,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-260x185.png"
+          },
+          "gallery": {
+            "width": 845,
+            "height": 684,
+            "mime-type": "image/png",
+            "filesize": 228688,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-845x684.png"
+          },
+          "magazine": {
+            "width": 710,
+            "height": 375,
+            "mime-type": "image/png",
+            "filesize": 123643,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-710x375.png"
+          },
+          "masonry": {
+            "width": 697,
+            "height": 705,
+            "mime-type": "image/png",
+            "filesize": 207537,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-697x705.png"
+          },
+          "entry_with_sidebar": {
+            "width": 845,
+            "height": 321,
+            "mime-type": "image/png",
+            "filesize": 103910,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-845x321.png"
+          },
+          "entry_without_sidebar": {
+            "width": 1210,
+            "height": 423,
+            "mime-type": "image/png",
+            "filesize": 139858,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/City-of-Auburndale-Seal-2022-Multicolor-Transparent-1210x423.png"
+          }
+        }
+      },
+      "all_day": false,
+      "start_date": "2026-05-02 18:00:00",
+      "start_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "02",
+        "hour": "18",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2026-05-02 20:00:00",
+      "end_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "02",
+        "hour": "20",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2026-05-02 22:00:00",
+      "utc_start_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "02",
+        "hour": "22",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2026-05-03 00:00:00",
+      "utc_end_date_details": {
+        "year": "2026",
+        "month": "05",
+        "day": "03",
+        "hour": "00",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EDT",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "City Events",
+          "slug": "city-events",
+          "term_group": 0,
+          "term_taxonomy_id": 35,
+          "taxonomy": "tribe_events_cat",
+          "description": "Events by the Parks &amp; Recreation Department and City Hall",
+          "parent": 0,
+          "count": 28,
+          "filter": "raw",
+          "id": 35,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/35",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        },
+        {
+          "name": "Community Events",
+          "slug": "community-events",
+          "term_group": 0,
+          "term_taxonomy_id": 48,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 21,
+          "filter": "raw",
+          "id": 48,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/48",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": [],
+      "organizer": [],
+      "custom_fields": []
+    }
+  ],
+  "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/?page=1&per_page=5&start_date=2026-04-17 00:00:00&end_date=2028-04-18 23:59:59&status=publish",
+  "next_rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/?per_page=5&start_date=2026-04-17+00%3A00%3A00&end_date=2028-04-18+23%3A59%3A59&status=publish&page=2",
+  "total": 8,
+  "total_pages": 2,
+  "_note": "truncated to 3 events; descriptions stripped"
+}

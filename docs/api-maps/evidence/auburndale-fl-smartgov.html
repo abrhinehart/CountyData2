@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="en">
+  <head><meta charset="utf-8" /><meta name="description" content="SmartGov Public Portal by Granicus" /><meta name="author" content="Granicus" /><meta name="robots" content="noindex" /><title>
+	City of Auburndale, FL Public Portal
+</title><link href="/Styles/redmond/jquery-ui-1.9.0.custom.min.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Scripts/bootstrap/css/bootstrap.min.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/font-awesome/css/font-awesome.min.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/toastr.min.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/jquery.Jcrop.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/notifications/main.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/chosen.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/ils-daterangepicker.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/site.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/ils-custom.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/sgc-business.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/payment-vendors.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/landing-page.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/dropzone/dropzonecustom.css?v=2026.06" rel="stylesheet" type="text/css" />
+<link href="/Styles/StandardStyles.css?v=2026.06" rel="stylesheet" type="text/css" />
+
+<link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+<script type='text/javascript' src='/Scripts/jquery/jquery.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/jqueryui/jquery-ui.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/jquery.ba-throttle-debounce.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/jquery.tablesorter.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/FormSupport.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/ajaxupload.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/jquery.Jcrop.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/bootstrap/js/bootstrap.bundle.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/toastr.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/portal-scripts.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/ils.infieldlabel.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/ils-daterangepicker.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/notifications/notification.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Dialog.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/PortalAttachmentSupport.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/parcel.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/dropzone/dropzone.min.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/landingPage.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/sgcBusinessLicense.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/ApplicationSearchHelper.js?v=2026.06'></script>
+
+<script type='text/javascript' src='/Scripts/Shared/StringUtil.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/ErrorSupport.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/ListSupport.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/MapSupport.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/AttachmentSupport.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/inputMask/jquery.inputmask.bundle.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/ils-list.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/ils-overlay.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/ils-autocomplete.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/ils-datepicker.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/Controls.js?v=2026.06'></script>
+<script type='text/javascript' src='/Scripts/Shared/StencilSupport.js?v=2026.06'></script>
+
+
+<script>
+  FormSupport.applicationRoot = "";
+  FormSupport._rootImagePath = "~/img/";
+</script>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL }, 'google_translate_element');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const script = document.createElement('script');
+        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+        script.async = true;
+        document.head.appendChild(script);
+    });
+</script>
+
+<script type="text/javascript">
+    FormSupport.applicationRoot = "";
+    document.addEventListener(
+        "btnclick",
+        function (event) { SgSupport.handleBrButtonClick(event) },
+        false
+    );
+    document.addEventListener(
+        "datePickerChanged",
+        function (event) { SgSupport.handleDatePickerChange(event) },
+        false
+    );
+</script>
+
+<!-- Initialize the smartgov stencil components -->
+<script type='module' src='/Scripts/sgcomps/www/build/sgcomps.esm.js?v=2026.06'></script>
+
+<script nomodule='' src='/Scripts/sgcomps/www/build/sgcomps.js?v=2026.06'></script>
+
+
+    <script type="text/javascript" src="/Scripts/Shared/PendoHelper.js"></script>
+    
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+          
+    ga('create', 'UA-41213900-2', 'smartgovcommunity.com');
+    ga('send', 'pageview');
+</script></head>
+    
+  <body class="home-background">    
+     
+  
+        <section id="envSection">
+            <div class="top-environment-container">Validation</div>
+        </section>
+ 
+    
+
+<!-- top bar with logo -->
+<section id="top-bar-section">
+  <div class="top-bar-container">
+    <div class="sgc-container"> 
+          <span>
+            <a href="/Public/Home"><img src="/Public/BannerImage" alt="Permitting Home"></a>
+          </span>
+        
+        <span class="login-nav float-end">
+          
+          <a href="/Register/RegisterUser">Sign Up</a> or <a href="/Public/Account/LogIn">Log In</a>
+              
+        </span>
+    </div> 
+  </div> 
+</section> <!-- /top-bar section -->  
+
+        
+    <div class="top-fold">
+      <!-- top bar with mini-site label and support info -->
+      <section id="top-bar-type-section">
+        <div class="top-bar-type-container">
+          <div class="sgc-container">
+            <div class="st-h-auto">
+              <div class="jur-name-span">
+                <span class="site-type-container">
+                  
+    City of Auburndale, FL
+    
+                </span>
+              </div>
+              <div class="jur-contact-span">
+                <span class="support-container">
+                  
+    
+  
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+          
+      </section> <!-- /top-bar-header section -->
+    
+      <!-- above fold main content -->
+      <div class="sgc-container">
+        
+    
+
+
+
+<script>
+    var NagBar = {
+        countdown: function (emailSentTime) {
+            if (emailSentTime && emailSentTime.length) {
+                try {
+
+                    var now = new Date("4/18/2026 6:13:33 AM");
+                    var sentTime = new Date(emailSentTime);
+                    var emailValidLinkValidOn = new Date(sentTime.getTime() + 30 * 60000);
+                    var minutesLeft = Math.floor(((emailValidLinkValidOn - now) / 1000 / 60) % 60);
+                    if (minutesLeft && minutesLeft > 0) {
+                        $("#timeLeft").html(minutesLeft);
+                        window.setTimeout(function() { NagBar.countdown(emailSentTime) }, (60 * 1000));
+                    } else {
+                        NagBar.enableResendButton();
+                    }
+                } catch (e) {
+                    NagBar.enableResendButton();
+                }
+            } else {
+                NagBar.enableResendButton();
+            }
+        },
+
+        enableResendButton: function () {
+            window.clearTimeout();
+            $("#resend-message").toggle(false);
+            $("#resend-button").toggle(true);
+        },
+
+        clickAndHideResendLink: function(link) {
+            $(link).toggle(false);
+        }
+    }
+
+    FormSupport.ready(function () {
+        
+    });
+</script>
+      
+    <!-- highlighted widgets -->
+    <section id='highlighted-widgets-section'>
+  <div class='highlighted-widgets-container no-nag-bar'>
+     <div id='row1' class='row'>
+<div class='col-lg-4'>
+<div class='widget-highlighted widget-max-length' ><div class='widget-icon-container'><i class='fa fa-user' style='color:#1260CE'></i></div>  <div class='widget-detail-container'>
+    <h4 class='widget-title'>My Portal</h4>
+    <div class='widget-details'>View your applications and inspection results</div>
+  </div>
+  <a href='/ApplicationPublic/ApplicationHome' class='btn sgc-button-primary btn-default' aria-label='Go to My Portal' onclick="event.stopPropagation();">Go</a>
+</div>
+</div>
+<div class='col-lg-4'>
+<div class='widget-highlighted widget-max-length' ><div class='widget-icon-container'><i class='fa fa-comments' style='color:#794875'></i></div>  <div class='widget-detail-container'>
+    <h4 class='widget-title'>Contact Us</h4>
+    <div class='widget-details'>Request information or report a concern</div>
+  </div>
+  <a href='/CodeEnforcement/CodeEnforcementHome' class='btn sgc-button-default btn-default' aria-label='Go to Contact Us' onclick="event.stopPropagation();">Go</a>
+</div>
+</div>
+<div class='col-lg-4'>
+<div class='widget-highlighted widget-max-length' ><div class='widget-icon-container'><i class='fa fa-bullhorn' style='color:#893C19'></i></div>  <div class='widget-detail-container'>
+    <h4 class='widget-title'>Public Notices</h4>
+    <div class='widget-details'>Find and review public notice announcements</div>
+  </div>
+  <a href='/PublicNotice/PublicNoticeHome' class='btn sgc-button-warning btn-default' aria-label='Go to Public Notices' onclick="event.stopPropagation();">Go</a>
+</div>
+</div>
+     </div>
+  </div>
+  </section>
+<script>$(document).ready(function(){
+                                    WidgetHelper.equalizeHeight(1);
+                               });
+</script>
+    
+    <div class="home-disclaimer-container">
+        <div class="home-disclaimer-content">
+            <div><span style="color:rgb(255, 0, 0); font-size:20px">Step by Step process for using the Online portal can be find in below URL.</span></div>
+
+<p><a href="https://help.dudesolutions.com/Content/SmartGov/CitizenPortal/Citizen-Portal.htm?tocpath=Government%7CCommunity%20Development%7CSmartGov%7CUsing%20the%20Citizen%20Portal%7C_____0">https://help.dudesolutions.com/Content/SmartGov/CitizenPortal/Citizen-Portal.htm?tocpath=Government%7CCommunity%20Development%7CSmartGov%7CUsing%20the%20Citizen%20Portal%7C_____0</a></p>
+
+<div><strong><span style="font-size:14px">Important Notice Regarding Anonymous Complaints</span></strong></div>
+
+<div><span style="font-size:14px">Effective July 1, 2021, Sec. 162.06(1)(B), Florida Statutes, Has Been Amended To Require That &quot;A Person Who Reports A Potential Violation Of A Code Or An Ordinance Must Provide His Or Her Name And Address To The Respective Local Government Before An Enforcement Proceeding May Occur.&quot;&nbsp; It Further Prohibits A Code Enforcement Officer From Initiating Enforcement Proceedings By Way Of An Anonymous Complaint.&nbsp; As A Result Of This Change To State Law, Complaints Of Potential Code Violations, Whether By Phone, Email Or Through The Citizens Action Center, Must Include The Complainant&#39;s Name And Address.</span></div>
+        </div>
+    </div>
+  
+      </div> <!-- /sgc-container -->
+    </div> <!-- /top-fold -->
+
+    <!-- other services widgets -->
+    <section id="other-services-section">
+      <div class="other-services-container">
+        <div class="sgc-container">          
+          <div class="row">
+            <div class="span6">
+              <h2 tabindex="0">Other services</h2>
+            </div>
+          </div>          
+          
+    <div class="row">
+        <div class="offset-lg-4 col-lg-2">
+            
+
+<div class="service-block">
+  <a href="/Public/ReportsView">
+    <span class="btn btn-primary btn-service">
+      <i class="sprite-pie-chart-white"></i>
+    </span>
+    <div>Reports</div>
+  </a>
+</div>
+
+        </div>
+        <div class="col-lg-2">
+            
+
+<div class="service-block">
+  <a href="/Public/DocumentsView">
+    <span class="btn btn-primary btn-service">
+      <i class="sprite-file-white"></i>
+    </span>
+    <div>Documents</div>
+  </a>
+</div> 
+
+        </div>
+    </div>
+  
+        </div> <!-- /sgc-container -->
+      </div> <!-- /-services-container -->
+    </section>
+    
+    
+
+<footer>
+  <div class="footer-container">
+    <div class="container">
+      <div class="row">
+        <div class="offset-lg-3 col-lg-2">
+          <a href="" target="_blank">City of Auburndale, FL</a>
+        </div>
+        <div class="col-lg-2">
+           <a href="/Public/PrivacyPolicy">Privacy Policy</a>
+        </div>
+        <div class="col-lg-2">
+          <a href="/Public/RefundPolicy">Refund Policy</a>
+        </div>
+      </div> <!-- /row -->
+         
+      
+
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="powered-by-container">
+              Powered by SmartGov, &copy; 2011 - 2026 <a target="_blank"  href="https://granicus.com/">Granicus</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    <script type="text/javascript">
+        FormSupport.ready(function () {
+            // Dynamic padding to prevent footer overlap.
+            var mainContainer = $("div.main-content-container");
+            var footerHeight = $("div.footer-container").outerHeight();
+            var isSiteMode = $("body").hasClass("site-mode");
+
+            if (isSiteMode && mainContainer.outerHeight() && footerHeight) {
+                mainContainer.css("padding-bottom", `${footerHeight + 70}px`);
+            }
+        });
+    </script>
+</footer>
+                              
+    
+      <script type="text/javascript"> 
+        // if we are using pendo, initialize it
+        $(document).ready
+        (
+            function () {
+                
+            }
+        );
+      </script>
+  </body>
+</html>

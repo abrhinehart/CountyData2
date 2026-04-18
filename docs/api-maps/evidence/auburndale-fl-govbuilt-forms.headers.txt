@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 06:10:28 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Cache-Control: no-cache, no-store
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=MvMacB1dF%2BgalzlYrMVuzogSm%2BidGr6jyx6p53EBfy3%2Fy%2Fgs87QSDqCPQUIcFpWxf1e4Bc6%2FokRgUsDQ65z01JxWY7vDxdDO67sYdbsXbeetVmTl7mr7BsH891IrHL8Q0In%2Ff%2BxVPOvnnxk%3D"}]}
+pragma: no-cache
+Set-Cookie: __orchantiforgery_4gbvne27ztzwz5vyradr8rzx46=CfDJ8PsU_lDnMvlPjRHp2onY910koJOHJqa91kWUFAQ3fOUHh2XoMNEwkH05K6KwFYZOJJkGVGw5J_UydAxHnjV2s9ehhi_ZgxF-XijevFVQNsH2KbUTnEds4Q106WvFALt38c7Z6qRCSQNjsQL86EgpjJ0; path=/; secure; samesite=strict; httponly
+Set-Cookie: ARRAffinity=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;Secure;Domain=auburndalefl.govbuilt.com
+Set-Cookie: ARRAffinitySameSite=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;SameSite=None;Secure;Domain=auburndalefl.govbuilt.com
+vary: Accept-Encoding
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+request-context: appId=cid-v1:e7dce90d-3764-43cb-bd0b-fe7f4f798daa
+content-security-policy: frame-ancestors 'self'
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-site
+cross-origin-embedder-policy: unsafe-none
+x-frame-options: SAMEORIGIN
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: 9ee181ad1ba4dcf4-MIA
+

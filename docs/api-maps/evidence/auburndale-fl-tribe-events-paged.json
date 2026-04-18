@@ -1,0 +1,567 @@
+{
+  "events": [
+    {
+      "id": 27034,
+      "global_id": "auburndalefl.com?id=27034",
+      "global_id_lineage": [
+        "auburndalefl.com?id=27034"
+      ],
+      "author": "30",
+      "status": "publish",
+      "date": "2024-08-07 10:48:25",
+      "date_utc": "2024-08-07 14:48:25",
+      "modified": "2025-01-02 15:08:30",
+      "modified_utc": "2025-01-02 20:08:30",
+      "url": "https://auburndalefl.com/event/comp-plan-public-workshop/",
+      "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/27034",
+      "title": "Comp. Plan Public Workshop #2",
+      "description": "[truncated]",
+      "excerpt": "",
+      "slug": "comp-plan-public-workshop",
+      "image": false,
+      "all_day": false,
+      "start_date": "2025-01-14 18:00:00",
+      "start_date_details": {
+        "year": "2025",
+        "month": "01",
+        "day": "14",
+        "hour": "18",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2025-01-14 20:00:00",
+      "end_date_details": {
+        "year": "2025",
+        "month": "01",
+        "day": "14",
+        "hour": "20",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2025-01-14 23:00:00",
+      "utc_start_date_details": {
+        "year": "2025",
+        "month": "01",
+        "day": "14",
+        "hour": "23",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2025-01-15 01:00:00",
+      "utc_end_date_details": {
+        "year": "2025",
+        "month": "01",
+        "day": "15",
+        "hour": "01",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD\t\t\t\t\t\t\tclass=\t\t\t\t\t\t\tclass=",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Community Events",
+          "slug": "community-events",
+          "term_group": 0,
+          "term_taxonomy_id": 48,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 21,
+          "filter": "raw",
+          "id": 48,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/48",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 27035,
+        "author": "30",
+        "status": "publish",
+        "date": "2024-08-07 10:46:24",
+        "date_utc": "2024-08-07 14:46:24",
+        "modified": "2024-08-12 16:22:19",
+        "modified_utc": "2024-08-12 20:22:19",
+        "url": "https://auburndalefl.com/venue/auburndale-senior-center/",
+        "venue": "Auburndale Senior Center",
+        "slug": "auburndale-senior-center",
+        "address": "109 West Park Street",
+        "city": "Auburndale",
+        "country": "United States",
+        "state": "FL",
+        "zip": "33823",
+        "stateprovince": "FL",
+        "show_map": false,
+        "show_map_link": false,
+        "global_id": "auburndalefl.com?id=27035",
+        "global_id_lineage": [
+          "auburndalefl.com?id=27035"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 28064,
+      "global_id": "auburndalefl.com?id=28064",
+      "global_id_lineage": [
+        "auburndalefl.com?id=28064"
+      ],
+      "author": "30",
+      "status": "publish",
+      "date": "2025-02-10 11:14:43",
+      "date_utc": "2025-02-10 16:14:43",
+      "modified": "2025-02-10 11:14:43",
+      "modified_utc": "2025-02-10 16:14:43",
+      "url": "https://auburndalefl.com/event/mls-preseason-friendly-tampa-bay-rowdies-vs-montreal-impact/",
+      "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/28064",
+      "title": "MLS Preseason Friendly: Tampa Bay Rowdies vs. Montreal Impact",
+      "description": "[truncated]",
+      "excerpt": "",
+      "slug": "mls-preseason-friendly-tampa-bay-rowdies-vs-montreal-impact",
+      "image": {
+        "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park.png",
+        "id": 26009,
+        "extension": "png",
+        "width": 1504,
+        "height": 1200,
+        "filesize": 198006,
+        "sizes": {
+          "medium": {
+            "width": 300,
+            "height": 239,
+            "mime-type": "image/png",
+            "filesize": 62288,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-300x239.png"
+          },
+          "large": {
+            "width": 1030,
+            "height": 822,
+            "mime-type": "image/png",
+            "filesize": 280617,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-1030x822.png"
+          },
+          "thumbnail": {
+            "width": 80,
+            "height": 64,
+            "mime-type": "image/png",
+            "filesize": 9681,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-80x64.png"
+          },
+          "medium_large": {
+            "width": 768,
+            "height": 613,
+            "mime-type": "image/png",
+            "filesize": 198139,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-768x613.png"
+          },
+          "widget": {
+            "width": 36,
+            "height": 36,
+            "mime-type": "image/png",
+            "filesize": 3580,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-36x36.png"
+          },
+          "square": {
+            "width": 180,
+            "height": 180,
+            "mime-type": "image/png",
+            "filesize": 40910,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-180x180.png"
+          },
+          "featured": {
+            "width": 1500,
+            "height": 430,
+            "mime-type": "image/png",
+            "filesize": 199946,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-1500x430.png"
+          },
+          "featured_large": {
+            "width": 1500,
+            "height": 630,
+            "mime-type": "image/png",
+            "filesize": 268828,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-1500x630.png"
+          },
+          "extra_large": {
+            "width": 1500,
+            "height": 1197,
+            "mime-type": "image/png",
+            "filesize": 399940,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-1500x1197.png"
+          },
+          "portfolio": {
+            "width": 495,
+            "height": 400,
+            "mime-type": "image/png",
+            "filesize": 115124,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-495x400.png"
+          },
+          "portfolio_small": {
+            "width": 260,
+            "height": 185,
+            "mime-type": "image/png",
+            "filesize": 49894,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-260x185.png"
+          },
+          "gallery": {
+            "width": 845,
+            "height": 684,
+            "mime-type": "image/png",
+            "filesize": 226405,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-845x684.png"
+          },
+          "magazine": {
+            "width": 710,
+            "height": 375,
+            "mime-type": "image/png",
+            "filesize": 145221,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-710x375.png"
+          },
+          "masonry": {
+            "width": 705,
+            "height": 563,
+            "mime-type": "image/png",
+            "filesize": 180549,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-705x563.png"
+          },
+          "entry_with_sidebar": {
+            "width": 845,
+            "height": 321,
+            "mime-type": "image/png",
+            "filesize": 137243,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-845x321.png"
+          },
+          "entry_without_sidebar": {
+            "width": 1210,
+            "height": 423,
+            "mime-type": "image/png",
+            "filesize": 196861,
+            "url": "https://auburndalefl.com/wp-content/uploads/2024/01/Lake-Myrtle-Park-1210x423.png"
+          }
+        }
+      },
+      "all_day": false,
+      "start_date": "2025-02-15 18:00:00",
+      "start_date_details": {
+        "year": "2025",
+        "month": "02",
+        "day": "15",
+        "hour": "18",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2025-02-15 21:00:00",
+      "end_date_details": {
+        "year": "2025",
+        "month": "02",
+        "day": "15",
+        "hour": "21",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_start_date": "2025-02-15 23:00:00",
+      "utc_start_date_details": {
+        "year": "2025",
+        "month": "02",
+        "day": "15",
+        "hour": "23",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2025-02-16 02:00:00",
+      "utc_end_date_details": {
+        "year": "2025",
+        "month": "02",
+        "day": "16",
+        "hour": "02",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": false,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Community Events",
+          "slug": "community-events",
+          "term_group": 0,
+          "term_taxonomy_id": 48,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 21,
+          "filter": "raw",
+          "id": 48,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/48",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        },
+        {
+          "name": "Sports Events",
+          "slug": "sports-events",
+          "term_group": 0,
+          "term_taxonomy_id": 44,
+          "taxonomy": "tribe_events_cat",
+          "description": "Events that are taking place at sport venues in Auburndale",
+          "parent": 0,
+          "count": 30,
+          "filter": "raw",
+          "id": 44,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/44",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": [],
+      "organizer": [],
+      "custom_fields": []
+    },
+    {
+      "id": 23259,
+      "global_id": "auburndalefl.com?id=23259",
+      "global_id_lineage": [
+        "auburndalefl.com?id=23259"
+      ],
+      "author": "27",
+      "status": "publish",
+      "date": "2023-02-08 11:24:46",
+      "date_utc": "2023-02-08 16:24:46",
+      "modified": "2025-02-13 09:57:26",
+      "modified_utc": "2025-02-13 14:57:26",
+      "url": "https://auburndalefl.com/event/russmatt-baseball/",
+      "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/23259",
+      "title": "RussMatt Baseball",
+      "description": "[truncated]",
+      "excerpt": "",
+      "slug": "russmatt-baseball",
+      "image": {
+        "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small.png",
+        "id": 15825,
+        "extension": "png",
+        "width": 752,
+        "height": 600,
+        "sizes": {
+          "medium": {
+            "width": 300,
+            "height": 239,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-300x239.png"
+          },
+          "thumbnail": {
+            "width": 80,
+            "height": 80,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-80x80.png"
+          },
+          "widget": {
+            "width": 36,
+            "height": 36,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-36x36.png"
+          },
+          "square": {
+            "width": 180,
+            "height": 180,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-180x180.png"
+          },
+          "featured": {
+            "width": 752,
+            "height": 430,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-752x430.png"
+          },
+          "portfolio": {
+            "width": 495,
+            "height": 400,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-495x400.png"
+          },
+          "portfolio_small": {
+            "width": 260,
+            "height": 185,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-260x185.png"
+          },
+          "magazine": {
+            "width": 710,
+            "height": 375,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-710x375.png"
+          },
+          "masonry": {
+            "width": 705,
+            "height": 563,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-705x563.png"
+          },
+          "entry_with_sidebar": {
+            "width": 752,
+            "height": 321,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-752x321.png"
+          },
+          "entry_without_sidebar": {
+            "width": 752,
+            "height": 423,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-752x423.png"
+          },
+          "shop_thumbnail": {
+            "width": 120,
+            "height": 120,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-120x120.png"
+          },
+          "shop_catalog": {
+            "width": 450,
+            "height": 450,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-450x450.png"
+          },
+          "shop_single": {
+            "width": 450,
+            "height": 359,
+            "mime-type": "image/png",
+            "url": "https://auburndalefl.com/wp-content/uploads/2020/08/Lake-Myrtle-Park-Small-450x359.png"
+          }
+        }
+      },
+      "all_day": true,
+      "start_date": "2025-03-01 00:00:00",
+      "start_date_details": {
+        "year": "2025",
+        "month": "03",
+        "day": "01",
+        "hour": "00",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "end_date": "2025-03-24 23:59:59",
+      "end_date_details": {
+        "year": "2025",
+        "month": "03",
+        "day": "24",
+        "hour": "23",
+        "minutes": "59",
+        "seconds": "59"
+      },
+      "utc_start_date": "2025-03-01 05:00:00",
+      "utc_start_date_details": {
+        "year": "2025",
+        "month": "03",
+        "day": "01",
+        "hour": "05",
+        "minutes": "00",
+        "seconds": "00"
+      },
+      "utc_end_date": "2025-03-25 03:59:59",
+      "utc_end_date_details": {
+        "year": "2025",
+        "month": "03",
+        "day": "25",
+        "hour": "03",
+        "minutes": "59",
+        "seconds": "59"
+      },
+      "timezone": "America/New_York",
+      "timezone_abbr": "EST",
+      "cost": "",
+      "cost_details": {
+        "currency_symbol": "$",
+        "currency_code": "USD",
+        "currency_position": "prefix",
+        "values": []
+      },
+      "website": "",
+      "show_map": true,
+      "show_map_link": true,
+      "hide_from_listings": false,
+      "sticky": true,
+      "featured": false,
+      "categories": [
+        {
+          "name": "Community Events",
+          "slug": "community-events",
+          "term_group": 0,
+          "term_taxonomy_id": 48,
+          "taxonomy": "tribe_events_cat",
+          "description": "",
+          "parent": 0,
+          "count": 21,
+          "filter": "raw",
+          "id": 48,
+          "urls": {
+            "self": "https://auburndalefl.com/wp-json/tribe/events/v1/categories/48",
+            "collection": "https://auburndalefl.com/wp-json/tribe/events/v1/categories"
+          }
+        }
+      ],
+      "tags": [],
+      "venue": {
+        "id": 11410,
+        "author": "27",
+        "status": "publish",
+        "date": "2019-05-06 10:59:32",
+        "date_utc": "2019-05-06 14:59:32",
+        "modified": "2023-09-05 12:29:06",
+        "modified_utc": "2023-09-05 16:29:06",
+        "url": "https://auburndalefl.com/venue/lake-myrtle-sports-complex/",
+        "venue": "Lake Myrtle Sports Park",
+        "slug": "lake-myrtle-sports-complex",
+        "address": "2701 Lake Myrtle Park Road",
+        "city": "Auburndale",
+        "country": "United States",
+        "state": "FL",
+        "zip": "33823",
+        "phone": "863-965-5545",
+        "stateprovince": "FL",
+        "show_map": true,
+        "show_map_link": true,
+        "global_id": "auburndalefl.com?id=11410",
+        "global_id_lineage": [
+          "auburndalefl.com?id=11410"
+        ]
+      },
+      "organizer": [],
+      "custom_fields": []
+    }
+  ],
+  "rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/?page=1&per_page=50&start_date=2025-01-01 00:00:00&end_date=2027-01-01 23:59:59&status=publish",
+  "next_rest_url": "https://auburndalefl.com/wp-json/tribe/events/v1/events/?per_page=50&start_date=2025-01-01+00%3A00%3A00&end_date=2027-01-01+23%3A59%3A59&status=publish&page=2",
+  "total": 53,
+  "total_pages": 2,
+  "_note": "truncated to 3 events; descriptions stripped"
+}

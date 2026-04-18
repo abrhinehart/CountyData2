@@ -1,0 +1,51 @@
+HTTP/1.1 301 Moved Permanently
+Cache-Control: no-transform
+Content-Type: text/html; charset=UTF-8
+Location: https://weblink.auburndalefl.com/weblink/
+Server: Microsoft-IIS/10.0
+X-Frame-Options: SAMEORIGIN
+Date: Sat, 18 Apr 2026 06:10:22 GMT
+Content-Length: 164
+
+HTTP/1.1 302 Found
+Cache-Control: no-transform
+Content-Type: text/html; charset=utf-8
+Location: https://weblink.auburndalefl.com/WebLink/
+Server: Microsoft-IIS/10.0
+X-Frame-Options: SAMEORIGIN
+Date: Sat, 18 Apr 2026 06:10:22 GMT
+Content-Length: 158
+
+HTTP/1.1 302 Found
+Cache-Control: private,no-transform
+Content-Type: text/html; charset=utf-8
+Expires: Sat, 18 Apr 2026 06:10:22 GMT
+Location: /WebLink/CookieCheck.aspx?redirect=%2fWebLink%2fWelcome.aspx
+Server: Microsoft-IIS/10.0
+Set-Cookie: WebLinkSession=ra3wrori2ezvndnbtkcxialv; path=/; secure; HttpOnly; SameSite=Lax
+X-Frame-Options: SAMEORIGIN
+Date: Sat, 18 Apr 2026 06:10:22 GMT
+Content-Length: 177
+
+HTTP/1.1 302 Found
+Cache-Control: private,no-transform
+Content-Type: text/html; charset=utf-8
+Expires: Sat, 18 Apr 2026 06:10:22 GMT
+Location: https://weblink.auburndalefl.com/WebLink/Welcome.aspx?cr=1
+Server: Microsoft-IIS/10.0
+Set-Cookie: WebLinkSession=y51raoxnmldh0mqp0rmwwe0v; path=/; secure; HttpOnly; SameSite=Lax
+Set-Cookie: AcceptsCookies=1; expires=Sun, 19-Apr-2026 06:10:22 GMT; path=/; secure; HttpOnly
+X-Frame-Options: SAMEORIGIN
+Date: Sat, 18 Apr 2026 06:10:22 GMT
+Content-Length: 929
+
+HTTP/1.1 200 OK
+Cache-Control: private,no-transform
+Content-Type: text/html; charset=utf-8
+Expires: Sat, 18 Apr 2026 06:10:22 GMT
+Server: Microsoft-IIS/10.0
+Set-Cookie: WebLinkSession=0milly0ucre4pqin55hu33r3; path=/; secure; HttpOnly; SameSite=Lax
+X-Frame-Options: SAMEORIGIN
+Date: Sat, 18 Apr 2026 06:10:22 GMT
+Content-Length: 1878
+

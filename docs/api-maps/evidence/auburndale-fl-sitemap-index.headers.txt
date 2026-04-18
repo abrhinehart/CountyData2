@@ -1,0 +1,20 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 06:09:09 GMT
+Content-Type: text/xml; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+CF-RAY: 9ee17fc3ad0c7a26-MIA
+vary: Accept-Encoding
+x-gateway-cache-key: 1776458610.362|standard|https|auburndalefl.com|||/sitemap_index.xml
+x-gateway-cache-status: BYPASS
+x-gateway-request-id: c9464914960e51612252056c003ff8a5
+x-gateway-skip-cache: 1
+x-robots-tag: noindex, follow
+Last-Modified: Sat, 18 Apr 2026 01:34:50 GMT
+CF-Cache-Status: HIT
+Expires: Tue, 19 May 2026 06:09:09 GMT
+Cache-Control: public, max-age=2678400
+Set-Cookie: __cf_bm=ojn5b_0P05Stq2FEyOZnAkVBmKW8J42ty.rv6A6oa6A-1776492549-1.0.1.1-xvaKrqdrmeiSEkO9f8Z22.A87kULo0HZGIPlnuRblXT4UW.2EdUNEeNtrBG7m0wdJlR2IQxzah2iVNA3PItGNfJGISsJl.eg8e3FkUEf__M; path=/; expires=Sat, 18-Apr-26 06:39:09 GMT; domain=.auburndalefl.com; HttpOnly; Secure; SameSite=None
+Server: cloudflare
+alt-svc: h3=":443"; ma=86400
+

@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 06:09:53 GMT
+Content-Type: text/html; charset=utf-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ESiVnOSyeGaaG5mVD%2B5EVClcO7yWXKWdVWunZ7Y7W6MElY%2FKD8bTn7ZSt1v85aDqC2iEHXLbLxsSPAGRN17ZF6SSrpiiblv5z25oRvoWD%2Fb7T8W8hxlOKPmAXY%2BRv7DvM0j9aYNB701mhVI%3D"}]}
+Set-Cookie: ARRAffinity=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;Secure;Domain=auburndalefl.govbuilt.com
+Set-Cookie: ARRAffinitySameSite=3d682fae5d4efa197ae7130dc55ea43c2084b851c2ed1784f10c0e5b7cdc6215;Path=/;HttpOnly;SameSite=None;Secure;Domain=auburndalefl.govbuilt.com
+vary: Accept-Encoding
+strict-transport-security: max-age=31536000; includeSubDomains; preload
+request-context: appId=cid-v1:e7dce90d-3764-43cb-bd0b-fe7f4f798daa
+content-security-policy: frame-ancestors 'self'
+x-content-type-options: nosniff
+referrer-policy: strict-origin-when-cross-origin
+cross-origin-opener-policy: same-origin
+cross-origin-resource-policy: same-site
+cross-origin-embedder-policy: unsafe-none
+x-frame-options: SAMEORIGIN
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: 9ee180d1af0c31ea-MIA
+

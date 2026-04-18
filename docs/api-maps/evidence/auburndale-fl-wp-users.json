@@ -1,0 +1,264 @@
+{
+  "_note": "avatars stripped",
+  "payload": [
+    {
+      "id": 30,
+      "name": "Josh Starr",
+      "url": "https://auburndalefl.com/",
+      "description": "Communications Manager for the City of Auburndale\r\n--\r\nJust someone who loves their hometown.",
+      "link": "https://auburndalefl.com/author/jstarr/",
+      "slug": "jstarr",
+      "meta": [],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Josh Starr, Author at City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://auburndalefl.com/author/jstarr/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"profile\" />\n<meta property=\"og:title\" content=\"Josh Starr, Author at City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://auburndalefl.com/author/jstarr/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"og:image\" content=\"https://secure.gravatar.com/avatar/95cb0a2e42d5ae430ffe708de0b5c3bfde3ca422485cd0543541499c6e0755b0?s=500&d=mm&r=g\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"ProfilePage\",\"@id\":\"https://auburndalefl.com/author/jstarr/\",\"url\":\"https://auburndalefl.com/author/jstarr/\",\"name\":\"Josh Starr, Author at City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"breadcrumb\":{\"@id\":\"https://auburndalefl.com/author/jstarr/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://auburndalefl.com/author/jstarr/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://auburndalefl.com/author/jstarr/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Archives for Josh Starr\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://www.auburndalefl.com/#/schema/person/89bac6c226b7d5479e7add68dcbca4f8\",\"name\":\"Josh Starr\",\"description\":\"Communications Manager for the City of Auburndale -- Just someone who loves their hometown.\",\"sameAs\":[\"https://auburndalefl.com/\",\"https://www.facebook.com/auburndalegov\"],\"mainEntityOfPage\":{\"@id\":\"https://auburndalefl.com/author/jstarr/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Josh Starr, Author at City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://auburndalefl.com/author/jstarr/",
+        "og_locale": "en_US",
+        "og_type": "profile",
+        "og_title": "Josh Starr, Author at City of Auburndale",
+        "og_url": "https://auburndalefl.com/author/jstarr/",
+        "og_site_name": "City of Auburndale",
+        "og_image": [
+          {
+            "url": "https://secure.gravatar.com/avatar/95cb0a2e42d5ae430ffe708de0b5c3bfde3ca422485cd0543541499c6e0755b0?s=500&d=mm&r=g",
+            "type": "",
+            "width": "",
+            "height": ""
+          }
+        ],
+        "twitter_card": "summary_large_image",
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "ProfilePage",
+              "@id": "https://auburndalefl.com/author/jstarr/",
+              "url": "https://auburndalefl.com/author/jstarr/",
+              "name": "Josh Starr, Author at City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "breadcrumb": {
+                "@id": "https://auburndalefl.com/author/jstarr/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://auburndalefl.com/author/jstarr/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://auburndalefl.com/author/jstarr/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Archives for Josh Starr"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            },
+            {
+              "@type": "Person",
+              "@id": "https://www.auburndalefl.com/#/schema/person/89bac6c226b7d5479e7add68dcbca4f8",
+              "name": "Josh Starr",
+              "description": "Communications Manager for the City of Auburndale -- Just someone who loves their hometown.",
+              "sameAs": [
+                "https://auburndalefl.com/",
+                "https://www.facebook.com/auburndalegov"
+              ],
+              "mainEntityOfPage": {
+                "@id": "https://auburndalefl.com/author/jstarr/"
+              }
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/30",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users"
+          }
+        ]
+      }
+    },
+    {
+      "id": 27,
+      "name": "Seth Teston",
+      "url": "https://auburndalefl.com",
+      "description": "Seth Teston has been the Communications &amp; Information Manager of the City of Auburndale since July of 2018. He is a part of the City Manager's Office, located in Auburndale City Hall.",
+      "link": "https://auburndalefl.com/author/steston/",
+      "slug": "steston",
+      "meta": [],
+      "yoast_head": "<!-- This site is optimized with the Yoast SEO plugin v27.0 - https://yoast.com/product/yoast-seo-wordpress/ -->\n<title>Seth Teston, Author at City of Auburndale</title>\n<meta name=\"robots\" content=\"index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1\" />\n<link rel=\"canonical\" href=\"https://www.auburndalefl.com/author/steston/\" />\n<meta property=\"og:locale\" content=\"en_US\" />\n<meta property=\"og:type\" content=\"profile\" />\n<meta property=\"og:title\" content=\"Seth Teston, Author at City of Auburndale\" />\n<meta property=\"og:url\" content=\"https://www.auburndalefl.com/author/steston/\" />\n<meta property=\"og:site_name\" content=\"City of Auburndale\" />\n<meta property=\"og:image\" content=\"https://secure.gravatar.com/avatar/1668839c6e572455eb7ae5cd2ecc38a7?s=500&d=mm&r=g\" />\n<meta name=\"twitter:card\" content=\"summary_large_image\" />\n<script type=\"application/ld+json\" class=\"yoast-schema-graph\">{\"@context\":\"https://schema.org\",\"@graph\":[{\"@type\":\"ProfilePage\",\"@id\":\"https://www.auburndalefl.com/author/steston/\",\"url\":\"https://www.auburndalefl.com/author/steston/\",\"name\":\"Seth Teston, Author at City of Auburndale\",\"isPartOf\":{\"@id\":\"https://www.auburndalefl.com/#website\"},\"breadcrumb\":{\"@id\":\"https://www.auburndalefl.com/author/steston/#breadcrumb\"},\"inLanguage\":\"en-US\",\"potentialAction\":[{\"@type\":\"ReadAction\",\"target\":[\"https://www.auburndalefl.com/author/steston/\"]}]},{\"@type\":\"BreadcrumbList\",\"@id\":\"https://www.auburndalefl.com/author/steston/#breadcrumb\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://auburndalefl.com/home/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Archives for Seth Teston\"}]},{\"@type\":\"WebSite\",\"@id\":\"https://www.auburndalefl.com/#website\",\"url\":\"https://www.auburndalefl.com/\",\"name\":\"City of Auburndale\",\"description\":\"A wonderful place to live, work &amp; play\",\"potentialAction\":[{\"@type\":\"SearchAction\",\"target\":{\"@type\":\"EntryPoint\",\"urlTemplate\":\"https://www.auburndalefl.com/?s={search_term_string}\"},\"query-input\":{\"@type\":\"PropertyValueSpecification\",\"valueRequired\":true,\"valueName\":\"search_term_string\"}}],\"inLanguage\":\"en-US\"},{\"@type\":\"Person\",\"@id\":\"https://www.auburndalefl.com/#/schema/person/fe28f42b280b2ec8b45ef4c92ddeb46e\",\"name\":\"Seth Teston\",\"description\":\"Seth Teston has been the Communications &amp; Information Manager of the City of Auburndale since July of 2018. He is a part of the City Manager's Office, located in Auburndale City Hall.\",\"sameAs\":[\"https://auburndalefl.com\"],\"mainEntityOfPage\":{\"@id\":\"https://www.auburndalefl.com/author/steston/\"}}]}</script>\n<!-- / Yoast SEO plugin. -->",
+      "yoast_head_json": {
+        "title": "Seth Teston, Author at City of Auburndale",
+        "robots": {
+          "index": "index",
+          "follow": "follow",
+          "max-snippet": "max-snippet:-1",
+          "max-image-preview": "max-image-preview:large",
+          "max-video-preview": "max-video-preview:-1"
+        },
+        "canonical": "https://www.auburndalefl.com/author/steston/",
+        "og_locale": "en_US",
+        "og_type": "profile",
+        "og_title": "Seth Teston, Author at City of Auburndale",
+        "og_url": "https://www.auburndalefl.com/author/steston/",
+        "og_site_name": "City of Auburndale",
+        "og_image": [
+          {
+            "url": "https://secure.gravatar.com/avatar/1668839c6e572455eb7ae5cd2ecc38a7?s=500&d=mm&r=g",
+            "type": "",
+            "width": "",
+            "height": ""
+          }
+        ],
+        "twitter_card": "summary_large_image",
+        "schema": {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "ProfilePage",
+              "@id": "https://www.auburndalefl.com/author/steston/",
+              "url": "https://www.auburndalefl.com/author/steston/",
+              "name": "Seth Teston, Author at City of Auburndale",
+              "isPartOf": {
+                "@id": "https://www.auburndalefl.com/#website"
+              },
+              "breadcrumb": {
+                "@id": "https://www.auburndalefl.com/author/steston/#breadcrumb"
+              },
+              "inLanguage": "en-US",
+              "potentialAction": [
+                {
+                  "@type": "ReadAction",
+                  "target": [
+                    "https://www.auburndalefl.com/author/steston/"
+                  ]
+                }
+              ]
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": "https://www.auburndalefl.com/author/steston/#breadcrumb",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://auburndalefl.com/home/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Archives for Seth Teston"
+                }
+              ]
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://www.auburndalefl.com/#website",
+              "url": "https://www.auburndalefl.com/",
+              "name": "City of Auburndale",
+              "description": "A wonderful place to live, work &amp; play",
+              "potentialAction": [
+                {
+                  "@type": "SearchAction",
+                  "target": {
+                    "@type": "EntryPoint",
+                    "urlTemplate": "https://www.auburndalefl.com/?s={search_term_string}"
+                  },
+                  "query-input": {
+                    "@type": "PropertyValueSpecification",
+                    "valueRequired": true,
+                    "valueName": "search_term_string"
+                  }
+                }
+              ],
+              "inLanguage": "en-US"
+            },
+            {
+              "@type": "Person",
+              "@id": "https://www.auburndalefl.com/#/schema/person/fe28f42b280b2ec8b45ef4c92ddeb46e",
+              "name": "Seth Teston",
+              "description": "Seth Teston has been the Communications &amp; Information Manager of the City of Auburndale since July of 2018. He is a part of the City Manager's Office, located in Auburndale City Hall.",
+              "sameAs": [
+                "https://auburndalefl.com"
+              ],
+              "mainEntityOfPage": {
+                "@id": "https://www.auburndalefl.com/author/steston/"
+              }
+            }
+          ]
+        }
+      },
+      "_links": {
+        "self": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users/27",
+            "targetHints": {
+              "allow": [
+                "GET"
+              ]
+            }
+          }
+        ],
+        "collection": [
+          {
+            "href": "https://auburndalefl.com/wp-json/wp/v2/users"
+          }
+        ]
+      }
+    }
+  ]
+}

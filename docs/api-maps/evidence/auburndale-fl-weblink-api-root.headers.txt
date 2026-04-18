@@ -1,0 +1,9 @@
+HTTP/1.1 301 Moved Permanently
+Cache-Control: no-transform
+Content-Type: text/html; charset=UTF-8
+Location: https://weblink.auburndalefl.com/WebLink/api/GetEntry?id=38271&dbid=0&repo=CityOfAuburndale
+Server: Microsoft-IIS/10.0
+X-Frame-Options: SAMEORIGIN
+Date: Sat, 18 Apr 2026 06:14:58 GMT
+Content-Length: 222
+

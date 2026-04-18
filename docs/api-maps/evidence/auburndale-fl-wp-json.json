@@ -1,0 +1,75 @@
+{
+  "_note": "route catalog truncated; see full at /wp-json/",
+  "payload": {
+    "name": "City of Auburndale",
+    "description": "A wonderful place to live, work &amp; play",
+    "url": "https://auburndalefl.com",
+    "home": "https://auburndalefl.com",
+    "gmt_offset": -4,
+    "timezone_string": "America/New_York",
+    "page_for_posts": 0,
+    "page_on_front": 2703,
+    "show_on_front": "page",
+    "namespaces": [
+      "oembed/1.0",
+      "two-factor",
+      "wp-site-designer/v1",
+      "wpaas/v1",
+      "iawp",
+      "litespeed/v1",
+      "litespeed/v3",
+      "simple-history/v1",
+      "yoast/v1",
+      "tribe/event-aggregator/v1",
+      "tribe/events/v1",
+      "tribe/views/v2",
+      "tec/v2/onboarding",
+      "tec/v1",
+      "objectcache/v1",
+      "wp/v2",
+      "wp-site-health/v1",
+      "wp-block-editor/v1",
+      "wp-abilities/v1"
+    ],
+    "authentication": {
+      "application-passwords": {
+        "endpoints": {
+          "authorization": "https://auburndalefl.com/wp-admin/authorize-application.php"
+        }
+      }
+    },
+    "site_logo": 0,
+    "site_icon": 0,
+    "site_icon_url": "",
+    "_links": {
+      "help": [
+        {
+          "href": "https://developer.wordpress.org/rest-api/"
+        }
+      ]
+    },
+    "routes_count": 331,
+    "routes_sample": [
+      "/",
+      "/batch/v1",
+      "/oembed/1.0",
+      "/oembed/1.0/embed",
+      "/oembed/1.0/proxy",
+      "/two-factor",
+      "/two-factor/toggle",
+      "/two-factor/status",
+      "/two-factor/methods-status",
+      "/two-factor/google-authenticator-toggle",
+      "/two-factor/generate-app-code",
+      "/two-factor/validate-app-code",
+      "/two-factor/disable-authenticator-app",
+      "/two-factor/send-verification-email",
+      "/two-factor/verify-email-code",
+      "/two-factor/set-email-template",
+      "/two-factor/test-email-template",
+      "/two-factor/get-email-template",
+      "/two-factor/yubikey-toggle",
+      "/two-factor/setup-yubikey"
+    ]
+  }
+}

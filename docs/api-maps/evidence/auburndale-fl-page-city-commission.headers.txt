@@ -1,0 +1,24 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 06:13:12 GMT
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+CF-Ray: 9ee185afd8138733-MIA
+CF-Cache-Status: HIT
+Age: 22634
+Cache-Control: public, max-age=2678400
+Expires: Tue, 19 May 2026 06:13:12 GMT
+Last-Modified: Fri, 17 Apr 2026 21:13:31 GMT
+Link: <https://auburndalefl.com/wp-json/>; rel="https://api.w.org/", <https://auburndalefl.com/wp-json/wp/v2/pages/2730>; rel="alternate"; title="JSON"; type="application/json", <https://auburndalefl.com/?p=2730>; rel=shortlink
+Vary: Accept-Encoding
+x-gateway-cache-key: 1776458610.362|standard|https|auburndalefl.com|||/city-commission/
+x-gateway-cache-status: MISS
+x-gateway-request-id: aa1f320d3bb5f0af85dd30b2393be486
+x-gateway-skip-cache: 0
+x-tec-api-origin: https://auburndalefl.com
+x-tec-api-root: https://auburndalefl.com/wp-json/tribe/events/v1/
+x-tec-api-version: v1
+Set-Cookie: __cf_bm=lTx3G1aGGXebsKbngtSmP_qRDlNVD0hLEUR507ddU2s-1776492792-1.0.1.1-zrg_R2hO1yHv7Y8oTpLykjUi9vsuwUw1f.yim0H8pz7y4Wqyywm5_4D5X6jvZ4fIHbiRdtIbvLcyh.L8pNF4IXUJXgejU2CIo8AwpXtCFSA; path=/; expires=Sat, 18-Apr-26 06:43:12 GMT; domain=.auburndalefl.com; HttpOnly; Secure; SameSite=None
+alt-svc: h3=":443"; ma=86400
+
