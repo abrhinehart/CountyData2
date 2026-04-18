@@ -43,11 +43,13 @@ from modules.sales.router import router as sales_router  # noqa: E402
 from modules.inventory.router import router as inventory_router  # noqa: E402
 from modules.permits.router import router as permits_router  # noqa: E402
 from modules.commission.router import router as commission_router  # noqa: E402
+from modules.commission_elections.router import router as commission_elections_router  # noqa: E402
 
 app.include_router(sales_router)
 app.include_router(inventory_router)
 app.include_router(permits_router)
 app.include_router(commission_router)
+app.include_router(commission_elections_router)
 
 
 # ---------------------------------------------------------------------------
