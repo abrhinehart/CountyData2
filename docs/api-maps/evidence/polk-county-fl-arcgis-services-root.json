@@ -1,0 +1,19 @@
+// Summary of https://gis.polk-county.net/server/rest/services?f=json (2026-04-17)
+{
+  "currentVersion": 11.5,
+  "folders": ["PCU", "PNR", "Printer", "Test", "Utilities"],
+  "services": [
+    {"name": "Base_Map_Reference", "type": "MapServer"},
+    {"name": "Commissioners_Redistrict_MIL", "type": "MapServer"},
+    {"name": "Map_Development_Overlays", "type": "MapServer"},
+    {"name": "Map_Flood_and_Drainage", "type": "MapServer"},
+    {"name": "Map_Property_Appraiser", "type": "FeatureServer"},
+    {"name": "Map_Property_Appraiser", "type": "MapServer"},
+    {"name": "Map_Street_and_Addresses", "type": "MapServer"},
+    {"name": "Map_Surveyors_Info", "type": "MapServer"},
+    {"name": "Map_Utilities_Service_Area", "type": "MapServer"},
+    {"name": "Mosquito_Control_MIL", "type": "MapServer"},
+    {"name": "Polk_Development_Tracker_Map", "type": "MapServer"}
+  ]
+}
+// Note: PCU folder returned HTTP 499 "Authentication required" — the other folders (PNR, Utilities, Printer, Test) and the 11 root services are anonymous-public.

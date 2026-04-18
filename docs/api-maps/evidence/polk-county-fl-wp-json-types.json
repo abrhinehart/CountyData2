@@ -1,0 +1,40 @@
+// Truncated — custom post types only (standard post/page/attachment/menu-item omitted).
+// Captured 2026-04-17 from https://www.polkfl.gov/wp-json/wp/v2/types
+{
+  "bid-form": {
+    "description": "",
+    "hierarchical": false,
+    "name": "Bid Forms",
+    "slug": "bid-form",
+    "icon": "dashicons-admin-post",
+    "taxonomies": ["bid-form-type"],
+    "rest_base": "bid-form",
+    "rest_namespace": "wp/v2",
+    "_links": {
+      "collection": [{"href": "https://www.polkfl.gov/wp-json/wp/v2/types"}],
+      "wp:items": [{"href": "https://www.polkfl.gov/wp-json/wp/v2/bid-form"}]
+    }
+  },
+  "cemetery": {
+    "name": "Cemetery",
+    "slug": "cemetery",
+    "taxonomies": [],
+    "rest_base": "cemetery",
+    "rest_namespace": "wp/v2"
+  },
+  "notice": {
+    "name": "Notices",
+    "slug": "notice",
+    "taxonomies": ["city", "meeting-type"],
+    "rest_base": "notice",
+    "rest_namespace": "wp/v2"
+  },
+  "park": {
+    "name": "Parks",
+    "slug": "park",
+    "taxonomies": ["city", "park-amenity", "park-type"],
+    "icon": "dashicons-palmtree",
+    "rest_base": "park",
+    "rest_namespace": "wp/v2"
+  }
+}

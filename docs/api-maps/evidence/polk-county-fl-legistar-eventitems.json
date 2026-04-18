@@ -1,0 +1,22 @@
+// Legistar /v1/polkcountyfl/events/1816/EventItems?$top=3
+// Captured 2026-04-17. Field inventory — 34 fields per event item. Most values null in this sample (upcoming meeting).
+// The EventItemAccelaRecordId field confirms a first-class Legistar↔Accela link.
+{
+  "field_inventory": [
+    "EventItemId", "EventItemGuid", "EventItemLastModifiedUtc", "EventItemRowVersion",
+    "EventItemEventId", "EventItemAgendaSequence", "EventItemMinutesSequence",
+    "EventItemAgendaNumber", "EventItemVideo", "EventItemVideoIndex", "EventItemVersion",
+    "EventItemAgendaNote", "EventItemMinutesNote",
+    "EventItemActionId", "EventItemActionName", "EventItemActionText",
+    "EventItemPassedFlag", "EventItemPassedFlagName",
+    "EventItemRollCallFlag", "EventItemFlagExtra",
+    "EventItemTitle", "EventItemTally",
+    "EventItemAccelaRecordId",
+    "EventItemConsent",
+    "EventItemMoverId", "EventItemMover", "EventItemSeconderId", "EventItemSeconder",
+    "EventItemMatterId", "EventItemMatterGuid", "EventItemMatterFile", "EventItemMatterName",
+    "EventItemMatterType", "EventItemMatterStatus", "EventItemMatterAttachments"
+  ],
+  "sample_count": 3,
+  "non_null_on_sample": ["EventItemId", "EventItemGuid", "EventItemLastModifiedUtc", "EventItemRowVersion", "EventItemEventId", "EventItemAgendaSequence", "EventItemMinutesSequence", "EventItemTitle", "EventItemMatterAttachments"]
+}

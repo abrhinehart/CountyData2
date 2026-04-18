@@ -1,0 +1,2 @@
+HTTP 404 — no robots.txt served at https://polk-county-fl.legistar.com/robots.txt or https://webapi.legistar.com/robots.txt (verified 2026-04-17).
+Legistar tenants (customer portals + shared OData API) do not publish robots.txt; production OData access is governed by per-tenant quota enforcement.

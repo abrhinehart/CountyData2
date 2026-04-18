@@ -1,0 +1,83 @@
+Polk County FL — mapping run request log (2026-04-17)
+
+Wave 1 — robots / sitemap / rebrand verification (10 req)
+  GET https://www.polkfl.gov/robots.txt                             200
+  GET https://www.polkclerkfl.gov/robots.txt                        200
+  GET https://gis.polk-county.net/robots.txt                        404
+  GET https://aca-prod.accela.com/robots.txt                        404
+  GET https://polk-county-fl.legistar.com/robots.txt                404 (archived map used polk-county-fl.legistar.com — redirects to polkcountyfl.legistar.com; OData is webapi.legistar.com)
+  GET https://webapi.legistar.com/robots.txt                        404
+  GET https://www.polk-county.net/sitemap_index.xml                 301 → polkfl.gov/sitemap_index.xml
+  GET https://www.polkfl.gov/sitemap_index.xml                      200 (8 child sitemaps)
+  GET https://www.polkcountyclerk.net/                              301 → polkclerkfl.gov
+  GET https://www.polk-county.net/                                  301 → polkfl.gov
+
+Wave 2a — Accela POLKCO (8 req)
+  GET https://aca-prod.accela.com/POLKCO/Default.aspx               200 — 10 module tabs discovered
+  GET ….com/POLKCO/Cap/CapHome.aspx?module=Building                 200 — General Search form, VIEWSTATE
+  GET ….com/POLKCO/Cap/CapHome.aspx?module=Enforcement              200 — 4 record types (Complaint, Lien, Search Request, Sign Offense) PUBLIC
+  GET ….com/POLKCO/Cap/CapHome.aspx?module=PLANNING                 200 but "technical difficulties" — wrong slug; LandDev is correct
+  GET ….com/POLKCO/Cap/CapHome.aspx?module=LandDev                  200 — 27+ record types visible
+  GET ….com/POLKCO/APO/APOLookup.aspx?TabName=Home                  200 — 5 lookup modes public (address/parcel/owner/record/licensed pro)
+  GET ….com/POLKCO/GeneralProperty/PropertyLookUp.aspx?isLicensee=Y 200 — Licensee search public
+  GET ….com/POLKCO/Login.aspx                                       200 — no OAuth/SAML, plain forms login
+  GET https://inspections.polk-county.net/                          403 — session-gated (ACA cookies)
+  GET https://apis.accela.com/v4/settings/agencies/POLKCO           404 — confirms accela-rest-probe-findings.md
+
+Wave 2b — ArcGIS gis.polk-county.net (8 req)
+  GET /portal/sharing/rest?f=json                                   200 — Enterprise 11.5 / 2025.1
+  GET /server/rest/services?f=json                                  200 — 11 root services + folders PCU/PNR/Printer/Test/Utilities
+  GET /server/rest/services/PCU?f=json                              499 (auth required) — documented gap
+  GET /server/rest/services/PNR?f=json                              200 — 2 services (Parks & Nat. Res.)
+  GET /server/rest/services/Polk_Development_Tracker_Map/MapServer  200 — 18 sub-layers (schools, municipalities, census, TPO 2040 forecast)
+  GET /server/rest/services/Map_Development_Overlays/MapServer      200 — 8 overlay districts (JPA, MRP, redevelopment, scenic hwy, transit corridor, wellfield, Green Swamp, SPA)
+  GET /server/rest/services/Map_Property_Appraiser/FeatureServer    200 — confirms archived map (6 layers)
+  GET /server/rest/services/Map_Property_Appraiser/FeatureServer/1  200 — 56 fields on Parcels layer (archived said 55; PROP_ADRNO_SFX is additional)
+  GET /server/rest/services/Map_Street_and_Addresses/MapServer      200 — 6 layers (addresses, roads)
+  GET /server/rest/services/Map_Flood_and_Drainage/MapServer        200 — 12 layers (FEMA floodzones 1983-2016, wetlands, soils, drainage)
+  GET /server/rest/services/PNR/PNR_DataViewer/FeatureServer        200 — 6 layers (parks, boat ramps, trails, env lands)
+
+Wave 2c — Legistar webapi + portal (5 req)
+  GET /v1/polkcountyfl/Bodies                                       200 — 12 bodies (matches archived map count)
+  GET /v1/polkcountyfl/Events?$top=2&$orderby=EventDate+desc        200 — latest event LUHO 2026-04-23; EventInSiteURL populated
+  GET /v1/polkcountyfl/events/1816/EventItems?$top=3                200 — 34 fields per item, EventItemAccelaRecordId present (Legistar↔Accela cross-ref)
+  GET /v1/polkcountyfl/Matters?$top=2&$orderby=MatterId+desc        200 — latest matter MatterFile 26-0662 (LDLVAR-2025-78)
+
+Wave 2d — polkfl.gov CMS (10 req)
+  GET /wp-json/                                                     200 — 11 namespaces: wp/v2, wpe/cache-plugin/v1, wpe_sign_on_plugin/v1, redirection/v1, yoast/v1, filebird/v1, filebird/public/v1, weglot/v1, wp-rocket/v1, wp-pwmwdb-api/v1, facetwp/v1
+  GET /wp-json/wp/v2/types                                          200 — 4 custom post types (bid-form, cemetery, notice, park)
+  GET /wp-json/wp/v2/pages?per_page=2                               200 — standard WP page shape
+  GET /wp-json/wp/v2/posts?per_page=2                               200 — standard WP post shape
+  GET /wp-json/wp/v2/notice?per_page=2                              200 — but returned empty [] (no notices currently published)
+  GET /wp-json/wp/v2/park?per_page=2                                200 — parks w/ city/amenity/type taxonomies
+  GET /wp-json/wp/v2/bid-form?per_page=2                            200 — RFP/Bid registry (RFP 26-228, Bid 26-231)
+  GET /wp-json/wp/v2/meeting-type                                   200 — 10+ meeting-type terms (BCC, CFDC, CRAC, CLASAC, Contractor Licensing, …)
+  GET /wp-json/wp/v2/city                                           200 — 10+ city terms (Alturas, Auburndale, Babson Park, Bartow, Davenport, Dundee, …)
+  GET /wp-json/wp/v2/media?per_page=1                               200 — PDF attachments
+  GET /wp-sitemap.xml                                               200 — same Yoast sitemap (WP core sitemap not separately enabled)
+  GET /events-sitemap.xml                                           200 — 487 events under /events/{slug}/ (Tribe Events likely)
+  GET /meetings-sitemap.xml                                         200 — 500+ meetings under /meetings/{slug}/
+
+Wave 2e — Clerk polkclerkfl.gov (7 req)
+  GET /                                                             200 — CivicEngage, standard nav
+  GET /sitemap.xml                                                  200 — 327 URLs, numeric-ID pattern
+  GET /rss.aspx                                                     200 — 6 ModIDs: 1, 51, 53, 58, 63, 76
+  GET /RSSFeed.aspx?ModID=1&CID=All-newsflash.xml                   200 — empty channel (valid RSS, 0 items)
+  GET /184/Official-Records                                         200 — links to apps.polkcountyclerk.net/browserviewor/
+  GET /297/Court-Records                                            200 — links to pro.polkcountyclerk.net/PRO (Tyler Odyssey PRO)
+  GET /213/Foreclosure-Sales                                        200 — page HTML returned but foreclosure portal not surfaced in fetch summary
+  GET https://apps.polkcountyclerk.net/browserviewor/               200 — NewVision Systems (© 2018); multiple search forms public
+  GET https://apps.polkcountyclerk.net/browserviewor/Search.aspx    404 — deep path not present (search is on root /browserviewor/)
+  GET https://pro.polkcountyclerk.net/PRO/                          200 — Tyler PRO v1.2.4.0; Public Access landing
+  GET https://library.municode.com/fl/polk_county                   200 — SPA; client_id not resolvable curl-only
+  GET https://library.municode.com/fl/polk_county/codes             200 — same SPA shell
+
+Wave 2f — iWorq (0 req)
+  No county-level iWorq tenant exists — east-Polk cities are out-of-scope for this county file.
+  Archived polk-county-iworq.md documents Davenport / Haines City / Lake Hamilton tenants; those remain canonical deep-dives for the per-city maps.
+
+=== Totals ===
+Total requests: ~56 (well under the 300-400 budget; shallow-per-subsystem strategy held).
+429s: none.
+Captchas: none triggered (Accela is Cloudflare-fronted but did not challenge).
+Deferred: ArcGIS `PCU` folder (499 auth required), Municode client_id (SPA), Polk foreclosure-sales portal vendor, Accela inspection-tracker (session-gated), Polk Matter attachments URL pattern, Legistar Matter attachments/votes deep-probe, events.polkfl.gov XHR endpoints (Tribe Events REST probable but not verified under /wp-json/tribe/events/v1/).

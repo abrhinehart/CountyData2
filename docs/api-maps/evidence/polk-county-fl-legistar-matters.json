@@ -1,0 +1,28 @@
+// Legistar /v1/polkcountyfl/Matters?$top=2&$orderby=MatterId+desc
+// Captured 2026-04-17. Key discovery: MatterFile like "LDLVAR-2025-78" cross-refs Accela Land Dev record type.
+[
+  {
+    "MatterId": 21140,
+    "MatterFile": "26-0662",
+    "MatterTitle": "LDLVAR-2025-78 - 2787 Recker HWY - Withdrawn",
+    "MatterName": null,
+    "MatterTypeName": "Land Use Hearing Old Business",
+    "MatterStatusName": "Agenda Ready",
+    "MatterBodyName": "Polk County Land Use Hearing Officer",
+    "MatterIntroDate": "2026-04-17T00:00:00",
+    "MatterAgendaDate": "2026-04-23T00:00:00",
+    "MatterPassedDate": null
+  },
+  {
+    "MatterId": 21137,
+    "MatterFile": "26-0659",
+    "MatterTitle": "February 26, 2026, Land Use Hearing Officer Meeting Minutes",
+    "MatterName": null,
+    "MatterTypeName": "Minutes",
+    "MatterStatusName": "Approval Review",
+    "MatterBodyName": "Polk County Land Use Hearing Officer",
+    "MatterIntroDate": "2026-04-17T00:00:00",
+    "MatterAgendaDate": "2026-04-23T00:00:00",
+    "MatterPassedDate": null
+  }
+]

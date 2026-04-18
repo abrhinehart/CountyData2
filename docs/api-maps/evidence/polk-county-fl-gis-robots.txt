@@ -1,0 +1,2 @@
+HTTP 404 — no robots.txt served at https://gis.polk-county.net/robots.txt (verified 2026-04-17).
+ArcGIS Enterprise portals commonly omit robots.txt; access posture inferred from service-level permissions (anonymous read).

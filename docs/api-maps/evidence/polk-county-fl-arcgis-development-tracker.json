@@ -1,0 +1,26 @@
+// Truncated — Polk_Development_Tracker_Map/MapServer, layer summary only.
+// Captured 2026-04-17 from https://gis.polk-county.net/server/rest/services/Polk_Development_Tracker_Map/MapServer?f=json
+{
+  "mapName": "Polk Development Tracker Map",
+  "layers": [
+    {"id": 0, "name": "Polk Development Tracker Map Layers", "type": "Group Layer", "subLayerIds": [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]},
+    {"id": 1, "name": "Fire_Ambulance_Stations", "type": "Feature Layer", "geometryType": "esriGeometryPoint"},
+    {"id": 2, "name": "Hospital or Health Clinic", "type": "Feature Layer", "geometryType": "esriGeometryPoint"},
+    {"id": 3, "name": "SchoolLocations", "type": "Feature Layer", "geometryType": "esriGeometryPoint"},
+    {"id": 4, "name": "Active_Bus_Stops", "type": "Feature Layer", "geometryType": "esriGeometryPoint"},
+    {"id": 5, "name": "GFTS_Route", "type": "Feature Layer", "geometryType": "esriGeometryPolyline"},
+    {"id": 6, "name": "ElementaryZones", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 7, "name": "MiddleZones", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 8, "name": "HighZones", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 9, "name": "Complete_Streets_Network", "type": "Feature Layer", "geometryType": "esriGeometryPolyline"},
+    {"id": 10, "name": "Law_Enforcement_Polk", "type": "Feature Layer", "geometryType": "esriGeometryPoint"},
+    {"id": 11, "name": "11-15-17_RND", "type": "Feature Layer", "geometryType": "esriGeometryPolyline"},
+    {"id": 12, "name": "Landuse_4corners", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 13, "name": "Municipality", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 14, "name": "Polk_Unincorporated", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 15, "name": "Census_Polk_2017", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 16, "name": "TPO_2040_Forecast_Final", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 17, "name": "Regions", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"},
+    {"id": 18, "name": "Polk_County_Boundary", "type": "Feature Layer", "geometryType": "esriGeometryPolygon"}
+  ]
+}

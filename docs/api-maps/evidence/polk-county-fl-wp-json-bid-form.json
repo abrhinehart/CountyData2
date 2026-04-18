@@ -1,0 +1,32 @@
+// Truncated to 2 items.
+// Captured 2026-04-17 from https://www.polkfl.gov/wp-json/wp/v2/bid-form?per_page=2
+[
+  {
+    "id": 44465,
+    "date": "2026-04-17T08:33:25",
+    "date_gmt": "2026-04-17T12:33:25",
+    "slug": "rfp-26-228",
+    "status": "publish",
+    "type": "bid-form",
+    "link": "https://www.polkfl.gov/bid-form/rfp-26-228/",
+    "title": "RFP 26-228",
+    "content": "",
+    "featured_media": 4019,
+    "bid-form-type": [],
+    "acf": []
+  },
+  {
+    "id": 44454,
+    "date": "2026-04-16T15:25:56",
+    "date_gmt": "2026-04-16T19:25:56",
+    "slug": "bid-26-231",
+    "status": "publish",
+    "type": "bid-form",
+    "link": "https://www.polkfl.gov/bid-form/bid-26-231/",
+    "title": "Bid 26-231",
+    "content": "",
+    "featured_media": 4019,
+    "bid-form-type": [],
+    "acf": []
+  }
+]

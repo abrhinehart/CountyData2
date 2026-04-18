@@ -1,0 +1,42 @@
+// Truncated to 2 items. PII-bearing fields (none on parks, retained as-is).
+// Captured 2026-04-17 from https://www.polkfl.gov/wp-json/wp/v2/park?per_page=2
+{
+  "parks": [
+    {
+      "id": 18320,
+      "title": "Bellini Preserve",
+      "date_published": "2024-08-20T07:52:00",
+      "date_modified": "2025-06-13T07:05:04",
+      "slug": "bellini-preserve",
+      "status": "publish",
+      "type": "park",
+      "link": "https://www.polkfl.gov/park/bellini-preserve/",
+      "featured_media_id": 4019,
+      "description": "Wildlife habitat featuring threatened species including sand skinks and gopher tortoises, suitable for sunset viewing and birdwatching",
+      "cities": [391, 39],
+      "park_amenities": [127, 130],
+      "park_type": [],
+      "acf": {},
+      "city_names": ["Kissimmee", "Poinciana"],
+      "amenity_names": ["Horseback Riding", "Wildlife Viewing"]
+    },
+    {
+      "id": 1744,
+      "title": "Lake Marion Creek/Stokes",
+      "date_published": "2023-07-10T10:24:14",
+      "date_modified": "2024-11-07T05:20:48",
+      "slug": "lake-marion-creek-stokes",
+      "status": "publish",
+      "type": "park",
+      "link": "https://www.polkfl.gov/park/lake-marion-creek-stokes/",
+      "featured_media_id": 4660,
+      "description": "Recreation area featuring a hiking trail and water access opportunities",
+      "cities": [17],
+      "park_amenities": [112],
+      "park_type": [],
+      "acf": {},
+      "city_names": ["Haines City"],
+      "amenity_names": ["Boat Launching Site"]
+    }
+  ]
+}

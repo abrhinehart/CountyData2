@@ -1,0 +1,2 @@
+HTTP 404 — no robots.txt served at https://aca-prod.accela.com/robots.txt (verified 2026-04-17).
+Accela Citizen Access tenants do not publish robots.txt; Cloudflare edge rate-limiting is the operational governor.

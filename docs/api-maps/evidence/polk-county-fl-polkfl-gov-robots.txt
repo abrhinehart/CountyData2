@@ -1,0 +1,68 @@
+Crawl-delay: 10
+# START YOAST BLOCK
+# ---------------------------
+
+Disallow: /*?trk=
+Disallow: /*?fbclid=
+Disallow: /*?_
+Disallow: /*?FormName=
+Disallow: /*?sa=
+Disallow: /*?eType=
+Disallow: /*?utm
+
+User-agent: *
+
+user-agent: Applebot-Extended
+allow: /
+user-agent: ChatGPT-User
+allow: /
+user-agent: Bytespider
+allow: /
+user-agent: ClaudeBot
+allow: /
+user-agent: Claude-Web
+allow: /
+user-agent: DuckAssistBot
+allow: /
+user-agent: FacebookBot
+allow: /
+user-agent: GPTBot
+allow: /
+user-agent: PerplexityBot
+allow: /
+user-agent: QuoraBot
+allow: /
+user-agent: Amazonbot
+allow: /
+user-agent: YouBot
+allow: /
+user-agent: Twitterbot
+allow: /
+user-agent: omgilibot
+allow: /
+user-agent: NewsNow
+allow: /
+user-agent: news-please
+allow: /
+user-agent: OAI-SearchBot
+allow: /
+user-agent: Google-Extended
+allow: /
+user-agent: ImagesifBot
+allow: /
+user-agent: magpie-crawler
+allow: /
+user-agent: DataForSeoBot
+allow: /
+user-agent: Diffbot
+allow: /
+user-agent: FriendlyCrawler
+allow: /
+user-agent: Meta-ExternalFetcher
+allow: /
+user-agent: CC-Bot
+allow: /
+
+Sitemap: https://www.polk-county.net/sitemap_index.xml
+# ---------------------------
+# END YOAST BLOCK

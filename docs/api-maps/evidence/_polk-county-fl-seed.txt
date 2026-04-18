@@ -1,0 +1,38 @@
+Polk County, FL — Mapping Seed + Discovered Hostnames (run 2026-04-17)
+
+Seed (per Planner): the permit site at https://aca-prod.accela.com/POLKCO/Default.aspx
+Scope per §1: entire county digital footprint (county BCC + unincorporated) — cities mapped in separate files.
+
+=== Subsystem hostnames verified HTTP 200 ===
+
+1. County CMS:            https://www.polkfl.gov                          (WordPress + Yoast SEO + ACF + FacetWP + WP Engine)
+2. Clerk of Court CMS:    https://www.polkclerkfl.gov                     (CivicPlus CivicEngage, numeric-ID URL pattern)
+3. GIS Enterprise portal: https://gis.polk-county.net/portal              (ArcGIS Enterprise 11.5 / 2025.1)
+4. GIS Services root:     https://gis.polk-county.net/server/rest/services
+5. Permit portal (seed):  https://aca-prod.accela.com/POLKCO/             (Accela Citizen Access; Cloudflare edge)
+6. Commission / CR:       https://polkcountyfl.legistar.com/              (Legistar Meeting Portal; agenda PDFs hosted on polkcountyfl.legistar1.com)
+6a. Legistar OData API:   https://webapi.legistar.com/v1/polkcountyfl     (anonymous OData v3 / JSON)
+
+=== Rebrand redirects (301) ===
+
+https://www.polk-county.net/         → https://www.polkfl.gov/            (county CMS)
+https://www.polk-county.net/sitemap_index.xml → https://www.polkfl.gov/sitemap_index.xml
+https://www.polkcountyclerk.net/     → http://www.polkclerkfl.gov/        (note: http, not https, on the target)
+
+polkfl.gov robots.txt still references `Sitemap: https://www.polk-county.net/sitemap_index.xml` — the old hostname is the Sitemap directive target, but it 301s to the new hostname so crawlers end up at polkfl.gov anyway. Stale content in robots, not an operational issue.
+
+=== Discovered sibling / satellite hostnames ===
+
+- https://apps.polkcountyclerk.net/browserviewor/     Clerk Official Records — NewVision Systems platform (NEW to registry). Public search without login; NewVision copyright 2018 in footer.
+- https://pro.polkcountyclerk.net/PRO                 Clerk Court Records — Tyler Odyssey PRO (NEW to registry). Requires Public Access acknowledgement to enter; no captcha observed on landing.
+- https://polkcountyfl.legistar1.com/polkcountyfl/meetings/…   Agenda / minutes PDF storage (Legistar edge).
+- https://inspections.polk-county.net/                Accela inspection tracker (requires ACA session cookies; anon GET returns 403).
+- https://library.municode.com/fl/polk_county         Polk County Code of Ordinances (Municode Library). Not probed deeply in curl-only pass; SPA.
+
+=== iWorq status ===
+
+No county-level iWorq tenant exists. The three east-Polk city tenants (Davenport / Haines City / Lake Hamilton) are out-of-scope for this county file and are documented in the per-city maps (davenport-fl.md, haines-city-fl.md, lake-hamilton-fl.md). The archived polk-county-iworq.md is really a city-scope document that predates the per-city map split. Cross-referenced under Summary / Coverage Notes; not upgraded.
+
+=== CD2 / clerk-records adapter gap ===
+
+Confirmed — no adapter exists in-repo for www.polkclerkfl.gov, apps.polkcountyclerk.net/browserviewor/, or pro.polkcountyclerk.net/PRO. Grep against modules/ returns zero references to these hosts.

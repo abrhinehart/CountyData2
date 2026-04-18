@@ -1,0 +1,17 @@
+// Map_Development_Overlays/MapServer — 8 development-planning overlay districts.
+// Captured 2026-04-17.
+{
+  "mapName": "Map Development Overlays",
+  "version": "11.5",
+  "layers": [
+    {"id": 0, "name": "Development Overlays", "type": "Group Layer"},
+    {"id": 1, "name": "Joint Planning Areas", "geometryType": "esriGeometryPolygon"},
+    {"id": 2, "name": "Mineral Resource-Protection Districts", "geometryType": "esriGeometryPolygon"},
+    {"id": 3, "name": "Redevelopment Districts", "geometryType": "esriGeometryPolygon"},
+    {"id": 4, "name": "SR 17 Ridge Scenic Highway", "geometryType": "esriGeometryPolygon"},
+    {"id": 5, "name": "Transit Corridors and Centers Overlay", "geometryType": "esriGeometryPolygon"},
+    {"id": 6, "name": "Wellfield-Protection Districts", "geometryType": "esriGeometryPolygon"},
+    {"id": 7, "name": "Green Swamp Protection Area", "geometryType": "esriGeometryPolygon"},
+    {"id": 8, "name": "Special Protection Areas (SPAs)", "geometryType": "esriGeometryPolygon"}
+  ]
+}

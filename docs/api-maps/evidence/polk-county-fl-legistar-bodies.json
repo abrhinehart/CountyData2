@@ -1,0 +1,9 @@
+// Legistar /v1/polkcountyfl/Bodies — 12 bodies total (first 3 shown, remaining 9 summarized from archived map).
+// Captured 2026-04-17.
+[
+  {"BodyId": 138, "BodyName": "Board of County Commissioners", "BodyTypeName": "Primary Legislative Body", "BodyActiveFlag": 1, "BodyMeetFlag": 1},
+  {"BodyId": 139, "BodyName": "Polk Regional Water Cooperative", "BodyTypeName": "PRWC", "BodyActiveFlag": 1, "BodyMeetFlag": 1},
+  {"BodyId": 140, "BodyName": "Polk County Land Use Hearing Officer", "BodyTypeName": "Land Use Hearing", "BodyActiveFlag": 1, "BodyMeetFlag": 1}
+  // + 228 Planning Commission, 239 BCC (Organizational), 240 BCC (Budget), 241 BCC (Final Budget),
+  //   246 TPO Board, 251 TPO TAC, 252 TPO TD LCB, 254 Budget Office Documents, 258 Citizen's Healthcare Oversight Committee
+]
