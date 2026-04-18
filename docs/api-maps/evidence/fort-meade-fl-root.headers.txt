@@ -1,0 +1,13 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:41:58 GMT
+Content-Type: text/html; charset=UTF-8
+Content-Length: 61711
+Connection: keep-alive
+Cache-Control: max-age=0, must-revalidate, no-cache, no-store, private
+Content-Security-Policy: frame-ancestors 'self'
+Referrer-Policy: no-referrer-when-downgrade
+X-Content-Type-Options: nosniff
+X-Frame-Options: SAMEORIGIN
+X-Permitted-Cross-Domain-Policies: none
+X-XSS-Protection: 1; mode=block
+

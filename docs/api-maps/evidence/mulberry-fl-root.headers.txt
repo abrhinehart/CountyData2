@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:42:07 GMT
+Content-Type: text/html; charset=UTF-8
+Transfer-Encoding: chunked
+Connection: keep-alive
+Server: cloudflare
+Cache-Control: must-revalidate, no-cache, private
+x-drupal-dynamic-cache: UNCACHEABLE (poor cacheability)
+content-language: en
+x-content-type-options: nosniff
+x-frame-options: SAMEORIGIN
+expires: Sun, 19 Nov 1978 05:00:00 GMT
+x-generator: Drupal 11 (https://www.drupal.org)
+content-security-policy: default-src 'self' * blob: data:; script-src * about: 'unsafe-inline' 'unsafe-eval'; object-src 'self'; style-src * 'unsafe-inline'; img-src * data: blob:; media-src * blob: data:; frame-ancestors 'self'; upgrade-insecure-requests
+strict-transport-security: max-age=2592000
+permissions-policy: accelerometer=(), attribution-reporting=(), autoplay=*, bluetooth=(), browsing-topics=(), camera=(), compute-pressure=(), display-capture=*, encrypted-media=(), geolocation=(), gyroscope=(), hid=(), identity-credentials-get=(self), idle-detection=(), local-fonts=(self), magnetometer=(), microphone=(), midi=(), payment=(), picture-in-picture=*, publickey-credentials-get=(self), screen-wake-lock=(), serial=(), storage-access=(), usb=(), web-share=(), window-management=(), xr-spatial-tracking=()
+x-drupal-cache: UNCACHEABLE (response policy)
+vary: Accept-Encoding
+x-request-id: v-2683d006-3b3d-11f1-9498-7bdc6323f0a5
+x-ah-environment: 03live
+via: varnish
+x-cache: MISS
+cf-cache-status: EXPIRED
+last-modified: Sat, 18 Apr 2026 15:42:07 GMT
+CF-RAY: 9ee4c7012a2231f2-MIA
+

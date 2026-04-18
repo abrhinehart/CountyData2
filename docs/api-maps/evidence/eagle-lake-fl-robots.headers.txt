@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Date: Sat, 18 Apr 2026 15:37:44 GMT
+Content-Type: text/plain
+Content-Length: 2027
+Connection: keep-alive
+Server: cloudflare
+x-content-type-options: nosniff
+last-modified: Tue, 17 Mar 2026 06:55:06 GMT
+Cache-Control: max-age=1209600
+expires: Wed, 22 Apr 2026 20:27:07 GMT
+x-request-id: v-50387a66-3389-11f1-a68b-173ea823d7ea
+x-ah-environment: 04live
+Age: 846636
+via: varnish
+x-cache: HIT
+x-cache-hits: 73
+Accept-Ranges: bytes
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+cf-cache-status: MISS
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=qVtD4UhEcIMzvOYviR9jBzidFmUESigiM2J77NAbG2LnXiXaIqu9xpcYZScPlpJJUgRRMhLZMepQ6prXUhZU8tiD4ZmMLAC0hJEeq9EttxfHcmPhAyIRDpD8T2TTKX9J4uSBQ1xM"}]}
+CF-RAY: 9ee4c0a42824f436-MIA
+alt-svc: h3=":443"; ma=86400
+

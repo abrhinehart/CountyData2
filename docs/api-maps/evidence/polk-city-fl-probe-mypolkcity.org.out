@@ -1,0 +1,981 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="cp-mwo__cp-background-images" prefix="og: https://ogp.me/ns#" id="html-background">
+<head>
+  <meta charset="utf-8" />
+<link rel="canonical" href="https://www.mypolkcity.org/" />
+<link rel="shortlink" href="https://www.mypolkcity.org/" />
+<meta property="og:site_name" content="Polk City FL" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Home Page" />
+<meta name="Generator" content="Drupal 11 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-compatible" content="IE=edge" />
+<meta name="format-detection" content="telephone-no" />
+<meta property="og:image" content="/themes/custom/polkcityfl/polkcityfl_theme/logo.svg" />
+<link rel="icon" href="/sites/g/files/vyhlif10541/files/cp_0_0.ico" type="image/vnd.microsoft.icon" />
+<script>window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};</script>
+
+    <title>Home Page | Polk City FL</title>
+    <link rel="stylesheet" media="all" href="/sites/g/files/vyhlif10541/files/css/css_sPj30ZE5VwAW6Bx3kC4_KHaXfwJFJ6VcbXcRwDh57eY.css?delta=0&amp;language=en&amp;theme=polkcityfl_theme&amp;include=eJxFkFGOwyAMRC9EgvrZ0yAHnATFYGRDt-zpl3Qb5ceaN7ZmEBBCZcjdwlfMq3CuZsFaURy-CysGt0YaqHbDjAJkPIFqtwsoXjqhKmyoF2cOY8eCQ0kCir8Di4PwguzPSITaBNWuo8_BDyondGsjOs8W8Mcm3HJwMZ2x9namf8fgu1LMhw3SCtD8RUPQuVUXonp-oXTLGT2TSS1HPx7l9lFURoJViv4YI6Dc2wQx24umk0wBgU2g7Hp13c7ccmkLRd0xmMJ0-Fj7Sq7umNCGZ8VUCCo-po9jtOuwPj_3B3GGlXQ" />
+<link rel="stylesheet" media="all" href="/sites/g/files/vyhlif10541/files/css/css_Mjz3j1Ez2htn1iEoe2n-2LCWDIYloKzVA-J84SvHYDs.css?delta=1&amp;language=en&amp;theme=polkcityfl_theme&amp;include=eJxFkFGOwyAMRC9EgvrZ0yAHnATFYGRDt-zpl3Qb5ceaN7ZmEBBCZcjdwlfMq3CuZsFaURy-CysGt0YaqHbDjAJkPIFqtwsoXjqhKmyoF2cOY8eCQ0kCir8Di4PwguzPSITaBNWuo8_BDyondGsjOs8W8Mcm3HJwMZ2x9namf8fgu1LMhw3SCtD8RUPQuVUXonp-oXTLGT2TSS1HPx7l9lFURoJViv4YI6Dc2wQx24umk0wBgU2g7Hp13c7ccmkLRd0xmMJ0-Fj7Sq7umNCGZ8VUCCo-po9jtOuwPj_3B3GGlXQ" />
+
+      <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"","currentPath":"node\/1","currentPathIsAdmin":false,"isFront":true,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"data":{"extlink":{"extTarget":true,"extTargetAppendNewWindowLabel":"(opens in a new window)","extTargetNoOverride":false,"extNofollow":false,"extTitleNoOverride":false,"extNoreferrer":true,"extFollowNoOverride":false,"extClass":"0","extLabel":"(link is external)","extImgClass":false,"extSubdomains":true,"extExclude":"","extInclude":".*files\/media.*|.*document\/.*|.*email-contact\/.*","extCssExclude":"","extCssInclude":"","extCssExplicit":"","extAlert":false,"extAlertText":"This link will take you to an external web site. We are not responsible for their content.","extHideIcons":false,"mailtoClass":"0","telClass":"","mailtoLabel":"(link sends email)","telLabel":"(link is a phone number)","extUseFontAwesome":false,"extIconPlacement":"append","extPreventOrphan":false,"extFaLinkClasses":"fa fa-external-link","extFaMailtoClasses":"fa fa-envelope-o","extAdditionalLinkClasses":"","extAdditionalMailtoClasses":"","extAdditionalTelClasses":"","extFaTelClasses":"fa fa-phone","whitelistedDomains":[],"extExcludeNoreferrer":""}},"municode_homepage":{"951":{"auto_rotate":false,"pager_type":"arrows","banner_image":"0","desktop_cards_to_show":6,"tablet_cards_to_show":2,"vertical_status":false,"rows":"1"},"941":{"auto_rotate":false,"pager_type":"arrows","banner_image":"0","desktop_cards_to_show":3,"tablet_cards_to_show":2,"vertical_status":false,"rows":"1"}},"background-images":{"count":1},"ajaxTrustedUrl":{"\/search":true},"user":{"uid":0,"permissionsHash":"0b76e72879f78a778e13a55b9a493f5b736a81a87d1d680f0a7b0a7909d342b5"}}</script>
+<script src="/core/assets/vendor/jquery/jquery.min.js?v=4.0.0-rc.1"></script>
+<script src="/sites/g/files/vyhlif10541/files/js/js_Ll7DWdMCiznDsjd74_Q753xT49iQ79x3eVzNH-EeKBw.js?scope=header&amp;delta=1&amp;language=en&amp;theme=polkcityfl_theme&amp;include=eJxtUFuOwzAIvFBcaz_3NBaxSYKCsWWTPm6_pM1uq3Z_EMOMBzOQkhaQm4ejOU2tiA4jqmILeK2lYwoTscHuZxRswEMsDX1qWwU-xcIMteMQa4B0Bon7AwTdGnY_mVuAC_aSMUwb8y4bIa5zK5ukQBlmkz0n7jEZ8KpMsv5uOeCQN6FYEobFDKspfYWGou5CSZd_6M4UVysJ25PNQOLtOJAEI6OL9kszeRNkErcgzcsHcSC3ozfOjq5FOp3R6e79QuMMVmTz94xR0gtHsZVOalH8tW7XDrXwGklvEwddMFvs34q5Mih-ufvkU_K4jGR2K97cnlv_AX4KwHA"></script>
+
+        </head>
+<body class="page-node-1 page- front path-frontpage page-node-type-microsite layout__sidebars--none" id="body-background">
+
+<aside class="skip-content" aria-label="Skip to main content">
+  <a href="#main-content" class="visually-hidden focusable skip-link">
+    Skip to main content
+  </a>
+</aside>
+
+        
+
+<div class="block block-cp-background-images">
+  
+    
+      <div class="block__content">
+      <article class="media media--type-background-image media--view-mode-full">
+  
+      
+  <div class="field field--name-field-media-image field--type-image field--label-visually_hidden">
+    <div class="field__label visually-hidden">Image</div>
+              <div class="field__item">    <picture>
+                  <source srcset="/sites/g/files/vyhlif10541/files/styles/background_image_desktop/public/media/backgroundimage/6741/NEW%20IMAGE%20FOR%20POLK%20HOMEPAGE.jpg.webp?itok=mE2qFzIJ 1x" media="(min-width: 1024px)" type="image/webp" width="1920" height="1080"/>
+              <source srcset="/sites/g/files/vyhlif10541/files/styles/background_image_tablet/public/media/backgroundimage/6741/NEW%20IMAGE%20FOR%20POLK%20HOMEPAGE.jpg.webp?itok=uM97jiWX 1x" media="(min-width: 480px)" type="image/webp" width="1024" height="1024"/>
+              <source srcset="/sites/g/files/vyhlif10541/files/styles/background_image_mobile/public/media/backgroundimage/6741/NEW%20IMAGE%20FOR%20POLK%20HOMEPAGE.jpg.webp?itok=EiVlmmxy 1x" type="image/webp" width="480" height="960"/>
+                  <img loading="lazy" width="1920" height="1080" src="/sites/g/files/vyhlif10541/files/styles/background_image_desktop/public/media/backgroundimage/6741/NEW%20IMAGE%20FOR%20POLK%20HOMEPAGE.jpg.webp?itok=mE2qFzIJ" alt="City Hall" />
+
+  </picture>
+
+</div>
+          </div>
+
+  </article>
+
+    </div>
+  </div>
+
+
+  <div class="layout__container layout__container--announcement">
+      <div class="region region-announcement">
+    
+  </div>
+
+  </div>
+
+
+  <div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+    
+<div class="layout__container layout__container--page">
+  
+  <header class="page-header">
+    <button id="page-header__nav-toggle" class="nav-toggle">
+      <span class="nav-toggle__content">Toggle Navigation</span>
+    </button>
+          <div class="page-header__branding branding">
+          <div class="region region-branding">
+    
+
+<div id="block-municodebrandingblock" class="block block-municode-base block-municode-branding-block">
+  
+    
+      <div class="block__content">
+      <div class="branding">
+  <a href="/" id="logo" class="branding__link">
+          <span class="branding__image-wrapper">
+        <img src="/themes/custom/polkcityfl/polkcityfl_theme/logo.svg" alt="Polk City, Florida - Home Page" class="branding__image">
+      </span>
+              <span class="branding__text">
+                <span class="branding__text--item branding__text--city">Polk City</span>        <span class="branding__text--item branding__text--state">Florida</span>      </span>
+      </a>
+</div>
+
+    </div>
+  </div>
+
+  </div>
+
+      </div>
+        <div id="page-header__nav" class="page-header__nav">
+      <button id="page-header__nav-close">Close Navigation</button>
+      
+        <div class="region region-nav">
+    
+
+<div id="block-polkcityfl-theme-municodemegamenublock" class="block block-municode-mega-menu block-municode-mega-menu-block">
+  
+    
+      <div class="block__content">
+      <nav id="megamenu" aria-label="Main Menu" class="mega-menu"><ul class="mega-menu__wrapper mega-menu__list mega-menu__list--top-level"><li class='mega-menu__item mega-menu__item--top-level mega-menu__item--top-level-0'><a role='button' aria-expanded='false' aria-controls='mega-menu__sub-0' id='mega-menu__button-0' class='mega-menu__link mega-menu__link--button mega-menu__title mega-menu__title--0'><span class="mega-menu__title-line mega-menu__title-line--main"><span class='mega-menu__title-word mega-menu__title-word--0'>City</span><span class='mega-menu__title-word mega-menu__title-word--1'>Commission</span></span><i class='mega-menu__toggle-icon fas fa-plus'></i></a><div id='mega-menu__sub-0' aria-labelledby='mega-menu__button-0' class='mega-menu__expandable-wrapper mega-menu__expandable-wrapper--0'><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--0'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/city-commission'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>City Commission</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/meetings'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Agendas &amp; Minutes</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='https://library.municode.com/fl/polk_city/codes/code_of_ordinances'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Code of Ordinances</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--1'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/boards-committees'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Boards &amp; Committees </strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/canvassing-board'>Canvassing Board</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/Charter-Review-Committee'>Charter Review Committee</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/Citizens-Advisory-Committee'>Citizens Advisory Committee</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/city-commission'>City Commission</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/Code-Enforcement-Board'>Code Enforcement Board</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/planning-commission'>Planning Commission</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/zoning-board-appeals'>Zoning Board of Appeals</a></li></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--2'></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--3'></ul></div></li><li class='mega-menu__item mega-menu__item--top-level mega-menu__item--top-level-1'><a role='button' aria-expanded='false' aria-controls='mega-menu__sub-1' id='mega-menu__button-1' class='mega-menu__link mega-menu__link--button mega-menu__title mega-menu__title--1'><span class="mega-menu__title-line mega-menu__title-line--main"><span class='mega-menu__title-word mega-menu__title-word--0'>Residents/Visitors</span></span><i class='mega-menu__toggle-icon fas fa-plus'></i></a><div id='mega-menu__sub-1' aria-labelledby='mega-menu__button-1' class='mega-menu__expandable-wrapper mega-menu__expandable-wrapper--1'><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--0'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1186'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Business Directory</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1041'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Emergency Readiness</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1456'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>FAQs</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--1'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1036'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>History</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1046'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Public Facilities</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1376'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Report A Concern</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--2'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1111'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Schools</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1061'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Utilities</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1406'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Weather</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--3'></ul></div></li><li class='mega-menu__item mega-menu__item--top-level mega-menu__item--top-level-2'><a role='button' aria-expanded='false' aria-controls='mega-menu__sub-2' id='mega-menu__button-2' class='mega-menu__link mega-menu__link--button mega-menu__title mega-menu__title--2'><span class="mega-menu__title-line mega-menu__title-line--main"><span class='mega-menu__title-word mega-menu__title-word--0'>Departments</span></span><i class='mega-menu__toggle-icon fas fa-plus'></i></a><div id='mega-menu__sub-2' aria-labelledby='mega-menu__button-2' class='mega-menu__expandable-wrapper mega-menu__expandable-wrapper--2'><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--0'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/administration'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Administration</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/city-manager'>City Manager</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/city-clerk'>City Clerk</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/finance'>Finance</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/human-resources'>Human Resources</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/city-attorney'>City Attorney</a></li></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--1'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/community-development'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Community Development</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/building'>Building</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/code-enforcement'>Code Enforcement</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/planning-zoning'>Planning &amp; Zoning</a></li></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/library'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Library</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/library'>Library Services &amp; Programs</a></li></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--2'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/public-safety'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Public Safety</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/node/1531'>Florida Emergency Management</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/node/1541'>Florida Forest Service</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/node/1536'>Polk County Fire</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/node/1546'>Polk County Sheriff</a></li></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--3'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/public-works'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Public Works</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/parks'>Parks</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/streets'>Streets</a></li></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/utilities'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Utilities</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/water'>Water Department</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/sewer'>Sewer Department</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/Utility-Billing'>Utility Billing</a></li></ul></li></ul></div></li><li class='mega-menu__item mega-menu__item--top-level mega-menu__item--top-level-3'><a role='button' aria-expanded='false' aria-controls='mega-menu__sub-3' id='mega-menu__button-3' class='mega-menu__link mega-menu__link--button mega-menu__title mega-menu__title--3'><span class="mega-menu__title-line mega-menu__title-line--main"><span class='mega-menu__title-word mega-menu__title-word--0'>How</span><span class='mega-menu__title-word mega-menu__title-word--1'>Do</span><span class='mega-menu__title-word mega-menu__title-word--2'>I...?</span></span><i class='mega-menu__toggle-icon fas fa-plus'></i></a><div id='mega-menu__sub-3' aria-labelledby='mega-menu__button-3' class='mega-menu__expandable-wrapper mega-menu__expandable-wrapper--3'><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--0'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/jobs'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Job Opportunities</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/contact-us'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Contact Us</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Events &amp; Meetings</strong><ul class='mega-menu__list mega-menu__sub-nav-group'><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/meetings'>Agendas &amp; Minutes</a></li><li class='mega-menu__item mega-menu__item--sub-nav-item'><a class='mega-menu__link mega-menu__link--sub-nav-link' href='/calendar'>Calendar</a></li></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--1'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/faqs'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Frequently Asked Questions</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1556'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Official Records Requests</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--2'><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/news'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>News</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li><li class='mega-menu__item mega-menu__item--second-level'><a class='mega-menu__link mega-menu__link--header' href='/node/1551'><strong class='mega-menu__inner-header mega-menu__inner-header--second-level'>Utility Payments</strong></a><ul class='mega-menu__list mega-menu__sub-nav-group'></ul></li></ul><ul class='mega-menu__list mega-menu__list--second-level mega-menu__col mega-menu__col--3'></ul></div></li></ul></nav>
+    </div>
+  </div>
+
+  </div>
+
+    </div>
+            <div class="region region-search">
+    
+
+<div class="views-exposed-form bef-exposed-form block block-views block-views-exposed-filter-blocksearch-page-1" data-drupal-selector="views-exposed-form-search-page-1" id="block-exposedformsearchpage-1">
+  
+    
+      <div class="block__content">
+      <form region="search" action="/search" method="get" id="views-exposed-form-search-page-1" accept-charset="UTF-8">
+  <div class="municode-views__flex clearfix">
+  <div class="js-form-item form-item js-form-type-textfield form-type-textfield js-form-item-text form-item-text">
+      <label for="edit-text--3">Search</label>
+        <input placeholder="Search" data-drupal-selector="edit-text" type="text" id="edit-text--3" name="text" value="" size="30" maxlength="128" class="form-text" />
+
+        </div>
+<details class="form-item js-form-wrapper form-wrapper" data-drupal-selector="edit-microsite-collapsible" id="edit-microsite-collapsible">    <summary role="button" aria-controls="edit-microsite-collapsible" aria-expanded="false">Departments &amp; Committees</summary><div class="details-wrapper">
+    </div>
+</details>
+<details class="form-item js-form-wrapper form-wrapper" data-drupal-selector="edit-content-type-collapsible" id="edit-content-type-collapsible">    <summary role="button" aria-controls="edit-content-type-collapsible" aria-expanded="false">Type</summary><div class="details-wrapper">
+    </div>
+</details>
+<details class="form-item js-form-wrapper form-wrapper" data-drupal-selector="edit-field-smart-date-collapsible" id="edit-field-smart-date-collapsible">    <summary role="button" aria-controls="edit-field-smart-date-collapsible" aria-expanded="false">Event Date</summary><div class="details-wrapper">
+    </div>
+</details>
+<div data-drupal-selector="edit-actions" class="form-actions js-form-wrapper form-wrapper" id="edit-actions--3"><input data-drupal-selector="edit-submit-search-3" type="submit" id="edit-submit-search--3" value="Apply" class="button js-form-submit form-submit" />
+</div>
+
+</div>
+
+</form>
+
+    </div>
+  </div>
+
+  </div>
+
+      </header>
+
+    <div class="region region-breadcrumb">
+    
+  </div>
+
+
+  
+
+      <section class="municode-alert__wrapper" aria-label="Alerts">
+        <div class="region region-alert">
+    
+  </div>
+
+    </section>
+  
+      
+  
+      <main id="main-content" class="page-main">
+
+                <div class="region region-above-content">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+            
+      <div class="layout__content-wrapper">
+        <div class="layout__content">
+            <div class="region region-content">
+    
+
+<div id="block-municode-theme-page-title" class="block block-core block-page-title-block">
+  
+    
+      <div class="block__content">
+      
+  <h1 class="page-title"><span class="field field--name-title field--type-string field--label-hidden">Home Page</span>
+</h1>
+
+
+    </div>
+  </div>
+
+
+<div id="block-municode-theme-content" class="block block-system block-system-main-block">
+  
+    
+      <div class="block__content">
+      
+
+
+
+<article data-history-node-id="1" class="node node--type-microsite node--view-mode-home-page node-page cp-homepage__single cp-homepage__no-scroll cp-homepage__fontawesome-keylinks cp-homepage__layout">
+  <div class="node__content">
+    
+  <div class="cp-homepage__keylinks cp-homepage__no-scroll layout layout--onecol">
+        <div  class="layout__region layout__region--content">
+       
+
+<div id="paragraph-id--961" class="block block-paragraph-blocks block-paragraph-fieldnodefield-landing-page-content0microsite">
+  
+    
+      <div class="block__content">
+      
+<div  class="cp-fed--menu__expanding-key-links paragraph paragraph--type--menu paragraph--view-mode--default cp-arcticle">
+        <div class="cp-article__content">
+            
+    
+    <ul  class="key-links-design__box key-links-orientation__vertical menu menu-level-0 key-links-menu key-links-menu__images homepage-menu">
+                        <li class="key-links-menu__item menu-mlid-31 expandable-content__wrapper">
+          <div class="key-links-menu__link">
+            <button class="expandable-content__button" aria-expanded="false">
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-thumbtack" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">News</div>
+      
+      </div>
+
+
+</button>
+            <div class="expandable-content__section">
+              
+<div  class="paragraph paragraph--type--expanding-menu paragraph--view-mode--full cp-arcticle">
+        <div class="cp-article__content">
+      
+      <div class="field field--name-field-expanding-reference field--type-entity-reference-revisions field--label-hidden field__items">
+              <div class="field__item">
+
+  <div  class="cp-fed--cards__announcements paragraph paragraph--type--card paragraph--view-mode--default cp-arcticle cp-article__card cp-article__card__horizontal cp-article__widget-alignment__horizontal" data-slideshow-id="941">
+          <div class="cp-article__heading">
+        <h2 class="cp-article__header">
+            <div class="field field--name-field-title field--type-string field--label-hidden field__item">Polk City News</div>
+      </h2>
+      </div>
+              <div class="cp-article__content">
+        <ul class="cp-article__wrapper">
+                      <li>  
+
+
+  <article data-history-node-id="2786" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/home-page/page/tire-collection-event-april-18-2026-bronson-center" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">Tire Collection Event- April 18, 2026 Bronson Center</span>
+
+      </span>
+                <span class="cp-card__body">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>April 18, 2026 Keep Polk County Beautiful will be having a Tire…</p></div>
+      
+    </span>
+                          <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2781" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/administration/page/city-commission-vacancy-district-3" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Vacancy - District #3</span>
+
+      </span>
+                            <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2736" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/administration/page/planning-commission-meeting" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">Planning Commission Meeting</span>
+
+      </span>
+                            <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2721" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/administration/page/textmygov-announcement" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">TextMyGov Announcement</span>
+
+      </span>
+                            <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2636" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/administration/page/swfwmd-declared-severe-water-shortage" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden"> SWFWMD Declared Severe Water Shortage</span>
+
+      </span>
+                <span class="cp-card__body">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Southwest Florida Water Management District (SWFWMD) has declared…</p></div>
+      
+    </span>
+                          <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2621" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/administration/page/camp-rock-polk-county-summer-camp" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">CAMP ROCK - Polk County Summer Camp</span>
+
+      </span>
+                            <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2541" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/administration/page/illicit-discharge-flyer-2025" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">Illicit Discharge Flyer 2025</span>
+
+      </span>
+                            <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="1486" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/water/page/2023-water-quality-reports-polk-city-and-mt-olive" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">2023 Water Quality Reports for Polk City and Mt. Olive</span>
+
+      </span>
+                <span class="cp-card__body">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p>Polk City is pleased to present the 2023 Annual Water Quality…</p></div>
+      
+    </span>
+                          <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="1476" class="node node--type-page node--view-mode-large-card cp-card cp-card__style__horizontal">
+                              <a href="/home-page/page/duke-energy-pole-replacement-projects-close-lake-mabel-loop-road-and-old-polk-city" class="cp-card__link-wrapper">
+                      <span class="cp-card__media cp-card__media__image">
+        <img loading="lazy" src="/sites/g/files/vyhlif10541/files/styles/cp_fed_home_news/public/images/default_0.jpg?itok=LCjgxHNa" alt="" />
+
+      </span>
+                      <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">Duke Energy Pole Replacement Projects Close Lake Mabel Loop Road and Old Polk City Road</span>
+
+      </span>
+                <span class="cp-card__body">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p><strong>Bartow, Fla. (July 15, 2024) — </strong>Separate pole…</p></div>
+      
+    </span>
+                          <span class="cp-card__read-more">Read More</span>
+            </span>
+
+      </a>
+    
+    </article>
+</li>
+                  </ul>
+      </div>
+              
+      <div class="cp-article__controls">
+              <button class="cp-article__control cp-article__controls--prev" aria-hidden="true">
+          <span class="visually-hidden">Previous</span>
+        </button>
+                            <button class="cp-article__control cp-article__controls--next" aria-hidden="true">
+          <span class="visually-hidden">Next</span>
+        </button>
+            </div>
+                  <div class="cp-article__footer">
+        
+            <div class="field field--name-field-view-all-link field--type-link field--label-hidden field__item"><a href="/news">View All</a></div>
+      
+      </div>
+      </div>
+</div>
+          </div>
+  
+    </div>
+    </div>
+
+            </div>
+          </div>
+        </li>
+                              <li class="key-links-menu__item menu-mlid-16 expandable-content__wrapper">
+          <div class="key-links-menu__link">
+            <button class="expandable-content__button" aria-expanded="false">
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-calendar-days" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">Calendar</div>
+      
+      </div>
+
+
+</button>
+            <div class="expandable-content__section">
+              
+<div  class="paragraph paragraph--type--expanding-menu paragraph--view-mode--full cp-arcticle">
+        <div class="cp-article__content">
+      
+      <div class="field field--name-field-expanding-reference field--type-entity-reference-revisions field--label-hidden field__items">
+              <div class="field__item">
+
+  <div  class="cp-fed--cards__upcoming-events-simple paragraph paragraph--type--card paragraph--view-mode--default cp-arcticle cp-article__card cp-article__card__vertical cp-article__widget-alignment__horizontal" data-slideshow-id="951">
+          <div class="cp-article__heading">
+        <h2 class="cp-article__header">
+            <div class="field field--name-field-title field--type-string field--label-hidden field__item">Upcoming Events</div>
+      </h2>
+      </div>
+              <div class="cp-article__content">
+        <ul class="cp-article__wrapper">
+                      <li>  
+
+
+  <article data-history-node-id="2666" class="node node--type-page node--view-mode-small-card cp-card cp-card__style__vertical">
+                      <a href="/city-commission/page/city-commission-meeting-1" class="cp-card__link-wrapper">
+                            <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Meeting</span>
+
+      </span>
+      <span class="cp-card__content-type--wrapper">
+                                <span class="cp-card__event-date">
+          
+      <div class="field field--name-field-smart-date field--type-smartdate field--label-hidden field__items">
+              <div class="field__item"><div class="cp-smart-date-simple-display--wrapper">
+  <div class="cp-smart-date-simple-display--next">
+    <div><time datetime="2026-04-21T18:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__0'>Apr</span> <span class='cp-smart-date-simple-display__next__1'>21,</span> <span class='cp-smart-date-simple-display__next__2'>2026</span> | <span class='cp-smart-date-simple-display__next__3'>6pm</span></time>
+ - <time datetime="2026-04-21T19:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__4'>7pm</span></time>
+</div>
+
+  </div>
+  </div>
+</div>
+          </div>
+  
+        </span>
+                        </span>
+                            <span class="cp-card__read-more">Read More &gt;</span>
+            </span>
+
+      </a>
+      </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2791" class="node node--type-meeting node--promoted node--view-mode-small-card cp-card cp-card__style__vertical">
+                      <a href="/administration/meeting/city-commission-meeting-0" class="cp-card__link-wrapper">
+                            <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Meeting</span>
+
+      </span>
+      <span class="cp-card__content-type--wrapper">
+                                <span class="cp-card__event-date">
+          
+      <div class="field field--name-field-smart-date field--type-smartdate field--label-hidden field__items">
+              <div class="field__item"><div class="cp-smart-date-simple-display--wrapper">
+  <div class="cp-smart-date-simple-display--next">
+    <div><time datetime="2026-04-21T18:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__0'>Apr</span> <span class='cp-smart-date-simple-display__next__1'>21,</span> <span class='cp-smart-date-simple-display__next__2'>2026</span> | <span class='cp-smart-date-simple-display__next__3'>6pm</span></time>
+ - <time datetime="2026-04-21T19:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__4'>7pm</span></time>
+</div>
+
+  </div>
+  </div>
+</div>
+          </div>
+  
+        </span>
+                        </span>
+                            <span class="cp-card__read-more">Read More &gt;</span>
+            </span>
+
+      </a>
+      </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2671" class="node node--type-page node--view-mode-small-card cp-card cp-card__style__vertical">
+                      <a href="/city-commission/page/city-commission-meeting-2" class="cp-card__link-wrapper">
+                            <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Meeting</span>
+
+      </span>
+      <span class="cp-card__content-type--wrapper">
+                                <span class="cp-card__event-date">
+          
+      <div class="field field--name-field-smart-date field--type-smartdate field--label-hidden field__items">
+              <div class="field__item"><div class="cp-smart-date-simple-display--wrapper">
+  <div class="cp-smart-date-simple-display--next">
+    <div><time datetime="2026-05-19T18:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__0'>May</span> <span class='cp-smart-date-simple-display__next__1'>19,</span> <span class='cp-smart-date-simple-display__next__2'>2026</span> | <span class='cp-smart-date-simple-display__next__3'>6pm</span></time>
+ - <time datetime="2026-05-19T19:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__4'>7pm</span></time>
+</div>
+
+  </div>
+  </div>
+</div>
+          </div>
+  
+        </span>
+                        </span>
+                            <span class="cp-card__read-more">Read More &gt;</span>
+            </span>
+
+      </a>
+      </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2676" class="node node--type-page node--view-mode-small-card cp-card cp-card__style__vertical">
+                      <a href="/city-commission/page/city-commission-meeting-3" class="cp-card__link-wrapper">
+                            <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Meeting</span>
+
+      </span>
+      <span class="cp-card__content-type--wrapper">
+                                <span class="cp-card__event-date">
+          
+      <div class="field field--name-field-smart-date field--type-smartdate field--label-hidden field__items">
+              <div class="field__item"><div class="cp-smart-date-simple-display--wrapper">
+  <div class="cp-smart-date-simple-display--next">
+    <div><time datetime="2026-06-16T18:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__0'>Jun</span> <span class='cp-smart-date-simple-display__next__1'>16,</span> <span class='cp-smart-date-simple-display__next__2'>2026</span> | <span class='cp-smart-date-simple-display__next__3'>6pm</span></time>
+ - <time datetime="2026-06-16T19:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__4'>7pm</span></time>
+</div>
+
+  </div>
+  </div>
+</div>
+          </div>
+  
+        </span>
+                        </span>
+                            <span class="cp-card__read-more">Read More &gt;</span>
+            </span>
+
+      </a>
+      </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2681" class="node node--type-page node--view-mode-small-card cp-card cp-card__style__vertical">
+                      <a href="/city-commission/page/city-commission-meeting-4" class="cp-card__link-wrapper">
+                            <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Meeting</span>
+
+      </span>
+      <span class="cp-card__content-type--wrapper">
+                                <span class="cp-card__event-date">
+          
+      <div class="field field--name-field-smart-date field--type-smartdate field--label-hidden field__items">
+              <div class="field__item"><div class="cp-smart-date-simple-display--wrapper">
+  <div class="cp-smart-date-simple-display--next">
+    <div><time datetime="2026-07-21T18:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__0'>Jul</span> <span class='cp-smart-date-simple-display__next__1'>21,</span> <span class='cp-smart-date-simple-display__next__2'>2026</span> | <span class='cp-smart-date-simple-display__next__3'>6pm</span></time>
+ - <time datetime="2026-07-21T19:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__4'>7pm</span></time>
+</div>
+
+  </div>
+  </div>
+</div>
+          </div>
+  
+        </span>
+                        </span>
+                            <span class="cp-card__read-more">Read More &gt;</span>
+            </span>
+
+      </a>
+      </article>
+</li>
+                      <li>  
+
+
+  <article data-history-node-id="2686" class="node node--type-page node--view-mode-small-card cp-card cp-card__style__vertical">
+                      <a href="/city-commission/page/city-commission-meeting-5" class="cp-card__link-wrapper">
+                            <span class="cp-card__text--wrapper">
+    <span class="cp-card__title">
+          <span class="field field--name-title field--type-string field--label-hidden">City Commission Meeting</span>
+
+      </span>
+      <span class="cp-card__content-type--wrapper">
+                                <span class="cp-card__event-date">
+          
+      <div class="field field--name-field-smart-date field--type-smartdate field--label-hidden field__items">
+              <div class="field__item"><div class="cp-smart-date-simple-display--wrapper">
+  <div class="cp-smart-date-simple-display--next">
+    <div><time datetime="2026-08-18T18:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__0'>Aug</span> <span class='cp-smart-date-simple-display__next__1'>18,</span> <span class='cp-smart-date-simple-display__next__2'>2026</span> | <span class='cp-smart-date-simple-display__next__3'>6pm</span></time>
+ - <time datetime="2026-08-18T19:00:00-04:00" class="datetime"><span class='cp-smart-date-simple-display__next__4'>7pm</span></time>
+</div>
+
+  </div>
+  </div>
+</div>
+          </div>
+  
+        </span>
+                        </span>
+                            <span class="cp-card__read-more">Read More &gt;</span>
+            </span>
+
+      </a>
+      </article>
+</li>
+                  </ul>
+      </div>
+              
+      <div class="cp-article__controls">
+              <button class="cp-article__control cp-article__controls--prev" aria-hidden="true">
+          <span class="visually-hidden">Previous</span>
+        </button>
+                            <button class="cp-article__control cp-article__controls--next" aria-hidden="true">
+          <span class="visually-hidden">Next</span>
+        </button>
+            </div>
+                  <div class="cp-article__footer">
+        
+            <div class="field field--name-field-view-all-link field--type-link field--label-hidden field__item"><a href="/calendar">View All</a></div>
+      
+      </div>
+      </div>
+</div>
+          </div>
+  
+    </div>
+    </div>
+
+            </div>
+          </div>
+        </li>
+                              <li class="key-links-menu__item menu-mlid-11">
+          <div class="key-links-menu__item-body">
+            <a class="key-links-menu__link" href="/news?search=&amp;field_news_type_value_1%5Bpress_release%5D=press_release">
+              
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-bullhorn" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">Press Releases</div>
+      
+      </div>
+
+
+
+            </a>
+          </div>
+        </li>
+                              <li class="key-links-menu__item menu-mlid-1">
+          <div class="key-links-menu__item-body">
+            <a class="key-links-menu__link" href="/jobs">
+              
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-briefcase" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">Employment Opportunities</div>
+      
+      </div>
+
+
+
+            </a>
+          </div>
+        </li>
+                              <li class="key-links-menu__item menu-mlid-6">
+          <div class="key-links-menu__item-body">
+            <a class="key-links-menu__link" href="/faqs">
+              
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-square-question" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">FAQs</div>
+      
+      </div>
+
+
+
+            </a>
+          </div>
+        </li>
+                              <li class="key-links-menu__item menu-mlid-331">
+          <div class="key-links-menu__item-body">
+            <a class="key-links-menu__link" href="/directory">
+              
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-users" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">Staff Directory</div>
+      
+      </div>
+
+
+
+            </a>
+          </div>
+        </li>
+                              <li class="key-links-menu__item menu-mlid-336">
+          <div class="key-links-menu__item-body">
+            <a class="key-links-menu__link" href="/document-library">
+              
+  
+  <div class="menu_link_content menu-link-contentkey-links-menu view-mode-vertical menu-dropdown menu-dropdown-0 menu-type-vertical">
+              
+            <div class="field field--name-field-font-awesome field--type-fontawesome-icon field--label-hidden field__item"><div class="fontawesome-icons">
+      <div class="fontawesome-icon">
+  <i  class="fas fa-file-lines" data-fa-transform="" data-fa-mask="" style="--fa-primary-color: #000000; --fa-secondary-color: #000000;"></i >
+</div>
+
+  </div>
+</div>
+      
+            <div class="field field--name-title field--type-string field--label-hidden field__item">Documents</div>
+      
+      </div>
+
+
+
+            </a>
+          </div>
+        </li>
+            </ul>
+
+
+
+
+    </div>
+  </div>
+
+    </div>
+  </div>
+
+    </div>
+  </div>
+
+  </div>
+</article>
+
+    </div>
+  </div>
+
+  </div>
+
+        </div>
+        
+              </div>
+
+          </main>
+  
+      <footer class="page-footer">
+      
+        <div class="region region-footer">
+    <nav aria-labelledby="block-utilitylinksmenu-menu" id="block-utilitylinksmenu" class="block block-menu navigation menu--utility-links-menu">
+            
+  <h2 class="visually-hidden" id="block-utilitylinksmenu-menu">Utility Links Menu</h2>
+  
+
+        
+              <ul region="footer" class="menu">
+                    <li class="menu-item">
+        <a href="/login?destination=/home-page" data-drupal-link-query="{&quot;destination&quot;:&quot;\/home-page&quot;}" data-drupal-link-system-path="login">Staff Login</a>
+              </li>
+        </ul>
+  
+
+
+  </nav>
+
+
+<div id="block-customfooteraddress" class="block block-block-content block-block-contentaea7a4c2-d3ae-4ef9-9c67-39ca7ada1b00">
+  
+    
+      <div class="block__content">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><div class="cp-fed__footer-block cp-fed__footer-block--address">
+  <span class="cp-fed__footer-block--line cp-fed__footer-block--line-01">City of Polk City, Florida, 123 Broadway Blvd. SE, Polk City, FL 33868</span>
+  <span class="cp-fed__footer-block--line cp-fed__footer-block--line-02">863-984-1375 | Fax: 863-984-2334</span>
+</div></div>
+      
+    </div>
+  </div>
+
+
+<div id="block-customsitecredits" class="block block-block-content block-block-content628701cb-c79d-435e-959e-105039c35d89">
+  
+    
+      <div class="block__content">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><div id="site_credits"><a href="https://www.civicplus.com/" target="_blank">Government Websites by CivicPlus®</a></div></div>
+      
+    </div>
+  </div>
+
+
+<div id="block-polkcityfl-theme-customtextmygov" class="block block-block-content block-block-content987b25ef-ea65-4eee-b9d1-89406d189448">
+  
+    
+      <div class="block__content">
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><script src="https://textmygov.com/widget-update/dist/app.js" data-key="04224343" data-position="right" defer></script></div>
+      
+    </div>
+  </div>
+
+  </div>
+
+    </footer>
+  
+      <div class="admin-footer">
+        <div class="region region-admin-footer">
+    
+  </div>
+
+    </div>
+  
+</div>
+  </div>
+
+
+<script src="https://static.addtoany.com/menu/page.js" defer></script>
+<script src="/sites/g/files/vyhlif10541/files/js/js_pTWcJ7i76Bk632EHzs-4pUFPWf7j4OllHk3Sx5ZcOoo.js?scope=footer&amp;delta=1&amp;language=en&amp;theme=polkcityfl_theme&amp;include=eJxtUFuOwzAIvFBcaz_3NBaxSYKCsWWTPm6_pM1uq3Z_EMOMBzOQkhaQm4ejOU2tiA4jqmILeK2lYwoTscHuZxRswEMsDX1qWwU-xcIMteMQa4B0Bon7AwTdGnY_mVuAC_aSMUwb8y4bIa5zK5ukQBlmkz0n7jEZ8KpMsv5uOeCQN6FYEobFDKspfYWGou5CSZd_6M4UVysJ25PNQOLtOJAEI6OL9kszeRNkErcgzcsHcSC3ozfOjq5FOp3R6e79QuMMVmTz94xR0gtHsZVOalH8tW7XDrXwGklvEwddMFvs34q5Mih-ufvkU_K4jGR2K97cnlv_AX4KwHA"></script>
+
+</body>
+<!-- END OF PAGE -->
+</html>

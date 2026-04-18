@@ -1,0 +1,1251 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html ng-app="appAca" xmlns="http://www.w3.org/1999/xhtml" lang="en-US" xml:lang="en-US" xmlns:og="http://ogp.me/ns#" xmlns:fb="http://www.facebook.com/2008/fbml">
+<head id="ctl00_Head1"><link href="App_Themes/Default/form.css" type="text/css" rel="stylesheet" /><link href="App_Themes/Default/style.css" type="text/css" rel="stylesheet" /><title>
+	
+        Accela Citizen Access
+    
+</title><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+        body, html {
+        overflow-y: visible!important;
+        }
+        .page-overlay-blocker {
+          position: fixed;
+          z-index: 999;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          background-color: #ffffff;
+          opacity: 0.1;
+          display:none;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/main.css" /><link rel="stylesheet" type="text/css" href="css/acaresponsive.min.css" /><link href="App_Themes/en-US/style.css" type="text/css" rel="stylesheet" /><link id="ctl00_CustomerCssStyle" style="text/css" rel="stylesheet" href="/POLKCO/Handlers/CustomizedCssStyle.ashx?agencyCode=POLKCO"></link><link id="ctl00_PageCustomizeCssStyle_GlobalCustomScriptBefore" style="text/css" rel="stylesheet" href="/POLKCO/Customization/POLKCO/globalcustomscriptbefore.css"></link></head>
+    
+<script type="text/javascript">
+    var firstErrorMsgId;
+
+    function isSafari(){
+        var ua = window.navigator.userAgent;
+        return ua.indexOf("Safari")>-1;
+    }
+
+    var original=0;
+    function iframeAutoFit()
+    {
+        try
+        {
+            if(window!=parent)
+            {
+                var ifrm = getParentDocument().getElementById("ACAFrame");
+                if(ifrm != null && ifrm.contentWindow==window)
+                {
+                    var h1 = 0, h2 = 0;
+
+                    if(document.documentElement&&document.documentElement.scrollHeight)
+                    {
+                        h1=ifrm.contentWindow.document.documentElement.scrollHeight;
+                    }
+                    if (isSafari()) {
+                        h1=ifrm.contentWindow.document.body.scrollHeight;
+                    }
+                
+                    var h=$(ifrm.contentWindow.document.body).innerHeight();
+                
+                    var temp = h1-60 - h;
+                    var chk = true;
+                    if (temp> 0 && temp<200) {
+                        chk = false;
+                    }
+
+                    var popupHeight = 0;
+                    var popupDialog = $("#dvACADialogLayer");
+                    if ($.exists(popupDialog)) {
+                        popupHeight = popupDialog[0].clientHeight;
+                        if (h < popupHeight) {
+                            h = popupHeight;
+                        }
+                    }
+
+                    if(original != h || !chk){ 
+                        if(isFireFox() == false)
+                        {
+                            if (chk) {
+                                h1 = parseInt(h)+60;
+                            }
+                        
+                            ifrm.style.height = ifrm.parentNode.style.height = h1 +"px";
+                        }
+                        else
+                        {
+                            if (chk) {
+                                if ($.exists(popupDialog)) {
+                                    h1 = parseInt(h) + 60;
+                                } else {
+                                    h1 = ifrm.contentDocument.body.scrollHeight;
+                                    h1 = parseInt(h1) + 60;
+                                }
+                            }
+                            
+                            ifrm.height = h1;
+                        }
+
+                        original = h;
+                    } 
+                }
+            }
+        }
+        catch (ex){}
+    }
+
+</script>
+
+<body>
+    <div id="iframeBlocker" class="page-overlay-blocker"></div>
+    <script type="text/javascript" src="/POLKCO/Scripts/GlobalConst.aspx"></script>  
+    <script src="/POLKCO/bundles/common?v=3frcyczFCCAemuR09W71PpqoQkdwvQy6MShBSNrJdrc1"></script>
+
+    <script src="/POLKCO/bundles/accela-common?v=kGpULZyk87MIozcGFavDaYJA7XTn5nETLZ6ByrnGnac1"></script>
+
+
+    <script type="text/javascript">
+        try {
+            var isEmbedded = (window.top !== window.self);
+            if (isEmbedded && !window.__ACA_DDRUM_LOADED) {
+                (function (h, o, u, n, d) {
+                    h = h[d] = h[d] || { q: [], onReady: function (c) { h.q.push(c) } }
+                    d = o.createElement(u); d.async = 1; d.src = n
+                    n = o.getElementsByTagName(u)[0]; n.parentNode.insertBefore(d, n)
+                })(window, document, 'script', 'https://www.datadoghq-browser-agent.com/datadog-rum-v4.js', 'DD_RUM');
+
+                DD_RUM.onReady(function () {
+                    var ddrumClientToken = 'pub4c296e8a953a31a53abb3617c2f840e4';
+                    if (!ddrumClientToken || ddrumClientToken.trim() === '') {
+                        console.error("DD_RUM Client Token is not configured or empty!");
+                        ddrumClientToken = "";
+                    }
+                    var ddrumApplicationId = 'e34bafed-755d-4362-89e6-2ea4af60cd0f';
+                    if (!ddrumApplicationId || ddrumApplicationId.trim() === '') {
+                        console.error("DD_RUM Application ID is not configured or empty!");
+                        ddrumApplicationId = "";
+                    }
+                    function initRUM() {
+                        DD_RUM.init({
+                            clientToken: ddrumClientToken.trim(),
+                            applicationId: ddrumApplicationId.trim(),
+                            site: 'datadoghq.com',
+                            env: 'aca-prod',
+                            sessionSampleRate: 50, // REDUCED for PROD usage
+                            sessionReplaySampleRate: 5,
+                            trackInteractions: true,
+                            // Safe fallback settings for restricted environments
+                            storeContextsAcrossPages: true,
+                            useSecureSessionCookie: true,
+                            useCrossSiteSessionCookie: true,
+                            trackSessionAcrossSubdomains: false,
+                            trackViewsManually: true
+                        });
+                        // EXPLICITLY START A VIEW
+                        DD_RUM.startView({
+                            name: 'ACAProdDefault-AllPages',
+                            service: 'aca-prod',
+                            version: '25.5.0'
+                        });
+                        console.log("DD_RUM view started.");
+                        window.__ACA_DDRUM_LOADED = true;
+                    }
+                    // If inside iframe and browser supports requestStorageAccess
+                    if (document.requestStorageAccess) {
+                        console.log("Requesting storage access is present.");
+                        document.requestStorageAccess()
+                            .then(() => {
+                                console.log("Storage access granted");
+                            })
+                            .catch(() => {
+                                console.warn("Storage access denied, proceeding with fallback");
+                            });
+                    } else {
+                        console.log("Requesting storage access is not supported by the browser.");
+                    }
+                    initRUM();
+                });
+            }
+        } catch (e) {
+            console.error("Error initializing DD_RUM", e);
+        }
+        try {
+            var isEmbedded = (window.top !== window.self);
+            if (isEmbedded) {
+                console.log("Embedding Detected. Referrer (document.referrer): " + document.referrer);
+                if (window.DD_RUM && typeof DD_RUM.onReady === 'function') {
+                    DD_RUM.onReady(function () {
+                        console.log("DD_RUM is ready - logging action.");
+                        DD_RUM.addAction("EmbeddingDetected", {
+                            referrer: document.referrer || "not present",
+                            env: 'aca-prod',
+                            appId: 'e34bafed-755d-4362-89e6-2ea4af60cd0f',
+                            identityClientId: '5f88dc68-6856-49a8-af5e-d0e237d13b9e' || "not present",
+                            superAgencyCode: 'POLKCO' || "not present",
+                            agencyCode: 'POLKCO' || "not present"
+                    });
+                    console.log("DD_RUM action 'EmbeddingDetected' successfully queued.");
+                });
+                } else {
+                    console.warn("DD_RUM not available or not ready");
+                }
+                console.log("DD_RUM didn't throw any error");
+            } else {
+                console.log("Not embedded (top === self). Referrer: " + document.referrer);
+            }
+        } catch (e) {
+            console.error("Error checking embedding: ", e);
+        }
+    </script>
+    
+    <script type="text/javascript" src="/POLKCO/Scripts/SessionTimeout.js"></script>
+
+    <script type="text/javascript">
+        $.global.isRTL = IsTrue('False');
+
+        //fix the issue that the confirm/alert box should also follows the current culture.
+        if ($.global.isRTL) {
+            document.dir = "rtl";
+        } else {
+            document.dir = "";
+        }
+
+        $.global.isAdmin = IsTrue('False');
+        var isClassTemplate = IsTrue('True');
+        var isWelcomePage = IsTrue('False');
+        var isLoginPage = IsTrue('False');
+        var isAnonymous = IsTrue('True');
+        var isCapApplyDisclaimerPage = IsTrue('False');
+        var isCapEditPage = IsTrue('False');
+
+        if (!isAnonymous && !$.global.isAdmin) {
+            var opts = {
+                Culture: 'en-US',
+                TimeoutTime: 60,
+                WarningTime: 5,
+                WarnTitle: 'Warning',
+                ExpiredTitle: 'Session Expired',
+                MsgWarn: 'Your session will time out in {0} minute(s). Would you like to continue?',
+                MsgExpired: 'Your session has been timed out due to inactivity. Please click on Login to access your account.',
+                MsgHelp: 'Please press the Tab key to move the focus to the OK or Cancel button.',
+                BtnOK: 'OK',
+                BtnCancel: 'Cancel',
+                BtnLogin: 'Login',
+                UrlWelcome: '/POLKCO/Welcome.aspx',
+                UrlLogin: '/POLKCO/Login.aspx',
+                UrlLogic: '/POLKCO/Handlers/SessionTimeOutHandler.ashx',
+                UrlCloseImg: '/POLKCO/app_themes/Default/assets/closepopup.png',
+                UrlUserStatus: '/POLKCO/api/PublicUser/AccountStatus',
+                ApplicationRoot: '/POLKCO/'
+            };
+
+            if (isClassTemplate) {
+                $("body").SessionTimeoutTimer(opts);
+            }
+        }
+    </script>
+
+    
+<script type="text/javascript">
+    var walkMeOptions = '{"userID":"31BCA02094EB78126A517B206A88C73CFA9EC6F704C7030D18212CACE820F025F00BF0EA68DBF3F3A5436CA63B53BF7BF80AD8D5DE7D8359D0B7FED9DBC3AB99","module":"","userGroup":"Anonymous","walkMeJsUrl":"https://cdn.walkme.com/users/01c65c34a5d141bbac172b11d8b9fcbf/walkme_01c65c34a5d141bbac172b11d8b9fcbf_https.js"}';
+
+    if (walkMeOptions != undefined && walkMeOptions != null && walkMeOptions.length != 0) {
+        var walkMeData = JSON.parse(walkMeOptions);
+        if (walkMeData.walkMeJsUrl != undefined && walkMeData.walkMeJsUrl != null && walkMeData.walkMeJsUrl.length != 0) {
+            var accelaVariables = new Object()
+            accelaVariables.userId = walkMeData.userID;
+            accelaVariables.userGroup = walkMeData.userGroup;
+            accelaVariables.product = walkMeData.product;
+            accelaVariables.version = walkMeData.version;
+            accelaVariables.environment = walkMeData.environment;
+            accelaVariables.module = walkMeData.module;
+            accelaVariables.agency = walkMeData.agency;
+            window.accelaVariables = accelaVariables;
+
+            //How to Pass Agency Name?
+            (function () {
+                var walkme = document.createElement('script');
+                walkme.type = 'text/javascript';
+                walkme.async = true;
+                walkme.src = walkMeData.walkMeJsUrl;
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(walkme, s);
+                window._walkmeConfig = { smartLoad: true };
+            })();
+        }
+    }
+</script>
+
+    
+<script>
+  (function(h,o,u,n,d) {
+     h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+     d=o.createElement(u);d.async=1;d.src=n
+     n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/datadog-rum-v4.js','DD_RUM')
+  DD_RUM.onReady(function() {
+    DD_RUM.init({
+      clientToken: 'pub4c296e8a953a31a53abb3617c2f840e4',
+      applicationId: 'e34bafed-755d-4362-89e6-2ea4af60cd0f',
+      site: 'datadoghq.com',
+      env: 'civp_prod_azure',
+      service: 'aca',
+      version: '25.6.0.260122',
+      sampleRate: 10,
+      sessionReplaySampleRate: 5,
+      premiumSampleRate: 5,
+      trackInteractions: true
+    })
+  })
+</script>
+
+    <DIV style="WIDTH: 1px; HEIGHT: 1px;" id="divctl00_hlSkipNavigation" class=""><a id="ctl00_hlSkipNavigation" accesskey="0" href="#" tabIndex="-1" onclick="skipToBeginningOfACA();" title="Skip to main content. Please make sure the Accessibility Support check box is marked."  class="NotShowLoading"><img alt="Skip to main content. Please make sure the Accessibility Support check box is marked." src="/POLKCO/WebResource.axd?d=_srwWNS1MSJOYH4C35b1oFn7VEYtvNa8YGGRg1sqtrF_faY_-fd0egWACbQyGWVnyPpONGyWOQylydrXXpHjvXdl4T0G4TrJ5TZlCzCCz424pMVoF3uq-ZWyjKkSQo7UFVPfshRXWd-tDgOs0est9E0Mlus1&t=639062664840000000" width='1px' height='1px' style='border-width:0px;'/></a></DIV>
+    <DIV style="WIDTH: 1px; HEIGHT: 1px;" id="divctl00_hlSkipToolBar" class=""><a id="ctl00_hlSkipToolBar" accesskey="1" href="#FirstAnchorInACAMainContent"  onclick="skipToMainContent();" title="Skip Module Navigation"  class="NotShowLoading"><img alt="Skip Module Navigation" src="/POLKCO/WebResource.axd?d=_srwWNS1MSJOYH4C35b1oFn7VEYtvNa8YGGRg1sqtrF_faY_-fd0egWACbQyGWVnyPpONGyWOQylydrXXpHjvXdl4T0G4TrJ5TZlCzCCz424pMVoF3uq-ZWyjKkSQo7UFVPfshRXWd-tDgOs0est9E0Mlus1&t=639062664840000000" width='1px' height='1px' style='border-width:0px;'/></a></DIV>
+    <form name="aspnetForm" method="post" action="./Login.aspx" id="aspnetForm">
+<div>
+<input type="hidden" name="ACA_CS_FIELD" id="ACA_CS_FIELD" value="31a5ca3287d54eb2a3a5b86c59b75787" />
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+<input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="aXIz01tIgm+buQx3cRm3F4noVz1kh6i1zR18drQHWdiRFXr+3bA5GwsmhwsvqPqhMsg4Nm10RA8MVAJaSiqTKtD1Piui1cqgwdHnuhghW/TqNwUFg1a+qVyjh+f6CA0fhhWbQNa/+W92ePsXdrbFjEJSMJ/FsHBWFL4AeMQD6Z1/GEWazdG+qiKQWooizR7DbaZPuau7n8Kg8tjkFPdbFkvE1tUTuMV72lHj1x326152+tVrVC+/NqLg3GWlMVdx/wrXAbnIx3Ox97DwPm4bEV5aK/IdgUHg14PHOoqCQMEpoYOZvlNoLc0LH6V9h+kFGD1P2uBDXsJmhuEhRfNaFD4mE9MrkmRYMPw+gixA7+GCjzVpC6hhTmxS2u201f9/n6a23qjlXAzIHP5LuiqJdnxCIukL07omelkDrdla4UgyqCHFghnAcbtaYItH/1EHzRqZrJJ4l2vraKLVI2hFa5exvD7UNGCpcKGL8N8TET1Ul0a9drL78hvsjr01OXEurE/JJ0GMr9pMSkxzHTGSuWtHPSeSpJRiS7PNCNjRP/B5+17SSCR7J/VcXLy6xBMDreUXNa8b0BLSxr4sWFdDSdScP+C4nxsf+0b+5o/JuUFaC49HY0fiHboznQnd5Qu3hTGTEpkgFjv308Q6ojMo/lgXTnyMUIVPQ/hF+TUzOQhTtsl7+XX04nCX110v1QyIkgKmHbBz4+s03ziHSiOZhtw/dduaey9wrvstHNDPlKRfEW7GtVMLtIWhWQi0hUFcZz9Rn+Gs97RDrAiwDDKvet/JY0PpsiNQqgKfmsIUqJrSKvSijkspeEhRtSlKTTSlhdj8Rg==" />
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script>
+
+
+<script src="/POLKCO/WebResource.axd?d=UK81IePOXTVsZN--6ZX3g4RlFAr7RgxiI7uqyim-g-VIvVHR4zblhbi9p-YGgBbvi5g5sUcNtYyJSdSIpy9_SFG--4U1&amp;t=638901356248157332" type="text/javascript"></script>
+
+
+<script src="/POLKCO/Customization/POLKCO/globalcustomscriptbefore.js" type="text/javascript"></script>
+<script src="/POLKCO/Scripts/Validation.js" type="text/javascript"></script>
+<script src="/POLKCO/WebResource.axd?d=oOLzn4x6UCkzDk73gJEjyKKHBYQK3oAV4jz8ILoDiFUB0rh9ozcZSe3imzCBf_Duyl__EapJej0Deb0PtYtWa9dMpVwaTG5XH6Vejmft0MGi01ZJrKNq7rONVdj54k9Tl3ee4fq5gvzN596JQCMDgQ1muWo1&amp;t=639062664840000000" type="text/javascript"></script>
+<script src="/POLKCO/WebResource.axd?d=l2dj_uwwJYhrJ3qNqC4b0L7FEp3BC8DcOMrfmLxAJahv1j9cpcp_oGRddWyTFQp38ONn3xqPWoSatadkXluZjeh2RbgrYWdnTjhrvteAv1b4BIpoOpgYSPBbRcHVAebV7h8JSEv9R4D771xyeVa1uHtTYPY1&amp;t=639062664840000000" type="text/javascript"></script>
+<script src="/POLKCO/WebResource.axd?d=-7h3I5JBId5Q_Xci-Y7iPoEJkfh296P15DDDyNjehZ_vw5UGZpCBR0bPNEDAHVz2DpVT-1-fzbsti_kFR6qEe2nDTva9fH9BL-bMLW4dzLTfoM_ghrOYRqtOiPvv4S8AZ00r3g2&amp;t=639062664840000000" type="text/javascript"></script>
+<script src="/POLKCO/ScriptResource.axd?d=BuJKyuMlQ9ihDHkKRspv5-_M9_7RuSRHVkgkhfGbmJu2rtTtHDfNysfQHNQ_nnJJbmLH8R_ActQjxmw2InzKeIXmKhnezDeaW1LhYxtTwLLTvJoriHX9JQHnf8_EKPHAlVhdwpGPUOSmXUe4QcTUqXNH6J81&amp;t=5c0e0825" type="text/javascript"></script>
+<script src="/POLKCO/ScriptResource.axd?d=dw-rli8fVv9LQT7sT_P_ykkYemDq5tURAhS13SdOcVmy6E7hYiOLbpG1GbTdxR7JPnldq_rjiy3OuTVLEk_D32KC2QqiyFsRMzqbnhXYUVFtYS6oIU08w0K38iwj8uRxWCTs2qe9GTFvEEiFeR_bb6gYSfc_6KSGg_IKPSB1wT5wLwW40&amp;t=5c0e0825" type="text/javascript"></script>
+<script src="/POLKCO/WebService/AnnouncementService.asmx/js" type="text/javascript"></script>
+<script type="text/javascript">
+//<![CDATA[
+var PageMethods = function() {
+PageMethods.initializeBase(this);
+this._timeout = 0;
+this._userContext = null;
+this._succeeded = null;
+this._failed = null;
+}
+PageMethods.prototype = {
+_get_path:function() {
+ var p = this.get_path();
+ if (p) return p;
+ else return PageMethods._staticInstance.get_path();},
+GetContactAddressUsedInDailyAsPrimary:function(contactAddressID,agencyCode,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'GetContactAddressUsedInDailyAsPrimary',false,{contactAddressID:contactAddressID,agencyCode:agencyCode},succeededCallback,failedCallback,userContext); },
+ClearUIData:function(serializedUIDataTypes,succeededCallback, failedCallback, userContext) {
+return this._invoke(this._get_path(), 'ClearUIData',false,{serializedUIDataTypes:serializedUIDataTypes},succeededCallback,failedCallback,userContext); }}
+PageMethods.registerClass('PageMethods',Sys.Net.WebServiceProxy);
+PageMethods._staticInstance = new PageMethods();
+PageMethods.set_path = function(value) { PageMethods._staticInstance.set_path(value); }
+PageMethods.get_path = function() { return PageMethods._staticInstance.get_path(); }
+PageMethods.set_timeout = function(value) { PageMethods._staticInstance.set_timeout(value); }
+PageMethods.get_timeout = function() { return PageMethods._staticInstance.get_timeout(); }
+PageMethods.set_defaultUserContext = function(value) { PageMethods._staticInstance.set_defaultUserContext(value); }
+PageMethods.get_defaultUserContext = function() { return PageMethods._staticInstance.get_defaultUserContext(); }
+PageMethods.set_defaultSucceededCallback = function(value) { PageMethods._staticInstance.set_defaultSucceededCallback(value); }
+PageMethods.get_defaultSucceededCallback = function() { return PageMethods._staticInstance.get_defaultSucceededCallback(); }
+PageMethods.set_defaultFailedCallback = function(value) { PageMethods._staticInstance.set_defaultFailedCallback(value); }
+PageMethods.get_defaultFailedCallback = function() { return PageMethods._staticInstance.get_defaultFailedCallback(); }
+PageMethods.set_enableJsonp = function(value) { PageMethods._staticInstance.set_enableJsonp(value); }
+PageMethods.get_enableJsonp = function() { return PageMethods._staticInstance.get_enableJsonp(); }
+PageMethods.set_jsonpCallbackParameter = function(value) { PageMethods._staticInstance.set_jsonpCallbackParameter(value); }
+PageMethods.get_jsonpCallbackParameter = function() { return PageMethods._staticInstance.get_jsonpCallbackParameter(); }
+PageMethods.set_path("Login.aspx");
+PageMethods.GetContactAddressUsedInDailyAsPrimary= function(contactAddressID,agencyCode,onSuccess,onFailed,userContext) {PageMethods._staticInstance.GetContactAddressUsedInDailyAsPrimary(contactAddressID,agencyCode,onSuccess,onFailed,userContext); }
+PageMethods.ClearUIData= function(serializedUIDataTypes,onSuccess,onFailed,userContext) {PageMethods._staticInstance.ClearUIData(serializedUIDataTypes,onSuccess,onFailed,userContext); }
+//]]>
+</script>
+
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="2649166D" />
+	<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+</div>
+        <script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'aspnetForm', ['tctl00$HeaderNavigation$panButton','','tctl00$UpdatePanel4Expression',''], [], [], 90, 'ctl00');
+//]]>
+</script>
+
+        <div class="aca_wrapper">
+            <div style="width: 80em; margin: 0 auto;">
+                
+
+<script src="/POLKCO/Scripts/Announcement.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript">
+
+    function RedirectTo(url) {
+        location.href = '/POLKCO/' + url;
+        return false;
+    }
+
+    function showTabPropertyPanel(navBar) {
+        parent.LoadTabInfo(navBar);
+        parent.LoadEastPanelTitle(2);
+    }
+
+    function updateCartNumber(cartNumber) {
+        $get("ctl00_HeaderNavigation_lblShoppingCart").innerHTML = cartNumber;
+    }
+
+    // hide report link and report arrow if no reports available.
+    function hideReportLink(hasLogin) {
+        var reportLinkId = hasLogin ? 'reportLink2' : 'reportLink';
+
+        $get(reportLinkId).style.display = 'none';
+    }
+
+    var menu;
+    var reportMenuTimeOutId;
+    var menuId;
+    var isRTL = false;   // in Arabic, it's true
+
+    // bind reports menu
+    function bindReports(reports, hasLogin, reportLabel) {
+        if ($.global.isAdmin || typeof (reports) == "undefined" || reports == null) {
+            return;
+        }
+
+        var targetId;
+        //var isRTL = false;   // in Arabic, it's true
+
+        if (!hasLogin) {
+            menuId = 'reportList';
+            targetId = 'reportLink';
+            $get('ctl00_HeaderNavigation_lblReports').innerHTML = reportLabel;
+        }
+        else {
+            menuId = 'reportList2';
+            targetId = 'reportLink2';
+            $get('ctl00_HeaderNavigation_lblReports2').innerHTML = reportLabel;
+        }
+
+        if ('False' == 'True') {
+            isRTL = true;
+        }
+
+        var prop = [['isRTL', isRTL], ['align', 'right'], ['menuId', menuId], ['targetId', targetId], ['sign', 'report_menu']];
+        var items = reports;
+        var events = [[['eventType', 'click'], ['func', openReport]]];
+
+        menu = new Menu(items, prop, events);
+    }
+
+    // when clicking report link, show report list and set time out 
+    function showReports() {
+        CheckAndSetNoAsk();
+        if (menu == undefined) return;
+        $get(menuId).style.display = 'block';
+        menu.showMenu();
+
+        hideReportByTimer();
+
+        //when click report link or a report, don't need pop up the query window.
+        SetNotAskWhenClick();
+    }
+
+    if ($.global.isAdmin == false && 'False'.toLowerCase() == 'true') {
+        if ('5' != null && '5' != '') {
+            setInterval("ShowAnnouncementByTimer()", '5' * 60000);
+        }
+        else {
+            setInterval("ShowAnnouncementByTimer()", 5 * 60000);
+        }
+    }
+
+    function hideReportByTimer() {
+        clearTimeout(reportMenuTimeOutId);
+        reportMenuTimeOutId = null;
+        reportMenuTimeOutId = setTimeout(hideReport, 3000);
+    }
+
+
+    function SetFocusIn() {
+        clearTimeout(reportMenuTimeOutId);
+        reportMenuTimeOutId = null;
+    }
+
+    function SetBlurOut() {
+        hideReportByTimer();
+    }
+
+    function SetNotAskWhenClick() {
+        if (typeof (SetNotAsk) != 'undefined') {
+            SetNotAsk();
+        }
+    }
+
+    function onMouseOver() {
+        if (menu) {
+            menu.showMenu();
+            clearTimeout(reportMenuTimeOutId);
+            reportMenuTimeOutId = null;
+        }
+    }
+
+    function onMouseOut() {
+        var e = getEvent();
+        var el = $get(menuId);
+        var target = e.target || e.srcElement;
+        var relatedTarget = e.relatedTarget || e.toElement;
+
+        if (relatedTarget == undefined) {
+            return;
+        }
+        //closeMenu();
+        clearTimeout(reportMenuTimeOutId);
+        reportMenuTimeOutId = null;
+        reportMenuTimeOutId = setTimeout(hideReport, 700);
+    }
+
+    var isMultiWindow = false;
+    var url;
+
+    function openReport(e) {
+        var obj = e.srcElement ? e.srcElement : e.target;
+        if (obj.nodeName != "A")  // if click img or space, don't open parameter window
+        {
+            return;
+        }
+        isMultiWindow = this.isMultiWindow;
+        url = this.url;
+        // do post back for getting the latest cap ids.
+        __doPostBack('ctl00_HeaderNavigation_btnPostForReport');
+    }
+
+    function openParamWin(altIDs) {
+        var IDs = altIDs;
+        var idStr = '';
+        // the requried number of parameter windows. 
+        // If single window or no alt ids, open a window. 1 means one window
+        var openNumbers = (IDs.length > 0 && isMultiWindow) ? IDs.length : 1;
+
+        // if single window, concat the cap alt ids with ",".
+        if (IDs.length > 0 && openNumbers == 1) {
+            for (var i = 0; i < IDs.length; i++) {
+                idStr += IDs[i] + ",";
+            }
+            idStr = idStr.substring(0, idStr.length - 1);  // remove the last ","         
+        }
+
+        var paramWindows = new Array(); // use the array to store the opened windows.
+
+        for (var i = 0; i < openNumbers; i++) {
+            var newUrl = url;
+            if (IDs.length > 0) {
+                var id = openNumbers > 1 ? IDs[i] : idStr;  // if multiple window, pass each id to each window.
+                //newUrl = url + "&ID=" + id;
+                var appendUrl = String.format("&{0}={1}", 'ID', id)
+                newUrl = url + appendUrl;
+            }
+
+            var iLeft = 200;
+            if (i > 0) {
+                // resize the window. Set it padding 50px to the previous window. 
+                // if the open window is more than 5(i>3), set it overlapped the previous window(i=3).
+                var m = i > 3 ? 3 : i - 1;
+                var preWinLeft = paramWindows[m].screenLeft == undefined ?
+                    paramWindows[m].screenX : paramWindows[m].screenLeft;  //FF use screeX
+
+                iLeft = isRTL ? preWinLeft - 50 : preWinLeft + 50;  //if in Arabic, set the next window padding right the previous one.
+            }
+
+            var parameters =
+            String.format("top=200,left={0},height=600,width=800,status=yes,toolbar=no,menubar=no,location=no,resizable=yes,scrollbars=yes", iLeft);
+
+            paramWindows[i] = window.open(newUrl, "_blank", parameters);
+        }
+
+        hideReport();
+
+        SetNotAskWhenClick();
+    }
+
+    function hideReport() {
+        $GetObject(menuId).style.display = 'none';
+    }
+
+    async function validateSSOLogin(ele) {
+        let isPPEnabled = 'False';
+        let isACASSOEnabled = 'False';
+
+        if (IsTrue(isPPEnabled) && ele.id?.endsWith('btnLogin')) {
+            ele.href = "#";
+            let ppLoginUrl = '/auth/login';
+            navigateToPortalpage(ppLoginUrl);
+            return false;
+        }
+        else if (IsTrue(isACASSOEnabled)) {
+            ele.href = "#";
+
+            let superAgencyCode = 'POLKCO';
+            let cloudApiUrl = 'https://api-prod.accela.com';
+            let tenantName = 'POLKCO-PROD';
+            loadSSOLogin(superAgencyCode, cloudApiUrl, tenantName);
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    function navigateToPortalpage(url) {
+        if (window !== window.parent) {
+            window.parent.location.href = url;
+        }
+        else {
+            window.location.href = url;
+        }
+        return false;
+    }
+</script>
+
+<div id="overlayAnnouncement" class="ACA_Announcement_Window_Detail_Overlayer"></div>
+<div id="winAnnouncement" class="ACA_Hide PopUpDlg ACA_Announcement_Window">
+  
+     
+    <div id="announcementWindowHeader" class="ACA_Announcement_Window_Header">
+        <span id="close">
+            <span class="ACA_AlignRightOrLeft CloseImage ACA_FRight" >        
+                <input id="closeWinAnn" onclick="return false;" type="image" src='/POLKCO/app_themes/Default/assets/closepopup.png' class="ACA_ActionIMG" alt="Close" title="Close"/>
+            </span>
+        </span>
+    </div>
+    <div class="ACA_Announcement_Window_Detail">
+        <div id="winAnnouncementContentTitle" class="ACA_Popup_Title ACA_Announcement_Title_Center"></div> 
+        <div class="ACA_TabRow ACA_Line_Content"></div>
+        <div id="winAnnouncementContentAll" class="ACA_Announcement_Content"></div> 
+    </div>
+    
+</div>
+
+<!-- Start HeadNavigation Block -->
+<div id="ctl00_HeaderNavigation_hsLine" style="height:2px;clear:both;width:100%;">&nbsp;</div>
+
+<div id="ctl00_HeaderNavigation_divNavigation" ng-non-bindable="true">
+    <div class="ACA_NaviTitle">
+        <div id="ACARegisterLoginMenu" class="ACA_RegisterLogin ACA_RegisterLogin_FontSize">
+            <table role='presentation' border="0" cellpadding="0" cellspacing="0" summary="">
+                <tr valign="bottom">
+                    <td>
+                        
+                        <div id="ctl00_HeaderNavigation_beforeLogin">
+                            <!--Login link-->
+                            <div class="ACA_FRight">
+                                <table role='presentation' border='0' cellspacing='0' cellpadding='0'>
+                                    <tr>
+                                        <td>
+                                            <a href="/POLKCO/Login.aspx" id="ctl00_HeaderNavigation_btnLogin" onclick="validateSSOLogin(this);">
+                                                <span id="ctl00_HeaderNavigation_lblLogin" class="ACA_Body_Text ACA_Body_Text_FontSize">Login</span>
+                                            </a>
+                                        </td>
+                                        <td class="ACA_TabRow_Line">
+                                            &nbsp;&nbsp;
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--Login link-->
+                            
+                            <!--Report-->
+                            <div class="ACA_FRight">
+                                <div>
+                                    <table role='presentation' border='0' cellspacing='0' cellpadding='0'>
+                                        <tr id='reportLink'>
+                                            <td class="ACA_TabRow_Line">
+                                                <a href="javascript:void(0);" onclick="showReports();" class="nav_more_arro ACA_Report_Arrow NotShowLoading" title="Report List">
+                                                    <span id="ctl00_HeaderNavigation_lblReports"></span>
+                                                    <span id="ctl00_HeaderNavigation_lblAdminReports" class="ACA_Body_Text ACA_Body_Text_FontSize" style="display:none;"></span>
+                                                    <img alt="Report List" src="/POLKCO/app_themes/Default/assets/caret_expanded.gif"
+                                                        style="border-width: 0px;" />
+                                                </a>
+                                            </td>
+                                            <td class="ACA_TabRow_Line">
+                                                
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div style='display: none; position: absolute; z-index: 10;'>
+                                    <div id='reportList' class='ACA_Report_Menu ActionMenu_Link' onmouseover="onMouseOver();"
+                                        onmouseout="onMouseOut();">
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Report-->
+                            <!--Register link-->
+                            <div class="ACA_FRight">
+                                <table role='presentation' border='0' cellspacing='0' cellpadding='0'>
+                                    <tr>
+                                        <td class="ACA_TabRow_Line">
+                                            <a href="/POLKCO/CommunityView/account/new" id="ctl00_HeaderNavigation_btnRegister" onclick="validateSSOLogin(this);">
+                                                <span id="ctl00_HeaderNavigation_lblRegister" class="ACA_Body_Text ACA_Body_Text_FontSize">Register for an Account</span>
+                                            </a>
+                                        </td>
+                                        <td class="ACA_TabRow_Line">
+                                            <span id="ctl00_HeaderNavigation_lblSplit2">&nbsp; | &nbsp;</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!--Register link-->
+                            <!--Announcement-->
+                            </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="ACA_BannerAndSearch">
+            <div class="ACA_NavBanner">
+                <span id="ctl00_HeaderNavigation_lblNavBanner" class="ACA_Page_Instruction ACA_Page_Instruction_FontSize"><br></span>
+            </div>
+            
+<div id="gsContainer" class="gs_container">
+    <table role='presentation' class="gs_top_table" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td id="tdSpace">
+                &nbsp;
+            </td>
+            <td class="gs_border" style="width:16.5em">
+                <p>
+                    <input class="gs_search_box" type="text" autocomplete="off" id="txtSearchCondition" name="txtSearchCondition" title='Search...' 
+                        aria-label='Search...'/>
+                    
+                </p>
+            </td>
+            <td style="width:2px">
+            <span>&nbsp;</span>
+            </td>
+            <td class="gs_border gs_nowidth" style="width:18px;text-align:center;vertical-align:middle;">
+                <a id="btnSearch" class="gs_go NotShowLoading" title="Search" href="#">
+                    <img class="gs_go_img" alt="Search" src="/POLKCO/app_themes/Default/assets/gsearch_disabled.png"/>
+                </a>
+            </td>
+            <td class="gs_border_right gs_nowidth" style='width: 12px;height: 16px; text-align:center;vertical-align:middle;' id="tdSearchHistory">
+                <a id="btnSearchHistory" class="gs_history NotShowLoading" title="Search History" href="#">
+                    <img class="gs_history_img" alt="Search History" src="/POLKCO/app_themes/Default/assets/Caret_down_sml.gif"/>
+                </a>
+            </td>
+        </tr>
+    </table>
+</div>
+<div id="divHistoryList" class="gs_border gs_history_list" style="display:none">
+</div>
+<script type="text/javascript">
+    var searchText = 'Search...';
+    var minLimitMessage = 'Please enter a key word with more than 2 characters.';
+    var historyNoResult = 'No recent searches available';
+    var searchResult = 'Recent Searches:';
+    var historyHint = 'Reload the latest search results';
+    var loading = 'Loading...';
+    rootURL = '/POLKCO/';
+    searchImg = '/POLKCO/app_themes/Default/assets/gsearch.png';
+    searchDisabledImg = '/POLKCO/app_themes/Default/assets/gsearch_disabled.png';
+    
+    // preload image
+    var img = new Image();
+    img.src = searchImg;
+    
+    var globalHistory = null;
+    var globalSearch = null;
+
+    if (IsTrue('False')) {
+        var txtSearchCondition = $get("txtSearchCondition");
+        txtSearchCondition.style.display = "none";
+        document.getElementById("btnSearch").disabled = true;
+    }else{
+        globalSearch = new GlobalSearch("txtSearchCondition","btnSearch",searchText,minLimitMessage);
+        $("#btnSearchHistory").popUp({ oTarget: 'divHistoryList', onShowEvent: 'mouseover', onHideEvent: 'mouseout', onFocusEvent: 'focus', align: 'right', offsetTop: 6, zindex: 'auto'});
+        globalHistory = new GlobalSearchHistory("divHistoryList",historyNoResult,searchResult);
+    }
+    
+    var timerForSearchHistory = null;
+    
+    function SetFocusInForSearchHistory()
+    {        
+        clearTimeout(timerForSearchHistory);
+        timerForSearchHistory = null;
+    }
+    
+    function SetBlurOutForSearchHistory()
+    {
+        clearTimeout(timerForSearchHistory);
+        timerForSearchHistory = null;
+        timerForSearchHistory = setTimeout(hideHistoryList, 1000);
+    }
+    
+    function hideHistoryList()
+    {
+        $("#divHistoryList").hide();
+    }
+
+</script>
+
+
+        </div>
+
+    </div>
+    
+    <div class="nav_bar_container">
+        <div id="ctl00_HeaderNavigation_divMenu">
+            <div id="divNaviMenu">
+                <div id="divMoreTabTemplate" style="display:none;">
+	<div id="__divMoreTemplate">
+		
+                            <table role='presentation' id="span_more_tab" border="0" cellspacing="0" cellpadding="0" summary="See More Tab Item">
+                                <tr>
+                                    <td class="ACA_MoreItemLeft ACA_LeftOff">
+                                    </td>
+                                    <td class="ACA_MoreItemCenter ACA_CenterOff more_tab">
+                                        <a href="#" onfocus="onfocusMore();" onblur="SetBlurOutForMore();" class="NotShowLoading">
+                                            <span id="ctl00_HeaderNavigation___divMoreTemplate_lblMoreTab" module="more" class="more_button font12px">more</span>
+                                        </a>
+                                    </td>
+                                    <td class='ACA_CenterOff' style="width: 15px;">
+                                        <a href="javascript:void(0)" onclick="CheckAndSetNoAsk();" id="moreArrowLink" class="nav_more_arrow NotShowLoading"
+                                            title="more">
+                                            <img alt="more" src="/POLKCO/app_themes/Default/assets/caret_arrow.gif"
+                                                style="border-width: 0px;" /></a>
+                                    </td>
+                                    <td class="ACA_MoreItemRight ACA_RightOff">
+                                    </td>
+                                </tr>
+                            </table>
+                        
+	</div><div id="__divMoreLinkBtnTemplate">
+		
+                            <a href="javascript:void(0)" onfocus="onfocusMoreLink();" class="NotShowLoading" title="more menu, press tab to expand">
+                                <span id="ctl00_HeaderNavigation___divMoreLinkBtnTemplate_lblMoreLinks" class="more_button font12px">more</span>
+                                <img alt="" src="/POLKCO/app_themes/Default/assets/caret_arrow.gif" />
+                            </a>
+                        
+	</div>
+</div><table role='presentation' style='visibility:hidden'><tr><td id='tdTabContainer'></td></tr></table><div id='nav_parent_container' class='ACA_NaviMenu'><span id='tab_item_place_holder' style='visibility:hidden;'></span><span id='more_tab_place_holder'></span><div id='divNavMenu' style='display:none;position:absolute;'></div></div><div id='nav_link_place_holder' class='ACA_SubMenuList' align='center'><b><span id='nav_link_content'><span id='nav_span_links' class='font11px'></span><span id='nav_span_more_link'></span></span><div id='divLinkMenu' class='font11px' style='display:none;'></div></b></div><script type="text/javascript">
+//<![CDATA[
+window.__TabInit = function() {
+if(!window.NavBar_Loaded || !window.TabBar_Utils_Loaded)
+	{window.setTimeout('window.__TabInit()', 50); return; }
+
+window.__Tab = new TabBar();
+__Tab.TabItems= [['Tabs',[[['Links',[[['Links',[[['Active','False'],['Label','Lookup Property Information'],['Key','Home_Search'],['Title',],['URL','/POLKCO/APO/APOLookup.aspx?TabName=Home'],['Module',],['Order',0]],[['Links',[[['Active','False'],['Label','<font style="text-align: left;">Enforcement</font>'],['Key','Home_Search_Records'],['Title',],['URL','/POLKCO/Cap/CapHome.aspx?module=Enforcement&TabName=Home'],['Module',],['Order',0]],[['Active','False'],['Label','<font style="text-align: left;">Building</font>'],['Key','Home_Search_Records'],['Title',],['URL','/POLKCO/Cap/CapHome.aspx?module=Building&TabName=Home'],['Module',],['Order',1]],[['Active','False'],['Label','Land Dev'],['Key','Home_Search_Records'],['Title',],['URL','/POLKCO/Cap/CapHome.aspx?module=LandDev&TabName=Home'],['Module',],['Order',2]]]],['Active','False'],['Label','Search Records/Applications'],['Key','Home_Search'],['Title','Search Records/Applications menu, press tab to expand'],['URL','/POLKCO/Welcome.aspx?TabName=Home'],['Module',],['Order',1]]]],['Active','False'],['Label','Advanced Search'],['Key','Home'],['Title','Advanced Search menu, press tab to expand'],['URL','/POLKCO/Welcome.aspx?TabName=Home'],['Module',],['Order',0]]]],['Active','False'],['Label','Home'],['Key','Home'],['Title','Home'],['URL','/POLKCO/Welcome.aspx?TabName=Home'],['Module',],['Order',0]],[['Links',[[['Active','False'],['Label','Submit a Complaint or Lien Search Request'],['Key','Enforcement'],['Title',],['URL','/POLKCO/Cap/CapApplyDisclaimer.aspx?module=Enforcement&TabName=Enforcement'],['Module',],['Order',0]],[['Active','False'],['Label','Search Records'],['Key','Enforcement'],['Title',],['URL','/POLKCO/Cap/CapHome.aspx?module=Enforcement&TabName=Enforcement'],['Module',],['Order',1]]]],['Active','False'],['Label','<font style="text-align: left;">Enforcement</font>'],['Key','Enforcement'],['Title','Enforcement'],['URL','/POLKCO/Cap/CapHome.aspx?module=Enforcement&TabName=Enforcement'],['Module','Enforcement'],['Order',1]],[['Links',[[['Active','False'],['Label','Search Applications'],['Key','Building'],['Title',],['URL','/POLKCO/Cap/CapHome.aspx?module=Building&TabName=Building'],['Module',],['Order',0]]]],['Active','False'],['Label','<font style="text-align: left;">Building</font>'],['Key','Building'],['Title','Building'],['URL','/POLKCO/Cap/CapApplyDisclaimer.aspx?module=Building&TabName=Building'],['Module','Building'],['Order',2]],[['Links',[[['Active','False'],['Label','Search Applications'],['Key','LandDev'],['Title',],['URL','/POLKCO/Cap/CapHome.aspx?module=LandDev&TabName=LandDev'],['Module',],['Order',0]]]],['Active','False'],['Label','Land Dev'],['Key','LandDev'],['Title','Land Dev'],['URL','/POLKCO/Cap/CapApplyDisclaimer.aspx?module=LandDev&TabName=LandDev'],['Module','LandDev'],['Order',3]]]]];
+__Tab.ItemTemplate='                        <table role=\'presentation\' tag="navbar" border="0" cellspacing="0" cellpadding="0" class="tab_bar_table ACA_Nowrap" summary="Tab Item">            	            <tr>            		            <td class="ACA_ItemLeft ACA_LeftOff"></td>            		                <td class="ACA_ItemCenter ACA_ItemCenter_FontSize ACA_CenterOff">                                        <div>                                            <a  title="## getItem(\'Title\') ##" href="javascript:void(0);" module="## getItem(\'Module\') ##">## getItem(\'Label\') ##</a>                                        </div>            		                </td>            		                <td class="ACA_ItemRight ACA_RightOff"></td>            	            </tr>                        </table>                    ';
+__Tab.SelectedItemTemplate='                        <table role=\'presentation\' tag="navbar" border="0" cellspacing="0" cellpadding="0" class="tab_bar_table ACA_Nowrap" summary="Selected Tab Item">            	            <tr>            		            <td class="ACA_ItemLeft ACA_LeftOn"></td>            		            <td class="ACA_ItemCenter ACA_ItemCenter_FontSize ACA_CenterOn">                                    <div>                                        <a title="## getItem(\'Title\') ##" href="javascript:void(0);" module="## getItem(\'Module\') ##">## getItem(\'Label\') ##</a>                                    </div>            		            </td>            		            <td class="ACA_ItemRight ACA_RightOn"></td>            	            </tr>                        </table>                    ';
+__Tab.DropDownMenuTemplate='                        <div class="ACA_MenuItem ACA_MenuItem_FontSize">                            <a title=\'## getItem(\'Title\') ##\' onfocus="SetFocusInForMore();" onblur="SetBlurOutForMore();"  href="javascript:void(0);"  module="## getItem(\'Module\') ##">## getItem(\'Label\') ##</a>                        </div>                    ';
+__Tab.LinkItemTemplate='                        <span style="display: inline-block;">                            <a title=\'## getItem(\'Title\') ##\'  href="javascript:void(0);">## getItem(\'Label\') ##</a>                        </span>                    ';
+var tab_properties = [['IsFirstLoad',1],['LinkAlign','center'],['CurrentTabName','home'],['DefaultTabName','home'],['CurrentTabIndex',0]];
+__Tab.PPHomeUrl='';
+window.setProperties(__Tab, tab_properties);
+__Tab.preRender();
+}
+
+__TabInit();
+
+//]]>
+</script>
+
+            </div>
+        </div>
+    </div>
+    </div>
+<input type="hidden" name="ctl00$HeaderNavigation$hdnShoppingCartItemNumber" id="ctl00_HeaderNavigation_hdnShoppingCartItemNumber" />
+<input type="hidden" name="ctl00$HeaderNavigation$hdnShowReportLink" id="ctl00_HeaderNavigation_hdnShowReportLink" value="N" />
+<div id="ctl00_HeaderNavigation_panButton">
+	
+        <a id="ctl00_HeaderNavigation_btnPostForReport" tabindex="-1" href="javascript:__doPostBack(&#39;ctl00$HeaderNavigation$btnPostForReport&#39;,&#39;&#39;)" style="display: none"></a>
+    
+</div>
+<!-- End HeadNavigation Block -->
+
+<script language="javascript" type="text/javascript">
+
+    var objTimeout = null;
+
+    function hideMenu() {
+        clearTimeout(objTimeout);
+        objTimeout = null;
+        objTimeout = setTimeout(DelayShowMenu, 3000);
+    }
+
+    function SetFocusInForCollection() {
+        clearTimeout(objTimeout);
+        objTimeout = null;
+    }
+
+    function SetBlurOutForCollection() {
+        hideMenu();
+    }
+
+    function displayMenu() {
+        clearTimeout(objTimeout);
+        objTimeout = null;
+    }
+
+    function DelayShowMenu() {
+        collection_menu.hideMenu();
+    }
+
+    function showMenu(target) {
+        CheckAndSetNoAsk();
+        if (collection_menu == undefined) return;
+        collection_menu.showMenu();
+        hideMenu();
+    }
+
+    var objTimerForMore = null;
+    function onfocusMore(obj) {
+        window.popUp(window.__Tab.dropDownMenu.element, $get('span_more_tab'), $.global.isRTL);
+        //$("#divNavMenu").find('a').get(0).focus();
+        $("#moreArrowLink").attr("tabindex", "-1");
+        clearTimeout(objTimerForMore);
+        objTimerForMore = null;
+    }
+
+    function onfocusMoreLink() {
+        window.popUp($get('divLinkMenu'), $get('nav_span_more_link'), $.global.isRTL);
+    }
+
+    function SetFocusInForMore() {
+        clearTimeout(objTimerForMore);
+        objTimerForMore = null;
+    }
+
+    function SetBlurOutForMore() {
+        clearTimeout(objTimerForMore);
+        objTimerForMore = null;
+        objTimerForMore = setTimeout(onblurMore, 700);
+    }
+
+    function onblurMore() {
+        window.__Tab.moreTab.closeMenu(window.__Tab.dropDownMenu);
+    }
+
+    //The method defined in Bage page.
+    function SupportAccessibility(obj) {
+        if (obj) {
+            PageMethods.SetAccessibilityCookie(obj.checked, RefreshPage);
+        }
+    }
+
+    // When check/uncheck Accessibility Support, refresh the whole page.
+    function RefreshPage() {
+        window.parent.location.reload(true);
+    }
+
+    var OnAnnouncementList = 'False';
+
+    $(document).ready(function () {
+        if ($.global.isAdmin == false && 'False'.toLowerCase() == 'true') {
+            ShowAnnouncementInit();
+        }
+    });
+
+    //Header responsive
+    if (window.matchMedia("(max-width: 480px)").matches) {
+        var showRegisterPopup = true;
+        setRegisterListMenuItems();
+    }
+    
+    function showRegisterListMenu(obj) {
+        if (showRegisterPopup) {
+            document.getElementById("ACARegisterLoginMenu").style.display = "block";
+            obj.src = '/POLKCO/app_themes/Default/assets/closepopup.png';
+            showRegisterPopup = false;
+        } else {
+            document.getElementById("ACARegisterLoginMenu").style.display = "none";
+            obj.src = '/POLKCO/app_themes/Default/assets/u15_normal.png';
+            showRegisterPopup = true;
+        }
+    }
+    function setRegisterListMenuItems() {
+         var beforeLoginNode = document.getElementById("ctl00_HeaderNavigation_beforeLogin");
+        var afterLoginNode = document.getElementById("ctl00_HeaderNavigation_afterLogin");
+        var actualReturnTo = document.getElementById("divRtaTitle");
+        var returnToNode = document.createElement("DIV");
+        returnToNode.className = "ACA_FRight";
+        returnToNode.style.paddingTop = "0.2em";
+        while (actualReturnTo.childNodes.length) { returnToNode.appendChild(actualReturnTo.firstChild); }
+        
+        if(beforeLoginNode) beforeLoginNode.insertBefore(returnToNode, beforeLoginNode.childNodes[0]);
+        if(afterLoginNode) afterLoginNode.insertBefore(returnToNode, afterLoginNode.childNodes[0]);
+    }
+</script>
+
+                <span id="goTOMessage" href="#messageSpan" tabindex="-1"></span>
+                <div class="ACA_Content ACA_Hide">
+                    <!-- The h1 element is only for WCAG2.0 rule 1.1.1 H42 -->
+                    <h1 class="ACA_Hide">Message Bar</h1>
+                    <span id="messageSpan" name="messageSpan"></span>
+                </div>
+                <script type="text/javascript" language="javascript">
+                    //Init validation error panel for form validation.
+                    if (typeof (InitValidationErrorPanel) == "function") {
+                        $(document).ready(InitValidationErrorPanel);
+                    }
+                </script>
+                <div>
+                    <a name="FirstAnchorInACAMainContent" id="FirstAnchorInACAMainContent" tabindex="-1" aria-label="First Anchor in ACA main content" aria-labelledby="ErrorList1"></a>
+                    <span id="ErrorList1"></span>
+                    
+    <script type="text/javascript">
+        var topWindow = window.document;
+        try {
+            var doc = top.document;
+            if (!doc)
+                throw new Error('Unaccessible');
+            else
+                topWindow = top.document;
+            // accessible
+        } catch (e) {
+            // not accessible
+        }
+        if (typeof (topWindow.SetLanguageOptionsVisible)!="undefined")
+            topWindow.SetLanguageOptionsVisible(true);
+
+        window.onunload=function(){
+        if (typeof (topWindow.SetLanguageOptionsVisible)!="undefined")
+            topWindow.SetLanguageOptionsVisible(false);
+            void(0);
+        }
+
+    </script>
+    <script type="text/javascript">
+
+        function noBack() {
+            window.history.forward();
+        }
+        noBack();
+        window.onpageshow=function(evt) { if (evt.persisted)noBack(); }
+        // resolve the iframe session timeout issue
+        window.onload = function() {
+            noBack();
+            
+            var p = window.parent;
+            var p2 = p;
+            var isTop = true;
+            
+            while (p.parent != p) {
+                isTop = false;
+                p2 = p;
+                p = p.parent;
+            }
+            
+            if (!isTop) {
+                p2.location.href = window.location.href;
+            }
+        }
+        function registerBtn_Click(regObj) {
+            let isACASSOEnabled = 'False';
+            if (IsTrue(isACASSOEnabled)) {
+                let superAgencyCode = 'POLKCO';
+                let cloudApiUrl = 'https://api-prod.accela.com';
+                let tenantName = 'POLKCO-PROD';
+                loadSSOLogin(superAgencyCode, cloudApiUrl, tenantName);
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+
+<div class="ACA_Content welcome-page ACA_Login">
+    <table role='presentation' width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+
+        
+        <tr>
+            <td valign="top" class="loginPanel">
+                <!-- Start Login Page -->
+                <div id="ctl00_PlaceHolderMain_div1" class="ACA_RightContent">
+                    <div>
+                        <!-- Start Login Page Content -->
+                        <h1>
+                            <span id="ctl00_PlaceHolderMain_Accelalabel1">Please Login</span>
+                        </h1>
+                        <div class="ACA_Page ACA_Page_FontSize">
+                            <span id="ctl00_PlaceHolderMain_Accelalabel2" class="ACA_Body_Text ACA_Body_Text_FontSize">Many online services offered by the Agency require login for security reasons. If you are an existing user, please enter your user name and password in the box on the right.</span>
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                    <div id="ctl00_PlaceHolderMain_divRegistration2">
+                        <!-- Start Registration Page Content -->
+                        <h1>
+                            <span id="ctl00_PlaceHolderMain_Accelalabel3">New Users</span>
+                        </h1>
+                        <div class="ACA_Page ACA_Page_FontSize">
+                            <span id="ctl00_PlaceHolderMain_Accelalabel4" class="ACA_Body_Text ACA_Body_Text_FontSize">If you are a new user you may <a href="account/RegisterDisclaimer.aspx">register</a> for a free Citizen Access account. It only takes a few simple steps and you'll have the added benefits of seeing a complete history of applications, access to invoices and receipts, checking on the status of pending activities, and more.</span>
+                        </div>
+                        <div id="ctl00_PlaceHolderMain_ctl03" style="height:35px;clear:both;width:100%;">&nbsp;</div>
+                        <div id='ctl00_PlaceHolderMain_Accelabutton1_container'><div class='ACA_LgButton ACA_LgButton_FontSize'><a onclick="return registerBtn_Click(this);" id="ctl00_PlaceHolderMain_Accelabutton1" title="Register Now »" href="javascript:__doPostBack(&#39;ctl00$PlaceHolderMain$Accelabutton1&#39;,&#39;&#39;)"><span>Register Now &raquo;</span></a></div></div>
+                        <div class="ACA_TabRow">
+                            <p>
+                                <span id="ctl00_PlaceHolderMain_Accelalabel5"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td class="loginPanel">
+                <!-- End Login Page Content -->
+                <!-- Begin LoginBox -->
+                
+<iframe id="LoginFrame" aria-label="Login Frame" title="Login Frame" src="/POLKCO/AngularUI/CommunityView/login-panel?inLegacyUI=true" style="min-width:29em;padding-bottom:1em;width:100%;height:100%" frameBorder="0"></iframe>
+<script type="text/javascript" src="/POLKCO/Scripts/lib/iFrameResizer/iframeResizer.min.js"></script>
+<script>
+    window.addEventListener("load", function () {
+        iFrameResize({ log: false }, '#LoginFrame')
+    });
+    
+</script>
+
+                <!-- End LoginBox -->
+            </td>
+
+        </tr>
+
+
+        
+    </table>
+</div>
+
+
+                    <!--
+                In Chorme and Opera 15, need add the div,
+                because when content div set float property, not hodler height in container
+                -->
+                    <div style="clear: both;"></div>
+                </div>
+                <div id="divLoadingTemplate" class="ACA_Loading_Message" style="width: auto">
+                    <img alt="Please wait..." src="/POLKCO/app_themes/Default/assets/loading.gif" />
+                    <span id="ctl00_lblLoading" class="ACA_SmLabel ACA_SmLabel_FontSize">Loading...</span>
+                </div>
+            </div>
+        </div>
+        <div id="ctl00_UpdatePanel4Expression">
+	
+                <input name="ctl00$HDExpressionParam" type="hidden" id="ctl00_HDExpressionParam" class="HDExpressionResultCss" />
+            
+</div>
+        <script type="text/javascript">
+            setInterval("iframeAutoFit()", 300);
+
+            with (Sys.WebForms.PageRequestManager.getInstance()) {
+                add_beginRequest(onBeginRequest);
+                add_endRequest(onEndRequest);
+                add_pageLoaded(onPageLoaded);
+            }
+            
+            function onBeginRequest(sender, args) {
+                if ($.global.isAdmin) {
+                    //1. in admin, if async request, we need record the client id of last selected object.
+                    var obj = document.currentSelectedObj;
+
+                    if (obj && obj._element) {
+                        parent.document.currentSelectedID = obj._element.id;
+                    }
+
+                    $('*').css('cursor', 'wait');
+                }
+            }
+
+            var processLoading = new ProcessLoading();
+            function onPageLoaded(sender, args) {
+                if ($.global.isAdmin) {
+                    //2. in admin, if async request, use last selected object id to get the object and trigger it select.
+                    var selectedId = parent.document.currentSelectedID;
+
+                    if (selectedId) {
+                        invokeClick($get(selectedId));
+
+                        //3. when it select completed, clear this.
+                        parent.document.currentSelectedID = null;
+                    }
+
+                    $('*').css('cursor', '');
+                } else {
+                    firstErrorMsgId = '';
+                    processLoading.initControlLoading();
+
+                    addPrintErrors2SubmitButton();
+                }
+            }
+
+            function onEndRequest(sender, arg) {
+                if (!$.global.isAdmin) {
+                    var sourceElement = sender._postBackSettings.sourceElement;
+
+                    if (sourceElement == null || (sourceElement != null && $(sourceElement).hasClass('NotShowLoading') == false)) {
+                        processLoading.hideLoading();
+                    }
+
+                    if (delayShowLoadingTimer) {
+                        window.clearTimeout(delayShowLoadingTimer);
+                    }
+                }
+            }
+
+            function ShowLoading() {
+                var processLoading = new ProcessLoading();
+                processLoading.showLoading();
+            }
+
+            function HideLoading(needHide) {
+                var processLoading = new ProcessLoading();
+                processLoading.hideLoading(needHide);
+            }
+
+        </script>
+
+        
+
+        <input type="hidden" name="Submit" value="Submit" class="HiddenButton" onclick="return false;" />
+    
+
+<script type="text/javascript">
+//<![CDATA[
+var curWindow = this.window;
+                                  curWindow.scrollTo(0, 0);
+                                  while (curWindow.parent!= null && curWindow.parent != curWindow) { 
+                                        try{                                           
+                                            curWindow = curWindow.parent;
+                                            curWindow.scrollTo(0, 0);
+                                        }catch(ex){
+                                           
+                                        }
+                                  };if(globalHistory != null || globalHistory != undefined){globalHistory.setNoResult();}hideReportLink(false);//]]>
+</script>
+</form>
+    <noscript>Your browser does not support JavaScript.</noscript>
+</body>
+</html>
